@@ -10,7 +10,17 @@ The goal of this is to get started with using a Command Line Environment.
 
 ### Windows
 
-Ethan TODO
+1. [Install git command line tools](https://git-for-windows.github.io/)
+1. [Install node.js](https://nodejs.org/en/download/current/)
+1. Open PowerShell: <kbd>Windows</kbd>+<kbd>R</kbd>, type in `powershell`
+1. Make sure your installation is working:
+  ```bash
+  echo 'console.log("Node works!")' | node
+  ```
+  Should print
+  ```bash
+  Node works!
+  ```
 
 ### Mac
 
