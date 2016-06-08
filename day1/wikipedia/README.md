@@ -15,6 +15,10 @@ The goal of this exercise is to learn how to deal with large real-world datasets
 
 1. Compare day-over-day traffic to detect top 10 pages and languages that have the largest absolute gain and loss in traffic.
 
+## Phase 3
+
+1. Upload results of analysis to a Google Spreadsheet using Spreadsheets API
+
 ## Data files
 
 TODO describe format
