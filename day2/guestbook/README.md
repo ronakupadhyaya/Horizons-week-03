@@ -19,6 +19,8 @@ Guestbook post schema:
 1. Post title
 1. Post body
 
+Actions:
+
 1. Login form, set cookie
 1. View messages from all other guests
 1. View messages from one guest
