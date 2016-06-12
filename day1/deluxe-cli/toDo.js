@@ -15,37 +15,16 @@ var data = jsonfile.readFileSync(file)
 
 program
 .version('0.0.1')
-//.option('-p, --add', 'Add peppers')
 .option('-i, --id <n>', 'Specify id of task', parseInt)
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
-
-
-//.option('-b, --bbq-sauce', 'Add bbq sauce')
-//.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
-
 program.command('add')
 .description("create stuff")
 .action(addTask)
-
-//program.command('priority <for>')
-//.action(setPriority);
-
-
 program.command('show')
 .action(showTasks);
-
 program.command('delete')
 .action(deleteTask);
-
 program.parse(process.argv);
-
-/*
-console.log('you ordered a pizza with:');
-if (program.peppers) console.log('  - peppers');
-if (program.pineapple) console.log('  - pineapple');
-if (program.bbqSauce) console.log('  - bbq');
-console.log('  - %s cheese', program.cheese);
-*/
 
 function parseArgs () {
   var args= program.args.splice(0, (program.args.length-1));
@@ -60,6 +39,7 @@ function addTask(){
   completed:false});
   console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: "+priority);
 }
+
 function showTasks(){
   if(program.id){
     var id = program.id-1;
@@ -84,15 +64,4 @@ function deleteTask(){
   }
 }
 
-function setPriority(priority){
-  var id = program.id;
-  console.log(id);
-  console.log(priority)
-}
-
-
-//console.log(program.args)
-
-//console.log(program.id);//correctly getting global id
-//console.log(data) //all data
 jsonfile.writeFileSync(file, data);
