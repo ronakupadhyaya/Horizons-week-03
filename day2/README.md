@@ -1,11 +1,13 @@
-# Day 2 exercises
+# Day 1 Exercises
 
-## Inline exercises
+## Inline Exercises
 
-1. [Warmup: Postman](postman.md)
-1. [Inline Exercise: Express Echo](express_echo/README.md)
+1. [Warmup exercise](warmup.md)
+1. [Node and command line arguments `sum.js`](sum.md)
 
-## Pair programming exercises
+## Pair Programming Exercises
 
-1. [Intro to HTML Forms](forms/README.md)
-1. [Web 1.0 Guestbook](guestbook/README.md)
+1. [Debugging with `node-inspector`](debugging/README.md)
+1. [Deluxe command line arguments](deluxe-cli/README.md)
+1. [Trello CSV uploader and downloader](trello-csv/README.md)
+1. [Wikipedia Traffic Patterns](wikipedia/README.md)
