@@ -7,17 +7,22 @@ program
 .version('0.0.1')
 //.option('-p, --add', 'Add peppers')
 .option('-i, --id <n>', 'Specify id of task', parseInt)
+.option('-p, --priority <p>', 'Specify priority for task', parseInt)
 //.option('-b, --bbq-sauce', 'Add bbq sauce')
 //.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
 
 program.command('add <todoName> [todoNameParts...]')
-.action(getName);
+.action(parseName);
 
 program.command('priority <priority>')
 .action(setPriority);
 
 program.command('show')
 .action(showTasks);
+
+program.command('delete')
+.action(deleteTask);
+
 program.parse(process.argv);
 
 /*
@@ -28,7 +33,7 @@ if (program.bbqSauce) console.log('  - bbq');
 console.log('  - %s cheese', program.cheese);
 */
 
-function getName (todoName, todoNameParts) {
+function parseName (todoName, todoNameParts) {
   var name=todoName;
   if (todoNameParts) {
     todoNameParts.forEach(function (oDir) {
@@ -52,6 +57,19 @@ function showTasks(){
     for (var i=0; i<data.length; i++){
       console.log("Task #"+(i+1)+": "+data[i].name + " priority")
     }
+  }
+}
+
+function deleteTask(){
+  if(program.id){
+    var id = program.id-1;
+    if (id>=0 && id<data.length){
+      data.splice(id, 1);
+      console.log("Deleted task with id: "+program.id)
+    }
+
+  }else{
+      console.log("No task specified")
   }
 }
 
