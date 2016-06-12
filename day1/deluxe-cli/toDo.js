@@ -3,19 +3,33 @@ var jsonfile = require('jsonfile')
 var file = 'data.json'
 var data = jsonfile.readFileSync(file)
 //https://github.com/jprichardson/node-jsonfile
+
+// Usage
+// node toDo.js add Do Stuff -p 3
+// node toDo.ks add Do Stuff
+// node todo.js
+// node todo.js
+// node todo.js
+// node todo.js
+// node todo.js
+
 program
 .version('0.0.1')
 //.option('-p, --add', 'Add peppers')
 .option('-i, --id <n>', 'Specify id of task', parseInt)
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+
+
 //.option('-b, --bbq-sauce', 'Add bbq sauce')
 //.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
 
-program.command('add <todoName> [todoNameParts...]')
-.action(parseName);
+program.command('add')
+.description("create stuff")
+.action(addTask)
 
-program.command('priority <priority>')
-.action(setPriority);
+//program.command('priority <for>')
+//.action(setPriority);
+
 
 program.command('show')
 .action(showTasks);
@@ -33,29 +47,26 @@ if (program.bbqSauce) console.log('  - bbq');
 console.log('  - %s cheese', program.cheese);
 */
 
-function parseName (todoName, todoNameParts) {
-  var name=todoName;
-  if (todoNameParts) {
-    todoNameParts.forEach(function (oDir) {
-      name += " "+oDir;
-    });
-  }
-  addTask(name)
+function parseArgs () {
+  var args= program.args.splice(0, (program.args.length-1));
+  return args.join(" ");
 }
 
-function addTask(name){
+function addTask(){
+  var priority = program.priority || 1;
+  var name = parseArgs()
   data.push({'name':name,
-  priority:1,
-  completed:false})
-  console.log("Added task named: "+ name+", with id:"+data.length-1);
+  priority:priority,
+  completed:false});
+  console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: "+priority);
 }
 function showTasks(){
   if(program.id){
     var id = program.id-1;
-    console.log("Task #"+id+": "+data[id].name + " priority: "+data[id].priority)
+    console.log("Task #"+id+" Priority "+data[id].priority+ ": "+data[id].name)
   }else{
     for (var i=0; i<data.length; i++){
-      console.log("Task #"+(i+1)+": "+data[i].name + " priority")
+      console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
     }
   }
 }
@@ -78,6 +89,9 @@ function setPriority(priority){
   console.log(id);
   console.log(priority)
 }
+
+
+//console.log(program.args)
 
 //console.log(program.id);//correctly getting global id
 //console.log(data) //all data
