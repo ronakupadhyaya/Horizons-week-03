@@ -43,7 +43,7 @@ Our list is going to take the following commands:
 `node toDo.js` is going to display the help section of our application.
 `node toDo.js --add Laundry` is going to add a new item to the list
 `node toDo.js --task 3 --p 5` is going to set the priority for the item
-`node toDo.js --task 2 --completed` is going to mark the task as done.
+`node toDo.js --task 2 --toggleCompleted` is going to mark the task as done.
 `node toDo.js --task 1 --delete`
 `node toDo.js --showAll`
 

@@ -2,19 +2,22 @@ var program = require('commander');
 var jsonfile = require('jsonfile')
 var file = 'data.json'
 var data = jsonfile.readFileSync(file)
-
+//https://github.com/jprichardson/node-jsonfile
 program
 .version('0.0.1')
 //.option('-p, --add', 'Add peppers')
-.option('-P, --pineapple', 'Add pineapple')
-.option('-b, --bbq-sauce', 'Add bbq sauce')
-.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
+.option('-i, --id <n>', 'Specify id of task', parseInt)
+//.option('-b, --bbq-sauce', 'Add bbq sauce')
+//.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
 
 program.command('add <todoName> [todoNameParts...]')
 .action(getName);
 
-program.command('showall')
-.action(printAllTasks);
+program.command('priority <priority>')
+.action(setPriority);
+
+program.command('show')
+.action(showTasks);
 program.parse(process.argv);
 
 /*
@@ -32,19 +35,32 @@ function getName (todoName, todoNameParts) {
       name += " "+oDir;
     });
   }
-addTask(name)
+  addTask(name)
 }
 
 function addTask(name){
-    data.push({'name':name,
-                priority:1})
-    console.log("Added task named: "+ name+", with id:"+data.length-1);
+  data.push({'name':name,
+  priority:1,
+  completed:false})
+  console.log("Added task named: "+ name+", with id:"+data.length-1);
 }
-function printAllTasks(){
-  for (var i=0; i<data.length; i++){
-    console.log("Task #"+i+": "+data[i].name + " priority")
+function showTasks(){
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+id+": "+data[id].name + " priority: "+data[id].priority)
+  }else{
+    for (var i=0; i<data.length; i++){
+      console.log("Task #"+(i+1)+": "+data[i].name + " priority")
+    }
   }
 }
 
-//console.log(data)
+function setPriority(priority){
+  var id = program.id;
+  console.log(id);
+  console.log(priority)
+}
+
+//console.log(program.id);//correctly getting global id
+//console.log(data) //all data
 jsonfile.writeFileSync(file, data);
