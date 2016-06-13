@@ -8,6 +8,21 @@ facebook.Post = function(post){
 	// this.lname = lname;
 };
 
+facebook.Registration = function() {
+	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
+	this.emailInputField = $('#email');
+	this.pwInputField = $('#password');
+	this.fnameInputField = $('#fname');
+	this.lnameInputField = $('#lname');
+	
+};
+
+facebook.Registration.prototype = {
+	sendRegistration: function() = {
+
+	}
+};
+
 facebook.Post.prototype = {
 
 	getThisPost: function() = {
