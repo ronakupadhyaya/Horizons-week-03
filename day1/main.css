@@ -11,6 +11,15 @@ input {
 input:hover, input:focus {
 	border-color: #3b5998 !important;
 }
+.navbar-default .navbar-toggle {
+	border-color: #fff;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #9daccb;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
 .navbar.navbar-default {
 	background-color: #3b5998;
 }
@@ -26,6 +35,10 @@ input:hover, input:focus {
 	color: #fff;
 	/*padding-left: 10px;*/
 }
+
+.comment {
+
+}
 .post {
 
 }
@@ -40,6 +53,10 @@ input:hover, input:focus {
 	/*padding-left: 10px;*/
 	background-color: #3b5998;
 	/*padding: 5px 10px;*/
+}
+.add-comment {
+	display: flex;
+	
 }
 #login {
 	/*background-color: #3b5998;*/
@@ -63,7 +80,7 @@ input:hover, input:focus {
 	background-color: #fff;
 	height: 10px;
 }
-.glyphicon:hover {
+a .glyphicon:hover {
 	color: #9daccb;
 }
 @media (max-width: 768px) {
