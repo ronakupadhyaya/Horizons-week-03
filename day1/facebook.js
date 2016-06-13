@@ -6,6 +6,9 @@ var myId = "575ebdf93a6037c42910dd33";
 var myToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRheWNvbkBzZWFzLnVwZW5uLmVkdSJ9.Y4YGnxDC1V_vppbAWYUWJF_fVUgG5MphfIGLZOEZX5Y"
 //var token=[];
 
+//array of posts
+var feedList =[];
+
 /////////////////////////////////////////////
 ///using default login for now until site up and rnning
 var token =[myToken,myId]
@@ -101,6 +104,9 @@ $("#login").click(function(e){
 
 	//call ajax to retrieve token and put as main element in token array
 	facebook.userLogin(mainEmail,mainPass);
+
+	///initiate most frequent 10 posts upon login
+	facebook.getFeed()
 })
 
 ////filling in text to submit a post:
@@ -109,7 +115,10 @@ $("#submit").click(function(e){
 		alert("Need a status!")
 	}
 	var status = $('#status').val()
-	console.log(status)
+	//submit post to server
+	facebook.submitPost(status);
+	//update news feed
+	facebook.getFeed();
 	//clear post after submitted
 	$('#status').val('')
 })
@@ -149,7 +158,7 @@ facebook.userLogin = function(e,p){
 			var x = response.response.token;
 			var y = response.response.id
 			if(token.length===0){
-			token.push(x,y);
+			myToken=x;
 			//get rid of modal
 	$('#login-modal').modal('hide');
 		}
@@ -162,7 +171,20 @@ facebook.userLogin = function(e,p){
 }
 
 //to push text post to the server
-facebook.submitPost =function(){
+facebook.submitPost =function(text){
+	$.ajax(url+"/posts", {
+		method: "POST",
+		data: {
+			token: myToken,
+			content: text
+		},
+		success: function(response){
+			console.log('success')
+		},
+		error: function(err){
+			console.log('err')
+		}
+	})
 }
 
 //to push comment on post to the server
@@ -171,4 +193,25 @@ facebook.submitComment = function(){
 
 //to toggle get a like from the server
 facebook.submitLike = function(){
+}
+//get items to throw into newsfeed
+facebook.getFeed = function(){
+$.ajax(url+'/posts/1', {
+	method: "GET",
+	data: {
+		token: myToken,
+	},
+	success: function(response){
+		for(var i=0; i<response.response.length; i++){
+			//return array of objects, each being 10  most recent posts
+			feedList.push(response.response[i])
+			console.log(response.response[i])
+			$('.hold-feed').append($('<div class = "box feed-posts" id="'+response.response[i]._id+'">\
+				<p>'+response.response[i].content+'<span>'+response.response[i].poster.name+'</span></div>'))
+		}
+	},
+	error: function(error){
+		console.log(error)
+	}
+})
 }

@@ -30,3 +30,9 @@
 	height: 20px;
 	width: 20px;
 }
+.feed-posts{
+	height: 50px;
+	width: 200px;
+	background-color: white;
+	flex-wrap: wrap;
+}
