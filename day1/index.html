@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Horizons - W2D3 - Making Horello Dynamic</title>
+
+  <!-- pace -->
+  <script src="lib/jquery.js"></script>
+
+  <!-- Bootstrap stuff -->
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Our files -->
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/facebook.js"></script>
+</head>
+
+<body>
+  <header>
+    <a class="header-logo" href="#"><img src="http://www.freeiconspng.com/uploads/images-facebook-f-logo-png-transparent-background-page-2-29.png" /></a>
+    <input type="text" placeholder="Search Facebook">
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="panel panel-default" style="margin-top: 30px;">
+          <div class="panel-heading" style="background-color: #3b5998; color: white;">
+            <h3 class="panel-title">Log In</h3>
+          </div>
+          <div class="panel-body">
+            <div class="input-group text-right" id="login-form">
+              <input type="text" class="form-control" placeholder="Email" id="email-input" value="gbc1729@gmail.com">
+              <input type="password" class="form-control" placeholder="Password" id="password-input" value="Password">
+              <a class="btn btn-default" href="#" role="button" id="login-btn">Log In</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="panel panel-default" style="margin-top: 30px;">
+          <div class="panel-heading" style="background-color: #3b5998; color: white;">
+            <h3 class="panel-title">Create Post</h3>
+          </div>
+          <div class="panel-body">
+            <div class="input-group text-right" id="create-post-form">
+              <textarea class="form-control" rows="5" cols="50" id="post-content"></textarea>
+              <a class="btn btn-default" href="#" role="button" id="post-btn">Post</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel-default" style="margin-top: 30px;">
+          <div class="panel-heading" style="background-color: #3b5998; color: white;">
+            <h3 class="panel-title">Feed</h3>
+          </div>
+          <div class="panel-body" id="feed">
+            <!-- <div class="panel panel-default" style="margin-top: 15px;">
+              <div class="panel-heading post-heading">
+                <img src="https://avatars3.githubusercontent.com/u/6347720?s=80" id="poster-img"/>
+                <a href="#" id="poster-link"><h5 id="poster-name">Test Poster</h5></a>
+                <h5 style="margin-left: auto">06-13</h5>
+              </div>
+              <div class="panel-body">
+                <div id="feed-post">
+                  <p>
+                    Things that people want to share.
+                  </p>
+                </div>
+              </div>
+              <div class="panel-footer" style="border-bottom: 1px solid #e9ebee">
+                Blah Blah Blah liked this
+              </div>
+              <div class="panel-body">
+                <div id="comments">
+                  <p>
+                    Things that people want to share.
+                  </p>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <a href="#" class="like-btn" style="margin-right: 10px;">Like</a>
+                Blah Blah Blah liked this
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/events.js"></script>
+</body>
+
+</html>

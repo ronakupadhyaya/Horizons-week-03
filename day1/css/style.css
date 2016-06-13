@@ -1,0 +1,44 @@
+header {
+  background-color: #3b5998;
+  height: 40px;
+  display: flex;
+  padding: 5px;
+}
+header img {
+  height: 30px;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+header input {
+  height: 30px;
+  width: 40%;
+}
+body {
+  background-color: #e9ebee;
+}
+br {
+  border-top: 1px solid black;
+}
+.panel-body {
+  padding: 5px 10px;
+  height: auto;
+}
+.btn-default {
+  background-color: #3b5998;
+  color: white;
+}
+#login-form *, #create-post-form * {
+  margin: 5px 0;
+}
+#create-post-form {
+  width: 100%;
+}
+.post-heading {
+  display: flex;
+}
+.post-heading * {
+  margin-right: 10px;
+}
+#poster-img {
+  height: 30px;
+}
