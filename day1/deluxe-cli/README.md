@@ -13,7 +13,7 @@ The goal of this exercise is to learn how to use command line arguments and flag
 1. String valued flags
 1. Integer valued flags
 
-Program should output configuration as Json.
+Program should output configuration as JSON.
 
 ## Part 1
 Almost everything you do on a user interface can be done through the command line.
@@ -51,25 +51,28 @@ and print 7
 
 
 We are going to build a ToDo list. ToDo lists are the main example when working on
-front end development frameworks in js, but we are going to do it on the command line.
+front end development frameworks in JS, but we are going to do it on the command line.
 
 Our list is going to take the following commands:
-`node toDo.js` is going to display the help section of our application.
-`node toDo.js add Do the dishes` is going to run the command 'Add', with the
+`node to_do.js` is going to display the help section of our application.
+`node to_do.js add Do the dishes` is going to run the command 'Add', with the
 name "Do the dishes" as arguments
-`node toDo.js add Do the dishes -p 3`  is going to run the command 'Add', with the
+`node to_do.js add Do the dishes -p 3`  is going to run the command 'Add', with the
 name "Do the dishes" as arguments with flag :priority 3 (default)
-`node toDo.js show` runs the command show with the default value of all!
-`node toDo.js show -i 5` runs the command show with flag id equal to 5. Only displays
+`node to_do.js show` runs the command show with the default value of all!
+`node to_do.js show -i 5` runs the command show with flag id equal to 5. Only displays
 one element.
-`node toDo.js delete --id 3` deletes the item number 3
-`node toDo.js toggleCompleted --id 3` is going to mark the task with id of --id
+`node to_do.js delete --id 3` deletes the item number 3
+`node to_do.js toggleCompleted --id 3` is going to mark the task with id of --id
  as done.
-`node toDo.js show --completed`
-`node toDo.js show --c`
+`node to_do.js show --completed`
+`node to_do.js show --c`
 
 
 To start our application we are going to run the following commands.
-`npm install --save commmander` and `npm install` We are installing this:
+`npm install commmander --save` and `npm install` We are installing this:
  https://www.npmjs.com/package/commander library to handle all the flags and
-command line values. Take a look at its readme and come back to start developing!
+command line values. Take a look at its README and come back to start developing!
+
+
+To run tests, use the command `npm test`

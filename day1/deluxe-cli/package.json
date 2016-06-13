@@ -1,0 +1,17 @@
+{
+  "name": "to_do",
+  "version": "1.0.0",
+  "description": "## Goal",
+  "main": "to_do.js",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "commander": "^2.9.0",
+    "mocha": "^2.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha to_do_test.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

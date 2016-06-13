@@ -12,7 +12,7 @@ var data = jsonfile.readFileSync(file)
 var program = require('commander');
 
 // We have to speciy the version of our program. This enables people to know what
-// version of your software are they using, with the command: node toDo.js --version
+// version of your software are they using, with the command: node to_do.js --version
 program.version('0.0.1');
 
 
@@ -83,17 +83,19 @@ program.parse(process.argv);
 // it in a string so: ['No', 'One', {}] -> ['No', 'One'] -> "No One"
 // Hint: use splice() to delete the last element join() to make the string
 function parseArgs () {
+    // YOUR CODE HERE
   var args= program.args.splice(0, (program.args.length-1));
   return args.join(" ");
 }
 
 // Write the function addTask that is called to create a new task.
-// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
+// Calling `node to_do.js add Do the dishes -p 3` must all our function addTask.
 // it should get the name of the task by calling parseArgs() and the priority
 // for the tast from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
-// `node toDo.js add Do the dishes`
+// `node to_do.js add Do the dishes`
 function addTask(){
+  // YOUR CODE HERE
   var priority = program.priority || 1;
   var name = parseArgs()
   data.push({'name':name,
@@ -104,13 +106,13 @@ function addTask(){
 
 
 // Write function showTasks(). It is be called when the program is called like
-// 'node toDo.js show' and 'node toDo.js show -i 3'
+// 'node to_do.js show' and 'node to_do.js show -i 3'
 // if there is a flag value for id, the program should only display that task
 // it there is no flag id, the program should return all tasks.
 // *Note: the id is the index of the task on the array plus one, because we don't
 // want users to see values of 0. So for example:
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
-// Here,  'node toDo.js show -i 2' will show "Clean Dishes"
+// Here,  'node to_do.js show -i 2' will show "Clean Dishes"
 // use console.log to write to the command line.
 function showTasks(){
   // YOUR CODE HERE
@@ -124,8 +126,11 @@ function showTasks(){
   }
 }
 
-
+// Write a function that is called when the command `node to_do.js add delete -i 3`
+// is run. Take the id from program.id and delete that element from the array.
+// Hint: use splice() here too!
 function deleteTask(){
+    // YOUR CODE HERE
   if(program.id){
     var id = program.id-1;
     if (id>=0 && id<data.length){
@@ -138,4 +143,6 @@ function deleteTask(){
   }
 }
 
+
+// This command writes  our tasks to the disk
 jsonfile.writeFileSync(file, data);
