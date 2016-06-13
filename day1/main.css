@@ -1,0 +1,73 @@
+h5 {}
+p {}
+input, button {
+	border-radius: 0px !important;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+}
+input {
+	border-width: 0 0 1px 0 !important;
+}
+input:hover, input:focus {
+	border-color: #3b5998 !important;
+}
+.navbar.navbar-default {
+	background-color: #3b5998;
+}
+.glyphicon {
+	color: #fff;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+.user-info {
+	display: flex;
+	align-items: baseline;
+	background-color: #3b5998;
+	color: #fff;
+	/*padding-left: 10px;*/
+}
+.post {
+
+}
+.post-text {
+
+}
+.react {
+	display: flex;
+	align-items: baseline;
+	background-color: #3b5998;
+	color: #fff;
+	/*padding-left: 10px;*/
+	background-color: #3b5998;
+	/*padding: 5px 10px;*/
+}
+#login {
+	/*background-color: #3b5998;*/
+	margin-bottom: 20px;
+	padding: 10px
+}
+#post-area {
+}
+#post-area > div, #post-area > div > div {
+	margin-bottom: 20px;
+}
+#write-post {
+	display: flex;
+	flex-flow: wrap;
+	justify-content: flex-end;
+}
+#postbox {}
+#talk-about-ur-kids {}
+
+#post-container {
+	background-color: #fff;
+	height: 10px;
+}
+.glyphicon:hover {
+	color: #9daccb;
+}
+@media (max-width: 768px) {
+	#login, #post-area {
+		margin: 0 10px 20px 10px;
+	}
+}
