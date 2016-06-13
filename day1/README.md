@@ -32,14 +32,12 @@ The components we want you to build are below. We recommend you approach each on
 4. **Likes**: Each post will need to have a Like button to allow authenticated users to Like posts on the Newsfeed. Likes are stored as an array on each Post object and have information on the user who Liked the post.
 5. **Comments**: Each post will also need to allow users to Comment on Post objects - comments will also be stored as an array on each Post object and contain the comment contents and information on the commenter.  
 6. **Chat**: See *Using Sockets* for more information on how to implement Chat. You will be adding a chat section to your Facebook site to have a central chat feature for all users on your site.
-7. **Bonus: Infinite Scrolling**: Using what you learned on Saturday, automatically load posts 
+7. **Bonus: Infinite Scrolling**: Using what you learned on Saturday, automatically load posts when users scroll past the bottom.
 
 Yes, it's a lot - but if Mark Zuckerberg can do it, you can too! 
 
 ## Server Specifications
 Below are the live server specifications for accessing our "Facebook" API. All routes marked by **"Authentication required"** require you to pass in the token that you receive upon successful login. This token changes across users and sessions! Store it for authenticating each request as necessary. All authenticated requests are also rate-limited to 60/minute. _If you exceed the rate limit, please check the amount of requests you are sending._
-
-⚠️ **NOTE**: We encourage you to use the following static data sets to test your implementations of posts before 
 
 ####Base URL: [https://fb.horizonsbootcamp.com/api/1.0](https://fb.horizonsbootcamp.com/api/1.0)
 
@@ -70,7 +68,7 @@ This is the route you use for authentication. The `/login` route takes the follo
 * `email`: Email that identifies the user, set upon registration.
 * `password`: Password that verifies the user, set upon registration.
 
-**Success Response**: 200 - `{success: true, response: AUTH_TOKEN}`
+**Success Response**: 200 - `{success: true, response: {id: USER_ID, token: AUTH_TOKEN}}`
 
 **Failure Responses**:
 
@@ -83,6 +81,19 @@ This is the route you use for authentication. The `/login` route takes the follo
 **This route will always return an error**; it is the URL that you are redirected to upon an unsuccessful login. If you are getting this every time, make sure that **a)** you are sending the correct email and password and **b)** you are POSTing login information to the login route.
 
 **Response**: 401 - `{error: "Login failed."}`
+
+
+####GET `/posts/error`
+You should not be calling this request manually; you will be redirected to this route if any of your `/posts` requests fail or you are not authorized to access the post routes.
+
+**Response**: 401 - `{error: "Action not allowed. Please authenticate."}`
+
+### ⚠️ All requests below require authentication. 
+You must pass the `AUTH_TOKEN` you receive upon login to the request body. Your authorization token you get on login will automatically identify your user account on our system; as long as you are passing in your `AUTH_TOKEN`, there is no need to send extra details such as your user ID. 
+
+_Read more about `AUTH_TOKEN` above, in `POST /users/login`._
+
+---
 
 ####GET `/posts` - Authentication required 🔒
 
@@ -153,24 +164,12 @@ Both `comments` and `likes` could be empty arrays!
 
 * 500 - `{error: "Failed to query posts."}` - Call a TA over. There is an issue in retrieving posts from our database.
 
-
-####GET `/posts/error`
-You should not be calling this request manually; you will be redirected to this route if any of your `/posts` requests fail or you are not authorized to access the post routes.
-
-**Response**: 401 - `{error: "Action not allowed. Please authenticate."}`
-
-### ⚠️ All requests below require authentication. 
-You must pass the `AUTH_TOKEN` you receive upon login to the request body. Your authorization token you get on login will automatically identify your user account on our system; as long as you are passing in your `AUTH_TOKEN`, there is no need to send extra details such as your user ID. 
-
-_Read more about `AUTH_TOKEN` above, in `POST /users/login`._
-
----
 ####GET `/posts/:x` - Authentication required 🔒
 This route returns post objects in the same format as the GET `/posts` request above, but in a way that allows you to select a particular amount of posts from history. 
 
 `:x` represents a number that paginates your selection of a group of 10 posts. For example, `/posts/1` will return you the first 10 posts, `/posts/2` will return you the next 10 posts, and `/posts/3` will return you the next 10 posts after that. Posts are sorted by time and higher numbers for `:x` represent posts from longer ago. 
 
-Note that if fewer than 10 posts exist, `:x` will not return an empty response; it will simply 
+Note that if fewer than 10 posts exist, `:x` for all x will not return an empty response; it will simply give you the most recent posts. Use Post ID's to make sure you are not storing or rendering duplicates!
 
 Any `GET` request for posts from the server will return you a maximum of 10 posts.
 
@@ -249,7 +248,19 @@ Note: The `:id` you specify must refer to a valid post ID - pass it in as part o
 Liking a post always uses `GET` - there is no POSTing likes. Requesting this route will NOT return the existing likes on a post - it will toggle the existing state of whether the currently authenticated user has liked the post corresponding to `:id` or not. 
 
 
+##Using Sockets
 
+Read this when you are working on your Chat component! Implementing Chat will require you to use a protocol you have not used before: WebSockets. WebSockets is a realtime, event-driven protocol that allows us to create applications like chat that are extremely responsive. We will interface with WebSockets using a client library called [Socket.IO](http://socket.io) - import their library to your page with the following line:
+
+**NOTE:** Learning to use the Sockets library will be an exercise in reading documentation and determining how to use it successfully. 
+
+`<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>`
+
+Our Sockets server lives on port 3000 of the base API URL, which means it can be accessed at https://fb.horizonsbootcamp.com/socket.io. 
+
+Upon connecting successfully to the Sockets server, please emit a new `authentication` event in the following format: `{token: AUTH_TOKEN}`. You have 5 seconds after connecting to the Sockets server to present your authorization token you received upon login, or you will be disconnected from the server. If you successfully authenticate, you will receive the `authenticated` event and will be ready to begin sending messages.
+
+All new messages are sent by emitting the `message` (send the message you are sending in plain text, without an object); if you are authorized, our Sockets server will broadcast the new message in the following form: `{username: *username*, message: *the message*}`.
 
 
 
