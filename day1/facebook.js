@@ -4,7 +4,7 @@ window.facebook = window.facebook || {};
 facebook.Registration = function() {
 	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
 	this.emailInputField = $('#email');
-	this.pwInputField = $('#password');
+	this.passwordInputField = $('#password');
 	this.fnameInputField = $('#fname');
 	this.lnameInputField = $('#lname');
 	this.birthMonthInputField = $('#MM');
@@ -27,7 +27,7 @@ facebook.Registration.prototype = {
 				
 	      data: {
 	        email: this.emailInputField.val(),
-	        password: this.pwInputField.val(),
+	        password: this.passwordInputField.val(),
 	        fname: this.fnameInputField.val(),
 	        lname: this.lnameInputField.val(),
 	        birthMonth: this.birthMonthInputField.val(),
@@ -45,11 +45,52 @@ facebook.Registration.prototype = {
 	}
 };
 
+facebook.Login = function() {
+	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
+	this.usernameInputField = $('#user');
+	this.pwInputField = $('#pw');
+	this.token = null;
+};
+
+facebook.Login.prototype = {
+	clearField: function(jqField) {
+    // YOUR CODE HERE
+    jqField.val("");
+ 	 },
+
+ 	 loggedIn: function() {
+
+ 	 	$.ajax({
+	      method: "POST",
+	      url: this.apiUrl + "/users/login",
+				
+	      data: {
+	        email: this.usernameInputField.val(),
+	        password: this.pwInputField.val(),
+	       
+	      },
+
+		success: function(response) {
+			this.token = response.response.token;
+				console.log(response);
+				console.log(response.response.token);
+				console.log(this.token);
+		}.bind(this),
+
+		error: function(err) {
+				console.log(err);
+		}
+	     
+	    });
+
+ 	 }
+
+};
+
 facebook.Post = function(post){
 	// this.posterId = posterId;
 	// this.postId = postId;
 	this.post = post;
-	this.token = null;
 	// this.fname = fname;
 	// this.lname = lname;
 };
