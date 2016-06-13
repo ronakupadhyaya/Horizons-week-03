@@ -1,5 +1,6 @@
 window.facebook = window.facebook || {};
 
+var token;
 
 facebook.Registration = function() {
 	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
@@ -49,7 +50,6 @@ facebook.Login = function() {
 	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
 	this.usernameInputField = $('#user');
 	this.pwInputField = $('#pw');
-	this.token = null;
 };
 
 facebook.Login.prototype = {
@@ -71,10 +71,9 @@ facebook.Login.prototype = {
 	      },
 
 		success: function(response) {
-			this.token = response.response.token;
-				console.log(response);
-				console.log(response.response.token);
-				console.log(this.token);
+			token = response.response.token;
+			this.get10Post();
+				console.log(token);
 		}.bind(this),
 
 		error: function(err) {
@@ -83,7 +82,53 @@ facebook.Login.prototype = {
 	     
 	    });
 
- 	 }
+ 	 },
+
+ 	get10Post: function() {
+ 		
+	    $.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
+		
+		method: "GET",
+		data: {
+
+			token: token,
+			 },
+		success: function(response) {
+			console.log(response);
+			for (var i = 0; i < response.response.length; i++) {
+				var name = response.response[i].poster.name;
+				console.log(name);
+				var post = response.response[i].content;
+				console.log(post);
+				this.render(name,post);
+			}
+
+		}.bind(this),
+		error: function(err) {
+			console.log(err);
+		}
+	
+	});
+	},
+
+	render: function(name, post) {
+		console.log("I have reached render");
+		var wrapper = $('<div></div>');
+		var postWrapper = $('<div class="panel panel-default"></div>');
+		var panelHeading = $('<div class="panel-heading"></div>');
+		var panelTitle = $('<h3 class="panel-title">' + name + '</h3>');
+		var panelBody = $('<div class="panel-body">' + post + '</div>');
+		var panelFooter = $('<div class="panel-footer">Like     Comment</div>');
+
+		postWrapper.append(panelHeading);
+		panelHeading.append(panelTitle);
+		postWrapper.append(panelBody);
+		postWrapper.append(panelFooter);
+		wrapper.prepend(postWrapper);
+
+		return wrapper.html();
+	}
+
 
 };
 
@@ -101,6 +146,8 @@ facebook.Post.prototype = {
 	getThisPost: function() {
 		return this.post;
 	},
+	
+
 	getPost: function(post) {
 		$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
 			method: "GET",
