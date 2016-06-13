@@ -8,11 +8,15 @@ We'll be using [this Trello client](https://github.com/norberteder/trello) for
 communicating with Trello's API. You still have to get your corresponding auth 
 token and API keys, but this should make using Trello a bit easier.
 
-In addition to Trello, we'll also be using the [`csv`](https://www.npmjs.com/package/csv) package
+In addition to Trello, we'll also be using the 
+[`csv`](https://www.npmjs.com/package/csv) package for manipulating the csv 
+data and the [`minimist`](https://www.npmjs.com/package/minimist) package 
+for parsing command line input.
 
 ## Instructions
 
-You will be building a single script `trello-csv.js` to download and upload Trello boards as CSV files.
+You will be building a single script `trello-csv.js` to download and upload 
+Trello boards as CSV files.
 
 This script should have two modes of operation:
 
@@ -33,8 +37,10 @@ First things first, you should install the libraries we're going to be using.
 You install packages like so:
 
   ```bash
-  $ npm install --save pokedex spider-sense antigravity
+  $ npm install --save antigravity
   ```
+  
+***hint:*** You can install more than one package at once!
 
 ### File format
 
