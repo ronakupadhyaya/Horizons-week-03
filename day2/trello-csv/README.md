@@ -4,23 +4,36 @@
 
 The goal of this exercise is to build a script for uploading and downloading Trello boards as CSV files. This will give you experience with using API's inside node and dealing with files and the file system.
 
+We'll be using [this Trello client](https://github.com/norberteder/trello) for 
+communicating with Trello's API. You still have to get your corresponding auth 
+token and API keys, but this should make using Trello a bit easier.
+
+In addition to Trello, we'll also be using the [`csv`](https://www.npmjs.com/package/csv) package
+
 ## Instructions
 
 You will be building a single script `trello-csv.js` to download and upload Trello boards as CSV files.
 
-This script has two modes of operation:
+This script should have two modes of operation:
 
 1. Upload given CSV file to a Trello board
   ```bash
-  node trello-csv --upload [board id] [csv file]
+  $ node trello-csv.js --upload [board id] [csv file]
   OR
-  node trello-csv -u [board id] [csv file]
+  $ node trello-csv.js -u [board id] [csv file]
   ```
 1. Download a given Trello board to a CSV file
   ```bash
-  node trello-csv --download [board id] [csv file]
+  $ node trello-csv.js --download [board id] [csv file]
   OR
-  node trello-csv -d [board id] [csv file]
+  $ node trello-csv.js -d [board id] [csv file]
+  ```
+
+First things first, you should install the libraries we're going to be using. 
+You install packages like so:
+
+  ```bash
+  $ npm install --save pokedex spider-sense antigravity
   ```
 
 ### File format
@@ -29,8 +42,6 @@ csv stands for comma-separated values. Each line is a row and rows are broken up
 
 In our case we will be using the first row (i.e. line) to represent all the list names in a Trello board. Each
 subsequent line represents cards in the corresponding list.
-
-The first item in every row belongs to the first list and the second item belongs to the second and so on.
 
 This board
 ![](img/trello.png)
@@ -43,11 +54,19 @@ Card 1 in list1,,Card 1 in list 3
 ,,Card 3 in list 3
 ```
 
-There's a sample csv file included with this folder, [`sample.csv`](sample.csv). You can use the NPM package [`csv`](https://www.npmjs.com/package/csv) for parsing csv files.
+As you can see, the first row of the csv file corresponds to the names of each 
+of the lists. The following rows show the names of each card in its respective 
+list, by position. Since the second list does not have any cards at all, the 
+second position of every row after the first will be blank (**like this:** 
+`...,,...`);
+
+There's a sample csv file included with this folder, [`sample.csv`](sample.csv).
+You can use the NPM package [`csv`](https://www.npmjs.com/package/csv) for 
+parsing csv files.
 
 ### Upload
 
-When you upload to a Trello board you lists should be added to the right of all previous lists.
+When you upload to a Trello board your lists should be added to the right of all previous lists.
 
 ### Download
 
