@@ -1,0 +1,69 @@
+
+h5{
+    font-size: large;
+}
+
+body {
+    line-height: 18px;
+    height: 100vh;
+    background: linear-gradient(to bottom,white,#C4CCD8);
+    color:#324E97;
+    
+}
+
+header {
+    background: #324E97;
+    padding: 5px;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    display:block;
+}
+
+.logo {
+    float:left;
+    height:30px;
+}
+
+.login {
+
+    max-width:35%;
+    margin:50px;
+    padding-right: 50px;
+    border-right: 1px solid #324E97;
+    float:left;
+    padding-bottom: 150px;
+    padding-top: 50px
+
+}
+
+.inputBox {
+    border: 1px solid #7489aa;
+    margin:5px;
+    border-radius: 3px;
+}
+
+.noAccount {
+    border:0;
+    background: rgba(0,0,0,0);
+    text-decoration:underline;
+    font-size: x-small;
+    margin-bottom: 1em;
+}
+
+.password{
+    margin-bottom: 0;
+}
+
+.loginBtn {
+    float: right;
+}
+
+.modal-content{
+    background-color:#eaf2fe;
+} 
+
+.modal-header {
+    background-color: #324E97;
+    color:white;
+}
