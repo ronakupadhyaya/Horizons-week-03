@@ -2,7 +2,9 @@
 
 ## Goal
 
-TODO
+**Tasks**
+1. 
+
 
 ## Instructions
 
@@ -38,6 +40,72 @@ Create user registration form. User schema:
     <td>N</td>
     <td>text</td>
     <td>Single letter</td>
+  </tr>
+  <tr>
+    <td>Last name</td>
+    <td>Y</td>
+    <td>text</td>
+    <td>Must not be empty</td>
+  </tr>
+  <tr>
+    <td> DOB Month </td>
+    <td> N </td>
+    <td> Number </td>
+    <td> Must be an integer between [0, 12] </td>
+  </tr>
+  <tr>
+    <td> DOB Day </td>
+    <td> N </td>
+    <td> Number </td>
+    <td> Must be an integer between [0, 31] </td>
+  </tr>
+  <tr>
+    <td> DOB Year </td>
+    <td> N </td>
+    <td> Number </td>
+    <td> Must be a non-negative integer </td>
+  </tr>
+  <tr>
+    <td> Password </td>
+    <td> Y </td>
+    <td> String </td>
+    <td> Must not be empty </td>
+  </tr>
+  <tr>
+    <td> Repeat Password </td>
+    <td> Y </td>
+    <td> String </td>
+    <td> Must not be empty and match the password field </td>
+  </tr>
+  <tr>
+    <td> Repeat Password </td>
+    <td> Y </td>
+    <td> String </td>
+    <td> Must not be empty and match the password field </td>
+  </tr>
+  <tr>
+    <td> User Registration </td>
+    <td> Y </td>
+    <td> String </td>
+    <td> Must not be empty and match the password field </td>
+  </tr>
+  <tr>
+    <td> Gender </td>
+    <td> Y </td>
+    <td> String </td>
+    <td> Male/Female/Rather not say </td>
+  </tr>
+  <tr>
+    <td> Sign-up for newsletter </td>
+    <td> Y </td>
+    <td> Boolean </td>
+    <td> Must not be blank </td>
+  </tr>
+  <tr>
+    <td> Sign-up for newsletter </td>
+    <td> Y </td>
+    <td> Boolean </td>
+    <td> Must not be blank </td>
   </tr>
   <tr>
     <td colspan="4" style="font-weight: bold;">FILL THIS IN!</td>
