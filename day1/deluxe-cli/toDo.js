@@ -1,17 +1,15 @@
-var program = require('commander');
+//configuration options. These make up the exercicse.
+"use strict";
 var jsonfile = require('jsonfile')
 var file = 'data.json'
 var data = jsonfile.readFileSync(file)
-//https://github.com/jprichardson/node-jsonfile
 
-// Usage
-// node toDo.js add Do Stuff -p 3
-// node toDo.ks add Do Stuff
-// node todo.js
-// node todo.js
-// node todo.js
-// node todo.js
-// node todo.js
+// Start HERE. We require the module commander we had read about in the readme.
+// With this object we'll be able to parse our command line arguments
+var program = require('commander');
+
+
+
 
 program
 .version('0.0.1')

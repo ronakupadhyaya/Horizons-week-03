@@ -29,27 +29,47 @@ it would always do the same thing. For this, we use flags and args:
 For example: `node myProgram.js` calls the program without any flags or args.  
 
 **Flags** are boolean values that are set by being included when calling the program.
-`bash node myProgram.js --cookies` is calling your program with the flag cookies
-= true and the flag milk = false because it is not present
+`node myProgram.js --cookies` is calling your program with the flag cookies
+= true and the flag milk = false because it is not present.
 
-**Arguments** these can be string or number values like
-`bash node myProgram.js --cookies --amount 3 --for Samuel` in here, Samuel and 3
-are arguments that can be anything the user wants.
+Flags have a simplified version of their commands, so --cookies is also -c. This helps
+users access our command line utilities faster.
+`node myProgram.js -c`
+
+**Commands**  commands are the verbs of software. Yo can say:
+`node myProgram.js doSomething` doSomething is not a flag, thus it doesn't begin with --
+It is a sub-program inside our main app, for example a function. So if we are doing a
+calculator, our command line could receive commands like:
+`node myProgram.js add`
+`node myProgram.js delete`
+
+**Arguments** Arguments are the last piece of the software. We can pass strings or
+numbers into our program. To do things like
+`node myProgram.js square 4` and it would have to print 16
+`node myProgram.js --add 2 3 2` here, add takes all the remaining args, to add them up
+and print 7
+
 
 We are going to build a ToDo list. ToDo lists are the main example when working on
 front end development frameworks in js, but we are going to do it on the command line.
 
 Our list is going to take the following commands:
 `node toDo.js` is going to display the help section of our application.
-`node toDo.js --add Laundry` is going to add a new item to the list
-`node toDo.js --task 3 --p 5` is going to set the priority for the item
-`node toDo.js --task 2 --toggleCompleted` is going to mark the task as done.
-`node toDo.js --task 1 --delete`
-`node toDo.js --showAll`
+`node toDo.js add Do the dishes` is going to run the command 'Add', with the
+name "Do the dishes" as arguments
+`node toDo.js add Do the dishes -p 3`  is going to run the command 'Add', with the
+name "Do the dishes" as arguments with flag :priority 3 (default)
+`node toDo.js show` runs the command show with the default value of all!
+`node toDo.js show -i 5` runs the command show with flag id equal to 5. Only displays
+one element.
+`node toDo.js delete --id 3` deletes the item number 3
+`node toDo.js toggleCompleted --id 3` is going to mark the task with id of --id
+ as done.
+`node toDo.js show --completed`
+`node toDo.js show --c`
 
 
 To start our application we are going to run the following commands.
-`npm install --save commmander` remember the package dependency manager? We are installing
-this: https://www.npmjs.com/package/commander library to handle all the flags and
-command line values. That is the module we are going to use to help us handle all
-the options. Take a look at it and come back to start developing!
+`npm install --save commmander` and `npm install` We are installing this:
+ https://www.npmjs.com/package/commander library to handle all the flags and
+command line values. Take a look at its readme and come back to start developing!
