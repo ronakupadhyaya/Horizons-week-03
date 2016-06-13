@@ -1,22 +1,45 @@
 window.facebook = window.facebook || {};
 
-facebook.Post = function(posterId, postId, post, fname, lname){
-	this.posterId = posterId;
-	this.postId = postId;
+facebook.Post = function(post){
+	// this.posterId = posterId;
+	// this.postId = postId;
 	this.post = post;
-	this.fname = fname;
-	this.lname = lname;
+	// this.fname = fname;
+	// this.lname = lname;
 };
 
 facebook.Post.prototype = {
-	getPosterId: function() {
-		return this.posterId;
-	},
-	getPost: function() = {
-		return this.post;
-	}
-	setPost: function(post) {
 
+	getThisPost: function() = {
+		return this.post;
+	},
+	getPost: function(post) {
+		$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
+			method: "GET",
+			data: {
+				content: this.post},
+			success: function(response) {
+				console.log("success");
+			}.bind(this),
+			error: function(err) {
+				console.log(err);
+			}
+		
+		});
+	},
+	setPost: function(post) {
+		$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
+			method: "POST",
+			data: {
+				content: this.post},
+			success: function(response) {
+				console.log("success");
+			}.bind(this),
+			error: function(err) {
+				console.log(err);
+			}
+		
+		});
 	},
 	render: function() {
 		var wrapper = $('<div></div>');
