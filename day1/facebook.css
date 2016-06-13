@@ -1,0 +1,15 @@
+.container{
+	max-width: 50vw;
+}
+
+.panel-footer{
+	background-color: white;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	
+
+}
+.formspace{
+	margin-bottom: 10px;
+}
