@@ -169,9 +169,7 @@ This route returns post objects in the same format as the GET `/posts` request a
 
 `:x` represents a number that paginates your selection of a group of 10 posts. For example, `/posts/1` will return you the first 10 posts, `/posts/2` will return you the next 10 posts, and `/posts/3` will return you the next 10 posts after that. Posts are sorted by time and higher numbers for `:x` represent posts from longer ago. 
 
-Note that if fewer than 10 posts exist, `:x` for all x will not return an empty response; it will simply give you the most recent posts. Use Post ID's to make sure you are not storing or rendering duplicates!
-
-Any `GET` request for posts from the server will return you a maximum of 10 posts.
+Note that if fewer than 10 posts exist, requesting `/posts/2/` will give you back an empty array. The same applies for fewer than 20 posts and `/posts/3` and so on. Any `GET` request for posts from the server will return you a maximum of 10 posts.
 
 **Success Response**: 200 - See above for schema/example of a posts response.
 
