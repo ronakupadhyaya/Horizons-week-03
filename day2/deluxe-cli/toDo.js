@@ -114,11 +114,13 @@ function addTask(){
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
 // Here,  'node to_do.js show -i 2' will show "Clean Dishes"
 // use console.log to write to the command line.
+// Tasks must be logged in the followin way:
+// Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
   if(program.id){
     var id = program.id-1;
-    console.log("Task #"+id+" Priority "+data[id].priority+ ": "+data[id].name)
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
   }else{
     for (var i=0; i<data.length; i++){
       console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
@@ -137,7 +139,6 @@ function deleteTask(){
       data.splice(id, 1);
       console.log("Deleted task with id: "+program.id)
     }
-
   }else{
       console.log("No task specified")
   }
