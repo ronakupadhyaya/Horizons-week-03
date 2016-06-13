@@ -1,0 +1,30 @@
+body{
+	background: #f7f7f7;
+}
+
+.navbar{
+background:#3B5998;
+}
+.navbar-brand{
+
+}
+.login{
+	}
+.loginbutton{
+
+
+}
+.register{
+
+}
+
+
+.box{
+	height:100px;
+	width:75%;
+	resize:none;
+	background: white;
+	padding-top:10px;
+	padding-bottom:50px;
+	
+}

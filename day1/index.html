@@ -1,0 +1,78 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Facebook</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/underscore.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#"><span class="fa fa-facebook"></span>Facebook</a>
+    </div>
+     <form class="navbar-form navbar-left" role="search">
+    	<div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+    </div>
+	</form>
+  </div>
+</nav>
+
+<div class="container">
+  <div class ="row">
+    <div class ="col-xs-4">
+    <div class = "login">
+    <div><b>Login</b></div>
+      <form>
+        email:<br><input type="text" id="login-email"><br>
+        password:<br><input type="password" id="login-password"><br>
+      </form>
+      <button class="loginbutton" type="button">Login</button>
+    </div>
+    </div>
+  </div>
+    <div class ="col-xs-4">
+    <div class = "register">
+    <div><b>Register</b></div>
+      <form>
+        first name:<br><input type="text" class="firstName"><br>
+        last name:<br><input type="text" class="lastName"><br>
+        email:<br><input type="text" id="register-email"><br>
+        password:<br><input type="password" id="register-password"><br>
+        confirm password:<br><input type="password" id="confirm-password"><br>
+        month:<br><input type ="text" id = "month"></br>
+        day:<br><input type="text" id="day"></br>
+        year:<br><input type="text" id="year"></br>
+      </form>
+      <button type="button" class = "register-button">Sign Up</button>
+    </div>
+  </div>
+    <div class ="board col-xs-4">
+    <div class = "NewsFeed">
+    <div><b>NewsFeed</b></div>
+      <div class="box">
+        <textarea class="box">
+        </textarea>
+        <button>Post</button>
+        <button class="comment-btn">Comment</button>
+        <button class="like-btn">Like</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+</body>
+
+
+<script src="main.js"></script>	
+<link rel="stylesheet" type="text/css" href="main.css">
+
+</html>
