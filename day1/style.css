@@ -12,17 +12,14 @@ h1 {
 	text-align: center;
 }
 
-/*header li {
-	float: left;
-	display: inline-block;
-	margin: 0px 7px;
-	position: relative;
-	padding-right: 20px;
-
-}*/
 span ul li {
 	display: block;
 	padding-top: .3em;
+}
+
+.posts{
+	background-color: green;
+	color: white;
 }
 
 .divFlex {
