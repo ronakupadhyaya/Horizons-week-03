@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Recreating some sort of Book</title>
+
+  <script src="../lib/underscore.js"></script>
+  <script src="../lib/jquery.js"></script>
+
+  <!-- Bootstrap stuff -->
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+  <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Our files -->
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="data_model.js"></script>
+</head>
+
+<style>
+body {
+  font-family: Verdana, sans-serif;
+}
+</style>
+
+<body id='bigBooty'>
+  <h1>
+    <form class="form-inline" role="form" style='color: white;'>
+      <div class="form-group">
+        <p class="navMenuElt">facebook</p>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="userEmail">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd">
+      </div>
+      <button type="submit" id='login' class="btn btn-default logBut">Login</button>
+    </form>
+  </h1>
+  <div class='divFlex' style='background-color: #edf0f5;'>
+      <div style='width:50em;'>
+        <h2 style='text-align: center;'>
+          Well this Sucks
+          <h2>
+          </div>
+          <div style='width:50em; text-align: center;'>
+            <form class="form-horizontal" style='padding-left:100px;' role="form">
+              <h2>Sign Up</h2>
+              <div class="form-group">
+                <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                <div class="col-sm-9">
+                  <input type="text" id="firstName" placeholder="First Name" class="form-control" autofocus>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                <div class="col-sm-9">
+                  <input type="text" id="lastName" placeholder="Last Name" class="form-control" autofocus>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                  <input type="email" id="email" placeholder="Email" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-9">
+                  <input type="password" id="password" placeholder="Password" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="birthMonth" class="col-sm-3 control-label">Month of Birth</label>
+                <div class="col-sm-9">
+                  <input type="number" id="birthMonth" class="form-control" placeholder="Month" min="1" max="12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="birthDay" class="col-sm-3 control-label">Day of Birth</label>
+                <div class="col-sm-9">
+                  <input type="number" id="birthDay" class="form-control" placeholder="Day" min="1" max="31">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="birthYear" class="col-sm-3 control-label">Year of Birth</label>
+                <div class="col-sm-9">
+                  <input type="number" id="birthYear" class="form-control" placeholder="Year" min="0" max="2016">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                  <button type="submit" id='register' class="btn btn-primary btn-block">Register</button>
+                </div>
+              </div>
+            </form> <!-- /form -->
+          </div> <!-- ./container -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+        <footer>THIS MIGHT NOT EVEN BE CLOSE</p>
+        </footer>
+      </body>
+      </html>
+
+
+<script src="events.js"></script>

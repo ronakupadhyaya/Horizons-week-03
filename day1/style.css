@@ -1,0 +1,54 @@
+.navMenuElt {
+	display: inline-block;
+	font-size: 40px;
+	font-weight: bold;
+	padding: 0 40px 0 0;	
+
+}
+
+h1 {
+	background-color:  #3b5998;
+	padding: 40px;
+	text-align: center;
+}
+
+/*header li {
+	float: left;
+	display: inline-block;
+	margin: 0px 7px;
+	position: relative;
+	padding-right: 20px;
+
+}*/
+span ul li {
+	display: block;
+	padding-top: .3em;
+}
+
+.divFlex {
+	padding-left: 10px;
+	padding-right: 10px;
+	display: flex;
+}
+
+.logBut {
+	border:0px;
+	color:white;
+	background-color:#4267b2;
+	border-color:#29487d;
+}
+.nav_search {
+	border-left: solid 1px #F1EEEA;
+    color: #3D3D66;
+    display: block;
+    height: 100%;
+    padding: 13px 0px 26px 30px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+footer {
+	font-size:10px;
+	text-align: center;
+	font-weight: bold;
+}
