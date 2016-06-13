@@ -78,38 +78,38 @@
 					<form>
 					  <fieldset class="form-group">
 					    <label for="exampleInputEmail1">Email address</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					    <input type="email" class="form-control" id="email" placeholder="Enter email">
 					    <small class="text-muted">We'll never share your email with anyone else.</small>
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">Password</label>
-					    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					    <input type="password" class="form-control" id="password" placeholder="Password">
 					  </fieldset>
 					<fieldset class="form-group">
 					    <label for="exampleInputPassword1">Confirm password</label>
-					    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+					    <input type="password" class="form-control" id="confirmedpass" placeholder="Password">
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">First Name</label>
-					    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="First Name">
+					    <input type="text" class="form-control" id="firstname" placeholder="First Name">
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">Last Name</label>
-					    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Last Name">
+					    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">Birth Month</label>
-					    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Birth Month">
+					    <input type="text" class="form-control" id="birthmonth" placeholder="Birth Month">
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">Birth Day</label>
-					    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Birth Day">
+					    <input type="text" class="form-control" id="birthday" placeholder="Birth Day">
 					  </fieldset>
 					  <fieldset class="form-group">
 					    <label for="exampleInputPassword1">Birth Year</label>
-					    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Birth Year">
+					    <input type="text" class="form-control" id="birthyear" placeholder="Birth Year">
 					  </fieldset>					  
-					  <button type="submit" class="btn btn-primary">Submit</button>
+					  <button type="submit" class="btn btn-primary" id="regsubmit">Submit</button>
 					</form>
 			      </div>
 			      <div class="modal-footer">
@@ -122,15 +122,15 @@
 			<p><!-- pagebreak --></p>
 			<form>
 			  <fieldset class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    <label for="emaillogin">Email address</label>
+			    <input type="email" class="form-control" id="useremail" placeholder="Enter email">
 			    <small class="text-muted">We'll never share your email with anyone else.</small>
 			  </fieldset>
 			  <fieldset class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+			    <label for="passwordlogin">Password</label>
+			    <input type="password" class="form-control" id="userpassword" placeholder="Password">
 			  </fieldset>
-			  <button type="submit" class="btn btn-primary">Submit</button>
+			  <button type="submit" class="btn btn-primary" id="login">Submit</button>
 			</form>
 		</div>
 		<div class="col-md-6">
@@ -140,33 +140,36 @@
 			  <div class="panel-body">
 			    <div class="input-group">
 					  <fieldset class="form-group">
-					    <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Write post here..."></textarea>
+					    <textarea class="form-control" id="posttext" rows="3" placeholder="Write post here..."></textarea>
 					  </fieldset>
 				</div>
 			  </div>
 			  <!-- List group -->
 			  <ul class="list-group">
-			    <li class="list-group-item"><button type="submit" class="btn btn-primary">Submit</button></li>
+			    <li class="list-group-item"><button type="submit" class="btn btn-primary" id="postsubmit">Submit</button></li>
 			  </ul>
 			</div>
-			<div class="panel panel-default">
+			<div class="panel panel-default" id="newsfeed">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading">Newsfeed</div>
+			  <!-- <div class="panel-heading">Newsfeed</div>
 			  <ul class="list-group">
-			    <li class="list-group-item"><p>User ID</p></li>
+			    <li class="list-group-item" id="postname"><p> </p></li>
 			  </ul>
 			  <div class="panel-body">
-			    <div class="input-group">
-				  <p>Post here</p>
+			    <div class="input-group" id="posthere">
+				  <p> </p>
 				</div>
-			  </div>
+			  </div> -->
 			  <!-- List group -->
-			  <ul class="list-group">
-			  	<li class="list-group-item"><button type="submit" class="btn btn-primary">Like</button><p>Likes: xx</p></li>
-			  </ul>
+<!-- 			  <ul class="list-group">
+			  	<li class="list-group-item"><button type="submit" class="btn btn-primary">Like</button><p>Likes: <div id="likes"> </div></p></li>
+			  </ul> -->
 			</div>
 		</div>
 	</div>
 </div>
 </body>
+<script src="fb.js"></script>
+<script src="js/underscore.js"></script>
+
 </html>
