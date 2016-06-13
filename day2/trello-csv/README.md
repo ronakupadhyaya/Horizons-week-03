@@ -73,8 +73,12 @@ parsing csv files.
 
 ### Upload
 
-When you upload to a Trello board your lists should be added to the right of all previous lists.
+When you upload to a Trello board your lists should be added to the left of all previous lists.
+
+**Note**: Use `fs` and `csv`'s [`parse`](http://csv.adaltas.com/parse/) functionality to organize the data before you build the cards.
 
 ### Download
 
 When you download a Trello board you should retain list and card ordering. You only need to keep list and card names.
+
+**Note**: To write a csv to the filesystem, use fs and `csv`'s [stringify](http://csv.adaltas.com/stringify/) functionality.
