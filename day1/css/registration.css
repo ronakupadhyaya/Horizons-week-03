@@ -1,0 +1,77 @@
+
+
+#registration-panel {
+	display: flex;
+	border: 1px solid;
+	flex-direction: column;
+	width: 40%;
+	float: right;
+	padding: 20px;
+	margin-right: 15px;
+	background-color: #ffffff;
+	border-radius: 20px;
+	border-color: #dfe3ee;
+}
+
+
+#registration-panel > div {
+	width: 100%;
+	text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+}
+
+
+#registration-panel > div > form {
+	width: 100%;
+	vertical-align: top;
+    display: inline-block;
+}
+
+.reg-email1, .reg-email2, .reg-pass{
+	width: 100%;
+	padding-left: 5px;
+}
+
+.reg-fname, .reg-lname {
+	width: 49%;
+}
+
+.reg-fname {
+	float: left;
+	padding-left: 5px;
+}
+
+.reg-lname {
+	float: right;
+	padding-left: 5px;
+}
+
+.reg-bMonth, .reg-bDay, .reg-bYear{
+	width: 32.5%;
+	padding-left: 5px;
+}
+
+.reg-bYear{
+	float: right;
+}
+
+#reg-sign-up {
+	/*width: %;*/
+	float: right;
+	height: 40px;
+	margin: 20px 0 0 0;
+	background-color: #dfe3ee;
+	border: none;
+	font-weight: bold;
+}
+
+#successful-msg {
+	display: none;
+	border: 1px solid;
+	width: 40%;
+	height: 70vh;
+	float: right;
+	padding: 20px;
+	margin-right: 15px;
+}
