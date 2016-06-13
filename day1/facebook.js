@@ -1,12 +1,5 @@
 window.facebook = window.facebook || {};
 
-facebook.Post = function(post){
-	// this.posterId = posterId;
-	// this.postId = postId;
-	this.post = post;
-	// this.fname = fname;
-	// this.lname = lname;
-};
 
 facebook.Registration = function() {
 	this.apiUrl = "https://fb.horizonsbootcamp.com/api/1.0";
@@ -14,18 +7,57 @@ facebook.Registration = function() {
 	this.pwInputField = $('#password');
 	this.fnameInputField = $('#fname');
 	this.lnameInputField = $('#lname');
-	
+	this.birthMonthInputField = $('#MM');
+	this.birthDayInputField = $('#DD');
+	this.birthYearInputField = $('#year');
+
 };
 
 facebook.Registration.prototype = {
-	sendRegistration: function() = {
+	 clearField: function(jqField) {
+    // YOUR CODE HERE
+    jqField.val("");
+ 	 },
 
+	sendRegistration: function() {
+
+		$.ajax({
+	      method: "POST",
+	      url: this.apiUrl + "/users/register",
+				
+	      data: {
+	        email: this.emailInputField.val(),
+	        password: this.pwInputField.val(),
+	        fname: this.fnameInputField.val(),
+	        lname: this.lnameInputField.val(),
+	        birthMonth: this.birthMonthInputField.val(),
+	        birthDay: this.birthDayInputField.val(),
+	        birthYear: this.birthYearInputField.val()
+	      },
+			success: function(response) {
+					console.log(response);
+			},
+			error: function(err) {
+					console.log(err);
+			}
+	     
+	    });
 	}
 };
 
+facebook.Post = function(post){
+	// this.posterId = posterId;
+	// this.postId = postId;
+	this.post = post;
+	this.token = null;
+	// this.fname = fname;
+	// this.lname = lname;
+};
+
+
 facebook.Post.prototype = {
 
-	getThisPost: function() = {
+	getThisPost: function() {
 		return this.post;
 	},
 	getPost: function(post) {

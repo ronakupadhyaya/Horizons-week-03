@@ -1,11 +1,21 @@
 window.fbHandlers = window.fbHandlers || {};
 
-fbHandlers.mount = function() {
+fbHandlers.mountStatic = function() {
 
-	// Log In
-	
+	// Register
+	$("#register").click(function(e) {
+		e.preventDefault();
+		var newRegistration = new facebook.Registration();
+		newRegistration.sendRegistration();
+		newRegistration.clearField($('#email'));
+		newRegistration.clearField($('#password'));
+		newRegistration.clearField($('#fname'));
+		newRegistration.clearField($('#fname'));
+	});
 	// Post Message
 
-	
-
 }
+
+
+      fbHandlers.mountStatic();
+   
