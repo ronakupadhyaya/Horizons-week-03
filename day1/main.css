@@ -1,0 +1,197 @@
+body {
+	background-color: #E9EBEE;
+	height: auto;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+}
+
+div {
+	display: inline-block;
+	/*background-color: #fff;*/
+	height: 50px;
+	width: 100%;
+}
+
+form {
+	padding: 20px 0 0 20px;
+	display: inline-block;
+}
+
+#loginForm {
+	display: inline;
+	color: white;
+	float: right;
+	padding-top: 0;
+	padding-right: 20px;
+}
+
+#loginForm input {
+	margin: 10px 10px;
+	border: none;
+	border-radius: 5px;
+	color: #3E5C9A;
+	padding: 2px;
+}
+
+#fLogin {
+	color: #3E5C9A;
+	font-weight: bold;
+	margin-left: 20px;
+	width: 75px;
+}
+
+.header {
+	padding: 15px 20px;
+	display: inline-block;
+	min-height: 75px;
+	background-color: #3E5C9A;
+}
+
+.fa-facebook-square {
+	color: white;
+	vertical-align: sub;
+}
+
+.logo {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	margin-left: 10px;
+}
+
+#feed {
+	display: block;
+	margin: 0 auto;
+	width: 75vw;
+	/*min-height: 100%;*/
+	height: auto;
+	background-color: white;
+	padding-top: 5px;
+}
+
+button {
+	display: inline-block;
+	background-color: #E74C3C;
+	color: #fff;
+	margin-left: 100px;
+}
+
+#wrapper {
+	display: block;
+	width: 60%;
+	margin: 0 auto;
+	background-color: #E9EBEE;
+	padding-top: 50px;
+}
+
+#info {
+	background-color: #E9EBEE;
+	width: 50%;
+	height: 100%;
+}
+
+#enter-form {
+	display: block;
+	width: 600px;
+	background-color: white;
+	margin: 20px auto;
+	padding: 20px;
+	/*border-radius: 5px;*/
+}
+
+textarea {
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+	resize: none;
+	min-height: 20px;
+	border: none;
+	border-top: thin solid #E9EBEE;
+	border-bottom: thin solid #E9EBEE;
+	border-radius: 5px;
+	font-size: 16px;
+	padding: 8px;
+}
+
+#signupForm {
+	float: right;
+	padding-right: 150px;
+}
+
+@media (min-width: 640px){
+	#signupForm {
+		padding-right: 0;
+	}
+}
+
+#signupForm input {
+	padding: 5px;
+}
+
+#signupHeader {
+	margin-top: 0;
+	font-weight: bold;
+}
+
+#listTitle {
+	padding-bottom: 30px;
+	font-weight: bold;
+}
+
+.listDiv {
+	margin-bottom: 30px;
+}
+
+.listImage {
+	display: inline;
+}
+
+.listText {
+	display: inline;
+	padding-left: 10px;
+}
+
+button {
+	display: inline-block;
+	background-color: #3E5C9A;
+	color: #fff;
+	margin: 10px auto;
+}
+
+.posts {
+	display: block;
+	background-color: #ECF0F1;
+	width: 95%;
+	min-height: 125px;
+	margin: 0 auto;
+	border-radius: 5px;
+	height: auto;
+}
+
+.posts-header {
+	display: inline;
+	width: 100%;
+}
+
+.date {
+	margin-left: 15px;
+}
+
+.content {
+	display: block;
+	clear: both;
+	padding: 0 15px 10px 15px;
+	overflow-wrap: break-word;
+	height: auto;
+}
+
+.name {
+	margin-left: 15px;
+}
+
+h3 {
+	margin-left: 10px;
+	margin-bottom: 0;
+	padding-top: 15px;
+}

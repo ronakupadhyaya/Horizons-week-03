@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Template Page W2D6</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="lib/js/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+	<script src="lib/js/underscore.js"></script>
+	<script src="https://use.fontawesome.com/bc40bc87c7.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+	<!-- navigation bar -->
+	<div class="header">
+		<span class="fa fa-facebook-square fa-2x"> </span>
+		<h4 class="logo">Facebook 2.0</h4>
+
+				<!-- login form -->
+		<form id="loginForm">Email:
+			<input type="text" id="fEmailLog">Password:
+			<input type="password" id="fPassLog">
+			<input type="submit" value="Log In" id="fLogin">
+		</form>
+	</div>
+
+	<div id="wrapper">
+		<div id="info">
+			<h2 id="listTitle">Connect with friends and the world around you on Facebook</h2>
+			<div class="listDiv">
+				<img class="listImage" src="item1.png">
+				<p class="listText"><b>See photos and updates</b> from friends in News Feed.</p>
+			</div>
+			<div class="listDiv">
+				<img class="listImage" src="item2.png">
+				<p class="listText"><b>Share what's new</b> in your life on your Timeline.</p>
+			</div>
+			<div class="listDiv">
+				<img class="listImage" src="item3.png">
+				<p class="listText"><b>Find more</b> of what you're looking for with Facebook Search.</p>
+			</div>
+		</div>
+
+		<form id="signupForm">
+			<h2 id="signupHeader">Sign Up</h2>
+		  		<input placeholder="First name"type="text" id="fFirstname"><br><br>
+		  		<input placeholder="Last name" type="text" id="fLastname"><br><br>
+		  		<input placeholder="Email" type="text" id="fEmail"><br><br>
+		  		<input placeholder="Create a password" type="password" id="fPass"><br><br>
+		  		<input placeholder="Month of Birth" type = "text" id="fMonth"><br><br>
+		  		<input placeholder="Day of Birth" type = "text" id="fDay"><br><br>
+		  		<input placeholder="Year of Birth" type = "text" id="fYear"><br><br>
+		  		<input type="submit" value="Sign Up" id="fSignup">
+		</form>
+	</div>
+
+	<!-- post status -->
+	<form id="enter-form">
+		<textarea id="statusContent" placeholder="What's on your mind?"></textarea>
+		<button id="postStatus" class="btn" type="button">Submit</button>
+	</form>
+
+	<div id="feed">
+
+	</div>
+
+</body>
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<script src="main.js"></script>	
+</html>
