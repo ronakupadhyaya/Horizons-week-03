@@ -1,15 +1,11 @@
 window.fakebook = {}
 var baseURL = 'https://fb.horizonsbootcamp.com/api/1.0'
 
-// $('#account-create')
-// $('#talk-about-ur-kids')
-// $('#like')
-// $('#comment')
 var user = {}
 fakebook.mountStatic = function(cb) {
 	$('#account-create').click(function(e) {
 		e.preventDefault()
-		console.log('click detected')
+		// console.log('click detected')
 		$.ajax(baseURL+'/users/register', {
 			data: {
 				email: $('#new-email').val(),
@@ -22,13 +18,13 @@ fakebook.mountStatic = function(cb) {
 			},
 			method: 'POST',
 			success: function(data) {
-				console.log('new user created!!')
+				// console.log('new user created!!')
 			}
 		})
 	})
 	$('#login-submit').click(function(e) {
 		e.preventDefault()
-		console.log('login attempt')
+		// console.log('login attempt')
 		$.ajax(baseURL+'/users/login', {
 			data: {
 				email: $('#login-email').val(),
@@ -36,10 +32,9 @@ fakebook.mountStatic = function(cb) {
 			},
 			method: 'POST',
 			success: function(response) {
-				console.log('login success!')
+				// console.log('login success!')
 				user = response.response
-				console.log(user)
-				fakebook.loadPosts()
+				fakebook.loadPosts(1)
 			}
 		})
 	})
@@ -53,8 +48,9 @@ fakebook.mountStatic = function(cb) {
 			},
 			method: 'POST',
 			success: function() {
-				console.log('post successful')
-
+				// console.log('post successful')
+				$('#postbox').val('')
+				fakebook.loadPosts(1)
 			}
 		})
 	})
@@ -62,122 +58,123 @@ fakebook.mountStatic = function(cb) {
 fakebook.mount = function() {
 	$('.comment').off()
 	$('.comment').click(function(e) {
-		console.log('comment attempted!')
+		// console.log('comment attempted!')
 		e.preventDefault()
-		$.ajax(baseURL+'/posts/comments/'+$(this).attr('id'), {
+		var id = $(this).attr('id')
+		$.ajax(baseURL+'/posts/comments/'+id, {
 			data: {
 				token: user.token,
-				content: $('#hogwash'+$(this).attr('id')).val(),
+				content: $('#hogwash'+id).val(),
 			},
 			method: 'POST',
 			success: function() {
-				console.log('commentSuccess!')
+				getComments(id)
+				$('#hogwash'+id).val('')
+				// console.log('comment successful')
 			}
 		})
 	}) 
+	$('.likerbot3000').off()
+	$('.likerbot3000').click(function(e) {
+		e.preventDefault()
+		// console.log('like attempted')
+		var id = $(this).attr('id')
+		$.ajax(baseURL+'/posts/likes/'+id, {
+			data: {
+				token: user.token,
+			},
+			method: 'GET',
+			success: function() {
+				$('#likes'+id).text(parseInt($('#likes'+id).text())+1)
+				// console.log('like successful')
+			}
+		})
+	})
+	$(document).off('scroll')
+	$(document).scroll(function() {
+    if (window.scrollY===$(document).height()-window.innerHeight) {
+    	fakebook.loadPosts(Math.floor($("#post-container > div").length/10)+1)
+    }
+  })
 }
-
-fakebook.loadPosts = function() {
-	$.ajax(baseURL+'/posts/1', {
+fakebook.loadPosts = function(n) {
+	if (n===1) {$('#post-container').empty()}
+	$.ajax(baseURL+'/posts/'+n, {
 		data: {
 			token: user.token,
 		},
 		success: function(response) {
-			console.log(response.response)
 			_.forEach(response.response, function(elt) {$('#post-container').append(renderPost(elt))})
 			fakebook.mount()
+			// console.log('posts loaded')
 		}
 	})
 }
-
 function renderPost(postObj) {
+	var timeString = parseTime(postObj)
 	var wrapper = $('<div class="post"></div>')
 	var userInfo = $('<div class="user-info"></div>')
 	var userBar = $('<span class="glyphicon glyphicon-user"></span><h5>'+postObj.poster.name+'</h5>')
+	var postTime = $('<h5 class="time">'+timeString+'</h5>')
 	var postText = $('<div class="post-text"><p>'+postObj.content+'</p></div>')
 	var react = $('<div class="react"></div>')
-	var likeButton = $('<a class="like" id="'+postObj._id+'">\
+	var likeButton = $('<a class="likerbot3000" id="'+postObj._id+'">\
 						<span class="glyphicon glyphicon-thumbs-up"></span></a>')
-	var likeCount = $('<h5>'+postObj.likes.length+'</h5>')
+	var likeCount = $('<h5 id="likes'+postObj._id+'">'+postObj.likes.length+'</h5>')
 	var commentButton = $('<a id="'+postObj._id+'">\
 						<span class="glyphicon glyphicon-pencil" class="btn btn-primary"\
 						 role="button" data-toggle="collapse" href="#cWell'+postObj._id+'" \
 						 aria-expanded="false" aria-controls="cWell'+postObj._id+'"></span></a>')
-	var commentCount = $('<h5>'+postObj.comments.length+'</h5>')
-
-	
-
+	var commentCount = $('<h5 id="cCount'+postObj._id+'">'+postObj.comments.length+'</h5>')
 	wrapper.append(userInfo)
 	userInfo.append(userBar)
+	userInfo.append(postTime)
 	wrapper.append(postText)
 	wrapper.append(react)
-	var commentWell = $('<div class="collapse" id="cWell'+postObj._id+'"></div>')
+	var commentWell = $('<div class="collapse cWell" id="cWell'+postObj._id+'"></div>')
 	var comments = $('<div id="comments'+postObj._id+'"></div>')
 	if (postObj.comments.length>0) {comments.append(renderComments(postObj.comments))}
 	commentWell.append(comments)
 	commentWell.append($('<span class="form-group add-comment">\
-							<input type="text" class="form-control" id="hogwash'+postObj._id+'" placeholder="react">\
+							<input type="text" class="form-control cText" id="hogwash'+postObj._id+'" placeholder="react">\
 							<button type="submit" class="btn btn-default comment" id="'+postObj._id+'">Comment</button>\
 						</span>'))
 	
 	wrapper.append(commentWell)
-
-	
 	react.append(likeButton)
 	react.append(likeCount)
 	react.append(commentButton)
 	react.append(commentCount)
 	$('#post-container').append(wrapper)
-	// '<div class="post">\
-	// 	<div class="user-info">\
-	// 		<span class="glyphicon glyphicon-user"></span>\
-	// 		<h5>username</h5>\
-	// 	</div>\
-	// 	<div class="post-text">\
-	// 		<p>This is an example post with a large amount of text that makes it seem like i have much to say when really this is just vacuous drivel and and useless text without any real message or worthwhile meaning.</p>\
-	// 	</div>\
-	// 	<div class="react">\
-	// 		<a href="#" id="like">\
-	// 		<span class="glyphicon glyphicon-thumbs-up"></span>\
-	// 		</a>\
-	// 		<h5>123</h5>\
-	// 		<a href="#" id="comment">\
-	// 		<span class="glyphicon glyphicon-pencil"></span>\
-	// 		</a>\
-	// 		<h5>6</h5>\
-	// 	</div>\
-	// </div>'
 }
 function renderComments(commentObj) {
 	var wrapper = $('<div class="well comment"></div>')
 	_.forEach(commentObj, function(elt) {
-		wrapper.append($('<h5>'+elt.poster.name+'</h5>'))
+		var nameBar = $('<div class="nameBar"></div>')
+		nameBar.append($('<h5>'+elt.poster.name+'</h5>'))
+		nameBar.append($('<h5 class="time">'+parseTime(elt)+'</h5>'))
+		wrapper.append(nameBar)
 		wrapper.append($('<p>'+elt.content+'</p>'))
 	})
 	return wrapper
 }
-function updateComments(postID) {
-	$('#comments'+postID).empty()
-	$('#comments'+postID).append(getComments(postID))
-}
 function getComments(postID) {
-	$.ajax(baseURL+'posts/comments/'+postID, {
+	$.ajax(baseURL+'/posts/comments/'+postID, {
 		data: {
 			token: user.token,
 		},
 		success: function(response) {
-			return renderComments(response.response)
+			$('#comments'+postID).empty()
+			$('#comments'+postID).append(renderComments(response.response))
+			$('#cCount'+postID).text(response.response.length)
 		}
 	})
 }
-
-
-fakebook.Post = function() {
-
+function parseTime(obj) {
+	var time = new Date(obj.createdAt)
+	if (Date.now()-86400000<time) {
+		return time.getHours()+':'+time.getHours()
+	} else {
+		return time.getDate()+'.'+time.getMonth()+'.'+time.getYear()
+	}
 }
-// fakebook.mount()
-// fakebook.mount = function() {
-// 	$('#account-create').click(function() {
-// 		// $.
-// 	})
-// }

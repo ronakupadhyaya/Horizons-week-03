@@ -29,15 +29,34 @@ input:hover, input:focus {
 	padding-left: 10px;
 }
 .user-info {
+	position: relative;
 	display: flex;
 	align-items: baseline;
 	background-color: #3b5998;
 	color: #fff;
 	/*padding-left: 10px;*/
 }
-
+.nameBar {
+	position: relative;
+	display: flex;
+	align-items: baseline;
+}
+.time {
+	position: absolute;
+	right: 10px;
+}
 .comment {
-
+	border-radius: 0;
+	border: 0;
+	background-color: #9daccb;
+	color: #fff;
+}
+.comment.btn-default:hover {
+	color: #fff;
+	background-color: #3b5998;
+}
+.cText {
+	color: #3b5998;
 }
 .post {
 
@@ -56,7 +75,7 @@ input:hover, input:focus {
 }
 .add-comment {
 	display: flex;
-	
+
 }
 #login {
 	/*background-color: #3b5998;*/
