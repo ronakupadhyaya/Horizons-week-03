@@ -112,4 +112,7 @@ var render = function() {
         contentwrapper.append(post[i].content)
    }
 }
-var 
+$(".post-btn").on("click", function(event){
+	event.preventDefault();
+	
+});
