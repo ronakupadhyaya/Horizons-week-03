@@ -1,0 +1,116 @@
+<head>
+  <meta charset="utf-8">
+  <title>Facebook</title>
+
+  <!-- My files -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/registration.css">
+  
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+  <!-- <script src="../../../lib/underscore.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+
+</head>
+
+<body id = "page">
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top row" id = "navbar-blue">
+      <div class ="col-lg-2 col-md-2 col-sm-2">
+        <i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-5"></div>
+      <div class="col-lg-5 col-md-5 col-sm-5" id = "login-div">
+        <form class="login">
+          <input class="email-login" type="text" id = "email-login" placeholder="Email">
+          <input class="password-login" type="password" id = "pass-login" placeholder="Password">
+        </form>
+      <ul class="secondary-menu">
+         <li class="sign-up"><a href = "#">
+         Sign up
+         </a></li>
+         <li class="log-in" id = "log-in-btn"><a href = "#">
+         Log in
+         </a></li>
+      </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div id = "registration-panel">
+    <div id = "registration-head">
+      <h2> Sign Up </h2>
+      <h3> It's free and always will be.</h3>
+    </div>
+    <br>
+    <div id = "reg-name-div">
+      <form class="reg-name-form">
+          <input class="reg-fname" type="text" placeholder="First Name" id="reg-fname">
+          <input class="reg-lname" type="text" placeholder="Last Name" id="reg-lname">
+      </form>
+    </div>
+    <div id = "reg-email1-div">
+      <form class="reg-email1-form">
+          <input class="reg-email1" type="text" placeholder="Email" id="reg-email1">
+      </form>
+    </div>
+    <div id = "reg-email2-div">
+      <form class="reg-email2-form">
+          <input class="reg-email2" type="text" placeholder="Re-enter Email" id="reg-email2">
+      </form>
+    </div>
+    <div id = "reg-pass-div">
+      <form class="reg-pass-form">
+          <input class="reg-pass" type="text" placeholder="Enter New Password" id="reg-pass">
+      </form>
+    </div>
+    <div id = "reg-bday-div">
+      Birthday
+      <form class="reg-bday-form">
+          <input class="reg-bMonth" type="number" min="1" max="12" placeholder="MM" id="reg-bMonth">
+          <input class="reg-bDay" type="number" min="1" max="31" placeholder="DD" id="reg-bDay">
+          <input class="reg-bYear" type="number" min="1900" max="2016" placeholder="YYYY" id="reg-bYear">
+      </form>
+    </div>
+    <div id = "reg-button-div">
+      <button type="button" class="btn btn-default" id="reg-sign-up">Sign Up!</button>
+    </div>
+  </div>
+
+  <div id = "successful-msg"> 
+    <h2> You did it! </h2>
+    <h3> Log into your new account above.</h3>
+  </div>
+
+
+  <div class="newsfeed container" id = "newsfeed">
+    <div class="row" id = "content">
+      <div class="col-lg-2 col-md-2 col-sm-2" id="left-bar"></div>
+      <div class="col-lg-8 col-md-8 col-sm-8" id="fb-content">
+        <div id = "post-menu">
+          <div id = "post-input">
+            <!-- place image here -->
+            <form class="post-form">
+              <input class="new-post" type="text" placeholder="What's on your mind?" id="new-post-input">
+            </form>
+            <!-- <div id ="post-btn-div"> -->
+              <button type="button" class="btn btn-default" id="post-btn">Post</button>
+            <!-- </div> -->
+          </div>
+        </div>
+
+      <!-- PUT NEWSFEED CONTENT CONTENT IN HERE -->
+        <div id = "post-anchor"></div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-2" id="right-bar"></div>
+    </div>
+  </div>
+<script src="js/registration.js"></script>
+<script src="js/login.js"></script>
+<script src="js/post.js"></script>
+</body>
+</html>
