@@ -39,7 +39,7 @@ fakebook.mountStatic = function(cb) {
 				console.log('login success!')
 				user = response.response
 				console.log(user)
-				fakebook.loadPosts(user.token)
+				fakebook.loadPosts()
 			}
 		})
 	})
@@ -62,17 +62,22 @@ fakebook.mountStatic = function(cb) {
 fakebook.mount = function() {
 	$('.comment').off()
 	$('.comment').click(function(e) {
+		console.log('comment attempted!')
 		e.preventDefault()
 		$.ajax(baseURL+'/posts/comments/'+$(this).attr('id'), {
-			content: $('#hogwash'+$(this).attr('id')).val(),
+			data: {
+				token: user.token,
+				content: $('#hogwash'+$(this).attr('id')).val(),
+			},
+			method: 'POST',
 			success: function() {
+				console.log('commentSuccess!')
 			}
 		})
-		console.log()
 	}) 
 }
 
-fakebook.loadPosts = function(token) {
+fakebook.loadPosts = function() {
 	$.ajax(baseURL+'/posts/1', {
 		data: {
 			token: user.token,
@@ -96,8 +101,8 @@ function renderPost(postObj) {
 	var likeCount = $('<h5>'+postObj.likes.length+'</h5>')
 	var commentButton = $('<a id="'+postObj._id+'">\
 						<span class="glyphicon glyphicon-pencil" class="btn btn-primary"\
-						 role="button" data-toggle="collapse" href="#comments'+postObj._id+'" \
-						 aria-expanded="false" aria-controls="comments'+postObj._id+'"></span></a>')
+						 role="button" data-toggle="collapse" href="#cWell'+postObj._id+'" \
+						 aria-expanded="false" aria-controls="cWell'+postObj._id+'"></span></a>')
 	var commentCount = $('<h5>'+postObj.comments.length+'</h5>')
 
 	
@@ -106,7 +111,7 @@ function renderPost(postObj) {
 	userInfo.append(userBar)
 	wrapper.append(postText)
 	wrapper.append(react)
-	var commentWell = $('<div class="collapse"></div>')
+	var commentWell = $('<div class="collapse" id="cWell'+postObj._id+'"></div>')
 	var comments = $('<div id="comments'+postObj._id+'"></div>')
 	if (postObj.comments.length>0) {comments.append(renderComments(postObj.comments))}
 	commentWell.append(comments)
@@ -152,10 +157,18 @@ function renderComments(commentObj) {
 	return wrapper
 }
 function updateComments(postID) {
-
+	$('#comments'+postID).empty()
+	$('#comments'+postID).append(getComments(postID))
 }
 function getComments(postID) {
-
+	$.ajax(baseURL+'posts/comments/'+postID, {
+		data: {
+			token: user.token,
+		},
+		success: function(response) {
+			return renderComments(response.response)
+		}
+	})
 }
 
 
