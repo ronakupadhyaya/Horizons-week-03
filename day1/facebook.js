@@ -113,20 +113,20 @@ facebook.Login.prototype = {
 
 	render: function(name, post) {
 		console.log("I have reached render");
-		var wrapper = $('<div></div>');
+		
 		var postWrapper = $('<div class="panel panel-default"></div>');
 		var panelHeading = $('<div class="panel-heading"></div>');
 		var panelTitle = $('<h3 class="panel-title">' + name + '</h3>');
 		var panelBody = $('<div class="panel-body">' + post + '</div>');
 		var panelFooter = $('<div class="panel-footer">Like     Comment</div>');
 
+
 		postWrapper.append(panelHeading);
 		panelHeading.append(panelTitle);
 		postWrapper.append(panelBody);
 		postWrapper.append(panelFooter);
-		wrapper.prepend(postWrapper);
-
-		return wrapper.html();
+		$("#wrapper").prepend(postWrapper);
+		
 	}
 
 

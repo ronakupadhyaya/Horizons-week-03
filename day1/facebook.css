@@ -17,3 +17,7 @@
 .smBox {
 	margin: 1px;
 }
+
+.panel-body  {
+    word-break:break-all
+}

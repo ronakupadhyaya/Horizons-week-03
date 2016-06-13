@@ -22,16 +22,20 @@ fbHandlers.mountStatic = function() {
 		newLogin.loggedIn();
 		newLogin.clearField($('#user'));
 		newLogin.clearField($('#pw'));
-		
+
 
 	});
+	
 
 }
 
 fbHandlers.mount = function() {
+	
 
 }
 
 
       fbHandlers.mountStatic();
+
+  
    
