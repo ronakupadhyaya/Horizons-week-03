@@ -8,9 +8,13 @@
 	align-items: center;
 }
 .hold-box{
-	height: 200px;
+	height: auto;
 	width: 50%;
 	background-color: white;
+	align-items: center;
+	border: 1px solid;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 .feed-container{
 	/*background-color: yellow;*/
@@ -21,4 +25,8 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
+} 
+.submit{
+	height: 20px;
+	width: 20px;
 }

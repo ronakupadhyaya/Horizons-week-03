@@ -15,6 +15,62 @@
 <span class = "name">Facebook</span>
 <span class = "btn"><button type = "button" id="logout" class= "btn btn-logout">Logout</button></span>
 </div>
+
+<!--add modal for registration-->
+<div class="modal fade" id ="register-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Welcome to Facebook!</h4>
+      </div>
+      <div class="modal-body">
+      <div class = "firstname-in">
+      <label for="firstname">First name: <input type= "text" id=fn></label>
+      </div>
+       <div class = "lastname-in">
+      <label for="lastname">Last name: <input type= "text" id="ln"></label>
+      </div>
+      <div class ="email-in">
+        <label for="email">Email address: <input type= "email" id=em></label>
+        </div>
+       <div class ="password-in">
+        <label for="password">Password: <input type= "password" id="pw"></label>
+        </div>
+        <div class ="birthday-in">
+        <label for="birthday">Birthday (MM/DD/YYYY) :<input type= "text" id="bd"></label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-register">Register</button>
+        <button type="button" class="btn btn-login">Login</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--login modal-->
+<div class="modal fade" id ="login-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Login to Facebook!</h4>
+      </div>
+      <div class="modal-body">
+        <div class = "email-log">
+        <label for = "email">Email addres: <input type="email" id="main-email"></label>
+        </div>
+        <div class = "password-log">
+        <label for = "password">Password: <input type="password" id="main-password"></label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="login">Login</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!--add post box-->
 <div class= "container main-container">
 <div class = "container post-container">
@@ -22,8 +78,8 @@
 <div class = "links"><span>Photos</span><span>Videos</span></div>
 <div class = "main-box">
 <div class = "profile">Image</div>
-<div class = "form-group"><textarea class = "form-control" rows="5" id="comment" placeholder= "What's on your mind?"></textarea></div>
-<div class = "base-icons"><span class = "objs">Popup Icons</span><span class = "privacy">Privacy</span><span class = "submit-btn"><button type = "button" id="submit" clas="submit"></button></span></div>
+<div class = "form-group"><textarea class = "form-control" rows="5" id="status" placeholder= "What's on your mind?"></textarea></div>
+<div class = "base-icons"><span class = "objs">Popup Icons</span><span class = "privacy">Privacy</span><span class = "submit-btn"><button type = "button" id="submit" class="submit"></button></span></div>
 </div>
 </div>
 </div>
@@ -46,3 +102,4 @@
 
 </html>
 
+ 
