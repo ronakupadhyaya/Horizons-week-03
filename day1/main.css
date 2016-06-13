@@ -45,6 +45,9 @@ input:hover, input:focus {
 	position: absolute;
 	right: 10px;
 }
+.well.comment > p {
+	padding-left: 10px; 
+}
 .comment {
 	border-radius: 0;
 	border: 0;
@@ -61,8 +64,11 @@ input:hover, input:focus {
 .post {
 
 }
-.post-text {
-
+.post-text > p {
+	background-color: #9daccb;
+	margin: 0;
+	padding: 10px 10px;
+	color: #fff;
 }
 .react {
 	display: flex;
