@@ -66,6 +66,10 @@ header {
     font-weight: 100;
 }
 
+.form-inline{
+  display: inline-block
+}
+
 .title{
   color: #3B5998;
   font-weight: 300;
