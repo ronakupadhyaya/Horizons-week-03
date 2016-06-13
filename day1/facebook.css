@@ -1,0 +1,24 @@
+.nav-bar{
+	background-color: #3b5998;
+}
+.post-container{
+	height: 200px;
+	background-color: green;
+	display: flex;
+	align-items: center;
+}
+.hold-box{
+	height: 200px;
+	width: 50%;
+	background-color: white;
+}
+.feed-container{
+	/*background-color: yellow;*/
+	height: 100%;
+}
+.hold-feed{
+	background-color: yellow;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
