@@ -10,8 +10,9 @@ token and API keys, but this should make using Trello a bit easier.
 
 In addition to Trello, we'll also be using the 
 [`csv`](https://www.npmjs.com/package/csv) package for manipulating the csv 
-data and the [`minimist`](https://www.npmjs.com/package/minimist) package 
-for parsing command line input.
+data, the [`minimist`](https://www.npmjs.com/package/minimist) package 
+for parsing command line input, and the `fs` library (included with node - 
+part of the *standard lib*).
 
 ## Instructions
 
