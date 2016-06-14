@@ -60,10 +60,10 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <p>', 'Specify a priority for task', parseInt)
 
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
-// YOUR CODE HERE for "--priority and -p"
 
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
@@ -83,9 +83,9 @@ function getRemainingArgs () {
 }
 
 // Example: This is a function that is called to create a new task.
-// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
+// Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
 // it should get the name of the task by calling getRemainingArgs() and the priority
-// for the tast from program.priority.
+// for the task from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask() {
@@ -118,7 +118,15 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+  if (program.id){
+    var id = program.id-1;
+    console.log("Task"+data[id].name); 
+  }
+  else{
+    for(var i =0;i<data.length;i++){
+    console.log("Task #"+(i+1)+" Priority "+data[i].priority + ":" + data[i].name);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
