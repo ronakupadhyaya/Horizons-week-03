@@ -34,7 +34,48 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+var answer = 0;
+
+var sum = function(args){
+    args.forEach(function(item, index){
+        answer = answer + parseInt(item);
+    })
+}
+
+var two =0;
+var three = 0;
+var first = function(arg) {
+    console.log(process.argv);
+    if (process.argv[2] === undefined){
+        console.log(process.argv);
+        rl.question("Enter first number", function(num1){
+            two = parseInt(num1);
+            rl.question("Enter second number", function(num2){
+            three = parseInt(num2);
+                console.log(two + three);
+                rl.close();
+        
+        })
+        })
+        
+            
+        
+    
+} else {
+    
+    sum(arg.slice(2));
+
+}
+
+}
+
+first(process.argv);
+
+
+
+console.log(answer);
+//
+//rl.question("Hi! What's your name? ", function(name) {
+//  console.log('Nice to meet you', name);
+//  rl.close();
+//});

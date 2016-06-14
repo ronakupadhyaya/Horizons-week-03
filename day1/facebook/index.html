@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    
+    
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link rel = "stylesheet" src= "css/style.css">
+    
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    
+<style>
+    #register{
+        display: none;
+    }
+    
+</style>
+    
+    
+</head>
+
+<body>
+    
+  <form id = "register">
+  <div class="form-group">
+    <label for="emailreg">Email address</label>
+    <input type="email" class="form-control" id="regisemail" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="passwordreg">Password</label>
+    <input type="password" class="form-control" id="regispassword" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="firstreg">First Name</label>
+    <input type="text" class="form-control" id="regisfname" placeholder="First Name">
+  </div>
+  <div class="form-group">
+    <label for="lastreg">Last Name</label>
+    <input type="text" class="form-control" id="regislname" placeholder="Last Name">
+  </div>
+  <div class="form-group">
+    <label for="monthreg">Birth Month</label>
+    <input type="text" class="form-control" id="regisbirthmonth" placeholder="Birth Month">
+  </div>   
+  <div class="form-group">
+    <label for="dayreg">Birthday</label>
+    <input type="text" class="form-control" id="regisbirthday" placeholder="Birth Day">
+  </div> 
+  <div class="form-group">
+    <label for="Yearreg">BirthYear</label>
+    <input type="text" class="form-control" id="regisyear" placeholder="Birth Year">
+  </div>      
+        
+        
+    <button class="btn btn-default" id = "regissubmit">Submit</button>
+</form>
+    
+    <form id = "login">
+    <div class="form-group">
+    <label for="emaillog">email</label>
+    <input type="text" class="form-control" id="logemail" placeholder="email">
+    </div> 
+     <div class="form-group">
+    <label for="passwordlog">password</label>
+    <input type="text" class="form-control" id="logpassword" placeholder="password">
+    </div> 
+    <button class="btn btn-default" id = "loginsubmit">Login</button>
+    </form>
+    
+<pre id = "submitpostpre">
+<textarea id = "post"></textarea>
+<button class = "btn btn-default" placeholder = "Post" id = "submitpost">Post</button>
+
+</pre> 
+
+<div class = "newsfeed">
+
+
+</div>    
+    
+<script src="js/data-model.js"></script>
+<script src ="js/events.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+    var user = new facebook.user();    
+</script>    
+</body>
+</html>
