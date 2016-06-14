@@ -26,6 +26,7 @@ easy as it could be
 - Front page (list all projects)
 - Create new project form
 - Contribute form
+- Nodemon
 
 ## Routes
 
