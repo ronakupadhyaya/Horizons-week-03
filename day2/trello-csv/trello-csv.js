@@ -1,5 +1,5 @@
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = '3a062b799e8b3d4f766e4ee08f7bc924';
+var TRELLO_TOKEN = '957aba4c14d16a36f4eaa4d2363c5ccc36bc14d7b46d3b40aa36c15e352340ef';
 
 var fs = require('fs');
 var csv = require('csv');
@@ -13,6 +13,13 @@ var program = require('commander');
 // 1. parse cmdline args
 // Use commander to parse the --upload -u, --download -d flags
 // ex. program.option('-u, --upload', 'Upload CSV'); -> program.upload = true
+
+program
+  .option('-u, --upload <n>', 'Specify id of task', parseInt);
+
+program
+  .option('-d, --download <n>', 'Specify id of task', parseInt);
+
 
 program.parse(process.argv);
 
@@ -42,4 +49,4 @@ var downloadFromTrello = function(boardId) {
 
 // This line is here for demo purposes, you should delete it
 // when you get started!
-uploadToTrello(null, 'sample.csv');
+//uploadToTrello(null, 'sample.csv');

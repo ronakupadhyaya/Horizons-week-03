@@ -39,9 +39,14 @@ program.command('add')
   .description("Create Tasks")
   .action(addTask);
 
+program.command('show')
+  .description('Show a task')
+  .action(showTasks);
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
-
+program.command('delete')
+  .description('Delete a task')
+  .action(deleteTask);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -62,13 +67,11 @@ program.command('add')
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
-
-
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
 
 program
-  .option('-p, --priority, <n>', 'Specify priority of task', parseInt);
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
@@ -122,24 +125,33 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
-function showTasks(){
-  var args = getRemainingArgs();
-  if (args[0] === '-i') {
-    if (data[args[1] - 1].priority) {
-      console.log('Task #' + args[1] + ' Priority ' + data[args[1] - 1].priority + ': ' + )
-    }
-    console.log(data[args[1] - 1].name);
+function showTasks() {
+  debugger;
+  var id = program.id;
+  var priority = program.priority;
+  
+  if (program.id) {
+
+      // console.log(data[i]);
+      // console.log('h');
+  
+      console.log('Task #' + id + ' Priority ' + data[id-1].priority + ': ' + data[id-1].name);
   }
-
-
-
+  else {
+    for (var i = 0; i < data.length; i++) {
+      console.log('Task #' + (i + 1) + ' Priority ' + data[i].priority + ': ' + data[i].name);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var id = program.id;
+
+  console.log(data.splice(id-1, 1));
+
 }
 
 // ---Utility functions---

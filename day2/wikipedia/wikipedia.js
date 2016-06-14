@@ -1,3 +1,4 @@
+
 var _ = require('underscore')
 var fs = require('fs');
 var readline = require('readline');
@@ -9,9 +10,11 @@ function countLines(fileName) {
   var rl = readline.createInterface({
     input: input
   });
+  
   var count = 0;
   rl.on('line', function(line) {
     // This is called for each line in file
+
     count++;
   });
   rl.on('close', function() {
