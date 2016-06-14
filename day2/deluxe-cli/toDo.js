@@ -47,6 +47,10 @@ program.command('delete')
   .description("Delete Tasks")
   .action(deleteTask);
 
+  program.command('complete')
+  .description("Completed Tasks")
+  .action(toggleCompleted);
+
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -66,19 +70,9 @@ program.command('delete')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
-
-// Second one will be '--priority' or '-p', that will specify a priority for our task.
-// YOUR CODE HERE for "--priority and -p"
-
-
-
-// implement here !!!
-// is this correct ?
-program
-  .option('-p, --priority <n>', 'Specify priority for our task', parseInt);
-
-
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority for our task', parseInt)
+  .option('-c, --completed <n>', 'Specify if task is completed', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -145,7 +139,6 @@ function showTasks(){
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  debugger;
   var ind = program.id - 1;
   data.splice(ind,1);
 }
@@ -161,6 +154,12 @@ function ensureFileExists() {
     writeFile([]);
   }
 }
+
+function toggleCompleted() {
+  var ind = program.completed - 1;
+  data[ind].completed = true;
+  console.log(data[ind].completed);
+};
 
 // This command writes  our tasks to the disk
 writeFile(data);
