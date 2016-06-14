@@ -2,29 +2,19 @@
 
 ## Goal
 
-The goal of this exercise is to learn how to use command line arguments and flags.
+The goal of this exercise is to learn how to use build command line tools with [the NPM package `commander`](https://www.npmjs.com/package/commander).
 
-## Instructions
+## Intro to the command line
 
-1. Single char flags `-t`
-1. String flags `--true`
-1. Boolean flags
-1. Default values for flags
-1. String valued flags
-1. Integer valued flags
-
-Program should output configuration as JSON.
-
-## Part 1
-Almost everything you do on a user interface can be done through the command line.
-It may seem a bit harder at first, but as you get more comfortable with the command
-line you will be able to do things you didn't know were possible, and a lot faster
-too!
+Almost everything you do with a graphical user interface can be done through the command line. Since node runs on the command line, it's important to get comfortable
+using command line based tools.
 
 The purpose of this exercise is to build your first application that works completely
 on the command line. For this you will need 2 things: node to run your JavaScript
 program from the command line and a way to give options to your program, otherwise
-it would always do the same thing. For this, we use flags and args:
+it would always do the same thing. For this, we use flags and arguments.
+
+### Flags and Arguments
 
 For example: `node myProgram.js` calls the program without any flags or args.  
 
@@ -49,30 +39,45 @@ numbers into our program. To do things like
 `node myProgram.js --add 2 3 2` here, add takes all the remaining args, to add them up
 and print 7
 
+## Instructions
 
 We are going to build a ToDo list. ToDo lists are the main example when working on
 front end development frameworks in JS, but we are going to do it on the command line.
 
 Our list is going to take the following commands:
-`node to_do.js` is going to display the help section of our application.
-`node to_do.js add Do the dishes` is going to run the command 'Add', with the
-name "Do the dishes" as arguments
-`node to_do.js add Do the dishes -p 3`  is going to run the command 'Add', with the
-name "Do the dishes" as arguments with flag :priority 3 (default)
-`node to_do.js show` runs the command show with the default value of all!
-`node to_do.js show -i 5` runs the command show with flag id equal to 5. Only displays
-one element.
-`node to_do.js delete --id 3` deletes the item number 3
-`node to_do.js toggleCompleted --id 3` is going to mark the task with id of --id
- as done.
-`node to_do.js show --completed`
-`node to_do.js show --c`
 
+- `node toDo.js` is going to display the help section of our application.
+- `node toDo.js add Do the dishes` is going to run the command 'Add', with the name "Do the dishes" as arguments
+- `node toDo.js add Do the dishes -p 3`  is going to run the command 'Add', with the name "Do the dishes" as arguments with flag :priority 3 (default)
+- `node toDo.js show` runs the command show with the default value of all!
+- `node toDo.js show -i 5` runs the command show with flag id equal to 5. Only displays one element.
+- `node toDo.js delete --id 3` deletes the item number 3
+
+Bonus tasks:
+
+- `node toDo.js toggleCompleted --id 3` is going to mark the task with id of `--id` as done.
+- `node toDo.js show --completed`
+- `node toDo.js show -c`
 
 To start our application we are going to run the following commands.
-`npm install commmander --save` and `npm install` We are installing this:
- https://www.npmjs.com/package/commander library to handle all the flags and
-command line values. Take a look at its README and come back to start developing!
 
+### Steps
 
-To run tests, use the command `npm test`
+1. Open this folder `week03/day2/deluxe-cli` and install npm packages
+
+  ```bash
+  npm install
+  ```
+
+1. Implement the `--priority` (or `-p`) flag.
+1. Implement the `show` command along with the `--completed` (or `-c`) flag.
+1. Implement the `delete` command.
+1. Run tests to verify your code.
+
+  ```bash
+  npm test
+  ```
+
+1. Implement the `toggleCompleted` command.
+1. Implement the `-c` or `--completed` flag.
+1. Add tests and verify your new command and flag.
