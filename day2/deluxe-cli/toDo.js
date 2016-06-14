@@ -40,11 +40,11 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
-program.command('Show')
+program.command('show')
   .description("Show Tasks")
   .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
-program.command('Delete')
+program.command('delete')
   .description("Remove Tasks")
   .action(deleteTask);
 
@@ -127,11 +127,15 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // // YOUR CODE HERE
-  console.log(data)
+var x = program.id; 
+console.log(x)
+//  // console.log(data)
 //   var priority = program.priority || 1;
 //   // if(process.argsv[4])
-//   for(i=0; i<data.length; i++){
-// console.log("Task #" + i + "Priority:" + priority + " " + data[i].name)
+//   for(var i=0; i<data.length; i++){
+//     var j =i+1;
+//     console.log(data[i].name)
+// console.log("Task #" + j + " "+"Priority:" + priority + " " + data[i].name)
 
 // }
 }
