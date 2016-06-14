@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "express": "^4.13.4",
+    "express-validation": "^0.6.0",
+    "handlebars": "^4.0.5"
+  }
+}
