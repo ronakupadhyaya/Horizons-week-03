@@ -1,5 +1,5 @@
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = '6c915bc521da8eb763cafb14ce684631';
+var TRELLO_TOKEN = 'da7d7cbf46ff30f72bff69f7a0973481b08f2bd6ce49ea2362db4f8355cbd97e';
 
 var fs = require('fs');
 var csv = require('csv');
@@ -21,23 +21,41 @@ program.parse(process.argv);
 // - The second argument should be the csv file
 // ex. var board_id = program.args[0];
 // YOUR CODE HERE
-var board_id;
-var csv_fname;
+var board_id = program.args[0];
+var csv_fname = program.args[1];
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
 var uploadToTrello = function(board_id, csv_fname) {
   var csvData = fs.readFileSync(csv_fname).toString();
 
-  csv.parse(csvData, { columns: true}, function(err, data){
-    console.log(data);
-    // YOUR CODE HERE
+  csv.parse(csvData, {
+    columns: true
+  }, function(err, data) {
+
+    var lists = {};
+    for (var l in data) {
+      for (var i in data[l]) {
+        lists[i] = lists[i] || [];
+        lists[i].push(data[l][i]);
+      }
+    }
+
+    for (var i in lists) {
+      trello.addListToBoard(board_id, i, function(trelloList) {
+        for (var card in lists[i]) {
+          trello.addCard(lists[i][card], '', trelloList.id, function() {
+
+          });
+        }
+      });
+    }
   });
 };
 
 // 3. download functionality - read trello data and output to csv
 var downloadFromTrello = function(boardId) {
-  // YOUR CODE HERE
+  var lists = trello.getListOnBoard(boardId, cb);
 };
 
 // This line is here for demo purposes, you should delete it
