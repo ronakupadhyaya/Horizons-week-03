@@ -1,0 +1,79 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	font-size: 12px;
+	padding-left: 1px;
+	font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", Verdana, sans-serif;
+	background-color:white;
+}
+.header { 
+	background-color: #405d9b;
+	color: white;
+	height:12vh;
+}
+.logins {
+	display:flex;
+	justify-content:center;
+	flex-direction:column;
+	height:100%;
+}
+.newsbox {
+	background-color:#e9ebee; 
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	justify-content: center;
+}
+.newPostWrap {
+	background-color: white; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.newPostInner {
+	background-color: white;
+	padding: 2vh;
+}
+.post {
+	width:80%;
+	background-color:white;
+	color: black;
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	margin:5px;
+}
+.comments {
+	width:80%;
+	background-color:#405d9b;
+	margin:5px;
+}
+.comment {
+	color: white;
+	padding: 5px;
+}
+.name {
+	font-size:14px;
+	text-transform:uppercase; 
+	font-weight: bold;
+}
+.title {
+	font-size:14px;
+}
+
+button {
+	background-color: #5f7fb8;
+	border-radius:5%;
+	border:none;
+}
+button:hover {
+	background-color: #405d9b;
+}
+input {
+	margin:5px;
+	color:black;
+}
+#addComment {
+	margin-bottom: 2px;
+}

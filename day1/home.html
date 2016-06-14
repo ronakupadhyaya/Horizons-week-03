@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Facebook</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="fb.js"></script>
+<link rel="stylesheet" href="styles.css">
+<script>
+</script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row header" style="">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-3">
+        <img src="logo.png" style="height:12vh">
+        </div>
+        <form>     
+        <div style="padding:5px" class="col-lg-1 logins">
+        Email<br><input type="text" id="loge"></input>
+        </div>
+        <div style="padding:5px;" class="col-lg-1 logins">
+        Password<br><input type="text" id="logp"></input>
+        </div>
+        </form>
+        <div style="padding:5px;" class="col-lg-1 logins">
+        <button onClick="login()" style="height:50%">Log In</button>
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+</div>
+<div class="container-fluid">    
+    <div class="row">
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-3">
+        </div>
+        <div class="col-lg-3">
+        <h3>Sign Up</h3>
+        <form>
+        Email <input type="text" id="email"></input> <br>
+        Password <input type="text" id="pw"></input> <br>
+        First Name <input type="text" id="fname"></input> <br>
+        Last Name <input type="text" id="lname"></input> <br>
+        Birth Month <input type="text" id="birthMonth"></input> <br>
+        Birth Day <input type="text" id="birthDay"></input> <br>
+        Birth Year <input type="text" id="birthYear"></input>
+        </form>
+        <button onClick="register()">Sign Up</button>
+        </div>
+        <div class="col-lg-3">
+        </div>
+    </div>
+<button onClick="getPosts()">Get Posts</button>
+<button onClick="newPost('Lucas')">New Post</button>
+
+</div>
+</body>
+</html>
