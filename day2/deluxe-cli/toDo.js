@@ -45,6 +45,9 @@ program.command('show')
 program.command('delete')
   .action(deleteTask);
 
+program.command('toggleCompleted')
+  .action(toggleCompleted);
+
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 
@@ -72,6 +75,9 @@ program
 // YOUR CODE HERE for "--priority and -p"
 program
   .option('-p, --priority <n>','Specify priority of task',parseInt);
+
+program
+  .option('-c, --completed', 'Select completed tasks',true);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -144,6 +150,15 @@ function showTasks(){
     return;
   }
 
+  if(program.completed){
+    for(var i=0;i<args.length;i++){
+      if(args[i].completed){
+        console.log(toString(args[i],i));
+      }
+    }
+    return;
+  }
+
   for(var i=0;i<args.length;i++){
     console.log(toString(args[i],i));
   }
@@ -158,6 +173,14 @@ function deleteTask(){
   data.splice(id,1);
 
 }
+
+
+function toggleCompleted(){
+  var id = program.id;
+  data[id].completed = true;
+}
+
+
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.
