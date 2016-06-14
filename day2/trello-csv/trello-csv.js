@@ -40,4 +40,6 @@ var downloadFromTrello = function(boardId) {
   // YOUR CODE HERE
 };
 
+// This line is here for demo purposes, you should delete it
+// when you get started!
 uploadToTrello(null, 'sample.csv');
