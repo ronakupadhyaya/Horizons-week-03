@@ -1,0 +1,49 @@
+.navbar {
+	background-color: #3B5998;
+	border-radius: none;
+}
+
+#registration {
+	float: right;
+	padding-right: 10em;
+}
+#register {
+	background-color: #59983b;
+	border-radius: 5px;
+}
+
+#log {
+
+}
+#login {
+	background-color: #eeeff4;
+}
+
+#first {
+	color: #fff;
+}
+#second {
+	color: #fff;
+}
+
+.board {
+	margin: 0 auto;
+}
+
+.list {
+	background-color: #D3D3D3;
+	text-align: center;
+	margin: 0 auto;
+	max-height: 500px;
+	max-width: 1000px;
+	border-radius: 10px;
+}
+
+.name {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.content {
+	word-wrap: break-word;
+}
