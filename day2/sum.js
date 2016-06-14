@@ -46,19 +46,15 @@ if(args.length>0){
 		//console.log(sum)
 	}
 	console.log(sum);
-	return sum;
 }
 
 else{
-	var num1 = rl.question("Enter first number?", function(number) {
-	  number = parseFloat(number);
-	  return number;
+	rl.question("Enter first number?", function(num1) {
+	  rl.question("Enter second number?", function(num2){
+		console.log(parseFloat(num1)+parseFloat(num2))
+		})
+		
 	});
-	var num2 = rl.question("Enter second number?", function(number) {
-	  return parseFloat(number);
-	});
-	var sum = num1+num2;
-	console.log(sum);
-	return sum;
+	
 
 }
