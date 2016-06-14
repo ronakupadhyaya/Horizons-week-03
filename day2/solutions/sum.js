@@ -23,7 +23,6 @@
 // > 5
 //
 
-
 function getInputAndCalc() {
   // Example code for getting input from the user
   var readline = require('readline');
