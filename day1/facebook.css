@@ -1,0 +1,84 @@
+body {
+	height: 100vh;
+	margin: 0;
+	text-align: center;
+}
+header {
+	background-color: #3B5998;
+	height: 40px;
+	width: 100%;
+	margin: 0px;
+	position: relative;
+	overflow: hidden;
+}
+
+.header-logo {
+	bottom: 0;
+    display: block;
+    left: 5%;
+    margin-left: -40px;
+    top: 5px;
+    text-align: center;
+    position: absolute;
+    width: 5pc;
+    height: 40px;
+}
+
+.header-logo-default {
+	background-image: url(facebook-logo.png);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 5pc 30px;
+    right: 0;
+    top: 0;
+    height: 30px;
+    width: 5pc;
+    position: absolute;
+}
+
+input {
+	border: 0.5px solid black;
+}
+
+.pull-right {
+	float: right;
+}
+
+.navbar-form {
+	display: inline-block;
+	vertical-align: center;
+}
+
+.container {
+	margin-top: 20px;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+.btn, .btn-primary {
+	text-align: center;
+	padding: 3px 10px;
+	border: none;
+	background-color: grey;
+	font-weight: bold;
+	color: white;
+}
+
+.create-post {
+	width: 100%;
+	height: 15%;
+	background: white;
+	margin-top: 5%;
+}
+
+.form-control {
+	text-align: left;
+}
+
+.post {
+	width: 100%;
+	height: 150px;
+	margin-top: 40px;
+	background-color: #d9d9d9;
+	border-radius: 3px;
+}
