@@ -13,11 +13,11 @@
   <link rel="stylesheet" href="style.css">
   <script src="data_model.js"></script>
   <script src="events.js"></script>
+  <script src="render.js"></script>
   <script>
     // jQuery document ready shorthand.
     $(function () {
-      var accountDatabase = new fb.AccountDatabase;
-      fb.mountPage(accountDatabase);
+      fb.mountStart();
     });
 
 
@@ -35,6 +35,7 @@
 
 <header>
   <img class="logo" src="http://www.freelargeimages.com/wp-content/uploads/2015/05/Facebook_Vector_Logo_Hd_06.jpg">
+  <input type='text' class='inputBox search' name='search' placeholder='Search'>
 </header>
 
 
@@ -45,8 +46,10 @@
   </div>
   <div class="login-body">
     <form class="login-form">
-      Email:<input type="text" name="email" class="inputBox"><br>
-      Password:<input type="password" name="password" class="inputBox password">
+      <label for="EmailLoginInput">Email:</label>
+      <input autofocus type="text" name="email" class="inputBox email loginInput" value="ruthbagley16@gmail.com" id="emailLoginInput">
+      <label for="passwordLoginInput">Password:</label>
+      <input type="password" name="password" class="inputBox password loginInput" value="password" id="passwordLoginInput">
     </form>
     <div class="register">
       <button data-toggle="modal" data-target="#createAccount" class = "noAccount">
@@ -55,11 +58,31 @@
     </div>
   </div>
   <div class="login-footer">
-    <button type="button" class="btn btn-default loginBtn" id="login">Login</button>
+    <button type="button" class="btn btn-default loginBtn" id="loginBtn">Login</button>
   </div>
 </div>
 
 
+<!-- Wall -->
+<div class='wall'>
+  <div class='createPost'>
+    <h5>Create Post:</h5><br>
+    <textarea autofocus class="inputBox createMyPost" name="createPost" id="createPost"></textarea><br>
+
+    <button type="button" class="btn btn-primary" id="myPost">Post</button>
+
+  </div>
+
+  <div class="wallHeading">
+    <h5>Your Newsfeed: </h5>
+    <button type="button" class="btn btn-primary" id="updateWall" align="right">Update</button>
+  </div>
+  <div class='viewWall'>
+    <script>
+    
+    </script>
+  </div>
+</div>
 
 
 

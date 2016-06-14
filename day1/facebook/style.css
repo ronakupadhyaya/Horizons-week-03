@@ -1,13 +1,19 @@
 
 h5{
     font-size: large;
+    margin:0;
+    display:block;
 }
 
 body {
     line-height: 18px;
     height: 100vh;
-    background: linear-gradient(to bottom,white,#C4CCD8);
+    background: #C4CCD8;
+    /*linear-gradient(to bottom,white,#C4CCD8)*/
+    background-position: fixed;
     color:#324E97;
+    overflow:scroll;
+    margin-right:150px;
     
 }
 
@@ -18,16 +24,18 @@ header {
     position: relative;
     overflow: hidden;
     display:block;
+    width:100%;
 }
 
 .logo {
     float:left;
     height:30px;
+    margin-left: 50px;
 }
 
 .login {
-
-    max-width:35%;
+    display:block;
+    width:35%;
     margin:50px;
     padding-right: 50px;
     border-right: 1px solid #324E97;
@@ -57,6 +65,8 @@ header {
 
 .loginBtn {
     float: right;
+    border: 1px solid #7489aa;
+    border-radius: 3px;
 }
 
 .modal-content{
@@ -66,4 +76,48 @@ header {
 .modal-header {
     background-color: #324E97;
     color:white;
+}
+
+.search {
+    display:inline-block;
+    float:left;
+    margin-left: 50px;
+}
+
+.wall {
+    display:none;
+    margin-top:20px;
+    margin-left: 200px;
+}
+
+.createMyPost {
+    resize:none;
+    margin-left: 0;
+    width:100%;
+}
+
+.loginInput {
+    float:right;
+    width:65%;
+}
+
+label{
+    line-height: 2em;
+    vertical-align: top;
+}
+
+#updateWall {
+    margin:10px;
+    left:400px;
+}
+
+#myPost {
+    margin-bottom:30px;
+}
+
+.originalPost {
+    background:white;
+    border-radius: 3px;
+    border: 1px solid #7489aa;
+    word-wrap: break-word;
 }

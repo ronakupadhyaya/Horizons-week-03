@@ -2,9 +2,11 @@
 
 window.fb = window.fb || {};
 
+//console.log("IM HERE")
+
 fb.baseUrl = "https://fb.horizonsbootcamp.com/api/1.0";
 
-fb.Account = function(fname,lname,email,password,passwordConfirm,birthday){
+fb.Account = function(fname,lname,email,password,passwordConfirm,birthday,isNew){
 
 	this.fname = fname;
 	this.lname = lname;
@@ -17,9 +19,10 @@ fb.Account = function(fname,lname,email,password,passwordConfirm,birthday){
 	this.birthYear = null;
 	this.id = null;
 	this.token = null;
-
-	if(this.validate()){
-		this.createAccount();
+	if(isNew){
+		if(this.validate()){
+			this.createAccount();
+		}
 	}
 
 }
@@ -30,7 +33,7 @@ fb.Account.prototype = {
 		if(this.fname =='' || typeof(this.fname)!='string'){
 			throw "invalid first name";
 		}
-		debugger;
+		//debugger;
 		if(this.lname =='' || typeof(this.lname)!='string'){
 			throw "invalid last name";
 		}
@@ -64,9 +67,10 @@ fb.Account.prototype = {
 		return true;
 	},
 
-	createAccount: function(accountDatabase){
+	createAccount: function(){
 		
 		$.ajax(fb.baseUrl+"/users/register", {
+			method: "POST",
       		data: {
 		        email: this.email,
 		        password: this.password,
@@ -75,51 +79,64 @@ fb.Account.prototype = {
 		        birthMonth: this.birthMonth,
 		        birthDay: this.birthDay,
 		        birthYear: this.birthYear  
-		      },
-	      success: console.log("true")
+			},
+			success: console.log,
+			error: console.log
 	    })
-	    accountDatabase.addAccount(this);
-	    this.id = accountDatabase.login(this.email,this.password)[0];
-	    this.token = accountDatabase.login(this.email,this.password)[1];
-	}
-}
+	    //debugger;
+	    this.getToken();
 
-fb.AccountDatabase = function() {
-	this.accounts = [];
-}
-
-fb.AccountDatabase.prototype = {
-	
-	getAccountById: function(token){
-		for(var i=0;i<this.accounts.length;i++){
-			if(this.accounts[i].token == token){
-				return this.accounts[i];
-			}
-		}
-		return false;
 	},
 
-	getAccountForLogin: function(email,password){
-		var haveLoggedIn = false;
-		for(var i=0;i<this.accounts.length;i++){
-			if(this.accounts[i].email == email && this.accounts[i].password == password){
-				$.ajax(fb.baseUrl+"/users/login", {
-	      		data: {
-			        email: email,
-			        password: password
-			      },
-		      success: true
-		    })
-			}
-			haveLoggedIn = true;
-		}
-		if(!haveLoggedIn){
-			throw "No account for this email and password combination"
-		}
-	}
+	setIdToken: function(id,token){
+	    this.id = id;
+	    this.token = token;
+	},
 
-	addAccount: function(account) {
-		this.accounts.push(account);
+	logout: function(){
+
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+// fb.AccountDatabase = function() {
+// 	this.accounts = [];
+// }
+
+// fb.AccountDatabase.prototype = {
+	
+// 	getAccountById: function(token){
+// 		for(var i=0;i<this.accounts.length;i++){
+// 			if(this.accounts[i].token == token){
+// 				return this.accounts[i];
+// 			}
+// 		}
+// 		return false;
+// 	},
+
+// 	getAccountExists: function(email,password,login){
+// 		var accountExists = false;
+// 		for(var i=0;i<this.accounts.length;i++){
+// 			if(this.accounts[i].email == email && this.accounts[i].password == password){
+// 				accountExists = true;
+// 				account[i].login();
+// 			}	
+// 		}
+// 		return accountExists;
+// 	},
+
+// 	addAccount: function(account) {
+// 		this.accounts.push(account);
+// 	}
+
+// }
+
