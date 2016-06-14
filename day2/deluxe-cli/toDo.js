@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -121,10 +127,9 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
-  var priority = program.priority || 1;
-  var name = getRemainingArgs();
-  if ((process.argsv[4] > 0) && (process.argsv[4] <= data.length)) {
-    var taskNum = parseInt(process.argsv[4]);
+  
+  if ((program.id > 0) && (program.id <= data.length)) {
+    var taskNum = program.id;
     var priority = data[taskNum-1].priority;
     var name = data[taskNum-1].name;
     console.log("Task #" + taskNum + " Priority " + priority + ": " + name);
@@ -134,12 +139,12 @@ function showTasks(){
     for (var i = 0; i < data.length; i++) {
     var priority = data[i].priority;
     var name = data[i].name;
-    console.log("Task #" + i + " Priority " + priority + ": " + name);
+    console.log("Task #" + (i+1) + " Priority " + priority + ": " + name);
     }
   }
 
-  })
-}
+  }
+
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
