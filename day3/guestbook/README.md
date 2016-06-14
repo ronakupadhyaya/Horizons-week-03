@@ -51,6 +51,6 @@ Guestbook admin page
 
 
 
-
+TODO: Write comments for:
 Add the javascript/css/font files to public/ folder.
 Next need to create a layouts/ and partials/ folder in the views/ folder which will hold our layout and partial files.
