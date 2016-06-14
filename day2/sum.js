@@ -21,7 +21,6 @@
 // > Enter second number?
 // > 4
 // > 5
-//
 
 // Example code for reading command line arguments:
 console.log('Command line arguments', process.argv.slice(2));
