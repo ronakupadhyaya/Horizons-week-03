@@ -3,7 +3,7 @@
 }
 .post-container{
 	height: 200px;
-	background-color: green;
+/*	background-color: green;*/
 	display: flex;
 	align-items: center;
 }
@@ -21,18 +21,33 @@
 	height: 100%;
 }
 .hold-feed{
-	background-color: yellow;
+/*	background-color: yellow;*/
 	height: 100%;
 	display: flex;
 	align-items: center;
+	flex-direction: column;
 } 
 .submit{
 	height: 20px;
 	width: 20px;
 }
 .feed-posts{
-	height: 50px;
-	width: 200px;
+	height: 100px;
+	width: 400px;
+	display: flex;
 	background-color: white;
-	flex-wrap: wrap;
+	/*flex-wrap: wrap-reverse;*/
+}
+body{
+	height: 100%;
+}
+.feed-posts{
+	border: 1px solid;
+	height: 500px;
+}
+.comment-button{
+	margin-bottom: 2px;
+}
+.like-button{
+	margin-bottom: 2px;
 }

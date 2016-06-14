@@ -1,5 +1,8 @@
 window.facebook = window.facebook || {};
 
+$(document).ready(function() {
+
+
 
 // //storing personal variables just to have
 var myId = "575ebdf93a6037c42910dd33";
@@ -19,14 +22,14 @@ var token =[myToken,myId]
 var url = "https://fb.horizonsbootcamp.com/api/1.0";
 
 //load registration modal automatically
-   $(window).load(function(e){
-        $('#register-modal').modal('show');
-    });
+$(window).load(function(e){
+	$('#register-modal').modal('show');
+});
 //if click login on registration modal switch to login modal 
-   $('.btn-login').click(function(e){
-   	$('#register-modal').modal('hide');
-   	$('#login-modal').modal('show')
-   })
+$('.btn-login').click(function(e){
+	$('#register-modal').modal('hide');
+	$('#login-modal').modal('show')
+})
 
 //verify inputs for registration modal upon click:
 $('.btn-register').click(function(e){
@@ -114,14 +117,18 @@ $("#submit").click(function(e){
 	if($.trim($('#status').val())===""){
 		alert("Need a status!")
 	}
-	var status = $('#status').val()
+	var status = $('#status').val();
 	//submit post to server
 	facebook.submitPost(status);
 	//update news feed
 	facebook.getFeed();
 	//clear post after submitted
-	$('#status').val('')
+	$('#status').val('');
 })
+
+////adding a like to somebody's post: 
+
+
 
 facebook.newUser = function(f, l, e, p, m, d, y){
 	$.ajax(url+'/users/register', {
@@ -137,11 +144,11 @@ facebook.newUser = function(f, l, e, p, m, d, y){
 		},
 		success: function(e){
 			//if successful move onto login page
-			$('#login-modal').modal('show')
-			$('#login-modal').modal('show')
+			$('#login-modal').modal('show');
+			$('#login-modal').modal('show');
 		},
 		error: function(err){
-			alert("An error has occurred")
+			alert("An error has occurred");
 		}
 	})
 }
@@ -158,15 +165,15 @@ facebook.userLogin = function(e,p){
 			var x = response.response.token;
 			var y = response.response.id
 			if(token.length===0){
-			myToken=x;
+				myToken=x;
 			//get rid of modal
-	$('#login-modal').modal('hide');
+			$('#login-modal').modal('hide');
 		}
-		},
-		error: function(err){
-			console.log(err)
-		}
-	})
+	},
+	error: function(err){
+		console.log(err)
+	}
+})
 
 }
 
@@ -192,26 +199,60 @@ facebook.submitComment = function(){
 }
 
 //to toggle get a like from the server
-facebook.submitLike = function(){
+facebook.submitLike = function(id){
+	$.ajax(url+'/posts/likes/'+id, {
+		method: "GET",
+		data: {
+			token: myToken
+		},
+		success: function(response){
+		$('#like-post'+id).css("background-color","blue");
+		console.log($('#badge'+id).replaceWith('<span class="badge" id="badge'+response.response._id+'">'+response.response.likes.length+'</span>'));
+		//will return to unlike later
+		},
+		error: function(err){
+			console.log(err)
+		}
+	})
 }
+
 //get items to throw into newsfeed
 facebook.getFeed = function(){
-$.ajax(url+'/posts/1', {
-	method: "GET",
-	data: {
-		token: myToken,
-	},
-	success: function(response){
-		for(var i=0; i<response.response.length; i++){
-			//return array of objects, each being 10  most recent posts
-			feedList.push(response.response[i])
-			console.log(response.response[i])
-			$('.hold-feed').append($('<div class = "box feed-posts" id="'+response.response[i]._id+'">\
-				<p>'+response.response[i].content+'<span>'+response.response[i].poster.name+'</span></div>'))
-		}
-	},
+	$.ajax(url+'/posts/1', {
+		method: "GET",
+		data: {
+			token: myToken,
+		},
+		success: function(response){
+			$('.feed-posts').remove();
+			for(var i=response.response.length-1; i>=0; i--){
+				//return array of objects, each being 10  most recent posts
+				feedList.push(response.response[i])
+				//console.log(response.response[i])
+				$('.hold-feed').prepend($('<div class = "container feed-posts" id="'+response.response[i]._id+'">\
+				<div class = "box feed-box"<span><b>'+response.response[i].poster.name+'</b><p>'+response.response[i].content+'</p>\
+				</span><span><button type="button" class= "btn comment-button" id="comment-post'+response.response[i]._id+'">Comment</button></span>\
+				<span><button type = "button" class = "btn like-button" id="like-post'+response.response[i]._id+'">Like\
+				<span class="badge" id="badge'+response.response[i]._id+'">'+response.response[i].likes.length+'</span></button></span></div></div>'))
+			}
+			//adding a like
+			$('.like-button').click(function(e){
+				//isolate post id
+				var x = this.id.split("like-post")[1];
+				//feed post id into function to trigger like
+				facebook.submitLike(x)
+
+			})
+
+			$('.comment-button').click(function(e){
+			console.log('x')
+			})
+		},
 	error: function(error){
 		console.log(error)
 	}
 })
 }
+
+
+});
