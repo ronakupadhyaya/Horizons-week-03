@@ -55,6 +55,7 @@ var login = function(){
 			token = response.response.token
 			posts();
 			
+			
 		}, 
 		error:function(response){
 			console.error("Error")
@@ -64,6 +65,7 @@ var login = function(){
 $(".login button").on("click", function(event){
 	event.preventDefault();
 	login();
+
 });
 var post = [];
 var posts = function(){
@@ -77,26 +79,15 @@ var posts = function(){
 		for(var i = 0; i < response.response.length; i++){
 			post.push(response.response[i]);
 		 }	
+		 render();
 		}, 
 		error:function(response){
 			console.error("Error")
 		}
 		});
 }
-
-// var render = function(){
-// 	post = post
-// 	for(var i = 0; i < post.length; i++){ 
-		
-// 		var postWrapper = $('<div class ="box"></div>'); 
-// 		var nameWrapper = $('<div class="poster"></div>');
-// 		$(".board").append(postWrapper);
-// 		postWrapper.append(nameWrapper);
-// 		nameWrapper.append(post[i].poster.name);
-
-// 	}
-// }
 var render = function() {
+	console.log(post)
     for (var i = 0; i < post.length; i++) {
         var postwrapper = $('<div class="box"></div>');
         var namewrapper = $('<div class="poster"></div>');
@@ -109,10 +100,32 @@ var render = function() {
         postwrapper.append(likebutton);
         postwrapper.append(commentbutton);
         namewrapper.append(post[i].poster.name);
-        contentwrapper.append(post[i].content)
+        contentwrapper.append(post[i].content);
    }
+   post = []
+}
+var postPosts = function(){
+	console.log($(".NewsFeed").val())
+	$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts",{
+		method:"POST",
+		data: {
+			token: token, 
+			content: $("textarea.box").val()
+		},
+		success: function(data){
+			console.log("THIS WORKS " + data.response)
+			posts();
+
+		}, 
+		error:function(error){
+		console.log(error);
+		},
+	});
 }
 $(".post-btn").on("click", function(event){
 	event.preventDefault();
-	
+	postPosts();
+
 });
+
+

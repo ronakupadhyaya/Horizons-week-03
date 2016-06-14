@@ -18,13 +18,23 @@ background:#3B5998;
 
 }
 
-
 .box{
-	height:100px;
-	width:75%;
+	height:300px;
+	width:900px;
 	resize:none;
 	background: white;
 	padding-top:10px;
 	padding-bottom:50px;
+	margin-bottom:50px;
 	
+}
+.post-btn{
+	position:relative;
+	float:left;
+}
+.comment-btn{
+	position:relative;
+}
+.like-btn{
+	position:relative;
 }
