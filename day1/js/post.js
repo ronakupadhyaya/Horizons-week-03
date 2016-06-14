@@ -16,31 +16,19 @@ $('#post-btn').click(function(evt){
 		},
 		success: function(response){
 			console.log(response),
-<<<<<<< HEAD
-<<<<<<< HEAD
 			$('#new-post-input').val('');
 		},
 		error: function(error) {
 			alert("Please make sure all fields are complete and correct.")
 			// throw error
-=======
-=======
->>>>>>> master
 		},
 		error: function(error) {
 			alert("Please make sure all fields are complete and correct."),
 			throw error
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
 		}
 	});
 
 });
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 
 function renderPosts(post) {
@@ -101,13 +89,8 @@ function renderComments(comment) {
 
 
 
-=======
-function renderPosts() {
-	var wrapper = $('<div id ="new-post-outer"></div>');
-}
->>>>>>> master
-=======
-function renderPosts() {
-	var wrapper = $('<div id ="new-post-outer"></div>');
-}
->>>>>>> master
+
+// function renderPosts() {
+// 	var wrapper = $('<div id ="new-post-outer"></div>');
+// }
+

@@ -24,8 +24,6 @@ $('#log-in-btn').click(function(evt){
 			console.log(response),
 			$('#newsfeed').css('display', 'inline-block'),
 			userID = response.response.id,
-<<<<<<< HEAD
-<<<<<<< HEAD
 			userToken = response.response.token,
 			$("#email-login").val(''),
 			$("#pass-login").val(''),
@@ -67,23 +65,14 @@ function loadPosts() {
 // function refreshFeed () {
 // 	$('#post-anchor').load(document.URL +  '#post-anchor');
 // }
-=======
-=======
->>>>>>> master
-			userToken = response.response.token
-			$("#email-login").val(''),
-			$("#pass-login").val(''),
-			$('#successful-msg').css('display', 'none')
-		},
-		error: function(error) {
-			alert("Please make sure all fields are complete and correct."),
-			throw error
-		}
-	});
 
-<<<<<<< HEAD
-});
->>>>>>> master
-=======
-});
->>>>>>> master
+		// 	userToken = response.response.token
+		// 	$("#email-login").val(''),
+		// 	$("#pass-login").val(''),
+		// 	$('#successful-msg').css('display', 'none')
+		// },
+		// error: function(error) {
+		// 	alert("Please make sure all fields are complete and correct."),
+		// 	throw error
+		// }
+
