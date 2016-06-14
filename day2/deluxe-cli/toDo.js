@@ -64,6 +64,8 @@ program
 
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
@@ -119,6 +121,24 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  var priority = program.priority || 1;
+  var name = getRemainingArgs();
+  if ((process.argsv[4] > 0) && (process.argsv[4] <= data.length)) {
+    var taskNum = parseInt(process.argsv[4]);
+    var priority = data[taskNum-1].priority;
+    var name = data[taskNum-1].name;
+    console.log("Task #" + taskNum + " Priority " + priority + ": " + name);
+  }
+
+  else {
+    for (var i = 0; i < data.length; i++) {
+    var priority = data[i].priority;
+    var name = data[i].name;
+    console.log("Task #" + i + " Priority " + priority + ": " + name);
+    }
+  }
+
+  })
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +146,7 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  data.splice(program.id-1, 1);
 }
 
 // ---Utility functions---

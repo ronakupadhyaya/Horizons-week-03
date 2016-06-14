@@ -34,7 +34,19 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+if (process.argv.length < 3) {
+	rl.question("Enter first number? ", function(number1) {
+  	rl.question("Enter second number?", function(number2) {
+  		console.log(parseInt(number1) + parseInt(number2));
+  	})
+})
+}
+
+else {
+	var sum = 0;
+	for (var i = 2; i < process.argv.length; i++) {
+		sum += parseInt(process.argv[i]);
+	}
+	console.log(sum);
+}
+
