@@ -141,24 +141,26 @@ var renderposts = function(postArray){
      	var posthtml = '<div class="post">\
                 <div class="body-text">' + postArray[i].content + '</div>\
                 <div class="body-name">' + postArray[i].poster.name + '</div>\
-              <button class="btn btn-secondary" type="button">\
+              <button id="like'+ postArray[i]._id +'" class="btn btn-secondary" type="button">\
                   Likes <span class="badge">'+ postArray[i].likes.length +'</span>\
-                </button></div>'
-
+                </button></div>';
      	$(".post-container").append(posthtml);
-     	clickLikes();
+     	$("#like" + postArray[i]._id).click(function(e){
+			$(this).addClass("btn-primary");
+			$(this).removeClass("btn-secondary");
+		});
      }
-}
+};
 
 
 //AJAX FOR CLICK ON LIFE
-var clickLikes = function(){
-$("#like").click(function(e){
-	$( "#like" + id).replaceWith('<button class="btn btn-primary" type="button">\
-                  Likes <span class="badge">postArray[i].likes.length</span>\
-                </button>');
-});
-}
+// var clickLikes = function(){
+// $("#like").click(function(e){
+// 	$( "#like" + id).replaceWith('<button class="btn btn-primary" type="button">\
+//                   Likes <span class="badge">postArray[i].likes.length</span>\
+//                 </button>');
+// });
+// }
 
 
 
