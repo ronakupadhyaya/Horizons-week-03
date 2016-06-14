@@ -53,11 +53,8 @@ form {
 }
 
 .logo {
-	display: inline-block;
-	font-size: 20px;
-	font-weight: bold;
-	color: white;
-	margin-left: 10px;
+	margin-left: 325px;
+	height: 50px;
 }
 
 #feed {
@@ -116,13 +113,17 @@ textarea {
 
 #signupForm {
 	float: right;
-	padding-right: 150px;
+	
 }
 
 @media (min-width: 640px){
 	#signupForm {
 		padding-right: 0;
 	}
+}
+
+select {
+	padding: 5px;
 }
 
 #signupForm input {
@@ -132,6 +133,36 @@ textarea {
 #signupHeader {
 	margin-top: 0;
 	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+#fFirstname {
+	display: inline;
+}
+
+#fLastname {
+	display: inline;
+	margin-left: 10px;
+}
+
+#fEmail {
+	width: 100%;
+}
+
+#fPass {
+	width: 100%;
+}
+
+#fSignup {
+/*	background: linear-gradient(#67ae55, #578843);*/
+	background-color: #69a74e;
+	color: white;
+	font-weight: bold;
+	width: 200px;
+}
+
+#fSignup:hover {
+	background-color: #578843;
 }
 
 #listTitle {
@@ -194,4 +225,14 @@ h3 {
 	margin-left: 10px;
 	margin-bottom: 0;
 	padding-top: 15px;
+}
+
+footer {
+	display: block;
+	width: 100%;
+	clear: both;
+	margin: 0 auto;
+	width: 200px;
+	color: gray;
+	padding-top: 150px;
 }

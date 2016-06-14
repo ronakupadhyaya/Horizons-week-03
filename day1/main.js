@@ -58,10 +58,12 @@ $('#fLogin').on('click', function(evt) {
 			$('#signupForm').remove();
 			$('#enter-form').css('display', 'block');
 			$('#feed').css('background-color', 'white');
+			$('.logo').css('margin', '0 auto');
+			$('.logo').css('display', 'block');
 			$('#wrapper').remove();
 			token = response.response.token;
 			getPosts();
-			autoRefresh();
+			// autoRefresh();
 		}.bind(this),
 		error: function(err) {
 			console.error(err);
@@ -115,9 +117,9 @@ var getPosts = function() {
 	});
 }
 
-var autoRefresh = function() {
-	setInterval( function() {
-		getPosts();
+// var autoRefresh = function() {
+// 	setInterval( function() {
+// 		getPosts();
 	
-	}, 2000)
-}
+// 	}, 2000)
+// }
