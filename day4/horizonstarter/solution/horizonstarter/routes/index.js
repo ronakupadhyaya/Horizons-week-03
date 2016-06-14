@@ -9,10 +9,10 @@ router.get('/', function(req, res, next) {
 
   Project.find(function(err, projects) {
     if (err) res.send(err);
-    res.json(projects);
+    res.render('index', { projects: projects });
+    // res.json(projects);
   });
-
-  // res.render('index', { title: 'Horizon Starter' });
+  
 });
 
 module.exports = router;
