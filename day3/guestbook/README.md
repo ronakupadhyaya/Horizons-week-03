@@ -22,9 +22,9 @@ Guestbook post schema:
 Actions:
 
 1. Login form, set cookie
-1. View messages from all other guests
-1. View messages from one guest
-1. Sort messages by date, ascending/descending
+1. View posts from all other guests
+1. View posts from one guest
+1. Sort posts by date, ascending/descending
 
 ### Styling requirements
 
@@ -46,3 +46,11 @@ Guestbook admin page
 1. Edit post
 1. Delete single post
 1. Delete all posts by author
+
+
+
+
+
+
+Add the javascript/css/font files to public/ folder.
+Next need to create a layouts/ and partials/ folder in the views/ folder which will hold our layout and partial files.
