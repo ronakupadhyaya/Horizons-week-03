@@ -10,7 +10,7 @@ token and API keys, but this should make using Trello a bit easier.
 
 In addition to Trello, we'll also be using the 
 [`csv`](https://www.npmjs.com/package/csv) package for manipulating the csv 
-data, the [`minimist`](https://www.npmjs.com/package/minimist) package 
+data, the [`commander`](https://www.npmjs.com/package/commander) package 
 for parsing command line input, and the `fs` library (included with node - 
 part of the *standard lib*).
 
@@ -19,7 +19,9 @@ part of the *standard lib*).
 You will be building a single script `trello-csv.js` to download and upload 
 Trello boards as CSV files.
 
+
 This script should have two modes of operation:
+
 
 1. Upload given CSV file to a Trello board
   ```bash
