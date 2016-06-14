@@ -78,7 +78,7 @@ header {
   margin-bottom: 20px;
 }
 .newspost {
-    text-align:left;
+  text-align:left;
 }
 
 .btn{
@@ -86,27 +86,55 @@ header {
 }
 .newsfeed {
     text-align:left;
+    margin-bottom: 20px;
 }
 .wrapper > * {
   padding: 20px;
   flex: 1 100%;
 }
 
+.box{
+  height:100px;
+  width:100%;
+  resize:none;
+  background: white;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.body-text{
+  padding:0;
+}
+
+.post{
+  margin:20px;
+  padding:7px;
+    border: .5px solid grey;
+}
+
 .main {
   text-align: left;
   background: white;
   padding: 10px;
-  width: 300px;
-  height: 300px;
+  width: 98%;
+  height: 100%;
   margin-top: 10px;
   margin-left: 10px;
-  margin-right:10px;
+  margin-right:15px;
   line-height: 14px;
   color: #3B5998;
   font-weight: 300;
   font-size: 12px;
   text-align: center;
   box-shadow: 0px 1px 5px #7D7D7D;
+  flex:1;
+}
+
+.body-text{
+  font-weight: 500;
+}
+.body-name{
+  font-weight: 300;
 }
 
 .aside-1 {
@@ -135,7 +163,7 @@ header {
 }
 
 @media all and (min-width: 600px) {
-  .aside { flex: 1 auto; }
+  .aside { flex: 3 auto; }
   .aside-1 { order: 1; } 
   .main    { order: 3; }
   .aside-2 { order: 2; }

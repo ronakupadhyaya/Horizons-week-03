@@ -21,18 +21,7 @@
   <header>
     <a class="header-logo" href="#"><span class="header-logo-default"></span></a>
   </header>
-   <div class="wrapper">
-  <div class="main">
-<!-- Newsfeed -->
-  <div class="title">Newsfeed</div>
-  <div class="newspost">
-    <p> Listicle cliche asymmetrical narwhal, 3 wolf moon occupy deep v retro. Banh mi sustainable cold-pressed, typewriter pour-over green juice kogi paleo bushwick art party man bun quinoa authentic.</p>  
-    <p style="font-weight:bold">Virginia Van Keuren</p>
-    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-    </div>
-  </div>
+  <div class="wrapper">
 
   <!-- Login -->
   <aside id="Form" class="aside aside-1">Login
@@ -53,13 +42,49 @@
 <div class="aside aside-2">
   <div class="title">Post</div>
     <div>
-    <textarea class="form-control2" rows="3"></textarea>
+    <textarea class="form-control2" id="posttext" rows="3"></textarea>
     </div>
-  <button type="post" class="btn btn-default">Post</button>
+  <button type="post" id="postbutton" class="btn btn-default">Post</button>
   </div>
 </div>
 
-<!-- REGISTERMODAL -->
+<!-- Newsfeed -->
+ <!--  <div class="title">Newsfeed</div>
+  <div id="newsfeed"></div>
+
+  <div class="box">
+  <div class="news-posts">
+  <div class="post">
+      <div class="post-user" style="font-weight:bold">Virginia Van Keuren</div>
+      <div class="post-body"> Listicle cliche asymmetrical narwhal, 3 wolf moon occupy deep v retro. Banh mi sustainable cold-pressed, typewriter pour-over green juice kogi paleo bushwick art party man bun quinoa authentic.
+      </div>
+  </div>
+  </div> 
+    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+    </div>
+  </div> -->
+
+  <!-- Newsfeed -->
+  <div class="main">
+      <div class="newsfeed">
+        <div class = "title" style="font-weight:500;">Newsfeed</div>
+          <div class="post-container">
+              <div class="post">
+                <div class="body-text"></div>
+                <div class="body-name"></div>
+                <button class="btn btn-secondary" type="button">
+                  Likes <span class="badge">4</span>
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+<!-- REGISTER MODAL -->
 <div class="modal fade" id="registerNew">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -119,6 +144,8 @@
   </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
 
 <script src="js/facebook-data-model.js"></script>
 </body>

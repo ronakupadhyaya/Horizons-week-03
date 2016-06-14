@@ -42,7 +42,7 @@ $("#signup").click(function(e){
 		return;
 	}
 	console.log("success");
-	facebook.addUser(email, fname, lname, password, birthMonth, birthDay, birthYear);
+	facebook.addUser(email, password, fname, lname, birthMonth, birthDay, birthYear);
 	$('#registerNew').modal('hide')
 });
 
@@ -100,9 +100,68 @@ facebook.login = function(e,p) {
 	        	console.log(data);
 	        	id = data.response.id;
 	        	token = data.response.token; 
+	        	posts();
 	      },
 	      error: function(err){
 	      	console.log(err);
 	      }
 	  });
 	};
+
+
+//TO SEE ALL POSTS
+var postArray = [];
+var posts = function(){
+    $.ajax(apiUrl + "/posts", {
+        method: "GET", 
+        data:{
+            token:token 
+        }, 
+        success: function(response){
+            console.log("Success")
+        for(var i = 0; i < response.response.length; i++){
+            postArray.push(response.response[i]);
+         }  
+         renderposts(postArray);
+        }, 
+        error:function(response){
+            console.error("Error")
+        }
+        });
+}
+
+//RENDER FOR POSTS
+var render = function() {
+   $(".main").append('<div class="updateposts"></div>');
+};
+
+//RENDER POST TO NEWSFEED
+var renderposts = function(postArray){
+     for(var i=0; i<postArray.length; i++){
+     	var posthtml = '<div class="post">\
+                <div class="body-text">' + postArray[i].content + '</div>\
+                <div class="body-name">' + postArray[i].poster.name + '</div>\
+              <button class="btn btn-secondary" type="button">\
+                  Likes <span class="badge">'+ postArray[i].likes.length +'</span>\
+                </button></div>'
+
+     	$(".post-container").append(posthtml);
+     	clickLikes();
+     }
+}
+
+
+//AJAX FOR CLICK ON LIFE
+var clickLikes = function(){
+$("#like").click(function(e){
+	$( "#like" + id).replaceWith('<button class="btn btn-primary" type="button">\
+                  Likes <span class="badge">postArray[i].likes.length</span>\
+                </button>');
+});
+}
+
+
+
+
+
+
