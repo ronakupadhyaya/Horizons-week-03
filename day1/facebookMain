@@ -1,0 +1,74 @@
+ window.book = window.book || {};
+
+// Initial login info
+ var myId = "575ebfb629da2c672a723d40";
+ var myToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImlrYXBhZGlhQHVtaWNoLmVkdSJ9.f3W1z8KWZBMRZbUWYnfpLjqNXM02dwVsQiSQ9OKmKMI";
+
+ book.registration = function() {
+
+ 	var email = $('.email').val();
+ 	var firstName = $('.firstName').val();
+ 	var lastName = $('.lastName').val();
+ 	var password = $('.password').val();
+ 	var	birthDay = $('.birthDay').val();
+ 	var birthMonth = $('.birthMonth').val();
+ 	var birthYear = $('.birthYear').val();
+ 	var registerBool;
+
+ 	 $.ajax('https://fb.horizonsbootcamp.com/api/1.0/users/register', {
+      method: "POST",
+      data: {
+        email: email,
+        password: password,
+        fName: firstName,
+        lName: lastName,
+        birthMonth: birthMonth,
+        birthDay: birthDay,
+       	birthYear: birthYear
+      },
+      success: function (response) {
+        console.log("Successfully registered user");
+        registerBool = true;
+      },
+      error: function (err) {
+        console.error("Error registering");
+      }
+    });
+
+
+ 	 $('#loginButton').click(function() {
+    	alert('clicked');
+ 	 });
+ }
+
+// Registration event
+
+
+
+
+
+
+ book.login = function() {
+
+ 	var loginEmail = $('.loginEmail').val();
+ 	var loginPassword = $('.loginPassword').val();
+	var loginBool;
+	var userId;
+
+ 	 $.ajax('https://fb.horizonsbootcamp.com/api/1.0//users/login' {
+ 	 	
+      method: "POST",
+      data: {
+        email: loginEmail,
+       	password: loginPassword,
+      },
+      success: function (response) {
+        console.log("Successfully logged in");
+        loginBool = true;
+        userId = response.response.id;
+      },
+      error: function (err) {
+        console.error("Error logging in");
+      }
+    });
+ }

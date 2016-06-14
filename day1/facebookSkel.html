@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!-- Link to html, css, javascript, and bootstrap files -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"> </script>
+  
+
+</head>
+
+
+<body>
+
+<div class="login">
+    <form class="form-signin">  
+    <h1 style="color:blue">[thefacebook]</h1>     
+      <h2 class="form-signin-heading">Login</h2>
+      <input type="text" class="loginEmail" name="username" placeholder="Email" required="" autofocus="" />
+      <input type="password" class="loginPassword" name="password" placeholder="Password" required=""/>      
+      <button id='loginButton' class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+    </form>
+  </div>
+
+<div class='newsFeed'>
+  <h2>News Feed</h2>
+  <button id='postButton' class="btn btn-lg btn-primary btn-block" type="submit">Post</button> 
+  <div class='posts'>
+    <input type="text" class="userPost" placeholder="Post" required="" autofocus="" />
+    <!-- <button class="btn btn-lg btn-primary btn-block" type="submit">Like</button>   
+    <input type="text" class="form-control" name="username"   placeholder="Comment" required="" autofocus="" /> -->
+  </div>
+</div>
+
+ <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">Already registered</button>
+        <h2 class="modal-title">Register</h2>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="email"  placeholder="Email" required="" autofocus="" />
+        <input type="text" class="firstName" name="First Name"   placeholder="First Name" required="" autofocus="" />
+        <input type="text" class="lastName" name="Last Name"   placeholder="Last Name" required="" autofocus="" />
+        <input type="text" class="password" name="username"   placeholder="Password" required="" autofocus="" />
+        <input type="text" class="birthDay" name="username"   placeholder="Birthday: Day" required="" autofocus="" />
+        <input type="text" class="birthMonth" name="username"   placeholder="Birthday: Month" required="" autofocus="" />
+        <input type="text" class="birthYear" name="username"   placeholder="Birthday: Year" required="" autofocus="" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" id='registerButton' class="btn btn-default" data-dismiss="modal">Register</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="facebookMain.js"></script>
+</body>
+
+</html>
