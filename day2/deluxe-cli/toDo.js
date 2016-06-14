@@ -46,7 +46,7 @@ program.command('show')
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 program.command('delete')
   .description("Delete Task")
-  .action(showTask)
+  .action(deleteTask)
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -146,7 +146,7 @@ function showTasks(){
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  data.splice(program.id-1, 1);
 }
 
 // ---Utility functions---
