@@ -1,3 +1,4 @@
+// api urls
 var apiUrl = 'https://fb.horizonsbootcamp.com/api/1.0';
 var loginUrl = '/users/login';
 var signupUrl = '/users/register'
@@ -10,13 +11,14 @@ var postsPageNumber = 1;
 
 // this function runs once html is loaded
 $(function() {
-	// set up log in button
+
+	// set up login button
 	$('#login-button').on('click', function() {
 		user = new fb.User();
-		user.authenticate();
+		user.authenticate('login');
 	});
 
-	// set up log in enter key press
+	// associate enter keypress with login button click
 	$('#login-modal').on('keydown', function(evt) {
 		if(evt.keyCode === 13) {
 			$('#login-button').trigger('click');
@@ -32,7 +34,7 @@ $(function() {
 		fb.signup();
 	});
 
-	// set up ign up enter key press
+	// associate enter keypress with signup button click
 	$('#signup-modal').on('keydown', function(evt) {
 		if(evt.keyCode === 13) {
 			$('#signup-button').trigger('click');
@@ -55,35 +57,45 @@ $(function() {
 // facebook data handling =====================================================
 window.fb = window.fb || {};
 
-// User class
-fb.User = function(email, password) {
+// User class properties
+fb.User = function() {
 	this.id = null;
 	this.token = null;
 	this.fname = null;
 	this.lname = null;
 };
 
-// user class functions
+// User class functions
 fb.User.prototype = {
 
 	// this authenticates user and sets its id and token properties
-	authenticate: function() {
+	authenticate: function(operation) {
+		
+		var data = null;
+
+		switch(operation) {
+			case 'login':
+				data = {email: $('#li-email').val(), password: $('#li-password').val()};
+				break;
+			case 'signup':
+				data = {email: $('#su-email').val(), password: $('#su-password').val()};
+				break;
+		}
+
 		$.ajax(apiUrl+loginUrl, {
 			method: 'POST',
-			data: {email: $('#li-email').val(), password: $('#li-password').val()},
+			data,
 			success: function(response) {
 				var jsonResp = response.response;
 				this.id = jsonResp.id;
 				this.token = jsonResp.token;
 				this.fname = jsonResp.user.fname;
 				this.lname = jsonResp.user.lname;
-				$('#login-link').hide();
-				$('#signup-link').hide();
-				page.closeAllModals();
-				page.loadNewPostInput();
+				page.successfulLogin();
 				fb.getPosts(this.token, postsPageNumber);
 			}.bind(this),
 			error: function(response) {	
+				// show loging error message inside login modal
 				$('#login-error-msg').html('Invalid e-mail and (or) password.');
 				$('#login-error-msg').show();
 			}
@@ -107,17 +119,20 @@ fb.User.prototype = {
 // registers a new user
 fb.signup = function() {
 
+	// grab values from html
 	var fname = $('#su-fname').val();
 	var lname = $('#su-lname').val();
 	var email = $('#su-email').val();
 	var password = $('#su-password').val();
 	var bdate = $('#su-bdate').val();
 
+	// define birthdate variables (day, month, and year)
 	var bArr = bdate.replace(/ /g,'').split('-');
 	var bMonth = bArr[0];
 	var bDay = bArr[1];
 	var bYear = bArr[2];
 
+	// prepare ajax data
 	data = {
 		email: email,
 		password: password,
@@ -128,13 +143,15 @@ fb.signup = function() {
 		birthYear: bYear
 	};
 
+	// if signup fields are validadte, send signup request
 	if(fb.signupValidation()) {
 		$.ajax(apiUrl+signupUrl, {
 			method: 'POST',
 			data: data,
 			success: function(response) {
-				user = new fb.User(this.email, this.password);
-				page.closeAllModals();
+				user = new fb.User();
+				user.authenticate('signup');
+				// to be implemented
 				// fb.welcomeMessage();
 			},
 			error: function(response) {
@@ -221,7 +238,7 @@ fb.signupValidation = function() {
 
 // get posts from API and renders them to page using page.renderPosts()
 fb.getPosts = function(token, pageNum) {
-	$.ajax(apiUrl+'/posts', {
+	$.ajax(apiUrl+'/posts/'+pageNum, {
 		method: 'GET',
 		data: {token: token},
 		success: function(response) {
@@ -277,6 +294,13 @@ fb.sendNewPost = function(content) {
 
 // page rendering =============================================================
 window.page = window.page || {};
+
+page.successfulLogin = function() {
+	$('#login-link').hide();
+	$('#signup-link').hide();
+	page.closeAllModals();
+	page.loadNewPostInput();
+}
 
 page.loadNewPostInput = function() {
 	var inputBox = $('<div class="panel panel-default">'+
@@ -482,8 +506,9 @@ page.renderComment = function(content, posterName, dateCreated) {
 	return postComment;
 }
 
-page.likePost = function(e) {
-	var postId = e.id.substring(4);
+// like counter and visual
+page.likePost = function(htmlElement) {
+	var postId = htmlElement.id.substring(4);
 
 	$.ajax(apiUrl + '/posts/likes/'+postId, {
 		method: 'GET',
@@ -524,7 +549,6 @@ page.likePost = function(e) {
 	});
 
 }
-
 // ============================================================================
 
 

@@ -9,12 +9,15 @@
 // ex. replaceAll('bbbb', 'a', 'b') -> 'bbbb'
 // ex. replaceAll('x aa b x', 'a', 'b') -> 'x bb b x'
 function replaceAll(source, letter, replacement) {
+
   var ret = '';
-  for (var i = 0; i < source; i++) {
-    if (source[i] === letter) {
+  var arr = source.split("");
+
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === letter) {
       ret += replacement;
     } else {
-      ret += source[i];
+      ret += arr[i];
     }
   }
   return ret;
