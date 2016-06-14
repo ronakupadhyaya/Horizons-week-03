@@ -39,6 +39,13 @@ program.command('add')
   .description("Create Tasks")
   .action(addTask);
 
+program.command('show')
+    .description("Show Tasks")
+    .action(showTasks);
+
+program.command('delete')
+    .description("Delete Task")
+    .action(deleteTask);
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 
@@ -118,14 +125,26 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+    if (process.argv.slice(3).length === 0) {
+        for(var k = 0; k < data.length; k++) {
+            console.log(data[k]);
+        }
+    } else {
+        var taskNumber = process.argv.slice(4);
+        console.log(data[4]);
+    }
 }
 
-// Write a function that is called when the command `node toDo.js add delete -i 3`
+// Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+    var indexNumber = process.argv.slice(4);
+    console.log("The following task has been deleted:",data.splice(indexNumber, 1));
+
+    for (var k = 0; k < data.length; k++) {
+        console.log("The following task(s) are still left:", data[k]);
+    }
 }
 
 // ---Utility functions---
