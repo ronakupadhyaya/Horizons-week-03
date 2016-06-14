@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("delete Tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -63,10 +69,15 @@ program
   .option('-i, --id <n>', 'Specify id of task', parseInt)
   .option('-p, --priority <p>', 'Specify a priority for task', parseInt)
 
+// <<<<<<< HEAD
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
+// =======
+// Second one will be '--priority' or '-p', that will specify a priority for our task.
+// YOUR CODE HERE for "--priority and -p"
+// >>>>>>> master
 
 // Arguments
-// These line is part of the 'Commander' module. It tells them to process all the
+// This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 
@@ -120,11 +131,11 @@ function addTask() {
 function showTasks(){
   if (program.id){
     var id = program.id-1;
-    console.log("Task"+data[id].name); 
+    console.log("Task #"+program.id+" Priority "+data[id].priority + ": " + data[id].name) 
   }
   else{
     for(var i =0;i<data.length;i++){
-    console.log("Task #"+(i+1)+" Priority "+data[i].priority + ":" + data[i].name);
+    console.log("Task #"+(i+1)+" Priority "+data[i].priority + ": " + data[i].name)
     }
   }
 }
@@ -133,7 +144,9 @@ function showTasks(){
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var id = program.id-1;
+  data.splice(id,1);
+  console.log("Deleted task: "+id);
 }
 
 // ---Utility functions---
