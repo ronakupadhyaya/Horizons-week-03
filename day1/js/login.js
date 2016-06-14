@@ -24,15 +24,44 @@ $('#log-in-btn').click(function(evt){
 			console.log(response),
 			$('#newsfeed').css('display', 'inline-block'),
 			userID = response.response.id,
-			userToken = response.response.token
+			userToken = response.response.token,
 			$("#email-login").val(''),
 			$("#pass-login").val(''),
-			$('#successful-msg').css('display', 'none')
+			$('#successful-msg').css('display', 'none'),
+			loadPosts();
+			// refreshFeed();
 		},
 		error: function(error) {
-			alert("Please make sure all fields are complete and correct."),
-			throw error
+			alert("Please make sure all fields are complete and correct.")
+			// throw error
 		}
 	});
 
 });
+
+function loadPosts() {
+	$.ajax({
+		method: "GET",
+		url: baseURL + "/posts",
+		data : {
+			token: userToken,
+		},
+		success: function(response){
+			console.log(response);
+			var listofPosts = response.response;
+			for (var i = 0; i < response.response.length; i++) {
+			
+				$('#post-anchor').append(renderPosts(response.response[i]));
+			}
+		},
+		error: function(error) {
+			alert("Please make sure all fields are complete and correct.");
+			throw error
+		}
+	});
+}
+
+
+// function refreshFeed () {
+// 	$('#post-anchor').load(document.URL +  '#post-anchor');
+// }

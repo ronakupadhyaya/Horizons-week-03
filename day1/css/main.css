@@ -64,14 +64,64 @@
 	width: 100%;
 }
 
-
-#new-post-outer {
+#post-wrapper {
 	border: 1px solid;
 	border-color: #dfe3ee;
 	width: 100%;
 	padding: 20px;
 	background-color: #ffffff;
 	border-radius: 5px;
+}
+
+/*.panel-footer {
+	height: 50px;
+}*/
+
+.past-comments{
+	color: #3D3D66;
+    display: inline-block;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    float: left;
+    width: 275px;
+}
+#load-comment-btn, #like-post-btn {
+	display: inline;
+	height: 30px;
+	font-size: 12px;
+	float: right;
+	margin: 10px;
+}
+
+#btn-wrapper {
+	width:100%;
+	display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    position: relative;
+}
+
+#post-name {
+	word-wrap: break-word;
+}
+
+.post-comments, .comment {
+	width: 100%;
+}
+
+.commenter-name, .actual-comment {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+#likes {
+	margin-left: 10px;
+	display: inline-block;
+	float:left;
+	position: absolute;
+    left: 5px;
+    bottom: 15px;
 }
 
 
