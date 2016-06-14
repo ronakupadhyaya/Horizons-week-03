@@ -62,6 +62,10 @@ program.command('add')
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
+program
+  .option('-p --priority <n>', 'priority of task', parseInt);
+
+
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
 
@@ -119,6 +123,14 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  var id = program.id;
+  var p = program.priority;
+  if(id){
+    console.log(data[id]);
+  }
+
+
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
