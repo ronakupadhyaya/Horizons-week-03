@@ -34,6 +34,7 @@ $("#regsubmit").on("click", function(e) {
 
 
 var token = null;
+var id = null;
 
 var login = function() {
 	console.log($("#useremail").val())
@@ -46,6 +47,7 @@ var login = function() {
 		},
 		success: function(data) {
 			token = data.response.token;
+			id = data.response.id;
 			console.log("Success");
 			console.log(token);
 			getposts();
@@ -61,6 +63,7 @@ $("#login").on("click", function(e) {
 	login();
 });
 
+var globaldata;
 
 var getposts = function() {
 	$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
@@ -74,8 +77,9 @@ var getposts = function() {
 			// $("#postname").text(data.response[0].poster.name);
 			// $("#posthere").text(data.response[0].content);
 			// $("#likes").text(data.response[0].likes.length);
+			globaldata = data;
 			console.log("Success");
-			render(data);
+			render(globaldata);
 		
 		},
 		error: function(err) {
@@ -88,10 +92,17 @@ var render = function(data) {
 	var panel = $("#newsfeed");
 	var html = $("<div>" + htmlcontent + "</div>");
 	// console.log("data" + data.response[0].poster.name);
+	//GOTTA EMPTY THE PANEL BEFORE YOU APPEND IT OTHERWISE it won't
+	//actually update or something like that
+	panel.empty();
     for (var i = 0; i < data.response.length; i++) {
      		var name = data.response[i].poster.name;
 			var content = data.response[i].content;
-			var likes = data.response[i].likes.length;   		
+			var likes = data.response[i].likes.length;
+			var likesToggle = _.some(data.response, function(cur) {
+				return cur.id == id;
+			});
+			console.log(likesToggle);
     		var htmlcontent = '<ul class="list-group">\
 			    <li class="list-group-item" id="postname"><p>' +name+ '</p></li>\
 			  </ul>\
@@ -102,20 +113,20 @@ var render = function(data) {
 			  </div>\
 			  <!-- List group -->\
 			  <ul class="list-group">\
-			  	<li class="list-group-item"><button type="submit" class="btn btn-primary">Like</button><p>Likes: <div id="likes">' +likes+ '</div></p></li>\
+			  	<li class="list-group-item"><button type="submit" class="btn btn-primary" id="likesToggle">' +likesToggle+ '</button><p>Likes: <div id="likes">' +likes+ '</div></p></li>\
 			  </ul>'
 			panel.append(htmlcontent);
     }
 }
 
 $("#postsubmit").on("click", function(){
-	var text = $("#posttext");
+	var text = $("#posttext").val();
 	console.log(text);
-	postpost();
+	postpost(text);
 });
 
-var postpost = function() {
-
+var postpost = function(text) {
+	console.log(text);
 	$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts", {
 		method: "POST",
 		data: {
@@ -123,8 +134,9 @@ var postpost = function() {
 			content: text
 		},
 		success: function(data) {
-			// push into the newsfeed
 			console.log("Success");
+			globaldata.response.unshift(data.response);
+			render(globaldata);
 		},
 		error: function(err) {
 			console.log("Error");
@@ -132,6 +144,32 @@ var postpost = function() {
 	})
 };
 
+
+var toggleShow = (!($("#likesToggle").val()));
+console.log(toggleShow);
+
+$("#likesToggle").on("click", function() {
+	$("#LikesToggle").val() = toggleShow;
+	console.log(toggleShow);
+	likesFunction(toggleShow);;
+	// likesArray.push(id);
+});
+
+var likesFunction = function() {
+	$.ajax("https://fb.horizonsbootcamp.com/api/1.0/posts/likes/:id", {
+		method: "GET",
+		data: {
+			token: token,
+			content: text
+		},
+		success: function(data) {
+			render(globaldata);
+		},
+		error: function(err) {
+			console.log("Error");
+		}
+	})
+};
 
 
 
