@@ -1,0 +1,26 @@
+.navbar-form {
+	float:right;
+}
+
+.bottom {
+	height:100vh;
+}
+
+.row-centered {
+	text-align: center;
+}
+
+.col-centered {
+	display: block;
+	float: none;
+	text-align: center;
+	margin-right: -4px;
+}
+
+.news-feed-anchor {
+	display: flex;
+}
+
+.panel.news-feed {
+	margin: auto;
+}

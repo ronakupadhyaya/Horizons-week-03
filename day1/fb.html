@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Facebook</title>
+
+  <script src="lib/underscore.js"></script>
+  <script src="lib/jquery.js"></script>
+
+  <!-- Bootstrap stuff -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <!-- Our files -->
+  <link rel="stylesheet" href="fb.css">
+</head>
+
+<body>
+  <!--before logging in-->
+  <div class="main">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Facebook</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+          <form class="navbar-form " role="search">
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="password" id="pwd" >
+            </div>
+            <button type="submit" class="btn btn-default" id="login-button">Log In</button>
+          </form>
+          <form class="navbar-form " role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="email" id="email" >
+            </div>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="row bottom">
+      <div class="panel left-panel col-md-6 col-sm-12 col-xs-12">
+        <h1>Yay Facebook!!!!</h1>
+      </div>
+
+      <div class="panel right-panel col-md-6  col-sm-12 col-xs-12">
+        <h1>Sign up here you potato</h1>
+      </div>
+    </div>
+  </div>
+  <!--after logging in-->
+  <div class="second">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Facebook</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+            <form>
+              <button type="button" class="btn logout btn-default">Log Out</button>
+            </form>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <div class="row bottom row-centered">
+        <div class="panel panel-default post-box col-md-12 col-sm-12 col-xs-12 col-centered">
+          <h1 class="col-centered">Post Here</h1>
+        </div>
+        <h1>News Feed</h1>
+        <div class="news-feed-anchor">
+          <div class="panel panel-default news-feed col-md-12  col-sm-12 col-xs-12 col-centered">
+            <div class="panel panel-primary">
+              <div class="panel-heading"> it me </div>
+              <div class="panel-body">
+                I'm a post bish
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</body>
+<script src="js/data_model.js"></script>
+
+</html>
