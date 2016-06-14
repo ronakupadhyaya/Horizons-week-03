@@ -64,7 +64,12 @@
 	width: 100%;
 }
 
+<<<<<<< HEAD
 #post-wrapper {
+=======
+
+#new-post-outer {
+>>>>>>> master
 	border: 1px solid;
 	border-color: #dfe3ee;
 	width: 100%;
@@ -73,6 +78,7 @@
 	border-radius: 5px;
 }
 
+<<<<<<< HEAD
 /*.panel-footer {
 	height: 50px;
 }*/
@@ -124,4 +130,6 @@
     bottom: 15px;
 }
 
+=======
+>>>>>>> master
 
