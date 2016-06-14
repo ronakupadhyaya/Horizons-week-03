@@ -1,0 +1,142 @@
+/*bootstrap customization*/
+
+.navbar-default {
+	background-color: #3B5998;
+}
+
+.navbar-header .navbar-brand {
+	color: white;
+}
+
+.navbar-header .navbar-brand:hover{
+	color: white;
+}
+
+.navbar-header .navbar-brand:link{
+	color: white;
+}
+
+.navbar-header .navbar-brand:visited{
+	color: white;
+}
+
+.navbar-header .navbar-brand:active{
+	color: white;
+}
+
+
+
+.navbar-default .navbar-nav>li>a {
+	color: white;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+	cursor: pointer;
+	color: white;
+	text-decoration: underline;
+}
+
+.glyphicon-thumbs-up, .glyphicon-comment {
+	font-size: 110%;
+	margin-right: 0.5em;
+}
+
+.glyphicon-thumbs-up.footer {
+	font-size: 90%;
+	color: #5890FF;
+}
+
+/*custom css*/
+
+body {
+	background-color: #E9EBEE;
+}
+
+.error-msg {
+	color: red;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.post-comment {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+
+.post-user {
+	color: #365899;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.comment-user {
+	color: #365899;
+	font-weight: bold;
+	font-size: 90%;
+	cursor: pointer;
+}
+
+.post-created-at {
+	color: #93949F;
+	font-size: 85%;
+	margin-left: 1em;
+}
+
+.comment-created-at {
+	color: #93949F;
+	font-size: 75%;
+	margin-left: 1em;
+}
+
+.post-content {
+	margin-bottom: 1em;
+	word-wrap: break-word;
+}
+
+.comment-content {
+	font-size: 90%;
+}
+
+.post-buttons {
+	padding-top: 1em;
+	border-top: 1px solid #ddd;
+}
+
+.post-like-button, .post-comment-button {
+	color: #7F7F7F;
+	margin-right: 1em;
+	text-decoration: none;
+}
+
+.post-like-button:hover, .post-comment-button:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.post-comments{
+	background-color: white;
+}
+
+.thumbs-up-footer {
+	color: #365899;
+}
+
+.post-comment {
+}
+
+.new-comment {
+}
+
+.new-comment-user {
+	width: 10%;
+	vertical-align: top;
+	color: #365899;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.new-comment-content {
+	width: 90%;
+}
+
