@@ -1,3 +1,5 @@
+"use strict";
+
 // Database configuration
 
 module.exports = {

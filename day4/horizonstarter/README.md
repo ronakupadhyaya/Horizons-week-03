@@ -7,12 +7,12 @@
 ## Tips
 
 - debugging expressjs
-- form validation
+- form validation: https://github.com/ctavan/express-validator
 - nodemon
 
 ## Phase 1: Express.js project scaffolding, MVC
 
-express-generator
+express-generator: http://expressjs.com/en/starter/generator.html
 
 ## Phase 2: Mongo, Mongoose
 
@@ -42,3 +42,4 @@ easy as it could be
 
 ## (BONUS) Phase X
 
+- frontend form validation

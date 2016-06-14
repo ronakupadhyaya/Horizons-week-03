@@ -11,29 +11,48 @@ router.get('/', function(req, res, next) {
   Project.find(function(err, projects) {
     if (err) res.send(err);
     res.render('index', {projects: projects, title: "Horizon Starter"});
-    // res.json(projects);
   });
 
 });
 
 // GET New project form
 router.get('/new', function(req, res, next) {
-  res.render('new', {title: "Create new project"});
+  res.render('new', {
+    title: "Create new project",
+    categories: Project.schema.path('category').enumValues.map(function (el) {
+      return {val: el}
+    })
+  });
 });
 
 // POST new project
 router.post('/new', function(req, res, next) {
   req.checkBody('title', 'Title is required').notEmpty();
+  req.checkBody('description', 'Description is required').notEmpty();
+  req.checkBody('category', 'Category is required').notEmpty();
+  req.checkBody('category', 'Category must be a word').isAlpha();
+  req.checkBody('amount', 'Amount is required').notEmpty();
+  req.checkBody('amount', 'Amount must be an integer').isInt();
+  req.checkBody('start', 'Start date is required').notEmpty();
+  req.checkBody('start', 'Start date must be a date').isDate();
+  req.checkBody('end', 'End date is required').notEmpty();
+  req.checkBody('end', 'End date must be a date').isDate();
   var errors = req.validationErrors();
   console.log(errors);
+  console.log("Body: " + JSON.stringify(req.body));
   if (errors) {
-    res.render('new', { flash: { type: 'alert-danger', messages: errors }});
+    res.render('new', {
+      data: req.body,
+      categories: Project.schema.path('category').enumValues.map(function (el) {
+        // This is messy, but we can't have logic in handlebars.
+        return {val: el, selected: el===req.body.category};
+      }),
+      flash: { type: 'alert-danger', messages: errors}
+    });
   }
   else {
     res.render('new', { flash: { type: 'alert-success', messages: [ { msg: 'No errors!' }]}});
   }
-  // console.log('Title: ' + req.body.title);
-  // console.log('Description: ' + req.body.description);
 });
 
 module.exports = router;
