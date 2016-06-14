@@ -40,11 +40,11 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
-program.command('Show')
+program.command('show')
   .description("Show Tasks")
   .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
-program.command('Delete')
+program.command('delete')
   .description("Delete Tasks")
   .action(deleteTask);
 
@@ -98,6 +98,7 @@ function getRemainingArgs () {
 // `node toDo.js add Do the dishes`
 function addTask() {
   var priority = program.priority || 1;
+  debugger;
   var name = getRemainingArgs();
   data.push({
     name: name,
@@ -128,16 +129,17 @@ function addTask() {
 function showTasks(){
   // YOUR CODE HERE
   var id = program.id || 0;
-  var tasks = '';
+
+ 
   if (id !== 0) {
-    console.log("Task #" + id + "Priority " + data[id].priority + ": " + data[id].name);
+    console.log("Task #" + id + " Priority " + data[id - 1].priority + ": " + data[id - 1].name);
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      
+      console.log("Task #" + (i + 1) + " Priority " + data[i].priority + ": " + data[i].name);
+   }
+      
   }
-  for (var i = 0; i < data.length; i++) {
-    //TODO: what if no priority?
-    tasks += "Task #" + i + 1 + "Priority " + data[i].priority + ": " + data[i].name;
-  }
-    console.log(tasks);
-  
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
