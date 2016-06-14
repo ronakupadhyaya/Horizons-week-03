@@ -107,6 +107,7 @@ var getPosts = function() {
 				<p class="date">'+response.response[i].createdAt+'</p> \
 				</span> \
 				<p class="content">'+response.response[i].content+'</p> \
+				<input placeholder="Enter your comment..." type="text"> </input> \
 				</div>');
 			}
 
