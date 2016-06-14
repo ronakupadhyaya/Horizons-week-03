@@ -40,7 +40,14 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +71,8 @@ program
 
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <p>', 'Specify priority for task', parseInt);
 
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
@@ -119,6 +128,14 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+  }else{
+    for (var i=0; i<data.length; i++){
+      console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +143,19 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    if (id>=0 && id<data.length){
+      data.splice(id, 1);
+      console.log("Deleted task with id: "+program.id)
+    }
+  } else{
+    console.log("No task specified")
+  }
+}
+
+function writeFile(data) {
+  fs.writeFileSync(JSON_FILE, JSON.stringify(data, null, 2));
 }
 
 // ---Utility functions---

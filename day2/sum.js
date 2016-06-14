@@ -21,25 +21,35 @@
 // > Enter second number?
 // > 4
 // > 5
+if(process.argv.slice(2).length === 0){
+	var firstNum;
+	var secNum;
+
+	var readline = require('readline');
+	
+	var rl = readline.createInterface({
+	  input: process.stdin,
+	  output: process.stdout
+	});
+
+	rl.question("Enter first number? ", function(number) {
+		firstNum = parseInt(number, 10);
+		rl.question("Enter second number? ", function(number) {
+			secNum = parseInt(number, 10);
+			console.log(firstNum+secNum);
+			process.exit();
+		});
+	});
+} else {
 
 var result = process.argv.slice(2).reduce(function(sum, n) {
-  return sum + parseInt(n, 10);
+	return sum + parseInt(n, 10);
 }, 0);
 
 console.log(result);
+}
 
 // // Example code for reading command line arguments:
 // console.log('Command line arguments', process.argv.slice(2));
 
-// // Example code for getting input from the user
-// var readline = require('readline');
 
-// var rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// });
-
-// rl.question("Hi! What's your name? ", function(name) {
-//   console.log('Nice to meet you', name);
-//   rl.close();
-// });
