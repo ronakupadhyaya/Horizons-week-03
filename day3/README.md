@@ -1,4 +1,4 @@
-# Day 2 exercises
+# Day 3 exercises
 
 ## Inline exercises
 
