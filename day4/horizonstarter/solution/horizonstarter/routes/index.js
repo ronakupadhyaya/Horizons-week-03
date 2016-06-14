@@ -30,7 +30,6 @@ router.post('/new', function(req, res, next) {
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
   req.checkBody('category', 'Category is required').notEmpty();
-  req.checkBody('category', 'Category must be a word').isAlpha();
   req.checkBody('amount', 'Amount is required').notEmpty();
   req.checkBody('amount', 'Amount must be an integer').isInt();
   req.checkBody('start', 'Start date is required').notEmpty();
@@ -51,7 +50,24 @@ router.post('/new', function(req, res, next) {
     });
   }
   else {
-    res.render('new', { flash: { type: 'alert-success', messages: [ { msg: 'No errors!' }]}});
+    // Create new project
+    var project = new Project({
+      title: req.body.title,
+      goal: req.body.goal,
+      raised: 0,
+      category: req.body.category,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end
+    });
+    project.save(function(err) {
+      if (err) res.send(err);
+      res.send("Success");
+    });
+
+    // Return full list of projects
+
+    // res.render('index', { flash: { type: 'alert-success', messages: [ { msg: 'No errors!' }]}});
   }
 });
 
