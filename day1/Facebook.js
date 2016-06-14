@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 "use strict";
 
 window.facebook = window.facebook || {};
@@ -14,6 +15,8 @@ $("#submitReg").click(function(e) {
 	var emailR = $("#Email").val();
 	var passwordR = $("#Password").val();
 =======
+=======
+>>>>>>> master
 
 
 // registration
@@ -22,6 +25,9 @@ var baseURL = 'https://fb.horizonsbootcamp.com/api/1.0';
 $("#submitReg").click(function(e) {
 	var email = $("#Email").val();
 	var password = $("#Password").val();
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 	var fName = $("#FirstName").val();
 	var lName = $("#LastName").val();
@@ -30,6 +36,7 @@ $("#submitReg").click(function(e) {
 	var bYear = $("#BirthYear").val();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$.ajax({
 		url: baseURL + '/users/register',
 		method: 'POST',
@@ -37,6 +44,8 @@ $("#submitReg").click(function(e) {
 			email: emailR,
 			password: passwordR,
 =======
+=======
+>>>>>>> master
 	var reg = $.ajax({
 		url: baseURL + '/users/register',
 		method: 'POST',
@@ -46,12 +55,16 @@ $("#submitReg").click(function(e) {
 		data: {
 			email: email,
 			password: password,
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 			fname: fName,
 			lname: lName,
 			birthMonth: bMonth,
 			birthDay: bDay,
 			birthYear: bYear
+<<<<<<< HEAD
 <<<<<<< HEAD
 		},
 		success: function(data) {
@@ -265,9 +278,15 @@ facebook.Feed.prototype = {
 }
 
 =======
+=======
+>>>>>>> master
 		}
 	})
 
 	console.log(reg);
+<<<<<<< HEAD
+})
+>>>>>>> master
+=======
 })
 >>>>>>> master
