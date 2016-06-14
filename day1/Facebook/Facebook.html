@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Facebook</title>
+
+  <!-- Bootstrap stuff -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+
+
+  <!-- Our files -->
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="js/data_model.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/events.js"></script>
+</head>
+
+<body>
+  <nav>
+    <ul class="navigation">
+      <li class="logo"> Facebook</li>
+      <form id="loginform">
+        <li> Email or Phone: <input type="text" name="fname" id="emailLog"></li>
+        <li> Password: <input type="text" name="lname" id="passwordLog"></li>
+        <li><input type="submit" value="Log in" id="logIn"></li>
+      </form>
+      <li id="forgot"> Forgot account? </li>
+    </ul>
+  </nav>
+   <ul class="user">
+
+    <form id="signupform">
+    First name: <input type="text" id="fname" name="fname" placeholder="First name"><br>
+    Last name: <input type="text" id="lname" name="lname" placeholder=Last name"><br>
+    Mobile number or email: <input type="text" id="email" placeholder="Mobile number or email"><br>
+    New password <input type="text" name="password" id="password" placeholder="New password"><br>
+    Birthday <input type="text" name="birthday" id="birthDay" placeholder="Birthday"><br>
+    Birthmonth <input type="text" name="birthMonth" id="birthMonth" placeholder="Birthday"><br>
+    Birthyear <input type="text" name="birthYear" id="birthYear" placeholder="Birthday"><br>
+    <input type="submit" value="Sign up" id="sign">
+    </form>
+    <li id="terms"> By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our Cookie Use.</li>
+    </ul>
+
+
+
+  <!-- The board renders here -->
+
+<div id="anchor">I AM HERE - POST INFORMATION</div>
+ <div class="comment-container">
+     <div class="add-list-container">
+      <button class="add-list" data-toggle="collapse" data-target="#demo">Add a list...</button>
+      <div id="demo" class="collapse">
+<form>
+  Post <input type="text" name="comment" id="inputComment"><br>
+  <button type="submit" value="Submit" class="submitComment" id="submitComment2"></button>
+</form>
+</div>
+      <div class="collapse" id="addList">
+        <div class="well add-post-form">
+          <input type="text" class="form-control"
+                 placeholder="List name" id="addcommentText">
+          <button type="button"
+                  class="btn btn-default"
+                  id="postComment">Post</button>
+          <button type="button"
+                  class="btn btn-default"
+                  id="addListCancel">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <div id="anchor">I AM HERE - POST INFORMATION</div>
+ <div class="comment-container">
+    <div class="add-comment-container">
+      <button class="add-comment" data-toggle="modal">Comment</button>
+      <div class="collapse" id="addList">
+        <div class="well add-post-form">
+          <input type="text" class="form-control"
+                 placeholder="List name" id="addcommentText">
+          <button type="button"
+                  class="btn btn-default"
+                  id="postComment">
+            Post
+          </button>
+          <button type="button"
+                  class="btn btn-default"
+                  id="addListCancel">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
