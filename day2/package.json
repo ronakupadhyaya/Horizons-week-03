@@ -1,0 +1,15 @@
+{
+  "name": "day2",
+  "version": "1.0.0",
+  "description": "1. [Warmup exercise](warmup.md)\r 1. [Node and command line arguments `sum.js`](sum.md)",
+  "main": "sum.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jasmine-node": "^1.14.5",
+    "request": "^2.72.0"
+  }
+}

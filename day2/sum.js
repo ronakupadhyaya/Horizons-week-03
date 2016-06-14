@@ -29,12 +29,40 @@ console.log('Command line arguments', process.argv.slice(2));
 // Example code for getting input from the user
 var readline = require('readline');
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+// var rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+// rl.question("Hi! What's your name? ", function(name) {
+//   console.log('Nice to meet you', name);
+//   rl.close();
+// });
+newArray = process.argv.slice(2);
+var sum = 0;
+
+if(newArray.length !== 0)
+{
+for (var i = 0; i < newArray.length; i++)
+  {
+  	 sum += parseInt(newArray[i]);
+  }
+console.log(sum);
+}
+	else
+	{
+		var r1 = readline.createInterface({
+		  input: process.stdin,
+		  output: process.stdout
+		});
+		r1.question("What is the first number you want to find the sum of? ", function(number) {
+			sum += parseInt(number);
+		r1.question("What is the second number you want to find the sum of? ", function(number2) {
+			sum += parseInt(number2);
+		console.log(sum);
+		r1.close();
+		});
+		});
+	}
+
+
