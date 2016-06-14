@@ -6,6 +6,7 @@ window.facebook = window.facebook || {};
 var baseURL = 'https://fb.horizonsbootcamp.com/api/1.0';
 var userID;
 var token;
+var nameProf = "Alex Kitchen";
 // registration
 $("#submitReg").click(function(e) {
 
@@ -31,6 +32,7 @@ $("#submitReg").click(function(e) {
 		},
 		success: function(data) {
 			console.log("true");
+
 		}
 		
 	})	
@@ -51,6 +53,7 @@ facebook.Mount = function() {
 				console.log('true');
 				userID = data.response.id;
 				token = data.response.token;
+				$('#colOne').hide();
 				var feed = new facebook.Feed();
       			feed.loadData();
 
@@ -164,6 +167,7 @@ facebook.Post.prototype = {
 		var post = $('<div class="post"></div>');
 		var posterName = $('<h4>' +this.posterName+ '</h4>');
 		var content = $('<p>' +this.content+ '</p>');
+		var divButton = $('<div class="post-buttons"></div>');
 		var comments = $('<button class="comments" id="comment_' + this._id + '">comments</button>');
 		var collapse = $('<div class="collapse" data-commentid="' +this._id+ '"></div>');
 		var likes = $('<button class="like-button" data-likeid="' +this._id+'">likes ' + this.likes.length +'</button>');
@@ -171,9 +175,10 @@ facebook.Post.prototype = {
 		wrapper.append(post);
 		post.append(posterName);
 		post.append(content);
-		post.append(comments);
-		post.append(collapse);
-		post.append(likes);
+		post.append(divButton);
+		divButton.append(comments);
+		divButton.append(collapse);
+		divButton.append(likes);
 		for (var i = 0; i < this.comments.length; i++) {
 
 			collapse.append($('<div class="comment" id="comment"><h6>' +this.comments[i].poster.name+ '</h6><p>' +this.comments[i].content+ '</p></div>'));
@@ -211,13 +216,18 @@ facebook.Feed.prototype = {
 	render: function() {
 
 		var wrapper = $('<div class="feed"></div>');
-		var addPost = $('<div class="add-Post"><h4>Post</h4><textarea class="form-control" id ="addPost" rows="3"></textarea><button type="button" class="btn btn-primary" id="submitPost">Submit</button></div>');
+		var addPost = $('<div class="add-Post"><textarea class="form-control" id ="addPost" rows="3" placeholder="Whats on your mind?"></textarea><button type="button" class="btn btn-primary" id="submitPost">Submit</button></div>');
 		wrapper.append(addPost);
 		for (var i = 0; i < this.posts.length; i++) {
 			wrapper.append(this.posts[i].render());
 
 		}
 		$('.Feed-board').html(wrapper.html());
+
+		var nameWrapper = $('<div></div>');
+		var name = $('<h3>' + nameProf + '</h3>');
+		nameWrapper.append(name);
+		$('#leftCol').html(nameWrapper.html());
 		facebook.Listeners();
 	}
 }
