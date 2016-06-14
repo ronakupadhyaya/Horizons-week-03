@@ -1,0 +1,34 @@
+#logo {
+  width: 30px;
+  margin: 0;
+}
+aside {
+  float: left;
+  width: 400px;
+  margin-left: 100px;
+}
+section {
+  margin-left: 500px;
+  width: 500px;
+}
+.profile {
+  width: 50px;
+}
+.post {
+  margin-bottom: 10px;
+}
+.board {
+  margin-bottom: 10px;
+  border: 2px solid #e8eaed;
+  border-radius: 5px;
+}
+#newsfeed {
+  margin-top: 40px;
+}
+.like {
+  width: 20px;
+  margin-bottom: 3px;
+}
+.comment {
+  border: 2px solid #e8eaed;
+}

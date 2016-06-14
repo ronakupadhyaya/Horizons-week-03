@@ -1,5 +1,5 @@
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = 'f3ef30bf02b3c046e2ffc5ee918f31a9';
+var TRELLO_TOKEN = '44697fade08e7c9aa6ae3414f3d2dc4b8531bd2195ae86315207e49960fe13ba';
 
 var fs = require('fs');
 var csv = require('csv');
@@ -21,8 +21,8 @@ program.parse(process.argv);
 // - The second argument should be the csv file
 // ex. var board_id = program.args[0];
 // YOUR CODE HERE
-var board_id;
-var csv_fname;
+var board_id = program.args[0];
+var csv_fname = program.args[1];
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
@@ -32,6 +32,7 @@ var uploadToTrello = function(board_id, csv_fname) {
   csv.parse(csvData, { columns: true}, function(err, data){
     console.log(data);
     // YOUR CODE HERE
+    
   });
 };
 

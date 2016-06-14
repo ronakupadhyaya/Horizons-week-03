@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description('Show Tasks')
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description('Delete Tasks')
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +70,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify the priority of tasks', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -119,14 +127,33 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  var priority = program.priority || 1;
+  if (program.id === undefined) {
+    for (var i = 0; i < data.length; i++) {
+      console.log('Task #' + (i + 1) + " Priority " + data[i].priority  + ": " + data[i].name);
+    }
+  } else {
+    // debugger;
+    var id = program.id;
+    var name = data[id - 1].name;
+    console.log('Task #' + id + " Priority " + data[id-1].priority + ": " + name);
+  }
 }
+
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var id = program.id;
+  data.splice(id -1, 1);
 }
+
+// node toDo.js toggleCompleted --id 3 is going to mark the task with id of --id as done.
+// node toDo.js show --completed
+// node toDo.js show -c
+
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.

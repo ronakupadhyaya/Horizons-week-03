@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "dependencies": {
+    "antigravity": "0.0.0",
     "commander": "^2.9.0",
     "jasmine-node": "^1.14.5"
   },
