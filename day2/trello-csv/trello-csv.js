@@ -15,24 +15,38 @@ var program = require('commander');
 // ex. program.option('-u, --upload', 'Upload CSV'); -> program.upload = true
 
 program.parse(process.argv);
+console.log(program)
 
 // Remaining arguments after flags are stored in program.args
 // - The first argument should be board id
 // - The second argument should be the csv file
 // ex. var board_id = program.args[0];
 // YOUR CODE HERE
-var board_id;
-var csv_fname;
+var board_id=program.args[0];
+var csv_fname=program.args[1];
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
 var uploadToTrello = function(board_id, csv_fname) {
-  var csvData = fs.readFileSync(csv_fname).toString();
+	var csvData = fs.readFileSync(csv_fname).toString();
 
-  csv.parse(csvData, { columns: true}, function(err, data){
-    console.log(data);
+	csv.parse(csvData, { columns: true}, function(err, data){
+    //console.log(data);
     // YOUR CODE HERE
-  });
+   var returnArr=[];
+   for(var i =0; i<data.length; i++){
+   	var arrTemp=[];
+   	_.forEach(data[i],function(value, key){
+   		var arrTemp=[key,value]
+   		returnArr.push(arrTemp)
+   	});
+   }
+   var y = _.groupBy(returnArr,function(name){
+   	return name[0];
+   })
+   console.log(y)
+
+});
 };
 
 // 3. download functionality - read trello data and output to csv
