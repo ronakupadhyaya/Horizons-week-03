@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -56,5 +58,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+// mongo configuration
+var dbConfig = require('./config/db.js');
+var mongoose = require('mongoose');
+mongoose.connect(dbConfig.url);
 
 module.exports = app;

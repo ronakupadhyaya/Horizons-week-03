@@ -8,4 +8,4 @@
 1. [Handlebars partials](./partials.md)
 
 ## Pair programming exercises
-1. Horizon Starter: backend-rendered web app
+1. [Horizon Starter: backend-rendered web app](./horizonstarter)

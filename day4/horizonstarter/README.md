@@ -10,7 +10,11 @@ express-generator
 
 ## Phase 2: Mongo, Mongoose
 
-## Phase 3: Authentication using passport
+## Data model
+
+## Routes
+
+## Phase 3: Authentication using passport/cookies
 
 ## Phase 4: Templating
 
