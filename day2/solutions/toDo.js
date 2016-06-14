@@ -49,7 +49,7 @@ program.command('delete')
 // task commands like 'show' or 'delete' are called on
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
 
-// The way to define these flags us the following.
+// The way to define these flags is the following.
 // program
 // .option('-got, --gameOfThrones <n>', 'watches GoT before sleeping', parseInt)
 // So, here if we call our program `node program.js goToSleep --gameOfThrones 8`
