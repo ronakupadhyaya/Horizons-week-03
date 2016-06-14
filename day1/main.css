@@ -1,0 +1,139 @@
+body {
+	background-color:#f7f7f7;
+}
+
+.header {
+	display: flex;
+	background-color: #3b5998;
+	width: 100%;
+	padding: 10px;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 15px;
+}
+
+.page {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	font-size: 20;
+
+}
+
+.newsfeed {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 650px;
+}
+
+.post-footer {
+	display: flex;
+	flex-direction: column;
+}
+
+.post {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	width: 650px;
+}
+
+.posting {
+	resize: none;
+	width: 650px;
+}
+
+.news {
+	display:flex;
+	justify-content: center;
+	flex-direction: column;
+	background-color: white;
+	margin: 10px;
+}
+
+.title {
+	display: flex;
+	justify-content: center;
+	background-color: white;
+	width: 650px;
+}
+
+.old-post {
+	display: flex;
+	justify-content: center;
+	width: 650px;
+
+}
+
+.comment {
+	display: flex;
+}
+
+.comCollapse {
+	width: 500px;
+}
+
+input {
+	width: 100%;
+}
+
+.poster-name {
+	color: #3b5998;
+	font-weight: 700;
+}
+
+.commentPoster {
+	color: #3b5998;
+	font-weight: 700;
+	font-size: 14;
+}
+
+.normal {
+	color: black;
+	font-weight: 400;
+}
+
+.fbsearch {
+	height: 30px;
+	width: 500px;
+	padding-left: 5px;
+}
+
+.leftbar {
+	display: flex;
+	flex-direction:row;
+}
+
+.rightbar {
+	color: white;
+	font-size: 12;
+	display: flex;
+}
+
+.form-control {
+	width: 180px;
+	height: 25px;
+	border-radius: 0px;
+	margin-right: 10px;
+
+}
+
+.fbicon {
+	margin-bottom: 3px;
+}
+
+.but {
+	background-color:#6d84b4;
+	margin-right: 5px;
+	border: none;
+	box-shadow: none;
+	height: 25px;
+}
+
+.butt-ons {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
