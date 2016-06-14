@@ -7,20 +7,39 @@ var posts = jsonfile.readFileSync(file)
 
 
 // LOGIN
-//this will respond to http://127.0.0.1:3000/login
+// GET LOGIN: Renders the form to log into the app
 router.get('/login', function(req, res) {
   res.render('login', { title: 'Log In' });
 });
 
+// POST LOGIN: Receives the form info for the user, sets a cookie and redirects
+// to posts.
 router.post('/login', function(req, res) {
   res.cookie('username', req.body.username).redirect('/posts');
 });
 
+
 // POSTS
+// GET POSTS: Renders a list of all available posts. No need to be logged in.
 router.get('/posts', function(req, res) {
-  res.render('posts', { title: 'Posts' });
-  console.log(posts)
+
+  /* Filter posts by author
+  if (req.query.username){
+  posts.filter(function(post){return post.author===req.query.username})
+}*/
+/*Order ascending/descending
+if (req.query.order){
+if (req.query.order==='ascending'){
+reorder by date
+}
+}*/
+
+res.render('posts', { title: 'Posts' });
+console.log(posts)
 });
+
+// GET POSTS: Renders the form page, where the user creates the request.
+// User must be logged in to be able to visit this page.
 router.get('/posts/new', function(req, res) {
   if (req.cookies && req.cookies.username){
     res.render('post_form', { title: 'New Post' });
@@ -28,7 +47,14 @@ router.get('/posts/new', function(req, res) {
   else{ console.log("not logged") }
 });
 
+// POST POSTS: This route receives the information for the new post. User must
+// be logged in to use this route. It should create a new post and redirect to
+// posts
 router.post('/posts', function(req, res) {
+  // TODO: validate user is logged in
+  // TODO: validate title+body using Express validator
+  // TODO: save date as timestamp
+
   var post = {
     author: req.cookies.username,
     date: req.body.date,
@@ -40,6 +66,7 @@ router.post('/posts', function(req, res) {
   console.log(post)
   res.redirect('/posts')
 });
+
 
 
 
