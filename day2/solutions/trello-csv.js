@@ -53,6 +53,7 @@ var uploadToTrello = function(bId, fName) {
     }, {});
     _.mapObject(cardsInList, function(cards, listName) {
       trello.addListToBoard(bId, listName, function(err, trelloList) {
+
         cards.forEach(function(cardName) {
           trello.addCard(cardName, '', trelloList.id, function(err, cardData) {
             
@@ -93,7 +94,6 @@ var downloadFromTrello = function(bId, fName) {
     });
 
   });
-  
 };
 
 return {
