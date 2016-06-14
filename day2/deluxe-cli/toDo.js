@@ -1,5 +1,5 @@
-//configuration options. These make up the exercicse.
 "use strict";
+// The node builtin filesystem library.
 var fs = require('fs');
 
 // This is the file where we're storing our data.
