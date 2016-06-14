@@ -22,21 +22,26 @@ router.post('/login', function(req, res) {
 // POSTS
 // GET POSTS: Renders a list of all available posts. No need to be logged in.
 router.get('/posts', function(req, res) {
-  // TODO: Filter posts by author
-  /*
-  if (req.query.username){
-  posts.filter(function(post){return post.author===req.query.username})
-}*/
 
-// TODO: Order ascending/descending
-/*
-if (req.query.order){
-if (req.query.order==='ascending'){
-reorder by date
+//?username=sbastidasr & order=ascending
+  if (req.query.username){
+    posts.filter(function(post){
+      return post.author===req.query.username
+    });
+  }
+
+  // TODO: Order ascending/descending
+  /*
+  if (req.query.order){
+  if (req.query.order==='ascending'){
+  reorder by date
 }
 }*/
 
-res.render('posts', { title: 'Posts' });
+res.render('posts', {
+  title: 'Posts',
+  posts: posts
+});
 console.log(posts)
 });
 
@@ -53,20 +58,21 @@ router.get('/posts/new', function(req, res) {
 // be logged in to use this route. It should create a new post and redirect to
 // posts
 router.post('/posts', function(req, res) {
-  // TODO: validate user is logged in
-  // TODO: validate title+body using Express validator
-  // TODO: save date as timestamp
 
-  var post = {
-    author: req.cookies.username,
-    date: req.body.date,
-    title: req.body.title,
-    text: req.body.text
+  // TODO: validate title+body using Express validator
+
+  if (req.cookies && req.cookies.username){
+    var post = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      text: req.body.text
+    }
+    posts.push(post);
+    jsonfile.writeFileSync(file, posts);
+    console.log(post)
+    res.redirect('/posts')
   }
-  posts.push(post);
-  jsonfile.writeFileSync(file, posts);
-  console.log(post)
-  res.redirect('/posts')
 });
 
 module.exports = router;
