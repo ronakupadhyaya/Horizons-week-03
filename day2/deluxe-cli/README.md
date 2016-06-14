@@ -75,7 +75,7 @@ To start our application we are going to run the following commands.
 1. Run tests to verify your code.
 
   ```bash
-  npm tests
+  npm test
   ```
 
 1. Implement the `toggleCompleted` command.
