@@ -4,6 +4,12 @@
 
 ## Introduction
 
+## Tips
+
+- debugging expressjs
+- form validation
+- nodemon
+
 ## Phase 1: Express.js project scaffolding, MVC
 
 express-generator
