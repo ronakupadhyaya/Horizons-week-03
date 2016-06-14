@@ -128,4 +128,8 @@ $(".post-btn").on("click", function(event){
 
 });
 
-
+$(".like-btn").on("click", function(event){
+	event.preventDefault();
+	
+})
+//take ajax of button click request get take array like length = number of likes return that

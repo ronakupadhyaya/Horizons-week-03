@@ -38,7 +38,12 @@ var program = require('commander');
 program.command('add')
   .description("Create Tasks")
   .action(addTask);
-
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 
@@ -64,6 +69,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -114,18 +121,26 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
 //  node toDo.js show -i 2 -> "Clean Dishes"
-// ex.
+//no ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+  if(!program.id){
+    for(var i = 0; i < data.length; i++){
+      console.log("Task # "+(i+1)+ "Priority " + data[i].priority + ": " + data[i].name)
+    }  
+  } else{
+      console.log("Task # "+ program.id + "Priority " + data[program.id -1].priority + ": " + data[program.id-1].name)
+   } 
+     
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  data.splice((program.id -1),1);
+
 }
 
 // ---Utility functions---

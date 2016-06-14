@@ -24,8 +24,15 @@
 //
 
 // Example code for reading command line arguments:
-console.log('Command line arguments', process.argv.slice(2));
-
+// console.log('Command line arguments', process.argv.slice(2));
+var numbers = process.argv.slice(2);
+console.log('numbers', numbers);
+var total = 0;
+for(var i = 0; i < numbers.length; i++){
+	total = total + parseInt(numbers[i]);
+}
+console.log('total', total);
+} else {
 // Example code for getting input from the user
 var readline = require('readline');
 
@@ -33,8 +40,13 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
+var n1, n2;
+rl.question("Enter first number ", function(n1) {
+  console.log('number 1:', n1);
+  rl.close();
+rl.question("Enter second number ", function(n2) {
+  console.log('number 2:', n2);
   rl.close();
 });
+});
+}
