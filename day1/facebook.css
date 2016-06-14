@@ -1,0 +1,39 @@
+body {
+    font-family: Veranda, sans-serif;
+}
+
+.topSection {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #3b5998;
+}
+.topSection h1 {
+    font-size: 150%;
+    height: 25px;
+    min-width: 980px;
+    text-align: left;
+    vertical-align: middle;
+    color: white;
+    background-color: #3b5998;
+    display: flex;
+    margin-left: 20px;
+}
+
+.topSection p {
+    color: white;
+    margin-left: 20px;
+}
+
+.form-inline {
+    margin-left: 100px;
+}
+
+.register {
+    padding-left: 150px;
+    padding-right: 150px;
+    display: flex;
+}
+
+.container {
+    width: 500px;
+}

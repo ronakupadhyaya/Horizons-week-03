@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Working on Facebook</title>
+
+    <!-- pace -->
+    <script src="facebook.js"></script>
+
+    <!-- Bootstrap stuff -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script>
+      // jQuery document ready shorthand.
+      $(function () {
+        facebook.mount();
+      });
+    </script>
+
+    <!-- Our files -->
+    <link rel="stylesheet" href="facebook.css">
+    <script>
+    </script>
+</head>
+<body>
+    <div class = "topSection">
+        <h1> Welcome to Young's Shitty Facebook Attempt!
+            <div id = "login">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="emailLogin">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox"> Remember me</label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </h1>
+        <p> Please login or signup below if you don't have an account! </p>
+    </div>
+    <div class = "register">
+        <div>
+            <h1> Connect with your friends and the world around you on Shitty Facebook! </h1>
+        </div>
+        <div class = "registerInformation">
+            <div class="container">
+            <form class="form-horizontal" role="form">
+                <h2>Registration Form</h2>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-3 control-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+                        <span class="help-block">Enter FIRST name with no spaces.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="lastName" placeholder="Full Name" class="form-control" autofocus>
+                        <span class="help-block">Enter LAST name with no spaces.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" id="emailRegister" placeholder="Email" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" id="password" placeholder="Password" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthDay" class="col-sm-3 control-label">Day</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="birthDay" placeholder="Day" class="form-control" autofocus>
+                        <span class="help-block">Enter day of birth.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthMonth" class="col-sm-3 control-label">Month</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="birthMonth" placeholder="Month" class="form-control" autofocus>
+                        <span class="help-block">Enter month of birth.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthYear" class="col-sm-3 control-label">Year</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="birthYear" placeholder="Year" class="form-control" autofocus>
+                        <span class="help-block">Enter year of birth.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="button" class="btn btn-primary btn-block" id = "registerButton">Register</button>
+                    </div>
+                </div>
+            </form> <!-- /form -->
+        </div> <!-- ./container -->
+        </div>
+    </div>
+
+
+    </body>
+    </html>
