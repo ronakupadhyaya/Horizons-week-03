@@ -1,17 +1,11 @@
 {
-  "name": "to_do",
   "version": "1.0.0",
-  "description": "## Goal",
-  "main": "to_do.js",
   "dependencies": {
-    "chai": "^3.5.0",
     "commander": "^2.9.0",
-    "mocha": "^2.5.3"
+    "jasmine-node": "^1.14.5",
+    "jsonfile": "^2.3.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "mocha to_do_test.js"
-  },
-  "author": "",
-  "license": "ISC"
+    "test": "jasmine-node ."
+  }
 }
