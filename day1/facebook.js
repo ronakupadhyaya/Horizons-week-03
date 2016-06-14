@@ -92,7 +92,7 @@ $('.btn-register').click(function(e){
 }) 
 
 /////main login: collect data, validate, and retreive id's 
-$("#login").click(function(e){
+$(".last-pass").click(function(e){
 	//validate that email field is filled
 	if($.trim($('#main-email').val())===""){
 		alert("Need to enter email!")
@@ -107,7 +107,7 @@ $("#login").click(function(e){
 
 	//call ajax to retrieve token and put as main element in token array
 	facebook.userLogin(mainEmail,mainPass);
-
+	$('#login-modal').modal('hide');
 	///initiate most frequent 10 posts upon login
 	facebook.getFeed()
 })
@@ -125,8 +125,6 @@ $("#submit").click(function(e){
 	//clear post after submitted
 	$('#status').val('');
 })
-
-////adding a like to somebody's post: 
 
 
 
@@ -186,7 +184,7 @@ facebook.submitPost =function(text){
 			content: text
 		},
 		success: function(response){
-			console.log('success')
+			facebook.getFeed();
 		},
 		error: function(err){
 			console.log('err')
@@ -194,8 +192,68 @@ facebook.submitPost =function(text){
 	})
 }
 
+//show comments
+facebook.showComment = function(id){
+	$.ajax(url+'/posts/comments/'+id, {
+		method: "GET",
+		data: {
+			token: myToken
+		},
+		success: function(response){
+			//clear the field
+			$('#well-modal'+id).empty();
+			console.log(response.response.length)
+			//add elements if comments present
+			if(response.response.length!==0){
+				for(var i=0; i<response.response.length; i++){
+					$('#well-modal'+id).append($('<div class="panel comment-panel"><div class="panel-body">\
+						<b>'+response.response[i].poster.name+'</b><p>'+response.response[i].content+'</p></div></div>'))
+				}
+			}
+			$('#well-modal'+id).append('<div class="panel response-panel"><div class="form-group add-comment"><input type = "text"\
+				placeholder="Add comment" id="add'+id+'"></div><span><button type="button"\
+				class="comment-add-btn" id="comment-add-btn'+id+'">Comment</button></span></div></div></div></div></div>');
+
+		//add listeners for comment button
+		$('.comment-add-btn').click(function(e){
+			var t = this.id.split("comment-add-btn")[1];
+			if($.trim($('#add'+t).val())===""){
+				alert("Need to add a comment!")
+				return;
+			}
+			var txt = $('#add'+t).val();
+			facebook.submitComment(t,txt)
+			$('#add'+t).val("")
+			return
+		})
+	},
+	error: function(err){
+		console.log(err)
+	}
+})
+}
+
+//reset feed with refresh button
+$('#refresh').click(function(e){
+	facebook.getFeed();
+})
+
 //to push comment on post to the server
-facebook.submitComment = function(){
+facebook.submitComment = function(id, msg){
+	$.ajax(url+'/posts/comments/'+id, {
+		method: "POST",
+		data: {
+			token: myToken,
+			content: msg
+		},
+		success: function(response){
+			console.log(response)
+			facebook.showComment(id)
+		},
+		error: function(err){
+			console.log(err)
+		}
+	})
 }
 
 //to toggle get a like from the server
@@ -231,10 +289,11 @@ facebook.getFeed = function(){
 				//console.log(response.response[i])
 				$('.hold-feed').prepend($('<div class = "container feed-posts" id="'+response.response[i]._id+'">\
 				<div class = "box feed-box"<span><b>'+response.response[i].poster.name+'</b><p>'+response.response[i].content+'</p>\
-				</span><span><button type="button" class= "btn comment-button" id="comment-post'+response.response[i]._id+'">Comment</button></span>\
+				</span><span><button type="button" class= "btn comment-view-button" id="comment-post'+response.response[i]._id+'">Comment</button></span>\
 				<span><button type = "button" class = "btn like-button" id="like-post'+response.response[i]._id+'">Like\
-				<span class="badge" id="badge'+response.response[i]._id+'">'+response.response[i].likes.length+'</span></button></span></div></div>'))
-			}
+				<span class="badge" id="badge'+response.response[i]._id+'">'+response.response[i].likes.length+'</span></button></span>\
+				<div class = "modal collapse" data-toggle="modal" id="well-modal'+response.response[i]._id+'" aria-expanded="false">'))
+				}
 			//adding a like
 			$('.like-button').click(function(e){
 				//isolate post id
@@ -244,8 +303,11 @@ facebook.getFeed = function(){
 
 			})
 
-			$('.comment-button').click(function(e){
-			console.log('x')
+			$('.comment-view-button').click(function(e){
+				var z= this.id.split('comment-post')[1];
+				//console.log(z)
+				$('#well-modal'+z).modal('show');
+				facebook.showComment(z);
 			})
 		},
 	error: function(error){
