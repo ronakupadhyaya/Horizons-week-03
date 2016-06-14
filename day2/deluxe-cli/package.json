@@ -6,5 +6,11 @@
   },
   "scripts": {
     "test": "jasmine-node ."
-  }
+  },
+  "name": "deluxe-cli",
+  "description": "## Goal",
+  "main": "toDo.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }

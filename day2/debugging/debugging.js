@@ -10,7 +10,7 @@
 // ex. replaceAll('x aa b x', 'a', 'b') -> 'x bb b x'
 function replaceAll(source, letter, replacement) {
   var ret = '';
-  for (var i = 0; i < source; i++) {
+  for (var i = 0; i < source.length; i++) {
     if (source[i] === letter) {
       ret += replacement;
     } else {
@@ -23,7 +23,8 @@ function replaceAll(source, letter, replacement) {
 if (require.main === module) {
   // This line is only executed when you call this script directly but not in tests.
   // ex. node debugging.js
-  console.log(replaceAll('aaaax'));
+  console.log(replaceAll());
 }
+
 
 module.exports = replaceAll;

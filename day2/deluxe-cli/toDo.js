@@ -4,7 +4,7 @@ var fs = require('fs');
 
 // This is the file where we're storing our data.
 // It's in this directory you can open it and check out the contents.
-var JSON_FILE = 'data.json'
+var JSON_FILE = 'data.json';
 
 // If file doesn't exist, create an empty one
 ensureFileExists();
@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('Show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('Delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +70,8 @@ program
 
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify a priority for task', parseInt);
 
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
@@ -119,6 +127,17 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  var id = program.id || 0;
+  var tasks = '';
+  if (id !== 0) {
+    console.log("Task #" + id + "Priority " + data[id].priority + ": " + data[id].name);
+  }
+  for (var i = 0; i < data.length; i++) {
+    //TODO: what if no priority?
+    tasks += "Task #" + i + 1 + "Priority " + data[i].priority + ": " + data[i].name;
+  }
+    console.log(tasks);
+  
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +145,8 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var id = program.id;
+  data.splice(id - 1, 1);
 }
 
 // ---Utility functions---
