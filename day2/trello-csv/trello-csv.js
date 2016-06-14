@@ -62,22 +62,17 @@ var downloadFromTrello = function(boardId) {
     
     var cardsByListId = {};
     lists.forEach(function(list) {
-      trello.getCardsOnList(list.id, function(err, cards) {
-        // console.log(cards);
-        cardsByListId[list.id] = cards;
+      trello.getCardsOnList(list.id).then(function(cards) {
+        cards = cards.map(function(card) {
+          return card.name;
+        });
+        cardsByListId[list.name] = cards;
         console.log(cardsByListId);
-      });
+        
+      }, console.log);
     });
-    
-    // lists.forEach(function(listData) {
-    //   var listName = listData.name;
-    //   trello.getCardsForList(listData.id, function(err, cards) {
-    //     console.log(cards);
-    //   });
-    // });
+
   });
-  
-  // group cards by listid,
   
 };
 
