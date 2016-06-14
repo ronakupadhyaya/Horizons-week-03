@@ -24,17 +24,77 @@
 //
 
 // Example code for reading command line arguments:
+console.log("Command line all", process.argv.slice);
 console.log('Command line arguments', process.argv.slice(2));
 
-// Example code for getting input from the user
-var readline = require('readline');
+var numbers = process.argv.slice(2);
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+if (numbers.length>0) {
+	console.log("numbers:", numbers);
+	var total = 0;
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+	for (var i =0; i<numbers.length; i++){
+		console.log(numbers[i]);
+		total= total + parseInt(numbers[i]);
+	}
+	console.log("total:", total);
+	
+} else {
+
+	// // Example code for getting input from the user
+	var readline = require('readline');
+
+	var rl = readline.createInterface({
+	  input: process.stdin,
+	  output: process.stdout
+	});
+
+	var n1, n2;
+
+	rl.question("Enter first number ", function(n1) {
+	  console.log('Number one: ', n1);
+	  //asyncrhonsou
+	  rl.question("Enter second number ", function(n2) {
+	  console.log('Number two: ', n2);
+	  	console.log("Total: ", parseInt(n1)+parseInt(n2));
+	  	rl.close();
+	});
+	});
+
+}
+
+
+// rl.question("Enter a number", function(one) {
+// 	var sum = (parseInt(one)) + (parseInt(two));
+// 	console.log(one);
+// 	console.log(two);
+// 	rl.close();
+// })
+
+
+// function sum(args) {
+// 	console.log(process.argv[2]);
+// 	return process.argv[2] + process.argv[3];
+// }
+
+// function sum(args) {
+// 	if (process.argv[2].length > 1) {
+// 		return process.argv[1] + process.argv[2];
+// 	} 
+// 	else { false }
+// }
+
+// function test(){
+// 	console.log("hello")
+// }
+
+// function sum(args) {
+// 	var array = process.argv.slice(2);
+// 	var acc = 0;
+// 	if (array.length > 1) {
+// 		for (var i =0; i<array.length; i++){
+// 			acc =+ parseInt(array[i]);
+// 		}
+// 	return acc;
+// 	} else { return false }
+// }

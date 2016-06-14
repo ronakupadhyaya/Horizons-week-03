@@ -19,7 +19,7 @@ node.js debugging.
   cd /path/to/debugging/
   npm install
   ```
-
+npm 
 1. Run tests and note that they are failing:
 
   ```bash
