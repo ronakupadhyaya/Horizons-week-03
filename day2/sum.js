@@ -51,11 +51,31 @@
 
 ///////////Part 1///////////////
 var numbers=process.argv.slice(2)
+if(numbers.length>0){
 console.log('numbers', numbers);
 var total=0;
 for(var i=0; i<numbers.length; i++){
 	total=total+parseInt(numbers[i]);
 }
 console.log('total',total);
+}
+else{
 ///things come out of argv as strings, need to be deliberately turned into number
 //if that is desired
+///getting user input (part 2)
+var readLine = required('readLine');
+
+var rl = readLine.createInterface({
+	input: process.stdin,
+	output: process.stdout
+});
+
+var n1, n2;
+rl.question("Enter your first number", function(n1){
+	console.log("number 1:", n1);
+	r1.question("Enter second number", function(n2){
+		console.log("number 2:" n2);
+		console.log(parseInt(n1)+parseInt(n2))
+	})
+})
+}
