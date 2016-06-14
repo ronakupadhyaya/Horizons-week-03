@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:500,600,700);
+@import url(https://fonts.googleapis.com/css?family=Cabin:500,600,700);
+
+html{
+	font-family: "Helvetica Neue", sans serif;
+}
+.navbar{
+	background-color: #3b5998;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+	color: white;
+
+}
+.navbar-default .navbar-brand{
+	color: white;
+}
+
+.navbar-default .navbar-nav > li > a{
+	color: white;
+}
+
+.newsfeed {
+	display: none;
+	padding: 10px;
+	background-color: #e2e2e2;
+	position: absolute; 
+}
+
+#registration-form {
+	padding: 10px;
+	background-color: #e2e2e2;
+}
+
+#login-form {
+	display: none;
+	padding: 10px;
+	background-color: #e2e2e2;
+}
+ 
+.newsfeedPost{
+	padding: 2%;
+	background-color: white;
+	border: solid 2px;
+	border-color: #3b5998;
+	position: relative;
+}
+.postForm{
+	display: none;
+	padding: 2%;
+	background-color: white;
+	position: relative;
+	}
+.comments{
+	color: black;
+}
+.comment-content{
+	background-color: red;
+}
+.h1 {
+	font-size: 50px;
+	padding: 1%; 
+
+}
+.comments-container{
+	padding: 2%;
+	background-color: #e2e2e2;
+	position: relative;
+}
+.likes {
+	padding: 1%;
+	background-color: #3b5998;
+	position: relative;
+	float: right;
+	text-align: center;
+	color: white;
+}
