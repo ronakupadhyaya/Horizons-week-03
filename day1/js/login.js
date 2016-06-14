@@ -24,6 +24,7 @@ $('#log-in-btn').click(function(evt){
 			console.log(response),
 			$('#newsfeed').css('display', 'inline-block'),
 			userID = response.response.id,
+<<<<<<< HEAD
 			userToken = response.response.token,
 			$("#email-login").val(''),
 			$("#pass-login").val(''),
@@ -75,4 +76,3 @@ function loadPosts() {
 		// 	alert("Please make sure all fields are complete and correct."),
 		// 	throw error
 		// }
-

@@ -21,15 +21,10 @@ $('#post-btn').click(function(evt){
 		error: function(error) {
 			alert("Please make sure all fields are complete and correct.")
 			// throw error
-		},
-		error: function(error) {
-			alert("Please make sure all fields are complete and correct."),
-			throw error
 		}
 	});
 
 });
-
 
 function renderPosts(post) {
 
@@ -93,4 +88,3 @@ function renderComments(comment) {
 // function renderPosts() {
 // 	var wrapper = $('<div id ="new-post-outer"></div>');
 // }
-

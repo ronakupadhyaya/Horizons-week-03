@@ -64,11 +64,14 @@
 	width: 100%;
 }
 
+
 #post-wrapper {
 }
 
 #new-post-outer {
 
+#new-post-outer {
+>>>>>>> master
 	border: 1px solid;
 	border-color: #dfe3ee;
 	width: 100%;
@@ -76,6 +79,7 @@
 	background-color: #ffffff;
 	border-radius: 5px;
 }
+<<<<<<< HEAD
 /*.panel-footer {
 	height: 50px;
 }*/
