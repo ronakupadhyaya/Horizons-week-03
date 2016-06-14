@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Facebook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+    <!-- My other files -->
+
+</head>
+<style>
+</style>
+
+<body>
+<!-- Part II: Header with login -->
+    <header>
+        
+        <div class="row">
+            <form action="">
+                <div class="col-xs-12 col-md-7">
+                    <!-- Replace with "The Facebook" logo-->
+                    <h1>The Facebook</h1> </div>
+                <div class="col-xs-5 col-md-2">E-mail<br>
+                    <input type="text" id="loginmail"></div>
+                <div class="col-xs-5 col-md-2">Password<br>
+                    <input type="password" id="loginpass"></div>
+                <div class="col-xs-2 col-md-1">
+                    <button class="login">Log in</button></div>
+            </form>
+        </div>
+    </header>
+
+<!-- Part I: Registration -->
+    <div class="row">
+        <div class="col-lg-12"><h3>Register to get started!</h3></div>
+    </div>
+    <form action="">
+        <div class="row">
+            <div class="col-xs-12">First name:
+                <input type="text" id="firstname"> </div>
+            <div class="col-xs-12">Last name:
+                <input type="text" id="lastname"> </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-1">Birthday:</div>
+            <div class="col-xs-4">Month<br>
+                <input type="text" id="bmonth"> </div>
+            <div class="col-xs-4">Day<br>
+                <input type="text" id="bday"> </div>
+            <div class="col-xs-3">Year<br>
+                <input type="text" id="byear"> </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">E-mail:
+                <input type="text" id="email"> </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">Password:
+                <input type="password" id="password"> </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="reg">Sign up!</button> </div>
+        </div>
+    </form>
+
+<!-- Part III: Posts -->
+    <div class="newsfeed"><h1>NEWSFEED</h1>
+        <div class="add-post-container">
+            <input type="text" id="newPost" style="width:100%" ><br>
+            <button class="add-post">Post</button>
+        </div>
+        <!-- Render the newsfeed here -->
+        <div class="newsAnchor"></div>
+    </div>
+
+
+
+</body>
+    <script src="theFacebook.js"></script>
+
+</html>
