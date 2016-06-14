@@ -15,8 +15,10 @@ node.js debugging.
   
 1. Open this directory in your terminal and install npm dependencies:
 
+Note: debugging is a folder in the Horizons week03/ directory
+
   ```
-  cd /path/to/debugging/
+  cd /path/to/debugging/ 
   npm install
   ```
 
