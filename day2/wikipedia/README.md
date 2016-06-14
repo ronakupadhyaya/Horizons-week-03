@@ -36,7 +36,7 @@ Measuring changes in traffic is many sites implement features such as Trending T
 
 You should have a tab in this spreadsheet for each part of this exercise.
 
-TODO example output
+[Example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1MmYfb_lh96-F7SCAXIMHUCkKgQVsXotLc3CyuVcIbJU/edit?usp=sharing)
 
 ### (Double Bonus) Part 4: Biggest winner and loser
 
