@@ -22,12 +22,14 @@ router.post('/login', function(req, res) {
 // POSTS
 // GET POSTS: Renders a list of all available posts. No need to be logged in.
 router.get('/posts', function(req, res) {
-
-  /* Filter posts by author
+  // TODO: Filter posts by author
+  /*
   if (req.query.username){
   posts.filter(function(post){return post.author===req.query.username})
 }*/
-/*Order ascending/descending
+
+// TODO: Order ascending/descending
+/*
 if (req.query.order){
 if (req.query.order==='ascending'){
 reorder by date
@@ -66,8 +68,5 @@ router.post('/posts', function(req, res) {
   console.log(post)
   res.redirect('/posts')
 });
-
-
-
 
 module.exports = router;
