@@ -41,11 +41,11 @@ The goal of this is to get started with using a Command Line Environment.
 1. Make sure your node installation is working with
 
   ```bash
-  echo "console.log('Node works!')" | node
+  echo "console.log('Node works')" | node
   ```
 
   Should print
 
   ```bash
-  Node works!
+  Node works
   ```
