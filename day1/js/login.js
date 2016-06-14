@@ -25,6 +25,7 @@ $('#log-in-btn').click(function(evt){
 			$('#newsfeed').css('display', 'inline-block'),
 			userID = response.response.id,
 <<<<<<< HEAD
+<<<<<<< HEAD
 			userToken = response.response.token,
 			$("#email-login").val(''),
 			$("#pass-login").val(''),
@@ -67,6 +68,8 @@ function loadPosts() {
 // 	$('#post-anchor').load(document.URL +  '#post-anchor');
 // }
 =======
+=======
+>>>>>>> master
 			userToken = response.response.token
 			$("#email-login").val(''),
 			$("#pass-login").val(''),
@@ -78,5 +81,9 @@ function loadPosts() {
 		}
 	});
 
+<<<<<<< HEAD
+});
+>>>>>>> master
+=======
 });
 >>>>>>> master
