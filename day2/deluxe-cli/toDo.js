@@ -62,20 +62,16 @@ program.command('add')
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
-<<<<<<< HEAD
 
 
 // Second one wil be '--priority' or '-p', that will specify a priority for our task.
-=======
-// Second one will be '--priority' or '-p', that will specify a priority for our task.
->>>>>>> b444746479dce4810df80b63fd23e4ee2930bcfe
 // YOUR CODE HERE for "--priority and -p"
 
 program
   .option('-p, --priority, <n>', 'Specify priority of task', parseInt);
 
 // Arguments
-// This line is part of the 'Commander' module. It tells them (Commander) to process all the
+// These line is part of the 'Commander' module. It tells them to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 
@@ -92,13 +88,9 @@ function getRemainingArgs () {
 }
 
 // Example: This is a function that is called to create a new task.
-// Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
+// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
 // it should get the name of the task by calling getRemainingArgs() and the priority
-<<<<<<< HEAD
 // for the test from program.priority.
-=======
-// for the task from program.priority.
->>>>>>> b444746479dce4810df80b63fd23e4ee2930bcfe
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask() {
@@ -134,7 +126,7 @@ function showTasks(){
   var args = getRemainingArgs();
   if (args[0] === '-i') {
     if (data[args[1] - 1].priority) {
-      
+      console.log('Task #' + args[1] + ' Priority ' + data[args[1] - 1].priority + ': ' + )
     }
     console.log(data[args[1] - 1].name);
   }
