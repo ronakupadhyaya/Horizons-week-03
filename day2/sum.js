@@ -34,7 +34,15 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
+// rl.question("Hi! What's your name? ", function(name) {
+//   console.log('Nice to meet you', name);
+//   rl.close();
+// });
+
+rl.question("Put in some numbers", function(a){
+	rl.question("add another number",function(b){
+		console.log(parseInt(a)+parseInt(b))
+			rl.close();
+	})
+	//console.log(x)
 });
