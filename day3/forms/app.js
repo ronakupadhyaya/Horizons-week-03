@@ -2,6 +2,7 @@
 
 var express = require('express');
 var app = express();
+
 var fs = require('fs');
 var path = require('path');
 
@@ -32,16 +33,21 @@ app.get('/', function(req, res){
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
-app.get('/register', function(req, res){
+app.get('/register', function(req, res) {
   // YOUR CODE HERE
-  res.render('register');
+  res.render('register', {
+    errors: JSON.stringify(req.query),
+    name: req.query.name,
+    email: req.query.email
+  });
 });
 
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstName', 'Fist name is required').notEmpty();
+  req.checkBody('lastName', 'Last name is required').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
