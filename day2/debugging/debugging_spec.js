@@ -1,5 +1,6 @@
 var replaceAll = require('./debugging');
 
+debugger;
 describe("replaceAll()", function() {
   it("replaceAll('', 'a', 'b') -> ''", function() {
     expect(replaceAll('', 'a', 'b') ).toBe('');

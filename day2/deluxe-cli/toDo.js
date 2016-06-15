@@ -4,6 +4,7 @@ var fs = require('fs');
 
 // This is the file where we're storing our data.
 // It's in this directory you can open it and check out the contents.
+
 var JSON_FILE = 'data.json'
 
 // If file doesn't exist, create an empty one
@@ -11,12 +12,12 @@ ensureFileExists();
 
 // This is where our TO-DO List data is stored.
 // It's an array of objects.
-//
+
 // Each object represents a TO-DO item and has three properties
 // - name: a string, name of the task
 // - prirority: a number, the priority of the task
 // - completed: a boolean, true if task is completed, false otherwise
-//
+
 // We're going to be modifying data with our commands.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
 
@@ -27,7 +28,7 @@ var program = require('commander');
 // ---Commands---
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
-//
+
 // For example, this creates a command called 'sleep':
 // program.command('sleep')
 //    .description("Make our program go to sleep")
@@ -39,8 +40,16 @@ program.command('add')
   .description("Create Tasks")
   .action(addTask);
 
-// YOUR CODE HERE for "Show" its action must call showTasks
-// YOUR CODE HERE for "Delete" its action must call deleteTask
+// YOUR CODE HERE for "show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTask);
+
+// YOUR CODE HERE for "delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -48,10 +57,11 @@ program.command('add')
 
 // Here's how you define flags:
 // program.option('-g, --gameOfThrones <n>', 'watches GoT before sleeping', parseInt)
-// This will define a flag that takes an integer argument.
+// This will define a flag that takes an integer argument. Must define the argument.
+
 // So, here if we call our program `node program.js goToSleep --gameOfThrones 8`
-// we can use it to know that we have to watch it before sleeping. The bool value
-// of the flag will be stored on program.gameOfThrones.
+// we can use it to know that we have to watch it before sleeping. 
+// The bool value of the flag will be stored on program.gameOfThrones.
 
 // The <n> part specifies that an integer can be passed to that flag, and that it
 // will be parsed with parseInt. Here we can specify the number of the episode that
@@ -64,9 +74,11 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
-// This line is part of the 'Commander' module. It tells them (Commander) to process all the
+// This line is part of the 'Commander' module. It tells 'Commander' (see above) to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 
@@ -102,10 +114,11 @@ function addTask() {
 
 // Write function showTasks(). It is be called when the program is called like
 // 'node toDo.js show' or 'node toDo.js show -i 3'
+//
 // This function should output the appropriate TO-Do tasks using console.log().
 // The format of the output should be exactly:
 // Task #ID Priority PRIORITY: NAME
-//
+// 
 // Note:
 // - if there is a flag value for id, the program should only display that task
 // - it there is no flag id, the program should return all tasks.
@@ -114,18 +127,36 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
 //  node toDo.js show -i 2 -> "Clean Dishes"
+//  
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
-function showTasks(){
-  // YOUR CODE HERE
+function showTask(){
+  if(program.id) {
+    var id = program.id - 1;
+    console.log("Task #"+program.id+" Priority "+data[id].priority +": "+data[id].name)
+  }
+  else {
+    for (var i = 0; i < data.length; i++) {
+    console.log("Task #"+(i+1)+" Priority " +data[i].priority +": "+data[i].name);
+    }
+  }
 }
 
-// Write a function that is called when the command `node toDo.js add delete -i 3`
+// Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  if(program.id) {
+    var id = program.id - 1;
+    if (id > 0 && id < data.length) {
+      data.splice(id, 1)
+      console.log("Deleted item with id: " + program.id)
+    }
+    else {
+      console.log("Must specify task")
+    }
+  }
 }
 
 // ---Utility functions---
@@ -142,3 +173,6 @@ function ensureFileExists() {
 
 // This command writes  our tasks to the disk
 writeFile(data);
+
+//What is CSV?
+//WHat exactly is commander? 

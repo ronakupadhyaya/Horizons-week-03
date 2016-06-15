@@ -125,7 +125,7 @@ function showTasks(){
   // YOUR CODE HERE
   if(program.id){
     var id = program.id-1;
-    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority +": "+data[id].name)
   }else{
     for (var i=0; i<data.length; i++){
       console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
