@@ -23,8 +23,13 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// MODELS
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/formtwo');
+var User = require('./models/user');
+
 // ROUTES
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
   res.redirect('/register');
 });
 
@@ -56,18 +61,26 @@ function validate(req) {
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
-  console.log(req.body);
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
-    // Include the data of the profile to be rendered with this template
-    res.render('profile', req.body);
+    new User(req.body).save(function(err, user) {
+      res.redirect('/profile/' + user.id);
+    });
   }
+});
+
+app.get('/profile/:id', function(req, res) {
+  // get userdata
+  User.findById(req.params.id, function(err, user) {
+    console.log(user);
+    // render it
+    res.render('profile', user);
+  });
 });
 
 app.listen(3000, function() {
