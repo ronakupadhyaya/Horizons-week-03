@@ -57,10 +57,6 @@ Our stack for this project consists of:
 - Server: ExpressJS
 - Templates: Handlebars
 
-## Tips
-
-First, some general tips to get you started.
-
 ## Phase 1: Getting started
 ### Project scaffolding
 
@@ -78,7 +74,7 @@ you'd like to give your project:
 
     $ express --hbs <PROJECT_NAME>
 
-Remember the `--hbs` argument, which sets the template engine to Handlebars.
+**Remember the `--hbs` argument, which sets the template engine to Handlebars.**
 
 This command will create some folders and populate some basic files to get you
 started. Spend a few minutes exploring these files until things make sense.
@@ -107,8 +103,8 @@ First, run `npm install` in the project directory to install the dependencies
 The simplest way to run the server is by typing `npm start`. How does this work?
 Look for the "scripts" object inside `package.json` for a hint.
 
-Try this out! Run the server, then try opening up http://localhost:3000 in your
-web browser to connect to it. If everything has been set up correctly, you
+Try this out! Run the server, then try opening up `http://localhost:3000` in
+your web browser to connect to it. If everything has been set up correctly, you
 should see a message that says "Welcome to Express."
 
 However, there are two problems with running the server this way: file changes,
@@ -165,8 +161,9 @@ more on this topic.
 ## Phase 2: Mongo, Mongoose
 
 Now that you've got your server running, the next step is to install and set up
-your database server, MongoDB. On OS X (assuming you've already installed
-[Homebrew](http://brew.sh/)), this should be as easy as running:
+your database server, MongoDB, and the ORM tool, Mongoose. On OS X (assuming
+you've already installed [Homebrew](http://brew.sh/)), this should be as easy as
+running:
 
     $ brew update && brew install mongodb
 
@@ -178,8 +175,8 @@ on how to run it:
     Or, if you don't want/need a background service you can just run:
       mongod --config /usr/local/etc/mongod.conf
 
-You'll find instructions on installing and running Mongo on windows
-[here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/).
+(You'll find instructions on installing and running Mongo on windows
+[here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/).)
 
 Once Mongo is installed and running, let's try connecting to it inside our
 application. Install Mongoose by running:
@@ -211,7 +208,8 @@ The next step is to create [mongoose
 schemas and models](http://mongoosejs.com/docs/guide.html) for your app. First,
 some basic Mongo terminology:
 
-- a _document_ is any single object stored in the database.
+- a _document_ is any single object stored in the database (like a row in a
+  table, or an object instance).
 - a _collection_ is a set of objects that share the same schema, i.e., the same
   document structure. Think of these like Javascript classes or tables in other
   databases.
@@ -222,19 +220,21 @@ some basic Mongo terminology:
 
 To illustrate with a basic example:
 
-    var mongoose = require('mongoose');
+```javascript
+var mongoose = require('mongoose');
 
-    // Create a schema
-    var PersonSchema = new Mongoose.schema({
-      name: String,
-      age: Number
-    });
+// Create a schema
+var PersonSchema = new Mongoose.schema({
+  name: String,
+  age: Number
+});
 
-    // Create a model based on this schema and the 'mypeople' collection
-    var Person = mongoose.model('mypeople', PersonSchema);
+// Create a model based on this schema and the 'mypeople' collection
+var Person = mongoose.model('mypeople', PersonSchema);
 
-    // Create a person document
-    var somePerson = new Person({name: "Ethan", age: 17});
+// Create a person document
+var somePerson = new Person({name: "Ethan", age: 17});
+```
 
 Give some thought to designing the schema for your project. Recall the
 [baseball exercise](https://github.com/horizons-school-of-technology/week02/tree/master/day3/2_inline_model):
@@ -271,21 +271,34 @@ for a starting point.
 
 ## Phase 4. Views
 
-- Front page (list all projects)
-- Create new project form
-- Contribute form
-- Nodemon
+With your data model in place, the next step is to create some views to display
+and allow the user to edit the data. At a bare minimum, you're going to want the
+following:
+
+- A front page which lists all projects (perhaps with a set of featured projects
+  on top, like on Kickstarter)
+- A page that lets you view a project, and contribute to that project
+- A page that lets you create a new project
+
+How you structure these views--for instance, whether each is its own page, or
+whether one page hosts multiple functions in different divs or inside
+modals--and whether you need other views is entirely up to you.
+
+Your views should be handlebars templates in `.hbs` files inside the `views/`
+project folder.
+
 
 ## Phase 5. Routes
 
-## Phase 6: Templating
 
-## Phase 7: Form validation
+## Phase 6: Form validation
 
 - form validation: https://github.com/ctavan/express-validator
-## (BONUS) Phase 8
+## (BONUS) Phase 7
 
 - frontend form validation
+- AJAX?
+- add more features from kickstarter e.g. featured project page
 
 ## Troubleshooting
 
