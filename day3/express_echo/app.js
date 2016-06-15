@@ -16,11 +16,27 @@ app.get('/', function(request, response) {
 // You can access the query parameter 'name' via request.query.name.
 
 // YOUR CODE HERE
+var template = require('express-handlebars');
+app.engine("handlebars", template());
+app.set('views', __dirname + '/views');
+
+app.get('/', function(request, response) {
+	response.render('index.handlebars', )
+});
 
 app.get('/hello', function(request, response) {
   var name = request.query.name;
   if(! name) {
   	name = "mysterious stranger";
+  }
+  response.send('Hello there, ' + name);
+});
+
+app.get('/mullins', function(request, response) {
+  var name = request.query.name;
+  if(! name) {
+  	// name = "mysterious stranger";
+  	response.sendStatus(400);
   }
   response.send('Hello there, ' + name);
 });

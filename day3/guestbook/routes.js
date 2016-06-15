@@ -37,7 +37,7 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
+  console.log("blahb");
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
