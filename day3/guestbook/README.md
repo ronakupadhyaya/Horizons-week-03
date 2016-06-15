@@ -56,13 +56,11 @@ A valid post must contain these fields:
 1. Post title
 1. Post body
 
-### Styling requirements
+### Style tasks
 
-Use bootstrap to create all the pages.
-
-* Hint: Download the bootstrap library and add the js/css files to their
-respective folders inside the `public/` folder. This will make
-them accessible on the page.
+Use [Bootstrap](http://getbootstrap.com/) to style your views (i.e. your pages).
+You can download Bootstrap into the `public/`. The contents of this folder are accessible
+inside pages.
 
 There are three views (i.e. pages) in this app:
 
@@ -70,9 +68,16 @@ There are three views (i.e. pages) in this app:
 1. View posts view -> `views/posts.hbs`
 1. Create post view -> `views/post_form.hbs`
 
-For login + create post forms use validation and display errors.
+When creating posts, you should validate input and display validation
+errors on the page.
 
 ### Bonus Section:
+
+Put validation errors inline with form elements that have validation errors.
+Bootstrap supports inline form validation messages like this:
+
+![](img/valid.png)
+
 
 Render Markdown posts using [Marked](https://github.com/chjj/marked)
 
