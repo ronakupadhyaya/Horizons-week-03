@@ -23,20 +23,24 @@ router.post('/login', function(req, res) {
 // GET POSTS: Renders a list of all available posts. No need to be logged in.
 router.get('/posts', function(req, res) {
 
-//?username=sbastidasr & order=ascending
-  if (req.query.username){
-    posts.filter(function(post){
-      return post.author===req.query.username
-    });
-  }
+  //?username=sbastidasr & order=ascending
+  /*  if (req.query.username){
 
-  // TODO: Order ascending/descending
-  /*
-  if (req.query.order){
-  if (req.query.order==='ascending'){
-  reorder by date
+  posts.filter(function(post){
+  return post.author===req.query.username
+});
 }
-}*/
+*/
+
+
+// TODO: Order ascending/descending
+
+
+if (req.query.order==='ascending'){
+  posts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+} else {
+  posts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+}
 
 res.render('posts', {
   title: 'Posts',
