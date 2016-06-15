@@ -19,7 +19,21 @@
   from the cookies! -->
 
   <form action="/posts" method="POST">
-    <!-- YOUR CODE HERE -->
+
+    <div class="title">
+      <label class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="title" name="title" required>
+      </div>
+    </div>
+    <div class="body">
+      <label class="col-sm-2 control-label title">Body</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="body" name="body" required>
+      </div>
+    </div>
+    <input class="btn btn-default postPost" type="submit" value="Post">
+
   </form>
 
 </body>

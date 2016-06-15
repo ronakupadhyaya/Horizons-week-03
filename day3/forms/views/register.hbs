@@ -11,14 +11,144 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+    <ul>Errors:
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul>
+    <form class="form-horizontal" method="post">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="First name" name="firstName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Middle Initial</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Middle initial" name="middleInitial">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Last name" name="lastName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="passwordConfirm" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm" placeholder="Confirm password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="birthMonth" class="col-sm-2 control-label">Birthday</label>
+        <div class="col-sm-10">
+          <select name="birthMonth" class="form-control">
+            <option value=null>Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="birthDay" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+          <select name="birthDay" class="form-control">
+            <option value=null>Day</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="birthYear" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+          <select name="birthYear" class="form-control">
+          <option value=null>Year</option>
+          {{#each years}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+      <div class="radio">
+        <label class="radio"><b>
+          <input type="radio" name="gender" class="gender" id="Female" value="Female">Female
+        </b></label>
+      </div>
+      <div class="radio">
+        <label class="radio"><b>
+          <input type="radio" name="gender" class="gender" id="Male" value="Male">Male
+        </b></label>
+      </div>
+      <div class="radio">
+        <label class="radio"><b>
+          <input type="radio" name="gender" class="gender" id="genderOther" value="genderOther">Decline to answer
+        </b></label>
+      </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox" align="center">
+            <label><b>
+              <input type="checkbox">Signup for newsletter
+            </b></label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </div>
+    </form>
   </div>
 </body>
 </html>

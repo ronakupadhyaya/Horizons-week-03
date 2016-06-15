@@ -1,3 +1,22 @@
+
+.checkbox{
+	justify-content: center;
+}
+
+.checkbox label{
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+}
+
+.btn {
+	margin-top: 2em;
+}
+
+
+
+
+
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.

@@ -37,20 +37,63 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
+  var sortByDate = 'descending';
+  var filterPosters = null;
+  if(req.query.order){
+    sortByDate = req.query.order;
+  }
+  if(req.cookies.username){
+    filterPosters = req.cookies.username;
+  }
+
+  var unsorted = data.read();
+  console.log(unsorted);
+  var posts = [];
+  if(filterPosters){
+    for(var i=0;i<unsorted.length;i++){
+      if(unsorted[i].poster==filterPosters){
+        posts.push(unsorted[i]);
+      }
+    }
+  }
+  else{
+    posts = unsorted.slice();
+  }
+
+  posts.sort(function(a,b){
+    return a.date-b.date;
+  })
+
+  if(sortByDate=='ascending'){
+    posts.reverse();
+  }
+
 
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: posts
   });
 });
+
 
 // ---Part 3. New post form---
 // GET /posts/new: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+
+  if(!req.cookies.username){
+    throw "Must be logged in to post";
+  }
+  res.render('post_form',{
+    errors: JSON.stringify(req.query),
+    author: req.cookies.username,
+    postDate: Date.now(),
+    title: req.query.title,
+    body: req.query.body
+  });
+
 });
 
 // ---Part 4. Create new post
@@ -63,7 +106,38 @@ router.get('/posts/new', function(req, res) {
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var errors = []
+  if(!req.cookies.username){
+    errors.push("User must be logged in to post");
+  }
+  console.log(errors);
+  validate(req);
+  errors=req.validationErrors();
+  console.log(errors);
+
+  if (errors) {
+    res.render('post_form', {error: errors});
+ 
+  } else {
+      var arr = data.read();
+      arr.push({
+        author: req.cookies.username,
+        postDate: Date.now(),
+        title: req.body.title,
+        body: req.body.body
+      })
+      data.save(arr);
+      console.log(data);
+    res.render('posts',{
+      posts: data.read()
+    });
+  }
+
 });
+
+function validate(req){
+  req.checkBody('title','Title is empty').notEmpty();
+  req.checkBody('body','Invalid body').notEmpty();
+}
 
 module.exports = router;

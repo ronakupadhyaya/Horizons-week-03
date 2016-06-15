@@ -13,12 +13,27 @@
 <body>
 <h1>View all posts</h1>
 
+<button name='addPost' class="btn addPost"><a href="/posts/new">Add Post</a></button>
+
 <!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
 display them on the page. Add a couple of buttons to sort ascending/descending
 and to create new post! -->
 
+	<div class="posts">
+	{{#each posts}}
+		<div class='post'>
+			<div class='title'>
+				{{title}}
+			</div>
+			<div class='author'>
+				--{{author}}
+			</div>
+			<div class='body'>
+				{{body}}
+			</div>
+		</div>
+	{{/each}}
 
-<!-- YOUR CODE HERE -->
-
+	</div>
 </body>
 </html>
