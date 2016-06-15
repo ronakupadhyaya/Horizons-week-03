@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('Show')
+  .description("Show Tasks")
+  .action(showTask);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('Delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +70,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
