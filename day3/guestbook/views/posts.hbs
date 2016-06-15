@@ -22,6 +22,10 @@ and to create new post! -->
 <a href="/posts/new">Create a new post</a>
 <a href="/posts?order=ascending">Ascending order</a>
 <a href="/posts?order=descending">Descending order</a>
+<form action="/posts" method="GET">
+	<input type="text" name ="username" placeholder="enter username"></input>
+	<input type="submit"></input>
+</form>
 {{#each posts}}
 	<div>
 		<h3>{{author}}</h3>
