@@ -101,9 +101,15 @@ code? You should create a folder called `model/` to store your models.
 
 ### Running the backend
 
-The simplest way to run the server is by typing `npm start` in the project
-folder. How does this work? Look for the "scripts" object inside `package.json`
-for a hint.
+First, run `npm install` in the project directory to install the dependencies
+(you should be getting used to this by now!).
+
+The simplest way to run the server is by typing `npm start`. How does this work?
+Look for the "scripts" object inside `package.json` for a hint.
+
+Try this out! Run the server, then try opening up http://localhost:3000 in your
+web browser to connect to it. If everything has been set up correctly, you
+should see a message that says "Welcome to Express."
 
 However, there are two problems with running the server this way: file changes,
 and debugging.
@@ -158,32 +164,126 @@ more on this topic.
 
 ## Phase 2: Mongo, Mongoose
 
-- Install
-- Require modules
+Now that you've got your server running, the next step is to install and set up
+your database server, MongoDB. On OS X (assuming you've already installed
+[Homebrew](http://brew.sh/)), this should be as easy as running:
 
-## Data model, schema
+    $ brew update && brew install mongodb
 
-- Create schema
-- Create sample data (how?) - can be done from commandline, not as
-easy as it could be
- - This is helpful: https://docs.mongodb.com/manual/reference/mongo-shell/#basic-shell-javascript-operations
-- Wire up to a view
+Once Mongo is installed, you should see the following message with instructions
+on how to run it:
 
-## Views
+    To have launchd start mongodb now and restart at login:
+      brew services start mongodb
+    Or, if you don't want/need a background service you can just run:
+      mongod --config /usr/local/etc/mongod.conf
+
+You'll find instructions on installing and running Mongo on windows
+[here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/).
+
+Once Mongo is installed and running, let's try connecting to it inside our
+application. Install Mongoose by running:
+
+    $ npm install --save mongoose
+
+Then create a database configuration object (we recommend saving this into its
+own JS module, perhaps in a `config/` folder) which looks like this (replace
+`<PROJECTNAME>` with the name of your project--actually any name will do here,
+this is the name of the Mongo database that you're using for this project):
+
+    dbConfig = {
+      'url' : 'mongodb://localhost/<PROJECTNAME>'
+    };
+      
+Assuming you haven't changed any of the default Mongo settings, you should be
+able to connect to your Mongo server like this:
+
+    var mongoose = require('mongoose');
+    mongoose.connect(dbConfig.url);
+
+Add these lines to `app.js` to establish the database connection when the server
+launches.
+
+
+## Phase 3. Data model, schema
+
+The next step is to create [mongoose
+schemas and models](http://mongoosejs.com/docs/guide.html) for your app. First,
+some basic Mongo terminology:
+
+- a _document_ is any single object stored in the database.
+- a _collection_ is a set of objects that share the same schema, i.e., the same
+  document structure. Think of these like Javascript classes or tables in other
+  databases.
+- a _schema_ is a basic document structure. E.g., a "Person" schema might have a
+  name, which is a String, and an age, which is a Number.
+- a _model_ connects the schema to a specific named collection. It's based on a
+  schema and allows you to read and write from and to a specific collection.
+
+To illustrate with a basic example:
+
+    var mongoose = require('mongoose');
+
+    // Create a schema
+    var PersonSchema = new Mongoose.schema({
+      name: String,
+      age: Number
+    });
+
+    // Create a model based on this schema and the 'mypeople' collection
+    var Person = mongoose.model('mypeople', PersonSchema);
+
+    // Create a person document
+    var somePerson = new Person({name: "Ethan", age: 17});
+
+Give some thought to designing the schema for your project. Recall the
+[baseball exercise](https://github.com/horizons-school-of-technology/week02/tree/master/day3/2_inline_model):
+what schemas (classes) does your project require? What data properties and
+methods do these schemas need? The design of the data model is up to you, so go
+wild. Mongoose schemas and models are a lot like the data models we've seen and
+built over the past couple of weeks. They have properties, and you can attach
+methods to them, too. Read the [Mongoose
+guide](http://mongoosejs.com/docs/guide.html) for more information. This article
+is also helpful: [Mistakes You’re Probably Making With MongooseJS, And How To
+Fix Them](http://blog.mongodb.org/post/52299826008/the-mean-stack-mistakes-youre-probably-making)
+
+You should store your models in individual files inside the `model/` folder. For
+instance, the `Person` model above would be stored in `model/person.js`. Include
+these model files using `require('model/MODELNAME')` throughout your app as
+necessary.
+
+### Testing
+
+Spend some time making sure that your schemas and models are set up properly.
+You should try creating some sample documents inside your collection(s), and
+make sure that you know how to read them, too. See
+[Models](http://mongoosejs.com/docs/models.html) for instructions on creating
+and saving documents, and [Queries](http://mongoosejs.com/docs/queries.html) for
+instructions on reading documents.
+
+One option is to use the debugger to try creating and reading documents. Another
+option is the
+[mongo shell](https://docs.mongodb.com/manual/reference/mongo-shell/). See the
+list of
+[basic shell JavaScript operations](https://docs.mongodb.com/manual/reference/mongo-shell/#basic-shell-javascript-operations)
+for a starting point.
+
+
+## Phase 4. Views
 
 - Front page (list all projects)
 - Create new project form
 - Contribute form
 - Nodemon
 
-## Routes
+## Phase 5. Routes
 
-## Phase 4: Templating
+## Phase 6: Templating
 
-## Phase 5: Form validation
+## Phase 7: Form validation
 
 - form validation: https://github.com/ctavan/express-validator
-## (BONUS) Phase X
+## (BONUS) Phase 8
 
 - frontend form validation
 
