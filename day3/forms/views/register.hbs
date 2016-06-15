@@ -12,11 +12,64 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
+    {{#if errors}}
     <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    {{/if}}
+      <div class="row">
+        <form action="/register" method="post">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="First Name" name="firstName" required class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Middle Initial</label>
+          <input type="text" placeholder="Middle initial" name= "middleInitial" class="form-control">
+        </div>
+        <div class = "form-group">
+          <label>Last Name</label>
+          <input type = "text" placeholder="Last name" name = "lastName" required class="form-control">
+        </div>
+      <div class ="form-group">
+        <label>Date of Birth</label>
+          <select name="DOBMonth" class="form-control">
+            {{#each mo}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+          <select name="DOBDay" class="form-control">
+            {{#each day}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+          <select name="DOBYear" class="form-control">
+            {{#each year}}
+            <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class ="form-group"> 
+          <input type ="password" placeholder="Password" name="passWord" required class="form-control">
+        </div>
+        <div class ="form-group">
+          <input type ="password" placeholder="Repeat Password" name="repeatPassword" required class="form-control">
+        </div>
+        <div class ="form-group">
+          <label>Gender</label>
+          <input type="radio" name="gender" value="male" checked>Male<br>
+          <input type="radio" name="gender" value="female" checked>Female<br>
+          <input type="radio" name="gender" value="other" checked>Other<br>
+        </div>
+        <div class = "form-group">
+          <label>Sign-up for our newsletter!</label>
+            <input type="checkbox" name="newsletter">
+        </div>
+        <div class = "form-group">
+          <label>Bio</label>
+           <textarea name="bio" placeholder="Tell us about yourself!" class ="form-control"></textarea>
+        </div>
+        <div class ="form-group">
+          <input type="submit">
+        </div>
       </form>
     </div>
   </div>

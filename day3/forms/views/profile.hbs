@@ -13,6 +13,14 @@
   <div class="container">
     <div class="row">
       <h1>Put your user profile here</h1>
+      <h3>Welcome, {{firstName}} {{middleInitial}} {{lastName}}!</h3>
+      <p>Born: {{#if DOBMonth}}{{DOBMonth}}{{/if}}/{{#if DOBDay}}{{DOBDay}}{{/if}}/{{#if DOBYear}}{{DOBYear}}{{/if}}</p>
+      <p>{{firstName}} is a {{gender}}, and
+      {{#if newsletter}}signed up for the newsletter
+      {{else}}did not sign up for the newsletter
+      {{/if}}</p>
+      <p>Bio: {{bio}}</p>
+      <p>Registered: {{registration}}</p>
     </div>
   </div>
 </body>
