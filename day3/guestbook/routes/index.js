@@ -5,7 +5,6 @@ var jsonfile = require('jsonfile');
 var file = 'data.json';
 var posts = jsonfile.readFileSync(file);
 
-
 // LOGIN
 // GET LOGIN: Renders the form to log into the app
 router.get('/login', function(req, res) {
@@ -22,7 +21,6 @@ router.post('/login', function(req, res) {
 // POSTS
 // GET POSTS: Renders a list of all available posts. No need to be logged in.
 router.get('/posts', function (req, res) {
-
   var displayposts = posts;
   if (req.query.username){
     displayposts = displayposts.filter(function(post){
@@ -40,8 +38,6 @@ router.get('/posts', function (req, res) {
   });
 });
 
-
-
 // GET POSTS: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
 router.get('/posts/new', function(req, res) {
@@ -57,9 +53,15 @@ router.get('/posts/new', function(req, res) {
 router.post('/posts', function(req, res) {
 
   req.checkBody('title', 'Title must not be empty').notEmpty();
-  req.checkBody('text', 'Title must not be empty').isEmail()
+  req.checkBody('text', 'Title must not be empty').notEmpty()
+  var errors = req.validationErrors();
 
-  if (req.cookies && req.cookies.username){
+  if (errors){
+    res.render('post_form', {
+      title: 'New Post',
+      error:"Title and body can't be blank"});
+  }
+  if (req.cookies && req.cookies.username && !errors){
     var post = {
       author: req.cookies.username,
       date: req.body.date,
