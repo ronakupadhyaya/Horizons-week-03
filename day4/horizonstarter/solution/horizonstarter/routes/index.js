@@ -7,12 +7,14 @@ var Project = require('../model/project');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
+  console.log("GET flash is: " + JSON.stringify(req.session.flash));
   Project.find(function(err, projects) {
     if (err) res.send(err);
-    res.render('index', {projects: projects, title: "Horizon Starter"});
+    var flash;
+    if (req.session.flash)
+      flash = req.session.flash.shift();
+    res.render('index', {projects: projects, title: "Horizon Starter", flash: flash});
   });
-
 });
 
 // GET New project form
@@ -62,12 +64,11 @@ router.post('/new', function(req, res, next) {
     });
     project.save(function(err) {
       if (err) res.send(err);
-      res.send("Success");
+      // Set success flash message and redirect.
+      req.session.flash = [{type: 'alert-success', messages: [{msg: "Project created successfully"}]}];
+      console.log("SET flash is: " + JSON.stringify(req.session.flash));
+      res.redirect('/');
     });
-
-    // Return full list of projects
-
-    // res.render('index', { flash: { type: 'alert-success', messages: [ { msg: 'No errors!' }]}});
   }
 });
 
