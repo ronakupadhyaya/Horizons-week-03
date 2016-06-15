@@ -2,6 +2,15 @@
 
 ## Contents
 
+- [Introduction](#introduction)
+- [Phase 1: Getting started](#phase-1-getting-started)
+- [Phase 2: Mongo, Mongoose](#phase-2-mongo-mongoose)
+- [Phase 3: Data model, schema](#phase-3-data-model-schema)
+- [Phase 4: Views](#phase-4-views)
+- [Phase 5: Routes](#phase-5-routes)
+- [Phase 6: (BONUS) Do all the things](#bonus-phase-6-do-all-the-things)
+- [Troubleshooting](#troubleshooting)
+
 ## Introduction
 
 Welcome to the wild world of backend web applications! With node,
@@ -43,7 +52,7 @@ purely backend webapp. You're starting from scratch and it's up to you to design
 and layout the project as you see fit, but we'll walk you through the steps and
 provide suggestions.
 
-## The stack
+### Stack
 
 Recall from lesson that a "stack" refers to the set, or stack (because they sit
 on top of each other), of technologies that you use to build an app or, more
@@ -296,6 +305,9 @@ modals--and whether you need other views is entirely up to you.
 Your views should be handlebars templates in `.hbs` files inside the `views/`
 project folder.
 
+Go crazy! Feel free to borrow styles from Kickstarter, and make your page look
+and feel like that one, or to use entirely different designs.
+
 
 ## Phase 5. Routes
 
@@ -348,9 +360,10 @@ Finally, here are a few more tips to get you on your way:
   [express-validator](https://github.com/ctavan/express-validator) can help a
   lot.
 - Don't confuse form validation with [Mongoose
-  validation](http://mongoosejs.com/docs/validation.html). You should do that,
-  too, as a second line of defense against bad data entering your database, but
-  they're two completely different things.
+  validation](http://mongoosejs.com/docs/validation.html), which happens at the
+  database level (i.e., inside the mongoose library, not in your code). You
+  should do that too as a second line of defense against bad data entering
+  your database, but they're two completely different things.
 - Don't confuse backend form validation with frontend form validation. The
   former happens _after_ a form is submitted, inside express, and displaying
   errors requires rerendering forms. The latter happens inside the user's
@@ -370,14 +383,37 @@ take the user away from the main app flow, and they should not cause data the
 user has entered to disappear. Make use of Bootstrap components such as alerts
 for this purpose.
 
-## (BONUS) Phase 7
+## (BONUS) Phase 6: Do all the things
 
-- frontend form validation
-- AJAX?
-- add more features from kickstarter e.g. featured project page
+So you've got a working Kickstarter clone with projects and contributions. Well
+aren't you a hot shot? But you're not done yet. Not really. Not until you're
+stealing business from Kickstarter and Indiegogo. (If you are, let me know so I
+can invest.)
+
+Try adding the following features:
+
+- Add images, videos, and rewards to projects, if you haven't already.
+- Alert users (by email, or by SMS, using Twilio) when their project, or a
+  project they've contributed to, reaches its fundraising goal.
+- Frontend validation: check form input when the user hits submit, before
+  sending it to the backend. You may find a library such as [jQuery
+  Validation](https://jqueryvalidation.org/) useful for this, in combination
+  with Bootstrap [Validation
+  states](http://getbootstrap.com/css/#forms-control-validation)
+- Add some AJAX endpoints so that some features of the app, such as adding a
+  contribution to a project, happen without leaving the page. (We'll cover this
+  in more detail tomorrow.) Congrats, you've now got a hybrid frontend-backend
+  app, which is how most complex modern apps are designed.
+- Add some more Kickstarter-style features: users, featured projects, favorites
+  (stars), project updates, etc.
+- Add unit tests: for your schemas and models, for form validation, etc.
 
 ## Troubleshooting
 
+- If you see this error when you try to run your server:
+
     Error: connect ECONNREFUSED 127.0.0.1:27017
     
-This means you don't have mongodb running.
+It means that mongodb isn't running. See the instructions in the [Mongo
+section](#phase-2-mongo-mongoose), above, to install and launch mongo.
+
