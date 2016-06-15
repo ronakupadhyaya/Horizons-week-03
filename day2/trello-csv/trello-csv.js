@@ -1,5 +1,5 @@
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = 'fcdb956dcea2df90bc262a6da6060841';
+var TRELLO_TOKEN = 'bd8e6dcce884986f8f2d9492a41f7a6084513a1c26f27e28166bae455a07be28';
 
 var fs = require('fs');
 var csv = require('csv');
@@ -14,15 +14,17 @@ var program = require('commander');
 // Use commander to parse the --upload -u, --download -d flags
 // ex. program.option('-u, --upload', 'Upload CSV'); -> program.upload = true
 
-program.parse(process.argv);
+program.option('-u, --upload', 'Upload CSV');
+program.option('-d, --download', 'Download CSV');
 
 // Remaining arguments after flags are stored in program.args
 // - The first argument should be board id
 // - The second argument should be the csv file
 // ex. var board_id = program.args[0];
 // YOUR CODE HERE
-var board_id;
-var csv_fname;
+program.parse(process.argv);
+var board_id = program.args[0];
+var csv_fname =  program.args[1];
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
@@ -30,9 +32,30 @@ var uploadToTrello = function(board_id, csv_fname) {
   var csvData = fs.readFileSync(csv_fname).toString();
 
   csv.parse(csvData, { columns: true}, function(err, data){
-    console.log(data);
     // YOUR CODE HERE
-  });
+    console.log(data);
+    for (var key in data[0]) {
+    	trello.addListToBoard(board_id, key, function(err, list) {
+    		if (err) {
+    			console.log(err)
+    		} else {
+    			var listId = list.id;
+    			console.log(key);
+    			for (var i = 0; i < data.length; i++) {
+    				//if (data[i][key] !== "") {
+		    		trello.addCard(data[i][key], "Description", listId, function(err, card) {
+		    			if (err) {
+		    				console.log(err);
+		    			} else {
+		    				//console.log(card);
+		    			}
+		    		})
+		    	//}
+		    	}
+    		}
+    	});
+     }
+   });
 };
 
 // 3. download functionality - read trello data and output to csv
@@ -42,4 +65,10 @@ var downloadFromTrello = function(boardId) {
 
 // This line is here for demo purposes, you should delete it
 // when you get started!
-uploadToTrello(null, 'sample.csv');
+if (program.upload) {
+	uploadToTrello(board_id, csv_fname);
+}
+if (program.download) {
+	console.log('download');
+	downloadFromTrello(board_id);
+}
