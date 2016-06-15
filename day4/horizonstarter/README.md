@@ -62,7 +62,7 @@ Our stack for this project consists of:
 First, some general tips to get you started.
 
 ## Phase 1: Getting started
-### Express.js project scaffolding
+### Project scaffolding
 
 First things first. You should already have installed node. ([The instructions
 are here](../../day2/warmup.md) if you need them.) The next step is to install
@@ -97,7 +97,7 @@ Here's a partial overview:
 
 Recall the MVC pattern that we discussed in class: model, view, controller. It
 should be obvious where your "view" files will go. Have you found the controller
-code? You should create a folder called `model` to store your models.
+code? You should create a folder called `model/` to store your models.
 
 ### Running the backend
 
@@ -128,11 +128,33 @@ in your project folder should work.
 
 #### Debugging
 
-Debugging ExpressJS can be tricky.
+Debugging ExpressJS can be tricky, but with the right series of commands, you
+can use the familiar Chrome Dev Tools to debug your backend. If you're running
+without nodemon, this is as simple as using `node-debug`, e.g.,:
 
-- debugging expressjs
-- form validation: https://github.com/ctavan/express-validator
-- nodemon
+    $ node-debug bin/www
+
+Which, as you already know, will print a URL that you can put into your browser
+to connect to the debugger. It's a little bit trickier with nodemon. First, run
+nodemon with the `--debug` arg, e.g.:
+
+    $ nodemon --debug bin/www
+
+Then, in a separate terminal window or tab, run `node-inspector`. This will
+print the URL that you need to plug into the browser, and you should be able to
+set breakpoints and debug your express server. Try this now: set a breakpoint in
+`app.js` or `routes/index.js` and confirm that you can stop on that breakpoint
+in Dev Tools.
+
+One more debugging tip: you can control the amount of debugging output that
+appears on the commandline by setting the `DEBUG` environment variable. For
+instance, to see all debug output, you could run:
+
+    $ DEBUG=*:* npm start
+
+See [Debugging Express](http://expressjs.com/en/guide/debugging.html) for lots
+more on this topic.
+
 
 ## Phase 2: Mongo, Mongoose
 
@@ -160,6 +182,7 @@ easy as it could be
 
 ## Phase 5: Form validation
 
+- form validation: https://github.com/ctavan/express-validator
 ## (BONUS) Phase X
 
 - frontend form validation
