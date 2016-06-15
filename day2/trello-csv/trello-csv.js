@@ -13,6 +13,10 @@ var program = require('commander');
 // 1. parse cmdline args
 // Use commander to parse the --upload -u, --download -d flags
 // ex. program.option('-u, --upload', 'Upload CSV'); -> program.upload = true
+program
+  .option('-u, --upload <n>', 'Uploading');
+program
+  .option('-d, --download <n>', 'Downloading');
 
 program.parse(process.argv);
 
@@ -28,19 +32,79 @@ var csv_fname = program.args[1];
 // Here's some example code for reading CSV files.
 var uploadToTrello = function(board_id, csv_fname) {
   var csvData = fs.readFileSync(csv_fname).toString();
-
+  var lists;
   csv.parse(csvData, { columns: true}, function(err, data){
     console.log(data);
-    // YOUR CODE HERE
-    
-  });
-};
+    data.forEach(function(list) {
+      lists = _.keys(list);
+
+    })
+  lists.forEach(function(listName) {
+    debugger;
+    trello.addListToBoard(board_id, listName, function(err, response) {
+      var listId = response.id;
+      data.forEach(function(list) {
+        var cardName = list[listName];
+        trello.addCard(cardName, '', listId, function(err, response) {
+          console.log(response);
+        })
+        });
+      })
+
+    })
+  })
+}
 
 // 3. download functionality - read trello data and output to csv
 var downloadFromTrello = function(boardId) {
   // YOUR CODE HERE
-};
+  var list = [];
+  var data = [];
+  // var data = [{'List1':'card1', 'List 2': 'card2', 'List 3': 'card3', 'Empty list': ''}]
+  trello.getListsOnBoard(boardId, function(err, response) {
+    // console.log(response);
+    response.forEach(function(li) {
+      var listName = li.name;
+      list.push(listName);
+      data.push(listName);
+      var listId = li.id;
+      trello.getCardsOnList(listId, function(err, response) {
+        // console.log(response);
+        response.forEach(function(re) {
+          var cardName = re.name;
+          // var listName = li.name;
+
+          data.push(cardName)
+        })
+      })
+    })
+  })
+  console.log(data);
+  fs.writeFileSync(data.toString());
+}
+//     response.forEach(function(li) {
+//       var listId = li.id;
+//       list.forEach(function(l) {
+//         if (li.name === l) {
+//           trello.getCardsOnList(listId, callback) {
+//             getCard(boardId, cardId, function(err, response) {
+//             console.log(response);
+//           })
+//         }
+//       })
+//     })
+//   })
+// // Trello.prototype.getCard = function (boardId, cardId, callback) {
+// };
 
 // This line is here for demo purposes, you should delete it
+
 // when you get started!
-uploadToTrello(null, 'sample.csv');
+// uploadToTrello("55c0d91c813b3e918f6a418e", 'sample.csv');
+downloadFromTrello("55c0d91c813b3e918f6a418e");
+if (program.upload) {
+  uploadToTrello("55c0d91c813b3e918f6a418e", 'sample.csv');
+}
+if (program.download) {
+  downloadFromTrello("55c0d91c813b3e918f6a418e");
+}
