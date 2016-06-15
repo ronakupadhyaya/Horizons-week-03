@@ -23,37 +23,12 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// DATA
-var registered = false;
-
-var registrationData = {
-  firstName: "",
-  middleInitial: "",
-  lastName: "",
-  dob: {
-    month: null,
-    day: null,
-    year: null,
-  },
-  password: "",
-  passwordRepeat: "",
-  gender: "",
-  newsletter: false,
-  bio: "",
-  registerDate: null,
-  error: ""
-};
-
-var isValidData = function() {
-  return true;
-};
-
 // ROUTES
 app.get('/', function(req, res){
   res.redirect('/register');
 });
 
-// GET /register
+// ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
@@ -62,23 +37,28 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
-// Write a function that
-function isValid(data) {
+// ---Part 2: Validation---
+// Write a function that validates form input data.
+// Returns false if there are no errors, otherwise returns
+// an array of errors.
+function validates(data) {
   // YOUR CODE HERE
   return false;
 }
 
+// ---Part 3: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE
-  res.render('register');
-});
-
-app.get('/profile', function(req, res){
-  // Compile registration template
-  res.send(registrationTemplate(registrationData));
+  var errors = validate(req.body);
+  if (errors) {
+    res.render('register', {errors: errors});
+  } else {
+    // YOUR CODE HERE
+    // Include the data of the profile to be rendered with this template
+    res.render('profile');
+  }
 });
 
 app.listen(3000, function() {
