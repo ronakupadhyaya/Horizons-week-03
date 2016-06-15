@@ -21,33 +21,26 @@ router.post('/login', function(req, res) {
 
 // POSTS
 // GET POSTS: Renders a list of all available posts. No need to be logged in.
-router.get('/posts', function(req, res) {
+router.get('/posts', function (req, res) {
 
-  //?username=sbastidasr & order=ascending
-  /*  if (req.query.username){
-
-  posts.filter(function(post){
-  return post.author===req.query.username
+  var displayposts = posts;
+  if (req.query.username){
+    displayposts = displayposts.filter(function(post){
+      return post.author===req.query.username
+    });
+  }
+  if (req.query.order==='ascending'){
+    displayposts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+  } else {
+    displayposts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+  }
+  res.render('posts', {
+    title: 'Posts',
+    posts: displayposts
+  });
 });
-}
-*/
 
 
-// TODO: Order ascending/descending
-
-
-if (req.query.order==='ascending'){
-  posts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
-} else {
-  posts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
-}
-
-res.render('posts', {
-  title: 'Posts',
-  posts: posts
-});
-console.log(posts)
-});
 
 // GET POSTS: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
@@ -79,4 +72,6 @@ router.post('/posts', function(req, res) {
   }
 });
 
+
+// TODO: query url for lower buttons is incorrect. 
 module.exports = router;
