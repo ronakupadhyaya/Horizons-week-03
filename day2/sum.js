@@ -34,7 +34,26 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+// rl.question("Hi! What's your name? ", function(name) {
+//   console.log('Nice to meet you', name);
+//   rl.close();
+// });
+
+	var numbers = process.argv.slice(2)
+	var total = 0;
+	if (numbers.length === 0) {
+		rl.question("Enter first number?", function(num1) {
+			total+=parseInt(num1);
+				rl.question("Enter second number?", function(num2) {
+				total+=parseInt(num2);
+				return total;
+				rl.close();
+			});
+		});
+		
+		return total;
+	}
+	for (var i=0; i<numbers.length; i++) {
+		total += parseInt(numbers[i]);
+	}
+	return total;
