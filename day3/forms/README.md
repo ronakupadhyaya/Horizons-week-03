@@ -4,7 +4,7 @@
 
 The goal of this exercise if to familiarize yourself with a few key concepts: **server-side rendering w/ templating** and **form validation**.
 
-In comparison to everything we've done before, this will feel a little bit different. Typically, we fetch data and then render new items on a page client-side (that is, the browser # TODO). In this case, we're going to be sending *static* pages - pages that you won't have to render anything on, ***because it's already done on the server*** before it's sent.
+In comparison to everything we've done before, this will feel a little bit different. Typically, we fetch data and then render new items on a page client-side (that is, the browser). In this case, we're going to be sending *static* pages - pages that you won't have to render anything on, ***because it's already done on the server*** before it's sent.
 
 At the end of this, you should be a bit more comfortable with using templates to render a page and validating form input.
 
@@ -111,7 +111,7 @@ At the end of this, you should be a bit more comfortable with using templates to
     </tr>
   <table>
 
-  You will be creating two pages: a registration form page and a
+  You will be creating two pages: a registration form page and a profile page. 
   Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
 
   If all data is valid, render a profile page using this information after submit.
