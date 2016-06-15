@@ -1,20 +1,41 @@
+"use strict";
+
 // Let's bring express into this file!
 var express = require('express');
 
 // Let's create a new express app
 var app = express();
-
+var port = 8888;
 // Example route:
 // This creates an Express route at http://localhost:3000
-app.get('/', function(request, response) {
-  response.send('Express is running!')
+app.get('/', function(request, response, next) {
+  response.type('text/plain');
+  response.send('Hello there!');
 });
+
 
 // Create a route that listens to /hello and takes one query parameter
 // name and responds with 'Hello there NAME!'
 // You can access the query parameter 'name' via request.query.name.
 
+app.get('/hello', function(request, response) {
+	var resp = request.query.name;
+	response.send("Hello there " + resp).type('text/plain');
+});
+
+
+app.use('/info', function(request, response){
+var resp = '';
+
+resp += 'Query:' + JSON.stringify(request.query) + '\n';
+
+})
+
+
 // YOUR CODE HERE
+app.listen(port);
+console.log('Express started on port' + port)
+
 
 // Start the server listening on port 3000.
 app.listen(3000);
