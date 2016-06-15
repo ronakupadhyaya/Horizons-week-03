@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 // Write your model schema right here!
-module.exports = mongoose.model('User', {
+var userSchema = mongoose.Schema({
   firstName: String,
   middleInitial: String,
   lastName: String,
@@ -15,3 +15,5 @@ module.exports = mongoose.model('User', {
   bio: String,
   registrationDate: Date
 });
+
+module.exports = mongoose.model('User', userSchema);
