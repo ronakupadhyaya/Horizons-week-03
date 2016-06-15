@@ -16,6 +16,11 @@
 <!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
 display them on the page. Add a couple of buttons to sort ascending/descending
 and to create new post! -->
+<div>
+	<p>{{#each posts}}
+		<li>{{@key}} = {{this}}
+		{{/each}}
+</div>
 
 
 <!-- YOUR CODE HERE -->

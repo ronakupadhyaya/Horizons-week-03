@@ -37,11 +37,37 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
   // This renders the posts
+  //req.query.username;
+  //var posts = jsonfile.readFileSync(data.json);
+  //console.log(req.params)
+  var posts = data.read();
+  console.log(req.cookies.username);
+  if(req.query.order === "ascending") {
+    posts.sort(function(a,b){
+      return a.date - b.date;
+    })
+  }
+  if(req.query.order === "descending") {
+    posts.sort(function(a,b){
+      return b.date - a.date;
+    })
+  }
+  if (req.query.username) {
+    var username = req.query.username;
+    console.log(username);
+    var newPosts = [];
+    for(var i =0; i<posts.length; i++){
+      if (posts[i].name === username) {
+        newPosts.push(posts[i]);
+      }
+    }
+    posts = newPosts;
+  }
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: posts,
+    username: req.cookies.username
   });
 });
 
@@ -50,7 +76,9 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form');
+  }
 });
 
 // ---Part 4. Create new post
@@ -63,7 +91,14 @@ router.get('/posts/new', function(req, res) {
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var addPost = {"name": req.cookies.username, "title": req.body.title, "body": req.body.body, "date": new Date()}
+  console.log(addPost);
+  var myPosts = data.read();
+  console.log(myPosts);
+  myPosts.push(addPost);
+  data.save(myPosts);
+  res.redirect('/posts')
+
 });
 
 module.exports = router;

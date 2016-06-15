@@ -2,9 +2,7 @@
 <html>
 <head>
   <title>User Profile</title>
-
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
   </style>
@@ -12,7 +10,14 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <div class="profileinfo">
+        <h1>User Profile</h1>
+        <h3>{{name}} {{middle}} {{last}}</h3>
+        <p>Gender: {{gender}}
+        <p>Birthday: {{month}} {{day}} {{year}}
+        <p>Bio: {{bio}}
+        <p>Registration date: {{date}}
+      </div>
     </div>
   </div>
 </body>
