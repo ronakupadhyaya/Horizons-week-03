@@ -360,7 +360,15 @@ Finally, here are a few more tips to get you on your way:
 
 ### Error handling
 
+You will inevitably encounter errors, such as when the user form input doesn't
+validate. Think about how to present these errors to the user. You can no longer
+rely on `console.log` or `console.error` to present errors, since your script is
+only running on the backend.
 
+When possible, errors should be presented to the user inline. They should not
+take the user away from the main app flow, and they should not cause data the
+user has entered to disappear. Make use of Bootstrap components such as alerts
+for this purpose.
 
 ## (BONUS) Phase 7
 
