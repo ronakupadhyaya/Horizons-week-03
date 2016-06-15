@@ -62,7 +62,8 @@ Use [Bootstrap](http://getbootstrap.com/) to style your views (i.e. your pages).
 You can download Bootstrap into the `public/`. The contents of this folder are accessible
 inside pages.
 
-There are three views (i.e. pages) in this app:
+There are three views (i.e. pages) in this app, these are rendered
+using [Handlebars Templates](http://handlebarsjs.com/).
 
 1. Login view -> `views/login.hbs`
 1. View posts view -> `views/posts.hbs`
@@ -77,7 +78,7 @@ errors on the page.
    Bootstrap supports inline form validation messages like this:
 
    ![](img/valid.png)
-   
+
 1. Render Markdown posts using [Marked](https://github.com/chjj/marked)
 1. Implement a Guestbook Admin Interface that can modify or delete posts:
   1. Edit post
