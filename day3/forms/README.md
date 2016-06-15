@@ -4,9 +4,15 @@
 
 The goal of this exercise if to familiarize yourself with a few key concepts: **server-side rendering w/ templating** and **form validation**.
 
-In comparison to everything we've done before, this will feel a little bit different. Typically, we fetch data and then render new items on a page client-side (that is, the browser). In this case, we're going to be sending *static* pages - pages that you won't have to render anything on, ***because it's already done on the server*** before it's sent.
+In comparison to everything we've done before, this will feel a little bit 
+different. Typically, we fetch data and then render new items on a page 
+client-side (that is, the browser). In this case, we're going to be fetching 
+*static* pages, and showing those. *Static* pages that you won't have to render 
+anything on, ***because it's already done ('compiled' with the necessary data) 
+on the server*** before it's sent.
 
-At the end of this, you should be a bit more comfortable with using templates to render a page and validating form input.
+At the end of this, you should be a bit more comfortable with using templates to 
+render a page and validating form input.
 
 ## Instructions
 
@@ -20,13 +26,14 @@ At the end of this, you should be a bit more comfortable with using templates to
   1. [**Bootstrap**](https://www.npmjs.com/package/bootstrap) - for building the UI
   1. [**Handlebars**](https://www.npmjs.com/package/handlebars) - for rendering our pages server-side
   1. [**Express**](https://www.npmjs.com/package/express) - our web server framework
+
 1. Start your web server
 
   ```bash
   npm start
   ```
 
-1. Use **Bootstrap** to create a user registration form:
+1. Use **Bootstrap** to create a user registration form (do this in `/forms/views/register.hbs`)
 
   Create user registration form according to this specification:
 
@@ -107,7 +114,7 @@ At the end of this, you should be a bit more comfortable with using templates to
       <td> User Registration Date </td>
       <td> Y </td>
       <td> text *(Hidden)* </td>
-      <td> Must not be empty and match the password field </td>
+      <td> Must not be filled with the date upon registration </td>
     </tr>
   <table>
 
@@ -122,11 +129,13 @@ At the end of this, you should be a bit more comfortable with using templates to
 
 1. Make a `/register` route in your express app.
 
-  The `/register` route should do respond to 2 http methods: **GET** and **POST**. It should do two things:
+  The `/register` route should respond to 2 http methods: **GET** and **POST**. 
+  It should do two things:
     1. if it's a **GET** request, it should return the handlebars-compiled empty form
     2. if it's a **POST** request, it should validate the post data, and if the post data is:
       + **valid**, it should send the handlebars-compiled profile page
-      + **invalid**, it should send the handlebars-compiled registration form with an error message about which form fields are invalid.
+      + **invalid**, it should send the handlebars-compiled registration form 
+      with an error message about which form fields are invalid.
 
 ## Validation
 
