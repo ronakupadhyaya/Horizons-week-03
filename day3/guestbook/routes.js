@@ -15,7 +15,7 @@ var data = require('./data');
 // on their browser. This function is already implemented for you to have as a model.
 // It passes the object with title : 'Log in' to the template
 router.get('/login', function(req, res) {
-  res.render('login', { title: 'Log In Test' });
+  res.render('login', { title: 'Log In' });
 });
 
 // POST /login: Receives the form info for the user, sets a cookie on the client
@@ -33,7 +33,7 @@ router.post('/login', function(req, res) {
 // If the function is called with a username like /posts?username=steven, you should
 // filter all posts that aren't done by that user.
 // Hint: to get the username, use req.query.username
-// Hint: use jsonfile.readFileSync() to read the post data from data.json 
+// Hint: use jsonfile.readFileSync() to read the post data from data.json
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE

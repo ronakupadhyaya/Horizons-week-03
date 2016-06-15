@@ -42,6 +42,9 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid passwordRepeat').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -57,7 +60,7 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
