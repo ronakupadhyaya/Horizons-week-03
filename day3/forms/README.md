@@ -15,7 +15,6 @@ At the end of this, you should be a bit more comfortable with using templates to
   1. [**Bootstrap**](https://www.npmjs.com/package/bootstrap) - for building the UI
   1. [**Handlebars**](https://www.npmjs.com/package/handlebars) - for rendering our pages server-side
   1. [**Express**](https://www.npmjs.com/package/express) - our web server framework
-  1. [**Express-Validator**](https://github.com/ctavan/express-validator) - for validating our form inputs
 
 
 1. Use **Bootstrap** to create a user registration form:
@@ -78,12 +77,6 @@ At the end of this, you should be a bit more comfortable with using templates to
       <td> Must not be empty and match the password field </td>
     </tr>
     <tr>
-      <td> User Registration Date </td>
-      <td> Y </td>
-      <td> text *(Hidden)* </td>
-      <td> Must not be empty and match the password field </td>
-    </tr>
-    <tr>
       <td> Gender </td>
       <td> Y </td>
       <td> radio </td>
@@ -101,16 +94,39 @@ At the end of this, you should be a bit more comfortable with using templates to
       <td> textarea </td>
       <td> Must not be blank </td>
     </tr>
+    <tr>
+      <td> User Registration Date </td>
+      <td> Y </td>
+      <td> text *(Hidden)* </td>
+      <td> Must not be empty and match the password field </td>
+    </tr>
   <table>
-
-  Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page that 
-
+  
+  You will be creating two page: a registration form page and a 
+  Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
+  
   If all data is valid, render a profile page using this information after submit.
 
   If not, render form back with error messages on validation errors.
 
-1. Write your `app.js` file
-
-  You will need to define two `routes` in your file: One to enter the user data, and one to return the proper response to the users.
-
-1. Set up form validation
+1. Implement the `/register` route
+  
+  Make a `/register` route in your express app. The `/register` route should do respond to 2 http methods: **GET** and **POST**. It should do two things:
+    1. if it's a **GET** request, it should return the handlebars-compiled empty form
+    2. if it's a **POST** request, it should validate the post data, and if the post data is:
+      + **valid**, it should send the handlebars-compiled profile page
+      + **invalid**, it should send the handlebars-compiled registration form with an error message about which form fields are invalid.
+  
+  Using [**Handlebars**](http://handlebarsjs.com) is pretty simple. First you need need to put your Handlebars template (the *html-y* stuff) into a separate file (i.e. `someTemplate.hbl`). Then you need to read the full file out using `fs.readFileSync` and use handlebars to convert it into a template object. Finally, you render the template with the data it needs by calling the template on the data you want it to display.
+  
+  Your process is going to look something like this:
+  ```javascript
+  var hbl = require('handlebars');
+  ...
+  var tplString = fs.readFileSync('someTemplate.hbl').toString();
+  var someTpl = hbl(tpString);
+  ...
+  var data = { name : "Jebediah Ezekiel Mordecai" }
+  var page = someTpl(data); // -> <!DOCTYPE html><html...
+  ```
+  
