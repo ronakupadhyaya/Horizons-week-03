@@ -37,11 +37,28 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
+  var posts = data.read('data.json')
+  var order = req.query.order;
+  var user = null;
+  if(req.cookies.username){
+    user = req.cookies.username;
+  }
   // This renders the posts
+  var sort = [];
+  if(order === 'ascending') {
+    sort = posts.sort(function(a,b) {
+      return a.date-b.date;
+    })
+  }
+  if(order === 'descending') {
+    sort = posts.sort(function(a,b) {
+      return b.date-a.date;
+    })
+  } 
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: posts,
+    username: user
   });
 });
 

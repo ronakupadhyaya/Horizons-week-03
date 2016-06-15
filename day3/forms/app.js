@@ -34,14 +34,23 @@ app.get('/', function(req, res){
 // the server.
 app.get('/register', function(req, res){
   // YOUR CODE HERE
-  res.render('register');
+  res.render('register', {
+    name: req.query.name,
+    email: req.query.email
+  });
 });
 
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it useing express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('fname', 'Invalid first name').notEmpty();
+  req.checkBody('lname', 'Invalid last name').notEmpty();
+  req.checkBody('pass', 'Please enter a password').notEmpty();
+  req.checkBody('repass', 'Passwords do not match').equals(req.body.pass)
+  req.checkBody('gender', 'Please select a gender').notEmpty();
+  req.checkBody('news', 'YOU HAVE TO SIGN UP FOR OUR NEWSLETTER').notEmpty();
+  req.checkBody('biog', 'Please enter a bio').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -57,7 +66,10 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile',{
+      fname: req.body.fname,
+      lname: req.body.lname,
+    });
   }
 });
 
