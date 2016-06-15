@@ -4,9 +4,10 @@ var express = require('express');
 var validator = require('express-validator');
 var router = express.Router();
 var Project = require('../model/project');
+var strftime = require('strftime');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   console.log("GET flash is: " + JSON.stringify(req.session.flash));
   Project.find(function(err, projects) {
     if (err) res.send(err);
@@ -18,7 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 // GET New project form
-router.get('/new', function(req, res, next) {
+router.get('/new', function(req, res) {
   res.render('new', {
     title: "Create new project",
     categories: Project.schema.path('category').enumValues.map(function (el) {
@@ -28,7 +29,7 @@ router.get('/new', function(req, res, next) {
 });
 
 // POST new project
-router.post('/new', function(req, res, next) {
+router.post('/new', function(req, res) {
   req.checkBody('title', 'Title is required').notEmpty();
   req.checkBody('description', 'Description is required').notEmpty();
   req.checkBody('category', 'Category is required').notEmpty();
@@ -70,6 +71,19 @@ router.post('/new', function(req, res, next) {
       res.redirect('/');
     });
   }
+});
+
+// GET a project
+router.get('/project/:projectid', function(req, res) {
+  Project.findById(req.params.projectid, function(err, project) {
+    if (err) res.send(err);
+    res.render('project', {
+      project: project,
+      // format the times separately
+      start: strftime('%B %d, %Y', project.start),
+      end: strftime('%B %d, %Y', project.end)
+    });
+  });
 });
 
 module.exports = router;

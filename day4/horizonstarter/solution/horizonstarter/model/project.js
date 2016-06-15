@@ -26,4 +26,10 @@ var ProjectSchema = new Schema({
   start: Date,
   end: Date
 });
+ProjectSchema.virtual('progress').get(function() {
+  if (this.goal > 0)
+    return this.raised/this.goal*100;
+  return 0;
+});
+
 module.exports = mongoose.model('Project', ProjectSchema);
