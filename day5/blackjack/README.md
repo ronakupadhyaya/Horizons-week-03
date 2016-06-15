@@ -47,11 +47,26 @@ and face cards count as 10 points.
   1. Players who have more points than the dealer get back double their bets.
 
 
-### Routes
+## Part 1: Play against the dealer
 
-### Views
+First build a Blackjack game where a single person can play against the dealer.
 
 ### Models
 
-1. Game
-1.
+- Game: represents a single Blackjack game. Properties:
+
+  - Player bet (`Number`): number of Horizons Dollars the player has bet.
+  - Player hand (`Array` of `String`s):
+  - Dealer hand (`Array` of `String`s):
+
+- Player: represents the person playing the game. Properties:
+
+  - Money (`Number`): number of Horizons Dollars the player has won
+
+### Routes
+
+
+### Views
+
+
+## (Bonus) Part 2: Multiplayer
