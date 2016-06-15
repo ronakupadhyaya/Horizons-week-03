@@ -53,20 +53,66 @@ First build a Blackjack game where a single person can play against the dealer.
 
 ### Models
 
-- Game: represents a single Blackjack game. Properties:
+- Game: a single Blackjack game. Properties:
 
   - Player bet (`Number`): number of Horizons Dollars the player has bet.
-  - Player hand (`Array` of `String`s):
-  - Dealer hand (`Array` of `String`s):
-
-- Player: represents the person playing the game. Properties:
-
-  - Money (`Number`): number of Horizons Dollars the player has won
+  - Player hand (`Array` of `String`s): cards in the players hand.
+  - Dealer hand (`Array` of `String`s): cards in the dealers hand.
+  - Is game over (`Boolean`): true if game is over, false otherwise.
 
 ### Routes
 
+- `GET /`:
+  - Render `List games`
+  - Query parameter for filtering games by in-progress/over
+
+- `POST /game`:
+  - Create new game
+  - Redirect to `/game/:id`
+
+- `GET /game/:id`
+  - Render `View game`
+  -
 
 ### Views
 
+- List games
+  - View all games
+  - Option to filter games by in-progress/over
+- View game
+  - View a single game
+  - If game is in progress allow
 
 ## (Bonus) Part 2: Multiplayer
+
+### Routes
+
+- `GET /login`:
+  - Render `Login` view
+
+- `POST /login`:
+  - If username does not exist in MongoDb, create user
+  - Set cookie for login
+  - Redirect to `/`
+
+- `POST /logout`:
+  - Delete login cookie
+  - Redirect to `/`
+
+### Views
+
+- Login
+  - A form for logging into the game
+
+### Models
+
+- Player: the person playing the game. Properties:
+
+  - Money (`Number`): number of Horizons Dollars belonging to player
+
+- Game: additional properties
+
+  - Player 1 id (`ObjectId`): Mongo id of the player in the game
+  - Player 2 bet (`Number`): number of Horizons Dollars the 2nd player has bet.
+  - Player 2 hand (`Array` of `String`s): cards in the 2nd players hand.
+  - Player 2 id (`ObjectId`): Mongo id of the player in the game
