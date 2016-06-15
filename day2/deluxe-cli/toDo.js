@@ -118,6 +118,14 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
+  var priority = program.priority || 1;
+  var name = getRemainingArgs();
+  data.push({
+    name: name,
+    priority: priority,
+    completed: false
+  });
+  console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
   // YOUR CODE HERE
 }
 
