@@ -117,6 +117,8 @@ At the end of this, you should be a bit more comfortable with using templates to
   If all data is valid, render a profile page using this information after submit.
 
   If not, render form back with error messages on validation errors.
+1. When you're done with your form it should look something like this.
+  ![](img/form.png)
 
 1. Implement the `/register` route
 
@@ -125,6 +127,29 @@ At the end of this, you should be a bit more comfortable with using templates to
     2. if it's a **POST** request, it should validate the post data, and if the post data is:
       + **valid**, it should send the handlebars-compiled profile page
       + **invalid**, it should send the handlebars-compiled registration form with an error message about which form fields are invalid.
+
+## Validation
+
+We use [`express-validator`](https://github.com/ctavan/express-validator) to validate our form fields.
+
+Example usage:
+
+```javascript
+app.post('/', function(req, res) {
+
+  // VALIDATION
+  // checkBody only checks req.body; none of the other req parameters
+  req.checkBody('requiredNumberParam', 'Invalid requiredNumberParam').notEmpty().isInt();
+  // checkQuery only checks req.query (GET params).
+  req.checkQuery('required', 'Invalid getparam').isInt();
+  var errors = req.validationErrors();
+  if (errors) {
+    res.send('There have been validation errors: ' + errors, 400);
+    return;
+  }
+  res.render('index');
+}
+```
 
 ## Templates and Handlebars
 

@@ -38,12 +38,10 @@ app.get('/register', function(req, res){
 });
 
 // ---Part 2: Validation---
-// Write a function that validates form input data.
-// Returns false if there are no errors, otherwise returns
-// an array of errors.
-function validates(data) {
-  // YOUR CODE HERE
-  return false;
+// Write a function that takes a request object and does
+// validation on it useing express-validator.
+function validate(req) {
+  req.checkBody('firstName', 'Invalid firstName').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -51,7 +49,9 @@ function validates(data) {
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
-  var errors = validate(req.body);
+  validate(req);
+  // Get errors from express-validator
+  var errors = req.validationErrors();
   if (errors) {
     res.render('register', {errors: errors});
   } else {
