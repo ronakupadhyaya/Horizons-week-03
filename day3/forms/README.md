@@ -114,7 +114,7 @@ render a page and validating form input.
       <td> User Registration Date </td>
       <td> Y </td>
       <td> text *(Hidden)* </td>
-      <td> Must not be empty and match the password field </td>
+      <td> Must not be filled with the date upon registration </td>
     </tr>
   <table>
 
