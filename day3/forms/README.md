@@ -33,7 +33,7 @@ render a page and validating form input.
   npm start
   ```
 
-1. Use **Bootstrap** to create a user registration form:
+1. Use **Bootstrap** to create a user registration form (do this in `/forms/views/register.hbs`)
 
   Create user registration form according to this specification:
 
