@@ -10,15 +10,107 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+<div container>
+{{#if errors}}
+   <ul>Errors:
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul>
+{{/if}}
+<form class="form-horizontal" method="post">
+  <div class="form-group">
+    <label for="inputfname" class="col-sm-2 control-label">First Name</label>
+    <div class="col-sm-10">
+      <input name="firstName" type="text" class="form-control" id="inputfname" placeholder="First name" required>
     </div>
   </div>
+  <div class="form-group">
+    <label for="inputmname" class="col-sm-2 control-label">Middle Initial</label>
+    <div class="col-sm-10">
+      <input name="middlename" type="text" class="form-control" id="inputmname" placeholder="Middle Initial">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputlname" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10">
+      <input name="lastname" type="text" class="form-control" id="inputlname" placeholder="Last Name" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputdobmonth" class="col-sm-2 control-label">DOB Month</label>
+    <div class="col-sm-10">
+      <select name="DOBmonth" class="form-control">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">Semptember</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="inputdobday" class="col-sm-2 control-label">DOB Day</label>
+    <div class="col-sm-10">
+      <select name="DOBday" class="form-control">
+        {{#each daysOfMonth}}
+        <option value="{{this}}"> {{this}} </option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+     <div class="form-group">
+    <label for="inputdobyear" class="col-sm-2 control-label">DOB Year</label>
+    <div class="col-sm-10">
+      <select name="DOByear" class="form-control">
+        {{#each years}}
+        <option value="{{this}}"> {{this}} </option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputpassword" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input name="password" type="password" class="form-control" placeholder="Password" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputrepassword" class="col-sm-2 control-label">Retype Password</label>
+    <div class="col-sm-10">
+      <input name="password2" type="password" class="form-control" placeholder="Password" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputgender" class="col-sm-2 control-label">Gender</label>
+    <div class="col-sm-10">
+        <input type="radio" name="gender" value="male" checked> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Other
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Register</button>
+    </div>
+  </div>
+</form>
+</div>
 </body>
 </html>

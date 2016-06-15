@@ -28,13 +28,37 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
+function getYears(){
+  var ret = [];
+  var today = new Date().getFullYear();
+  for (var i = 1899; i <= today; i++)
+  {
+    ret.push(i);
+  }
+  return ret;
+}
+
+function getDayOfMonth(){
+  var ret = [];
+  for (var i = 1; i < 32; i++)
+  {
+    ret.push(i);
+  }
+  return ret;
+}
 // ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
   // YOUR CODE HERE
-  res.render('register');
+
+  res.render('register',{
+    name: req.query.name,
+    email: req.query.email,
+    daysOfMonth: getDayOfMonth(),
+    years: getYears()
+  }); //renders a file that is called register, turnewd into html and rendered
 });
 
 // ---Part 2: Validation---
@@ -42,6 +66,10 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastname', 'Invalid lastName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('password2', 'Invalid password').notEmpty();
+
 }
 
 // ---Part 3: Render errors and profile---
@@ -52,8 +80,38 @@ app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
+  var day = parseInt(req.body.DOBday);
+  var month = parseInt(req.body.DOBmonth);
+  var year = parseInt(req.body.DOByear);
+  var date = new Date(year, month - 1, day);
+  var now = new Date();
+  if(now.getTime() > date.getTime())
+  {
+    console.log("Didn't know you were born in the future");
+    if(!errors){
+      errors = [];
+    }
+      errors.push({
+        msg: "Try harder"
+    });
+  }
+
+if(req.body.password !== req.body.password2)
+{
+  if(!errors){
+    errors = [];
+  }
+  errors.push({
+    msg: "Passwords don't match"
+  })
+}
+
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {
+    errors: errors,
+    daysOfMonth: getDayOfMonth(),
+    years: getYears()
+  });
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
@@ -61,6 +119,9 @@ app.post('/register', function(req, res){
   }
 });
 
+app.get('/form', function(req, res){
+  res.render('form');
+})
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
 });

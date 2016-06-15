@@ -37,7 +37,6 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
@@ -64,6 +63,11 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+
+
+
+
+  data.save();
 });
 
 module.exports = router;
