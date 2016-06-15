@@ -7,7 +7,11 @@ var Schema = mongoose.Schema;
 var ProjectSchema = new Schema({
   title: String,
   goal: Number,
-  raised: Number,
+  contributions: [{
+    name: String,
+    comment: String,
+    amount: Number
+  }],
   category: {
     type: String,
     enum: [
@@ -26,9 +30,17 @@ var ProjectSchema = new Schema({
   start: Date,
   end: Date
 });
+ProjectSchema.virtual('raised').get(function() {
+  return this.contributions.map(function(el) {
+    return el.amount
+  }).reduce(function(a, b) {
+    return a+b
+  }, 0);
+});
 ProjectSchema.virtual('progress').get(function() {
   if (this.goal > 0)
-    return this.raised/this.goal*100;
+  // Calculate percentage and round down.
+    return Math.floor(this.raised/this.goal*100);
   return 0;
 });
 

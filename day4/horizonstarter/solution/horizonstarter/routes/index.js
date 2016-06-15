@@ -8,7 +8,6 @@ var strftime = require('strftime');
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  console.log("GET flash is: " + JSON.stringify(req.session.flash));
   Project.find(function(err, projects) {
     if (err) res.send(err);
     var flash;
@@ -57,7 +56,6 @@ router.post('/new', function(req, res) {
     var project = new Project({
       title: req.body.title,
       goal: req.body.goal,
-      raised: 0,
       category: req.body.category,
       description: req.body.description,
       start: req.body.start,
@@ -67,7 +65,6 @@ router.post('/new', function(req, res) {
       if (err) res.send(err);
       // Set success flash message and redirect.
       req.session.flash = [{type: 'alert-success', messages: [{msg: "Project created successfully"}]}];
-      console.log("SET flash is: " + JSON.stringify(req.session.flash));
       res.redirect('/');
     });
   }
@@ -83,6 +80,46 @@ router.get('/project/:projectid', function(req, res) {
       start: strftime('%B %d, %Y', project.start),
       end: strftime('%B %d, %Y', project.end)
     });
+  });
+});
+
+// POST to a project (make a contribution)
+router.post('/project/:projectid', function(req, res) {
+  Project.findById(req.params.projectid, function(err, project) {
+    if (err) res.send(err);
+
+    req.checkBody('name', 'Name is required').notEmpty();
+    req.checkBody('amount', 'Amount is required').notEmpty();
+    req.checkBody('amount', 'Amount must be an integer').isInt();
+    var errors = req.validationErrors();
+    console.log(errors);
+    if (errors) {
+      res.render('project', {
+        project: project,
+        // format the times separately
+        start: strftime('%B %d, %Y', project.start),
+        end: strftime('%B %d, %Y', project.end),
+        data: req.body,
+        flash: { type: 'alert-danger', messages: errors}
+      });
+    }
+    else {
+      project.contributions.push({
+        name: req.body.name,
+        comment: req.body.comment,
+        amount: req.body.amount
+      });
+      project.save(function(err) {
+        if (err) res.send(err);
+        res.render('project', {
+          project: project,
+          // format the times separately
+          start: strftime('%B %d, %Y', project.start),
+          end: strftime('%B %d, %Y', project.end),
+          flash: {type: 'alert-success', messages: [{msg: "Thanks for your contribution!"}]}
+        });
+      })
+    }
   });
 });
 
