@@ -61,3 +61,12 @@ function generateTasks(){
   child_process.execSync('node toDo.js add Fix tv --priority 2');
   child_process.execSync('node toDo.js add Call the internet guy -p 3');
 }
+
+describe("Test toggleComplete.js", function() {
+it("Toggle complete", function() {
+    var cmd = 'node toDo.js complete -c 1';
+    var stdout = runAndCleanStdout(cmd);
+    expect(stdout[0]).toBe('true')
+  });
+});
+

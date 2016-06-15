@@ -114,11 +114,11 @@ render a page and validating form input.
       <td> User Registration Date </td>
       <td> Y </td>
       <td> text *(Hidden)* </td>
-      <td> Must not be empty and match the password field </td>
+      <td> Must not be filled with the date upon registration </td>
     </tr>
   <table>
 
-  You will be creating two pages: a registration form page and a
+  You will be creating two pages: a registration form page and a profile page. 
   Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
 
   If all data is valid, render a profile page using this information after submit.

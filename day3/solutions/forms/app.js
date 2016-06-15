@@ -2,65 +2,74 @@
 
 var express = require('express');
 var app = express();
-var hbl = require('handlebars');
-// var validate = require('express-validation');
 var fs = require('fs');
+var path = require('path');
 
-// DATA
-var registered = false;
+// Set up handlebar templates
+var exphbs = require('express-handlebars');
+app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
-var registrationData = {
-  firstName: "",
-  middleInitial: "",
-  lastName: "",
-  dob: {
-    month: null,
-    day: null,
-    year: null,
-  },
-  password: "",
-  passwordRepeat: "",
-  gender: "",
-  newsletter: false,
-  bio: "",
-  registerDate: null,
-  error: ""
-};
+// Enable form validation with express validator.
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
-var isValidData = function() {
-  return true;
-};
+// Enable POST request body parsing
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-// TEMPLATES
-
-// YOUR CODE HERE
-var registrationTemplate = hbl.compile(fs.readFileSync('register.hbl').toString());
-var profileTemplate;
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
-
-// YOUR CODE HERE
-app.get('/register', function(req, res){
-  // Compile registration template
-  res.send(registrationTemplate(registrationData));
+app.get('/', function(req, res){
+  res.redirect('/register');
 });
 
+// ---Part 1: GET /register---
+// This is the endpoint that the user loads to register.
+// It contains an HTML form that should be posted back to
+// the server.
+app.get('/register', function(req, res){
+  // YOUR CODE HERE
+  res.render('register');
+});
+
+// ---Part 2: Validation---
+// Write a function that takes a request object and does
+// validation on it using express-validator.
+function validate(req) {
+  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
+}
+
+// ---Part 3: Render errors and profile---
+// POST /register
+// This is the endpoint that the user hits when they submit
+// the registration form.
 app.post('/register', function(req, res){
-  // Complete
   console.log(req.body);
-  if (isValidData(req.body)) {
-    
-    res.send('aight');
+  validate(req);
+  // Get errors from express-validator
+  var errors = req.validationErrors();
+  if (errors) {
+    console.log(errors);
+    res.render('register', {errors: errors});
   } else {
-    req.body.error = ""
+    // YOUR CODE HERE
+    // Include the data of the profile to be rendered with this template
+    res.render('profile', req.body);
   }
 });
 
-app.get('/profile', function(req, res){
-  // Compile registration template
-  res.send(registrationTemplate(registrationData));
-});
-
 app.listen(3000, function() {
-  console.log("Exmaple app listening on port 3000!");
+  console.log("Example app listening on port 3000!");
 });
