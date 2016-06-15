@@ -33,24 +33,24 @@ var uploadToTrello = function(board_id, csv_fname) {
 
   csv.parse(csvData, { columns: true}, function(err, data){
     // YOUR CODE HERE
-    console.log(data);
+    //console.log(data);
     for (var key in data[0]) {
     	trello.addListToBoard(board_id, key, function(err, list) {
     		if (err) {
     			console.log(err)
     		} else {
     			var listId = list.id;
-    			console.log(key);
+    			var name = list.name;
     			for (var i = 0; i < data.length; i++) {
-    				//if (data[i][key] !== "") {
-		    		trello.addCard(data[i][key], "Description", listId, function(err, card) {
+    				if (data[i][name] !== "") {
+		    		trello.addCard(data[i][name], "Description", listId, function(err, card) {
 		    			if (err) {
 		    				console.log(err);
 		    			} else {
-		    				//console.log(card);
+		    				console.log("success");
 		    			}
 		    		})
-		    	//}
+		    		}
 		    	}
     		}
     	});
@@ -61,6 +61,35 @@ var uploadToTrello = function(board_id, csv_fname) {
 // 3. download functionality - read trello data and output to csv
 var downloadFromTrello = function(boardId) {
   // YOUR CODE HERE
+  var input = [];
+ 	trello.getListsOnBoard(boardId, function(error, result){
+	  	if(error){
+	  		console.log(error);
+	  	} else{
+	  		_.map(result, function(list){
+	  			var temp = [];
+		  		temp.push(list.name);
+		  		var listId = list.id;
+		  		trello.getCardsOnList(listId, function(err, cards){
+		  			_.map(cards, function(card){
+		  				console.log(card.name);
+		  				temp.push(card.name);
+		  			});
+		  			input.push(temp);
+		  			if(input.length === result.length){
+				  		console.log(input);
+				  		var stringified = _.zip.apply(null, input);
+				  		csv.stringify(stringified, function(err, output){
+				  			//console.log(output);
+			  			fs.writeFileSync('file.csv', output);
+			  			});
+	  				}
+		  		});
+	  		});
+	  		
+	  	}
+	  	
+	  });
 };
 
 // This line is here for demo purposes, you should delete it
