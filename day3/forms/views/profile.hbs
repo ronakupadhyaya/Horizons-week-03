@@ -7,12 +7,26 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    h1 { text-align: center; color: white; margin: 1em 0em 1em 0em;}
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>User Profile</h1>
+    </div>
+    <div class="jumbotron">
+    <p><b>first name:</b> {{param.first-name}}</p>
+    <p><b>middle initial:</b> {{param.middle-initial}}</p>
+    <p><b>last name:</b> {{param.last-name}}</p>
+    <p><b>dbo month:</b> {{param.dbo-month}}</p>
+    <p><b>dbo day:</b> {{param.dbo-day}}</p>
+    <p><b>dbo-year:</b> {{param.dbo-year}}</p>
+    <p><b>password:</b> {{param.password}}</p>
+    <p><b>gender:</b> {{param.gender}}</p>
+    <p><b>newsletter:</b> {{param.newsletter}}</p>
+    <p><b>bio:</b> {{param.bio}}</p>
+    <p><b>registration-date:</b> {{param.registration-date}}</p>
     </div>
   </div>
 </body>

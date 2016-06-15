@@ -1,4 +1,5 @@
 var board_id = '575ac89d19234734f14f8a28'
+var fileSave = 'sample.csv';
 
 var TRELLO_KEY = '7b4448e785fa10aa56b731990b873c49';
 var TRELLO_TOKEN = 'bd3d9596b944d3944231ce0e7ac19e6bdb481ef3a83dac32402303a322975bc6';
@@ -41,11 +42,21 @@ var uploadToTrello = function(board_id, csv_fname) {
   var csvData = fs.readFileSync(csv_fname).toString();
 
   csv.parse(csvData, { columns: true}, function(err, data){
-    // console.log(data);
-    data.forEach(function(e) {
+	var allCards = [];
+	data.forEach(function(e) {
     	console.log(e);
-    })
-    
+    	for(var key in e) {
+    		allCards[key].push(e[key]);
+    	}
+    });
+
+    for(var key in allCards) {
+    	trello.addListToBoard(board_id, allCards[key].idList, function(err, sendList) {
+    	});
+    	trello.addCard(allCards[key].name, '', allCards[key].idList, function(err, sendCard) {
+    	});
+    }
+
   });
 };
 
@@ -56,14 +67,16 @@ var downloadFromTrello = function(boardId) {
   trello.getListsOnBoard(boardId ,function(err, lists) {
   	csv.stringify(lists, function(err, str) {
   		console.log(str);
+  		function(err, csvData) {
+              fs.writeFileSync(fileSave, csvData);
+         }
   	});
   	printLists(lists);
   });
 
 };
 
-// downloadFromTrello(board_id);
-
+downloadFromTrello(board_id);
 uploadToTrello(board_id, 'sample.csv');
 
 

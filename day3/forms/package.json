@@ -4,7 +4,8 @@
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
     "express-validator": "^2.20.5",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "nodemon app.js"
