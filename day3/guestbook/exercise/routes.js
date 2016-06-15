@@ -1,29 +1,32 @@
 "use strict";
 var express = require('express');
-var router = express.Router();
 var jsonfile = require('jsonfile');
-var file = 'data.json';
 
-// Posts loaded from disk
-var posts = jsonfile.readFileSync(file);
+var router = express.Router();
 
-// LOGIN
-// GET LOGIN: Renders the form to log into the app when the user opens /login
+// We use this module to store and retrieve data.
+// data.read(): Read the latest data stored on disk.
+// data.write(data): Write the given data to disk.
+var data = require('./data');
+
+// ---Part 1. Login---
+
+// GET /login: Renders the form to log into the app when the user opens /login
 // on their browser. This function is already implemented for you to have as a model.
 // It passes the object with title : 'Log in' to the template
 router.get('/login', function(req, res) {
   res.render('login', { title: 'Log In' });
 });
 
-// POST LOGIN: Receives the form info for the user, sets a cookie on the client
+// POST /login: Receives the form info for the user, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 router.post('/login', function(req, res) {
   res.cookie('username', req.body.username).redirect('/posts');
 });
 
+// ---Part 2. View Posts---
 
-// POSTS
-// GET POSTS: Renders a list of all available posts. No need to be logged in.
+// GET /posts: Renders a list of all available posts. No need to be logged in.
 // This function should render all the posts ordered descending by date if no params
 // are passed of ir called: /posts?order=descending
 // If the user visits the url /posts?order=ascending they should be ordered ascending
@@ -37,27 +40,27 @@ router.get('/posts', function (req, res) {
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
-    posts: displayposts
+    posts: []
   });
 });
 
-// GET POSTS: Renders the form page, where the user creates the request.
+// ---Part 3. New post form---
+// GET /posts/new: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
 });
 
-// POST POSTS: This route receives the information for the new post. User must
+// ---Part 4. Create new post
+// POST /posts: This route receives the information for the new post. User must
 // be logged in to use this route. It should create a new post and redirect to
 // posts.
 // It should also use express-validator to check if the title and body aren't empty.
 // an example validation using express-validator is:
 // req.checkBody('email', 'Email must not be valid').isEmail();
 // Don't forget to check if there are validation errors at req.validationErrors();
-
-// Append the new post to the posts array, and use jsonfile.writeFileSync(file, posts);
-// to write the entire posts array to disk
+// After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
 });

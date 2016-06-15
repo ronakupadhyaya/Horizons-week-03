@@ -1,8 +1,7 @@
 {
   "name": "Guestbook",
-  "version": "0.0.0",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -11,6 +10,7 @@
     "express": "~4.13.1",
     "express-handlebars": "^3.0.0",
     "express-validator": "^2.20.5",
-    "jsonfile": "^2.3.1"
+    "jsonfile": "^2.3.1",
+    "nodemon": "^1.9.2"
   }
 }

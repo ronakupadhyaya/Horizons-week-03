@@ -7,21 +7,34 @@ to login, view posts and create new posts.
 
 ## Instructions
 
-We have created for you a basic express app. It already handles the basics like
+We have created an express app for you. It already handles the basics like
 server creation and using a couple of templates. Now, you have to fill in the routes
 and templates to build the Guestbook.
 
-All the routes are given to you as relative routes here. so /login means
-http://localhost:3000/login
+### Getting started
 
-The exercise is on the folder exercise and solution is in another folder to keep
-everything cleaner.
+1. Install npm dependencies
 
-### Functional requirements
+  ```bash
+  npm install
+  ```
 
-Actions:
+1. Start your server
 
-1. View posts: When the user visits the `/posts URL`, they must be see all the posts
+  ```bash
+  npm start
+  ```
+
+1. Visit http://localhost:3000/login to make sure that your server is working.
+1. Edit your routes (aka endpoints) in `routes.js`.
+1. Edit your css rules in `public/css/style.css`.
+1. To perist data use `data.save(dataObject)` to read `data.read()`.
+
+### Your tasks
+
+You should implement the following pieces of functionality:
+
+1. View posts: When the user visits the `/posts` URL, they must be see all the posts
 on the system. Fill out the code for the routes and the post.hbs view.
 1. View posts from one guest: If the user wants to see the posts from user named
 Steven, they visit `/posts?username=steven` This uses the same routes and templates
@@ -36,7 +49,8 @@ just the username as a cookie and no password.
 able to create posts. Navigating to `/posts/new` should display a form. Sending the
 form creates a new post.
 
-Post schema: A post must contain
+A valid post must contain these fields:
+
 1. Author
 1. Post date
 1. Post title
@@ -45,25 +59,24 @@ Post schema: A post must contain
 ### Styling requirements
 
 Use bootstrap to create all the pages.
-* Hint: Download the bootstrap library and add the javascript/css files to their
-respective folders inside the public/ folder.
-add them by linking them on the header partial for all pages, available at
-`views/layouts/partials/head.hbs`. Link them in the format:
-`<link rel="stylesheet" href="/stylesheets/style.css"></link>`
 
-Views:
+* Hint: Download the bootstrap library and add the js/css files to their
+respective folders inside the `public/` folder. This will make
+them accessible on the page.
 
-1. Login view -> login.hbs
-1. View posts view -> posts.hbs
-1. Create post view -> post_form.hbs
+There are three views (i.e. pages) in this app:
+
+1. Login view -> `views/login.hbs`
+1. View posts view -> `views/posts.hbs`
+1. Create post view -> `views/post_form.hbs`
 
 For login + create post forms use validation and display errors.
 
 ### Bonus Section:
 
-Render markdown posts using [Marked](https://github.com/chjj/marked)
+Render Markdown posts using [Marked](https://github.com/chjj/marked)
 
-Guestbook admin page
+Implement a Guestbook Admin Interface that can modify or delete posts:
 1. Edit post
 1. Delete single post
 1. Delete all posts by author
