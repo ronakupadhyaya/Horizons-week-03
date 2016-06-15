@@ -399,7 +399,7 @@ Try adding the following features:
   sending it to the backend. You may find a library such as [jQuery
   Validation](https://jqueryvalidation.org/) useful for this, in combination
   with Bootstrap [Validation
-  states](http://getbootstrap.com/css/#forms-control-validation)
+  states](http://getbootstrap.com/css/#forms-control-validation).
 - Add some AJAX endpoints so that some features of the app, such as adding a
   contribution to a project, happen without leaving the page. (We'll cover this
   in more detail tomorrow.) Congrats, you've now got a hybrid frontend-backend
@@ -412,8 +412,10 @@ Try adding the following features:
 
 - If you see this error when you try to run your server:
 
-    Error: connect ECONNREFUSED 127.0.0.1:27017
+```
+Error: connect ECONNREFUSED 127.0.0.1:27017
+```
     
-It means that mongodb isn't running. See the instructions in the [Mongo
-section](#phase-2-mongo-mongoose), above, to install and launch mongo.
+  It means that mongodb isn't running. See the instructions in the [Mongo
+  section](#phase-2-mongo-mongoose), above, to install and launch mongo.
 
