@@ -17,6 +17,8 @@ var program = require('commander');
 program.option('-u, --upload', 'Upload CSV'); //the <n> tells it to expect a variable after
 program.option('-d, --download', 'Download CSV');
 program.parse(process.argv); //string of the original thing we had
+//program.args creates an array
+//this is where you parse it
 
 // Remaining arguments after flags are stored in program.args
 // - The first argument should be board id
@@ -31,11 +33,47 @@ var csv_fname = program.args[1];
 var uploadToTrello = function(board_id, csv_fname) {
   var csvData = fs.readFileSync(csv_fname).toString();
 
-  csv.parse(csvData, { columns: true}, function(err, data){
-    console.log(data);
-    // YOUR CODE HERE
+  csv.parse(csvData, {}, function(err, data){
+  	if(err) console.error(err);
+  	for(var i=0; i<data[0].length; i++){
+  		addList(i, data);
+  	}
   });
 };
+
+var addList = function(i){
+	trello.addListToBoard(board_id, data[0][i], function(err,list){
+		if (err) console.error(err);
+		console.log(i);
+		for(var j=1;j<data.length; j++){
+			if (data[j][i]){
+				trello.addCard(data[j][i], "", list.id, function(err,card){
+				});
+			}
+		}
+	});
+}
+
+
+  		//it's looping this for a really long time
+  		//the request is made asynchronous
+  		//everything in node is asynchronous
+//   		(function(i){
+//   		trello.addListToBoard(board_id,data[0][i], function(list){
+//   			if(err) console.error(err);
+//   			//list.id -> the ID of the list we got back after adding (the response)
+//   			//i is the column
+//   			for(var j=0; j<data.length;j++){
+//   				if (data[j][i])
+// 	  				trello.addCard(data[j][i], "",list.id,function(err,card)){
+// 	  					console.log(card);
+// 	  					//we don't need anything in this callback
+// 	  				}
+//   			}
+//   		})
+//   	}
+//   });
+// };
 
 // 3. download functionality - read trello data and output to csv
 var downloadFromTrello = function(boardId) {
@@ -78,15 +116,16 @@ var downloadFromTrello = function(boardId) {
 			//console.log(cardNames);	
 		} 
 	})
-
-
-
   // trello.getCardsOnList(listId, callback);
 };
 
-downloadFromTrello(boardId);
+console.log(program.upload);
 
-//NOTES:
-//
-
+//CALL THE FUNCTIONS
+if(program.upload){
+	uploadToTrello(board_id, csv_fname);
+}
+else if (program.download){
+	downloadFromTrello(board_id);
+}
 
