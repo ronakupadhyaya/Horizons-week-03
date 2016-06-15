@@ -29,29 +29,6 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
-app.get('/profile', function(req,res){
-  var errors = req.validationErrors();
-  var m=req.query.middleInitial;
-  if(!m){
-   m=null;
-  }
-  var c=req.query.newsletter;
-  if(!c){
-    c=false;
-  }
-  else{
-    c=true;
-  }
-  res.render('profile',{
-    firstName: req.query.firstName,
-    middleInitial: m,
-    lastName: req.query.lastName,
-    password: req.query.password,
-    birthday:[req.query.dobMonth, req.query.dobDay, req.query.dobYear],
-    gender: req.query.gender,
-    newlsetter: c
-  });
-})
 
 // ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
@@ -73,12 +50,13 @@ app.get('/register', function(req, res) {
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Fist name is required').notEmpty();
+  req.checkBody('middleInitial', 'Middle initital is required').notEmpty();
   req.checkBody('lastName', 'Last name is required').notEmpty();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Password is required').notEmpty();
-  if(req.query.password !== req.query.password2){
-    throw error
-  }
+  // if(req.query.password !== req.query.password2){
+  //   throw error
+  // }
   req.checkBody('dobMonth', 'Birthday is required').notEmpty();
   req.checkBody('dobDay', 'Birthday is required').notEmpty();
   req.checkBody('dobYear', 'Birthday is required').notEmpty();
@@ -100,35 +78,40 @@ for(var i=1910; i<2017; i++){
 app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
-  var errors = req.validationErrors();
-  var m=res.query.middleInitial;
-  if(!m){
-   m=null;
-  }
-  var c=res.query.newsletter;
-  if(!c){
-    c=false;
-  }
-  else{
-    c=true;
-  }
+   var errors = req.validationErrors();
+
   if (errors) {
-    res.render('register', 
-    {errors: errors}); ///rendering with errors bc validation
-  } else {
-    // YOUR CODE HERE
-    // Include the data of the profile to be rendered with this template
-    app.get('/profile', function(req,res){
+    // res.render('register', 
+    // {errors: errors}); ///rendering with errors bc validation
+    res.send('There have been validation errors: ' + errors, 400);
+  } 
+  else {
+    // YOUR CODE HER
+    if(!req.body.middleInitial){
+      var m=null;
+    }
+    else{
+      var m=req.body.middleInitial;
+    }
+    if(!req.body.newsletter){
+      var c=false;
+    }
+    else{
+      c=true;
+    }
     res.render('profile',{
-    firstName: res.query.firstName,
+    firstName: req.body.firstName,
     middleInitial: m,
-    lastName: res.query.lastName,
-    password: res.query.password,
-    birthday:[res.query.dobMonth, res.query.dobDay, res.query.dobYear],
-    gender: res.query.gender,
-    newlsetter: c
+    lastName: req.body.lastName,
+    password: req.body.password,
+    birthday: req.body.dobDay,
+    birthmonth: req.body.dobMonth,
+    birthyear: req.body.dobYear,
+    gender: req.body.gender,
+    newlsetter: c,
+    about: req.body.about
     });
-    })
+
   }
 });
 
