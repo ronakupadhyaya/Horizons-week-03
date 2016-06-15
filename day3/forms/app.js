@@ -2,6 +2,7 @@
 
 var express = require('express');
 var app = express();
+
 var fs = require('fs');
 var path = require('path');
 
@@ -32,17 +33,42 @@ app.get('/', function(req, res){
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
-app.get('/register', function(req, res){
+
+
+app.get('/register', function(req, res) {
   // YOUR CODE HERE
-  res.render('register');
+  //rendering the first time you arrive on the page
+  var arr = ["DD"];
+for(var i = 1; i < 32; i++) {
+  arr.push(i);
+}
+
+  var year = ["YYYY"];
+for (var i = 1900; i < 2016; i++) {
+  year.push(i);
+}
+  res.render('register', {
+    name: req.query.name,
+    email: req.query.email,
+    month: ["MM",1,2,3,4,5,6,7,8,9,10,11,12],
+    day: arr,
+    year: year
+  });
 });
 
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstName', 'First name is required').notEmpty();
+  req.checkBody('lastName', 'Last name is required').notEmpty();
+  req.checkBody('gender', 'Gender is required').notEmpty();
+  req.checkBody('check', 'You must sign up for our newsletter!').notEmpty();
+  req.checkBody('bio', 'A biography is required').notEmpty();
+  req.assert('password2', 'Passwords do not match').equals(req.body.password1);
+
 }
+
 
 // ---Part 3: Render errors and profile---
 // POST /register
@@ -52,7 +78,9 @@ app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
+  console.log(errors);
   if (errors) {
+    // doing some validation. if errors, rerender with errors
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE

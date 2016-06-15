@@ -11,14 +11,107 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+    {{#if errors}}
+        <ul>Error:
+        {{#each errors}}
+          <li>{{msg}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+    <form class="form-horizontal" method="post">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input name="firstName" type="text" class="form-control" placeholder="First name">
+      </div>
     </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Middle Initial</label>
+      <div class="col-sm-10">
+        <input name="middleInitial" type="text" class="form-control" placeholder="Middle initial">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input name="lastName" type="text" class="form-control" placeholder="Last name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Month</label>
+      <div class="col-sm-10">
+        <select name="dobMonth" class="form-control" placeholder="Month">
+          {{#each month}}
+          <option>{{this}}</option>
+          {{/each}}
+      </select>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Day</label>
+      <div class="col-sm-10">
+        <select name="dobDay" class="form-control" placeholder="Day">
+          {{#each day}}
+          <option>{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Year</label>
+      <div class="col-sm-10">
+        <select name="dobYear" class="form-control" placeholder="Year">
+          {{#each year}}
+          <option>{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="password1" placeholder="Password">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Repeat Password</label>
+      <div class="col-sm-10">
+        <input type="password" name="password2" class="form-control"placeholder="Repeat Password">
+      </div>
+    </div>
+     <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Gender</label>
+      <div class="col-sm-10">
+        
+        <input type="radio" name="gender" value="female"> Female
+        <br>
+        <input type="radio" name="gender" value="male"> Male
+        <br>
+        <input type="radio" name="gender" value="other"> Other
+      
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input name="check" type="checkbox">Signup for newsletter
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Biography</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" name="bio" placeholder="Biography"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Register</button>
+      </div>
+    </div>
+  </form>
   </div>
 </body>
 </html>
