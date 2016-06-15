@@ -129,4 +129,3 @@ At the end of this, you should be a bit more comfortable with using templates to
   var data = { name : "Jebediah Ezekiel Mordecai" }
   var page = someTpl(data); // -> <!DOCTYPE html><html...
   ```
-  
