@@ -307,10 +307,61 @@ data the user submits via these forms: for instance, when the user submits the
 new project form, this logic should validate the input, return errors if there
 are any, or create the project and report success to the user if not.
 
+Each of your views (created in the previous phase) will need at least one route.
+Here's another way to think about routes: each "action" the user can take in the
+application--such as "view project" or "create project"--will need a route.
 
-## Phase 6: Form validation
+### Form validation
 
-- form validation: https://github.com/ctavan/express-validator
+One of the trickier things your route/controller logic needs to handle is form
+validation. Form validation is responsible for making sure that the data the
+user fills into the form and submits line up with our expectations about those
+data: required data aren't missing, data are in the right format (e.g.,
+something that's supposed to be a number is actually a number), etc. This helps
+keep our data clean, so we don't clutter up the database with junk or display
+bad data to the user. Form validation is also responsible for reporting errors
+back to the user, and, ideally, for making it clear and easy for the user to fix
+the errors and resubmit.
+
+Form validation is a big topic, and it's also a critical component of your
+application's UX design (user experience), so it deserves careful attention.
+Detailed best practices of form validation are beyond the scope of this
+document, but here are a few great blog posts to get you started:
+
+- [The Ultimate UX Design of Form Validation](http://designmodo.com/ux-form-validation/)
+- [Form validation best practices: A case study of how to get it right](https://medium.com/@andrew.burton/form-validation-best-practices-8e3bec7d0549)
+- [Form validation examples](http://formvalidation.io/examples/)
+
+Finally, here are a few more tips to get you on your way:
+
+- Display errors inline in the form. Wherever possible, display the errors next
+  to, or as part of, the input fields themselves, so the user doesn't have to
+  hunt for the erroneous field. Bootstrap forms make this easy: see [Validation
+  states](http://getbootstrap.com/css/#forms-control-validation).
+- Use clear, specific error messages that make the required user action clear,
+  rather than generic error messages. "A valid email address is required" is a
+  much more helpful error message than "an error has occurred."
+- Don't force the user to input data twice. If they input data, and there's an
+  error, pre-populate the fields they already filled out when you redisplay the
+  form.
+- An npm module such as
+  [express-validator](https://github.com/ctavan/express-validator) can help a
+  lot.
+- Don't confuse form validation with [Mongoose
+  validation](http://mongoosejs.com/docs/validation.html). You should do that,
+  too, as a second line of defense against bad data entering your database, but
+  they're two completely different things.
+- Don't confuse backend form validation with frontend form validation. The
+  former happens _after_ a form is submitted, inside express, and displaying
+  errors requires rerendering forms. The latter happens inside the user's
+  browser _before_ the form is submitted. You should do both, if possible--you
+  may find [jQuery Validation](https://jqueryvalidation.org/) helpful for
+  frontend validation--but only backend validation is required for this project.
+
+### Error handling
+
+
+
 ## (BONUS) Phase 7
 
 - frontend form validation
