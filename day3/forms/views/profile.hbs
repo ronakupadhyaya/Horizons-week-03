@@ -1,19 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Profile</title>
+ <title>User Profile</title>
 
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
-  <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
-  </style>
+ <style>
+   body { background-color: #2ECC71 ; padding-top: 2em;}
+ </style>
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <h1>Put your user profile here</h1>
-    </div>
-  </div>
+ <div class="container">
+   <div class="row">
+     <h1>User Profile</h1>
+     <div class="header">
+       <h3> {{firstName}} {{lastName}} </h3>
+     </div>
+     <div class="prof-body">
+       <div class="picture col-sm-3">
+       Insert pic
+       </div>
+       <div class="info-headers col-sm-3">
+         <div>
+           DOB:
+         </div>
+         <div>
+           Gender:
+         </div>
+         <div>
+           Bio:
+         </div>
+       </div>
+       <div class="info col-sm-6">
+         <div>
+           {{month}}/{{day}}/{{year}} 
+         </div>
+         <div>
+           {{gender}}
+         </div>
+         <div>
+           {{bio}}
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
 </body>
 </html>
