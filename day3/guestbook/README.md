@@ -11,8 +11,11 @@ We have created for you a basic express app. It already handles the basics like
 server creation and using a couple of templates. Now, you have to fill in the routes
 and templates to build the Guestbook.
 
-We start by logging in our
+All the routes are given to you as relative routes here. so /login means
 http://localhost:3000/login
+
+The exercise is on the folder exercise and solution is in another folder to keep
+everything cleaner.
 
 ### Functional requirements
 
