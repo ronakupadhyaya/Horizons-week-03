@@ -24,17 +24,36 @@
 //
 
 // Example code for reading command line arguments:
-console.log('Command line arguments', process.argv.slice(2));
+console.log('Unprocessed Command line arguments', process.argv);
+console.log('Command line arguments', process.argv.slice(2)); // command line arguments is an array 
 
 // Example code for getting input from the user
-var readline = require('readline');
+var numbers = process.argv.slice(2); 
+if(numbers.length > 0){
+console.log('numbers', numbers); // slice takes out the first two arguments 
 
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+var total = 0; 
+for( var i = 0; i < numbers.length; i++) {
+	console.log(numbers[i]); 
+	total = total + parseInt(numbers[i]); 
+}
+console.log('total', total)
+} else {
+	var readline = require('readline'); 
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+	var rl = readline.createInterface({
+	  input: process.stdin,
+	  output: process.stdout
+	});
+
+var n1, n2; 
+	rl.question("Enter first number?", function(n1) {
+	  console.log('number 1: ', n1);
+	});
+
+	rl.question("Enter second number?", function(n2) {
+	  console.log('number 2: ', n2);
+	});
+	console.log('total: ', parseInt(n1 + n2)); 
+	rl.close(); 
+} // this is all asynchronous 
