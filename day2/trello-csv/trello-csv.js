@@ -62,8 +62,16 @@ var uploadToTrello = function(board_id, csv_fname) {
 var downloadFromTrello = function(boardId) {
 
 
+<<<<<<< HEAD
 	var input = [];
 	trello.getListsOnBoard(boardId, function(err, lists){
+=======
+	// var input = [ [], [], [], [], [] ];
+	var input = [];
+
+	trello.getListsOnBoard(boardId, function(err, lists){
+		// console.log(lists);
+>>>>>>> origin/spark
 
 		_.map(lists, function(list){
 			var temp = [];
