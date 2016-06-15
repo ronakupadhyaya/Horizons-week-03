@@ -52,6 +52,22 @@ purely backend webapp. You're starting from scratch and it's up to you to design
 and layout the project as you see fit, but we'll walk you through the steps and
 provide suggestions.
 
+### Solution
+
+You can check out a [live, hosted version of the
+solution](http://107.170.120.178:8090/). You can also run the solution code
+locally like this:
+
+```
+$ cd solution/
+$ npm install
+$ npm start
+```
+
+Then open http://localhost:3000/ in your browser to see it. Note that only the
+most basic styling has been applied to the solution: your app should be a
+heckuvalot prettier!
+
 ### Stack
 
 Recall from lesson that a "stack" refers to the set, or stack (because they sit
