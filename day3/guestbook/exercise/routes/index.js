@@ -30,20 +30,11 @@ router.post('/login', function(req, res) {
 // If the function is called with a username like /posts?username=steven, you should
 // filter all posts that aren't done by that user.
 // Hint: to get the username, use req.query.username
-// Don't forget to send the posts array to the view on the render method!
+
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-  var displayposts = posts;
-  if (req.query.username){
-    displayposts = displayposts.filter(function(post){
-      return post.author===req.query.username
-    });
-  }
-  if (req.query.order==='ascending'){
-    displayposts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
-  } else {
-    displayposts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
-  }
+
+  // This renders the posts
   res.render('posts', {
     title: 'Posts',
     posts: displayposts
@@ -54,11 +45,7 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-    // YOUR CODE HERE
-  if (req.cookies && req.cookies.username){
-    res.render('post_form', { title: 'New Post' });
-  }
-  else{ console.log("not logged") }
+  // YOUR CODE HERE
 });
 
 // POST POSTS: This route receives the information for the new post. User must
@@ -72,27 +59,7 @@ router.get('/posts/new', function(req, res) {
 // Append the new post to the posts array, and use jsonfile.writeFileSync(file, posts);
 // to write the entire posts array to disk
 router.post('/posts', function(req, res) {
-// YOUR CODE HERE
-  req.checkBody('title', 'Title must not be empty').notEmpty();
-  req.checkBody('text', 'Title must not be empty').notEmpty()
-  var errors = req.validationErrors();
-
-  if (errors){
-    res.render('post_form', {
-      title: 'New Post',
-      error:"Title and body can't be blank"});
-  }
-  if (req.cookies && req.cookies.username && !errors){
-    var post = {
-      author: req.cookies.username,
-      date: req.body.date,
-      title: req.body.title,
-      text: req.body.text
-    }
-    posts.push(post);
-    jsonfile.writeFileSync(file, posts);
-    res.redirect('/posts')
-  }
+  // YOUR CODE HERE
 });
 
 module.exports = router;
