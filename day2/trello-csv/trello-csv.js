@@ -58,12 +58,35 @@ var uploadToTrello = function(board_id, csv_fname) {
 	});
 }
 
-
-
 // 3. download functionality - read trello data and output to csv
 var downloadFromTrello = function(boardId) {
 
 
+	// var input = [ [], [], [], [], [] ];
+	var input = [];
+
+	trello.getListsOnBoard(boardId, function(err, lists){
+		// console.log(lists);
+
+		_.map(lists, function(list){
+			var temp = [];
+			temp.push(list['name']);
+			var listId = list['id'];
+			trello.getCardsOnList(listId, function(err, cards){
+				_.map(cards, function(card){
+					temp.push(card['name']);
+				})
+				input.push(temp);
+
+				if (input.length === lists.length) {
+					var toStringify = _.zip.apply(null, input);
+					csv.stringify(toStringify, function(err, output) {
+						fs.writeFileSync('file.csv', output);
+					});
+				}
+			})
+		})
+	});
 };
 
 // This line is here for demo purposes, you should delete it
@@ -71,4 +94,4 @@ var downloadFromTrello = function(boardId) {
 // uploadToTrello(null, 'sample.csv');
 
 // uploadToTrello("5760927e6c7f277045f70440", 'sample.csv');
-
+// downloadFromTrello("5760927e6c7f277045f70440");
