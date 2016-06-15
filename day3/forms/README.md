@@ -118,7 +118,7 @@ render a page and validating form input.
     </tr>
   <table>
 
-  You will be creating two pages: a registration form page and a
+  You will be creating two pages: a registration form page and a profile page. 
   Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
 
   If all data is valid, render a profile page using this information after submit.
