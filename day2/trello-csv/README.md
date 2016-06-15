@@ -31,7 +31,7 @@ This script should have two modes of operation:
   $ node trello-csv.js -u [board id] [csv file]
   ```
 
-1. Download a given Trello board to a CSV file
+2. Download a given Trello board to a CSV file
 
   ```bash
   $ node trello-csv.js --download [board id] [csv file]
