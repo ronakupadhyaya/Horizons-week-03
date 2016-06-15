@@ -75,7 +75,9 @@ errors on the page.
 
 1. Put validation errors inline with form elements that have validation errors.
    Bootstrap supports inline form validation messages like this:
+
    ![](img/valid.png)
+   
 1. Render Markdown posts using [Marked](https://github.com/chjj/marked)
 1. Implement a Guestbook Admin Interface that can modify or delete posts:
   1. Edit post
