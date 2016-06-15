@@ -129,15 +129,15 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  console.log(data);
-  if (process.argv[4]) {
-    var index = parseInt(process.argv[4]);
+  //console.log(data);
+  if (program.id) {
+    var index = program.id;
     // console.log(process.argv)
     console.log("Task #" +(index)+ " Priority " +data[index-1].priority+ ": " +data[index - 1].name);
   } 
   else { 
-    for(var i = 1; i < data.length; i++){
-      console.log("Task #" +(i)+ " Priority" +data[i-1].priority+ ": " + data[i-1].name);
+    for(var i = 0; i < data.length; i++){
+      console.log("Task #" +(i+1)+ " Priority " +data[i].priority+ ": " + data[i].name);
     }
   } 
 }
@@ -146,7 +146,9 @@ function showTasks(){
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  var id = (parseInt((process.argv[4])) - 1);
+  //console.log(data);
+  var id = program.id;
+  console.log(data.splice((id-1), 1));
   
 }
 
