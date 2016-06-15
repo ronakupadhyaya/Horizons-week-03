@@ -2,70 +2,169 @@
 
 ## Goal
 
-TODO
+The goal of this exercise if to familiarize yourself with a few key concepts: **server-side rendering w/ templating** and **form validation**.
+
+In comparison to everything we've done before, this will feel a little bit 
+different. Typically, we fetch data and then render new items on a page 
+client-side (that is, the browser). In this case, we're going to be fetching 
+*static* pages, and showing those. *Static* pages that you won't have to render 
+anything on, ***because it's already done ('compiled' with the necessary data) 
+on the server*** before it's sent.
+
+At the end of this, you should be a bit more comfortable with using templates to 
+render a page and validating form input.
 
 ## Instructions
 
-TODO
+1. Install your dependencies.
 
-Use Bootstrap to create a user registration form:
+  ```bash
+  npm install
+  ```
 
-Create user registration form. User schema:
+1. We have included the following for you:
+  1. [**Bootstrap**](https://www.npmjs.com/package/bootstrap) - for building the UI
+  1. [**Handlebars**](https://www.npmjs.com/package/handlebars) - for rendering our pages server-side
+  1. [**Express**](https://www.npmjs.com/package/express) - our web server framework
 
-<table>
-  <tr>
-    <th>
-      Field name
-    </th>
-    <th>
-      Required
-    </th>
-    <th>
-      Form field type
-    </th>
-    <th>
-      Validation rules
-    </th>
-  <tr>
-  <tr>
-    <td>First Name</td>
-    <td>Y</td>
-    <td>text</td>
-    <td>Must not be empty</td>
-  </tr>
-  <tr>
-    <td>Middle initial</td>
-    <td>N</td>
-    <td>text</td>
-    <td>Single letter</td>
-  </tr>
-  <tr>
-    <td colspan="4" style="font-weight: bold;">FILL THIS IN!</td>
-  </tr>
-<table>
+1. Start your web server
 
-1. First name (required)
-1. Middle initial (optional)
-1. Last name (required)
-1. Date of birth (required): validate that the user is over 13 years old
-1. Place of birth (optional)
-1. Password (required): password must be at least 6 characters long,
-1. Password repeat (required): should be same as the password field
-1. User registration date (required): set this via JavaScript as a hidden form field
-1. Gender (required): Male/Female/Rather not say (radio selector)
-1. Sign up for newsletter: Checkbox
-1. Bio: textarea
+  ```bash
+  npm start
+  ```
 
-Create a form with these fields using Express and Handlebars
+1. Use **Bootstrap** to create a user registration form (do this in `/forms/views/register.hbs`)
 
-1. Hidden
-1. Password
-1. Picklist
-1. Multi picklist
-1. Checkbox
-1. Radio
-1. Textarea
+  Create user registration form according to this specification:
 
-If all data is valid, render a profile page using this information after submit.
+  <table>
+    <tr>
+      <th> Field name </th>
+      <th> Required </th>
+      <th> Form field type </th>
+      <th> Validation rules </th>
+    <tr>
+    <tr>
+      <td> First Name </td>
+      <td> Y </td>
+      <td> text </td>
+      <td> Must not be empty </td>
+    </tr>
+    <tr>
+      <td> Middle initial </td>
+      <td> N </td>
+      <td> text </td>
+      <td> Single letter </td>
+    </tr>
+    <tr>
+      <td> Last name </td>
+      <td> Y </td>
+      <td> text </td>
+      <td> Must not be empty </td>
+    </tr>
+    <tr>
+      <td> DOB Month </td>
+      <td> N </td>
+      <td> select </td>
+      <td> Must be an integer between [1, 12] </td>
+    </tr>
+    <tr>
+      <td> DOB Day </td>
+      <td> N </td>
+      <td> select </td>
+      <td> Must be an integer between [1, 31] </td>
+    </tr>
+    <tr>
+      <td> DOB Year </td>
+      <td> N </td>
+      <td> select </td>
+      <td> Must be a non-negative integer </td>
+    </tr>
+    <tr>
+      <td> Password </td>
+      <td> Y </td>
+      <td> password </td>
+      <td> Must not be empty </td>
+    </tr>
+    <tr>
+      <td> Repeat Password </td>
+      <td> Y </td>
+      <td> password </td>
+      <td> Must not be empty and match the password field </td>
+    </tr>
+    <tr>
+      <td> Gender </td>
+      <td> Y </td>
+      <td> radio </td>
+      <td> Male/Female/Rather not say </td>
+    </tr>
+    <tr>
+      <td> Sign-up for newsletter </td>
+      <td> Y </td>
+      <td> checkbox </td>
+      <td> Must not be blank </td>
+    </tr>
+    <tr>
+      <td> Bio </td>
+      <td> Y </td>
+      <td> textarea </td>
+      <td> Must not be blank </td>
+    </tr>
+    <tr>
+      <td> User Registration Date </td>
+      <td> Y </td>
+      <td> text *(Hidden)* </td>
+      <td> Must not be filled with the date upon registration </td>
+    </tr>
+  <table>
 
-If not, render form back with error messages on validation errors.
+  You will be creating two pages: a registration form page and a profile page. 
+  Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
+
+  If all data is valid, render a profile page using this information after submit.
+
+  If not, render form back with error messages on validation errors.
+1. When you're done with your form it should look something like this.
+  ![](img/form.png)
+
+1. Make a `/register` route in your express app.
+
+  The `/register` route should respond to 2 http methods: **GET** and **POST**. 
+  It should do two things:
+    1. if it's a **GET** request, it should return the handlebars-compiled empty form
+    2. if it's a **POST** request, it should validate the post data, and if the post data is:
+      + **valid**, it should send the handlebars-compiled profile page
+      + **invalid**, it should send the handlebars-compiled registration form 
+      with an error message about which form fields are invalid.
+
+## Validation
+
+We use [`express-validator`](https://github.com/ctavan/express-validator) to validate our form fields.
+
+Example usage:
+
+```javascript
+app.post('/', function(req, res) {
+
+  // VALIDATION
+  // checkBody only checks req.body; none of the other req parameters
+  req.checkBody('requiredNumberParam', 'Invalid requiredNumberParam').notEmpty().isInt();
+  // checkQuery only checks req.query (GET params).
+  req.checkQuery('required', 'Invalid getparam').isInt();
+  var errors = req.validationErrors();
+  if (errors) {
+    res.send('There have been validation errors: ' + errors, 400);
+    return;
+  }
+  res.render('index');
+}
+```
+
+## Templates and Handlebars
+
+Your templates live under `views/`. We have put two templates there for you to edit.
+
+1. `register.hbs`: The registration form. You should use this template to render validation errors if there are any as well.
+1. `profile.hbs`: This is what should be rendered if the user submits a valid registration request.
+
+These templates are rendered using [**Handlebars**](http://handlebarsjs.com).
