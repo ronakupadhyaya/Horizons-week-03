@@ -1,9 +1,9 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
-var jsonfile = require('jsonfile')
-var file = 'data.json'
-var posts = jsonfile.readFileSync(file)
+var jsonfile = require('jsonfile');
+var file = 'data.json';
+var posts = jsonfile.readFileSync(file);
 
 
 // LOGIN
@@ -56,7 +56,8 @@ router.get('/posts/new', function(req, res) {
 // posts
 router.post('/posts', function(req, res) {
 
-  // TODO: validate title+body using Express validator
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+  req.checkBody('text', 'Title must not be empty').isEmail()
 
   if (req.cookies && req.cookies.username){
     var post = {
@@ -67,11 +68,8 @@ router.post('/posts', function(req, res) {
     }
     posts.push(post);
     jsonfile.writeFileSync(file, posts);
-    console.log(post)
     res.redirect('/posts')
   }
 });
 
-
-// TODO: query url for lower buttons is incorrect. 
 module.exports = router;
