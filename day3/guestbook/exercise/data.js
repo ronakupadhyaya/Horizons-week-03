@@ -1,4 +1,4 @@
-// This module allows us to work with json based persistance.
+// This module allows you to save data using JSON files.
 var jsonfile = require('jsonfile');
 var file = 'data.json';
 

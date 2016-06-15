@@ -25,10 +25,10 @@ and templates to build the Guestbook.
   npm start
   ```
 
-1. Visit http://localhost:3000/login to make sure that your server is working.
+1. Visit [http://localhost:3000/login](http://localhost:3000/login) to make sure that your server is working.
 1. Edit your routes (aka endpoints) in `routes.js`.
 1. Edit your css rules in `public/css/style.css`.
-1. To perist data use `data.save(dataObject)` to read `data.read()`.
+1. when users create posts, save them using `data.save()`. To read data use `data.read()`.
 
 ### Your tasks
 
