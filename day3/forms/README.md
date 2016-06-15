@@ -120,9 +120,9 @@ At the end of this, you should be a bit more comfortable with using templates to
 1. When you're done with your form it should look something like this.
   ![](img/form.png)
 
-1. Implement the `/register` route
+1. Make a `/register` route in your express app.
 
-  Make a `/register` route in your express app. The `/register` route should do respond to 2 http methods: **GET** and **POST**. It should do two things:
+  The `/register` route should do respond to 2 http methods: **GET** and **POST**. It should do two things:
     1. if it's a **GET** request, it should return the handlebars-compiled empty form
     2. if it's a **POST** request, it should validate the post data, and if the post data is:
       + **valid**, it should send the handlebars-compiled profile page
