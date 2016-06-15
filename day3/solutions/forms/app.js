@@ -56,10 +56,12 @@ function validate(req) {
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
+  console.log(req.body);
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
