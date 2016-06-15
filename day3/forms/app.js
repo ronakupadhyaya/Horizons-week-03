@@ -41,7 +41,13 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstName', 'Invalid First Name').notEmpty();
+  req.checkBody('lastName', 'Invalid Last Name').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('repeatPass', 'Invalid password').notEmpty();
+  req.checkBody('radio', 'Invalid radio selection').notEmpty();
+  req.checkBody('checkbox', 'Invalid checkbox selection').notEmpty();
+  req.checkBody('biography', 'Invalid biography').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
