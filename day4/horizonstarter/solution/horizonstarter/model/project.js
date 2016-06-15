@@ -5,15 +5,28 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ProjectSchema = new Schema({
-  title: String,
-  goal: Number,
+  title: {
+    type: String,
+    required: true
+  },
+  goal: {
+    type: Number,
+    required: true
+  },
   contributions: [{
-    name: String,
+    name: {
+      type: String,
+      required: true
+    },
     comment: String,
-    amount: Number
+    amount: {
+      type: Number,
+      required: true
+    }
   }],
   category: {
     type: String,
+    required: true,
     enum: [
       'Famous Muppet Frogs',
       'Current Black Presidents',
@@ -26,9 +39,18 @@ var ProjectSchema = new Schema({
       'Potent Potables'
     ]
   },
-  description: String,
-  start: Date,
-  end: Date
+  description: {
+    type: String,
+    required: true
+  },
+  start: {
+    type: Date,
+    required: true
+  },
+  end: {
+    type: Date,
+    required: true
+  }
 });
 
 // Virtual properties allow handlebars templates to calculate things inline.

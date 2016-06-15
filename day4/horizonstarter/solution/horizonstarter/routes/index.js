@@ -55,17 +55,32 @@ router.post('/new', function(req, res) {
     // Create new project
     var project = new Project({
       title: req.body.title,
-      goal: req.body.goal,
+      goal: req.body.amount,
       category: req.body.category,
       description: req.body.description,
       start: req.body.start,
       end: req.body.end
     });
     project.save(function(err) {
-      if (err) res.send(err);
-      // Set success flash message and redirect.
-      req.session.flash = [{type: 'alert-success', messages: [{msg: "Project created successfully"}]}];
-      res.redirect('/');
+      if (err) {
+        console.error(err);
+        res.render('new', {
+          data: req.body,
+          categories: Project.schema.path('category').enumValues.map(function (el) {
+            // This is messy, but we can't have logic in handlebars.
+            return {val: el, selected: el===req.body.category};
+          }),
+          flash: { type: 'alert-danger', messages: [{msg: err.message}]}
+        });
+      }
+      else {
+        // Set success flash message and redirect.
+        req.session.flash = [{
+          type: 'alert-success',
+          messages: [{msg: "Project created successfully"}]
+        }];
+        res.redirect('/');
+      }
     });
   }
 });
@@ -92,8 +107,8 @@ router.post('/project/:projectid', function(req, res) {
     req.checkBody('amount', 'Amount is required').notEmpty();
     req.checkBody('amount', 'Amount must be an integer').isInt();
     var errors = req.validationErrors();
-    console.log(errors);
     if (errors) {
+      console.error(errors);
       res.render('project', {
         project: project,
         // format the times separately
@@ -110,13 +125,17 @@ router.post('/project/:projectid', function(req, res) {
         amount: req.body.amount
       });
       project.save(function(err) {
-        if (err) res.send(err);
+        console.error(err);
+        var flash = err ?
+          {type: 'alert-danger', messages: [{msg: err.message}]} :
+          {type: 'alert-success', messages: [{msg: "Thanks for your contribution!"}]};
         res.render('project', {
           project: project,
           // format the times separately
           start: strftime('%B %d, %Y', project.start),
           end: strftime('%B %d, %Y', project.end),
-          flash: {type: 'alert-success', messages: [{msg: "Thanks for your contribution!"}]}
+          data: req.body,
+          flash: flash
         });
       })
     }
@@ -124,4 +143,3 @@ router.post('/project/:projectid', function(req, res) {
 });
 
 module.exports = router;
-

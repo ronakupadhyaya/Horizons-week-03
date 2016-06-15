@@ -232,7 +232,7 @@ var PersonSchema = new Mongoose.schema({
 // Create a model based on this schema and the 'mypeople' collection
 var Person = mongoose.model('mypeople', PersonSchema);
 
-// Create a person document
+// Create a person document in this collection
 var somePerson = new Person({name: "Ethan", age: 17});
 ```
 
@@ -245,7 +245,7 @@ built over the past couple of weeks. They have properties, and you can attach
 methods to them, too. Read the [Mongoose
 guide](http://mongoosejs.com/docs/guide.html) for more information. This article
 is also helpful: [Mistakes You’re Probably Making With MongooseJS, And How To
-Fix Them](http://blog.mongodb.org/post/52299826008/the-mean-stack-mistakes-youre-probably-making)
+Fix Them.](http://blog.mongodb.org/post/52299826008/the-mean-stack-mistakes-youre-probably-making)
 
 You should store your models in individual files inside the `model/` folder. For
 instance, the `Person` model above would be stored in `model/person.js`. Include
@@ -261,8 +261,17 @@ make sure that you know how to read them, too. See
 and saving documents, and [Queries](http://mongoosejs.com/docs/queries.html) for
 instructions on reading documents.
 
-One option is to use the debugger to try creating and reading documents. Another
-option is the
+You may decide to write unit tests to test your schemas and models. Here are
+some resources that may be helpful:
+
+- [jasmine-node](https://github.com/mhevery/jasmine-node)
+- [mocha-mongoose](https://github.com/elliotf/mocha-mongoose)
+  ([Mocha](https://mochajs.org/) is another extremely popular Javascript test
+  framework)
+- [Mongoose testing](http://www.scotchmedia.com/tutorials/express/authentication/1/06)
+
+Other options are using the debugger to try creating and reading documents, or
+using the 
 [mongo shell](https://docs.mongodb.com/manual/reference/mongo-shell/). See the
 list of
 [basic shell JavaScript operations](https://docs.mongodb.com/manual/reference/mongo-shell/#basic-shell-javascript-operations)
@@ -272,8 +281,8 @@ for a starting point.
 ## Phase 4. Views
 
 With your data model in place, the next step is to create some views to display
-and allow the user to edit the data. At a bare minimum, you're going to want the
-following:
+and allow the user to edit the data. You're on your own for this part, too, but
+at a bare minimum, you're going to want the following:
 
 - A front page which lists all projects (perhaps with a set of featured projects
   on top, like on Kickstarter)
@@ -289,6 +298,14 @@ project folder.
 
 
 ## Phase 5. Routes
+
+With your views in place, you'll need to configure your routes. The routes link
+the application URLs to your views, so that, e.g., when the user visits
+`/newproject`, they'll see the view you created that contains the new project
+form. They also contain the controller logic, which receives and acts upon the
+data the user submits via these forms: for instance, when the user submits the
+new project form, this logic should validate the input, return errors if there
+are any, or create the project and report success to the user if not.
 
 
 ## Phase 6: Form validation
