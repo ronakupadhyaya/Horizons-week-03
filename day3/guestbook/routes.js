@@ -15,7 +15,7 @@ var data = require('./data');
 // on their browser. This function is already implemented for you to have as a model.
 // It passes the object with title : 'Log in' to the template
 router.get('/login', function(req, res) {
-  res.render('login', { title: 'Log In Test' });
+  res.render('login');
 });
 
 // POST /login: Receives the form info for the user, sets a cookie on the client
@@ -37,12 +37,31 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
+  var order = req.query.order;
 
-  // This renders the posts
-  res.render('posts', {
-    title: 'Posts',
-    posts: []
-  });
+  if(order) {
+    if(order === 'ascending') {
+      // This renders the posts
+      res.render('posts', {
+        title: 'Posts',
+        posts: data.read(1)
+      });
+
+    } else if(order === 'descending') {
+      // This renders the posts
+      res.render('posts', {
+        title: 'Posts',
+        posts: data.read(0)
+      });
+    }
+  } else {
+    res.render('posts', {
+        title: 'Posts',
+        posts: data.read(0)
+      });
+  }
+
+  
 });
 
 // ---Part 3. New post form---
@@ -51,6 +70,7 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form');
 });
 
 // ---Part 4. Create new post
@@ -64,6 +84,22 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var title = req.body.title
+  var message = req.body.message;
+  var user = req.cookies.username;
+  var date = new Date().toString();
+
+  var userPost = {
+    title: title,
+    message: message,
+    user: user,
+    date: date
+  }
+
+  data.save(userPost);
+
+  res.redirect('/posts');
+
 });
 
 module.exports = router;

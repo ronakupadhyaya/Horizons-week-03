@@ -1,24 +1,71 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Login</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Language" content="en">
+    <title>Guestbook</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
 
-  <link rel="stylesheet" href="/css/style.css"></link>
-  <link rel="stylesheet" href="/js/script.js"></link>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/css/style.css"></link> -->
+    <!-- <link rel="stylesheet" href="/js/script.js"></link> -->
+
+    <style type="text/css">
+    	.navbar-default{background-color:#3B5998}.navbar-default .navbar-nav>li>a,.navbar-header .navbar-brand,.navbar-header .navbar-brand:active,.navbar-header .navbar-brand:hover,.navbar-header .navbar-brand:link,.navbar-header .navbar-brand:visited{color:#fff}.navbar-default .navbar-nav>li>a:focus,.navbar-default .navbar-nav>li>a:hover{cursor:pointer;color:#fff;text-decoration:underline}.glyphicon-comment,.glyphicon-thumbs-up{font-size:110%;margin-right:.5em}.glyphicon-thumbs-up.footer{font-size:90%;color:#5890FF}body{background-color:#E9EBEE}.error-msg{color:red;padding-top:.5em;padding-bottom:.5em}.comment-user,.post-user{color:#365899;font-weight:700;cursor:pointer}.post-comment{margin-top:1em;margin-bottom:1em}.comment-user{font-size:90%}.post-created-at{color:#93949F;font-size:85%;margin-left:1em}.comment-created-at{color:#93949F;font-size:75%;margin-left:1em}.post-content{margin-bottom:1em;word-wrap:break-word}.comment-content{font-size:90%}.post-buttons{padding-top:1em;border-top:1px solid #ddd}.post-comment-button,.post-like-button{color:#7F7F7F;margin-right:1em;text-decoration:none}.post-comment-button:hover,.post-like-button:hover{cursor:pointer;text-decoration:underline}.post-comments{background-color:#fff}.thumbs-up-footer{color:#365899}.new-comment-user{width:10%;vertical-align:top;color:#365899;font-weight:700;cursor:pointer}.new-comment-content{width:90%}
+    </style>
+
 </head>
-<body>
-<h1>View all posts</h1>
 
-<!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
-display them on the page. Add a couple of buttons to sort ascending/descending
-and to create new post! -->
+<body class="">
 
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Guestbook</a>
+            </div>
 
-<!-- YOUR CODE HERE -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/posts/new">New Post</a></li>
+					<li><a href="/login">Log Out</a></li>
+				</ul>
+			</div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+	<div class="container" id="posts-container">
+		{{#each posts}}
+	    <div class="row">
+	        <div class="col-sm-2"></div>
+	        <div class="col-sm-8">
+	            <div class="panel panel-default">
+	                <div class="panel-heading"><span class="post-user">{{this.user}}</span><span class="post-created-at">{{this.date}}</span>
+	                </div>
+	                <div class="panel-body">
+	                	<div class="post-title"><b>Title: </b>{{this.message}}</div>
+	                    <div class="post-content" style="margin-top: 1em;"><b>Message: </b>{{this.message}}</div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="col-sm-2"></div>
+	    </div>
+	    {{/each}}
+	</div>
+
+    <script src="vendor/tether/js/tether.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="js/index.js"></script>
 
 </body>
+
 </html>

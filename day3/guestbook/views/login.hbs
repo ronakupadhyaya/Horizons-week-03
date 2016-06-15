@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>{{title}}</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Language" content="en">
 
-  <link rel="stylesheet" href="/css/style.css"></link>
-  <link rel="stylesheet" href="/js/script.js"></link>
+<head>
+    <title>Guestbook</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css"></link>
+    <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 
-<body>
-  <h1>Login</h1>
+<body class="">
 
-  <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username" />
-    <input type="submit" value="Submit" />
-  </form>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Guestbook</a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form action='/login' method='POST'>
+                  <fieldset class="form-group">
+                    <label for="formGroupExampleInput">User</label>
+                    <input type="text" class="form-control" name="username" required>
+                  </fieldset>
+                  <button type="submit" class="btn btn-primary">Log In</button>
+                </form>
+              </div>
+            </div><!-- end pannel -->
+          </div>
+        </div>
+       </div>
+
+    <script src="vendor/tether/js/tether.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="js/index.js"></script>
 
 </body>
+
 </html>
