@@ -43,3 +43,9 @@ easy as it could be
 ## (BONUS) Phase X
 
 - frontend form validation
+
+## Troubleshooting
+
+    Error: connect ECONNREFUSED 127.0.0.1:27017
+    
+This means you don't have mongodb running.
