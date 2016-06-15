@@ -19,6 +19,16 @@ and to create new post! -->
 
 
 <!-- YOUR CODE HERE -->
-
+<a href="/posts/new">Create a new post</a>
+<a href="/posts?order=ascending">Ascending order</a>
+<a href="/posts?order=descending">Descending order</a>
+{{#each posts}}
+	<div>
+		<h3>{{author}}</h3>
+		<div>{{date}}</div>
+		<h4>{{title}}</h4>
+		<p>{{text}}</p>
+	</div>
+{{/each}}
 </body>
 </html>

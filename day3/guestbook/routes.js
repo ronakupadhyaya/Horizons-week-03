@@ -24,6 +24,8 @@ router.post('/login', function(req, res) {
   res.cookie('username', req.body.username).redirect('/posts');
 });
 
+var postArr = jsonfile.readFileSync('data.json');
+
 // ---Part 2. View Posts---
 
 // GET /posts: Renders a list of all available posts. No need to be logged in.
@@ -36,11 +38,35 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
+  var name = req.query.username;
+  var newArr = [];
+  if (name) {
+    
+    for (var i = 0; i < postArr.length; i++) {
+      if (postArr[i].author === name) {
+        postArr[i].push(newArr)
+      }
+    }
+
+    if (req.query.order === "ascending") {
+      var changeArr = []
+      for (var k = newArr.length - 1; k >= 0; k--) {
+        changeArr.push(newArr[k]);
+      }
+      newArr = changeArr;
+    }
+
+  } else if (req.query.order === "ascending") {
+    for (var j = postArr.length - 1; j >= 0; j--) {
+      newArr.push(postArr[j]);
+    }
+  } else newArr = postArr;
+
 
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: newArr
   });
 });
 
@@ -50,6 +76,12 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form')
+  }
+  // } else {
+  //   res.render('post_form', {})
+  // }
 });
 
 // ---Part 4. Create new post
@@ -63,6 +95,18 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var post = {};
+  post.author = req.cookies.username;
+  var newDate = new Date();
+  post.date = (newDate.getMonth() + 1) + "/" + newDate.getDate() + "/" + newDate.getFullYear();
+  post.title = req.body.title;
+  post.text = req.body.text;
+  postArr.push(post);
+  jsonfile.writeFileSync('data.json', postArr);
+
+  res.redirect(req.url);
+     
+  
 });
 
 module.exports = router;
