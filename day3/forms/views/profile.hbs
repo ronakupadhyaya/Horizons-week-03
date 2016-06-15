@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Profile</title>
+  <title>Profile</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    
   </style>
+
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <h1>Put your user profile here</h1>
-    </div>
+  <h1>Profile</h1>
+    <ul>
+      <li>"First Name: " + {{firstName}}</li>
+      <li>"Middle Initial: " + {{middleI}}</li>
+      <li>"Last Name: " + {{lastName}}</li>
+      <li>"DOB Day: " + {{dobDay}} + "DOB Month: " + {{dobMonth}} + "DOB Year: " + {{dobYear}}</li>
+      <li>"Gender: " + {{gender}}</li>
+      <li>"Bio: " + {{bio}}</li>
+    </ul>
   </div>
 </body>
 </html>
