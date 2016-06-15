@@ -42,6 +42,16 @@ var uploadToTrello = function(board_id, csv_fname) {
     var newObj = _.groupBy(returnArr,, function(array) {
     	return array[0];
     })
+    _.forEach(newObj, function(value, key) {
+    	var listName = key;
+    	var cardNames = [];
+    	for (var i = 0; i < value.length; i++) {
+    		cardNames.push(value[i][1]);
+    		}
+
+    	
+    	}
+    })
 
   });
 };
