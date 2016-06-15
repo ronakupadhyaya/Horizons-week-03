@@ -1,6 +1,6 @@
 var TRELLO_KEY = '15d4cc8a314d5d76847eda9cbaa2b878';
 var TRELLO_TOKEN = '9ca61e0018bca1f70af01082773b2a8e40d88e43c87d32ad6bddd41ff8c0aff5';
-var boardID = "576073a2d88366dc581a952a";
+var boardID = "5760a13120d4facbefd007f4";
 
 var fs = require('fs');
 var csv = require('csv');
@@ -31,7 +31,7 @@ var csv_fname = program.args[1];
 
 
 if (program.upload) uploadToTrello();
-else if (program.download) downloadFromTrello();
+else if (program.download) downloadFromTrello(board_id);
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
 
@@ -81,9 +81,56 @@ function uploadToTrello() {
 };
 
 // 3. download functionality - read trello data and output to csv
+var obj = new Object();
+function getCard (keyCard, id, length, i) {
+	trello.getCardsOnList(id, function(err, cardData) {
+  				if (err) console.log("Error");
+  				else {
+  					for (var j = 0; j < cardData.length; j++) {
+  						obj[keyCard].push(cardData[j].name);
+  					
+	  					if (i === length - 1 && j === cardData.length - 1) {
+	  						var listNames = _.keys(obj);
+						   var arrayHead = [];
+						   arrayHead.push(listNames);
+
+						   var array = []
+						   for(var key in obj) {
+						   		array.push(obj[key]);
+						   }
+						   
+						   var newArr = _.zip.apply(null, array);
+						   for (var k = 0; k < newArr.length; k++) {
+						   	arrayHead.push(newArr[k]);
+						   }
+						   var cSV = csv.stringify(array)
+						   fs.writeFileSync(csv_fname, cSV, encoding='utf8');
+					  	}
+				  }
+
+  				};
+  			})
+}
 function downloadFromTrello(boardId) {
   // YOUR CODE HERE
+  
+  trello.getListsOnBoard(boardId, function(error, data) {
+  	if (error) console.log("error");
+  	else {
+  		
+  		for (var i = 0; i < data.length; i++) {
+  			
+  			var key = data[i].name;
+  			obj[key] = [];
+  			getCard(key, data[i].id, data.length, i);
+
+	  	}
+
+	 	
+	}
+  });
+
+
+  
 };
 
-// This line is here for demo purposes, you should delete it
-// when you get started!
