@@ -29,6 +29,30 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
+app.get('/profile', function(req,res){
+  var errors = req.validationErrors();
+  var m=req.query.middleInitial;
+  if(!m){
+   m=null;
+  }
+  var c=req.query.newsletter;
+  if(!c){
+    c=false;
+  }
+  else{
+    c=true;
+  }
+  res.render('profile',{
+    firstName: req.query.firstName,
+    middleInitial: m,
+    lastName: req.query.lastName,
+    password: req.query.password,
+    birthday:[req.query.dobMonth, req.query.dobDay, req.query.dobYear],
+    gender: req.query.gender,
+    newlsetter: c
+  });
+})
+
 // ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
@@ -50,6 +74,14 @@ app.get('/register', function(req, res) {
 function validate(req) {
   req.checkBody('firstName', 'Fist name is required').notEmpty();
   req.checkBody('lastName', 'Last name is required').notEmpty();
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('password2', 'Password is required').notEmpty();
+  if(req.query.password !== req.query.password2){
+    throw error
+  }
+  req.checkBody('dobMonth', 'Birthday is required').notEmpty();
+  req.checkBody('dobDay', 'Birthday is required').notEmpty();
+  req.checkBody('dobYear', 'Birthday is required').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -69,12 +101,34 @@ app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
+  var m=res.query.middleInitial;
+  if(!m){
+   m=null;
+  }
+  var c=res.query.newsletter;
+  if(!c){
+    c=false;
+  }
+  else{
+    c=true;
+  }
   if (errors) {
-    res.render('register', {errors: errors, day: [1,2,3,4]}); ///rendering with errors bc validation
+    res.render('register', 
+    {errors: errors}); ///rendering with errors bc validation
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    app.get('/profile', function(req,res){
+    res.render('profile',{
+    firstName: res.query.firstName,
+    middleInitial: m,
+    lastName: res.query.lastName,
+    password: res.query.password,
+    birthday:[res.query.dobMonth, res.query.dobDay, res.query.dobYear],
+    gender: res.query.gender,
+    newlsetter: c
+    });
+    })
   }
 });
 
