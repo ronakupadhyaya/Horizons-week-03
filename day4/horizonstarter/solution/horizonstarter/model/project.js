@@ -30,6 +30,11 @@ var ProjectSchema = new Schema({
   start: Date,
   end: Date
 });
+
+// Virtual properties allow handlebars templates to calculate things inline.
+// The other option would be to use regular schema properties with handlebars
+// helpers.
+
 ProjectSchema.virtual('raised').get(function() {
   return this.contributions.map(function(el) {
     return el.amount

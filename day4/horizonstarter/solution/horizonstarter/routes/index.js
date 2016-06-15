@@ -6,7 +6,7 @@ var router = express.Router();
 var Project = require('../model/project');
 var strftime = require('strftime');
 
-/* GET home page. */
+// GET home page: list of all projects
 router.get('/', function(req, res) {
   Project.find(function(err, projects) {
     if (err) res.send(err);
@@ -124,3 +124,4 @@ router.post('/project/:projectid', function(req, res) {
 });
 
 module.exports = router;
+
