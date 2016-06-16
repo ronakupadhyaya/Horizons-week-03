@@ -43,12 +43,17 @@ app.get('/register', function(req, res){                        // get method; u
 });                                                             // pass data into render via objects,
 
 // ---Part 2: Validation---
+<<<<<<< HEAD
 // Write a function that takes a request object and does      //"Confirm Form Resubmission" -> refresh a page that is a result of a post request
 // validation on it using express-validator.
 
 
 
 
+=======
+// Write a function that takes a request object and does
+// validation on it using express-validator.
+>>>>>>> refs/remotes/origin/master
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
   req.checkBody ('lastName', 'Invalid last name').notEmpty();
@@ -91,4 +96,8 @@ app.post('/register', function(req, res){         // if there are errors then re
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> refs/remotes/origin/master
