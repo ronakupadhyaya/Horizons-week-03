@@ -399,30 +399,62 @@ take the user away from the main app flow, and they should not cause data the
 user has entered to disappear. Make use of Bootstrap components such as alerts
 for this purpose.
 
-## (BONUS) Phase 6: Do all the things
 
-So you've got a working Kickstarter clone with projects and contributions. Well
-aren't you a hot shot? But you're not done yet. Not really. Not until you're
-stealing business from Kickstarter and Indiegogo. (If you are, let me know so I
-can invest.)
+### Recap of features you need! 
 
-Try adding the following features:
+- A front page which lists all projects (perhaps with a set of featured projects
+  on top, like on Kickstarter)
+- A page that lets you view a project, and donate to that project
+- A page that lets you create a new project
+- The ability to filter the list of projects on front page using query parameters. Create the ability to filter the page by projects that are fully funded (`/projects?funded=true`) and projects looking to raise over a certain amount of money (`/projects?goal_greater_than=10000` should return all projects) [not implemented in prototype/solutions]
+- A page that let's you bulk edit projects [not implemented in prototype/solutions]
 
-- Add images, videos, and rewards to projects, if you haven't already.
-- Alert users (by email, or by SMS, using Twilio) when their project, or a
-  project they've contributed to, reaches its fundraising goal.
-- Frontend validation: check form input when the user hits submit, before
-  sending it to the backend. You may find a library such as [jQuery
-  Validation](https://jqueryvalidation.org/) useful for this, in combination
-  with Bootstrap [Validation
-  states](http://getbootstrap.com/css/#forms-control-validation).
-- Add some AJAX endpoints so that some features of the app, such as adding a
-  contribution to a project, happen without leaving the page. (We'll cover this
-  in more detail tomorrow.) Congrats, you've now got a hybrid frontend-backend
-  app, which is how most complex modern apps are designed.
-- Add some more Kickstarter-style features: users, featured projects, favorites
-  (stars), project updates, etc.
-- Add unit tests: for your schemas and models, for form validation, etc.
+
+*If you feel you need some guidance, checkout /playbook.md!!!!!*
+
+
+### Challenge: Adding Users. A real challenge. 
+
+We are now looking for the following behavior from our App. 
+	- Every Project has a owner.
+	- Users can donate to any project as long as they are not an owner (creator of the project)
+	- You can logout and login as a new user 
+	- Whenever a project is created, there must be an owner (ie page must be logged in)
+	- An Admin page that lets a User see all the projects she has created, how much each of her projects has raised, and a list of which projects she has donated too. 
+
+To do this you must, roughly: 
+
+- Create User Model with one property for a username
+- Create a login page
+	- `GET /login` renders and HTML page with 1 input field asking for a username. 
+	- `POST /login` creates and saves a user object (unless it already exists). It then sets a username cookie with the user's username. 
+- Create a logout button (if there is an existing cookie, delete it). `GET /logout` should just remove the `"username"` cookie and redirect to the `GET /login` page. 
+- Make sure that `GET projects/new` route only renders a form if there is a `"username"` cookie
+- `GET projects/:id` should only show a donate button if the username cookie !== the owner of the Project :). 
+- Add a `owner` property to the Project Model. This will store the _id of the User that creates a project.
+- To keep track of the which projects a user has donated too: 
+	- Add a Donations array to the User model. This should store id's of Projects the User has donated too. 
+	- Edit the `/donate/:id` route to update the Donations array whenever a user donates.
+- Create an admin page for a user `GET admin`. Note there is no `/:id` on this route. Instead, the admin page looks at the username cookie to find the user we care about. 
+    - Show each project the user owns
+    - How much each project has in donations 
+
+### Bonus. You asked for it.
+
+Update your admin page. See if you can display: 
+- Which projects a user donated too, and *how much* she/he donated per project!
+- Which users donated to each the admin user's projects, and *how much* was donated per project! 
+
+
+
+
+
+
+
+
+
+
+
 
 ## Troubleshooting
 
