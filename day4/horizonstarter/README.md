@@ -56,7 +56,9 @@ provide suggestions.
 
 You can check out a [live, hosted version of the
 solution](http://107.170.120.178:8090/). You can also run the solution code
-locally like this:
+locally, but first you'll need to [configure Mongo](#phase-2-mongo-mongoose). If
+you're not running MongoDB locally, you'll also need to update the MongoDB URI
+in `config/db.js`. Then you can run:
 
 ```
 $ cd solution/
@@ -251,7 +253,7 @@ application. Install Mongoose by running:
 
 Then create a database configuration object (we recommend saving this into its
 own JS module, perhaps in a `config/` folder) which looks like this (replace
-`<MONGODB_URI>` with the connection string from above:
+`<MONGODB_URI>` with the connection string from above):
 
     dbConfig = {
       'url' : '<MONGODB_URI>'
@@ -286,6 +288,7 @@ some basic Mongo terminology:
 To illustrate with a basic example:
 
 ```javascript
+// Load mongoose
 var mongoose = require('mongoose');
 
 // Create a schema
@@ -294,7 +297,7 @@ var PersonSchema = new Mongoose.schema({
   age: Number
 });
 
-// Create a model based on this schema and the 'mypeople' collection
+// Create a model based on this schema to be stored in the 'mypeople' collection
 var Person = mongoose.model('mypeople', PersonSchema);
 
 // Create a person document in this collection
@@ -374,7 +377,7 @@ and feel like that one, or to use entirely different designs.
 ## Phase 5. Routes
 
 With your views in place, you'll need to configure your routes. The routes link
-the application URLs to your views, so that, e.g., when the user visits
+the application URLs to your views so that e.g., when the user visits
 `/newproject`, they'll see the view you created that contains the new project
 form. They also contain the controller logic, which receives and acts upon the
 data the user submits via these forms: for instance, when the user submits the
@@ -437,8 +440,9 @@ Finally, here are a few more tips to get you on your way:
 
 You will inevitably encounter errors, such as when the user form input doesn't
 validate. Think about how to present these errors to the user. You can no longer
-rely on `console.log` or `console.error` to present errors, since your script is
-only running on the backend.
+rely on `console.log` or `console.error` to present errors to the user, since
+your script is only running on the backend and the user won't see the console
+(of course you may continue to use these functions for debugging).
 
 When possible, errors should be presented to the user inline. They should not
 take the user away from the main app flow, and they should not cause data the
@@ -463,9 +467,9 @@ Try adding the following features:
   with Bootstrap [Validation
   states](http://getbootstrap.com/css/#forms-control-validation).
 - Add some AJAX endpoints so that some features of the app, such as adding a
-  contribution to a project, happen without leaving the page. (We'll cover this
-  in more detail tomorrow.) Congrats, you've now got a hybrid frontend-backend
-  app, which is how most complex modern apps are designed.
+  contribution to a project, happen without leaving the page. Congrats, you've
+  now got a hybrid frontend-backend app, which is how most complex modern apps
+  are designed. (We'll cover this in more detail tomorrow.)
 - Add some more Kickstarter-style features: users, featured projects, favorites
   (stars), project updates, etc.
 - Add unit tests: for your schemas and models, for form validation, etc.
