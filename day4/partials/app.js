@@ -16,3 +16,6 @@ app.get('/', function (req, res) {
 
 
 app.listen(3000);
+//connects everything
+///models talk to databases (mongoose, views render data to user (handlebar)
+///controller (express) gets data and puts it out
