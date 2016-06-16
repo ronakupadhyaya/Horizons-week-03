@@ -6,13 +6,17 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body { background-color: #1B2845; color: #A3BBED;}
   </style>
 </head>
 <body>
-  <div class="container">
+    <div class="row" style="text-align:center;">
+      <img style="background-color: white; margin: 20px"src="https://cdn3.iconfinder.com/data/icons/player/128/sound-18-128.png" class="img-circle">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h2>{{#if firstName}}{{firstName}}{{/if}} {{#if middleInitial}}{{middleInitial}}{{/if}} {{#if lastName}}{{lastName}}{{/if}}</h2>
+      <h3>Birthday: {{#if dobMonth}}{{dobMonth}}{{/if}}-{{#if dobDay}}{{dobDay}}{{/if}}-{{#if dobYear}}{{dobYear}}{{/if}}</h3>
+      <h4 style="font-style:italic;">{{#if bio}}{{bio}}{{/if}}</h4>
+      <h6>{{#if registerDate}}{{registerDate}}{{/if}}</h6>
     </div>
   </div>
 </body>
