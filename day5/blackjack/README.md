@@ -60,7 +60,9 @@ First build a Blackjack game where a single person can play against the dealer.
   - Is game over (`Boolean`): true if game is over, false otherwise.
 
 ### Routes
-To start, you should be able to play against the computer using Postman.
+
+These methods will allow you to play from PostMan.
+
 - `POST /game`:
   - Create new game
   - Redirect to `/game/:id`
@@ -110,7 +112,7 @@ Player status:
 
 - `won`: player has won this game
 - `lost`: player has lost this game
-- `draw`: player and dealer are in a draw
+- `tied`: player and dealer are in a draw
 
 ### Views
 
