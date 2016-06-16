@@ -1,24 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Registration</title>
+    <title>Registration</title>
 
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
-  <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
-  </style>
+    <style>
+    body { background-color: #2ECC71 ; padding-top: 2em;}
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+    <div class="container" id = "containerBox">
+        {{#if errors}}
+        <ul> Errors:
+            {{#each errors}}
+            <li>{{msg}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+        <form method = 'post'>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" name = 'fname' class="form-control" id="firstName" placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <label for="middleIni">Middle Initial</label>
+                <input type="text" name = 'mIn' class="form-control" id="middleIni" placeholder="Middle Initial">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" name = 'lname' class="form-control" id="lastName" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label for="birthDay">Day of Birth</label>
+                <input type="number" id="birthDay" name = "birthDay" class="form-control" placeholder="Day" min="1" max="31">
+            </div>
+            <div class="form-group">
+                <label for="birthMonth">Month of Birth</label>
+                <input type="number" id="birthMonth" name = "birthMonth" class="form-control" placeholder="Month" min="1" max="12">
+            </div>
+            <div class="form-group">
+                <label for="birthYear">Year of Birth</label>
+                <input type="number" id="birthYear" name = "birthYear" class="form-control" placeholder="Year" min="0" max="2016">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name = "email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name = "password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputRepeatPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="repeatPassword" name = "repeatPassword" placeholder="Password">
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Male</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Female</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="optradio">Prefer not to say</label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Check me I swear I'm not spam!!!
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="firstName">Biography</label>
+                <textarea = 'textarea' rows = '5' col = '80' class="form-control" id="firstName" placeholder="First Name">
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
     </div>
-  </div>
 </body>
 </html>
