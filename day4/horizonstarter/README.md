@@ -485,6 +485,30 @@ To do this you must, roughly:
   - Which users donated to each of the user's projects, and *how much* was
     donated per project! 
 
+(Get this far and you get a free dinner. Keep going and you're insane. In a good
+way.)
+
+### Even more: do all the things
+
+Just in case you're feeling ambitious, implement the following additional
+functionality from Kickstarter: 
+
+- Add images, videos, and rewards to projects, if you haven't already.
+- Alert users (by email, or by SMS, using Twilio) when their project, or a
+  project they've contributed to, reaches its fundraising goal.
+- Frontend validation: check form input when the user hits submit, before
+  sending it to the backend. You may find a library such as [jQuery
+  Validation](https://jqueryvalidation.org/) useful for this, in combination
+  with Bootstrap [Validation
+  states](http://getbootstrap.com/css/#forms-control-validation).
+- Add some AJAX endpoints so that some features of the app, such as adding a
+  contribution to a project, happen without leaving the page. (We'll cover this
+  in more detail tomorrow.) Congrats, you've now got a hybrid frontend-backend
+  app, which is how most complex modern apps are designed.
+- Add some more Kickstarter-style features: featured projects, favorites
+  (stars), project updates, etc.
+- Add unit tests: for your schemas and models, for form validation, etc.
+
 
 ## Troubleshooting
 
