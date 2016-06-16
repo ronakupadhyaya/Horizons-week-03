@@ -403,10 +403,9 @@ for this purpose.
 
 ## Feature recap! 
 
-### Here are the features you need for your MVP. Rememeber, this is a Kickstarter with no Users.
+Everyone should seek to get through the MVP features. If you do, pat yourself on the back!
 
-
-Everyone should seek to get through the features before the challenge. If you do, pat yourself on the back!
+### MVP Features: No Users
 
 **If you feel you need some guidance, checkout `/playbook.md` !!!!!**
 
@@ -421,7 +420,7 @@ Everyone should seek to get through the features before the challenge. If you do
 **If you feel you need some guidance, checkout `/playbook.md` !!!!!**
 
 
-### Challenge: Adding Users. A real challenge. 
+### Challenge Features: Adding Users. A real challenge. 
 
 We are now looking for the following behavior from our App. 
 	- Every Project has a owner.
