@@ -64,9 +64,9 @@ $ npm install
 $ npm start
 ```
 
-Then open http://localhost:3000/ in your browser to see it. Note that only the
-most basic styling has been applied to the solution: your app should be a
-heckuvalot prettier!
+Then open [http://localhost:3000/](http://localhost:3000/) in your browser
+to see it. Note that only the most basic styling has been applied to the
+solution: your app should be a heckuvalot prettier!
 
 ### Stack
 
