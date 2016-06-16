@@ -58,12 +58,29 @@ app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
+  if (req.body.password !== req.body.repeatPass) {
+    errors.push({msg: "Passwords do not match"});
+  }
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
+    var firstName = req.body.firstName;
+    var middleInit = req.body.middleInitial;
+    var lastName = req.body.lastName;
+    var gender = req.body.radio;
+    var biography = req.body.biography;
+    req.body.time = new Date();
+    console.log(req.body);
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', {
+      firstName: firstName,
+      middleInit: middleInit,
+      lastName: lastName,
+      gender: gender,
+      biography: biography,
+      date: req.body.time
+    });
   }
 });
 
