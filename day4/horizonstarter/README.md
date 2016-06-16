@@ -405,7 +405,10 @@ for this purpose.
 
 ### Here are the features you need for your MVP. Rememeber, this is a Kickstarter with no Users.
 
-*If you feel you need some guidance, checkout /playbook.md!!!!!*
+
+Everyone should seek to get through the features before the challenge. If you do, pat yourself on the back!
+
+**If you feel you need some guidance, checkout `/playbook.md` !!!!!**
 
 - A front page which lists all projects (perhaps with a set of featured projects
   on top, like on Kickstarter)
@@ -415,7 +418,7 @@ for this purpose.
 - A page that let's you bulk edit projects [not implemented in prototype/solutions]
 
 
-*If you feel you need some guidance, checkout /playbook.md!!!!!*
+**If you feel you need some guidance, checkout `/playbook.md` !!!!!**
 
 
 ### Challenge: Adding Users. A real challenge. 
