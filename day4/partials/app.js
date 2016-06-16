@@ -4,7 +4,11 @@ var exphbs  = require('express-handlebars');
 
 var app = express();
 
-app.engine('hbs', exphbs({extname:'hbs'}));
+// when you see a template, assume that it has a .hbs name
+app.engine('hbs', exphbs({
+	'extname':'hbs',
+	'defaultLayout': 'main'
+}));
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
