@@ -19,6 +19,21 @@ and to create new post! -->
 
 
 <!-- YOUR CODE HERE -->
+<div class="container">
+	{{#each posts}}
+<div class="panel panel-default">
+   {{username}}
+  <div class="panel-body">
+    {{comment}}
+  </div>
+
+    <div class="panel-footer">
+    	{{time}}
+    </div>
+    
+</div>
+	{{/each}}
+</div>
 
 </body>
 </html>

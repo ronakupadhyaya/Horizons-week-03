@@ -43,14 +43,43 @@ router.get('/posts', function (req, res) {
   // This renders the posts
   var order = req.query.order;
   var username = req.query.username;
-  if (order && username) {
+  var posts = data.read();
+  // default is descending
+  posts = posts.sort(function (a,b) {
+        if (a.time > b.time) {
+          return -1;
+        }
+        if(a.time < b.time) {
+          return 1;
+        }
+        return 0;
+      });
 
+
+    if (order === "ascending") {
+       posts = posts.sort(function (a,b) {
+        if (a.time > b.time) {
+          return 1;
+        }
+        if(a.time < b.time) {
+          return -1;
+        }
+        return 0;
+    
+    });
+   
   }
+
+   if (username) {
+    posts = posts.filter(function(post) {
+     return post.username === username;
+    })
+   }
 
   res.render('posts', {
     title: 'Posts',
     //replace the posts with the json object
-    posts: data.read("data.json")
+    posts: posts
   });
 });
 
@@ -60,6 +89,10 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+       res.render('post_form');
+  }
+ 
 });
 
 // ---Part 4. Create new post
@@ -73,6 +106,21 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var arr = data.read();
+  var newPost = {
+    username: req.cookies.username,
+    comment: req.body.postText,
+    time:  new Date().getTime()
+  }
+
+  arr.push(newPost);
+  data.save(arr);
+
+  arr.reverse()
+
+  res.render('posts', {
+    posts: arr
+  })
 });
 
 module.exports = router;

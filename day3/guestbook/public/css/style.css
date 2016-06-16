@@ -7,3 +7,21 @@ body {
 a {
   color: #00B7FF;
 }
+
+.container{
+	max-width: 50vw;
+}
+
+.panel-footer{
+	background-color: white;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+
+
+}
+
+
+.panel-body  {
+    word-break:break-all
+}
