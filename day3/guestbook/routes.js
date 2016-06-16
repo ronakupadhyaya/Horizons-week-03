@@ -39,7 +39,6 @@ router.get('/posts', function (req, res) {
   // YOUR CODE HERE
   ///console.log('x',req.query)
   var input= jsonfile.readFileSync('data.json')
-  console.log(input)
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
@@ -48,13 +47,14 @@ router.get('/posts', function (req, res) {
   });
 });
 
-
+var input= jsonfile.readFileSync('data.json')
+console.log(input)
+_.indexBy('username')
 // ---Part 3. New post form---
 // GET /posts/new: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  console.log(req.cookies.username)
   ///if there is a login load the add post page
   if(req.cookies.username){
   res.render('post_form',{
@@ -76,13 +76,21 @@ router.get('/posts/new', function(req, res) {
 // req.checkBody('email', 'Email must not be valid').isEmail();
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
+function validate(req) {
+  req.checkBody('titleP', 'Need a title').notEmpty();
+  req.checkBody('posts', 'Need a post').notEmpty();
+}
+
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var errors = validate(req)
+  if(errors){
+    res.send('There have been validation errors: ' + errors, 400);
+  }
   var text = req.body.posts
   var head = req.body.titleP
   var input= jsonfile.readFileSync('data.json')
   //want to return them to the post page with all the posts listed
-  console.log(input);
  input.push({title: head, username: req.cookies.username, posts: text, date: Date()})
  data.save(input)
  res.redirect('/posts')
