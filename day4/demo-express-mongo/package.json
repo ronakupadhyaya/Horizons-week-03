@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.5.0",
+    "nodemon": "^1.9.2"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  }
+}
