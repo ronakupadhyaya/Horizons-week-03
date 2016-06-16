@@ -34,15 +34,91 @@ router.post('/login', function(req, res) {
 // filter all posts that aren't done by that user.
 // Hint: to get the username, use req.query.username
 
-router.get('/posts', function (req, res) {
-  // YOUR CODE HERE
 
-  // This renders the posts
-  res.render('posts', {
-    title: 'Posts',
-    posts: []
+router.get('/posts', function (req, res) {
+  var username = req.query.username;
+  var order = req.query.order;
+  console.log(order);
+  var newData = data.read()
+  if (order === 'ascending') {
+    // console.log(data);
+      newData = newData.sort(function(a,b) {
+        if (Date.parse(a.date) > Date.parse(b.date)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      res.render('posts', {
+        title: 'Posts',
+        posts: newData
+      });
+  } else {
+      newData = newData.sort(function(a,b) {
+        if (Date.parse(a.date) < Date.parse(b.date)) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      console.log(data);
+
+      res.render('posts', {
+        title: 'Posts',
+        posts: newData
+      });
+
+    };
   });
-});
+  // if (username) {
+  //   data.forEach(function(item) {
+  //     if (item.name === username) {
+  //       data.splice(indexOf(item),1);
+  //     }
+  //   })
+  // }
+  // This renders the posts
+//   res.render('posts', {
+//     title: 'Posts',
+//     posts: data
+//   });
+//   // res.redirect('/posts?order=descending');
+// });
+
+// router.get('/posts', function (req, res) {
+//   console.log("here");
+//   data = data.sort(function(a,b) {
+//     if (Data.parse(a.date) > Data.parse(b.date)) {
+//       return 1;
+//     } else {
+//       return -1;
+//     }
+//   });
+//   console.log(data);
+//
+//   res.render('posts', {
+//     title: 'Posts',
+//     posts: data
+//   });
+//
+// });
+
+// router.get('/posts?order=ascending', function (req, res) {
+//   data = data.sort(function(a,b) {
+//     if (Data.parse(a.date) > Data.parse(b.date)) {
+//       return 1;
+//     } else {
+//       return -1;
+//     }
+//   });
+//
+//   res.render('posts', {
+//     title: 'Posts',
+//     posts: data
+//   });
+// });
+
+
 
 // ---Part 3. New post form---
 // GET /posts/new: Renders the form page, where the user creates the request.
@@ -50,6 +126,9 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form');
+  }
 });
 
 // ---Part 4. Create new post
@@ -61,8 +140,35 @@ router.get('/posts/new', function(req, res) {
 // req.checkBody('email', 'Email must not be valid').isEmail();
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
+
+function validate(req) {
+  req.checkBody('title', 'title must not be empty').notEmpty();
+  req.checkBody('text', 'body must not be empty').notEmpty();
+}
+
 router.post('/posts', function(req, res) {
+  console.log(req.body);
   // YOUR CODE HERE
+  validate(req);
+  var post = {
+    name: req.body.name,
+    date: new Date(),
+    title: req.body.title,
+    text: req.body.text
+  };
+  var errors = req.validationErrors();
+  if (req.cookies.username) {
+    console.log(errors);
+    if (errors) {
+      res.render('post_form', {errors: errors});
+    } else {
+      var postArray = data.read();
+      postArray.push(post + '\n');
+      data.save(postArray);
+      res.redirect('/posts');
+    }
+  }
+
 });
 
 module.exports = router;
