@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Login</title>
   <meta charset="UTF-8">
@@ -7,18 +8,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
-<body>
-<h1>View all posts</h1>
 
-<!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
+<body>
+  <h1>View all posts</h1>
+
+  <!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
 display them on the page. Add a couple of buttons to sort ascending/descending
 and to create new post! -->
+  {{#each posts}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>{{title}}</h4>
+      </div>
+      <div class="panel-body">
+        <p>
+          {{content}}
+        </p>
+      </div>
+      <div class="panel-footer" style="display: flex">
+        <p>
+          Posted by: {{author}}
+        </p>
+        <p style="margin-left: auto">
+          {{date}}
+        </p>
+      </div>
+    </div>
+  {{/each}}
 
-
-<!-- YOUR CODE HERE -->
+  <form action="/posts/new" method="GET">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="text-right">
+          <button class="btn btn-primary" type="submit">New Post</button>
+        </div>
+      </div>
+    </div>
+  </form>
 
 </body>
+
 </html>

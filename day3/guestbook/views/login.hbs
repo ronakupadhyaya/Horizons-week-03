@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>{{title}}</title>
   <meta charset="UTF-8">
@@ -7,17 +8,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 
 <body>
-  <h1>Login</h1>
-
   <form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username" />
-    <input type="submit" value="Submit" />
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Login</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="username" placeholder="Username">
+          </div>
+        </div>
+        <div class="text-right">
+          <button class="btn btn-primary" type="submit">Register</button>
+        </div>
+      </div>
+    </div>
   </form>
-
 </body>
+
 </html>

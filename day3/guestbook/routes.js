@@ -36,12 +36,24 @@ router.post('/login', function(req, res) {
 // Hint: use jsonfile.readFileSync() to read the post data from data.json
 
 router.get('/posts', function (req, res) {
-  // YOUR CODE HERE
-
-  // This renders the posts
+  var posts = data.read();
+  if (req.query.username) {
+    posts = posts.filter(function(post) {
+      return post.author == req.query.username;
+    });
+  }
+  if (req.query.order == 'ascending') {
+    posts.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date);
+    });
+  } else if (req.query.order == 'descending') {
+    posts.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date);
+    });
+  }
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: posts,
   });
 });
 
@@ -50,7 +62,9 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form');
+  }
 });
 
 // ---Part 4. Create new post
@@ -63,7 +77,27 @@ router.get('/posts/new', function(req, res) {
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+  req.checkBody('content', 'Content must not be empty').notEmpty()
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.render('post_form', {
+      error: "Title or body can't be blank",
+    })
+  }
+  var posts = data.read();
+  posts.push({
+    author: req.cookies.username,
+    date: (new Date()).toDateString().substring(0, 10),
+    title: req.body.title,
+    content: req.body.content,
+  });
+  data.save(posts);
+  res.render('posts', {
+    title: 'Posts',
+    posts: posts,
+  });
 });
 
 module.exports = router;
