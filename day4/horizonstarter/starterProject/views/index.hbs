@@ -1,2 +1,15 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div class='projects'>
+	{{#each projects}}
+		<div class='project'>
+			<div class='title'>
+				{{title}}
+			</div>
+			<div class='desc'>
+				{{desc}}
+			</div>
+		</div>
+	{{/each}}
+</projects>
