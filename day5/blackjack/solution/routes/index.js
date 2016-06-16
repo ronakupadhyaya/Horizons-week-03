@@ -1,10 +1,9 @@
 "use strict";
 var express = require('express');
-var router = express.Router();
+var router = express.Router({ mergeParams: true });
 var jsonfile = require('jsonfile');
 var file = 'data.json';
 var GameModel = require('../models/Game.js');
-
 
 var gameRepresentation = function(game) {
   return {
@@ -13,22 +12,22 @@ var gameRepresentation = function(game) {
     status: game.status,
     userTotal : game.userTotal,
     dealerTotal : game.dealerTotal,
-    userBust : game.userBust,
-    dealerBust : game.dealerBust,
+    userStatus : game.userStatus,
+    dealerStatus : game.dealerStatus,
     currentPlayerHand : game.currentPlayerHand,
     houseHand : game.houseHand,
   }
 }
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
   GameModel.find(function (err, games) {
     if (err) return next(err);
     res.json(games);
   });
-//  res.render('index', {});
+  //  res.render('index', {});
 });
 
 
-router.post('/game', function(req, res) {
+router.post('/game', function(req, res, next) {
   GameModel.newGame({}, function (err, game) {
     if (err) return next(err);
     //res.json(gameRepresentation(game));
@@ -36,50 +35,52 @@ router.post('/game', function(req, res) {
     res.redirect('/game/'+game.id);
   });
 });
-router.get('/game/:id', function(req, res) {
-  console.log("Gets")
+router.get('/game/:id', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
-    if (err) return next(game);
+    if (err) return next(err);
     console.log(gameRepresentation(game))
     //res.render('viewgame', { title: 'View Game' });
   });
 });
 
-router.post('/game/:id/:bet', function(req, res) {
+router.post('/game/:id/bet', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
-    if (err) return next(game);
-    game.player1bet=req.params.bet; //TODO error if already declared.
+    if (err) return next(err);
+    if (game.status==="started") return next(new Error("Bet already set"))
+    var bet = req.query.bet|| 10;
+    game.player1bet=bet; //TODO error if already declared.
     GameModel.deal21(game);
     game.status="started";
     game.save();
-    console.log(gameRepresentation(game))
+    res.json(gameRepresentation(game));
     // Renders JSON of Game State Representation
   });
 });
 
-router.post('/game/:id/hit:', function(req, res) {
-  game.hit()
-  // error if no bet yet.
-  // error if game not in progress
-  // player gets new cards
-  // check if player busts.
-  // Renders JSON of Game State Representation
-});
-router.post('/game/:id/stand:', function(req, res) {
-  game.stand()
-  // error if no bet yet.
-  // error if game not in progress
-  // player has stopped dwaring cards.
-  // Dealer draws until they have more than 17
-  // Calculate winner -> Game over/
-  // Renders JSON of Game State Representation
+router.post('/game/:id/hit', function(req, res, next) {
+  GameModel.findById(req.params.id, function (err, game) {
+    if (err) return next(game);
+    if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
+    GameModel.hit(game)
+    game.save();
+    res.json(gameRepresentation(game));
+    // Renders JSON of Game State Representation
+  });
 });
 
-
-
-
-
-
+// player has stopped dwaring cards.
+// Dealer draws until they have more than 17
+// Calculate winner -> Game over/
+router.post('/game/:id/stand', function(req, res, next) {
+  GameModel.findById(req.params.id, function (err, game) {
+    if (err) return next(game);
+    if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
+    GameModel.stand(game)
+    game.save();
+    res.json(gameRepresentation(game));
+    // Renders JSON of Game State Representation
+  });
+});
 
 
 /*

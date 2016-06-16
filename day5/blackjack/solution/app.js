@@ -13,6 +13,8 @@ var config = require('./config');
 
 var mongoose = require('mongoose');
 
+
+
 mongoose.connect(config.db.localhost, function(err) {
     if(err) {
         console.log('connection error', err);

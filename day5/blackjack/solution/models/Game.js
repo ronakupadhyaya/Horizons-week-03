@@ -6,8 +6,8 @@ var GameSchema = new mongoose.Schema({
   player1bet: {type: Number, default: 0},
   userTotal: {type: Number, default: 0},
   dealerTotal: {type: Number, default: 0},
-  userBust: {type: Boolean, default: false},
-  dealerBust: {type: Boolean, default: false},
+  userStatus: {type: String, default: "waiting"},
+  dealerStatus: {type: String, default: "waiting"},
   currentPlayerHand: [],
   houseHand: [],
 });
@@ -19,17 +19,19 @@ var GameSchema = new mongoose.Schema({
 /*
 someSchema.statics.addItem = function addItem(item, callback){
 //Do stuff (parse item)
- (new this(parsedItem)).save(callback);
+(new this(parsedItem)).save(callback);
 }*/
 
 
 GameSchema.statics.newGame = function (item, callback){
-var game = new this(item)
-game.deck = new Deck();
-game.save(callback);
+  var game = new this(item)
+  game.deck = new Deck();
+  game.save(callback);
 }
 
 GameSchema.statics.deal21 = function (game) {
+game.currentPlayerHand=[];
+  game.houseHand=[];
   for(var i=0; i<2; i++){
     // if(this.emptyDeck())this.newDeck();
     game.currentPlayerHand.push(game.deck.pop());
@@ -58,70 +60,64 @@ GameSchema.statics.calcValue = function (hand){
   return val;
 }
 
-/*
-
-
-
-
-Game.prototype.hit = function (){
-  if(this.emptyDeck())this.newDeck();
-  this.currentPlayerHand.push(this.deck.pop());
-  this.userTotal = this.calcValue(this.currentPlayerHand);
+GameSchema.statics.hit = function (game){
+  game.currentPlayerHand.push(game.deck.pop());
+  game.userTotal = this.calcValue(game.currentPlayerHand);
   //show the last card onscreen
   //set the users score onscreen
 
-  if(this.userTotal > 21){
+  if(parseInt(game.userTotal) > 21){
     //set user lost on screen.
-    this.userBust = true;
-    this.gameOver();
+    console.log("asd")
+    game.userStatus = "lost";
+    this.gameOver(game);
   }
 };
 
-Game.prototype.stand = function stand(){
-  while(this.dealerTotal < 17){
-    if(this.emptyDeck())this.newDeck();
-    this.houseHand.push(this.deck.pop());
+GameSchema.statics.stand = function stand(game){
+  while(game.dealerTotal < 17){
+    game.houseHand.push(game.deck.pop());
     //show last card
-    this.dealerTotal = this.calcValue(this.houseHand);
+    game.dealerTotal = this.calcValue(game.houseHand);
     //set the dealers onscreen
 
-    if(this.dealerTotal > 21){
+    if(game.dealerTotal > 21){
       //set dealer lost.
-      this.dealerBust = true;
+      game.dealerStatus = "lost";
     }
   }
-  this.gameOver();
+  this.gameOver(game);
 }
 
-
-Game.prototype.gameOver = function gameOver(blackjack){
+GameSchema.statics.gameOver = function gameOver(game){
+  game.status="over";
   //show hoidden card
   // show dealer score.
   //hide hit/stand buttons
-  if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
-    //user wins
-    console.log("YOUWIN")
-    throw new Error();
+  if(game.userTotal > game.dealerTotal && game.userStatus !== "lost" || game.dealerStatus === "lost"){
+    game.userStatus= "won";
+    game.dealerStatus= "lost";
     //this.money+=2; // TODO += 2*bet
     // RESPONSE YOU WIN
-
   }
-  else if(this.userTotal === this.dealerTotal && this.userBust === false){
+  else if(game.userTotal === game.dealerTotal && game.userStatus !== "lost"){
     console.log("HAH you tied.")
-    throw new Error();
+    game.dealerStatus= "tied";
+    game.userStatus= "tied";
     //this.money++; // money += bet.
     //response -> TIED
+  }else{
+    game.userStatus= "lost";
+    game.dealerStatus= "won";
   }
-  // HAH you lost.
-  console.log("HAHhahahah you lost.")
-  throw new Error();
 }
-*/
+
 function Card(suit, val, symbol) {
   this.suit = suit;
   this.val = val;
   this.symbol = symbol;
 }
+
 
 
 

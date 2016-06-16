@@ -60,19 +60,14 @@ First build a Blackjack game where a single person can play against the dealer.
   - Is game over (`Boolean`): true if game is over, false otherwise.
 
 ### Routes
-
-- `GET /`:
-  - Query parameter for filtering games by in-progress/over
-  - Render `List games`
+To start, you should be able to play against the computer using Postman.
 - `POST /game`:
   - Create new game
   - Redirect to `/game/:id`
-- `GET /game/:id`:
-  - Render `View game`
 - `POST /game/:id/bet`: (New Game) (renders JSON)
   - Player declares their bet for
   - Error if the player has already declared their bet
-  - Responds with `Game state representation`
+  - Responds with `Game state representation`  
 - `POST /game/:id/hit`: (renders JSON)
   - Error if the player has not yet declared their bet
   - Error if the game is not in progress
@@ -87,6 +82,16 @@ First build a Blackjack game where a single person can play against the dealer.
   - Determine winner
   - Game is over
   - Responds with `Game state representation`
+
+These methods are for the views
+
+- `GET /`:
+  - Query parameter for filtering games by in-progress/over
+  - Render `List games`
+
+- `GET /game/:id`:
+  - Render `View game`
+
 
 #### Game state representation
 
