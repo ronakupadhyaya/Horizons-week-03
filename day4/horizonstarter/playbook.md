@@ -51,20 +51,20 @@ We are now looking for the following behavior from our App.
 
 To do this you must, roughly: 
 
-	- Create User Model with one property for a username
-	- Create a login page
-		- `GET /login` renders and HTML page with 1 input field asking for a username. 
-		- `POST /login` creates and saves a user object (unless it already exists). It then sets a username cookie with the user's username. 
-	- Create a logout button (if there is an existing cookie, delete it). `GET /logout` should just remove the `"username"` cookie and redirect to the `GET /login` page. 
-	- Make sure that `GET projects/new` route only renders a form if there is a `"username"` cookie
-	- `GET projects/:id` should only show a donate button if the username cookie !== the owner of the Project :). 
-	- Add a `owner` property to the Project Model. This will store the _id of the User that creates a project.
-	- To keep track of the which projects a user has donated too: 
-		- Add a Donations array to the User model. This should store id's of Projects the User has donated too. 
-		- Edit the `/donate/:id` route to update the Donations array whenever a user donates.
-	- Create an admin page for a user `GET admin`. Note there is not ID on this route. Instead the admin page looks at the username cookie to find the user we care about. 
-	    - Show each project the user owns
-	    - How much each project has in donations 
+- Create User Model with one property for a username
+- Create a login page
+	- `GET /login` renders and HTML page with 1 input field asking for a username. 
+	- `POST /login` creates and saves a user object (unless it already exists). It then sets a username cookie with the user's username. 
+- Create a logout button (if there is an existing cookie, delete it). `GET /logout` should just remove the `"username"` cookie and redirect to the `GET /login` page. 
+- Make sure that `GET projects/new` route only renders a form if there is a `"username"` cookie
+- `GET projects/:id` should only show a donate button if the username cookie !== the owner of the Project :). 
+- Add a `owner` property to the Project Model. This will store the _id of the User that creates a project.
+- To keep track of the which projects a user has donated too: 
+	- Add a Donations array to the User model. This should store id's of Projects the User has donated too. 
+	- Edit the `/donate/:id` route to update the Donations array whenever a user donates.
+- Create an admin page for a user `GET admin`. Note there is not ID on this route. Instead the admin page looks at the username cookie to find the user we care about. 
+    - Show each project the user owns
+    - How much each project has in donations 
 
 ## Step 3: Bonus. You asked for it.
 
