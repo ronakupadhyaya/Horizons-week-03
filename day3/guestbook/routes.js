@@ -92,7 +92,11 @@ router.get('/posts/new', function(req, res) {
 // an example validation using express-validator is:
 // req.checkBody('email', 'Email must not be valid').isEmail();
 // Don't forget to check if there are validation errors at req.validationErrors();
-// After updating data, you should write it back to disk wih data.save()
+// After updating data, you should write it back to disk wih data.save()j
+function validate(req) {
+  req.checkBody('title', 'title is required').notEmpty();
+  req.checkBody('text', 'text is required').notEmpty();
+}
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
   var post = {};
@@ -101,6 +105,7 @@ router.post('/posts', function(req, res) {
   post.date = (newDate.getMonth() + 1) + "/" + newDate.getDate() + "/" + newDate.getFullYear();
   post.title = req.body.title;
   post.text = req.body.text;
+  validate(req);
   postArr.push(post);
   jsonfile.writeFileSync('data.json', postArr);
 
