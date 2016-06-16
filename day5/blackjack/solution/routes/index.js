@@ -18,11 +18,9 @@ var Game = function(maze) {
   this.dealerBust=false;
   this.currentPlayerHand = [];
   this.houseHand = [];
-
   this.newDeck()
   this.deal21()
 }
-
 
 Game.prototype.createDeck = function (){
   var suit, symbol;
@@ -87,14 +85,11 @@ Game.prototype.deal21 = function () {
   }
   this.userTotal = this.calcValue(this.currentPlayerHand);
   this.dealerTotal = this.calcValue(this.houseHand);
-
   // TODO: hide dealers first card!!
   //  var blackjack =true; ???
   //  if(this.userTotal === 21 && this.dealerTotal < 21) this.gameOver(blackjack); //userWins
   //  else if(this.dealerTotal === 21) this.gameOver(); //dealer Wiinssss.
 };
-
-
 
 Game.prototype.hit = function (){
   if(this.emptyDeck())this.newDeck();
@@ -133,8 +128,8 @@ Game.prototype.gameOver = function gameOver(blackjack){
   //hide hit/stand buttons
   if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
     //user wins
-      console.log("YOUWIN")
-      throw new Error();
+    console.log("YOUWIN")
+    throw new Error();
     //this.money+=2; // TODO += 2*bet
     // RESPONSE YOU WIN
 
@@ -146,44 +141,97 @@ Game.prototype.gameOver = function gameOver(blackjack){
     //response -> TIED
   }
   // HAH you lost.
-    console.log("HAHhahahah you lost.")
-    throw new Error();
+  console.log("HAHhahahah you lost.")
+  throw new Error();
 }
 
-  // TODO this should be set when doing mongo and multiplayer instead of new here
-
-var game ;
-router.get('/newgame', function(req, res) {
- game = new Game();
-  console.log(game)
-  //res.render('login', { title: 'Log In' });
-});
-
-router.get('/hit', function(req, res) {
-  game.hit()
-  console.log(game)
-});
-
-router.get('/stand', function(req, res) {
-  game.stand()
-  console.log(game)
-});
-
-//hit -> deck1.hit();
-//stand -> deck1.stand();
-//new game -> deck1.deal21()
-
-function Card(suit, val, symbol)
-{
+function Card(suit, val, symbol) {
   this.suit = suit;
   this.val = val;
   this.symbol = symbol;
 }
-/*
-router.get('/login', function(req, res) {
-res.render('login', { title: 'Log In' });
+
+
+
+
+
+
+
+//ROUTEEEEES
+
+router.get('/', function(req, res) {
+  // filter ?status=in-progress or over
+  //res.render('gamelist', { title: 'List Of Games' });
+});
+router.post('/game', function(req, res) {
+  //Create New Game
+  //game = new Game();
+  // Redirect to /game/:id
+});
+router.get('/game/:id', function(req, res) {
+  // Get game from db.
+  //res.render('viewgame', { title: 'View Game' });
+});
+router.post('/game/:id/bet:123', function(req, res) {
+  // store the player's bet.
+  // error if already declared.
+  // store game in progrees=true
+  // Renders JSON of Game State Representation
+});
+router.post('/game/:id/hit:', function(req, res) {
+  // error if no bet yet.
+  // error if game not in progress
+  // player gets new cards
+  // check if player busts.
+  // Renders JSON of Game State Representation
+});
+router.post('/game/:id/stand:', function(req, res) {
+  // error if no bet yet.
+  // error if game not in progress
+  // player has stopped dwaring cards.
+  // Dealer draws until they have more than 17
+  // Calculate winner -> Game over/
+  // Renders JSON of Game State Representation
 });
 
+
+
+
+
+
+
+Game.prototype.gameRepresentation = function(game) {
+  return {
+    userTotal : game.userTotal,
+    dealerTotal : game.dealerTotal,
+    userBust : game.userBust,
+    dealerBust : game.dealerBust,
+    currentPlayerHand : game.currentPlayerHand,
+    houseHand : game.houseHand,
+    status : 'in-progress'
+  }
+}
+
+
+// TODO this should be set when doing mongo and multiplayer instead of new here
+var game ;
+router.get('/newgame', function(req, res) {
+  game = new Game();
+  res.json(game.gameRepresentation(game))
+  //res.render('login', { title: 'Log In' });
+});
+router.get('/hit', function(req, res) {
+  game.hit()
+  res.json(game.gameRepresentation(game))
+});
+
+router.get('/stand', function(req, res) {
+  game.stand()
+  res.json(game.gameRepresentation(game))
+});
+
+
+/*
 router.post('/login', function(req, res) {
 res.cookie('username', req.body.username).redirect('/posts');
 });
