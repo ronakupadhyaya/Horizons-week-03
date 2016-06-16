@@ -21,13 +21,14 @@ Here are the features you will implement:
   on top, like on Kickstarter)
 - A page that lets you view a project, and donate to that project
 - A page that lets you create a new project
-- The ability to filter the list of projects on front page using query
-  parameters. Create the ability to filter the page by projects that are fully
-  funded (`/projects?funded=true`) and projects looking to raise over a certain
-  amount of money (`/projects?goal_greater_than=10000` should return all
-  projects) (not implemented in prototype/solutions)
-- A page that let's you bulk edit projects (not implemented in
-  prototype/solutions)
+- The ability to filter the list of projects on the front page using query
+  parameters
+  - Filter by projects that are fully funded (query string: `?funded=true`)
+  - Filter by projects looking to raise over a certain amount of money (e.g. the
+    query string `?goal_greater_than=10000` should return all projects seeking
+    to raise over $10k) (not implemented in solution)
+- A page that lets you bulk edit/delete projects (not implemented in
+  solution)
 
 This means that you will need the following: 
 

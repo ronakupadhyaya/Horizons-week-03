@@ -62,6 +62,14 @@ In terms of functionality, the MVP (everything up to and excluding the
   on top, like on Kickstarter)
 - A page that lets you view a project, and donate to that project
 - A page that lets you create a new project
+- The ability to filter the list of projects on the front page using query
+  parameters
+  - Filter by projects that are fully funded (query string: `?funded=true`)
+  - Filter by projects looking to raise over a certain amount of money (e.g. the
+    query string `?goal_greater_than=10000` should return all projects seeking
+    to raise over $10k) (not implemented in solution)
+- A page that lets you bulk edit/delete projects (not implemented in
+  solution)
 
 A Kickstarter clone without users sounds a little sucky, but it's a great
 starting point and an introduction to backend apps, routes, and databases.
