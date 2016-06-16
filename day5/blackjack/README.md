@@ -63,55 +63,116 @@ First build a Blackjack game where a single person can play against the dealer.
 ### Routes
 
 - `GET /`:
-  - Render `List games`
   - Query parameter for filtering games by in-progress/over
-
+  - Render `List games`
 - `POST /game`:
   - Create new game
   - Redirect to `/game/:id`
-
-- `GET /game/:id`
+- `GET /game/:id`:
   - Render `View game`
-  -
+- `POST /game/:id/bet`: (renders JSON)
+  - Player declares their bet for
+  - Error if the player has already declared their bet
+  - Responds with `Game state representation`
+- `POST /game/:id/hit`: (renders JSON)
+  - Error if the player has not yet declared their bet
+  - Error if the game is not in progress
+  - Player draws another card
+  - If player busts, game is over, otherwise player can hit again or stand
+  - Responds with `Game state representation`
+- `POST /game/:id/stand`: (renders JSON)
+  - Error if the player has not yet declared their bet
+  - Error if the game is not in progress
+  - Player stops drawing cards
+  - Dealer draws cards until they have more than 17
+  - Determine winner
+  - Game is over
+  - Responds with `Game state representation`
+
+#### Game state representation
+
+Some of the Routes listed above respond with JSON representing the
+state of the game.
+
+```
+{
+  "dealerCards": [card1, card2 ...],
+  "playerCards": [card1, card2 ...],
+  "playerStatus: "won"/"lost"/"draw"
+}
+```
+
+Player status:
+
+- `won`: player has won this game
+- `lost`: player has lost this game
+- `draw`: player and dealer are in a draw
 
 ### Views
 
 - List games
   - View all games
   - Option to filter games by in-progress/over
+
 - View game
   - View a single game
-  - If game is in progress allow
+  - If no bet has been made, button to make bet
+  - If game is in progress: button for Hit and button for Stand
+  - If game is over: show winner/loser/draw
 
 ## (Bonus) Part 2: Multiplayer
 
 ### Routes
 
-- `GET /login`:
+- `GET /`: (exists from part 1)
+  - Query parameter for filtering games to current player
+- `GET /login`: (new)
   - Render `Login` view
-
-- `POST /login`:
+- `POST /login`: (new)
   - If username does not exist in MongoDb, create user
   - Set cookie for login
   - Redirect to `/`
-
-- `POST /logout`:
+- `POST /logout`: (new)
   - Delete login cookie
   - Redirect to `/`
+- `POST /game/:id/bet` `/game/:id/hit` `/game/:id/stand`: (exists from part 1)
+  - Error if it's not the current player's turn
+  - Update game state representation
+
+#### Changes to game state representation
+
+For the multiplayer game we need a few additional pieces of info on the
+game status:
+
+```
+{
+  "dealerCards": [card1, card2 ...],
+  "playerId": id,
+  "playerCards": [card1, card2 ...],
+  "playerStatus: "turnNow"/"waiting"/"won"/"lost"/"draw"
+  "player2Id": playerId
+  "player2Cards": [card1, card2 ...],
+  "player2Status: "turnNow"/"waiting"/"won"/"lost"/"draw"
+}
+```
 
 ### Views
 
+- List games: (exists in part 1)
+  - Option to filter games that a player can join
+  - Option to filter games that a player is already in
+- View game: (exists in part 1)
+  - If game has an empty seat (i.e. both players are not set) button to join game
+  - If current player's turn:
 - Login
   - A form for logging into the game
 
 ### Models
 
 - Player: the person playing the game. Properties:
-
+  - Username (`String`): name to display in the UI for user
   - Money (`Number`): number of Horizons Dollars belonging to player
-
 - Game: additional properties
-
   - Player 1 id (`ObjectId`): Mongo id of the player in the game
   - Player 2 bet (`Number`): number of Horizons Dollars the 2nd player has bet.
   - Player 2 hand (`Array` of `String`s): cards in the 2nd players hand.
