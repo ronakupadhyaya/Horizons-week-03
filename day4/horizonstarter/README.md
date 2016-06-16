@@ -326,6 +326,12 @@ make sure that you know how to read them, too. See
 and saving documents, and [Queries](http://mongoosejs.com/docs/queries.html) for
 instructions on reading documents.
 
+If you're using mLab, this would be a great opportunity to explore its database
+explorer. Go to https://mlab.com/home, click on your deployment, then look at
+the list of Collections. You can create new collections here (or using the tools
+below). As you create and work with data in the app and using the tools below,
+you should see the data in this web interface update, and vice versa.
+
 You may decide to write unit tests to test your schemas and models. Here are
 some resources that may be helpful:
 
