@@ -1,0 +1,37 @@
+
+<form class="form" method="post">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" placeholder="Title" name="title">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea type="text" class="form-control" placeholder="Description" name="description"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Category</label>
+    <select class="form-control" placeholder="Category" name="category">
+    	<option>Guys who don't call.</option>
+    	<option>Michelle Obama's arms.</option>
+    	<option>All you can eat shrimp for $4.99.</option>
+    	<option>Licking things to claim them as your own.</option>
+    </select>
+  </div>
+  <label class="sr-only" for="exampleInputAmount">Fundraising Goal (in dollars)</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Fundraising Goal" name="amount"> 
+      <div class="input-group-addon">.00</div>
+    </div>
+  </div>
+  </br>
+  <div class="form-group" method="post">
+    <label>Start Date</label>
+    <input type="date" class="form-control" placeholder="Date" name="startdate">
+  </div>
+  <div class="form-group">
+    <label>End Date</label>
+    <input type="date" class="form-control" placeholder="Date" name="enddate">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

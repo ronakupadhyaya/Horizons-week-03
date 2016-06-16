@@ -1,0 +1,30 @@
+<h2>Project: {{project.title}}<br></h2>
+Description: {{project.description}}<br>
+Category: {{project.category}}<br>
+Amount: {{project.amount}}<br>
+Startdate: {{project.startdate}}<br>
+Enddate: {{project.enddate}}<br>
+Funded: {{project.funded}}
+<br>
+<h2>Donate to This Project</h2>
+<form class="form" method="post">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" placeholder="Name" name="name">
+  </div>
+  <div class="form-group">
+    <label>Comment</label>
+    <input type="text" class="form-control" placeholder="Comment" name="comment">
+  </div>
+  <label class="sr-only" for="exampleInputAmount">Fundraising Goal (in dollars)</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Donation amount" name="amount"> 
+      <div class="input-group-addon">.00</div>
+    </div>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br>
+<a href="/projects">Return to projects</a>
