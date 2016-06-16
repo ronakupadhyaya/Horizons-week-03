@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 
 var GameSchema = new mongoose.Schema({
   deck: [],
+  status: {type: String, default: 'Not Started'},
+  player1bet: {type: Number, default: 0},
   userTotal: {type: Number, default: 0},
   dealerTotal: {type: Number, default: 0},
   userBust: {type: Boolean, default: false},
@@ -27,7 +29,7 @@ game.deck = new Deck();
 game.save(callback);
 }
 
-GameSchema.statics.deal21 = function () {
+GameSchema.statics.deal21 = function (game) {
   for(var i=0; i<2; i++){
     // if(this.emptyDeck())this.newDeck();
     game.currentPlayerHand.push(game.deck.pop());
@@ -35,6 +37,7 @@ GameSchema.statics.deal21 = function () {
   }
   game.userTotal = this.calcValue(game.currentPlayerHand);
   game.dealerTotal = this.calcValue(game.houseHand);
+
   // TODO: hide dealers first card!!
   //  var blackjack =true; ???
   //  if(this.userTotal === 21 && this.dealerTotal < 21) this.gameOver(blackjack); //userWins
