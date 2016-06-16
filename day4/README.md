@@ -4,7 +4,7 @@
 1. [Setting up MongoDB and Mongoose](./warmup.md)
 
 ## Inline exercises
-1. [Mongoose schemas and models](models/README.md)
+1. [Mongoose](models/README.md)
 1. [Handlebars partials](./partials.md)
 
 ## Pair programming exercises
