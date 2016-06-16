@@ -38,6 +38,9 @@ router.post('/login', function(req, res) {
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
 
+  console.log(req.query.username);
+  
+  var username = req.cookies.username 
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
@@ -50,8 +53,16 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
+  res.render('post_form');
+
   // YOUR CODE HERE
 });
+
+// function validationErrors(req) {
+
+
+
+
 
 // ---Part 4. Create new post
 // POST /posts: This route receives the information for the new post. User must
@@ -63,7 +74,25 @@ router.get('/posts/new', function(req, res) {
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
+console.log(req.body); 
+
+req.checkBody('postTitle', 'Title can\'t be empty').notEmpty();
+req.checkBody('post', 'Post can\'t be empty').notEmpty();
+
+var author = req.cookies.username; 
+var time = Date.now(); 
+
+// Get errors from express-validator
+  var errors = req.validationErrors();
+  if (errors) {
+    console.log(errors);
+    res.render('post_form', {errors: errors});
+  } else {
+
+
+
+
   // YOUR CODE HERE
-});
+}});
 
 module.exports = router;
