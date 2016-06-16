@@ -28,7 +28,40 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 
-// Chain our routes. Nifty!
+// All projects (with filter).
+app.get('/project', function(req, res) {
+  Project.find(function(err, projects) {
+    if (err) {
+      res.status(500).json(err);
+      return;
+    }
+
+    if (req.query.funded) {
+      // No need to validate since this is a simple bool flag.
+
+      // Filter out projects that haven't reached their funding goal.
+      projects = projects.filter(function (el) { return el.funded });
+    }
+
+    if (req.query.goalAbove) {
+      req.checkQuery('goalAbove', 'Invalid goalAbove').isInt();
+      var errors = req.validationErrors();
+      if (errors) {
+        // In a production app we may not want to return the raw errors here
+        // since it can be a bit dangerous!
+        res.status(400).json(errors);
+        return;
+      }
+      var goalAbove = req.query.goalAbove;
+      projects = projects.filter(function (el) { return el.goal >= goalAbove});
+    }
+
+    res.status(200).json(projects);
+  });
+});
+
+// Project contributions.
+// Chain our routes (since we handle multiple request types). Nifty!
 app.route('/project/:projectId/contribution')
 /**
  * GET /project/:projectId/contribution
@@ -61,19 +94,21 @@ app.route('/project/:projectId/contribution')
         res.status(404).json(err);
         return;
       }
-  
+
       // We got a project. Add the contribution.
-  
+
       // Validate the input.
       req.checkBody('name', 'Name is required').notEmpty();
       req.checkBody('amount', 'Amount is required').notEmpty();
       req.checkBody('amount', 'Amount must be an integer').isInt();
       var errors = req.validationErrors();
       if (errors) {
+        // In a production app we may not want to return the raw errors here
+        // since it can be a bit dangerous!
         res.status(400).json(errors);
         return;
       }
-  
+
       // Note: normally we'd need to return the actual data from the DB with an
       // ID, but we keep it simple and just return success. These contribution
       // objects don't have their own model and they're not really interactive

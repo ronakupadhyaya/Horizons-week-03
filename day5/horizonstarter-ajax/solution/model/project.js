@@ -70,5 +70,8 @@ ProjectSchema.virtual('progress').get(function() {
     return Math.floor(this.raised/this.goal*100);
   return 0;
 });
+ProjectSchema.virtual('funded').get(function() {
+  return this.raised >= this.goal;
+});
 
 module.exports = mongoose.model('Project', ProjectSchema);
