@@ -1,0 +1,47 @@
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <label class="panel-title">{{project.title}}</label>
+  </div>
+  <div class="panel-body">
+  <div>
+    <label>Category: </label><p>{{project.category}}</p>
+  </div>
+  <div>
+    <label>Fundraising goal: $</label><p>{{project.goal}}</p>
+  </div>
+  <div>
+    <label>Total Contributions: </label><p>{{project.raised}}</p>
+  </div>
+  <div>
+    <label>Start Date: </label><p>{{project.startDate}}</p>
+  </div>
+  <div>
+    <label>End Date: </label><p>{{project.endDate}}</p>
+  </div>
+  <div>
+    <label>About this Project: </label><p id = "description">{{project.description}}</p>
+  </div>
+  <br>
+  <div>
+    <label>Contribute to this Project</label>
+    <div class="form-group">
+     <input type="text" class="form-control" placeholder="Name" name = "contributor">
+   </div>
+   <form>
+   <div class="form-group">
+      <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <input type="text" class="form-control" id="contribution" name="contribution" placeholder="Amount" value="">
+          <div class="input-group-addon">.00</div>
+      </div>
+  </div>
+   <div class="form-group">
+     <input type="text" class="form-control" placeholder="Comments" name = "comments">
+   </div>
+   <button type="submit" class="btn btn-primary">Contribute</button>
+   </form>
+  </div>
+ </div>
+</div>

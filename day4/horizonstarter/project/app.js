@@ -10,7 +10,12 @@ var users = require('./routes/users');
 
 var app = express();
 
+// we do not need to add .js with require because require only works with JS files
+var models = require('./models/models');
+
 // view engine setup
+// use handlebars to do the work in views
+// by default, handlebars will look at layout.hbs for the layout unless otherwise specified
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 

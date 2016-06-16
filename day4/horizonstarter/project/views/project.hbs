@@ -1,0 +1,18 @@
+<h1>Welcome to <strong>Horizons Starter</strong></h1>
+<h3>Projects</h3>
+
+
+{{#each projects}}
+	<br>
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		<a href="/projects/{{_id}}" projectId = {{_id}}><h3 class="panel-title">{{title}}</h3></a>
+	  </div>
+	  <div class="panel-body">
+	    About:
+	    <p id = "description">{{description}}</p>
+	     <button type="submit" class="btn btn-primary">Delete</button>
+	  </div>
+	</div>
+
+{{/each}}
