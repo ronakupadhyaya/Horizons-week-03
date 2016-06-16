@@ -30,9 +30,8 @@ and face cards count as 10 points.
 1. If the dealer doesn't have a blackjack, players decide their moves.
   They can:
 
-  1. **Hit:** Take another card. The player can hit as many times as she likes.
-  If at any point the total value of the player's hand exceeds 21, the player
-  loses their bet.
+  1. **Hit:** Take another card. The player can hit keep hitting until they
+  reach 21. If player goes over 21, they lose.
   1. **Stand:** Player choses to not take a card. This ends the player's turn.
 
 1. After all players have taken their turns, the dealer reveals her face-down
