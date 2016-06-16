@@ -32,11 +32,8 @@ router.post('/login', function(req, res) {
 
 // GET /posts: Renders a list of all available posts. No need to be logged in.
 // This function should render all the posts ordered descending by date if no params
-<<<<<<< HEAD
 // are passed of or called: /posts?order=descending
-=======
 // are passed of if called: /posts?order=descending
->>>>>>> master
 // If the user visits the url /posts?order=ascending they should be ordered ascending
 // If the function is called with a username like /posts?username=steven, you should
 // filter all posts that aren't done by that user.

@@ -52,11 +52,7 @@ app.get('/register', function(req, res){
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
-<<<<<<< HEAD
-
 // Can just keep adding these
-=======
->>>>>>> master
 function validate(req) {
   req.checkBody('firstName', 'Invalid first name').notEmpty();
   req.checkBody('middleI', 'Invalid middle initial').isLength({min: 0, max: 1})
