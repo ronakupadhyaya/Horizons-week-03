@@ -1,9 +1,11 @@
 "use strict";
 
+var apiUrl = '/api/1/project/' + projectId + '/contribution';
+
 /**
  * Adds a contribution object to the DOM. Strictly renders to the DOM.
  */
-function addContribution(newContribution) {
+function addContribution(newContribution, doAlert) {
   // Construct and render the new contribution.
   var wrapper = $('<div class="well"></div>');
   var title = $('<h4>' + newContribution.name + ' contributed $' + newContribution.amount + '</h4>');
@@ -15,9 +17,11 @@ function addContribution(newContribution) {
   $('#contributionsAnchor').append(wrapper);
 
   // Add the success alert.
-  var alert = $('<div class="alert alert-success">Thanks for your contribution! You rock!</div>');
-  $('#alertAnchor').empty();
-  $('#alertAnchor').append(alert);
+  if (doAlert) {
+    var alert = $('<div class="alert alert-success">Thanks for your contribution! You rock!</div>');
+    $('#alertAnchor').empty();
+    $('#alertAnchor').append(alert);
+  }
 }
 
 /**
@@ -26,7 +30,7 @@ function addContribution(newContribution) {
  */
 function sendContribution(newContribution, next) {
   // projectId is a global, inserted inside the template.
-  $.ajax('/api/1/project/' + projectId + '/contribution', {
+  $.ajax(apiUrl, {
     method: "POST",
     data: newContribution,
     success: function(result) {
@@ -90,16 +94,45 @@ function newContribution() {
       amountField.val('');
 
       // Mount new
-      addContribution(newContribution);
+      addContribution(newContribution, true);
     });
   }
 }
 
+/**
+ * Poll for new contributions via AJAX and update dynamically.
+ */
+function pollContributions() {
+  $.ajax(apiUrl, {
+    success: function(data) {
+      console.log("Successfully received " + data.length + " data elements.");
+
+      // Ideally we should show an animated wait icon here or something, but in
+      // practice this will happen really fast so it's no big deal.
+
+      // Clear existing data.
+      $('#contributionsAnchor').empty();
+
+      // Render new data.
+      data.forEach(function (el) {
+        addContribution(el);
+      });
+    },
+    error: function(err) {
+      // No need to alert user actively
+      console.error(err);
+    }
+  });
+}
+
 // jQuery document.ready shortcut: this code will run AFTER the body loads!
-// Attach the form event handler and block default submit action.
 $(function() {
+  // Attach the form event handler and block default submit action.
   $('#submit').click(function(event) {
     event.preventDefault();
     newContribution();
   });
+
+  // Poll for new updates every 10 seconds.
+  setInterval(pollContributions, 10000);
 });

@@ -1,15 +1,15 @@
-<script src="/js/newContribution.js">
+<script>
+  // We need this globally--it can't live inside the js file since we can't
+  // interpolate moustaches there.
+  var projectId = '{{project.id}}';
+</script>
+<script src="/js/contributions.js">
   /**
    * NOTE: JAVASCRIPT inside of HANDLEBARS inside of EXPRESS. Pretty sweet eh?
    * Is it all beginning to come together? We are now combining the power of
    * express on the backend with Javascript on the frontend. Go forth and make
    * pretty hybrid web app babies.
    */
-</script>
-<script>
-  // We need this globally--it can't live inside the js file since we can't
-  // interpolate moustaches there.
-  var projectId = '{{project.id}}';
 </script>
 <h1>{{project.title}}</h1>
 <h3>Category: {{project.category}}</h3>
