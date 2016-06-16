@@ -2,6 +2,7 @@
 
 var express = require('express');
 var app = express();
+
 var fs = require('fs');
 var path = require('path');
 
@@ -32,7 +33,7 @@ app.get('/', function(req, res){
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
-app.get('/register', function(req, res){
+app.get('/register', function(req, res) {
   // YOUR CODE HERE
   res.render('register');
 });
@@ -41,7 +42,14 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstName', 'Fist name is required').notEmpty();
+  req.checkBody('lastName', 'Last name is required').notEmpty();
+  req.checkBody('inputPassword3', 'Password is required').notEmpty();
+  req.checkBody('confirmPassword', 'Must confirm password').equals(req.body.inputPassword3);
+  req.checkBody('gender', 'Gender is required').notEmpty(); 
+  req.checkBody('signup', 'Signup is required').notEmpty();
+  req.checkBody('bio', 'Bio is required').notEmpty();
+  
 }
 
 // ---Part 3: Render errors and profile---
@@ -50,6 +58,7 @@ function validate(req) {
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+  console.log(req.body);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
@@ -57,10 +66,27 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    req.body["UserRegistrationTime"] = Date.now(); 
+    res.render('profile', req.body);
+
   }
 });
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

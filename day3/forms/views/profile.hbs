@@ -2,18 +2,26 @@
 <html>
 <head>
   <title>User Profile</title>
-
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
-  </style>
+    </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <h1>Put your user profile here</h1>
-    </div>
+     <li> <b> First Name:</b> {{firstName}}</li>
+      <li> <b> Middle Initial: </b>{{middleName}}</li>
+      <li> <b> Last Name:</b> {{lastName}}</li>
+      <li> <b> Birth Month: </b>{{DOBMonth}}</li>
+      <li> <b> Birth Date: </b>{{DOBDay}}</li>
+      <li> <b> Birth Year: </b>{{DOBYear}}</li>
+      <li> <b> Gender:</b> {{gender}}</li>
+      <li> <b> Signed Up for Newsletter? </b>{{signup}}</li>
+      <li> <b> Bio: </b>{{bio}} </li>
+      <li> <b> User Registration Time:</b> {{UserRegistrationTime}}</li>
+    </div> 
   </div>
 </body>
 </html>
