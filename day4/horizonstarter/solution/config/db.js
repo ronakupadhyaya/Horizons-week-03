@@ -3,5 +3,5 @@
 // Database configuration
 
 module.exports = {
-  'url' : 'mongodb://localhost/horizonstarter'
+  'url' : 'mongodb://rebagley:tamora16@ds012231.mlab.com:15934/horizonstarter'
 };

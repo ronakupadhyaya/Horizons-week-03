@@ -9,10 +9,21 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 </head>
 <body>
-  <p>
+  <!-- <p>
     Add one Bootstrap-style success notification and one warning notification
     to this page using partials.
-  </p>
+    {{> success msg="Success!!"}}
+    {{> warning msg="Warning!!"}}
+  </p> -->
+  {{#unless cats}}
+    No cats yet, sorry :(
+  {{/unless}}
+
+
+  {{#each cats}}
+    {{>cat name=name furColor=furColor}}
+  {{/each}}
+
 
 </body>
 </html>
