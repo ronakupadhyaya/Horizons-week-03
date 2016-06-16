@@ -73,7 +73,7 @@ Game.prototype.calcValue = function (hand){
 Game.prototype.emptyDeck = function (){
   return (this.deck.length < 1)
 }
-Game.prototype.newDeck(){
+Game.prototype.newDeck = function (){
   this.createDeck()
   this.shuffleDeck()
 }
@@ -115,7 +115,7 @@ Game.prototype.stand = function stand(){
     if(this.emptyDeck())this.newDeck();
     this.houseHand.push(this.deck.pop());
     //show last card
-    this.dealerTotal = this.calcValue(this.curdlrHand);
+    this.dealerTotal = this.calcValue(this.houseHand);
     //set the dealers onscreen
 
     if(this.dealerTotal > 21){
@@ -127,60 +127,51 @@ Game.prototype.stand = function stand(){
 }
 
 
-Game.prototype.gameOver = function gameOver(blackjack)
-{
-  document.getElementById("hidden-card").setAttribute("id","");
-  dealerScore.setAttribute("style", "visibility: visible;");
-  hit.setAttribute("style", "visibility:hidden;");
-  stand.setAttribute("style", "visibility:hidden;");
-
-  if(blackjack)
-  {
-    this.money +=3;
-    status.innerHTML ="BLACKJACK!!!!!!!!!";
-  }
-
-  else if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
+Game.prototype.gameOver = function gameOver(blackjack){
+  //show hoidden card
+  // show dealer score.
+  //hide hit/stand buttons
+  if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
     //user wins
-    this.money+=2;
-    status.innerHTML ="YOU WIN!";
+      console.log("YOUWIN")
+      throw new Error();
+    //this.money+=2; // TODO += 2*bet
+    // RESPONSE YOU WIN
+
   }
   else if(this.userTotal === this.dealerTotal && this.userBust === false){
-    //push
-    this.money++;
-    status.innerHTML="PUSH :o";
+    console.log("HAH you tied.")
+    throw new Error();
+    //this.money++; // money += bet.
+    //response -> TIED
   }
-
-  else status.innerHTML="YOU LOSE!";
-  money.innerHTML="Money: "+this.money;
-
+  // HAH you lost.
+    console.log("HAHhahahah you lost.")
+    throw new Error();
 }
 
-this.dump = function dump()
-{
-  for(var i=0; i<this.deck.length; i++)
-  {
-    this.deck[i].showCard();
-  }
-};
-}
+  // TODO this should be set when doing mongo and multiplayer instead of new here
 
-
-
+var game ;
 router.get('/newgame', function(req, res) {
-  var game = new Game();
+ game = new Game();
   console.log(game)
   //res.render('login', { title: 'Log In' });
 });
 
+router.get('/hit', function(req, res) {
+  game.hit()
+  console.log(game)
+});
+
+router.get('/stand', function(req, res) {
+  game.stand()
+  console.log(game)
+});
 
 //hit -> deck1.hit();
 //stand -> deck1.stand();
 //new game -> deck1.deal21()
-
-
-
-
 
 function Card(suit, val, symbol)
 {
