@@ -65,10 +65,6 @@ div.score-parent p
 	display: inline-block;
 }
 
-div#dealer-score
-{
-	visibility: hidden;
-}
 
 div.card#hidden-card
 {

@@ -48,14 +48,13 @@ router.get('/game/:id', function(req, res, next) {
     if (err) return next(err);
 
     res.format({
-  html: function(){
-    res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
-  },
-
-  json: function(){
-    res.json(gameRepresentation(game));
-  }
-});
+      html: function(){
+        res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
+      },
+      json: function(){
+        res.json(gameRepresentation(game));
+      }
+    });
   });
 });
 
@@ -172,15 +171,15 @@ res.redirect('/posts')
 
 
 /*
-  GameModel.find(function (err, users) {
-    if (err) return next(err);
-    for (var i = 0; i< user.length; i++){
+GameModel.find(function (err, users) {
+if (err) return next(err);
+for (var i = 0; i< user.length; i++){
 
-    }
-  });*/
+}
+});*/
 /*
-  GameModel.remove({}, function (err, user) {
-  if (err) console.log(err);
+GameModel.remove({}, function (err, user) {
+if (err) console.log(err);
 });*/
 
 module.exports = router;

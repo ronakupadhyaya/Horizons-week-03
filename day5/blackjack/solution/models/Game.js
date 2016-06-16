@@ -30,14 +30,13 @@ GameSchema.statics.newGame = function (item, callback){
 }
 
 GameSchema.statics.deal21 = function (game) {
-game.currentPlayerHand=[];
-  game.houseHand=[];
+  game.currentPlayerHand=[];
+    game.houseHand=[];
   for(var i=0; i<2; i++){
     // if(this.emptyDeck())this.newDeck();
     game.currentPlayerHand.push(game.deck.pop());
     game.houseHand.push(game.deck.pop());
   }
-  console.log(game)
   game.userTotal = this.calcValue(game.currentPlayerHand);
   game.dealerTotal = this.calcValue(game.houseHand);
 
