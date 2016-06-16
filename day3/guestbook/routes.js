@@ -1,6 +1,9 @@
 "use strict";
 var express = require('express');
+var router = express.Router();
 var jsonfile = require('jsonfile');
+var file = 'data.json';
+var posts = jsonfile.readFileSync(file);
 
 var router = express.Router();
 
@@ -37,11 +40,22 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
+  var displayposts = posts;
+    if (req.query.username){
+      displayposts = displayposts.filter(function(post){
+        return post.author===req.query.username
+      });
+    }
+    if (req.query.order==='ascending'){
+      displayposts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+    } else {
+      displayposts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+    }
 
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: displayposts
   });
 });
 
@@ -51,6 +65,10 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies && req.cookies.username){
+    res.render('post_form', { title: 'New Post' });
+  }
+  else{ console.log("not logged") }
 });
 
 // ---Part 4. Create new post
@@ -64,6 +82,26 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+    req.checkBody('text', 'Title must not be empty').notEmpty()
+    var errors = req.validationErrors();
+
+    if (errors){
+      res.render('post_form', {
+        title: 'New Post',
+        error:"Title and body can't be blank"});
+    }
+    if (req.cookies && req.cookies.username && !errors){
+      var post = {
+        author: req.cookies.username,
+        date: req.body.date,
+        title: req.body.title,
+        text: req.body.text
+      }
+      posts.push(post);
+      jsonfile.writeFileSync(file, posts);
+      res.redirect('/posts')
+    }
 });
 
 module.exports = router;

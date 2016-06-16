@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Login</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Language" content="en">
+Create new post
+<br>
+<p>{{error}}</p>
 
-  <link rel="stylesheet" href="/css/style.css"></link>
-  <link rel="stylesheet" href="/js/script.js"></link>
-</head>
-<body>
-  <h1>Create new post</h1>
+<!-- This form should send date, text, and title for the post. Get the username
+from the cookies! -->
 
-  <p>{{error}}</p>
-
-  <!-- This form should send date, text, and title for the post. Get the username
-  from the cookies! -->
-
-  <form action="/posts" method="POST">
-    <!-- YOUR CODE HERE -->
-  </form>
-
-</body>
-</html>
+<form action="/posts" method="POST">
+  <!-- YOUR CODE HERE -->
+  <input type="text" name="title" placeholder="Title" />
+  <input type="date" name="date" />
+  <input type="text" name="text" placeholder="Post Body" />
+  <input type="submit" value="Submit" />
+</form>
