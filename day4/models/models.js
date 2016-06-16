@@ -2,12 +2,30 @@
 var mongoose = require('mongoose');
 mongoose.connect(require('./connect'));
 
+
 var Cat = mongoose.model('Cat', {name: String, furColor: String})
 
-Cat.find(function(error, cats) {
-  if (error) {
-    console.log("Can't find cats", error);
-  } else {
-    console.log('Cats', cats);
-  }
-});
+var crookshanks = new Cat({name: 'Crookshanks', color: 'black'})
+crookshanks.save()
+//need to type INDIVIDUAL cats to save!!!!
+var biggles = new Cat({name: 'Mr. Bigglesworth', color: 'white'})
+biggles.save()
+var empur = new Cat({name: 'Empurress', color: 'calico'})
+empur.save()
+
+// Cat.find(function(error, cats) {
+//   if (error) {
+//     console.log("Can't find cats", error);
+//   } else {
+//     console.log('Cats', cats);
+//   }
+// });
+
+Cat.findOne({name: 'Mr. Bigglesworth'},function(err, cats){
+	if(err){
+		console.log(err)
+	}
+	else{
+		console.log(cats)
+	}
+})
