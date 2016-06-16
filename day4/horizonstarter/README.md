@@ -8,7 +8,8 @@
 - [Phase 3: Data model, schema](#phase-3-data-model-schema)
 - [Phase 4: Views](#phase-4-views)
 - [Phase 5: Routes](#phase-5-routes)
-- [Feature Recap and Bonus Features](#feature-recap-and-bonus-features)
+- [A little extra guidance](#a-little-extra-guidance)
+- [BONUS challenges](#bonus-challenges)
 - [Troubleshooting](#troubleshooting)
 
 ## Introduction
@@ -47,10 +48,24 @@ that includes benefits of both frontend and backend apps. We'll explore this
 topic more over the coming days. But we'll start today by writing a purely
 backend web app.
 
+### The goal
+
 Your goal is to write the Horizon Starter app (a clone of Kickstarter) as a
 purely backend webapp. You're starting from scratch and it's up to you to design
 and layout the project as you see fit, but we'll walk you through the steps and
 provide suggestions.
+
+In terms of functionality, the MVP (everything up to and excluding the
+[bonuses](#bonus-challenges)) should contain the following:
+
+- A front page which lists all projects (perhaps with a set of featured projects
+  on top, like on Kickstarter)
+- A page that lets you view a project, and donate to that project
+- A page that lets you create a new project
+
+A Kickstarter clone without users sounds a little sucky, but it's a great
+starting point and an introduction to backend apps, routes, and databases.
+You'll get to add users and some additional cool functionality in the bonus.
 
 ### Solution
 
@@ -400,71 +415,67 @@ user has entered to disappear. Make use of Bootstrap components such as alerts
 for this purpose.
 
 
+## A little extra guidance
 
-## Feature recap! 
-
-Everyone should seek to get through the MVP features. If you do, pat yourself on the back!
-
-Even if you get into the challenge, we will be impressed.
-
-If you finish the bonus today, we will by you dinner. 
-
-### MVP Features: No Users
-
-**If you feel you need some guidance, checkout `/playbook.md` !!!!!**
-
-- A front page which lists all projects (perhaps with a set of featured projects
-  on top, like on Kickstarter)
-- A page that lets you view a project, and donate to that project
-- A page that lets you create a new project
-- The ability to filter the list of projects on front page using query parameters. Create the ability to filter the page by projects that are fully funded (`/projects?funded=true`) and projects looking to raise over a certain amount of money (`/projects?goal_greater_than=10000` should return all projects) [not implemented in prototype/solutions]
-- A page that let's you bulk edit projects [not implemented in prototype/solutions]
+If you're feeling a little lost, check out the [Horizon Starter
+Playbook](./playbook.md). You'll find a few more tips and some additional
+guidance there.
 
 
-**If you feel you need some guidance, checkout `/playbook.md` !!!!!**
+## BONUS challenges
 
+Everyone should aim to get through the MVP features (everything up to this
+point). If you do, pat yourself on the back because YOU'RE AWESOME! 💪💪🤘
 
-### Challenge Features: Adding Users. A real challenge. 
+If you've gotten this far--starting on the challenge--we will be super
+impressed.
 
-We are now looking for the following behavior from our App. 
-	- Every Project has a owner.
-	- Users can donate to any project as long as they are not an owner (creator of the project)
-	- You can logout and login as a new user 
-	- Whenever a project is created, there must be an owner (ie page must be logged in)
-	- An Admin page that lets a User see all the projects she has created, how much each of her projects has raised, and a list of which projects she has donated too. 
+And if you FINISH today's bonus, we will buy you dinner. For reals. (Ethan might
+tag along. He's looking a little undernourished. Hope that's cool.)
+
+### A real challenge: adding users
+
+Let's add the following functionality:
+
+- Every project has an owner.
+- A user can donate to any project as long as they are not that project's owner
+  (i.e., the creator of that project).
+- Users can login and logout.
+- A user must login to create a project or make a donation.
+- A personal admin page that lets a user see all the projects she has created,
+  how much each of her projects has raised, and a list of which projects she has
+  donated to.
 
 To do this you must, roughly: 
 
-- Create User Model with one property for a username
+- Create user model with one property for a username
 - Create a login page
-	- `GET /login` renders and HTML page with 1 input field asking for a username. 
-	- `POST /login` creates and saves a user object (unless it already exists). It then sets a username cookie with the user's username. 
-- Create a logout button (if there is an existing cookie, delete it). `GET /logout` should just remove the `"username"` cookie and redirect to the `GET /login` page. 
-- Make sure that `GET projects/new` route only renders a form if there is a `"username"` cookie
-- `GET projects/:id` should only show a donate button if the username cookie !== the owner of the Project :). 
-- Add a `owner` property to the Project Model. This will store the _id of the User that creates a project.
-- To keep track of the which projects a user has donated too: 
-	- Add a Donations array to the User model. This should store id's of Projects the User has donated too. 
-	- Edit the `/donate/:id` route to update the Donations array whenever a user donates.
-- Create an admin page for a user `GET admin`. Note there is no `/:id` on this route. Instead, the admin page looks at the username cookie to find the user we care about. 
-    - Show each project the user owns
-    - How much each project has in donations 
-
-### Bonus. You asked for it.
-
-Update your admin page. See if you can display: 
-- Which projects a user donated too, and *how much* she/he donated per project!
-- Which users donated to each the admin user's projects, and *how much* was donated per project! 
-
-
-
-
-
-
-
-
-
-
+	- `GET /login` renders an HTML page with 1 input field asking for a username
+  - `POST /login` creates and saves a user object (unless it already exists). It
+    then sets a username cookie with the user's username. 
+- Create a logout button (if there is an existing cookie, delete it). `GET
+  /logout` should just remove the `"username"` cookie and redirect to the `GET
+  /login` page. 
+- Make sure that `GET projects/new` route only renders a form if there is a
+  `"username"` cookie
+- `GET projects/:id` should only show a donate button if the username cookie !==
+  the owner of the Project :)
+- Add an `owner` property to the Project model. This will store the id of the
+  User that created the project
+- To keep track of the which projects a user has donated to:
+  - Add a Donations array to the User model. This should store id's of Projects
+    the User has donated to
+  - Edit the `/donate/:id` route to update the Donations array whenever a user
+    donates
+- Create an admin page for a user at `GET /admin`. Note there is no `/:id` on
+  this route. Instead, the admin page looks at the username cookie to find the
+  user we care about. 
+  - Show each project the user owns
+  - How much each project has in donations 
+  - Which projects a user donated to, and *how much* she donated to each
+    project!
+  - Which users donated to each of the user's projects, and *how much* was
+    donated per project! 
 
 
 ## Troubleshooting
