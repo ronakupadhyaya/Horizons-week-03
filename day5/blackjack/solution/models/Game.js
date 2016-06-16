@@ -12,17 +12,6 @@ var GameSchema = new mongoose.Schema({
   houseHand: [],
 });
 
-//statics are the methods defined on the Model.
-//methods are defined on the document (instance).
-
-
-/*
-someSchema.statics.addItem = function addItem(item, callback){
-//Do stuff (parse item)
-(new this(parsedItem)).save(callback);
-}*/
-
-
 GameSchema.statics.newGame = function (item, callback){
   var game = new this(item)
   game.deck = new Deck();
@@ -31,21 +20,14 @@ GameSchema.statics.newGame = function (item, callback){
 
 GameSchema.statics.deal21 = function (game) {
   game.currentPlayerHand=[];
-    game.houseHand=[];
+  game.houseHand=[];
   for(var i=0; i<2; i++){
-    // if(this.emptyDeck())this.newDeck();
     game.currentPlayerHand.push(game.deck.pop());
     game.houseHand.push(game.deck.pop());
   }
   game.userTotal = this.calcValue(game.currentPlayerHand);
   game.dealerTotal = this.calcValue(game.houseHand);
-
-  // TODO: hide dealers first card!!
-  //  var blackjack =true; ???
-  //  if(this.userTotal === 21 && this.dealerTotal < 21) this.gameOver(blackjack); //userWins
-  //  else if(this.dealerTotal === 21) this.gameOver(); //dealer Wiinssss.
 };
-
 
 GameSchema.statics.calcValue = function (hand){
   var val = 0;
@@ -63,11 +45,7 @@ GameSchema.statics.calcValue = function (hand){
 GameSchema.statics.hit = function (game){
   game.currentPlayerHand.push(game.deck.pop());
   game.userTotal = this.calcValue(game.currentPlayerHand);
-  //show the last card onscreen
-  //set the users score onscreen
-
   if(parseInt(game.userTotal) > 21){
-    //set user lost on screen.
     console.log("asd")
     game.userStatus = "lost";
     this.gameOver(game);
@@ -77,12 +55,8 @@ GameSchema.statics.hit = function (game){
 GameSchema.statics.stand = function stand(game){
   while(game.dealerTotal < 17){
     game.houseHand.push(game.deck.pop());
-    //show last card
     game.dealerTotal = this.calcValue(game.houseHand);
-    //set the dealers onscreen
-
     if(game.dealerTotal > 21){
-      //set dealer lost.
       game.dealerStatus = "lost";
     }
   }
@@ -91,9 +65,6 @@ GameSchema.statics.stand = function stand(game){
 
 GameSchema.statics.gameOver = function gameOver(game){
   game.status="over";
-  //show hoidden card
-  // show dealer score.
-  //hide hit/stand buttons
   if(game.userTotal > game.dealerTotal && game.userStatus !== "lost" || game.dealerStatus === "lost"){
     game.userStatus= "won";
     game.dealerStatus= "lost";
@@ -117,9 +88,6 @@ function Card(suit, val, symbol) {
   this.val = val;
   this.symbol = symbol;
 }
-
-
-
 
 function Deck(){
   this.deck = [];

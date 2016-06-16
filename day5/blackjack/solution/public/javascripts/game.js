@@ -8,10 +8,7 @@ $(document).on("submit", "form", function(e){
     data: { bet: 234 },
     cache: false,
     success: function(game){
-    play(game);
-    console.log(game)
-      //$("#betForm").hide();
-      //game starts
+      play(game);
     }
   });
   return  false;
@@ -26,10 +23,13 @@ function getData(){
     dataType: 'json',
     cache: false,
     success: function(game){
-      if (game.status==="Not Started")
-      alert("please set bet");
-      else{
-      play(game);
+      if (game.status==="Not Started"){
+        //alert("please set bet");
+        $("#betForm").show();
+        $(".dealer-area").hide();
+        $(".user-area").hide();
+      }else{
+        play(game);
       }
     }
   });
@@ -39,6 +39,9 @@ function getData(){
 function play(game){
   //this.deck on real life is game.deck
   globalGame=game;
+  $("#betForm").hide();
+  $(".dealer-area").show();
+  $(".user-area").show();
   var hitButton = document.getElementById("hit")
   var standButton = document.getElementById("stand");
   hitButton.addEventListener("click", function(){ hit() },false);
@@ -52,6 +55,11 @@ function play(game){
 
   if (game.status === 'over' ){
     status.innerHTML='You '+game.userStatus;
+    if (game.userStatus === "won"){
+      status.innerHTML+= " "+ parseInt(game.player1bet)*2;
+    } else if (game.userStatus === "won"){
+      status.innerHTML+= " "+ parseInt(game.player1bet);
+    }
     hitButton.style.visibility = "hidden";
     standButton.style.visibility = "hidden";
 
@@ -89,25 +97,25 @@ this.showCard =function showCard(card){
 }
 
 function hit(){
-    $.ajax({
-      type: "POST",
-      url: '/game/'+globalGame.id+'/hit',
-      dataType: 'json',
-      cache: false,
-      success: function(data){
-        play(data)
-      }
-    });
+  $.ajax({
+    type: "POST",
+    url: '/game/'+globalGame.id+'/hit',
+    dataType: 'json',
+    cache: false,
+    success: function(data){
+      play(data)
+    }
+  });
 }
 
 function stand(){
-    $.ajax({
-      type: "POST",
-      url: '/game/'+globalGame.id+'/stand',
-      dataType: 'json',
-      cache: false,
-      success: function(data){
-        play(data)
-      }
-    });
+  $.ajax({
+    type: "POST",
+    url: '/game/'+globalGame.id+'/stand',
+    dataType: 'json',
+    cache: false,
+    success: function(data){
+      play(data)
+    }
+  });
 }
