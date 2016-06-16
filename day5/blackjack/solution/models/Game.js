@@ -24,7 +24,8 @@ someSchema.statics.addItem = function addItem(item, callback){
 GameSchema.statics.newGame = function (item, callback){
 //Do stuff (parse item)
 var game = new this(item)
-game.deck=["asd", "sad"]
+game.deck = new Deck();
+
 //console.log(game)
 game.save(callback);
 }
@@ -43,39 +44,6 @@ GameSchema.statics.newGame = function(maze) {
   this.deal21()
 }
 
-Game.prototype.createDeck = function (){
-  var suit, symbol;
-  for(var k=1; k<=4; k++){
-    switch(k){
-      case 1: suit ="hearts"; break;
-      case 2: suit ="diamonds"; break;
-      case 3: suit ="spades"; break;
-      case 4: suit ="clubs"; break;
-    }
-    for(var i=1; i<=13; i++){
-      symbol = i;
-      switch(i){
-        case 1: symbol = "A"; break;
-        case 11: symbol = "J"; break;
-        case 12: symbol = "Q"; break;
-        case 13: symbol = "K"; break;
-      }
-      this.deck.push(new Card(suit, i, symbol));
-    }
-  }
-}
-
-Game.prototype.shuffleDeck = function () {
-  var currentIndex = this.deck.length, temporaryValue, randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = this.deck[currentIndex];
-    this.deck[currentIndex] = this.deck[randomIndex];
-    this.deck[randomIndex] = temporaryValue;
-  }
-}
-
 Game.prototype.calcValue = function (hand){
   var val = 0;
   var tempArr = hand;
@@ -91,10 +59,6 @@ Game.prototype.calcValue = function (hand){
 
 Game.prototype.emptyDeck = function (){
   return (this.deck.length < 1)
-}
-Game.prototype.newDeck = function (){
-  this.createDeck()
-  this.shuffleDeck()
 }
 
 Game.prototype.deal21 = function () {
@@ -165,7 +129,7 @@ Game.prototype.gameOver = function gameOver(blackjack){
   console.log("HAHhahahah you lost.")
   throw new Error();
 }
-
+*/
 function Card(suit, val, symbol) {
   this.suit = suit;
   this.val = val;
@@ -174,8 +138,44 @@ function Card(suit, val, symbol) {
 
 
 
-*/
+function Deck(){
+  this.deck = [];
+  this.createDeck()
+  this.shuffleDeck()
+  return this.deck;
+}
 
+Deck.prototype.createDeck = function (){
+  var suit, symbol;
+  for(var k=1; k<=4; k++){
+    switch(k){
+      case 1: suit ="hearts"; break;
+      case 2: suit ="diamonds"; break;
+      case 3: suit ="spades"; break;
+      case 4: suit ="clubs"; break;
+    }
+    for(var i=1; i<=13; i++){
+      symbol = i;
+      switch(i){
+        case 1: symbol = "A"; break;
+        case 11: symbol = "J"; break;
+        case 12: symbol = "Q"; break;
+        case 13: symbol = "K"; break;
+      }
+      this.deck.push(new Card(suit, i, symbol));
+    }
+  }
+}
 
+Deck.prototype.shuffleDeck = function () {
+  var currentIndex = this.deck.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = this.deck[currentIndex];
+    this.deck[currentIndex] = this.deck[randomIndex];
+    this.deck[randomIndex] = temporaryValue;
+  }
+}
 
 module.exports  =  mongoose.model('Game', GameSchema);
