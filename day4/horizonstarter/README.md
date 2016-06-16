@@ -400,7 +400,12 @@ user has entered to disappear. Make use of Bootstrap components such as alerts
 for this purpose.
 
 
-### Recap of features you need! 
+
+## Feature recap! 
+
+### Here are the features you need for your MVP. Rememeber, this is a Kickstarter with no Users.
+
+*If you feel you need some guidance, checkout /playbook.md!!!!!*
 
 - A front page which lists all projects (perhaps with a set of featured projects
   on top, like on Kickstarter)
