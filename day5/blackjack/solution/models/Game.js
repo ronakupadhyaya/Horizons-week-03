@@ -22,29 +22,27 @@ someSchema.statics.addItem = function addItem(item, callback){
 
 
 GameSchema.statics.newGame = function (item, callback){
-//Do stuff (parse item)
 var game = new this(item)
 game.deck = new Deck();
-
-//console.log(game)
 game.save(callback);
 }
 
+GameSchema.statics.deal21 = function () {
+  for(var i=0; i<2; i++){
+    // if(this.emptyDeck())this.newDeck();
+    game.currentPlayerHand.push(game.deck.pop());
+    game.houseHand.push(game.deck.pop());
+  }
+  game.userTotal = this.calcValue(game.currentPlayerHand);
+  game.dealerTotal = this.calcValue(game.houseHand);
+  // TODO: hide dealers first card!!
+  //  var blackjack =true; ???
+  //  if(this.userTotal === 21 && this.dealerTotal < 21) this.gameOver(blackjack); //userWins
+  //  else if(this.dealerTotal === 21) this.gameOver(); //dealer Wiinssss.
+};
 
-/*
 
-GameSchema.statics.newGame = function(maze) {
-  this.deck = [];
-
-  // TODO: substract user money.
-
-  this.currentPlayerHand = [];
-  this.houseHand = [];
-  this.newDeck()
-  this.deal21()
-}
-
-Game.prototype.calcValue = function (hand){
+GameSchema.statics.calcValue = function (hand){
   var val = 0;
   var tempArr = hand;
   tempArr.sort(function(a,b) { return parseFloat(a.val) - parseFloat(b.val) } );
@@ -57,24 +55,10 @@ Game.prototype.calcValue = function (hand){
   return val;
 }
 
-Game.prototype.emptyDeck = function (){
-  return (this.deck.length < 1)
-}
+/*
 
-Game.prototype.deal21 = function () {
-  for(var i=0; i<2; i++){
-    if(this.emptyDeck())this.newDeck();
-    this.currentPlayerHand.push(this.deck.pop());
-    if(this.emptyDeck())this.newDeck();
-    this.houseHand.push(this.deck.pop());
-  }
-  this.userTotal = this.calcValue(this.currentPlayerHand);
-  this.dealerTotal = this.calcValue(this.houseHand);
-  // TODO: hide dealers first card!!
-  //  var blackjack =true; ???
-  //  if(this.userTotal === 21 && this.dealerTotal < 21) this.gameOver(blackjack); //userWins
-  //  else if(this.dealerTotal === 21) this.gameOver(); //dealer Wiinssss.
-};
+
+
 
 Game.prototype.hit = function (){
   if(this.emptyDeck())this.newDeck();
