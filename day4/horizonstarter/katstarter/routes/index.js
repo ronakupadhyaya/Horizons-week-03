@@ -23,7 +23,7 @@ router.get('/new', function(req, res) {
 
 router.post('/new', function(req, res) {
 	var p = new models.project({title: req.body.title,
-								cat: req.body.cat,
+								category: req.body.cat,
 								goal: req.body.goal,
 								total: 0,
 								start: req.body.start,

@@ -8,26 +8,26 @@ module.exports = {
 		title: {
 			type: String,
 			required: true
-		}
-		cat: {
+		},
+		category: {
 			type: String,
 			required: true
-		}
+		},
 		goal: {
 			type: Number,
 			required: true
-		}
+		},
 		total: {
 			type: Number,
 			required: false
-		}
+		},
 		start: {
 			type: String,
 			required: true
-		}
+		},
 		end: {
-			type: String
-			required; true
+			type: String,
+			required: true
 		}
 	})
 }
