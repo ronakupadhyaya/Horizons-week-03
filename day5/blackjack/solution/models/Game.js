@@ -37,6 +37,7 @@ game.currentPlayerHand=[];
     game.currentPlayerHand.push(game.deck.pop());
     game.houseHand.push(game.deck.pop());
   }
+  console.log(game)
   game.userTotal = this.calcValue(game.currentPlayerHand);
   game.dealerTotal = this.calcValue(game.houseHand);
 

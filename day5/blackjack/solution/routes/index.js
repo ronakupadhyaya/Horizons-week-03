@@ -15,11 +15,11 @@ var gameRepresentation = function(game) {
     userStatus : game.userStatus,
     dealerStatus : game.dealerStatus,
     currentPlayerHand : game.currentPlayerHand,
-    houseHand : game.houseHand,
+    houseHand : game.houseHand
   }
 }
+
 router.get('/', function (req, res, next) {
-  //status=progress //over
   GameModel.find(function (err, games) {
     if (err) return next(err);
     var filteredGames = [];
@@ -32,33 +32,39 @@ router.get('/', function (req, res, next) {
         filteredGames.push(game)
       }
     }
-    console.log(filteredGames)
-    res.render('index', { filteredGames: filteredGames });
+    res.render('index', { title: "Games", filteredGames: filteredGames });
   });
-
 });
 
 router.post('/game', function(req, res, next) {
   GameModel.newGame({}, function (err, game) {
     if (err) return next(err);
-    //res.json(gameRepresentation(game));
-    console.log('/game/'+game.id);
+    console.log('New game id:'+game.id);
     res.redirect('/game/'+game.id);
   });
 });
 router.get('/game/:id', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(err);
-    console.log(gameRepresentation(game))
-    //res.render('viewgame', { title: 'View Game' });
+
+    res.format({
+  html: function(){
+    res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
+  },
+
+  json: function(){
+    res.json(gameRepresentation(game));
+  }
+});
   });
 });
 
-router.post('/game/:id/bet', function(req, res, next) {
+router.post('/game/:id', function(req, res, next) {
+  console.log('here')
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(err);
     if (game.status==="started") return next(new Error("Bet already set"))
-    var bet = req.query.bet|| 10;
+    var bet = req.body.bet|| 10;
     game.player1bet=bet; //TODO error if already declared.
     GameModel.deal21(game);
     game.status="started";
@@ -163,4 +169,18 @@ res.redirect('/posts')
 }
 });
 */
+
+
+/*
+  GameModel.find(function (err, users) {
+    if (err) return next(err);
+    for (var i = 0; i< user.length; i++){
+
+    }
+  });*/
+/*
+  GameModel.remove({}, function (err, user) {
+  if (err) console.log(err);
+});*/
+
 module.exports = router;
