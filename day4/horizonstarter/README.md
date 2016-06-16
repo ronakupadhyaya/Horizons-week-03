@@ -8,7 +8,7 @@
 - [Phase 3: Data model, schema](#phase-3-data-model-schema)
 - [Phase 4: Views](#phase-4-views)
 - [Phase 5: Routes](#phase-5-routes)
-- [Feature Recap](#feature-recap)
+- [Feature Recap and Bonus Features](#feature-recap-and-bonus-features)
 - [Troubleshooting](#troubleshooting)
 
 ## Introduction
