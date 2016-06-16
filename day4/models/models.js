@@ -2,7 +2,11 @@
 var mongoose = require('mongoose');
 mongoose.connect(require('./connect'));
 
-var Cat = mongoose.model('Cat', {name: String, furColor: String})
+var Cat = mongoose.model('Cat', {name: String, color: String})
+
+// var cat = new Cat({name: "testcat", color:"orange"});
+// cat.save(function(err) {});
+
 
 Cat.find(function(error, cats) {
   if (error) {
@@ -11,3 +15,8 @@ Cat.find(function(error, cats) {
     console.log('Cats', cats);
   }
 });
+
+
+// Cat.find({name: "crookshanks"}, function(error, m) {
+// 	console.log(m);
+// });

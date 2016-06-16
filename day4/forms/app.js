@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // MODELS
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/formtwo');
+mongoose.connect("mongodb://helioha:a12312123@ds013414.mlab.com:13414/horizons");
 var User = require('./models/user');
 
 app.get('/', function(req, res) {
@@ -66,7 +66,23 @@ app.post('/register', function(req, res){
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
-    
+
+    var newUser = new User({
+                          firstName: req.body.firstName,
+                          middleInitial: req.body.middleInitial,
+                          lastName: req.body.lastName,
+                          dobMonth: Number(req.body.dobMonth),
+                          dobDay: Number(req.body.dobDay),
+                          dobYear: Number(req.body.dobYear),
+                          password: req.body.password,
+                          gender: req.body.gender,
+                          newsletter: req.body.newsletter,
+                          bio: req.body.bio});
+
+    newUser.save(function(err, data) {
+        console.log('data._id: ' + data._id);
+        res.redirect('/profile/'+data._id);
+    });
   }
 });
 
@@ -76,7 +92,9 @@ app.post('/register', function(req, res){
 // render the profile template with the user data.
 app.get('/profile/:id', function(req, res) {
   // YOUR CODE HERE
-  
+  User.find({_id : req.params.id}, function(error, data) {
+    res.render('profile', data[0]);
+  });
 });
 
 app.listen(3000, function() {
