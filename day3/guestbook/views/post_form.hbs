@@ -14,12 +14,27 @@
   <h1>Create new post</h1>
 
   <p>{{error}}</p>
-
   <!-- This form should send date, text, and title for the post. Get the username
   from the cookies! -->
 
   <form action="/posts" method="POST">
     <!-- YOUR CODE HERE -->
+<div class = "form-group">
+  <label> Name your post</label>
+  <div>
+  <input class="col-sm-10 form-control" name="titleP" ></input>
+  </div>
+</div> 
+  <label> What do you want to say? </label>
+  <div>
+  <textarea class="col-sm-10 form-control" name="posts" rows="5"></textarea>
+  </div>
+</div> 
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Post</button>
+    </div>
+</div>
   </form>
 
 </body>

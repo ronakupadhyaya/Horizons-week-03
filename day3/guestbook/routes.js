@@ -37,11 +37,14 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
+  ///console.log('x',req.query)
+  var input= jsonfile.readFileSync('data.json')
+  console.log(input)
   // This renders the posts
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    username: req.cookies.username,
+    input: input
   });
 });
 
@@ -50,7 +53,17 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  console.log(req.cookies.username)
+  ///if there is a login load the add post page
+  if(req.cookies.username){
+  res.render('post_form',{
+    username: req.cookies.username
+  })
+  }
+  //otherwise return to the login page
+  else{
+    res.render('login',{})
+  }
 });
 
 // ---Part 4. Create new post
@@ -64,6 +77,19 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var text = req.body.posts
+  var head = req.body.titleP
+  var input= jsonfile.readFileSync('data.json')
+  //want to return them to the post page with all the posts listed
+  res.render('posts',{
+    // title: head
+    // username: req.cookies.username,
+    // posts: text,
+    // date: Date()
+  })
+  console.log(input);
+ input.push({title: head, username: req.cookies.username, posts: text, date: Date()})
+ data.save(input)
 });
 
 module.exports = router;

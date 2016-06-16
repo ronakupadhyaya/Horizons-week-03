@@ -11,8 +11,19 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
 
+<form>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Make a Post</button>
+    </div>
+</div>
+</form>
+
+<h1>View all posts</h1>
+{{#each input}}
+<p>{{username}}</p>
+{{/each}}
 <!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
 display them on the page. Add a couple of buttons to sort ascending/descending
 and to create new post! -->
