@@ -36,11 +36,21 @@ app.get('/project', function(req, res) {
       return;
     }
 
-    if (req.query.funded) {
-      // No need to validate since this is a simple bool flag.
-
-      // Filter out projects that haven't reached their funding goal.
-      projects = projects.filter(function (el) { return el.funded });
+    // This query param is a bool so be careful how we read it!
+    if (req.query.hasOwnProperty('funded')) {
+      console.log("Got funded query");
+      var filter;
+      // Parse JSON so "0" string isn't truthy.
+      var funded = JSON.parse(req.query.funded);
+      if (funded) {
+        console.log("Filtering on projects that are FUNDED");
+        filter = function (el) { return el.funded };
+      }
+      else {
+        console.log("Filtering on projects that are NOT FUNDED");
+        filter = function (el) { return !el.funded };
+      }
+      projects = projects.filter(filter);
     }
 
     if (req.query.goalAbove) {

@@ -10,8 +10,7 @@ function addContribution(newContribution, doAlert) {
   var wrapper = $('<div class="well"></div>');
   var title = $('<h4>' + newContribution.name + ' contributed $' + newContribution.amount + '</h4>');
   var comment = $('<p>' + newContribution.comment + '</p>');
-  wrapper.append(title);
-  wrapper.append(comment);
+  wrapper.append(title, comment);
 
   // Add it to the DOM. Boom.
   $('#contributionsAnchor').append(wrapper);

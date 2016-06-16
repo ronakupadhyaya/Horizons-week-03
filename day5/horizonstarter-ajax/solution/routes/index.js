@@ -91,6 +91,7 @@ router.post('/new', function(req, res) {
 router.get('/project/:projectId', function(req, res) {
   Project.findById(req.params.projectId, function(err, project) {
     if (err) res.send(err);
+    if (!project) res.status(404).send(err);
     res.render('project', {
       project: project,
       // format the times separately
