@@ -19,3 +19,10 @@ app.listen(3000);
 //connects everything
 ///models talk to databases (mongoose, views render data to user (handlebar)
 ///controller (express) gets data and puts it out
+
+//can add in mongoose connection in app.js (just copy and
+//paste it over)... merge cats with success and failure
+//to connect to mongoose: ned require, connect and variable
+
+//to request by parameter: req.query.input to search for
+//something specific in a group
