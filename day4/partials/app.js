@@ -11,6 +11,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', function (req, res) {
+  var mongoQuery = {};
+  
     res.render('index.hbs');
 });
 
