@@ -55,7 +55,7 @@ provide suggestions.
 ### Solution
 
 You can check out a [live, hosted version of the
-solution](http://107.170.120.178:8090/). You can also run the solution code
+solution](http://starter.horizonsbootcamp.com:8090/). You can also run the solution code
 locally, but first you'll need to [configure Mongo](#phase-2-mongo-mongoose). If
 you're not running MongoDB locally, you'll also need to update the MongoDB URI
 in `config/db.js`. Then you can run:
@@ -197,6 +197,8 @@ view and work with your data. However, note that it may be slightly faster to
 run Mongo locally.
 
 #### Option 1. (recommended): mLab
+
+**Note: There's a more detailed walkthrough of creating an mLab account (with screenshots) in [this morning's warmup exercise](../warmup.md).**
 
 mLab allows you to host Mongo databases in the cloud for free. Sign up for an
 account at https://mlab.com/signup/. Check your email and click on the
