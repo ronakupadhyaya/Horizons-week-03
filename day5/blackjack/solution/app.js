@@ -9,6 +9,18 @@ var exphbs = require('express-handlebars');
 var app = express();
 var port = '3000'
 var expressValidator = require('express-validator');
+var config = require('./config');
+
+var mongoose = require('mongoose');
+
+mongoose.connect(config.db.localhost, function(err) {
+    if(err) {
+        console.log('connection error', err);
+    } else {
+        console.log('connection successful');
+    }
+});
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));

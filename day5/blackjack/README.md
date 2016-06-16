@@ -69,7 +69,7 @@ First build a Blackjack game where a single person can play against the dealer.
   - Redirect to `/game/:id`
 - `GET /game/:id`:
   - Render `View game`
-- `POST /game/:id/bet`: (renders JSON)
+- `POST /game/:id/bet`: (New Game) (renders JSON)
   - Player declares their bet for
   - Error if the player has already declared their bet
   - Responds with `Game state representation`
