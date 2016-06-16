@@ -21,7 +21,7 @@ router.get('/login', function(req, res) {
 // POST /login: Receives the form info for the user, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 router.post('/login', function(req, res) {
-  res.cookie('username', req.body.username).redirect('/posts');
+  res.cookie('username', req.body.username).redirect('/posts?username='+req.body.username);
 });
 
 // ---Part 2. View Posts---
@@ -36,13 +36,43 @@ router.post('/login', function(req, res) {
 // Hint: use jsonfile.readFileSync() to read the post data from data.json 
 
 router.get('/posts', function (req, res) {
-  // YOUR CODE HERE
+  var user = null;
+  var order = req.query.order;
+  var posts = data.read('data.json')
+  
+  if (req.cookie.username) {
+    user = req.cookie.username;
+    posts = [];
+    for (var i = 0; i < posts.length; i ++){
+      if (req.cookie.username === posts[i].author) {
+        posts.push(posts[i]);
+      }
+    }
+  };
 
   // This renders the posts
-  res.render('posts', {
+  if (order === 'ascending') {
+    var sorted = posts.sort(function(a, b) {
+      return a.date - b.date;
+    })
+    res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: sorted,
+    username: user
   });
+  }
+
+  if (order === 'descending') {
+    var sorted = posts.sort(function(a, b) {
+      return b.date - a.date;
+    })
+    res.render('posts', {
+    title: 'Posts',
+    posts: sorted,
+    username: user
+  });
+  }
+
 });
 
 // ---Part 3. New post form---
@@ -50,7 +80,9 @@ router.get('/posts', function (req, res) {
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form', { title: 'Create a new post' });
+  }
 });
 
 // ---Part 4. Create new post
@@ -63,7 +95,14 @@ router.get('/posts/new', function(req, res) {
 // Don't forget to check if there are validation errors at req.validationErrors();
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username) {
+    // var post = {
+    //   author: ,
+    //   date: , 
+    //   title: ,
+    //   body:
+    // }
+  }
 });
 
 module.exports = router;
