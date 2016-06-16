@@ -1,5 +1,7 @@
 "use strict";
 
+// Routes, with inline controllers for each route.
+
 var express = require('express');
 var validator = require('express-validator');
 var router = express.Router();
@@ -17,7 +19,7 @@ router.get('/', function(req, res) {
   });
 });
 
-// GET New project form
+// GET new project form
 router.get('/new', function(req, res) {
   res.render('new', {
     title: "Create new project",

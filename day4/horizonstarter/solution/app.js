@@ -1,5 +1,6 @@
 "use strict";
 
+// Boring, required stuff
 var express = require('express');
 var session = require('express-session');
 var path = require('path');
@@ -8,7 +9,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
-
 var routes = require('./routes/index');
 
 var app = express();
@@ -26,8 +26,15 @@ app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session allows us to store data in a session object between HTTP requests.
+// It allows us to pass "flash" data between requests, so that we can redirect
+// the user and they'll still see the flash message.
+// Request requires a "secret" to encrypt the data. It relies on cookies but
+// does it all transparently.
 app.use(session({secret: 'cutie kitty catz'}));
 
+// All of our routes are configured here. (For a more complex app, we could
+// split our routes up into multiple route files.)
 app.use('/', routes);
 
 // catch 404 and forward to error handler
