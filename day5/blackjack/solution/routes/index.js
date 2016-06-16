@@ -19,13 +19,24 @@ var gameRepresentation = function(game) {
   }
 }
 router.get('/', function (req, res, next) {
+  //status=progress //over
   GameModel.find(function (err, games) {
     if (err) return next(err);
-    res.json(games);
+    var filteredGames = [];
+    for (var i=0; i< games.length; i++){
+      var game ={
+        id: games[i].id,
+        status: games[i].status === "over"? "over" : "progress"
+      }
+      if (!req.query.status || req.query.status === game.status){
+        filteredGames.push(game)
+      }
+    }
+    console.log(filteredGames)
+    res.render('index', { filteredGames: filteredGames });
   });
-  //  res.render('index', {});
-});
 
+});
 
 router.post('/game', function(req, res, next) {
   GameModel.newGame({}, function (err, game) {
