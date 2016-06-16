@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 "use strict";
 
 window.facebook = window.facebook || {};
@@ -20,6 +21,8 @@ $("#submitReg").click(function(e) {
 >>>>>>> master
 =======
 >>>>>>> master
+=======
+>>>>>>> master
 
 
 // registration
@@ -30,6 +33,9 @@ $("#submitReg").click(function(e) {
 	var password = $("#Password").val();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
@@ -44,6 +50,7 @@ $("#submitReg").click(function(e) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$.ajax({
 		url: baseURL + '/users/register',
 		method: 'POST',
@@ -51,6 +58,8 @@ $("#submitReg").click(function(e) {
 			email: emailR,
 			password: passwordR,
 =======
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 =======
@@ -66,6 +75,9 @@ $("#submitReg").click(function(e) {
 			password: password,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 =======
 >>>>>>> master
@@ -76,6 +88,7 @@ $("#submitReg").click(function(e) {
 			birthMonth: bMonth,
 			birthDay: bDay,
 			birthYear: bYear
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -295,12 +308,18 @@ facebook.Feed.prototype = {
 >>>>>>> master
 =======
 >>>>>>> master
+=======
+>>>>>>> master
 		}
 	})
 
 	console.log(reg);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+})
+>>>>>>> master
+=======
 })
 >>>>>>> master
 =======
