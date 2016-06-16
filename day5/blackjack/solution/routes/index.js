@@ -19,8 +19,7 @@ var Game = function(maze) {
   this.currentPlayerHand = [];
   this.houseHand = [];
 
-  this.createDeck()
-  this.shuffleDeck()
+  this.newDeck()
   this.deal21()
 }
 
@@ -71,10 +70,19 @@ Game.prototype.calcValue = function (hand){
   return val;
 }
 
+Game.prototype.emptyDeck = function (){
+  return (this.deck.length < 1)
+}
+Game.prototype.newDeck(){
+  this.createDeck()
+  this.shuffleDeck()
+}
+
 Game.prototype.deal21 = function () {
   for(var i=0; i<2; i++){
-    if(this.deck.length<2)this.newDeck();
+    if(this.emptyDeck())this.newDeck();
     this.currentPlayerHand.push(this.deck.pop());
+    if(this.emptyDeck())this.newDeck();
     this.houseHand.push(this.deck.pop());
   }
   this.userTotal = this.calcValue(this.currentPlayerHand);
@@ -86,101 +94,92 @@ Game.prototype.deal21 = function () {
   //  else if(this.dealerTotal === 21) this.gameOver(); //dealer Wiinssss.
 };
 
+
+
+Game.prototype.hit = function (){
+  if(this.emptyDeck())this.newDeck();
+  this.currentPlayerHand.push(this.deck.pop());
+  this.userTotal = this.calcValue(this.currentPlayerHand);
+  //show the last card onscreen
+  //set the users score onscreen
+
+  if(this.userTotal > 21){
+    //set user lost on screen.
+    this.userBust = true;
+    this.gameOver();
+  }
+};
+
+Game.prototype.stand = function stand(){
+  while(this.dealerTotal < 17){
+    if(this.emptyDeck())this.newDeck();
+    this.houseHand.push(this.deck.pop());
+    //show last card
+    this.dealerTotal = this.calcValue(this.curdlrHand);
+    //set the dealers onscreen
+
+    if(this.dealerTotal > 21){
+      //set dealer lost.
+      this.dealerBust = true;
+    }
+  }
+  this.gameOver();
+}
+
+
+Game.prototype.gameOver = function gameOver(blackjack)
+{
+  document.getElementById("hidden-card").setAttribute("id","");
+  dealerScore.setAttribute("style", "visibility: visible;");
+  hit.setAttribute("style", "visibility:hidden;");
+  stand.setAttribute("style", "visibility:hidden;");
+
+  if(blackjack)
+  {
+    this.money +=3;
+    status.innerHTML ="BLACKJACK!!!!!!!!!";
+  }
+
+  else if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
+    //user wins
+    this.money+=2;
+    status.innerHTML ="YOU WIN!";
+  }
+  else if(this.userTotal === this.dealerTotal && this.userBust === false){
+    //push
+    this.money++;
+    status.innerHTML="PUSH :o";
+  }
+
+  else status.innerHTML="YOU LOSE!";
+  money.innerHTML="Money: "+this.money;
+
+}
+
+this.dump = function dump()
+{
+  for(var i=0; i<this.deck.length; i++)
+  {
+    this.deck[i].showCard();
+  }
+};
+}
+
+
+
 router.get('/newgame', function(req, res) {
   var game = new Game();
   console.log(game)
   //res.render('login', { title: 'Log In' });
 });
 
-/*
-hit -> deck1.hit();
-stand -> deck1.stand();
-new game -> deck1.deal21()
-}
 
-function Deck()
-{
+//hit -> deck1.hit();
+//stand -> deck1.stand();
+//new game -> deck1.deal21()
 
 
-this.emptyDeck = function emptyDeck()
-{
-if(this.deck.length < 1) return true;
-else return false;
-}
 
-
-this.hit = function hit()
-{
-if(this.emptyDeck())this.newDeck();
-this.currentPlayerHand.push(this.deck.pop());
-userHand.innerHTML+=this.currentPlayerHand[this.currentPlayerHand.length-1].showCard();
-this.userTotal = this.calcValue(this.currentPlayerHand);
-userScore.innerHTML=this.userTotal;
-if(this.userTotal >21)
-{
-userScore.innerHTML+=" <span style='color:red; font-weight: bold;'> BUST</span>";
-this.userBust = true;
-this.gameOver();
-}
-};
-
-this.stand = function stand()
-{
-while(this.dealerTotal < 17)
-{
-if(this.emptyDeck())this.newDeck();
-this.houseHand.push(this.deck.pop());
-dealerHand.innerHTML+=this.houseHand[this.houseHand.length-1].showCard();
-this.dealerTotal = this.calcValue(this.curdlrHand);
-dealerScore.innerHTML=this.dealerTotal;
-if(this.dealerTotal > 21)
-{
-dealerScore.innerHTML+=" <span style='color:red; font-weight: bold;'> BUST</span>";
-this.dealerBust = true;
-}
-}
-this.gameOver();
-}
-
-this.gameOver = function gameOver(blackjack)
-{
-document.getElementById("hidden-card").setAttribute("id","");
-dealerScore.setAttribute("style", "visibility: visible;");
-hit.setAttribute("style", "visibility:hidden;");
-stand.setAttribute("style", "visibility:hidden;");
-
-if(blackjack)
-{
-this.money +=3;
-status.innerHTML ="BLACKJACK!!!!!!!!!";
-}
-
-else if(this.userTotal > this.dealerTotal && this.userBust === false || this.dealerBust ===true){
-//user wins
-this.money+=2;
-status.innerHTML ="YOU WIN!";
-}
-else if(this.userTotal === this.dealerTotal && this.userBust === false){
-//push
-this.money++;
-status.innerHTML="PUSH :o";
-}
-
-else status.innerHTML="YOU LOSE!";
-money.innerHTML="Money: "+this.money;
-
-}
-
-this.dump = function dump()
-{
-for(var i=0; i<this.deck.length; i++)
-{
-this.deck[i].showCard();
-}
-};
-}
-
-*/
 
 
 function Card(suit, val, symbol)
