@@ -1,4 +1,8 @@
 var express = require('express'); //whoever requires
+
+var mongoose = require('mongoose');
+//get something from url, turn into query object
+
 //is going to get this back
 var router = express.Router();
  //getting slash, rendering index, exports router
@@ -10,13 +14,53 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/myURL', function(req,res){
+router.get('/projects', function(req,res){
 	///taking info from projects within models and using it here
 	models.project.find(function(error, mongoProjects){
 		res.render('projects',{
 			'projects': mongoProjects //projects back from mongo
 		}); //^^handle projects
 		//want to list projects
+	})
+})
+
+router.get('/projects/:id', function(req,res){
+	//TODO handle missing projects//
+
+	//query: only things AFTER quetion mark in url,
+	//params before... : makes is a param variable
+	//use id because want to make it a project id
+	//res.send('param id is '+req.params.id+"\nQuery is is "+req.query.id)
+	models.project.findById(req.params.id, function(error,mongoProject){
+	if(error){
+		res.statue(400).send('Error reading project '+ error);
+	}
+	else if (!mongoProject){
+		res.status(404).send('Error reading project: '+ req.params.id)
+	}
+	else{
+		res.render('singleProject', {
+			'project': mongoProject
+		})
+	}
+	})
+})
+
+router.get('/new',function(req,res){
+	//get requests in quesru
+	res.render('new')
+})
+
+router.post('/new', function(req, res){
+	//post requests in body
+	var p = new models.project({title: req.body.title})
+	p.save(function(error,project){
+	if(error){
+		res.status(400).send("Error creating project: "+error)
+	}
+	else {
+		res.redirect('/projects/' + project._id)
+	}
 	})
 })
 
