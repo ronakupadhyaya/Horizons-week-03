@@ -11,6 +11,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
+
+var optionday = function(min,max){
+  var array=[]
+  for (var i = min; i<max+1; i++){
+    //document.write("optiondation value = '" + i + "'> "+ i + "</option>");
+    array.push(i);
+  }
+  return array;
+}
+
+
+
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
 app.use(expressValidator());
@@ -34,7 +46,17 @@ app.get('/', function(req, res){
 // the server.
 app.get('/register', function(req, res){
   // YOUR CODE HERE
-  res.render('register');
+  res.render('register', {
+    errors: JSON.stringify(req.query),
+    name: req.query.name,
+    email: req.query.email,
+    date: optionday(1,31),
+    month: optionday(1,12),
+    year: optionday(1800,2016),
+    //<option selected> </option>
+    //{{#each day}}
+    //<option value ={{this}}> {{this}} </option>
+  });
 });
 
 // ---Part 2: Validation---
@@ -42,7 +64,15 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
+
 
 // ---Part 3: Render errors and profile---
 // POST /register
@@ -57,7 +87,17 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', {
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      bMonth: req.body.bMonth,
+      bDay: req.body.bDay,
+      bYear: req.body.bYear,
+      gender: req.body.gender,
+      biography: req.body.biography,
+
+    });
   }
 });
 
