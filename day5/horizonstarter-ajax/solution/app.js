@@ -9,7 +9,16 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
-var routes = require('./routes/index');
+var routes = require('./routes');
+
+/**
+ * First construct the main express app. We load the routes (a router object)
+ * from routes/.
+ *
+ * This is our HTML app, which the user will access directly in the browser.
+ * It needs a bunch of middleware such as validator, cookieParser, static files
+ * etc.
+ */
 
 var app = express();
 
@@ -35,6 +44,7 @@ app.use(session({secret: 'cutie kitty catz'}));
 
 // All of our routes are configured here. (For a more complex app, we could
 // split our routes up into multiple route files.)
+// NOTE: routes here is an express.Router object.
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -43,6 +53,16 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+/**
+ * Next we construct the API app, which is entirely separate from the above
+ * user-facing app. It returns JSON and HTTP status codes for AJAX consumption
+ * and doesn't need the full set of middleware. It's configured inside api/.
+ *
+ * NOTE: apiApp here is an express (app) object.
+ */
+var apiApp = require('./api');
+app.use('/api/1', apiApp);
 
 // error handlers
 

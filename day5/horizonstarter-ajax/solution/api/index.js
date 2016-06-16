@@ -17,6 +17,15 @@ var express = require('express');
 var validator = require('express-validator');
 var router = express.Router();
 var Project = require('../model/project');
+var bodyParser = require('body-parser');
+var validator = require('express-validator');
+
+// Create the (sub) app.
+var app = express();
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 
 /**
  * POST /project/:projectId/contribution
@@ -45,11 +54,17 @@ router.post('/project/:projectId/contribution', function(req, res) {
       return;
     }
 
-    project.contributions.push({
+    // Save this object so we can return it.
+    // Note: normally we'd need to return the actual data from the DB with an
+    // ID, but we keep it simple and just return this raw data. These
+    // contribution objects don't have their own model and they're not really
+    // interactive in our app so it works.
+    var newContribution = {
       name: req.body.name,
       comment: req.body.comment,
       amount: req.body.amount
-    });
+    };
+    project.contributions.push(newContribution);
     project.save(function(err) {
       console.error(err);
       if (err) {
@@ -57,7 +72,7 @@ router.post('/project/:projectId/contribution', function(req, res) {
         return;
       }
       // Send success: no need to return any data!
-      res.status(201).json({status:"ok"});
+      res.status(201).json(newContribution);
     });
   });
 });
