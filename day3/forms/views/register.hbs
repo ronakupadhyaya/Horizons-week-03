@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Registration</title>
@@ -15,10 +15,145 @@
     <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" placeholder="First Name" name="firstName" required><br>
+        <input type="text" placeholder="Middle Initial" name="middleInitial"><br>
+        <input type="text" placeholder="Last Name" name="lastName" required><br>
+        <input type="select" min="1" max="12" step="1" name="dobMonth"><br>
+        <input type="select" min="1" max="31" step="1" name="dobDay"><br>
+        <input type="select" min="1900" max="2016" step="1" name="dobYear"><br>
+        <input type="password" placeholder="Password" name="password"><br>
+        <input type="password" placeholder="Repeat Password" name="repeatPassword"><br>
+        <input type="radio" name="gender" value="male">Male<br>
+        <input type="radio" name="gender" value="female">Female<br>
+        <input type="radio" name="gender" value="notSay">Prefer not to say<br>
         <input type="submit">
       </form>
     </div>
+  </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: #2ECC71; padding-top: 2em;}
+  </style>
+</head>
+<header>
+  <h1>Register here!</h1>
+</header>
+<body>
+  <div class="container">
+  {{#if errors}}
+    <ul>Errors:
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}
+    {{/if}}
+    </ul>
+    <form class="form-horizontal" method="post">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="firstName" placeholder="First name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Middle Initial</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="middleInitial" placeholder="Middle initial">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="lastName" placeholder="Last name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Month</label>
+      <div class="col-sm-10">
+        <select name="dobMonth" class="form-control">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Day</label>
+      <div class="col-sm-10">
+        <select name="dobDay" class="form-control">
+          {{#each daysOfMonth}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DOB Year</label>
+      <div class="col-sm-10">
+        <select name="dobYear" class="form-control">
+          {{#each years}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+      <div class="col-sm-10">
+        <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="Password" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword2" class="col-sm-2 control-label">Repeat Password</label>
+      <div class="col-sm-10">
+        <input name="password2" type="password" class="form-control" id="inputPassword2" placeholder="Repeat Password" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Gender</label>
+      <div class="col-sm-10">
+        <input type="radio" name="gender" value="male">Male<br>
+        <input type="radio" name="gender" value="female">Female<br>
+        <input type="radio" name="gender" value="notSay">Prefer not to say<br>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Sign up for Newsletter</label>
+      <div class="col-sm-10">
+        <input type="checkbox">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Biography</label>
+      <div class="col-sm-10">
+        <textarea rows="4" cols="70" name="Bio" class="form-control" placeholder="Biography..."></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Register</button>
+      </div>
+    </div>
+  </form>
   </div>
 </body>
 </html>
