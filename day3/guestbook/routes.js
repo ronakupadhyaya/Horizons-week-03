@@ -37,11 +37,20 @@ router.post('/login', function(req, res) {
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
+  //how do we know what we are getting from req and res
+  // do we insta
+// req.query.name = simba if(req.query.name)
   // This renders the posts
+  var order = req.query.order;
+  var username = req.query.username;
+  if (order && username) {
+
+  }
+
   res.render('posts', {
     title: 'Posts',
-    posts: []
+    //replace the posts with the json object
+    posts: data.read("data.json")
   });
 });
 
