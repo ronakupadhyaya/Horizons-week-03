@@ -38,6 +38,12 @@ var program = require('commander');
 program.command('add')
   .description("Create Tasks")
   .action(addTask);
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+program.command('delete')
+  .description("delete Task")
+  .action(deleteTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
@@ -123,13 +129,14 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
-  var id = program.id;
-  var p = program.priority;
-  if(id){
-    console.log(data[id]);
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+  }else{
+    for (var i=0; i<data.length; i++){
+      console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
+    }
   }
-
-
 
 }
 
@@ -138,6 +145,17 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    if (id>=0 && id<data.length){
+      data.splice(id, 1);
+      console.log("Deleted task with id: "+program.id)
+    } else {
+      console.log('ID out of range')
+    }
+  } else{
+    console.log("No task specified")
+  }
 }
 
 // ---Utility functions---
