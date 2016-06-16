@@ -1,73 +1,84 @@
 "use strict";
+
 var express = require('express');
 var app = express();
 var fs = require('fs');
 var path = require('path');
+
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
+
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
 app.use(expressValidator());
+
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-// ROUTES
-app.get('/', function(req, res){
+
+// MODELS
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/formtwo');
+var User = require('./models/user');
+
+app.get('/', function(req, res) {
   res.redirect('/register');
 });
-// ---Part 1: GET /register---
+
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
-app.get('/register', function(req, res) {
+app.get('/register', function(req, res){
   // YOUR CODE HERE
-  res.render('register', {
-    errors: JSON.stringify(req.query),
-    name: req.query.name,
-    email: req.query.email,
-  });
+  res.render('register');
 });
-// ---Part 2: Validation---
+
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'First name is required').notEmpty();
-  req.checkBody('lastName', 'Fist name is required').notEmpty();
-  req.checkBody('password', 'Last name is required').notEmpty();
-  req.checkBody('gender', 'Gender name is required').notEmpty();
-  req.checkBody('repeatPassword', 'Last name is required').notEmpty();
+  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty().equals(req.body.password);
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
-// ---Part 3: Render errors and profile---
+
 // POST /register
-// This is the endpoint that the user hits when they submit
-// the registration form.
+// Create a user
+// If the fields are all validated, the data should be saved to the database 
+// using the user model and the page should redirect to the profile of the user 
+// that was just created.
 app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
-  if (req.body.password == req.body.repeatPassword || errors){
+  if (errors) {
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
-    // Include the data of the profile to be rendered with this template
-    res.render('profile', {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    day: req.body.day,
-    month: req.body.month,
-    year: req.body.year,
-    password: req.body.password,
-    male: req.body.male,
-    female: req.body.female 
-    });
+    
   }
 });
+
+// GET /profile/:id
+// Show a user
+// This route should fetch the user wit the given ide from the database and 
+// render the profile template with the user data.
+app.get('/profile/:id', function(req, res) {
+  // YOUR CODE HERE
+  
+});
+
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
 });
