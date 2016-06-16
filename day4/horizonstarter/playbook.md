@@ -69,7 +69,7 @@ To do this you must, roughly:
 ## Step 3: Bonus. You asked for it.
 
 Update your admin page. See if you can display: 
-	- Which projects a user donated too, and *how much* she/he donated per project!
-	- Which users donated to each the admin user's projects, and *how much* was donated per project! 
+- Which projects a user donated too, and *how much* she/he donated per project!
+- Which users donated to each the admin user's projects, and *how much* was donated per project! 
 
 
