@@ -9,6 +9,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+var handlebars = require('handlebars');
+
 var routes = require('./routes');
 
 /**
@@ -21,6 +23,11 @@ var routes = require('./routes');
  */
 
 var app = express();
+
+// // Some handlebars helpers
+// handlebars.registerHelper('fixId', function(obj) {
+//  
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,8 +49,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // does it all transparently.
 app.use(session({secret: 'cutie kitty catz'}));
 
-// All of our routes are configured here. (For a more complex app, we could
-// split our routes up into multiple route files.)
+// All of our main app routes are configured here. (For a more complex app, we
+// could split our routes up into multiple route files.)
 // NOTE: routes here is an express.Router object.
 app.use('/', routes);
 

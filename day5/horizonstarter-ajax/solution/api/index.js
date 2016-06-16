@@ -74,11 +74,10 @@ app.route('/project/:projectId/contribution')
         return;
       }
   
-      // Save this object so we can return it.
       // Note: normally we'd need to return the actual data from the DB with an
-      // ID, but we keep it simple and just return this raw data. These
-      // contribution objects don't have their own model and they're not really
-      // interactive in our app so it works.
+      // ID, but we keep it simple and just return success. These contribution
+      // objects don't have their own model and they're not really interactive
+      // in our app so it works.
       var newContribution = {
         name: req.body.name,
         comment: req.body.comment,
@@ -92,7 +91,7 @@ app.route('/project/:projectId/contribution')
           return;
         }
         // Send success: no need to return any data!
-        res.status(201).json(newContribution);
+        res.status(201).json({result: "ok"});
       });
     });
   });
