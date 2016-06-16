@@ -16,4 +16,26 @@ app.get('/', function (req, res) {
 });
 
 
-app.listen(3000);
+
+// view = index, comes form views folder
+// controller = app.get here 
+// model is Cat  
+
+// app.get => when you get this method in the browser, 
+// handles by rendering the index.hbs 
+
+// {{#unless cats}}
+// 	no cats yet, sorry! 
+// 	{{/unless}}
+// {{#each cats}}
+	// {{/each}}
+
+
+
+
+
+
+
+
+
+	app.listen(3000);
