@@ -9,3 +9,4 @@
 
 ## Pair programming exercises
 1. [Horizon Starter: backend-rendered web app](./horizonstarter)
+1. [(Bonus) Forms: connecting your forms to a database](./forms)
