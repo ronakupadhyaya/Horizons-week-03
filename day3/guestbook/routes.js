@@ -10,7 +10,9 @@ var router = express.Router();
 var data = require('./data');
 
 // ---Part 1. Login---
-
+router.get('/', function(req, res){
+  res.redirect('/routes');
+});
 // GET /login: Renders the form to log into the app when the user opens /login
 // on their browser. This function is already implemented for you to have as a model.
 // It passes the object with title : 'Log in' to the template
