@@ -185,8 +185,36 @@ more on this topic.
 
 ## Phase 2: Mongo, Mongoose
 
-Now that you've got your server running, the next step is to install and set up
-your database server, MongoDB, and the ORM tool, Mongoose. On OS X (assuming
+### Step 1: Set up Mongo
+
+Now that you've got your server running, the next step is to set up MongoDB.
+There are two ways you can do this: using a third party cloud service called
+mLab, or by installing and running Mongo locally. We recommend the first option,
+for simplicity, and because mLab gives you a visual tool that you can use to
+view and work with your data. However, note that it may be slightly faster to
+run Mongo locally.
+
+#### Option 1. (recommended): mLab
+
+mLab allows you to host Mongo databases in the cloud for free. Sign up for an
+account at https://mlab.com/signup/. Check your email and click on the
+verification link. Then, once you're back on the mLab site, tap the Create New
+button at the top right. Stick with the default settings for Cloud provider.
+Under Plan, tap Single-node and choose the free Standard option. Enter a
+Database name at the bottom, then tap Create new MongoDB deployment.
+
+Back on the Deployments screen, click on the deployment. You have to create a
+user. Click on the link to do so, fill in the fields on the modal form, and hit
+Create. Now, make note of the MongoDB URI, which should look something like
+this--filling in the username and password that you just created:
+
+    mongodb://<dbuser>:<dbpassword>@ds012231.mlab.com:15934/horizonstarter
+
+You'll need this connection string in just a moment.
+
+#### Option 2. Local install
+
+Follow these steps if you prefer to install Mongo locally. On OS X (assuming
 you've already installed [Homebrew](http://brew.sh/)), this should be as easy as
 running:
 
@@ -200,8 +228,21 @@ on how to run it:
     Or, if you don't want/need a background service you can just run:
       mongod --config /usr/local/etc/mongod.conf
 
+Run the second command to start the server. Note that, every time you restart
+your computer, you'll have to run this command again. If you prefer to have
+Mongo start automatically every time you start your computer, you can run the
+first command instead.
+
+When running locally, you don't need a username or a password. You should use
+the following connection string (MongoDB URI) (set `<PROJECTNAME>` to anything
+you like, it doesn't matter as long as it's unique):
+
+    mongodb://localhost/<PROJECTNAME>
+
 (You'll find instructions on installing and running Mongo on windows
 [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/).)
+
+### Step 2. Connecting Mongoose to MongoDB
 
 Once Mongo is installed and running, let's try connecting to it inside our
 application. Install Mongoose by running:
@@ -210,11 +251,10 @@ application. Install Mongoose by running:
 
 Then create a database configuration object (we recommend saving this into its
 own JS module, perhaps in a `config/` folder) which looks like this (replace
-`<PROJECTNAME>` with the name of your project--actually any name will do here,
-this is the name of the Mongo database that you're using for this project):
+`<MONGODB_URI>` with the connection string from above:
 
     dbConfig = {
-      'url' : 'mongodb://localhost/<PROJECTNAME>'
+      'url' : '<MONGODB_URI>'
     };
       
 Assuming you haven't changed any of the default Mongo settings, you should be
