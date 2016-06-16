@@ -19,7 +19,7 @@ Write to and read from MongoDb using a Mongoose model.
   1. Name: Crookshanks Color: Black
   1. Name: Mr. Bigglesworth Color: White
   1. Name: Empurress Color: Calico
-1. Run your script and `node models.js` and check output. Use <kbd>Control</kbd>+<kbd>C</kbd> to exit.
+1. Run your script and `node models.js` and check output. Use <kbd>Control</kbd>+<kbd>C</kbd> to exit. (Don't forget `npm install` first!)
 1. Open mLab, click on your database, click on the `cats` collection, verify that Crookshanks and friends are there.
   ![](img/mlab3.png)
 1. Edit `models.js`, write a `Cats.findOne()` query that only returns Mr. Bigglesworth.
