@@ -18,35 +18,37 @@
           <div class="panel-body">
       <!--       start form -->
             <form class="form-horizontal" action="/register" method="post">
-              {{#if error}}
-              <div class="alert alert-danger">{{error}}</div>
+              {{#if errors}}
+                {{#each errors}}
+                  <div class="alert alert-danger">{{msg}}</div>
+                {{/each}}
               {{/if}}
 <!--               first name -->
               <div class="form-group">
-                <label class="col-sm-3 control-label">First Name</label>
+                <label class="col-sm-3 control-label">{{firstName}}</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="First Name" required>
+                  <input type="text" class="form-control" name="firstName" placeholder="First Name" required>
                 </div>
               </div>
       <!--         middle initial -->
               <div class="form-group">
                 <label class="col-sm-3 control-label">Middle Initial</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="Middle Initial">
+                  <input type="text" class="form-control" name="middleInitial" placeholder="Middle Initial">
                 </div>
               </div>
       <!--         last name -->
               <div class="form-group">
                 <label class="col-sm-3 control-label">Last Name</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="Last Name" required>
+                  <input type="text" class="form-control" name="lastName" placeholder="Last Name" required>
                 </div>
               </div>
       <!--         dob month -->
               <div class="form-group">
                 <label class="col-sm-3 control-label">DOB Month</label>
                 <div class="col-sm-9">
-                  <select class="form-control" required>
+                  <select class="form-control" name="dobMonth" required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -66,7 +68,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">DOB Day</label>
                 <div class="col-sm-9">
-                  <select class="form-control" required>
+                  <select class="form-control" name="dobDay" required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -105,7 +107,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">DOB Year</label>
                 <div class="col-sm-9">
-                  <select class="form-control" required>
+                  <select class="form-control" name="dobYear" required>
                     <option>2016</option>
                     <option>2015</option>
                     <option>2014</option>
@@ -135,14 +137,14 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="Password" required>
+                  <input type="password" class="form-control" placeholder="Password" name="password" required>
                 </div>
               </div>
       <!--         repeat pw -->
               <div class="form-group">
                 <label class="col-sm-3 control-label">Repeat Password</label>
                 <div class="col-sm-9">
-                  <input type="password" class="form-control" placeholder="Repeat Password" required>
+                  <input type="password" class="form-control" placeholder="Repeat Password" name="passwordRepeat" required>
                 </div>
               </div>
 
@@ -171,14 +173,14 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Sign Up for newsletter</label>
                 <div class="col-sm-9">
-                  <input type="checkbox" value="">
+                  <input type="checkbox" name="newsletter" value="">
                 </div>
               </div>
       <!--         bio -->
               <div class="form-group">
                 <label class="col-sm-3 control-label">Biography</label>
                 <div class="col-sm-9">
-                  <textarea class="form-control" placeholder="Biography"></textarea>
+                  <textarea class="form-control" name="bio" placeholder="Biography"></textarea>
                 </div>
               </div>
 

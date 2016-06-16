@@ -52,8 +52,11 @@ app.get('/register', function(req, res){
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
+<<<<<<< HEAD
 
 // Can just keep adding these
+=======
+>>>>>>> master
 function validate(req) {
   req.checkBody('firstName', 'Invalid first name').notEmpty();
   req.checkBody('middleI', 'Invalid middle initial').isLength({min: 0, max: 1})
@@ -98,7 +101,7 @@ app.post('/register', function(req, res){
 });
 
 app.listen(3000, function() {
-  console.log("Exmaple app listening on port 3000!");
+  console.log("Example app listening on port 3000!");
 });
 
 //How to put in the hidden? 
