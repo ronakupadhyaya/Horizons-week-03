@@ -23,12 +23,15 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ROUTES
-app.get('/', function(req, res){
+// MODELS
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/formtwo');
+var User = require('./models/user');
+
+app.get('/', function(req, res) {
   res.redirect('/register');
 });
 
-// ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
@@ -37,17 +40,24 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
-// ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty().equals(req.body.password);
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
 
-// ---Part 3: Render errors and profile---
 // POST /register
-// This is the endpoint that the user hits when they submit
-// the registration form.
+// Create a user
+// If the fields are all validated, the data should be saved to the database 
+// using the user model and the page should redirect to the profile of the user 
+// that was just created.
 app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
@@ -56,9 +66,17 @@ app.post('/register', function(req, res){
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
-    // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    
   }
+});
+
+// GET /profile/:id
+// Show a user
+// This route should fetch the user wit the given ide from the database and 
+// render the profile template with the user data.
+app.get('/profile/:id', function(req, res) {
+  // YOUR CODE HERE
+  
 });
 
 app.listen(3000, function() {
