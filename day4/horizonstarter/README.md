@@ -198,6 +198,8 @@ run Mongo locally.
 
 #### Option 1. (recommended): mLab
 
+**Note: There's a more detailed walkthrough of creating an mLab account (with screenshots) in [this morning's warmup exercise](../warmup.md).**
+
 mLab allows you to host Mongo databases in the cloud for free. Sign up for an
 account at https://mlab.com/signup/. Check your email and click on the
 verification link. Then, once you're back on the mLab site, tap the Create New
