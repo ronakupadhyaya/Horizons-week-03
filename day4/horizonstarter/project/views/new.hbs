@@ -1,0 +1,39 @@
+<h1>Create project</h1>
+
+<form method="post">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" name="title" placeholder="Title">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" name="description" placeholder="Write a description"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Category</label>
+    <select class="form-control" name="category" placeholder=" ">
+    <option>Honest Causes</option>
+    <option>Scams</option>
+    <option>Unattainable Dreams</option>
+    </select> 
+  </div>
+  <div class="form-group">
+    <label>Fundraising goal</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" name="goalAmount" placeholder="Amount">
+      <div class="input-group-addon">.00</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Start date</label>
+    <input type="date" class="form-control" name="startDate" placeholder="mm/dd/yyyy">
+  </div>
+  <div class="form-group">
+    <label>End date</label>
+    <input type="date" class="form-control" name="endDate" placeholder="mm/dd/yyyy">
+  </div>
+  
+  
+  <button type="submit" class="btn btn-default">Create Project</button>
+</form>
