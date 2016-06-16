@@ -12,7 +12,12 @@ function addContribution(newContribution) {
   wrapper.append(comment);
 
   // Add it to the DOM. Boom.
-  $('#contributions').append(wrapper);
+  $('#contributionsAnchor').append(wrapper);
+
+  // Add the success alert.
+  var alert = $('<div class="alert alert-success">Thanks for your contribution! You rock!</div>');
+  $('#alertAnchor').empty();
+  $('#alertAnchor').append(alert);
 }
 
 /**
@@ -78,6 +83,13 @@ function newContribution() {
     // display the new contribution locally.
     sendContribution(newContribution, function() {
       console.log("AJAX send successful, mounting new contribution in DOM");
+
+      // Clear form
+      nameField.val('');
+      commentField.val('');
+      amountField.val('');
+
+      // Mount new
       addContribution(newContribution);
     });
   }
