@@ -405,6 +405,10 @@ for this purpose.
 
 Everyone should seek to get through the MVP features. If you do, pat yourself on the back!
 
+Even if you get into the challenge, we will be impressed.
+
+If you finish the bonus today, we will by you dinner. 
+
 ### MVP Features: No Users
 
 **If you feel you need some guidance, checkout `/playbook.md` !!!!!**
