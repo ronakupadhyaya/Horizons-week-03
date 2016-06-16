@@ -10,7 +10,7 @@
 // ex. replaceAll('x aa b x', 'a', 'b') -> 'x bb b x'
 function replaceAll(source, letter, replacement) {
   var ret = '';
-  for (var i = 0; i < source; i++) {
+  for (var i = 0; i < source.length; i++) {
     if (source[i] === letter) {
       ret += replacement;
     } else {
@@ -27,3 +27,4 @@ if (require.main === module) {
 }
 
 module.exports = replaceAll;
+replaceAll('aaaaaa', 'a', 'b');

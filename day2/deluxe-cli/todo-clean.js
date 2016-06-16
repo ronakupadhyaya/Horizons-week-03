@@ -40,18 +40,15 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
-program.command('show')
+program.command('Show')
   .description("Show Tasks")
   .action(showTasks);
 
 // YOUR CODE HERE for "Delete" its action must call deleteTask
-program.command('delete')
+program.command('Delete')
   .description("Delete Tasks")
   .action(deleteTask);
 
-program.command('completed')
-  .description("Completed Tasks")
-  .action(toggleCompleted);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -76,10 +73,6 @@ program
 // YOUR CODE HERE for "--priority and -p"
 program
   .option('-p, --priority <n>', 'Specify priority of task', parseInt);
-
-program
-  .option('-c, --completed <n>', 'Specify priority of task', parseInt);
-  
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -134,31 +127,21 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
-  debugger;
-  if(program.id) {
-    console.log("Task #"+program.id+" Priority "+data[program.id-1].priority+ ": "+data[program.id-1].name)
-  } else { 
-    for (var i = 0 ; i < data.length ; i++){
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+  } else 
+    { for (var i = 0 ; i < data.length ; i++){
       console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
     }
-  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-
   // YOUR CODE HERE
-    if(program.id){
-      var id = program.id-1;
-      if (id>=0 && id<data.length){
-        data.splice(id,1);
-        console.log("Deleted task with id#"+program.id)
-      } else {
-        console.log("No task")
-        }
-    }
+
 
 }
 
@@ -173,10 +156,7 @@ function ensureFileExists() {
     writeFile([]);
   }
 }
-
-function toggleCompleted(){
-  data[program.id-1].completed === true;
-}
+writeFile(data);                  
 
 
-writeFile(data);
+//

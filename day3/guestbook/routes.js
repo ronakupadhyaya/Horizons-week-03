@@ -1,9 +1,10 @@
 "use strict";
 var express = require('express');
 var jsonfile = require('jsonfile');
-
+var app = express();
 var router = express.Router();
-
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
@@ -35,14 +36,38 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.query.username
 // Hint: use jsonfile.readFileSync() to read the post data from data.json 
 
-router.get('/posts', function (req, res) {
-  // YOUR CODE HERE
 
-  // This renders the posts
-  res.render('posts', {
+router.get('/posts', function (req, res) {
+    // YOUR CODE HERE
+  var originalPost = jsonfile.readFileSync('data.json');
+  var returnPost = [];
+  if(req.query.username){
+    for (var i = 0 ; i < originalPost.length ; i++){
+      if(originalPost[i].author == req.query.username){ 
+        returnPost.push(originalPost[i])
+      }
+    }    
+  } else { returnPost = originalPost
+}
+
+  if(req.query.order == "ascending"){ 
+    returnPost.sort(function(a, b){
+      return a.date-b.date
+    });
+  } else if (req.query.order == "descending") {
+    returnPost.sort(function(a, b){
+      return b.date-a.date
+    } );
+
+  }
+
+res.render('posts', {
     title: 'Posts',
-    posts: []
+    posts: returnPost,
+    username: req.query.username,
+
   });
+  
 });
 
 // ---Part 3. New post form---
@@ -51,7 +76,16 @@ router.get('/posts', function (req, res) {
 // Hint: if req.cookies.username is set, the user is logged in.
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+  res.render('post_form',{
+  name: req.cookies.username,
+  });
+  }
 });
+
+
+
+
 
 // ---Part 4. Create new post
 // POST /posts: This route receives the information for the new post. User must
@@ -64,6 +98,40 @@ router.get('/posts/new', function(req, res) {
 // After updating data, you should write it back to disk wih data.save()
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+if(!req.cookies.username){
+  res.redirect('/posts')
+} else { validate(req)
+  var errors = req.validationErrors();
+  if(errors) { 
+    res.render("post_form", {
+      error: errors,
+    })
+
+  } else {
+    var originalPost = data.read();
+    originalPost.push({
+      author : req.cookies.username,
+      date : new Date(),
+      title : req.body.title,
+      body: req.body.body,
+     })
+data.save(originalPost);
+
+res.render("posts", { 
+  posts: originalPost
+})
+  }
+
+}
+
+
 });
+
+function validate(req) {
+  req.checkBody('title', 'There is no title').notEmpty();
+  req.checkBody('body', 'There is no body').notEmpty();
+ 
+
+}
 
 module.exports = router;
