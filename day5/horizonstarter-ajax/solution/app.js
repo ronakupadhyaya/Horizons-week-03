@@ -47,13 +47,6 @@ app.use(session({secret: 'cutie kitty catz'}));
 // NOTE: routes here is an express.Router object.
 app.use('/', routes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 /**
  * Next we construct the API app, which is entirely separate from the above
  * user-facing app. It returns JSON and HTTP status codes for AJAX consumption
@@ -62,7 +55,15 @@ app.use(function(req, res, next) {
  * NOTE: apiApp here is an express (app) object.
  */
 var apiApp = require('./api');
-app.use('/api/1', apiApp);
+app.use('/api/1/', apiApp);
+
+// ALL OTHER REQUESTS which reach this point result in a 404 not found
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 // error handlers
 

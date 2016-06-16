@@ -15,10 +15,11 @@
 
 var express = require('express');
 var validator = require('express-validator');
-var router = express.Router();
-var Project = require('../model/project');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+
+var Project = require('../model/project');
 
 // Create the (sub) app.
 var app = express();
@@ -27,52 +28,73 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(validator());
 
+// Chain our routes. Nifty!
+app.route('/project/:projectId/contribution')
 /**
- * POST /project/:projectId/contribution
+ * GET /project/:projectId/contribution
  *
- * Adds a new contribution to an existing project.
- * NOTE: duplicates some logic from app route in index.js.
+ * Get the list of contributions to the current project.
  */
-router.post('/project/:projectId/contribution', function(req, res) {
-  // Look up the project.
-  Project.findById(req.params.projectId, function (err, project) {
-    // The project ID doesn't exist.
-    if (err) {
-      res.status(404).json(err);
-      return;
-    }
-
-    // We got a project. Add the contribution.
-
-    // Validate the input.
-    req.checkBody('name', 'Name is required').notEmpty();
-    req.checkBody('amount', 'Amount is required').notEmpty();
-    req.checkBody('amount', 'Amount must be an integer').isInt();
-    var errors = req.validationErrors();
-    if (errors) {
-      res.status(400).json(errors);
-      return;
-    }
-
-    // Save this object so we can return it.
-    // Note: normally we'd need to return the actual data from the DB with an
-    // ID, but we keep it simple and just return this raw data. These
-    // contribution objects don't have their own model and they're not really
-    // interactive in our app so it works.
-    var newContribution = {
-      name: req.body.name,
-      comment: req.body.comment,
-      amount: req.body.amount
-    };
-    project.contributions.push(newContribution);
-    project.save(function(err) {
-      console.error(err);
+  .get(function(req, res) {
+    // Look up the project.
+    Project.findById(req.params.projectId, function (err, project) {
+      // The project ID doesn't exist.
       if (err) {
-        res.status(500).json(err);
+        res.status(404).json(err);
         return;
       }
-      // Send success: no need to return any data!
-      res.status(201).json(newContribution);
+      res.status(200).json(project.contributions);
+    });
+  })
+
+  /**
+   * POST /project/:projectId/contribution
+   *
+   * Adds a new contribution to an existing project.
+   * NOTE: duplicates some logic from app route in index.js.
+   */
+  .post(function(req, res) {
+    // Look up the project.
+    Project.findById(req.params.projectId, function (err, project) {
+      // The project ID doesn't exist.
+      if (err) {
+        res.status(404).json(err);
+        return;
+      }
+  
+      // We got a project. Add the contribution.
+  
+      // Validate the input.
+      req.checkBody('name', 'Name is required').notEmpty();
+      req.checkBody('amount', 'Amount is required').notEmpty();
+      req.checkBody('amount', 'Amount must be an integer').isInt();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.status(400).json(errors);
+        return;
+      }
+  
+      // Save this object so we can return it.
+      // Note: normally we'd need to return the actual data from the DB with an
+      // ID, but we keep it simple and just return this raw data. These
+      // contribution objects don't have their own model and they're not really
+      // interactive in our app so it works.
+      var newContribution = {
+        name: req.body.name,
+        comment: req.body.comment,
+        amount: req.body.amount
+      };
+      project.contributions.push(newContribution);
+      project.save(function(err) {
+        console.error(err);
+        if (err) {
+          res.status(500).json(err);
+          return;
+        }
+        // Send success: no need to return any data!
+        res.status(201).json(newContribution);
+      });
     });
   });
-});
+
+module.exports = app;
