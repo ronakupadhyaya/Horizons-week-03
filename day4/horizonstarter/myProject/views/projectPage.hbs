@@ -1,0 +1,59 @@
+<div>
+	{{#each projects}}
+	<div>
+	{{title}}
+	</div>
+	<div>
+	Category: {{category}}
+	</div>
+	<div>
+	Fundraising Goal: {{goal}}
+	</div
+	<div>
+	Insert contributions
+	</div>
+	<div>
+	Start Date: {{startDate}}
+	</div>
+	<div>
+	End Date: {{endDate}}
+	</div>
+	<div>
+	About this project: {{description}}
+	</div>
+	Contributions
+	{{# each donation}}
+	<div>
+		<div>
+			Donator: {{donator}}
+		</div>
+		<div>
+			Amount: {{amount}}
+		</div>
+		<div>
+			Comment: {{comment}}
+		</div>
+	</div>
+	{{/each}}
+	<form action="/project/{{_id}}" method="POST">
+	<label>Contribute</label>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="title" placeholder="Your name" name="donator">
+	  </div>
+	  	  <div class="form-group">
+	    <label class="sr-only" for="goal">Amount (in dollars)</label>
+	    <div class="input-group">
+	      <div class="input-group-addon">$</div>
+	      <input type="text" class="form-control" id="goal" placeholder="Amount" name="amount">
+	      <div class="input-group-addon">.00</div>
+    	</div>
+    	</div>
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="title" placeholder="Comment" name="comment">
+	  </div>
+
+    	  <button type="submit" class="btn btn-primary">Contribute</button>
+  	</div>
+  	</form>
+  {{/each}}
+</div>
