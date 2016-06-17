@@ -8,7 +8,8 @@
 - [Phase 3: Data model, schema](#phase-3-data-model-schema)
 - [Phase 4: Views](#phase-4-views)
 - [Phase 5: Routes](#phase-5-routes)
-- [Phase 6: (BONUS) Do all the things](#bonus-phase-6-do-all-the-things)
+- [A little extra guidance](#a-little-extra-guidance)
+- [BONUS challenges](#bonus-challenges)
 - [Troubleshooting](#troubleshooting)
 
 ## Introduction
@@ -47,15 +48,37 @@ that includes benefits of both frontend and backend apps. We'll explore this
 topic more over the coming days. But we'll start today by writing a purely
 backend web app.
 
+### The goal
+
 Your goal is to write the Horizon Starter app (a clone of Kickstarter) as a
 purely backend webapp. You're starting from scratch and it's up to you to design
 and layout the project as you see fit, but we'll walk you through the steps and
 provide suggestions.
 
+In terms of functionality, the MVP (everything up to and excluding the
+[bonuses](#bonus-challenges)) should contain the following:
+
+- A front page which lists all projects (perhaps with a set of featured projects
+  on top, like on Kickstarter)
+- A page that lets you view a project, and donate to that project
+- A page that lets you create a new project
+- The ability to filter the list of projects on the front page using query
+  parameters
+  - Filter by projects that are fully funded (query string: `?funded=true`)
+  - Filter by projects looking to raise over a certain amount of money (e.g. the
+    query string `?goal_greater_than=10000` should return all projects seeking
+    to raise over $10k) (not implemented in solution)
+- A page that lets you bulk edit/delete projects (not implemented in
+  solution)
+
+A Kickstarter clone without users sounds a little sucky, but it's a great
+starting point and an introduction to backend apps, routes, and databases.
+You'll get to add users and some additional cool functionality in the bonus.
+
 ### Solution
 
 You can check out a [live, hosted version of the
-solution](http://107.170.120.178:8090/). You can also run the solution code
+solution](http://starter.horizonsbootcamp.com:8090/). You can also run the solution code
 locally, but first you'll need to [configure Mongo](#phase-2-mongo-mongoose). If
 you're not running MongoDB locally, you'll also need to update the MongoDB URI
 in `config/db.js`. Then you can run:
@@ -197,6 +220,8 @@ view and work with your data. However, note that it may be slightly faster to
 run Mongo locally.
 
 #### Option 1. (recommended): mLab
+
+**Note: There's a more detailed walkthrough of creating an mLab account (with screenshots) in [this morning's warmup exercise](../warmup.md).**
 
 mLab allows you to host Mongo databases in the cloud for free. Sign up for an
 account at https://mlab.com/signup/. Check your email and click on the
@@ -449,14 +474,76 @@ take the user away from the main app flow, and they should not cause data the
 user has entered to disappear. Make use of Bootstrap components such as alerts
 for this purpose.
 
-## (BONUS) Phase 6: Do all the things
 
-So you've got a working Kickstarter clone with projects and contributions. Well
-aren't you a hot shot? But you're not done yet. Not really. Not until you're
-stealing business from Kickstarter and Indiegogo. (If you are, let me know so I
-can invest.)
+## A little extra guidance
 
-Try adding the following features:
+If you're feeling a little lost, check out the [Horizon Starter
+Playbook](./playbook.md). You'll find a few more tips and some additional
+guidance there.
+
+
+## BONUS challenges
+
+Everyone should aim to get through the MVP features (everything up to this
+point). If you do, pat yourself on the back because YOU'RE AWESOME! 💪💪🤘
+
+If you've gotten this far--starting on the challenge--we will be super
+impressed.
+
+And if you FINISH today's bonus, we will buy you dinner. For reals. (Ethan might
+tag along. He's looking a little undernourished. Hope that's cool.)
+
+### A real challenge: adding users
+
+Let's add the following functionality:
+
+- Every project has an owner.
+- A user can donate to any project as long as they are not that project's owner
+  (i.e., the creator of that project).
+- Users can login and logout.
+- A user must login to create a project or make a donation.
+- A personal admin page that lets a user see all the projects she has created,
+  how much each of her projects has raised, and a list of which projects she has
+  donated to.
+
+To do this you must, roughly: 
+
+- Create user model with one property for a username
+- Create a login page
+	- `GET /login` renders an HTML page with 1 input field asking for a username
+  - `POST /login` creates and saves a user object (unless it already exists). It
+    then sets a username cookie with the user's username. 
+- Create a logout button (if there is an existing cookie, delete it). `GET
+  /logout` should just remove the `"username"` cookie and redirect to the `GET
+  /login` page. 
+- Make sure that `GET projects/new` route only renders a form if there is a
+  `"username"` cookie
+- `GET projects/:id` should only show a donate button if the username cookie !==
+  the owner of the Project :)
+- Add an `owner` property to the Project model. This will store the id of the
+  User that created the project
+- To keep track of the which projects a user has donated to:
+  - Add a Donations array to the User model. This should store id's of Projects
+    the User has donated to
+  - Edit the `/donate/:id` route to update the Donations array whenever a user
+    donates
+- Create an admin page for a user at `GET /admin`. Note there is no `/:id` on
+  this route. Instead, the admin page looks at the username cookie to find the
+  user we care about. 
+  - Show each project the user owns
+  - How much each project has in donations 
+  - Which projects a user donated to, and *how much* she donated to each
+    project!
+  - Which users donated to each of the user's projects, and *how much* was
+    donated per project! 
+
+(Get this far and you get a free dinner. Keep going and you're insane. In a good
+way.)
+
+### Even more: do all the things
+
+Just in case you're feeling ambitious, implement the following additional
+functionality from Kickstarter: 
 
 - Add images, videos, and rewards to projects, if you haven't already.
 - Alert users (by email, or by SMS, using Twilio) when their project, or a
@@ -473,6 +560,7 @@ Try adding the following features:
 - Add some more Kickstarter-style features: users, featured projects, favorites
   (stars), project updates, etc.
 - Add unit tests: for your schemas and models, for form validation, etc.
+
 
 ## Troubleshooting
 
