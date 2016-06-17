@@ -1,0 +1,34 @@
+<form class="form-horizontal" method="post">
+    <div class="form-group">
+        <label class="control-label">Title</label>
+        <input name="title" type="text" class="form-control" placeholder="Title" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Description</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <input name="description" type="text" class="form-control" placeholder="Description" required>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Category</label>
+        <select class="form-control">
+            <option>Internet</option>
+            <option>Mobile</option>
+            <option>Gifs</option>
+            <option>Enterprise</option>
+            <option>Cute Cats</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Fundraising Goal</label>
+        <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount">
+            <div class="input-group-addon">.00</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+    </div>
+</form>

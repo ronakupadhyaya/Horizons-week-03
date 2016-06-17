@@ -1,0 +1,13 @@
+ {{#each projects}}
+<div class="jumbotron">
+    <h1>Project: {{title}}</h1>
+    {{#if description}}
+    <p>Description: {{description}}</p>
+    {{/if}}
+    <p><a class="btn btn-primary btn-lg" href="/projects/{{_id}}" role="button">Learn more</a></p>
+</div>
+{{/each}}
+<div>
+    <p><a href="/new">Create new project</a></p>
+</div>
+<!-- Link for creating a new project -->
