@@ -52,13 +52,18 @@ First build a Blackjack game where a single person can play against the dealer.
 
 ### Models
 
-- Game: a single Blackjack game. Properties:
+These must be backed by a mongo database. Create a model with the following properties.
 
+- Game: a single Blackjack game. Properties:
   - Player bet (`Number`): number of Horizons Dollars the player has bet.
   - Deck of cards the game is being played with. Must be shuffled.
   - Player hand `Array` of cards in the players hand.
   - Dealer hand `Array` of cards in the dealers hand.
   - Is game over (`Boolean`): true if game is over, false otherwise.
+
+The game must be stored to the database on every request, because a game can be
+closed and played later. On every request that needs the game: retrieve it, make
+changes and store it back. 
 
 ### Part 1: Backend Section.
 
