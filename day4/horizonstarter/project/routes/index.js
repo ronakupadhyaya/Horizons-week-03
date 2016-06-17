@@ -103,6 +103,53 @@ router.get("/projects/delete/:id", function(req, res){
     d.save(function(error ))
     });
 
+    app.post('/counters/:id/up', function(req, res) {
+      var update = {
+        $inc: {
+          count: -1
+        }
+      };
+      Counter.findByIdAndUpdate(req.params.id, update, function(error, counter) {
+        if (error) {
+          res.status(400).send(error);
+        } else {
+          res.json(counter);
+        }
+      });
+    });
+
+    app.post('/counters/:id/up', function(req, res) {
+      Counter.findById(req.params.id, function(error, counter) {
+        if (error) {
+          res.status(400).send(error);
+        } else {
+          counter.count++;
+          counter.save(function(error2, newCounter) {
+            if (error2) {
+              res.status(400).send(error2);
+            } else {
+              res.json(newCounter);
+            }
+          });
+        }
+      });
+    });
+
+    app.post('/counters/up/:id', function(req, res) {
+      var incrementBy = req.body.amount || 1;
+      var update = {
+        $inc: {
+          count: incrementBy
+        }
+      };
+      Counter.findByIdAndUpdate(req.params.id, update, function(error, counter) {
+        if (error) {
+          res.status(400).send(error);
+        } else {
+          res.json(counter);
+        }
+      });
+    });
 
 
 module.exports = router;

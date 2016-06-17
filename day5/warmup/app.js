@@ -21,6 +21,15 @@ app.get('/', function(req, res) {
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
 
+app.post('/increment', function(req, res) {
+  count++;
+res.redirect('index');
+ });
+
+ app.delete('/', function (req, res){
+   count--;
+ res.redirect('/'); });
+
 // YOUR CODE HERE
 
 // ---Task 2---
