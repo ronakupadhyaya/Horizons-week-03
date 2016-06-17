@@ -19,6 +19,23 @@ router.get('/projects', function(req, res){
 	});
 });
 
+router.get("/projects/new", function(req, res){
+	res.render("new");
+});
+
+router.post("/projects/new", function(req, res){
+	console.log("data", req.body);
+	req.body.raised = 0;
+	var p = new models.project(req.body);
+	p.save(function(error, project){
+		if(error){
+			res.status(400).send(error);
+		} else {
+			res.redirect('/projects');
+		}
+	});
+	// res.send("yup");
+});
 
 router.get('/projects/:id', function(req, res){ //b4 question mark is params, after question mark is id
 	models.project.findById(req.params.id, function(error, mongoProject){
@@ -32,19 +49,33 @@ router.get('/projects/:id', function(req, res){ //b4 question mark is params, af
 	});
 });
 
-router.get("projects/new", function(req, res){
-	res.render("new");
-});
+router.post('/projects/:id', function(req, res){
 
-router.post("projects/new", function(req, res){
-	var p = new models.project(req.body);
-	p.save(function(error, project){
+	models.project.findByIdAndUpdate(req.params.id, {
+		$push: {
+			contributions: {
+				name: req.body.name,
+				amount: req.body.amount,
+				comment: req.body.comment,
+
+			}
+		},
+		$inc: {
+			raised: req.body.amount
+		}
+	}, function(error, mongoProject){
+		console.log(mongoProject);
 		if(error){
-			res.status(400).send(error);
-		} else {
-			res.redirect('/projects');
+			res.status(400).send;
+		} else{
+			res.redirect("/projects/" + req.params.id);
 		}
 	});
+});
+
+
+router.get("/login", function(req, res){
+	res.render("login");
 });
 
 module.exports = router; // w/ node, you have to explicitly eport things that you want to use elsewhere

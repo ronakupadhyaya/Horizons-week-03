@@ -1,9 +1,17 @@
-<ul>
-{{#each projects}}
-	<li>
-	<a href="/projects/{{_id}}">{{title}}</a>
-	</li>
-{{/each}}
-</ul>
+<body>
+	<h1 class="projects-title">Horizon Starter</h1>
+	<div class="login-button">
+		<a href="/login">Log in</a>
+	</div>
+	{{#each projects}}
+		<div class="well">
+		<h2>Title: {{title}}</h2>
+	    <h3>Description: {{description}}</h3>
+		<a href="/projects/{{_id}}">View project</a>
+		</div>
+	{{/each}}
+</body>
 
-<a href="projects/new">Create new project</a>
+
+<a href="/projects/new">Create new project</a>
+

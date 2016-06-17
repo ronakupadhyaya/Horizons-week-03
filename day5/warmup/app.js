@@ -17,16 +17,31 @@ app.get('/', function(req, res) {
   });
 });
 
+app.post('/', function(req, res) {
+	res.json({
+		count: count
+	});
+});
+
 // ---Task 1---
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
 
-// YOUR CODE HERE
-
+app.post('/increment', function(req, res){
+	count++;
+	res.json({
+		count: count
+	});
+});
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
 
-// YOUR CODE HERE
+app.post('/decrement', function(req, res){
+	count--;
+	res.json({
+		count: count
+	});
+});
 
 app.listen(3000);

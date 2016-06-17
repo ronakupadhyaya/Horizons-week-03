@@ -1,8 +1,54 @@
-<form class="form-inline" method="post">
-	<div class="form-group">
-		<label class="sr-only">Title</label>
-		<input type="text" class="form-control" name="title" placeholder="Project Name">
-	</div>
-
-	<button type="submit" class="btn btn-default">Create Project</button>
+<body>
+    <h1>Horizon Starter</h1>
+<h2>Create project</h2>
+<form method="post">
+    <div class="form-group">
+        <label for="title">Project Title</label>
+        <input type="text" name="title" class="form-control" id="title" placeholder="Project title" value="">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" class="form-control" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" class="form-control">
+              <option>Art</option>
+              <option>Comics</option>
+              <option>Crafts</option>
+              <option>Dance</option>
+              <option>Design</option>
+              <option>Fashion</option>
+              <option>Film & Video</option>
+              <option>Food</option>
+              <option>Games</option>
+              <option>Journalism</option>
+              <option>Music</option>
+              <option>Photography</option>
+              <option>Publishing</option>
+              <option>Technology</option>
+              <option>Theater</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="amount">Fundraising goal</label>
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            <input type="text" class="form-control" id="amount" name="goal" placeholder="Amount" value="">
+            <div class="input-group-addon">.00</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="start">Start date</label>
+        <input type="date" class="form-control" id="start" name="startDate" value="">
+    </div>
+    <div class="form-group">
+        <label for="end">End date</label>
+        <input type="date" class="form-control" id="end" name="endDate" value="">
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
 </form>
+
+  
+
+</body>
