@@ -26,6 +26,10 @@ router.get('/projects', function(req,res){
 	})
 })
 
+router.post('/categories', function(req,res){
+	res.redirect('/posts?category='+res.query)
+})
+
 router.get('/projects/:id', function(req,res){
 	//TODO handle missing projects//
 	//query: only things AFTER quetion mark in url,
@@ -72,6 +76,10 @@ router.post('/projects', function(req,res){
 	res.redirect('../new')
 })
 
+router.get('/categories', function(req,res){
+	res.render('categories')
+})
+
 router.post('/projects/:id', function(req,res){
 	models.project.findById(req.params.id, function(error, mongoProject){
 		if(error){
@@ -89,6 +97,7 @@ router.post('/projects/:id', function(req,res){
 		}
 	})
 })
+
 
 router.get('/hello', function(req, res){
 	res.send('Hello there')
