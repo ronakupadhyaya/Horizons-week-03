@@ -12,6 +12,6 @@
 
   Get through the following: 
     - MVP Features
-    - Challenge Features 
+    - [These bonus features](../day4/horizonstarter/README.md#a-real-challenge-adding-users)
 	
 2. [Horizon Starter: AJAX Edition](horizonstarter-ajax/README.md)
