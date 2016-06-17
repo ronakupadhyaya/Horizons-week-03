@@ -61,9 +61,13 @@ router.post('/new', function(req, res){
 		res.status(400).send("Error creating project: "+error)
 	}
 	else {
-		res.redirect('/projects/' + project._id)
+		res.redirect('/projects')
 	}
 	})
+})
+
+router.post('/projects', function(req,res){
+	res.redirect('../new')
 })
 
 router.post('/projects/:id', function(req,res){

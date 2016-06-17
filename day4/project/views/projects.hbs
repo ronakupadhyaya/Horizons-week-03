@@ -1,10 +1,15 @@
-<h1>DOES THIS WORK</h1>
+<h1>Welcome to Horello Starter</h1>
+<h2>Current Projects:</h2>
 <ul>
 {{#each projects}}
 	<li>
 		<a href="projects/{{_id}}"">{{title}}:</a>
 		<p>{{description}}</p>
-		<p>By {{user}}</p>
+		<p>By: {{user}}</p>
+		<p>Category</p>
 	</li>
 {{/each}}
 </ul>
+<form method="post">
+ <button type="submit" class="btn btn-default">Create a Project</button>
+</form>
