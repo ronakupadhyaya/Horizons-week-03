@@ -494,7 +494,7 @@ impressed.
 And if you FINISH today's bonus, we will buy you dinner. For reals. (Ethan might
 tag along. He's looking a little undernourished. Hope that's cool.)
 
-### A real challenge: adding users
+### Adding users
 
 Let's add the following functionality:
 
