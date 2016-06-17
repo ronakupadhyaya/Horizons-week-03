@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // MODELS
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/formtwo');
+mongoose.connect('mongodb://spark423:psh8181@ds051534.mlab.com:51534/spark_horizons');
 var User = require('./models/user');
 
 app.get('/', function(req, res) {
@@ -66,17 +66,34 @@ app.post('/register', function(req, res){
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
-    
+    var user = new User ({
+    	firstName: req.body.firstName,
+        middleInitial: req.body.middleInitial,
+        lastName: req.body.lastName,
+        dobDay: req.body.dobDay,
+        dobMonth: req.body.dobMonth,
+        dobYear: req.body.dobYear,
+        gender: req.body.gender,
+        newsletter: req.body.newsletter,
+        bio: req.body.bio
+    });
+    user.save(function(error, data){
+    	var id = data._id;
+    	res.redirect('/profile/' + id);
+    });
   }
 });
 
 // GET /profile/:id
 // Show a user
-// This route should fetch the user wit the given ide from the database and 
+// This route should fetch the user wit the given id from the database and 
 // render the profile template with the user data.
 app.get('/profile/:id', function(req, res) {
-  // YOUR CODE HERE
-  
+	User.find({_id: req.params.id}, function(error,data) {
+		if (! error) {
+			res.render('profile',data[0]);
+		}
+	});
 });
 
 app.listen(3000, function() {

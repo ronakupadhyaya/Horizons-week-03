@@ -10,9 +10,15 @@
 </head>
 <body>
   <p>
-    Add one Bootstrap-style success notification and one warning notification
-    to this page using partials.
+  Add one Bootstrap-style success notification and one warning notification to this page using partials.
   </p>
+  <div class="alert alert-success">
+    <strong>{{>success msg="Good Job!"}}</strong>
+  </div>
+  <div class="alert alert-warning">
+    <strong>{{>warning msg="Be Careful!"}}</strong>
+  </div>
+
 
 </body>
 </html>
