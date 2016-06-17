@@ -32,6 +32,14 @@ app.post('/increment', function(req,res){
 	//refresh just does get request
 })
 
+app.get('/increment', function(req,res){
+	count++
+	res.json({
+		count: count
+	})
+	res.redirect('/')
+})
+
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
@@ -40,6 +48,13 @@ app.post('/increment', function(req,res){
 app.post('/decrement', function(req,res){
 	count--;
 	res.redirect('/')
+})
+
+app.post('/get', function(req,res){
+	count++; 
+	res.json({
+		count: count
+	})
 })
 
 app.get('/data', function(req,res){

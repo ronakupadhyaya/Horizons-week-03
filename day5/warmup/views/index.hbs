@@ -7,33 +7,59 @@
   </head>
   <body>
 
-<h1>Output: <span id="out"></span></h1>
+<h1>Output: <span id="out">
+    <h1>Count: {{count}}</h1>
+    <script>
+      $(document).ready(function() {
+
+        <!-- // $.ajax('/data', {
+        //   success: function(data) {
+        //     $('#out').text(data.a[1]);
+        //   }
+        // });
+
+        $('#inc').click(function() {
+          $.ajax('/increment',{
+            method: 'POST',
+            success: function(data) {
+              $('#out').text(data.count);
+            }
+          });
+        }); -->
 
 
-$(document).ready(function({
-<script>
-$.ajax('/data'){
-  success: function(data){
-    $.('#out').text(data.a[1])
-  }
-}
-  $.('#inc').click(function(){
-    alert('click!')
-  });
-  </script>
-}))
-<!--     <h1>Count: {{count}}</h1>
+        $.ajax('/counter',{
+          success: updateCount
+        })
 
-    <form action="/increment" method="post">
+        $.('#increment').click(function(){
+            $.ajax('/counter',{
+            method:'POST'
+            success: updateCount
+            })
+        })
+
+        $.('#decrement').click(function(){
+          $.ajax('/counter'){
+            method: 'delete',
+            success: updateCount
+          }
+        })
+
+      });
+       </script>
+</span>
+
+    <form action="/increment" id= increment method="post">
       <input type="submit" value="Increase">
     </form>
 
-    Task 2
+<!--     Task 2
       Create a form with a button than when clicked sends a POST request
       to /decrement
 
-      The button should "Decrease" on it. -->
-   
+      The button should "Decrease" on it.
+    -->
 <!--     action changes the url that the form submits to -->
 <!--     <form action="/decrement" method="post">
       <input type="submit" value="Decrease"> -->
