@@ -8,6 +8,26 @@ module.exports={
 		title: {
 			type: String,
 			required: true
+		},
+		description: {
+			type: String,
+			required: true
+		},
+		goal: {
+			type: String,
+			required: true
+		},
+		user:{
+			type: String,
+			required: true
+		},
+		raised:{
+			type: String,
+			required: true
+		},
+		percent:{
+			type:String,
+			required: true
 		}
 	})
 }

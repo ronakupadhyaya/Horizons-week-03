@@ -11,7 +11,9 @@ var models= require('../models/models')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Horizon Starter' });
+  var p = new models.project({title: req.body.title,
+  	description: req.body.description, goal: req.body.goal, percent:"0"})
 });
 
 router.get('/projects', function(req,res){
@@ -26,7 +28,6 @@ router.get('/projects', function(req,res){
 
 router.get('/projects/:id', function(req,res){
 	//TODO handle missing projects//
-
 	//query: only things AFTER quetion mark in url,
 	//params before... : makes is a param variable
 	//use id because want to make it a project id
@@ -53,7 +54,8 @@ router.get('/new',function(req,res){
 
 router.post('/new', function(req, res){
 	//post requests in body
-	var p = new models.project({title: req.body.title})
+	var p = new models.project({title: req.body.title ,description: req.body.description, goal: req.body.goal,
+		user: req.body.user, raised: "0", percent: "0"})
 	p.save(function(error,project){
 	if(error){
 		res.status(400).send("Error creating project: "+error)
@@ -61,6 +63,24 @@ router.post('/new', function(req, res){
 	else {
 		res.redirect('/projects/' + project._id)
 	}
+	})
+})
+
+router.post('/projects/:id', function(req,res){
+	models.project.findById(req.params.id, function(error, mongoProject){
+		if(error){
+			res.status(400).send('Error reading project '+ error);
+		}
+		else if(!mongoProject){
+			res.status(404).send('Error reading project: '+ res.params.id)
+		}
+		else{
+			//add the raised amount 
+			mongoProject.raised= (parseFloat(mongoProject.raised) + parseFloat(req.body.donation)).toString();
+			mongoProject.percent= (parseFloat(mongoProject.raised)/parseFloat(mongoProject.goal)*100).toString();
+			mongoProject.save()
+			res.redirect('/projects/' + mongoProject._id)
+		}
 	})
 })
 
