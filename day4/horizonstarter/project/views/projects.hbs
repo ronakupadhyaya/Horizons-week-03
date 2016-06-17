@@ -1,0 +1,15 @@
+<h1>Horizon Starter</h1>
+	<div class="row">
+		<div class="col-md-8">
+		{{#each projects}}
+			<a href="/projects/{{_id}}" class ="list-group-item">
+			<h4 class="list-group-item-heading">{{title}}</h4>
+			<p class="list-group-item-text">{{description}}</p>
+			<p class="text-primary">View Project</p>
+			</a>
+
+		{{/each}}
+</div>
+</div>
+
+<a href="/new">Create new project</a>
