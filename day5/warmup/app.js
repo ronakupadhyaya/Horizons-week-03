@@ -13,20 +13,45 @@ var count = 0;
 // Display the current count
 app.get('/', function(req, res) {
   res.render('index', {
-    count: count
+  count: count
   });
 });
 
 // ---Task 1---
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
+app.get('/counter', function(req, res) {
+  res.json({
+  count: count
+  });
+});
 
-// YOUR CODE HERE
+
+app.post('/counter', function(req,res){
+  count++;
+  res.json({
+    count:count
+  });
+});
+
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
+app.delete('/counter', function(req,res){
+  count--;
+  res.json({
+    count:count
+  })
+});
 
-// YOUR CODE HERE
+// //
+// app.get('/data', function(req,res){
+//   res.json({
+//   a: [1,2,3,4],
+//   b: false
+//   });
+// });
+
 
 app.listen(3000);

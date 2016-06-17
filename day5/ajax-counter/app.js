@@ -1,11 +1,66 @@
 var express = require('express');
 var path = require('path');
+var mongoose = require('mongoose');
+mongoose.connect(require('./connect'));
 
 var app = express();
 
 // Add static files to Express
+var Counter = mongoose.model('Counter',{
+  count: {
+    type: Number,
+    default:0
+  }
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/counters', function(req, res){
+  Counter.find(function(error, counters){
+    if (error){
+      res.status(400).send(error);
+    }else{
+      res.json(counters);
+    }
+  })
+})
+
+app.post('/counters', function(req,res){
+  var c = new Counter();
+  c.save(function(error, counter){
+    if (error){
+      res.status(400).send(error);
+    }else{
+      res.json(counter);
+    }
+  });
+});
+
+app.post('/counter/:id/up', function(req,res){
+  var update = {
+    $inc: {
+      count: 1
+    }
+  };
+  Counter.findByIdAndUpdate(req.params.id, update, function(error, counter){
+    if (error){
+      res.status(400).send(error);
+    }else{
+      res.json(counter);
+    }
+  });
+});
+
+app.post('/counter/:id/up', function(req,res){
+  Counter.findbyId(req.params.id, function(error, counter){
+    if (error){
+      res.status(400).send(error);
+    }else{
+      counter.count++
+      res.json(counter);
+    }
+  });
+});
 // Redirect / to /index.html since we're not going to be rendering
 // html in the server in this exercise
 app.get('/', function(req, res) {
