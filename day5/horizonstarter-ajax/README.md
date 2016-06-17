@@ -183,10 +183,12 @@ You should set up your AJAX API endpoints the same way you did before, using
 status codes and JSON data. You can construct responses such as the following:
 
 ```javascript
-// Indicate that a POST request was successful.
+// 201 means: Success, I've created something!
+// Useful for indicating that a POST request was successful.
 res.status(201).json({status: "ok"});
 
 // Return the GET request data.
+// status(200) is implied, we're just being explicit here.
 res.status(200).json(data);
 
 // Indicate that the requested object doesn't exist.
