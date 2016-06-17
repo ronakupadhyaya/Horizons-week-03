@@ -151,10 +151,44 @@ never seen an app that's both.
 
 How can an app be both a frontend app and a backend app at the same time?
 
-Take a moment to remind yourself 
+### Hybrid apps
 
-How to add a frontend script, test it
-Rerendering
+Take a moment to remind yourself what these two terms mean. Backend apps are
+rendered on a server using a framework such as express and a templating system
+such as handlebars, sending pre-rendered HTML and CSS to a user's browser.
+Frontend apps run, as Javascript, inside a user's browser and often exchange
+data with a backend using AJAX.
+
+Well, these two concepts aren't mutually exclusive, are they? Here's the key
+insight: we can send pre-rendered HTML and CSS to a user's browser _along with
+Javascript that runs in the browser._ That Javascript can do all sorts of funky
+stuff such as sending and receiving data using AJAX, like we saw last week.
+
+You could add that Javascript directly to the `.hbs` template files, just like
+you've been adding HTML and CSS, but it would be better to keep it separate in a
+set of `.js` files. Then you can include these with `<script src=...></script>`
+tags in the template, which will cause the user's browser to download and run
+the referenced script. See if you can figure out where to store these new
+_frontend_ Javascript files in your app, then go ahead and create one and add it
+to the template. Try to do something simple as a test, such as `console.log` or
+`alert`. Reload the page and _voila!_ you should see your _frontend_ Javascript
+code running inside your _backend_ rendered web app. If that's not a mindfark I
+don't know what is!
+
+### Rerendering
+
+So you know how to add Javascript to the page--so what? What does it actually
+need to do? How do you upload new data such as a new project contribution, how
+do you download data such as the list of project contributions, and how do you
+display this data to the user?
+
+This part is up to you. You already know how to GET and POST data using AJAX.
+Think about how to use the frontend tools you already learned--AJAX, events,
+jQuery, etc.--to perfect the data flow. This is where it all comes together. You
+need to update the user sees, the data that was originally rendered on the
+backend, when you receive new data from the user or from AJAX. Think back to the
+`render` and `mount` functions we wrote for the Horello projects.
+
 
 ## Phase 4. Validation, error handling
 
