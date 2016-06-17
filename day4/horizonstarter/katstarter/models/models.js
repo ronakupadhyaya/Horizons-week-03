@@ -19,7 +19,11 @@ module.exports = {
 		},
 		total: {
 			type: Number,
-			required: false
+			required: true
+		},
+		description: {
+			type: String,
+			required: true
 		},
 		start: {
 			type: String,
@@ -27,6 +31,10 @@ module.exports = {
 		},
 		end: {
 			type: String,
+			required: true
+		},
+		contrib: {
+			type: Array,
 			required: true
 		}
 	})

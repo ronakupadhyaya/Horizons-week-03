@@ -1,7 +1,11 @@
 <ul>
-{{#each projects}}
-	<li>
-	<a href='/katstarter/{{_id}}'>{{title}}</a>
-	</li>
-{{/each}}
+	<h1>KatStarter</h1>
+	{{#each projects}}
+		<div class='projects'>
+			<h2>Title: {{title}}</h2>
+			<h3>Description: {{description}}</h3>
+			<a href='/katstarter/{{_id}}'>View Project</a>
+		</div>
+	{{/each}}
+	<a href='/new'>Create a New Project</a>
 </ul>

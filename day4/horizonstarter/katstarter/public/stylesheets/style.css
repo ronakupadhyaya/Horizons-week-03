@@ -1,8 +1,31 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Comic Sans MS", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+div {
+	box-sizing: border-box;
+	display: block;
+
+}
+
+h2 {
+	font-weight: normal;
+}
+
+h3 {
+	font-weight: normal;
+}
+
+
+.projects {
+	padding:0 20px 10px 20px;
+	margin: 30px;
+	border-style: solid;
+	background-color: #ccf8ef;
+	border-color: orange;
 }
