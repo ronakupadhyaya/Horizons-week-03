@@ -27,9 +27,11 @@ router.get('/projects/:id', function(req, res) {
 			res.status(404).send('No such project: ' + req.params.id);
 		}	else {
 		models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {	
+		var percent = (mongoProject.totalContribution/mongoProject.goalAmount)*100;
 		res.render('singleProject', {
 			'project': mongoProject,
-			'contributions': mongoContributions
+			'contributions': mongoContributions,
+			'percentageyo': percent
 		});
 	});
 }
@@ -58,15 +60,18 @@ router.post('/projects/:id', function(req, res) {
 		if (error) {
 			res.status(400).send("Error donating to project: " + error);
 		} else {
-			// models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {
-			// 	models.project.findById(req.params.id, function(error, mongoProject) {
-			// 	res.render('singleProject', {
-			// 		'contributions': mongoContributions,
-			// 		'project': mongoProject
-			// 	});
-			// });
-			// });
-			res.redirect('/projects/' + projectidFromParams);
+			models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {
+				models.project.findById(req.params.id, function(error, mongoProject) {
+				var percentage = (mongoProject.totalContribution/mongoProject.goalAmount)*100;
+				res.render('singleProject', {
+					'contributions': mongoContributions,
+					'project': mongoProject,
+					'msg': "a",
+					'percentageyo': percentage
+				});
+			});
+			});
+			
 		}
 	})
 });
