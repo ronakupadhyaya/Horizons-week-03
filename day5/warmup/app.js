@@ -28,3 +28,5 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+
+app.listen(3000);
