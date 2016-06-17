@@ -1,16 +1,17 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var favicon = require('serve-favicon'); //picture icon on the chrome tabs
+var logger = require('morgan'); //it puts logs statements everytime a request comes in
+var cookieParser = require('cookie-parser'); //parses cookies
+var bodyParser = require('body-parser');//data comes in the body
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes = require('./routes/index'); //current directory - the route is in this directory (the route folder)
+var users = require('./routes/users'); //
 
 var app = express();
 
 // view engine setup
+//this is what links all the files together
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
