@@ -13,5 +13,6 @@
   Get through the following: 
     - [MVP Features](../day4/horizonstarter/README.md#the-goal)
     - [These bonus features](../day4/horizonstarter/README.md#a-real-challenge-adding-users)
+    - [Ignore these](../day4/horizonstarter/README.md#if-you-are-bored)
 	
 2. [Horizon Starter: AJAX Edition](horizonstarter-ajax/README.md)
