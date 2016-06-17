@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      {{#each projects}}
+        <div class="panel panel-default">
+          <div class="panel-heading text-center" style="padding: 5px 10px">
+            <h4>{{title}}</h4>
+          </div>
+          <div class="panel-body">
+            <p>{{description}}</p>
+            <a href="/projects/{{_id}}" style="float: right;">
+              <button class="btn btn-primary">Learn More</button>
+            </a>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<a href="/new">
+  <button class="btn btn-default">Create new project</button>
+</a>
