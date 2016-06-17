@@ -22,16 +22,16 @@ module.exports={
 			required: true
 		},
 		raised:{
-			type: String,
-			required: true
+			type: Number,
+			default: 0
 		},
 		percent:{
-			type:String,
-			required: true
+			type:Number,
+			default: 0
 		},
 		complete:{
 			type: Boolean,
-			required: true
+			default: false
 		},
 		category: {
 			type: String,

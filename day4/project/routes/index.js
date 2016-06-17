@@ -17,6 +17,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/projects', function(req,res){
+	if(req.query.category){
+		console.log('a')
+		 models.project.findByCategory(req.query.category, function(error, mongoProjects){
+		 	res.render('projects', {
+		 		'projects': mongoProjects
+		 	});
+		 });
+	}
 	///taking info from projects within models and using it here
 	models.project.find(function(error, mongoProjects){
 		res.render('projects',{
@@ -38,7 +46,7 @@ router.get('/projects/:id', function(req,res){
 	//res.send('param id is '+req.params.id+"\nQuery is is "+req.query.id)
 	models.project.findById(req.params.id, function(error,mongoProject){
 	if(error){
-		res.statue(400).send('Error reading project '+ error);
+		res.status(400).send('Error reading project '+ error);
 	}
 	else if (!mongoProject){
 		res.status(404).send('Error reading project: '+ req.params.id)
@@ -72,7 +80,7 @@ router.post('/new', function(req, res){
 })
 
 router.post('/projects', function(req,res){
-	console.log(req)
+	console.log(res.query)
 	res.redirect('../new')
 })
 
