@@ -533,10 +533,8 @@ To do this you must, roughly:
   user we care about. 
   - Show each project the user owns
   - How much each project has in donations 
-  - Which projects a user donated to, and *how much* she donated to each
-    project!
-  - Which users donated to each of the user's projects, and *how much* was
-    donated per project!  
+  - Which projects a user donated to
+  - Which users donated to each of the user's projects
 
 
 ## Troubleshooting
