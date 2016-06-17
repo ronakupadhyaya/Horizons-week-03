@@ -1,8 +1,10 @@
 <ul>
     {{#each projects}}
-        <li>
-            <a href = "/projects/{{_id}}">{{title}}</a>
-        </li>
+        <div class = "postBox">
+            <li>Title: {{title}} </li>
+            Description: {{description}}
+            <a href = "/projects/{{_id}}"> View project </a>
+        </div>
     {{/each}}
 </ul>
 
