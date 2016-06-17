@@ -7,5 +7,12 @@
   },
   "scripts": {
     "start": "nodemon app.js"
-  }
+  },
+  "name": "warmup",
+  "description": "## Time limit: 15 minutes",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }

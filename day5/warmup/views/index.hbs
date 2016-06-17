@@ -5,12 +5,15 @@
     <title>Basic Counter</title>
   </head>
   <body>
-    <h1>Count: {{count}}</h1>
+    <h1>Current Cats: {{count}}</h1>
 
     <form action="/increment" method="post">
-      <input type="submit" value="Increase">
+      <input type="submit" value="breed cats">
     </form>
-
+    <form action="/decrement" method="post">
+      <input type="submit" value="send cats to kenya">
+    </form>
+    <h1>Cat pop in Kenya: {{pop}}</h1>
     <!-- Task 2
       Create a form with a button than when clicked sends a POST request
       to /decrement

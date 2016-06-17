@@ -9,6 +9,7 @@ app.set('view engine', '.hbs');
 
 // We use a variable to store the count
 var count = 0;
+var pop = 0
 
 // Display the current count
 app.get('/', function(req, res) {
@@ -21,11 +22,28 @@ app.get('/', function(req, res) {
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
 
+app.post('/increment', function(req,res) {
+	count++
+	res.render('index', {
+		count:count,
+		pop:pop
+	})
+})
+
 // YOUR CODE HERE
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
+
+app.post('/decrement', function(req,res) {
+	count--
+	pop++
+	res.render('index', {
+		count:count,
+		pop:pop
+	})
+})
 
 // YOUR CODE HERE
 
