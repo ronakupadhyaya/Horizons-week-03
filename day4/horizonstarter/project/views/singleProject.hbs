@@ -1,0 +1,18 @@
+<h2>Project: {{project.title}} <br>
+  Goal: {{project.goal}} <br>
+  Description: {{project.desc}}<br>
+  Category: {{project.category}}<br>
+  Start Date: {{project.startDate}}<br>
+  End Date: {{project.endDate}} </h2>
+<form>
+<input class="form-control" type = "number" name = "donation" placeholder="Donation Amount">
+<a method="get" href="./donate/{{project._id}}">
+  <button type="submit" class="btn btn-success">Donate to Project</button>
+</a>
+</form>
+
+<a method="get" href="./delete/{{project._id}}">
+  <button type="submit" class="btn btn-danger">Delete Project</button>
+</a>
+
+  <h4> <a href="../projects"> Back to all projects</a> </h4>

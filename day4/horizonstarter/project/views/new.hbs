@@ -1,0 +1,45 @@
+<form method = "POST">
+   <div class="form-group">
+<input  class="form-control" type= "text" name= "title" placeholder="Title of Project">
+<input class="form-control" type = "text" name = "goal" placeholder="Fundraising Goal">
+
+<select class="form-control" name="category">
+  <option>Pick a Category</option>
+  <option>Potent Potables</option>
+  <option>Schools that end with -nova</option>
+  <option>Therapists</option>
+  <option>Japan US Relations</option>
+  <option>Days that end with -day</option>
+</select>
+<textarea type="text" class="form-control" name="desc" id="desc" required placeholder="Description"></textarea>
+
+<input type="text" name="startDate" value="10/24/2016" />
+
+<script type="text/javascript">
+$(function() {
+    $('input[name="startDate"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    },
+    function(start, end, label) {
+        var years = moment().diff(start, 'years');
+    });
+});
+</script>
+
+<input type="text" name="endDate" value="10/25/2020" />
+<script type="text/javascript">
+$(function() {
+    $('input[name="endDate"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true
+    },
+    function(start, end, label) {
+        var years = moment().diff(start, 'years');
+    });
+});
+</script>
+
+ <button type="submit" class="btn btn-default">Create a Project</button>
+  </div>
+</form>
