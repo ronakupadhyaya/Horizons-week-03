@@ -137,6 +137,40 @@ We need a new set of routes for our AJAX API.
   });
   ```
 
+## Advanced Express Configuration (Optional)
+
+Because express is so versatile, there are multiple ways to define sets of
+routes. Since we want to use a different set of middleware, and since
+our AJAX API and routes are entirely distinct from our previous routes, it
+may make sense to create a _new express app_ and mount it under the
+existing app in a particular place--say, `/api` (or `/api/1` if we want to
+follow best practice and allow for multiple versions of our API in future).
+Don't be confused by the use of the word "app" here: what express refers to as
+an "app" is just a particular express configuration with middleware and a set of
+routes.
+
+You probably want to put your new express app in a new file (a new JS module).
+You can load that module and mount it into the existing app like this:
+
+```javascript
+var newapp = require(PATH_TO_NEWAPP_MODULE);
+app.use('/api/1/', newapp);
+```
+
+The new app module should start with a similar express configuration to the
+existing app--minus the template engine and the other unnecessary middleware,
+e.g.:
+
+```javascript
+var express = require('express');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var app = express();
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+```
+
 ## Phase 2. API routes and responses
 
 Take a moment to map out the API endpoints (a.k.a. routes--the terms are
