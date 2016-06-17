@@ -82,6 +82,7 @@ router.post('/new', function(req,res){
 		startdate: req.body.startdate,
 		enddate: req.body.enddate,
 		funded: 0,
+		contributions: []
 	});
 	p.save(function(error, project)  {
 		if (error) {
@@ -101,10 +102,8 @@ router.post('/projects/:id', function(req, res) {
             res.status(400).send("Error: found an error")
         }
         else {
-        	console.log(project.funded);
-            project.funded += parseInt(req.body.amount);
-            console.log(project.funded);
-            console.log(req.body.amount);
+            project.funded += parseInt(req.body.donation);
+           	project.contributions.push({'name': req.body.name, 'comment': req.body.comment, 'donation': req.body.donation})
             project.save(function(err) {
                 if (err) {
                     res.status(400).send("Error: couldn't save")

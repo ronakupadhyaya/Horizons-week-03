@@ -34,6 +34,10 @@ module.exports = {
 		funded: {
 			type: Number,
 			required: true
+		},
+		contributions: {
+			type: [],
+			required: false
 		}
 
 	})
