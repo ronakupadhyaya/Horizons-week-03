@@ -1,0 +1,1 @@
+module.exports="mongodb://quidkid:igfhs2012@ds015924.mlab.com:15924/quidkid"
