@@ -24,7 +24,12 @@ responsive, interactive, and hipster. You'll be implementing the following:
 - Project contributions happen via AJAX--no need to reload the page
 - Project contributions are loaded in realtime, so that if someone else adds
   one, you'll see it appear on your screen right away
-- Filtering the project list on the home page happens via AJAX
+- The ability to filter the list of projects on the front page using query
+  parameters via AJAX:
+  - Filter by projects that are fully funded (query string: `?funded=true`)
+  - Filter by projects looking to raise over a certain amount of money (e.g. the
+    query string `?goalAbove=10000` should return all projects seeking
+    to raise over $10k) (not implemented in solution)
 
 ### Solution
 
@@ -242,15 +247,47 @@ should be pretty straightforward to add this on top of the functionality you've
 already built. Once it's working, try opening your app in two browser tabs: add
 a contribution/comment in one, and watch it appear in the other!
 
+*: Technically, if you're polling, then updates are in _quasi_ real time rather
+than true real time. See the bonus, below, for making these happen in real real
+time.
+
 
 ## Phase 6. Adding filters
 
 The final and most interesting aspect of this project is adding the filters to
-the project list on the front page. To recap:
+the project list on the front page. To recap, we need to add:
+
+- The ability to filter the list of projects on the front page using query
+  parameters via AJAX:
+  - Filter by projects that are fully funded (query string: `?funded=true`)
+  - Filter by projects looking to raise over a certain amount of money (e.g. the
+    query string `?goalAbove=10000` should return all projects seeking
+    to raise over $10k) (not implemented in solution)
+
+Think about the following considerations:
+
+- Which API endpoints will you need? (If you haven't already built them)
+- What UI elements do you need to add to the frontend?
+- How do you refresh the data using AJAX?
+- How do you redisplay the updated data to the user on the frontend?
 
 
 ## Bonus
 
-Add more filters
-Use sockets for polling
+If you need more of a challenge in this project, add the following:
 
+- Add more project filters, e.g.:
+  - Filter by user
+  - Filter by category
+- Add search by project title or description
+- Allow multiple filters to be combined
+- Allow projects to be sorted:
+  - Sort by user
+  - Sort by funding level (both absolute dollars and funding percent)
+  - Alphabetic sort
+  - Chronological sort
+  - Display projects in the order in which they expire, soonest expiration first
+- Use web sockets for truly realtime polling (http://socket.io/)
+
+If you've made it this far, you're an absolute rockstar. Join the secret Slack
+channel #AbhiIsAnAnimal to claim your reward.
