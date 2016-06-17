@@ -55,25 +55,64 @@ First build a Blackjack game where a single person can play against the dealer.
 - Game: a single Blackjack game. Properties:
 
   - Player bet (`Number`): number of Horizons Dollars the player has bet.
-  - Player hand (`Array` of `String`s): cards in the players hand.
-  - Dealer hand (`Array` of `String`s): cards in the dealers hand.
+  - Deck of cards the game is being played with. Must be shuffled.
+  - Player hand `Array` of cards in the players hand.
+  - Dealer hand `Array` of cards in the dealers hand.
   - Is game over (`Boolean`): true if game is over, false otherwise.
 
-### Routes
+### Part 1: Backend Section.
 
-These methods will allow you to play from PostMan.
+To simplify the project, we have divided the project into separate parts. The first
+part will be the backend of the project, that will allow you to play from postman.
 
-- `POST /game`:
-  - Create new game
-  - Redirect to `/game/:id`
-- `POST /game/:id/bet`: (New Game) (renders JSON)
-  - Player declares their bet for
+Once the backend is build, we will move on to part 2, that will be the front-end.
+
+
+#### Game state representation
+
+When playing with the backend only, we must be able to view our game results. For
+this, we need to know the state of the game with every move. For example, if a user
+draws a card, we need to know their current cards, score, status of the game to
+be able to continue playing. This is a JSON object that is sent to the client.
+
+```
+{
+  id: game.id,
+  player1bet: game.player1bet,
+  status: game.status, // Can be over, in-progress or not started!
+  userTotal : game.userTotal, // Total of points the user currently has.
+  dealerTotal : game.dealerTotal,
+  userStatus : game.userStatus, // Won, Lost, Tied the game
+  dealerStatus : game.dealerStatus,
+  currentPlayerHand : game.currentPlayerHand, // Cards the player has.
+  houseHand : game.houseHand
+}
+```
+
+This is a suggested game state representation. Here you can know the cards of each
+player, whether the game has ended, if someone has lost, etc. This model is a
+suggestion and can be changed. For example: userTotal and dealerTotal can be calculated
+from the cards directly on the front-end.
+
+#### Routes
+
+These are the most important methods on the backend. They will do all the actions
+for our game. We'll start by implementing the ones that are necessary to be able
+to play with the backend only, making requests from postman.
+
+* All routes that return Game State Representation, return a JSON object.
+
+1. `POST /game`:
+  - Creates new game
+  - Redirects to `/game/:id`
+1. `POST /game/:id/bet`:
+  - The player declares their bet for the game with :id.
   - Error if the player has already declared their bet
-  - Responds with `Game state representation`  
-- `POST /game/:id/hit`: (renders JSON)
+  - Responds with `Game state representation`
+1. `POST /game/:id/hit`:
+  - Player draws another card
   - Error if the player has not yet declared their bet
   - Error if the game is not in progress
-  - Player draws another card
   - If player busts, game is over, otherwise player can hit again or stand
   - Responds with `Game state representation`
 - `POST /game/:id/stand`: (renders JSON)
@@ -85,6 +124,34 @@ These methods will allow you to play from PostMan.
   - Game is over
   - Responds with `Game state representation`
 
+Now, you could play by doing:
+`POST /game` returns new game with id `312314234234`
+`POST /game/312314234234/bet` body-> `{bet:123}` this returns ->
+```{
+  id: 312314234234,
+  player1bet:  123,
+  status: "Not Started",
+  userTotal : 12,
+  dealerTotal : 17,
+  userStatus : " ",
+  dealerStatus : " ",
+  currentPlayerHand : ["K Clubs", "2 Spades"]
+  houseHand :["A Hearts", "6 Spades"]
+}
+```
+`POST /game/312314234234/hit` gives the player a new card. Returns:
+``{
+  ...
+  dealerTotal : 17,
+  currentPlayerHand : ["K Clubs", "2 Spades", "6 Hearts"]
+  ...
+}
+```
+`POST /game/:id/stand`
+
+### Part 2: Front-end Section.
+
+
 These methods are for the views
 
 - `GET /`:
@@ -94,25 +161,6 @@ These methods are for the views
 - `GET /game/:id`:
   - Render `View game`
 
-
-#### Game state representation
-
-Some of the Routes listed above respond with JSON representing the
-state of the game.
-
-```
-{
-  "dealerCards": [card1, card2 ...],
-  "playerCards": [card1, card2 ...],
-  "playerStatus: "won"/"lost"/"draw"
-}
-```
-
-Player status:
-
-- `won`: player has won this game
-- `lost`: player has lost this game
-- `tied`: player and dealer are in a draw
 
 ### Views
 
