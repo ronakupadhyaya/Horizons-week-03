@@ -41,7 +41,7 @@ responsive, interactive, and hipster. You'll be implementing the following:
 ### Solution
 
 You can check out a [live, hosted version of the
-solution](http://starter.horizonsbootcamp.com:8090/). You can also run the
+solution](http://starter.horizonsbootcamp.com:8092/). You can also run the
 solution code locally (as yesterday, you'll need to make sure Mongo is
 configured--instructions
 [here](../../day4/horizonstarter/README.md#phase-2-mongo-mongoose)--and you may

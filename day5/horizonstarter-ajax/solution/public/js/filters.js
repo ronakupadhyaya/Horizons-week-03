@@ -11,7 +11,7 @@ function renderProject(project) {
   var wrapper = $('<div class="well"></div>');
   var title = $('<h2>Title: ' + project.title + '</h2>');
   var desc = $('<h3>Description: ' + project.description + '</h3>');
-  var link = $('<a href="/project/' + project.id + '">View project</a>');
+  var link = $('<a href="/project/' + project._id + '">View project</a>');
   wrapper.append(title, desc, link);
   return wrapper;
 }
