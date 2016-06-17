@@ -17,7 +17,6 @@ var express = require('express');
 var validator = require('express-validator');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var validator = require('express-validator');
 
 var Project = require('../model/project');
 
