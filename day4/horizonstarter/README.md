@@ -66,8 +66,9 @@ In terms of functionality, the MVP (everything up to and excluding the
   parameters
   - Filter by projects that are fully funded (query string: `?funded=true`)
   - Filter by projects looking to raise over a certain amount of money (e.g. the
-    query string `?goal_greater_than=10000` should return all projects seeking
-    to raise over $10k) (not implemented in solution)
+    query string `?goalAbove=10000` should return all projects seeking
+    to raise over $10k) (not implemented in today's solution, implemented in
+    [tomorrow's solution](../day5/horizonstarter-ajax/solution))
 - A page that lets you bulk edit/delete projects (not implemented in
   solution)
 
