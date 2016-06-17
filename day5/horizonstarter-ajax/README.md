@@ -45,7 +45,7 @@ solution](http://starter.horizonsbootcamp.com:8092/). You can also run the
 solution code locally (as yesterday, you'll need to make sure Mongo is
 configured--instructions
 [here](../../day4/horizonstarter/README.md#phase-2-mongo-mongoose)--and you may
-need to update the MongoDB URI in `config/db.js`. Then you can run:
+need to update the MongoDB URI in `config/db.js`). Then you can run:
 
 ```
 $ cd solution/
@@ -197,12 +197,15 @@ display this data to the user?
 This part is up to you. You already know how to GET and POST data using AJAX.
 Think about how to use the frontend tools you already learned--AJAX, events,
 jQuery, etc.--to perfect the data flow. This is where it all comes together. You
-need to update the user sees, the data that was originally rendered on the
+need to update what the user sees, the data that was originally rendered on the
 backend, when you receive new data from the user or from AJAX. Think back to the
 `render` and `mount` functions we wrote for the Horello projects.
 
 Start by building out the first piece of new, AJAX-driven functionality: project
-contributions.  
+contributions.
+
+One more hint, as you're replacing your existing backend-driven form. Don't
+forget `event.preventDefault()`!
 
 
 ## Phase 4. Validation, error handling
@@ -283,10 +286,10 @@ Think about the following considerations:
 
 If you need more of a challenge in this project, add the following:
 
-- Add more project filters, e.g.:
+- More project filters, e.g.:
   - Filter by user
   - Filter by category
-- Add search by project title or description
+- Search by project title or description
 - Allow multiple filters to be combined
 - Allow projects to be sorted:
   - Sort by user
@@ -297,4 +300,4 @@ If you need more of a challenge in this project, add the following:
 - Use web sockets for truly realtime polling (http://socket.io/)
 
 If you've made it this far, you're an absolute rockstar. Join the secret Slack
-channel #AbhiIsAnAnimal to claim your reward.
+channel `#AbhiIsAnAnimal` to claim your reward.
