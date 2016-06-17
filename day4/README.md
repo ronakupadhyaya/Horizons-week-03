@@ -8,5 +8,5 @@
 1. [Handlebars partials](partials/README.md)
 
 ## Pair programming exercises
-1. [Forms: connecting your forms to a database](./forms)
-2. [Horizon Starter: backend-rendered web app](./horizonstarter)
+1. [Horizon Starter: backend-rendered web app](./horizonstarter)
+1. [(Bonus) Forms: connecting your forms to a database](./forms)
