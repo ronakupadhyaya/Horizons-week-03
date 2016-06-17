@@ -536,12 +536,15 @@ To do this you must, roughly:
   - Which projects a user donated to, and *how much* she donated to each
     project!
   - Which users donated to each of the user's projects, and *how much* was
-    donated per project! 
+    donated per project!  
 
-(Get this far and you get a free dinner. Keep going and you're insane. In a good
-way.)
 
-### Even more: do all the things
+## Troubleshooting
+
+- If you see this error when you try to run your server:
+
+
+## If you are bored...
 
 Just in case you're feeling ambitious, implement the following additional
 functionality from Kickstarter: 
@@ -562,10 +565,6 @@ functionality from Kickstarter:
   (stars), project updates, etc.
 - Add unit tests: for your schemas and models, for form validation, etc.
 
-
-## Troubleshooting
-
-- If you see this error when you try to run your server:
 
 ```
 Error: connect ECONNREFUSED 127.0.0.1:27017
