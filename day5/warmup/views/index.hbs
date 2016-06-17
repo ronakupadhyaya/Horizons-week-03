@@ -3,19 +3,40 @@
   <head>
     <meta charset="utf-8">
     <title>Basic Counter</title>
+    <scipt src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js">
   </head>
   <body>
-    <h1>Count: {{count}}</h1>
+
+<h1>Output: <span id="out"></span></h1>
+
+
+$(document).ready(function({
+<script>
+$.ajax('/data'){
+  success: function(data){
+    $.('#out').text(data.a[1])
+  }
+}
+  $.('#inc').click(function(){
+    alert('click!')
+  });
+  </script>
+}))
+<!--     <h1>Count: {{count}}</h1>
 
     <form action="/increment" method="post">
       <input type="submit" value="Increase">
     </form>
 
-    <!-- Task 2
+    Task 2
       Create a form with a button than when clicked sends a POST request
       to /decrement
 
-      The button should "Decrease" on it.
-    -->
+      The button should "Decrease" on it. -->
+   
+<!--     action changes the url that the form submits to -->
+<!--     <form action="/decrement" method="post">
+      <input type="submit" value="Decrease"> -->
+    </form>
   </body>
 </html>

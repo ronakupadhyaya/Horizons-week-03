@@ -22,11 +22,31 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+app.post('/increment', function(req,res){
+	count++;
+	res.json({
+		count: count
+	})
+	//renderig on a post request: refreshing the page will add to the activity,
+	//whereas refreshing with a ridirect will not make a number go up
+	//refresh just does get request
+})
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+app.post('/decrement', function(req,res){
+	count--;
+	res.redirect('/')
+})
+
+app.get('/data', function(req,res){
+	res.json({ //turn a js object into json through express
+		a: [1,2,3,4],
+		b: false
+	})
+})
 
 app.listen(3000);
