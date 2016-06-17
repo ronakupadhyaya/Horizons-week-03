@@ -3,7 +3,14 @@
 ## Contents
 
 - [Introduction](#introduction)
-- [Phase 1: Getting started](#phase-1-getting-started)
+- [Phase 1: Creating an API](#phase-1-creating-an-api)
+- [Phase 2: API routes and responses](#phase-2-api-routes-and-responses)
+- [Phase 3. Tying in the frontend: project
+  contributions](#phase-3-tying-in-the-frontend-project-contributions)
+- [Phase 4. Validation, error handling](#phase-4-validation-error-handling)
+- [Phase 5. Polling](#phase-5-polling)
+- [Phase 6. Adding filters](#phase-6-adding-filters)
+- [Bonus](#bonus)
 
 ## Introduction
 
