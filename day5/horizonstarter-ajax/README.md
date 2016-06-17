@@ -88,16 +88,70 @@ Don't be confused by the use of the word "app" here: what express refers to as
 an "app" is just a particular express configuration with middleware and a set of
 routes.
 
+You probably want to put your new express app in a new file (a new JS module).
+You can load that module and mount it into the existing app like this:
 
-Express router and apps within apps
-Different middleware
-Returning JSON and status codes instead of HTML
+```javascript
+var newapp = require(PATH_TO_NEWAPP_MODULE);
+app.use('/api/1/', newapp);
+```
 
-## Phase 2. API routes
+The new app module should start with a similar express configuration to the
+existing app--minus the template engine and the other unnecessary middleware,
+e.g.:
 
-Test them
+```javascript
+var express = require('express');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var app = express();
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+```
+
+## Phase 2. API routes and responses
+
+Take a moment to map out the API endpoints (a.k.a. routes--the terms are
+interchangeable) you'll need for the new functionality. As a rule of thumb, the
+more time you spend planning things--on paper--_before you begin coding_--the
+less mistakes you'll make and the less headaches you'll encounter.
+
+You should set up your AJAX API endpoints the same way you did before, using
+`app.get`, `app.post`, etc. As mentioned, your AJAX endpoints should return HTTP
+status codes and JSON data. You can construct responses such as the following:
+
+```javascript
+// Indicate that a POST request was successful.
+res.status(201).json({status: "ok"});
+
+// Return the GET request data.
+res.status(200).json(data);
+
+// Indicate that the requested object doesn't exist.
+res.status(404).json({status: "missing"});
+```
+
+You can quickly find a full list of HTTP status codes with a Google search.
+
+Try setting up some API endpoints, such as one that returns the full list of
+projects. Then test them--by calling them from your browser, by using jQuery
+`$.ajax()`, or from Postman. See the [Horello AJAX project
+README](https://github.com/horizons-school-of-technology/week02/tree/master/day4/2_horello-ajax#phase-2-getting-familiar-with-the-api)
+for a recap of how to do this.
+
+Once your endpoints are in place, move on to the next phase, where you'll begin
+using them from the frontend.
 
 ## Phase 3. Tying in the frontend: project contributions
+
+This is the magic moment of this project. You've seen frontend apps and you've
+seen backend apps, but _you ain't seen nuthin' yet, cowboy!_ Because you ain't
+never seen an app that's both.
+
+How can an app be both a frontend app and a backend app at the same time?
+
+Take a moment to remind yourself 
 
 How to add a frontend script, test it
 Rerendering
