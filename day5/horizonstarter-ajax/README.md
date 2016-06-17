@@ -36,7 +36,7 @@ responsive, interactive, and hipster. You'll be implementing the following:
   - Filter by projects that are fully funded (query string: `?funded=true`)
   - Filter by projects looking to raise over a certain amount of money (e.g. the
     query string `?goalAbove=10000` should return all projects seeking
-    to raise over $10k) (not implemented in solution)
+    to raise over $10k)
 
 ### Solution
 
@@ -44,8 +44,8 @@ You can check out a [live, hosted version of the
 solution](http://starter.horizonsbootcamp.com:8090/). You can also run the
 solution code locally (as yesterday, you'll need to make sure Mongo is
 configured--instructions
-[here](../../day4/README.md#phase-2-mongo-mongoose)--and you may need to update
-the MongoDB URI in `config/db.js`. Then you can run:
+[here](../../day4/horizonstarter/README.md#phase-2-mongo-mongoose)--and you may
+need to update the MongoDB URI in `config/db.js`. Then you can run:
 
 ```
 $ cd solution/
@@ -246,7 +246,7 @@ that validation happens in different stages, and that each has a role:
 Now that you've got the contributions form and functionality working via AJAX,
 let's move on to something a little bit harder: automatically refreshing the
 contributions data to display new contributions (from other users) in real
-time<sup>*</sup>.
+time*.
 
 The easiest way to do this is by having an AJAX call that fires periodically
 using `setInterval` (every 5-10 seconds would be a reasonable interval). It
@@ -269,7 +269,7 @@ the project list on the front page. To recap, we need to add:
   - Filter by projects that are fully funded (query string: `?funded=true`)
   - Filter by projects looking to raise over a certain amount of money (e.g. the
     query string `?goalAbove=10000` should return all projects seeking
-    to raise over $10k) (not implemented in solution)
+    to raise over $10k)
 
 Think about the following considerations:
 
