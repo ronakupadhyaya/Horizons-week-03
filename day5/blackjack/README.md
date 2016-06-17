@@ -115,7 +115,7 @@ to play with the backend only, making requests from postman.
   - Error if the game is not in progress
   - If player busts, game is over, otherwise player can hit again or stand
   - Responds with `Game state representation`
-- `POST /game/:id/stand`: (renders JSON)
+1. `POST /game/:id/stand`: (renders JSON)
   - Error if the player has not yet declared their bet
   - Error if the game is not in progress
   - Player stops drawing cards
@@ -147,31 +147,22 @@ Now, you could play by doing:
   ...
 }
 ```
-`POST /game/:id/stand`
+`POST /game/:id/stand` Returns the final status of the game and who has won.
 
 ### Part 2: Front-end Section.
 
+Time to build the views the routes for the views:
 
-These methods are for the views
+1. `GET /`:
+  - Renders the html page for all games -> Renders `List games`
+  - Query parameter for filtering games by in-progress/over.
+  - Clicking on one of the links takes you to the games.
 
-- `GET /`:
-  - Query parameter for filtering games by in-progress/over
-  - Render `List games`
-
-- `GET /game/:id`:
-  - Render `View game`
-
-
-### Views
-
-- List games
-  - View all games
-  - Option to filter games by in-progress/over
-
-- View game
-  - View a single game
+1. `GET /game/:id`:
+  - Renders the single game view -> `View game`
+  - This view must contain the box to place the bets.
   - If no bet has been made, button to make bet
-  - If game is in progress: button for Hit and button for Stand
+  - If game is in progress: button for Hit and Stand buttons.
   - If game is over: show winner/loser/draw
 
 ## (Bonus) Part 2: Multiplayer
