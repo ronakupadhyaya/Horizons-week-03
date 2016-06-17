@@ -59,9 +59,12 @@ solution: your app should be a heckuvalot prettier!
 
 ### Getting started
 
-You should be building on top of your Horizon Starter code from yesterday. You
-may also start with the [solution code](../../day4/horizonstarter/solution) from
-that project if you prefer.
+
+Build on top of your Horizon Starter code from yesterday.
+
+If you want a clean slate, you may also start with the
+[solution code](../../day4/horizonstarter/solution) from yesterday. We don't
+recommend that.
 
 
 ## Phase 1. Creating an API
@@ -87,13 +90,59 @@ another application! Here are some key differences:
   don't need things such as handlebars, cookies, or sessions (if you chose to
   use these).
 
-### Express configuation
+### Express configuration
+
+We need a new set of routes for our AJAX API.
+
+1. Create a new file in `routes/api.js`. Similar to `routes/index.js` this
+  file should declare a `Router` at the top and return it via `module.exports`
+  at the bottom.
+
+  ```javascript
+  var express = require('express');
+  var router = express.Router();
+
+  // Your routes here
+
+  module.exports = router;
+  ```
+
+1. Add the routes from `routes/api.js` to your Express app in `app.js`.
+
+  ```javascript
+  app.use('/', routes); // this was here before
+  // Adding routes from your new router to your app!
+  // Note how we use /api as the prefix!
+  app.use('/api', require('./routes/api'));
+  ```
+1. Now when I add a route in `routes/api.js` I don't need to type `/api` again.
+  In `app.js`, we added the prefix `/api` to ALL of the routes in
+   `routes/api.js`!
+
+  ```javascript
+  // This route shows up as /api
+  router.get('/', function(req, res) {
+    res.json({
+      "you are in": "/api"
+    });
+  });
+
+  // This route shows up as /api/hello
+  // This is because in app.js, we added the prefix /api to ALL of the routes in
+  // routes/api.js.
+  router.get('/hello', function(req, res) {
+    res.json({
+      "you are in": "/api/hello"
+    });
+  });
+  ```
+
+## Advanced Express Configuration (Optional)
 
 Because express is so versatile, there are multiple ways to define sets of
-routes. We could define the routes for our AJAX API using `express.Router` like
-we did yesterday. Since we want to use a different set of middleware, and since
+routes. Since we want to use a different set of middleware, and since
 our AJAX API and routes are entirely distinct from our previous routes, it
-probably makes sense to create a _new express app_ and mount it under the
+may make sense to create a _new express app_ and mount it under the
 existing app in a particular place--say, `/api` (or `/api/1` if we want to
 follow best practice and allow for multiple versions of our API in future).
 Don't be confused by the use of the word "app" here: what express refers to as
@@ -134,10 +183,12 @@ You should set up your AJAX API endpoints the same way you did before, using
 status codes and JSON data. You can construct responses such as the following:
 
 ```javascript
-// Indicate that a POST request was successful.
+// 201 means: Success, I've created something!
+// Useful for indicating that a POST request was successful.
 res.status(201).json({status: "ok"});
 
 // Return the GET request data.
+// status(200) is implied, we're just being explicit here.
 res.status(200).json(data);
 
 // Indicate that the requested object doesn't exist.
