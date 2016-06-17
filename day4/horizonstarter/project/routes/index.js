@@ -44,18 +44,29 @@ router.post('/projects/:id', function(req, res) {
 		amount: parseInt(req.body.amount),
 		projectId: projectidFromParams
 	});
+	var update = {
+		$inc: {
+			totalContribution: parseInt(req.body.amount)
+		}
+	}
+	models.project.findByIdAndUpdate(req.params.id,update, function(error, projectfromMongo) {
+		if (error) {
+			res.status(400).send(error);
+		} 
+	});
 	c.save(function(error, contribution) {
 		if (error) {
 			res.status(400).send("Error donating to project: " + error);
 		} else {
-			models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {
-				models.project.findById(req.params.id, function(error, mongoProject) {
-				res.render('singleProject', {
-					'contributions': mongoContributions,
-					'project': mongoProject
-				});
-			});
-			});
+			// models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {
+			// 	models.project.findById(req.params.id, function(error, mongoProject) {
+			// 	res.render('singleProject', {
+			// 		'contributions': mongoContributions,
+			// 		'project': mongoProject
+			// 	});
+			// });
+			// });
+			res.redirect('/projects/' + projectidFromParams);
 		}
 	})
 });

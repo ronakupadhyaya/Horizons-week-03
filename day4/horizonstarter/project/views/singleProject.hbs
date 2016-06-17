@@ -1,7 +1,7 @@
 <h1>Project: {{project.title}}</h1>
 <h3>Category: {{project.category}}</h3>
 <h3>Fundraising goal: ${{project.goalAmount}}</h3>
-<h3>Total contributions:</3>
+<h3>Total contributions: ${{project.totalContribution}}</3>
 <h3>Start date: {{project.startDate}}</h3>
 <h3>End date: {{project.endDate}}</h3>
 <h3>About this project:</h3>
@@ -30,7 +30,7 @@
 {{#each contributions}}
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">{{name}} | ${{amount}}</h3>
+    <h3 class="panel-title">{{name}} | <font style="font-weight: normal">${{amount}}</font></h3>
   </div>
   <div class="panel-body">
     {{comment}}
