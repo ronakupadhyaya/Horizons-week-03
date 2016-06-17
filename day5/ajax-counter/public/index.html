@@ -5,19 +5,62 @@
     <title>AJAX Counter</title>
   </head>
   <body>
-    <h1>Count <span id="count">0</span></h1>
+    <h1>Count <span id="count">loading...</span></h1>
 
     <button id="increment">Increase</button>
-
-    <!-- Second button with id decrement and label Decrease goes here -->
-    <!-- YOUR CODE HERE -->
-
+    <button id="decrement">Decrease</button>
+    
     <script src="/jquery.js"></script>
+
     <script>
       // ---Task 1---
       // Add a click handler to #increment
+      // $(document.ready(function() { 
 
-      // YOUR CODE HERE
+        function updateCount(data) {
+          $('#count').text(data.count);
+        }
+
+        $.ajax('/count', {
+          success: updateCount
+        });
+
+        $('#increment').click(function() {
+          $.ajax('/count', {
+              method: 'post',
+              success: updateCount
+          })
+        });
+
+        $('#decrement').click(function() {
+          $.ajax('/count', {
+              method: 'delete',
+              success: updateCount
+          })
+        });
+
+
+
+          // $('#increment').click(function() {
+          //   $.ajax('/increment', {
+          //     method: 'POST',
+          //     success: function(data) {
+          //       console.log(data);
+          //       $('#count').text(data.count);
+          //     }
+          //   });
+          // });
+
+          // $('#decrement').click(function() {
+          //   $.ajax('/decrement', {
+          //     method: 'POST',
+          //     success: function(data) {
+          //       console.log(data);
+          //       $('#count').text(data.count);
+          //     }
+          //   });
+          // });
+        // }));
 
       // ---Task 2---
       // Create a second button above
@@ -25,5 +68,6 @@
       
       // YOUR CODE HERE
     </script>
+
   </body>
 </html>

@@ -13,14 +13,21 @@ app.get('/', function(req, res) {
 });
 
 // We use a variable to keep count
-var counter = 0;
+var count = 0;
 
 // This is a JSON endpoint that increases the count and returns its current
 // value.
-app.post('/increment', function(req, res) {
-  counter++;
+
+app.post('/get', function(req, res) {
+	res.json({
+		count: count
+	});
+});
+
+app.post('/count', function(req, res) {
+  count++;
   res.json({
-    count: counter
+    count: count
   });
 });
 
@@ -28,6 +35,11 @@ app.post('/increment', function(req, res) {
 // POST /decrement: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
 
-// YOUR CODE HERE
+app.delete('/count', function(req, res) {
+  count--;
+  res.json({
+    count: count
+  });
+});
 
 app.listen(3000);
