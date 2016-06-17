@@ -1,2 +1,11 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>Horizon Starter</h1>
+{{#each project}}
+<ul>
+        <li>{{title}}</li>
+        <li>{{description}}</li>
+        <li>{{goal}}</li>
+        <li>{{start}}</li>
+        <li>{{end}}</li>
+        <li><a href="project/{{{_id}}}">View Post</a></li>
+</ul>
+{{/each}}

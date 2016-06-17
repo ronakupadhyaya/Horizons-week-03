@@ -11,6 +11,7 @@ var mongoose   = require('./app/mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var project = require('./routes/project');
 
 var app = express();
 
@@ -27,7 +28,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/project', project);
 app.use('/users', users);
+
+// manual addition of data
+// var project = new Project();    // create a new instance of the project model
+// project.title = "Twitter 5.0";
+// project.description = "A revolutionary version of Twitter!";
+// project.goal = "5000";
+// project.start = new Date();
+// project.end = new Date();
+
+// project.save(function(err) {
+//   if (err) {
+//     console.log(err);
+//   } else{
+//     console.log("success!");
+//   }
+// });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
