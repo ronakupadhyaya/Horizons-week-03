@@ -55,7 +55,8 @@ router.get('/new',function(req,res){
 router.post('/new', function(req, res){
 	//post requests in body
 	var p = new models.project({title: req.body.title ,description: req.body.description, goal: req.body.goal,
-		user: req.body.user, raised: "0", percent: "0"})
+		user: req.body.user, raised: "0", percent: "0", category: req.body.category,
+		date: req.body.date, complete: false})
 	p.save(function(error,project){
 	if(error){
 		res.status(400).send("Error creating project: "+error)
@@ -67,6 +68,7 @@ router.post('/new', function(req, res){
 })
 
 router.post('/projects', function(req,res){
+	console.log(req)
 	res.redirect('../new')
 })
 

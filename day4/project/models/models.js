@@ -28,6 +28,17 @@ module.exports={
 		percent:{
 			type:String,
 			required: true
+		},
+		complete:{
+			type: Boolean,
+			required: true
+		},
+		category: {
+			type: String,
+			required: true
+		},
+		date: {
+			type: String
 		}
 	})
 }
