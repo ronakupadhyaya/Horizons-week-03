@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/myUrl', function(req, res) {
-	models.project.find(function(error) {
+	models.project.find(function(error, mongoProjects) {
 		res.render('projects', {
 			projects: mongoProjects
 		})

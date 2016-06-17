@@ -3,9 +3,11 @@ var connect = require('./connect');
 
 mongoose.connect(connect);
 
-module.exports(connect) {
+module.exports = {
 	project: mongoose.model('Project', {
-		title: String,
-		required: true
+		title: {
+			type: String,
+			required: true
+		}
 	})
 };
