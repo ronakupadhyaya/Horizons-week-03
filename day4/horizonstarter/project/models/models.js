@@ -45,6 +45,11 @@ module.exports = {
 		amount: {
 			type: Number,
 			required: true
+		},
+		projectId: {
+			type: String,
+			required: true
 		}
+
 	})
 }

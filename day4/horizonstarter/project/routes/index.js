@@ -18,6 +18,7 @@ router.get('/projects', function(req, res) {
 });
 
 router.get('/projects/:id', function(req, res) {
+	var projectidFromParams = req.params.id;
 	models.project.findById(req.params.id, function(error, mongoProject) {
 		//TODO handle missing project
 		if (error)  {
@@ -25,26 +26,36 @@ router.get('/projects/:id', function(req, res) {
 		} else if (! mongoProject) {
 			res.status(404).send('No such project: ' + req.params.id);
 		}	else {
+		models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {	
 		res.render('singleProject', {
-			'project': mongoProject
+			'project': mongoProject,
+			'contributions': mongoContributions
 		});
-
+	});
 }
 });	
 });
 
 router.post('/projects/:id', function(req, res) {
-	var projectId = req.params.id;
+	var projectidFromParams = req.params.id;
 	var c = new models.contribution({
 		name: req.body.name,
 		comment: req.body.comment,
-		amount: req.body.amount
+		amount: parseInt(req.body.amount),
+		projectId: projectidFromParams
 	});
 	c.save(function(error, contribution) {
 		if (error) {
 			res.status(400).send("Error donating to project: " + error);
 		} else {
-			res.redirect('/projects/' + projectId);
+			models.contribution.find({projectId: projectidFromParams}, function(error, mongoContributions) {
+				models.project.findById(req.params.id, function(error, mongoProject) {
+				res.render('singleProject', {
+					'contributions': mongoContributions,
+					'project': mongoProject
+				});
+			});
+			});
 		}
 	})
 });

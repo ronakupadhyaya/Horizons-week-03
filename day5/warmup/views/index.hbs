@@ -3,19 +3,61 @@
   <head>
     <meta charset="utf-8">
     <title>Basic Counter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+    <script>
+    $(document).ready(function() {
+      // $.ajax('/data', { //playing around with the data
+      //   success: function(data) {
+      //     $('#out').text(data.a[1]);
+      //   }
+      // });
+      
+      $('#inc').click(function() {
+        $.ajax('/increment', {
+          method: 'POST',
+          success: function(data) {
+            //display text out
+            $('#out').text(data.count);
+          }
+        });
+
+      });
+
+       $('#dec').click(function() {
+        $.ajax('/decrement', {
+          method: 'POST',
+          success: function(data) {
+            //display text out
+            $('#out').text(data.count);
+          }
+        });
+        
+      });
+    });
+  </script>
   </head>
   <body>
-    <h1>Count: {{count}}</h1>
+   <!--  <h1>Count: {{count}}</h1>
 
-    <form action="/increment" method="post">
-      <input type="submit" value="Increase">
-    </form>
+  //   <form action="/increment" method="post">
+  //     <input type="submit" value="Increase">
+  //   </form>
 
-    <!-- Task 2
-      Create a form with a button than when clicked sends a POST request
-      to /decrement
+  //   Task 2
+  //     Create a form with a button than when clicked sends a POST request
+  //     to /decrement
 
-      The button should "Decrease" on it.
-    -->
+  //     The button should "Decrease" on it.
+   
+  //   <form action="/decrement" method="POST">
+  //   <input name="decrease" type="submit" value="Decrease"> </form> -->
+  
+ 
+  <h1>Output: <span id="out"></span></h1>
+  <button id="inc">Increment</button>
+ 
+
+
+  <button id="dec">Decrement</button>
   </body>
 </html>
