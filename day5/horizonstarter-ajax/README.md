@@ -189,14 +189,65 @@ need to update the user sees, the data that was originally rendered on the
 backend, when you receive new data from the user or from AJAX. Think back to the
 `render` and `mount` functions we wrote for the Horello projects.
 
+Start by building out the first piece of new, AJAX-driven functionality: project
+contributions.  
+
 
 ## Phase 4. Validation, error handling
 
-Bootstrap validation states
+At this point, you should have successfully added Javascript to the frontend and
+you should have connected it to the "contribute to project" form on the project
+page via events and AJAX. The next challenge is form validation and error
+handling on the frontend.
+
+### Validation
+
+This topic was covered in more detail in [yesterday's project
+notes](../../day4/horizonstarter#form-validation), but today we need to do
+validation on the frontend. Think about how you want to alert the user when they
+input bad data, or when they neglect to fill in a required piece of data. You
+may find the following two resources especially useful:
+
+- [Bootstrap form validation states](http://getbootstrap.com/css/#forms-control-validation)
+- [jQuery validation](https://jqueryvalidation.org/)
+
+### Error handling
+
+We also need to consider what happens when we receive an error from the backend.
+How do we surface this error to the user? How do we give them a hint about how
+to fix the error?
+
+Validation and error handling go hand-in-hand: if we fully validate all input,
+we should be able to avoid nearly all errors on the backend; on the contrary, if
+we're not thorough about our validation on the frontend, we'll get errors from
+the backend (e.g., if we make an AJAX call even though a required piece of data
+is missing) and we'll need to alert the user either way. As a recap, remember
+that validation happens in different stages, and that each has a role:
+
+1. Frontend validation: _before the AJAX call_
+1. Backend validation: _after the AJAX call, before hitting the database_
+1. Database validation: _from the database, if data doesn't match the schema_
+
 
 ## Phase 5. Polling
 
+Now that you've got the contributions form and functionality working via AJAX,
+let's move on to something a little bit harder: automatically refreshing the
+contributions data to display new contributions (from other users) in real
+time<sup>*</sup>.
+
+The easiest way to do this is by having an AJAX call that fires periodically
+using `setInterval` (every 5-10 seconds would be a reasonable interval). It
+should be pretty straightforward to add this on top of the functionality you've
+already built. Once it's working, try opening your app in two browser tabs: add
+a contribution/comment in one, and watch it appear in the other!
+
+
 ## Phase 6. Adding filters
+
+The final and most interesting aspect of this project is adding the filters to
+the project list on the front page. To recap:
+
 
 ## Bonus
 
