@@ -19,5 +19,4 @@ endpoint and AJAX.
   this button should trigger a POST AJAX request to `/increment` and update
   the page (i.e. update `#count`) based on its return value.
 1. Start your server and check that clicking `Increase` or `Decrease` increases
-  or decreases the counter on the screen. The value of the counter should not
-  change after you refresh the screen.
+  or decreases the counter on the screen.
