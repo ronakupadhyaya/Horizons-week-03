@@ -1,0 +1,22 @@
+<h1>Welcome to Horello Starter</h1>
+<h2>Current Projects:</h2>
+<ul>
+{{#each projects}}
+	<li>
+		<form method="post" action="../projects/{{id}}">
+		<!-- <p>{{id}}</p> -->
+		<p>{{title}}:</p>
+		<p>{{description}}</p>
+		<p>By: {{user}}</p>
+		<p>Category: {{category}}</p>
+		<button type="submit" name="projid" class="btn btn-">View project</button>
+		</form>
+	</li>
+{{/each}}
+</ul>
+<form action="../new">
+ <button type="submit" name="newPostPg" class="btn btn-default">Create a Project</button>
+ </form>
+<form action="../categories">
+ <button type="submit" name="categories" class="btn btn-default">View Categories</button>
+</form>
