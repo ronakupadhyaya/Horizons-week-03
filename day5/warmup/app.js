@@ -21,8 +21,13 @@ app.get('/', function(req, res) {
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
 
+<<<<<<< Updated upstream
 app.post('/increment', function(req,res) {
 	count += 1;
+=======
+app.get('/increment', function(req,res) {
+	count++;
+>>>>>>> Stashed changes
 	res.redirect('/');
 });
 
@@ -30,9 +35,18 @@ app.post('/increment', function(req,res) {
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
 
+<<<<<<< Updated upstream
 app.post('/decrement', function(req,res) {
 	count -= 1;
 	res.redirect('/');
 });
+=======
+
+app.get('/decrement', function(req,res) {
+	count--;
+	res.redirect('/');
+});
+
+>>>>>>> Stashed changes
 
 app.listen(3000);
