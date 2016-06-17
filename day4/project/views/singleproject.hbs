@@ -4,8 +4,8 @@
 <p>Goal Amount: {{project.goal}}</p>
 <p>Insert goal bar eventually</p>
 <div class="progress">
-<div class="progress-bar" role="progressbar" aria-valuenow={{project.raised}} aria-valuemin="0" aria-valuemax={{project.goal}} style="width:"+{{project.percent}}+"%"">
-<span class="sr-only">${{project.raised}} raised</span>
+<div class="progress-bar" role="progressbar" aria-valuenow={{project.raised}} aria-valuemin="0" aria-valuemax={{project.goal}} style="width:"+{{project.percent}}+"%">
+<span class="sr-only">{{project.raised}} raised</span>
 </div>
 </div>
 <form method="post">

@@ -3,10 +3,14 @@
 <ul>
 {{#each projects}}
 	<li>
-		<a href="projects/{{_id}}"">{{title}}:</a>
+		<form method="post" action="../projects/{{id}}">
+		<!-- <p>{{id}}</p> -->
+		<p>{{title}}:</p>
 		<p>{{description}}</p>
 		<p>By: {{user}}</p>
 		<p>Category: {{category}}</p>
+		<button type="submit" name="projid" class="btn btn-">View project</button>
+		</form>
 	</li>
 {{/each}}
 </ul>

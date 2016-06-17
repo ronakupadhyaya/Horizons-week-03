@@ -17,16 +17,41 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/projects', function(req,res){
+	//if searching by category
 	if(req.query.category){
-		console.log('a')
-		 models.project.findByCategory(req.query.category, function(error, mongoProjects){
+		 models.project.find({'category': req.query.category}, function(error, mongoProjects){
 		 	res.render('projects', {
 		 		'projects': mongoProjects
 		 	});
 		 });
+		 return;
 	}
-	///taking info from projects within models and using it here
-	models.project.find(function(error, mongoProjects){
+	
+	//for archiving complete projects
+	if(req.query.complete){
+		//console.log(true)
+		models.project.find({'complete':true}, function(error, mongoProjects){
+			res.render('projects', {
+				'projects': mongoProjects
+			})
+		})
+		return;
+	}
+
+	if(req.query.goal){
+		//console.log(true)
+		models.project.find(function(error, mongoProjects){
+		if(mongoProjects.goal>= req.query.goal){
+			res.render('projects', {
+				'projects': mongoProjects
+			})
+		}
+		})
+		return;
+	}
+
+	///for all active projects
+	models.project.find({'complete': false}, function(error, mongoProjects){
 		res.render('projects',{
 			'projects': mongoProjects //projects back from mongo
 		}); //^^handle projects
@@ -36,6 +61,10 @@ router.get('/projects', function(req,res){
 
 router.post('/categories', function(req,res){
 	res.redirect('/posts?category='+res.query)
+})
+
+router.post('/projects/', function(req,res){
+	res.redirect('/projects='+res.body)
 })
 
 router.get('/projects/:id', function(req,res){
