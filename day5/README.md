@@ -8,7 +8,7 @@
 ## Pair Programming Exercises
 
 
-1. [Horizon Starter: Finish up yesterday](./day4/horizonstarter/README.md)
+1. [Horizon Starter: Finish up yesterday](../day4/horizonstarter/README.md)
 
   Get through the following: 
     - MVP Features
