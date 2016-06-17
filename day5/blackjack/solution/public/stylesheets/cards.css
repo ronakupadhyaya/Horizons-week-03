@@ -45,29 +45,19 @@ div.card-value.invert, div.suit.invert
 div.card-value.invert{bottom: 5px;}
 div.suit.invert{bottom: 20px;}
 
-div.dealer-area{}
+div.dealer-area{
+	margin-left: 30%;
+		margin-right: 30%;
+}
 
-div.user-area{float: left;}
+div.user-area{
+	margin-left: 30%;
+			margin-right: 30%;
+}
 
 div#user-score, div#dealer-score
 {
 	display: inline-block;
-}
-
-div.score-parent
-{
-	width: 100%;
-	display: inline-block;
-}
-
-div.score-parent p
-{
-	display: inline-block;
-}
-
-div#dealer-score
-{
-
 }
 
 div.card#hidden-card
