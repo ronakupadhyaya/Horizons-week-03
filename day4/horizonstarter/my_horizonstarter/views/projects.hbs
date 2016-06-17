@@ -1,0 +1,12 @@
+<h1>Horizon Starter</h1>
+<ul>
+{{#each projects}}
+	<div class="container" style= "border:1px solid black">
+		<h2>Title: {{title}}</h2>
+		<h3>Description: {{description}}</h3>
+		<a href="/projects/{{_id}}"> View project </a>
+	</div>
+{{/each}}
+</ul>
+
+<a href="/new">Create new project</a>
