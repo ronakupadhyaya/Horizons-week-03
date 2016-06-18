@@ -1,7 +1,19 @@
-<ul>
+<div class = "flexing">
 	{{#each projects}}
-		<li> <a href="/projects/{{_id}}" >{{title}} </li>
+		<a href="/projects/{{_id}}">
+		<div class = "box">
+			<div class = "words">
+				<div class = "letters" >{{title}}</div>
+			</div> 
+			<div class = "body">
+				{{description}}
+			</div>
+		</div>
+		</a>
 	{{/each}}
-</ul>
+</div>
 
-<a href = "/new"> Create new project</a>
+
+<button class = "btn btn-danger"> 
+	<a id="hallo" href = "/new"> Create new project </a>
+</button>

@@ -1,1 +1,49 @@
-Project: {{project.title}}
+<div class = "box">
+	<div class = "words">
+		<div class = "letters" > PROJECT: {{project.title}}</div>
+	</div> 
+	<div class = "body" id="singlebody">
+			<div class = "attribute"> DESCRIPTION: </div>
+				<div class = "attribute" id="data">{{project.description}} </div>
+			<div class = "attribute">CATEGORY: </div>
+				 <div class = "attribute" id="data"> {{project.category}} </div>
+			<div class = "attribute"> FUNDRAISING GOAL: </div> 
+				<div class = "attribute" id="data">${{project.goal}} </div>
+			<div class = "attribute"> TOTAL CONTRIBUTIONS: </div> 
+			<div class="progress">
+  				<div class="progress-bar" role="progressbar" style="width:70%">
+    				<span></span>
+  				</div>
+			</div>			
+			<div class = "attribute"> START DATE: </div> 
+				<div class = "attribute" id="data">{{project.start}} </div>
+			<div class = "attribute"> END DATE: </div> 
+				<div class = "attribute" id="data">{{project.end}} </div>
+	</div>
+</div>
+
+<div class = "words">
+	<div class = "letters" id = "letters" > Contribute to this project!</div>
+</div> 
+
+<div class = "formpad">
+<form class = "form" method ="POST"> 
+  <div class = "form-group">
+    <label for="name"> Name </label>
+    <input type = "text" class="form-control" name = "name" placeholder = "Name">
+  </div>
+  <div class="form-group">
+    <label for="comment">Comment</label>
+    <input type="text" class="form-control" rows="5" name = "comment" id="comment"></textarea>
+  </div>
+	<div class="form-group">
+	    <label for="money">Contribution Amount</label>
+	    <div class="input-group">
+	      <div class="input-group-addon">$</div>
+	      <input type="text" class="form-control" name = "money" id="money" placeholder="Amount">
+	      <div class="input-group-addon">.00</div>
+	    </div>
+	  </div>
+  <button type="submit" class="btn btn-danger">Contribute!</button>
+ </form>
+ </div>

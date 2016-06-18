@@ -1,16 +1,40 @@
-<form method ="POST"> 
-	Title: <input type = "text" name = "title">
-	<input type= "submit">
-</form>
-
-<form class="form-inline">
-  <div class="form-group">
-    <label for="exampleInputName2">Name</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+<form class = "form" method ="POST"> 
+  <div class = "form-group">
+    <label for="title"> Project Title </label>
+    <input type = "text" class="form-control" name = "title" placeholder = "Project Title">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail2">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+    <label for="description">Description</label>
+    <textarea type="text" class="form-control" rows="5" name = "description" id="description"></textarea>
   </div>
-  <button type="submit" class="btn btn-default">Send invitation</button>
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select class = "form-control" name = "category" id="category">
+      <option value="Whips"> Whips</option>
+      <option value="Dildos"> Dildos</option>
+      <option value="Vibrators"> Vibrators</option>
+      <option value="Rope"> Rope </option>
+      <option value= "Fleshlights"> Fleshlights </option>
+      <option value="Chains"> Chains </option>
+      <option value="Lube"> Lube </option>
+      <option value="Condoms"> Condoms </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="money">Fundraising Goal</label>
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" name = "money" id="money" placeholder="Amount">
+      <div class="input-group-addon">.00</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="start"> Start date</label>
+    <input type="date" class="form-control" id="start" name="start" value="">
+  </div>
+  <div class="form-group">
+    <label for="end"> End date</label>
+    <input type="date" class="form-control" id="end" name="end" value="">
+  </div>
+  <button type="submit" class="btn btn-danger">Create</button>
 </form>

@@ -17,6 +17,13 @@ var counter = 0;
 
 // This is a JSON endpoint that increases the count and returns its current
 // value.
+
+app.get('/counter', function (req, res) {
+	res.json({
+		count: counter
+	})
+})
+
 app.post('/increment', function(req, res) {
   counter++;
   res.json({
@@ -24,6 +31,12 @@ app.post('/increment', function(req, res) {
   });
 });
 
+app.delete('/decrement', function(req, res) {
+	counter--;
+	res.json({
+		count: counter
+	});
+})
 // ---Task 2---
 // POST /decrement: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.

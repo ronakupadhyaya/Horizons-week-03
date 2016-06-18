@@ -6,3 +6,83 @@ body {
 a {
   color: #00B7FF;
 }
+
+.title {
+	font-size: 70px;
+	font-weight: 700;
+	color: red;
+	text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+}
+
+textarea {
+	resize: none;
+}
+
+a {
+	font-size: 25px;
+	color: black;
+	text-decoration: none;
+}
+
+#hallo {
+	color: white;
+	size: 48px;
+}
+
+a:hover {
+	color: red;
+}
+
+.flexing {
+	display:flex;
+
+}
+
+.letters {
+	font-size: 20px;
+	font-weight: 700;
+}
+.box {
+	background-color: #ffcce6;
+	margin: 10px;
+	padding: 30px;
+	border-radius: 15px;
+}
+
+.words {
+	padding-bottom: 5px;
+}
+.body {
+	font-size: 14px;
+}
+
+#singlebody {
+	font-size: 18px;
+	font-weight: 700;
+	padding: 0;
+}
+
+.attribute {
+	padding: 10px 10px 0 10px;
+}
+
+#data {
+	font-weight: 300;
+	font-size: 14px;
+}
+
+.formpad {
+	padding: 15px;
+}
+
+#letters {
+	padding-top: 15px;
+}
+
+.progress-bar {
+	background-color: red;
+}
+
+.progress {
+	margin: 10px;
+}
