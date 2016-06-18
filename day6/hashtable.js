@@ -39,9 +39,14 @@
 // value: "84" as "John Smith" and storing our phone number data with that value
 // could mean a nymber would get lost! That is a collision.
 
-var simpleHashCode = function(str) {
-  // YOUR CODE HERE
+function simpleHashCode(str) {
+  var sum = 0;
+  str.toUpperCase().split('').forEach(function(alphabet) {
+    sum += alphabet.charCodeAt(0) - 64;
+  });
+  return(sum);
 }
+
 
 // Collisions
 // Instead of relying on the function not to generate two keys, we will accomodate
@@ -52,7 +57,7 @@ var simpleHashCode = function(str) {
 
 //That happen to generate the same keys
 // hashCode("John Smith") -> "84"
-// hashCode("Sara Zhmiu") -> "84"
+// simpleHashCode("Sara Zhmiu") -> "84"
 
 // We would want phoneNumbers.get(84) to return an array of both items!
 //[ ["John Smith", "+593 9846 19872"], ["Sara Zhmiu", "+593 6274 93957"] ]
@@ -61,7 +66,7 @@ var simpleHashCode = function(str) {
 // Part 2. HashTable
 // This time we are going to implement a real HashTable.
 // The approach is simple: We get a (key, value) pair to store on the Hash.
-// We use the hashCode function we implemented before to hash the key.
+// We use the simpleHashCode function we implemented before to hash the key.
 // var hash = this.hashCode(key)
 // and we store the (key, value) pair on the pairs array using this as a new
 // index! pairs[84] -> ["John Smith", "+593 9846 19872"]
@@ -69,16 +74,19 @@ var simpleHashCode = function(str) {
 // We need to have a sense of the size of the array we will use. It is different
 // to save memory for an array of 10 elements than it is for an array of 10000
 // elements.
-
-function HashTable(capacity) {
+function HashTable() {
+  // The size of your hashtable is independent of how many keys we storing
+  this.tableSize = 10000;
+  // This is an array full of nulls, we're going to store our keys and values here
+  this.table = _.range(this.tableSize).map(_.constant(null));
   // YOUR CODE HERE
 }
 
 // Our implementation of a hash was good! But, the longer the word, the larger it's
 // indices will be. So if we have "a" it's hash would be 1, but if we have "zzzzzz"
-// the hashValue would quickly overflow the HashTables's capacity.
-// Write a function that calls the hashCore() function and transforms its return value
-// into a number between 0 and this.capacity.
+// the hashValue would quickly overflow the HashTables's tableSize.
+// Write a function that calls the simpleHashCode() function and transforms its return value
+// into a number between 0 and this.tableSize.
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
   // YOUR CODE HERE
@@ -176,7 +184,7 @@ HashTable.prototype.keysValues = function(fn) {
 // your hashes.
 // Bonus: Change and understand the implementation!
 
-var hashCode = function(str) {
+var superHashCode = function(str) {
   var hash = 0, i, chr, len;
   if (str.length === 0) return hash;
   for (i = 0, len = str.length; i < len; i++) {
