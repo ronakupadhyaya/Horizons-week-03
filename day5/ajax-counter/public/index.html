@@ -11,19 +11,36 @@
 
     <!-- Second button with id decrement and label Decrease goes here -->
     <!-- YOUR CODE HERE -->
+    <button id="decrement">Decrease</button>
 
     <script src="/jquery.js"></script>
     <script>
       // ---Task 1---
       // Add a click handler to #increment
 
-      // YOUR CODE HERE
+      $('#increment').click(function() {
+        $.ajax({
+          url: '/increment',
+          method: 'POST',
+          success: function(data) {
+            $('#count').text(data.count);
+          },
+        });
+      });
 
       // ---Task 2---
       // Create a second button above
       // Add a click handler to #increment
-      
-      // YOUR CODE HERE
+
+      $('#decrement').click(function() {
+        $.ajax({
+          url: '/decrement',
+          method: 'POST',
+          success: function(data) {
+            $('#count').text(data.count);
+          },
+        });
+      });
     </script>
   </body>
 </html>

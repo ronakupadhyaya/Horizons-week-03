@@ -28,6 +28,11 @@ app.post('/increment', function(req, res) {
 // POST /decrement: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
 
-// YOUR CODE HERE
+app.post('/decrement', function(req, res) {
+  counter--;
+  res.json({
+    count: counter
+  });
+});
 
 app.listen(3000);
