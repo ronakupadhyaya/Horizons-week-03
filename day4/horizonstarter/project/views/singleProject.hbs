@@ -23,13 +23,18 @@
   <div>
     <label>About this Project: </label><p id = "description">{{project.description}}</p>
   </div>
+  <div>
+    <button style = "float: right" type="submit" class="btn btn-danger delete" data-id="{{project._id}}">Delete</button>
+  </div>
+  <br>
   <br>
   <div>
     <label>Contribute to this Project</label>
+
+   <form method = "post">
     <div class="form-group">
      <input type="text" class="form-control" placeholder="Name" name = "contributor">
    </div>
-   <form>
    <div class="form-group">
       <div class="input-group">
           <div class="input-group-addon">$</div>
@@ -43,5 +48,33 @@
    <button type="submit" class="btn btn-primary">Contribute</button>
    </form>
   </div>
+  <ul class = "list-group">
+    {{#each project.contributions}}
+    <br>
+    <li class="list-group-item list-group-item-info">
+      <h4 class="list-group-item-heading">{{name}} contributed ${{contribution}}</h4><br>
+      <p class="list-group-item-text">{{comment}}</p>
+    </li>
+    {{/each}}
+  </ul>
  </div>
 </div>
+<script>
+  $('.delete').click(function(evt){
+    var id = $(evt.target).attr("data-id");
+    $.ajax({
+      url: '/projects/' + id,
+      type: 'DELETE',
+      data: {
+        'id': id
+      },
+      success: function(data){
+        console.log(data);
+        window.location = data.redirect;
+      },
+      error: function(error){
+        console.log(error);
+      }
+    });
+})
+</script>

@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/projects', function(req, res, next) {
+
 	models.project.find(function(err, mongoprojects){
 		res.render('project', {
 			projects: mongoprojects
@@ -29,6 +30,10 @@ router.get('/projects', function(req, res, next) {
 router.get('/projects/new', function(req, res, next) {
 	res.render('new');
 });
+
+// router.post('/projects/new', function(req, res, next) {
+// 	res.redirect('/projects');
+// });
 
 router.post('/projects/new', function(req, res){
 
@@ -49,7 +54,8 @@ router.post('/projects/new', function(req, res){
 			goal: goal,
 			startDate: start,
 			endDate: end,
-			raised:0
+			raised: 0,
+			contributions: []
 		});
 
 	var id;
@@ -61,10 +67,9 @@ router.post('/projects/new', function(req, res){
 		else {
 			id = success._id;
 			console.log(success);
+			res.redirect('/projects/'+id);
 		}
 	})
-
-	res.redirect('/projects/'+id)
 })
 
 
@@ -74,14 +79,46 @@ router.get('/projects/:id', function(req, res, next) {
 			'project': mongoProject
 		});
 	})
-
-	router.post('/projects/:id', function(req, res, next){
-		var name = req.body.contributor;
-		var comment = req.body.comments;
-		var contribution = req.body.contribution;
-	});
 });
 
 
+router.post('/projects/:id', function(req, res, next){
+	var name = req.body.contributor;
+	var comment = req.body.comments;
+	var contribution = req.body.contribution;
+
+	var contributions = {
+		name: name,
+		comment: comment,
+		contribution: contribution	
+	}
+
+	models.project.findByIdAndUpdate(
+		req.params.id, 
+		{ $inc: { raised: contribution } ,
+		   $push: { contributions: contributions } }, 
+		function(error, mongoContr) {
+			if (error) {
+				console.log(error);
+			}
+			else {
+				console.log(mongoContr);
+			}
+	})
+	res.redirect('/projects/' + req.params.id);
+});
+
+
+router.delete('/projects/:id', function(req, res, next) {
+
+	models.project.remove( {"_id": req.params.id}, function(err, data) {
+		if (err) {
+			console.log(err);
+		} else {
+			console.log(data);
+			res.json({redirect: "/projects"});
+		}
+	} );
+});
 
 module.exports = router;

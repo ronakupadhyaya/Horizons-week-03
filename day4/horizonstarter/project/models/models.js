@@ -32,6 +32,13 @@ module.exports = {
 		endDate: {
 			type: Date,
 			required: true
-		}
+		},
+
+		contributions: [{
+			name: String,
+			comment: String,
+			contribution: Number
+		}]
 	})
 };
+

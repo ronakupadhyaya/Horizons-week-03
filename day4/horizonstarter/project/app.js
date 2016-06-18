@@ -27,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// this allows you to apply these to all of them 
+// rather than doing router.get(...) for each file that needs it
 app.use('/', routes);
 app.use('/users', users);
 
