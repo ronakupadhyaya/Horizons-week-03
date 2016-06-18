@@ -29,5 +29,11 @@ app.post('/increment', function(req, res) {
 // and returns a JSON response indicating the new value of `count`.
 
 // YOUR CODE HERE
+app.post('/decrement', function(req, res) {
+  counter--;
+  res.json({
+    count: counter
+  });
+});
 
 app.listen(3000);

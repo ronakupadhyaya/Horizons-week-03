@@ -1,9 +1,9 @@
-<ul>
  {{#each projects}}
- 	<div class="container"> 
- 	<a href="/projects/{{_id}}">{{title}}</a>
+ 	<div class="well"> 
+ 	<h2>{{title}}</h2>
+ 	<h4>{{description}}</h4>
+ 	<a href="/projects/{{_id}}">View Project</a>
  	</div>
  {{/each}}
-</ul>
 
 <a href="/new">Create new project</a>

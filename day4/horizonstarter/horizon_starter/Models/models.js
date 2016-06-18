@@ -28,6 +28,34 @@ module.exports = {
 		description: {
 			type: String,
 			required: true
+		},
+		raised: {
+			type: Number,
+			default: 0
+		},
+		contributions: {
+			type: Array,
+			default: []
+		},
+		progress: {
+			type: Number,
+			default: 0
+		}
+	}),
+	contribution: mongoose.model('contribution',  {
+		name: {
+			type: String,
+			required: true
+		},
+		amount: {
+			type: Number,
+			required: true
+		},
+		note: {
+			type: String
+		},
+		date: {
+			type: Date
 		}
 	})
 }

@@ -8,22 +8,39 @@
     <h1>Count <span id="count">0</span></h1>
 
     <button id="increment">Increase</button>
+    <button id="decrement">Increase</button>
 
     <!-- Second button with id decrement and label Decrease goes here -->
     <!-- YOUR CODE HERE -->
 
-    <script src="/jquery.js"></script>
+    <script src="jquery.js"></script>
     <script>
       // ---Task 1---
       // Add a click handler to #increment
 
       // YOUR CODE HERE
+      $('#increment').click(function() {
+        $.ajax('/increment', {
+          method: "POST",
+          success: function(response) {
+            $('#count').text(response.count);
+          }
+        })
+      });
 
       // ---Task 2---
       // Create a second button above
       // Add a click handler to #increment
       
       // YOUR CODE HERE
+      $('#decrement').click(function() {
+        $.ajax('/decrement', {
+          method: "POST",
+          success: function(response) {
+            $('#count').text(response.count);
+          }
+        })
+      });
     </script>
   </body>
 </html>
