@@ -1,4 +1,5 @@
 var express = require('express');
+var validator = require('express-validator');
 var router = express.Router();
 var mongoose = require('mongoose');
 
@@ -38,7 +39,28 @@ router.get('/new', function(req, res) {
 });
 
 router.post('/new', function(req, res) {
-	var p = new models.project({title: req.body.title});
+	req.checkBody('title', 'Title is required').notEmpty();
+	req.checkBody('goal', 'Goal is required').notEmpty();
+	req.checkBody('goal', 'Goal must be a number').isInt();
+	req.checkBody('raised', 'Amount raised is required').notEmpty();
+	req.checkBody('raised', 'Amount raised must be a number').isInt();
+	req.checkBody('category', 'Category is required').notEmpty();
+	req.checkBody('description', 'Description is required').notEmpty();
+	req.checkBody('startDate', 'Start date is required').notEmpty();
+	req.checkBody('startDate', 'Start date must be a date').isDate();
+	req.checkBody('endDate', 'End date is required').notEmpty();
+	req.checkBody('endDate', 'End date must be a date').isDate();
+	var errors = req.validationErrors();
+
+	var p = new models.project({
+			title: req.body.title,
+			goal: req.body.goal,
+			raised: req.body.raised,
+			category: req.body.category,
+			description: req.body.description,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate
+			});
 	p.save(function(error) {
 	  if (error) {
 		res.status(400).send("Error creating project: " + error)
@@ -47,4 +69,6 @@ router.post('/new', function(req, res) {
 	  }
 	})
 })
+
+
 module.exports = router;

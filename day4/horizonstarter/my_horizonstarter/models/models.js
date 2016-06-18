@@ -27,11 +27,11 @@ module.exports = {
 		},
 		startDate: {
 			type: Date,
-			required: false
+			required: true
 		},
 		endDate: {
 			type: Date,
-			required: false
+			required: true
 		}
 	})
 }
