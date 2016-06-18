@@ -24,6 +24,14 @@ router.get('/projects', function(req, res) {
 	})
 });
 
+// router.get('/login', function(req, res) {
+// 	models.user.find(function(error, mongoUser) {
+// 		res.render('login', {
+// 			'login': mongoUser
+// 		});
+// 	})
+// });
+
 //so anything after the slash goes into the id... so if you do like
 //localhost/projects/hello, this will tell you id is hello
 //query comes after the question mark
@@ -115,5 +123,23 @@ router.post('/projects/:id', function(req, res) {
         }
     })
 })
+
+// router.get('/login', function(req,res){
+// 	res.render('login');
+// })
+
+// router.post('/login', function(req,res) {
+// 	var user = new models.user({
+// 		username: req.body.username
+// 	});
+// 	user.save(function(error) {
+// 		if (error) {
+// 			res.status(400).send("Error creating user")
+// 		} else {
+// 			res.redirect('/projects')
+// 		}
+// 	})
+// })
+
 
 module.exports = router;

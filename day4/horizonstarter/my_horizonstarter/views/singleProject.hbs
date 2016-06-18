@@ -1,3 +1,9 @@
+<script>
+var projectId = '{{project.id}}'
+</script>
+<script src="/javascripts/hybrid.js"></script>
+
+<div>
 <h2>Project: {{project.title}}<br></h2>
 Description: {{project.description}}<br>
 Category: {{project.category}}<br>
@@ -5,15 +11,15 @@ Amount: {{project.amount}}<br>
 Startdate: {{project.startdate}}<br>
 Enddate: {{project.enddate}}<br>
 Funded: {{project.funded}}<br>
+<div id="contributions">
 Contributions: {{#each project.contributions}}
-<div>
 <ul>
 	<li>{{name}}
 	<li>{{comment}}
 	<li>{{donation}}
 </ul>
-</div>
 {{/each}}
+</div>
 
 
 <h2>Donate to This Project</h2>
@@ -37,4 +43,6 @@ Contributions: {{#each project.contributions}}
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 <br>
+<br>
 <a href="/projects">Return to projects</a>
+</div>

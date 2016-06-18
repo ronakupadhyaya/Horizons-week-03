@@ -39,6 +39,11 @@ module.exports = {
 			type: [],
 			required: false
 		}
-
+	}),
+	user: mongoose.model('user', {
+		username: {
+			type: String,
+			required: true
+		}
 	})
 };
