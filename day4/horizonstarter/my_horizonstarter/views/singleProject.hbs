@@ -1,10 +1,70 @@
+<h1><b>{{{project.title}}}</b></h1>
 <div>
 	<div class="well">
-	<h1><b>{{{project.title}}}</b></h1>
 	<h3>Category: <i>{{{project.category}}}</i></h3>
-	<p class="single">Fundraising goal: ${{{project.amount}}}</p>
+	<p class="single">Fundraising goal: ${{{project.goal}}}</p>
+	<p class="single">Total contributions: {{{project.amount}}}</p>
+	
+{{!-- 		<div class="progress-bar" role="progressbar" style="width: {{project.progress}}%;min-width: 2em;">
+		<span class="progress">{{project.progress}}</span> 
+		</div> --}}
 	<p class="single">Start date: {{{project.start}}}</p>
 	<p class="single">End date: {{{project.end}}}</p>
-	<p class="single">{{{project.description}}}</p>
+	<p class="single">About: {{{project.description}}}</p>
 	</div>
 </div>
+
+<h2><b>Contribute to this project:</b></h2>
+<form id="contribForm" method="post">
+
+	<div class="form-group">
+		<input name="name" type="text" class="form-control"placeholder="Your name" required>
+	</div>
+
+	<div class="form-group">
+		<input name="comment" type="text" class="form-control"placeholder="Comment"></input>
+	</div>
+
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon">$</div>
+			<input name="amount" type="number" class="form-control" placeholder="Amount" value required>
+			<div class="input-group-addon">.00</div>
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Contribute</button>
+</form>
+
+{{#each project.contributions}}
+	<div class="well">
+		<p><b><i>{{name}}</i></b> donated ${{amount}}</p>
+		<p>{{comment}}</p>
+	</div>
+{{/each}}
+
+<script type="text/javascript">
+	// $("#contribForm").on('submit', function(e) {
+	// 	e.preventDefault();
+	// 	var target = $(e.target);
+	// 	var inputs = target.find('input');
+	// 	var contrib = {};
+	// 		inputs.each(function(i, inputElement) {
+	// 			var val = $(inputElement).val();
+	// 			var name = $(inputElement).attr('name');
+	// 			contrib[name] = val;
+	// 	});
+	// 	$.ajax('/api/project/{{project._id}}/contribute', {
+	// 		method: "POST",
+	// 		data: contrib,
+	// 		success: function(data) {
+	// 			var raised = parseInt($('#raised').text());
+	// 			$('#raised').text(raised);
+	// 			var goal = parseInt($('#goal').text());
+	// 			var progress = Math.round(raised / goal * 100);
+	// 			$('#progress').text(progress);
+	// 			$('.progress-bar').css('width', '' + progress + '%');
+	// 		}
+	// 	});
+	// });
+</script>

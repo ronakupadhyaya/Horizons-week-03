@@ -6,7 +6,7 @@ var models = require('../models/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express', layout: "layoutHome.hbs"});
 });
 
 router.get('/projects', function(req, res) {
@@ -42,9 +42,14 @@ function validate(req) {
   req.checkBody('title', 'Invalid title').notEmpty();
   req.checkBody('description', 'Invalid description').notEmpty();
   req.checkBody('category', 'Invalid category').notEmpty();
-  req.checkBody('amount', 'invalid amount').notEmpty().isInt();
+  req.checkBody('goal', 'invalid amount').notEmpty().isInt();
   req.checkBody('start', 'Invalid start date').notEmpty();
   req.checkBody('end', 'Invalid end date').notEmpty();
+}
+
+function validateContribution(req) {
+  req.checkBody('name', 'Invalid name').notEmpty();
+  req.checkBody('amount', 'Invalid amount').notEmpty().isInt();
 }
 
 
@@ -60,7 +65,7 @@ router.post('/new', function(req, res) {
     var p = new models.project({
       title: req.body.title,
       description: req.body.description,
-      amount: req.body.amount,
+      goal: req.body.goal,
       category: req.body.category,
       start: req.body.start,
       end: req.body.end
@@ -73,8 +78,30 @@ router.post('/new', function(req, res) {
         res.redirect('/projects/' + project._id);
       }
     })
-
   }
 });
+
+router.post('/projects/:id', function(req, res) {
+  validateContribution(req);
+
+  var errors = req.validationErrors();
+  if(errors) {
+    console.log(errors);
+    res.render('singleProject', {errors: errors});
+  } else {
+    models.project.findById(req.params.id, function(err, project) {
+      console.log("project: " + project);
+      project.contributions.push({
+        name: req.body.name,
+        comment: req.body.comment,
+        amount: req.body.amount
+      });
+      project.amount += parseInt(req.body.amount);
+      project.save(function(err, p) {
+        res.redirect('/projects/' + project._id);
+      });
+    })
+  }
+})
 
 module.exports = router;

@@ -3,17 +3,58 @@
   <head>
     <meta charset="utf-8">
     <title>Basic Counter</title>
+    <script
+        src="https://code.jquery.com/jquery-3.0.0.min.js"
+        integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
+        crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Count: {{count}}</h1>
+    <script type="text/javascript">
+      $.ajax('/data', {
+        success: function(data) {
+          $('#out').text(data.a[1]);
+        }
+      });
 
+      $(document).ready(function() {
+        $('#inc').click(function() {
+          $.ajax('/increment', {
+            method: 'POST',
+            success: function(data) {
+              $('#out').text(data.count);
+            }
+          });
+        });
+
+        $('#dec').click(function() {
+          $.ajax('/decrement', {
+            method: 'POST',
+            success: function(data) {
+              $('#out').text(data.count);
+            }
+          })
+        })
+      })
+    </script>
+
+{{!--     <h1>Count: {{count}}</h1> --}}
+  <h1>Count: <span id="out"></span></h1>
+
+  <button id="inc">Increment</button>
+  <button id="dec">Decrease</button>
+{{!-- 
     <form action="/increment" method="post">
       <input type="submit" value="Increase">
-    </form>
+    </form> <br>
+
+    <form action="/decrement" method="post">
+      <input type="submit" value="Decrease">
+    </form> --}}
 
     <!-- Task 2
       Create a form with a button than when clicked sends a POST request
       to /decrement
+
 
       The button should "Decrease" on it.
     -->

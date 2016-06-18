@@ -22,6 +22,26 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+app.post('/increment', function(req, res) {
+	count++;
+	res.json({
+		count: count
+	})
+})
+
+app.post('/decrement', function(req, res) {
+	count--;
+	res.json({
+		count: count
+	})
+})
+
+// app.get('/data', function(req, res) {
+// 	res.json({
+// 		a: [1,2,3,4,5,6],
+// 		b: false
+// 	});
+// });
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable

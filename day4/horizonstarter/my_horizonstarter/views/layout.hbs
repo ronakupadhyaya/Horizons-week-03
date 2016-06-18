@@ -1,12 +1,101 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Horizon Starter: {{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+<head>
+	<title>Horizon Starter: {{title}}</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
 
-  </head>
-  <body>
-    {{{body}}}
-  </body>
+	<script
+	src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+
+	{{!--     <link rel='stylesheet' href='/stylesheets/bootstrap.css' /> --}}
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+</head>
+<nav>
+    <a href="/"><img class="logo" src="/kickstarter-logo.png"></a>
+	<ul>
+		<a href="/projects"><li>Discover</li></a>
+		<a href="/new"><li>Start a project</li></a>
+		<a href="#"><li>About us</li></a>
+	</ul>
+</nav>
+
+<body>
+	<div class="dynamic-wrapper">
+		{{{body}}}
+	</div>
+</body>
+
+<footer>
+
+	<div class="footerlist">
+		<ul>
+			<li class="listheader">About us</li>
+			<li> What is Kickstarter? </li>
+			<li> Who we are </li>
+			<li> Jobs </li>
+			<li> Press </li>
+			<li> Stats </li>
+			<li> Newsletters </li>
+			<li> Spotlight </li>
+			<li> Drip NEW! </li>
+		</ul>
+
+		<ul>
+			<li class="listheader">Help</li>
+			<li>FAQ</li>
+			<li>Our Rules</li>
+			<li>Creator Handbook</li>
+			<li>Campus</li>
+			<li>Trust &amp; Safety</li>
+			<li>Support</li>
+			<li>Terms of Use</li>
+			<li>Privacy Policy</li>
+			<li>Cookie Policy</li>
+		</ul>
+
+		<ul>
+			<li class="listheader">Discover</li>
+			<li>Art</li>
+			<li>Comics</li>
+			<li>Crafts</li>
+			<li>Dance</li>
+			<li>Design</li>
+			<li>Fashion</li>
+			<li>Film &amp; Video</li>
+			<li>Food</li>
+		</ul>
+
+		<ul>
+			<li class="listheader2">blah</li>
+			<li> Games </li>
+			<li> Journalism </li>
+			<li> Music </li>
+			<li> Photography </li>
+			<li> Publishing </li>
+			<li> Technology </li>
+			<li> Theater </li>
+		</ul>   
+
+		<ul>
+			<li class="listheader">Hello </li>
+			<li> Happening </li>
+			<li> Company Blog</li>
+			<li> Engineering Blog </li>
+		</ul>
+
+		<hr>
+	</div>
+	<div class="footerbottom">
+		<img class="logo-footer" src="/kickstarter-logo2.png">    
+	</div>
+</footer>
+
 </html>

@@ -13,9 +13,13 @@ module.exports = {
     	type: String,
     	required: true
     },
-    amount: {
+    goal: {
     	required: true,
     	type: Number
+    },
+    amount: {
+        type: Number,
+        default: 0
     },
     category: {
     	type: String,
@@ -28,6 +32,17 @@ module.exports = {
     end: {
     	type: String,
     	required: true
-    }
+    },
+    contributions: [{
+        name: {
+            type: String,
+            required: true
+        },
+        comment: String,
+        amount: {
+            type: Number,
+            required: true
+        }
+    }]
   })
 }
