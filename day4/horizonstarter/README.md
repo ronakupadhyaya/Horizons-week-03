@@ -68,7 +68,7 @@ In terms of functionality, the MVP (everything up to and excluding the
   - Filter by projects looking to raise over a certain amount of money (e.g. the
     query string `?goalAbove=10000` should return all projects seeking
     to raise over $10k) (not implemented in today's solution, implemented in
-    [tomorrow's solution](../day5/horizonstarter-ajax/solution))
+    [tomorrow's solution](../../day5/horizonstarter-ajax/solution))
 - A page that lets you bulk edit/delete projects (not implemented in
   solution)
 
@@ -494,7 +494,7 @@ impressed.
 And if you FINISH today's bonus, we will buy you dinner. For reals. (Ethan might
 tag along. He's looking a little undernourished. Hope that's cool.)
 
-### A real challenge: adding users
+### Adding users
 
 Let's add the following functionality:
 
@@ -533,15 +533,22 @@ To do this you must, roughly:
   user we care about. 
   - Show each project the user owns
   - How much each project has in donations 
-  - Which projects a user donated to, and *how much* she donated to each
-    project!
-  - Which users donated to each of the user's projects, and *how much* was
-    donated per project! 
+  - Which projects a user donated to
+  - Which users donated to each of the user's projects
 
-(Get this far and you get a free dinner. Keep going and you're insane. In a good
-way.)
 
-### Even more: do all the things
+## Troubleshooting
+
+- If you see this error when you try to run your server:
+
+```
+Error: connect ECONNREFUSED 127.0.0.1:27017
+```
+    
+  It means that mongodb isn't running. See the instructions in the [Mongo
+  section](#phase-2-mongo-mongoose), above, to install and launch mongo.
+
+## If you are bored...
 
 Just in case you're feeling ambitious, implement the following additional
 functionality from Kickstarter: 
@@ -561,16 +568,4 @@ functionality from Kickstarter:
 - Add some more Kickstarter-style features: users, featured projects, favorites
   (stars), project updates, etc.
 - Add unit tests: for your schemas and models, for form validation, etc.
-
-
-## Troubleshooting
-
-- If you see this error when you try to run your server:
-
-```
-Error: connect ECONNREFUSED 127.0.0.1:27017
-```
-    
-  It means that mongodb isn't running. See the instructions in the [Mongo
-  section](#phase-2-mongo-mongoose), above, to install and launch mongo.
 
