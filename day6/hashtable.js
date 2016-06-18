@@ -41,6 +41,9 @@
 
 function simpleHashCode(str) {
   var sum = 0;
+  // return str.toLowerCase().split('').reduce(function(p, c) {
+  //   return p + c.charCodeAt() - 94;
+  // })
   str.toUpperCase().split('').forEach(function(alphabet) {
     sum += alphabet.charCodeAt(0) - 64;
   });
@@ -76,10 +79,10 @@ function simpleHashCode(str) {
 // elements.
 function HashTable() {
   // The size of your hashtable is independent of how many keys we storing
-  this.tableSize = 10000;
+  this.tableSize = 100;
   // This is an array full of nulls, we're going to store our keys and values here
   this.table = _.range(this.tableSize).map(_.constant(null));
-  // YOUR CODE HERE
+  this.length = 0;
 }
 
 // Our implementation of a hash was good! But, the longer the word, the larger it's
@@ -89,7 +92,7 @@ function HashTable() {
 // into a number between 0 and this.tableSize.
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
-  // YOUR CODE HERE
+  return Math.abs(simpleHashCode(JSON.stringify(str)))%this.tableSize;
 }
 
 // Write a function that adds new (key,value) pairs to the store using hashes!
@@ -112,7 +115,28 @@ HashTable.prototype.hashCode = function (str){
 // Also, if we put 'Sam Smith' with a new value: '+593 2442 93957', it's value must
 // be updated
 HashTable.prototype.put = function(key, value) {
-  // YOUR CODE HERE
+  var h = this.hashCode(key);
+  if(!this.table[h]){
+    this.table[h] = [];
+    this.table[h].push([key, value]);
+    this.length++;
+    return false; //? 
+  } else {
+    var arr = this.table[h];
+    for(var i = 0; i < arr.length; i++){
+      var item = arr[i];
+      if(item[0] === key && item[1] !== value){
+        item[1] = value;
+        return true;
+      }
+      if(item[0] === key && item[1] === value){
+        return true;
+      }
+    }
+    arr.push([key, value]);
+    this.length++;
+    return true;
+  }
 }
 
 // Write a function that gets the values for a given key.
@@ -121,13 +145,27 @@ HashTable.prototype.put = function(key, value) {
 // Note: Have in mind that if this.pairs[hash] has more than one (key, value)
 // pair inside of it, you will have to go through the array to find its values!
 HashTable.prototype.get = function(key){
-  // YOUR CODE HERE
+  var h = this.hashCode(key);
+  if(this.table[h]){
+    if(this.table[h].length > 1){
+      var arr = this.table[h];
+      for(var i = 0; i < arr.length; i++){
+        var item = arr[i];
+        if(item[0] === key){
+          return item[1];
+        }
+      }
+    } else if(this.table[h][0][0] === key){
+      var arr = this.table[h];
+      return arr[0][1];
+    }
+  }
 };
 
 // Write a function that returns how many items we have in store.
 // It shouldn't take arguments, and it should return a number.
 HashTable.prototype.getSize = function() {
-  // YOUR CODE HERE
+  return this.length;
 }
 
 // Implement a function that deletes a certain (key,value) pair.
@@ -138,35 +176,115 @@ HashTable.prototype.getSize = function() {
 // *Note 2: Don't forget that this.pairs[hash] may have many [key, value] elements
 // and you have to iterate through them to delete!
 HashTable.prototype.delete  = function(key){
-  // YOUR CODE HERE
+  var h = this.hashCode(key);
+  if(this.table[h]){
+    if(this.table[h].length > 1){
+      var arr = this.table[h];
+      for(var i = 0; i < arr.length; i++){
+        var item = arr[i];
+        if(item[0] === key){
+          delete arr[i];
+          this.length--;
+          return true;
+        }
+      }
+    } else if(this.table[h][0][0] === key){
+      delete this.table[h];
+      this.length--;
+      return true;
+    }
+  }
+  return false;
 };
 
 // Write a function that checks if the store contains a specific key;
 // It should receive a key of any type: object, number, string
 // And return true or false if the object has the key.
 HashTable.prototype.containsKey = function(key) {
-  // YOUR CODE HERE
+  var h = this.hashCode(key);
+  if(this.table[h]){
+    if(this.table[h].length > 1){
+      var arr = this.table[h];
+      for(var i = 0; i < arr.length; i++){
+        var item = arr[i];
+        if(item[0] === key){
+          return true;
+        }
+      }
+    } else if(this.table[h][0][0] === key){
+      return true;
+    }
+  } else {
+    return false;
+  }
 };
 
 // Write a function that checks if the store contains a specific value;
 // It should receive a key of any type: object, number, string
 // And return true or false if the object has the value.
 HashTable.prototype.containsValue = function(value) {
-  // YOUR CODE HERE
+  for(var i = 0; i < this.table.length; i++){
+    if(this.table[i] !== null){
+      var hash = this.table[i];
+          for(var j = 0; j < hash.length; j++){
+            var item = hash[j];
+            if(item[1] === value){
+              return true;
+            }
+          }
+      }
+  }
+    
+  return false;
+
+  // var h = this.hashCode(key);
+  // if(this.table[h]){
+  //   if(this.table[h].length > 1){
+  //     var arr = this.table[h].length;
+  //     for(var i = 0; i < arr.length; i++){
+  //       var item = arr[i];
+  //       if(item[1] === value){
+  //         return true;
+  //       }
+  //     }
+  //   } else if(this.table[h][0][1] === value){
+  //     return true;
+  //   }
+  // } else {
+  //   return false;
+  // }
 }
 
 // Write a forEach style iterator for all values in the HashTable
 // that takes a function fn and calls it.
 // fn will be called with each key -> fn(key)
 HashTable.prototype.keys = function(fn) {
-  // YOUR CODE HERE
+  // debugger;
+  // console.log(JSON.stringify(this.table), this.table)
+  for(var index in this.table){
+    var hash = this.table[index];
+    if(hash !== null){
+      for(var i = 0; i < hash.length; i++){
+        var item = hash[i];
+        fn(item[0]);
+      }
+    }
+  }
 }
 
 
 // Write a forEach style iterator for all values in the HashTable
 // that takes a function fn and calls it with each value: fn(value);
 HashTable.prototype.values = function(fn) {
-  // YOUR CODE HERE
+    for(var index in this.table){
+    var hash = this.table[index];
+    if(hash !== null){
+      for(var i = 0; i < hash.length; i++){
+        var item = hash[i];
+        fn(item[1]);
+      }
+    } 
+  }
 }
 
 // Write a forEach style iterator for all keys & values in the
@@ -174,7 +292,15 @@ HashTable.prototype.values = function(fn) {
 // fn will be called with [key, value], a two item array where
 // first item is the key and the second item is the value: fn([key, value])
 HashTable.prototype.keysValues = function(fn) {
-  // YOUR CODE HERE
+    for(var index in this.table){
+    var hash = this.table[index];
+    if(hash !== null){
+      for(var i = 0; i < hash.length; i++){
+        var item = hash[i];
+        fn([item[0], item[1]]);
+      }
+    } 
+  }
 }
 
 
