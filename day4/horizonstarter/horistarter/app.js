@@ -7,6 +7,7 @@ var bodyParser = require('body-parser'); //post requests: data comes in body so 
 
 var routes = require('./routes/index'); //routes directory in this folder, file index.js (js implied bc you can only require js files)
 var users = require('./routes/users');
+var apiRoutes = require('./routes/api');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/api', apiRoutes);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

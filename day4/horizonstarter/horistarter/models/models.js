@@ -32,9 +32,17 @@ var projectSchema = new mongoose.Schema ({
 		type: Date,
 		required: true
 	},
-	contributions: {
-		type: Array,
-	}
+	contributions: [{
+		name: {
+	      type: String,
+	      required: true
+	    },
+	    comment: String,
+	    amount: {
+	      type: Number,
+	      required: true
+	    }
+	}]
 });
 
 projectSchema.virtual('percent').get(function () {
