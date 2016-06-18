@@ -26,6 +26,12 @@ app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', routes);
+app.use('/users', users);
+
+app.use('/', routes);
+app.use('/api', apiRoutes);
+
 // Session allows us to store data in a session object between HTTP requests.
 // It allows us to pass "flash" data between requests, so that we can redirect
 // the user and they'll still see the flash message.
@@ -35,8 +41,6 @@ app.use(session({secret: 'cutie kitty catz'}));
 
 // All of our routes are configured here. (For a more complex app, we could
 // split our routes up into multiple route files.)
-app.use('/', routes);
-app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
