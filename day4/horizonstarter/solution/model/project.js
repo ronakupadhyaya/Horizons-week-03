@@ -59,11 +59,12 @@ var ProjectSchema = new Schema({
 
 ProjectSchema.virtual('raised').get(function() {
   return this.contributions.map(function(el) {
-    return el.amount
+    return el.amount;
   }).reduce(function(a, b) {
     return a+b
   }, 0);
 });
+
 ProjectSchema.virtual('progress').get(function() {
   if (this.goal > 0)
   // Calculate percentage and round down.
