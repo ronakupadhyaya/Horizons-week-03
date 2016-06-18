@@ -1,0 +1,44 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+
+<script>
+function HashTable() {
+	this.tableSize = 1000;
+	this.table = _.range(1000).map(_.constant(null));
+}
+
+HashTable.prototype.hash = function(key) {
+	return key.length;
+}
+
+HashTable.prototype.get = function(key) {
+	var h = this.hash(key);
+	if(! this.table[h]) {
+		return null;
+	}
+	var arr = this.table[h];
+	for(var i = 0; i < arr.length; i++){
+		var item = arr[i];
+		if(item[0] === key) {
+			return item[1];
+		}
+	}
+}
+
+HashTable.prototype.put = function(key, value){
+	var h = this.hash(key);
+	if (! this.table[h]) {
+		this.table[h] = [];
+	}
+	this.table[h].push([key, value]);
+}
+
+
+
+
+
+window.hash = new HashTable();
+
+_.range(100000).forEach(function(k) {
+	hash.put("" + k, k * -1);
+});
+</script>
