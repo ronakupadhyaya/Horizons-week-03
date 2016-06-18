@@ -20,3 +20,26 @@
 <form action="../categories">
  <button type="submit" name="categories" class="btn btn-default">View Categories</button>
 </form>
+
+<script>
+$('#contribForm').on('submit', function(e){
+	e.preventDefault();
+	var target =$(e.target);
+	var inputs = $target.find('input');
+	var contrib = {};
+	//iterating over all input elements in for in order to get their values
+	inputs.each(function(i,inputElement){
+		console.log(inputElement);
+		var name=$(inputElement).attr('name');
+		var val=$(inputElement).val();
+		contrib[name]=val;
+	});
+	console.log(contrib)
+	$.ajax('/api/project/'+id+'/contribute', {
+		method: 'post',
+		data: contrib,
+		success: function(data){
+		}
+	})
+});
+</script>

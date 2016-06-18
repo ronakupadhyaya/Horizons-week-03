@@ -1,24 +1,18 @@
 var express = require('express');
-var path = require('path'); //package from node standard library
-var favicon = require('serve-favicon'); //tab icon 
-var logger = require('morgan'); //puts log statements every
-//time request comes in 
-var cookieParser = require('cookie-parser'); //parses cookies
-var bodyParser = require('body-parser'); //data come in the body
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-var routes = require('./routes/index'); //routes directry
-//into this folder, file index.js here (js implied)
-//routes is going to be router in index.js
-
-var users = require('./routes/users'); //kudos to above
+var routes = require('./routes/index');
+var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); //boiler plate
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-//sets up to ise handlebars to heart's content
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
