@@ -1,16 +1,13 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://spark423:psh8181@ds011860.mlab.com:11860/horizonstarter');
-var projectSchema = mongoose.Schema({
+mongoose.connect('mongodb://spark423:psh8181@ds017544.mlab.com:17544/horizon_starter')
+var projectSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true
 	},
-	category: {
-		type: String,
-		required: true
-	},
+
 	goal: {
-		type: String,
+		type: Number,
 		required: true
 	},
     contributions: [{
@@ -24,6 +21,16 @@ var projectSchema = mongoose.Schema({
         required: true
       }
     }],
+	category: {
+		type: String,
+		required: true
+	},
+
+    description: {
+    	type: String,
+    	required: true
+    },
+
 	start: {
 		type: Date,
 		required: true
@@ -31,11 +38,7 @@ var projectSchema = mongoose.Schema({
 	end: {
 		type: Date,
 		required: true
-	},
-	about: {
-		type: String,
-		required: true
 	}
-
 });
-module.exports = mongoose.model('Projects', projectSchema);
+module.exports = mongoose.model('Project', projectSchema);
+
