@@ -39,13 +39,7 @@ function Tracker() {
 // on here because components are just declaring their dependencies and not yet
 // being installed.
 Tracker.prototype.depend = function(component, dependsOn) {
-  if(!this.dependencies[component]){
-    this.dependencies[component]=[dependsOn];
-  }else{
-    if(!_.contains(this.dependencies[component], dependsOn)){
-      this.dependencies[component].push(dependsOn)
-    }
-  }
+  // YOUR CODE HERE
 }
 
 // It should return an array representing all components that need to be installed,
@@ -63,20 +57,7 @@ Tracker.prototype.depend = function(component, dependsOn) {
 // This approach uses recurson to visit other nodes, and thus can't have one single
 // return value, that is why we use the outside var neededModules to call the function.
 Tracker.prototype.getDependenciesForModule = function(component, resolved, seen){
-  seen = seen || [];
-  seen.push(component)
-  if(this.dependencies[component]){
-    for (var i = 0; i<this.dependencies[component].length; i++){
-      var edge=this.dependencies[component][i];
-      if (!_.contains(resolved,edge)){
-        if (_.contains(seen,edge)){
-          throw new Error('Circular dependency Error');
-        }
-        this.getDependenciesForModule(edge, resolved, seen);
-      }
-    }
-  }
-  resolved.push(component)
+  // YOUR CODE HERE
 }
 
 // Write a function that takes a component and installs it. It should save this
@@ -87,10 +68,7 @@ Tracker.prototype.getDependenciesForModule = function(component, resolved, seen)
 // Bonus: Adding circular dependencies like A depends on B and B depends on A cannot
 // be possible. Throw an exception when installing circular deps.
 Tracker.prototype.install = function(component) {
-  var componentsNeeded=[];
-  this.userRequiredComponents = _.union(this.userRequiredComponents,[component]);
-  this.getDependenciesForModule(component, componentsNeeded);
-  this.installedComponents=_.union(this.installedComponents, componentsNeeded);
+  // YOUR CODE HERE
 }
 
 // Write a function that uninstalls the given component. The function should receive
@@ -104,25 +82,15 @@ Tracker.prototype.install = function(component) {
 // were uninstalled.
 
 Tracker.prototype.uninstall = function(component) {
-  var uninstalled = this.installedComponents.slice();
-  if(_.contains(this.userRequiredComponents, component)){
-    this.userRequiredComponents = _.difference(this.userRequiredComponents , [component]);
-    this.installedComponents=[];
-    for (var i = 0; i<this.userRequiredComponents.length; i++){
-      this.install(this.userRequiredComponents[i])
-    }
-    return _.difference(uninstalled, this.installedComponents);
-  }else{
-    throw new Error('Component not installed Error');
-  }
+  // YOUR CODE HERE
 }
 
 // Get an array representing all components that have been installed by the user
 Tracker.prototype.getUserInstalled = function() {
-  return this.userRequiredComponents;
+  // YOUR CODE HERE
 }
 // Get an array representing all components that have been installed by the user
 // plus their dependencies
 Tracker.prototype.getAllInstalledComponents = function() {
-  return this.installedComponents;
+  // YOUR CODE HERE
 }

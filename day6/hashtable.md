@@ -1,4 +1,4 @@
-# Hash Tables
+# Pair programming exercise: Hashtables
 
 A simple hash table is a collection of (key, value) pairs, such that each possible
 key appears just once in the collection. As a structure that stores data, it

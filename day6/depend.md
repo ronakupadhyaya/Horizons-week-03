@@ -1,5 +1,4 @@
-
-#Dependency resolver
+# Pair programming exercise: Dependency resolver
 
 As programmers add more and more features to their applications, codebases get very
 large and unmanageable. That is why we divide it into modules that contain smaller
@@ -20,12 +19,12 @@ E ← D
 
 Here, A depends on B and C. B depends on E and D and so on.
 
-##How does one find the right order of installing the packages?
+## How does one find the right order of installing the packages?
 
-To find the correct order for installing dependencies, me need to represent the data
+To find the correct order for installing dependencies, we need to represent the data
 on your program. To do this, we'll use Graphs with modules and edges that symbolize
 dependencies.
 
-## Exercise
-1. Inheritance <br>
-   Files: `week01/day2/depend.js` and `week01/day2/depend.html`
+## Exercise files
+
+Files: `week01/day2/depend.js` and `week01/day2/depend.html`
