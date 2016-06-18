@@ -3,11 +3,11 @@
 {{/if}}
 <h1>Project: {{project.title}}</h1>
 <h3>Category: {{project.category}}</h3>
-<h3>Fundraising goal: ${{project.goalAmount}}</h3>
-<h3>Total contributions: ${{project.totalContribution}}</3>
+<h3>Fundraising goal: <span id="goal">${{project.goalAmount}}</span></h3>
+<h3>Total contributions: <span id="raised">${{project.totalContribution}}</span></h3>
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="{{project.totalContribution}}" aria-valuemin="0" aria-valuemax="{{project.goalAmount}}" style="width: {{percentageyo}}%;">
-  {{percentageyo}}%
+  <span id='progress'>{{percentageyo}}</span>%
   </div>
 </div>
 <h3>Start date: {{project.startDate}}</h3>
@@ -16,7 +16,7 @@
 {{project.description}}
 <br>
 <h2>Contribute to this project</h2>
-<form method="POST">
+<form id="contribForm" method="POST">
   <div class="form-group">
     <input type="text" class="form-control" name="name" placeholder="Your Name">
   </div>
@@ -34,7 +34,7 @@
 </form>
 <br>
 <h2>Contributions</h2>
-
+<div id="contributions">
 {{#each contributions}}
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -45,3 +45,49 @@
   </div>
 </div>
 {{/each}}
+</div>
+
+<script>
+$('#contribForm').on('submit', function(e) {
+  e.preventDefault();
+  var target = $(e.target);
+  var inputs = target.find('input');
+  var contrib = {};
+  inputs.each(function(i,inputElement) {
+  var val = $(inputElement).val();
+  var name = $(inputElement).attr('name');
+  contrib[name] = val;
+  });
+  $.ajax('/api/project/{{project._id}}/contribute', {
+    method: 'post',
+    data: contrib,
+    success: function() {
+    // TODO update page with new contribution
+    var raised = parseInt($('#raised').text());
+    raised += parseInt(contrib.amount);
+    $('#raised').text(raised);
+
+    var goal = $('#goal').text());
+    var progress = Math.round(raised / goal * 100);
+    $('#progress').text(progress);
+    $('.progress-bar').css('width', '' + progress + '%');
+
+    var outerDiv = $('<div class="panel panel-default">');
+    var headingDiv = $('<div class="panel-heading">');
+    outerDiv.append(headingDiv);
+    headingDiv.append($'<h3 class="panel">').text(contrib.name + ' | <font style="font-weight: normal">$' + contrib.amount + '</font>');
+    var bodyDiv = $('<div class="panel-body">');
+    if (contrib.comment) {
+    outerDiv.append(bodyDiv).text(contrib.comment);
+    }
+    $('#contributions').append(outerDiv);
+
+   
+  
+ 
+
+    }
+  })
+  
+});
+</script>

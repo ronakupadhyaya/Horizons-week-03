@@ -34,6 +34,7 @@ module.exports = {
 		}
 
 	}),
+	//TODO put contribution in the project as contributions with an array of contribution objects
 	contribution: mongoose.model('contribution', {
 		name: {
 			type: String,
