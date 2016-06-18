@@ -19,6 +19,7 @@ module.exports = {
 			amount: {
 				type: Number
 			}
-		}]
+		}],
+		
 	})
 }
