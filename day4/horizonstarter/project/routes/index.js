@@ -27,6 +27,27 @@ router.get('/projects/:id', function(req, res) {
     });
 });
 
+router.post('/projects/:id', function(req, res) {
+  var id = req.params.id;
+  var contributionsData = req.body
+  models.project.findById(id, function(err, project) {
+    console.log(project);
+    console.log(project.contributions)
+    project.contributions.push({
+      name: req.body.name,
+      comment: req.body.comment,
+      amount: req.body.amount
+    });
+    project.save(function(error, project) {
+      if (error) {
+    res.status(400).send("Error creating project: " + error);      
+    } else {
+      res.redirect('/projects/' + project._id);
+    }
+    })
+  })
+});
+
 router.get('/new', function(req, res) {
   res.render('new');
 });

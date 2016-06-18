@@ -8,6 +8,17 @@ module.exports = {
 		title: {
 			type: String,
 			required: true
-		}
+		},
+		contributions: [{
+			name: {
+				type: String
+			},
+			comment: {
+				type: String
+			},
+			amount: {
+				type: Number
+			}
+		}]
 	})
 }
