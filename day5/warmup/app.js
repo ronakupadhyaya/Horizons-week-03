@@ -22,7 +22,9 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 app.post('/increment', function(req, res) {
 	count +=1
-	res.redirect('/');
+	res.json({
+		count: count
+	});
 })
 // YOUR CODE HERE
 

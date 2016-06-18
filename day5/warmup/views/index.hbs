@@ -3,23 +3,28 @@
   <head>
     <meta charset="utf-8">
     <title>Basic Counter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script>
+    $(document).read(function() {
+    $('#inc').click(function() {
+      $.ajax('/increment', {
+        method: 'POST',
+        success: function(data) {
+          $('#out').text(data.count);
+        }
+      });
+    });
+  });
+    </script>
   </head>
+
   <body>
-    <h1>Count: {{count}}</h1>
+    <h1>Output: <span id='out'></span></h1>
 
-    <form action="/increment" method="post">
-      <input type="submit" value="Increase">
-    </form>
+    <button id="inc"> Increment</button>
 
-    <!-- Task 2
-      Create a form with a button than when clicked sends a POST request
-      to /decrement
-
-
-      The button should "Decrease" on it.
-    -->
-    <form action="/decrement" method="post">
+    {{!-- <form action="/decrement" method="post">
       <input type="submit" value="Decrease">
-    </form>
+    </form> --}}
   </body>
 </html>
