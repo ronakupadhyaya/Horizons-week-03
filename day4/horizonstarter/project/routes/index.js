@@ -10,10 +10,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/projects', function(req,res){
   models.project.find(function(error,mongoProjects){
+    if (error){
+      res.status(400).send('Error reading project '+ error);
+    }else if (! mongoProjects){
+      res.status(404).send('No such page');//before question mark = param, after question mark = query
+    }else{
     res.render('projects',{
       'projects': mongoProjects
     });
-  })
+    }
+  });
 });
 
 router.get('/projects/:id', function(req, res){
@@ -24,7 +30,7 @@ router.get('/projects/:id', function(req, res){
       res.status(404).send('No such project: '+req.body.id);//before question mark = param, after question mark = query
     }else{
     res.render('singleProject',{
-      'project': mongoProject
+      'singleProject': mongoProject
     });
     }
   });//params refer to the id in the link
@@ -39,11 +45,20 @@ router.post('/new', function(req,res){
     title: req.body.title,
     description: req.body.description,
     goal: req.body.goal,
-    category: req.body.category
+    category: req.body.category,
+    start_date: req.body.start_date,
+    end_date: req.body.end_date
   });//post request in the body
   p.save(function(error, project){
     if (error){
-      res.status(400).send("Error creating project" + error);
+      res.render('new', {
+        data: req.body,
+        categories: Project.schema.path('category').enumValues.map(function (el) {
+          // This is messy, but we can't have logic in handlebars.
+          return {val: el, selected: el===req.body.category};
+        }),
+        flash: { type: 'alert-danger', messages: [{msg: err.message}]}
+      });
     }else{
       res.redirect('/projects/'+ project._id);
     }

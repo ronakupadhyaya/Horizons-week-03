@@ -1,3 +1,5 @@
+"use strict";
+
 var mongoose = require('mongoose');
 var connect = require('./connect');
 
@@ -22,15 +24,15 @@ module.exports ={
   },
   category: {
     type: String,
-    required: true
+    // required: true
   },
   start_date: {
     type: Date,
-    required: true
+    // required: true
   },
   end_date: {
     type: Date,
-    required: true
+    // required: true
   }
   })
 };
