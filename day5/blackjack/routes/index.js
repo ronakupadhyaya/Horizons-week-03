@@ -23,20 +23,24 @@ var gameRepresentation = function(game) {
 // all the games. You should be able to click from the page and navigate to any
 // single game. Games can be filtered by "over" or "in-progress"
 router.get('/games', function (req, res, next) {
-  GameModel.find(function (err, games) {
-    if (err) return next(err);
-    var filteredGames = [];
-    for (var i=0; i< games.length; i++){
-      var game ={
-        id: games[i].id,
-        status: games[i].status === "over"? "over" : "progress"
+  if(!req.user){
+    res.redirect('/login');
+  }else{
+    GameModel.find(function (err, games) {
+      if (err) return next(err);
+      var filteredGames = [];
+      for (var i=0; i< games.length; i++){
+        var game ={
+          id: games[i].id,
+          status: games[i].status === "over"? "over" : "progress"
+        }
+        if (!req.query.status || req.query.status === game.status){
+          filteredGames.push(game)
+        }
       }
-      if (!req.query.status || req.query.status === game.status){
-        filteredGames.push(game)
-      }
-    }
-    res.render('games', { title: "Games", filteredGames: filteredGames });
-  });
+      res.render('games', { title: "Games", filteredGames: filteredGames, user : req.user });
+    });
+  }
 });
 
 // Write a route that creates a new game and redirects to the game page with the
@@ -124,38 +128,38 @@ var Account = require('../models/account');
 
 
 router.get('/', function (req, res) {
-    if (req.user) res.redirect('/games')
-    else res.redirect('login')
-//    res.render('index', { user : req.user });
+  if (req.user) res.redirect('/games')
+  else res.redirect('login')
+  //    res.render('index', { user : req.user });
 });
 
 router.get('/register', function(req, res) {
-    res.render('register', { });
+  res.render('register', { });
 });
 
 router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.render('register', { account : account });
-        }
+  Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    if (err) {
+      return res.render('register', { account : account });
+    }
 
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/games');
-        });
+    passport.authenticate('local')(req, res, function () {
+      res.redirect('/games');
     });
+  });
 });
 
 router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
+  res.render('login', { user : req.user });
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/games');
+  res.redirect('/games');
 });
 
 router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/login');
+  req.logout();
+  res.redirect('/login');
 });
 
 module.exports = router;
