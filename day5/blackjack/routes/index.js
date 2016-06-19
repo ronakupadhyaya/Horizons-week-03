@@ -22,7 +22,7 @@ var gameRepresentation = function(game) {
 // Write the function for the / route in the game. It should display the list of
 // all the games. You should be able to click from the page and navigate to any
 // single game. Games can be filtered by "over" or "in-progress"
-router.get('/', function (req, res, next) {
+router.get('/games', function (req, res, next) {
   GameModel.find(function (err, games) {
     if (err) return next(err);
     var filteredGames = [];
@@ -35,7 +35,7 @@ router.get('/', function (req, res, next) {
         filteredGames.push(game)
       }
     }
-    res.render('index', { title: "Games", filteredGames: filteredGames });
+    res.render('games', { title: "Games", filteredGames: filteredGames });
   });
 });
 
@@ -123,8 +123,10 @@ var passport = require('passport');
 var Account = require('../models/account');
 
 
-router.get('/asd', function (req, res) {
-    res.render('asd', { user : req.user });
+router.get('/', function (req, res) {
+    if (req.user) res.redirect('/games')
+    else res.redirect('login')
+//    res.render('index', { user : req.user });
 });
 
 router.get('/register', function(req, res) {
@@ -138,7 +140,7 @@ router.post('/register', function(req, res) {
         }
 
         passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
+            res.redirect('/games');
         });
     });
 });
@@ -148,17 +150,12 @@ router.get('/login', function(req, res) {
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
+    res.redirect('/games');
 });
 
 router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login');
 });
-
-router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
-});
-
 
 module.exports = router;

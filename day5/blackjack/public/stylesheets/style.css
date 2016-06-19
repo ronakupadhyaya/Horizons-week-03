@@ -81,3 +81,8 @@ div.controls input
 	margin-left: 20px;
 	width: 200px;
 }
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
