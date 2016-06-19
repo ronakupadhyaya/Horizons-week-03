@@ -63,7 +63,7 @@ These must be backed by a mongo database. Create a model with the following prop
 
 The game must be stored to the database on every request, because a game can be
 closed and played later. On every request that needs the game: retrieve it, make
-changes and store it back. 
+changes and store it back. Use config.js to specify your database.
 
 ### Part 1: Backend Section.
 
