@@ -26,7 +26,7 @@ var app = express();
 
 // // Some handlebars helpers
 // handlebars.registerHelper('fixId', function(obj) {
-//  
+//
 // });
 
 // view engine setup
@@ -53,7 +53,7 @@ app.use(session({secret: 'cutie kitty catz'}));
 // could split our routes up into multiple route files.)
 // NOTE: routes here is an express.Router object.
 app.use('/', routes);
-// app.use('/users', users);
+
 /**
  * Next we construct the API app, which is entirely separate from the above
  * user-facing app. It returns JSON and HTTP status codes for AJAX consumption
