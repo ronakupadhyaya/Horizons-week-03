@@ -104,19 +104,16 @@ GameSchema.statics.checkGameOver = function gameOver(game){
       if(game.playerStatus[i] !== "lost" && (game.playerTotals[i] > game.playerTotals[0] || game.dealerStatus === "lost")){
         game.playerStatus[i] = "won";
         game.playerStatus[0] = "lost";
-        //this.money+=2; // TODO += 2*bet
       }
       else if(game.playerTotals[i] === game.playerTotals[0] && game.playerStatus[i] !== "lost"){
         game.playerStatus[i] = "tied";
         game.playerStatus[0] = "tied";
-        //this.money++; // money += bet.
       }else{
         game.playerStatus[i] = "lost";
         game.playerStatus[0] = "won";
       }
     }
     game.markModified('playerStatus');
-
   }
 }
 

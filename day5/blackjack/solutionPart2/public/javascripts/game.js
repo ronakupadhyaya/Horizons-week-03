@@ -74,7 +74,7 @@ function play(game){
   }
 
   if (game.status === 'over' ){
-    $("#game-status").text("Game over: You "+game.playerStatus[userInGamePosition]);
+    $("#game-status").text("Game over: You "+game.playerStatus[userInGamePosition]+" - Bet: " +game.playerbets[userInGamePosition]);
     $(".dealer-area").hide();
     $(".user-area").hide();
   }
