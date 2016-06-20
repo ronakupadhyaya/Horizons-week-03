@@ -61,8 +61,19 @@ function play(game){
   $(".user-area").show();
   hitButton.addEventListener("click", function(){ hit() },false);
   standButton.addEventListener("click", function(){ stand() },false);
-
   $("#game-status").text(" ");
+
+  var userInGamePosition;
+  for (var i = 1; i < game.players.length; i++){
+    if ((game.players[i]+"")===(game.userId+"")){
+      userInGamePosition = i;
+    }
+  }
+
+console.log(userInGamePosition)
+
+
+/*
   if (game.status === 'over' ){
     status.innerHTML='You '+game.userStatus;
     if (game.userStatus === "won"){
@@ -72,21 +83,20 @@ function play(game){
     }
     hitButton.style.visibility = "hidden";
     standButton.style.visibility = "hidden";
-
   }
-
+*/
 
   dealerHand.innerHTML="<h2>Dealer Hand</h2>";
   userHand.innerHTML="<h2>User Hand</h2>";
   //hit.setAttribute("style", "");
   //stand.setAttribute("style", "");
 
-  for(var i=0; i<game.currentPlayerHand.length; i++){
-    userHand.innerHTML+=showCard(game.currentPlayerHand[i]);
+  for(var i=0; i<game.playerHands[1].length; i++){
+    userHand.innerHTML+=showCard(game.playerHands[1][i]);
   }
 
-  for(var i=0; i<game.houseHand.length; i++){
-    dealerHand.innerHTML+=showCard(game.houseHand[i]);
+  for(var i=0; i<game.playerHands[0].length; i++){
+    dealerHand.innerHTML+=showCard(game.playerHands[0][i]);
   }
   userScore.innerHTML=game.userTotal;
   dealerScore.innerHTML=game.dealerTotal;

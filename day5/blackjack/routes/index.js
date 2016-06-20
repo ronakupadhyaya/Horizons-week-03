@@ -7,7 +7,7 @@ var GameModel = require('../models/Game.js');
 var passport = require('passport');
 var Account = require('../models/account');
 
-var gameRepresentation = function(game, isUserInGame) {
+var gameRepresentation = function(game, userId, isUserInGame) {
   return {
     id: game.id,
     status: game.status,
@@ -17,6 +17,7 @@ var gameRepresentation = function(game, isUserInGame) {
     playerHands : game.playerHands,
     playerbets : game.playerbets,
     numberOfPlayers : game.numberOfPlayers,
+    userId: userId,
     isUserInGame: isUserInGame || false
   }
 }
@@ -84,10 +85,10 @@ router.get('/game/:id', function(req, res, next) {
         }
       res.format({
         html: function(){
-          res.render('viewgame', { title: 'View Game', game: gameRepresentation(game)});
+          res.render('viewgame', { title: 'View Game', game: gameRepresentation(game, req.user.id)});
         },
         json: function(){
-          res.json(gameRepresentation(game, isUserInGame));
+          res.json(gameRepresentation(game, req.user.id, isUserInGame));
         }
       });
     });
@@ -123,14 +124,14 @@ router.post('/game/:id', function(req, res, next) {
       game.playerHands.push({})
       game.playerbets.push(req.body.bet);
 
-      console.log(gameRepresentation(game))
+      //console.log(gameRepresentation(game, game, req.user.id))
 
-      if(game.players.length===game.numberOfPlayers){
+      if(game.players.length===parseInt(game.numberOfPlayers)){
         GameModel.deal21(game);
         game.status="started";
       }
       game.save();
-      res.json(gameRepresentation(game));
+      res.json(gameRepresentation(game, req.user.id));
     });
   }
 });
@@ -145,7 +146,7 @@ router.post('/game/:id/hit', function(req, res, next) {
     if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.hit(game)
     game.save();
-    res.json(gameRepresentation(game));
+    res.json(gameRepresentation(game, req.user.id));
   });
 });
 
@@ -159,7 +160,7 @@ router.post('/game/:id/stand', function(req, res, next) {
     if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.stand(game)
     game.save();
-    res.json(gameRepresentation(game));
+    res.json(gameRepresentation(game, req.user.id));
     // Renders JSON of Game State Representation
   });
 });

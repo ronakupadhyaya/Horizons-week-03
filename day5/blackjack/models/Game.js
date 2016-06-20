@@ -18,16 +18,23 @@ GameSchema.statics.newGame = function (item, callback){
   game.deck = new Deck();
   game.save(callback);
 }
-
+/*
+game.players.push(req.user);
+game.playerTotals.push(0)
+game.playerStatus.push("waiting")
+game.playerHands.push({})
+game.playerbets.push(req.body.bet);
+*/
 GameSchema.statics.deal21 = function (game) {
-  game.currentPlayerHand=[];
-  game.houseHand=[];
-  for(var i=0; i<2; i++){
-    game.currentPlayerHand.push(game.deck.pop());
-    game.houseHand.push(game.deck.pop());
+  game.playerHands=[];
+  game.playerTotals=[]
+  for(var i=0; i<game.numberOfPlayers ; i++){
+    var currentPlayerHand=[]
+    currentPlayerHand.push(game.deck.pop());
+    currentPlayerHand.push(game.deck.pop());
+    game.playerHands.push(currentPlayerHand)
+    game.playerTotals.push(this.calcValue(currentPlayerHand));
   }
-  game.userTotal = this.calcValue(game.currentPlayerHand);
-  game.dealerTotal = this.calcValue(game.houseHand);
 };
 
 GameSchema.statics.calcValue = function (hand){
