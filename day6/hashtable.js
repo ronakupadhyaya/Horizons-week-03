@@ -80,6 +80,9 @@ function HashTable() {
   // This is an array full of nulls, we're going to store our keys and values here
   this.table = _.range(this.tableSize).map(_.constant(null));
   // YOUR CODE HERE
+  this.length = 0;
+  this.pairs = [];
+
 }
 
 // Our implementation of a hash was good! But, the longer the word, the larger it's
@@ -90,6 +93,7 @@ function HashTable() {
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
   // YOUR CODE HERE
+  return simpleHashCode(str) % this.tableSize;
 }
 
 // Write a function that adds new (key,value) pairs to the store using hashes!
