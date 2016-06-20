@@ -1,6 +1,7 @@
 var globalGame;
 window.addEventListener("load", getData, false);
 var status = document.getElementById("game-status");
+var userInGamePosition;
 
 function getData(){
   $.ajax({
@@ -63,15 +64,11 @@ function play(game){
   standButton.addEventListener("click", function(){ stand() },false);
   $("#game-status").text(" ");
 
-  var userInGamePosition;
   for (var i = 1; i < game.players.length; i++){
     if ((game.players[i]+"")===(game.userId+"")){
       userInGamePosition = i;
     }
   }
-
-  console.log(userInGamePosition)
-
 
   /*
   if (game.status === 'over' ){
@@ -126,9 +123,10 @@ function hit(){
     type: "POST",
     url: '/game/'+globalGame.id+'/hit',
     dataType: 'json',
+    data: { userInGamePosition: userInGamePosition },
     cache: false,
     success: function(data){
-      play(data)
+      getData();
     }
   });
 }
@@ -140,7 +138,7 @@ function stand(){
     dataType: 'json',
     cache: false,
     success: function(data){
-      play(data)
+      getData();
     }
   });
 }

@@ -10,7 +10,8 @@ var GameSchema = new mongoose.Schema({
   playerHands: [],
   playerbets: [{type: Number, default: 0}],
   players:[{ type: ObjectId, ref: 'Account' }],
-  numberOfPlayers: {type: Number, default: 2}
+  numberOfPlayers: {type: Number, default: 2},
+  turn: {type: Number, default: 1}
 });
 
 GameSchema.statics.newGame = function (item, callback){
@@ -18,17 +19,11 @@ GameSchema.statics.newGame = function (item, callback){
   game.deck = new Deck();
   game.save(callback);
 }
-/*
-game.players.push(req.user);
-game.playerTotals.push(0)
-game.playerStatus.push("waiting")
-game.playerHands.push({})
-game.playerbets.push(req.body.bet);
-*/
+
 GameSchema.statics.deal21 = function (game) {
   game.playerHands=[];
   game.playerTotals=[]
-  
+
   for(var i=0; i<game.numberOfPlayers ; i++){
     var currentPlayerHand=[]
     currentPlayerHand.push(game.deck.pop());
@@ -51,24 +46,21 @@ GameSchema.statics.calcValue = function (hand){
   return val;
 }
 
-GameSchema.statics.hit = function (game){
-  game.currentPlayerHand.push(game.deck.pop());
-  game.userTotal = this.calcValue(game.currentPlayerHand);
-  if(parseInt(game.userTotal) > 21){
-    game.userStatus = "lost";
-    this.gameOver(game);
+GameSchema.statics.hit = function (game, playerNumber){
+  game.playerHands[playerNumber].push(game.deck.pop());
+ game.playerTotals[playerNumber]= this.calcValue(game.playerHands[playerNumber]);
+  game.turn++;
+  if(game.turn>=game.numberOfPlayers){
+    game.turn=1;
+  }
+  if(parseInt(game.playerTotals[playerNumber]) > 21){
+    game.playerStatus[playerNumber] = "lost";
   }
 };
 
 GameSchema.statics.stand = function stand(game){
-  while(game.dealerTotal < 17){
-    game.houseHand.push(game.deck.pop());
-    game.dealerTotal = this.calcValue(game.houseHand);
-    if(game.dealerTotal > 21){
-      game.dealerStatus = "lost";
-    }
-  }
-  this.gameOver(game);
+  game.playerStatus[playerNumber] = "standing";
+//  this.gameOver(game);
 }
 
 GameSchema.statics.gameOver = function gameOver(game){

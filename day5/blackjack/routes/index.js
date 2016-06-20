@@ -18,7 +18,8 @@ var gameRepresentation = function(game, userId, isUserInGame) {
     playerbets : game.playerbets,
     numberOfPlayers : game.numberOfPlayers,
     userId: userId,
-    isUserInGame: isUserInGame || false
+    isUserInGame: isUserInGame || false,
+    turn: game.turn
   }
 }
 
@@ -143,10 +144,13 @@ router.post('/game/:id', function(req, res, next) {
 router.post('/game/:id/hit', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(game);
-    if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
-    GameModel.hit(game)
+  //  if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
+    GameModel.hit(game, req.body.userInGamePosition)
+    console.log(game)
     game.save();
     res.json(gameRepresentation(game, req.user.id));
+    console.log(gameRepresentation(game, req.user.id));
+
   });
 });
 
@@ -157,7 +161,7 @@ router.post('/game/:id/hit', function(req, res, next) {
 router.post('/game/:id/stand', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(game);
-    if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
+    //if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.stand(game)
     game.save();
     res.json(gameRepresentation(game, req.user.id));
