@@ -84,6 +84,7 @@ router.get('/game/:id', function(req, res, next) {
             isUserInGame = true;
           }
         }
+        console.log(game)
       res.format({
         html: function(){
           res.render('viewgame', { title: 'View Game', game: gameRepresentation(game, req.user.id)});
@@ -146,11 +147,8 @@ router.post('/game/:id/hit', function(req, res, next) {
     if (err) return next(game);
   //  if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.hit(game, req.body.userInGamePosition)
-    console.log(game)
     game.save();
     res.json(gameRepresentation(game, req.user.id));
-    console.log(gameRepresentation(game, req.user.id));
-
   });
 });
 
@@ -169,11 +167,10 @@ router.post('/game/:id/stand', function(req, res, next) {
   });
 });
 
-/* Code to delete all games on db.
-GameModel.remove({}, function (err, user) {
+// Code to delete all games on db.
+/*GameModel.remove({}, function (err, user) {
 if (err) console.log(err);
-});
-*/
+});*/
 
 router.get('/', function (req, res) {
   if (req.user) res.redirect('/games')

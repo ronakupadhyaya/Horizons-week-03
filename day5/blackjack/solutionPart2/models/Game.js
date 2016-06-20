@@ -47,20 +47,25 @@ GameSchema.statics.calcValue = function (hand){
 }
 
 GameSchema.statics.hit = function (game, playerNumber){
+  console.log("once")
   game.playerHands[playerNumber].push(game.deck.pop());
- game.playerTotals[playerNumber]= this.calcValue(game.playerHands[playerNumber]);
-  game.turn++;
+  //  console.log( game.playerHands[playerNumber])
+  game.markModified('playerHands');
+  game.playerTotals[playerNumber]= this.calcValue(game.playerHands[playerNumber]);
+  game.markModified('playerTotals');
+  game.turn+=1;
   if(game.turn>=game.numberOfPlayers){
     game.turn=1;
   }
   if(parseInt(game.playerTotals[playerNumber]) > 21){
     game.playerStatus[playerNumber] = "lost";
+    game.markModified('playerStatus');
   }
 };
 
 GameSchema.statics.stand = function stand(game){
   game.playerStatus[playerNumber] = "standing";
-//  this.gameOver(game);
+  //  this.gameOver(game);
 }
 
 GameSchema.statics.gameOver = function gameOver(game){
