@@ -63,6 +63,7 @@ div#user-score, div#dealer-score
 div.card#hidden-card
 {
 	background-color: #CBE0FD;
+	margin-left:5px;
 }
 
 div.card#hidden-card div

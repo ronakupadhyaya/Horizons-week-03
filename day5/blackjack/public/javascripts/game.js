@@ -15,8 +15,8 @@ function getData(){
         if (game.players.length<game.numberOfPlayers){
           $("#game-status").text("Waiting for more players");
           setTimeout(function(){
-              console.log("BAM")
-              getData();
+            console.log("BAM")
+            getData();
           }, 2000);
         } else{
           play(game)
@@ -70,41 +70,44 @@ function play(game){
     }
   }
 
-console.log(userInGamePosition)
+  console.log(userInGamePosition)
 
 
-/*
+  /*
   if (game.status === 'over' ){
-    status.innerHTML='You '+game.userStatus;
-    if (game.userStatus === "won"){
-      status.innerHTML+= " "+ parseInt(game.player1bet)*2;
-    } else if (game.userStatus === "won"){
-      status.innerHTML+= " "+ parseInt(game.player1bet);
-    }
-    hitButton.style.visibility = "hidden";
-    standButton.style.visibility = "hidden";
-  }
+  status.innerHTML='You '+game.userStatus;
+  if (game.userStatus === "won"){
+  status.innerHTML+= " "+ parseInt(game.player1bet)*2;
+} else if (game.userStatus === "won"){
+status.innerHTML+= " "+ parseInt(game.player1bet);
+}
+hitButton.style.visibility = "hidden";
+standButton.style.visibility = "hidden";
+}
 */
 
-  dealerHand.innerHTML="<h2>Dealer Hand</h2>";
-  userHand.innerHTML="<h2>User Hand</h2>";
-  //hit.setAttribute("style", "");
-  //stand.setAttribute("style", "");
+dealerHand.innerHTML="<h2>Other people's Hands</h2>";
+userHand.innerHTML="<h2>User Hand</h2>";
+//hit.setAttribute("style", "");
+//stand.setAttribute("style", "");
 
-  for(var i=0; i<game.playerHands[1].length; i++){
-    userHand.innerHTML+=showCard(game.playerHands[1][i]);
-  }
+for(var i=0; i<game.playerHands[1].length; i++){
+  userHand.innerHTML+=showCard(game.playerHands[1][i]);
+}
+userScore.innerHTML=game.userTotal;
+for(var j=0; j<game.playerHands.length; j++){
+  dealerScore.innerHTML+="<div class='spacer'>"
 
-  for(var i=0; i<game.playerHands[0].length; i++){
-    dealerHand.innerHTML+=showCard(game.playerHands[0][i]);
+  for(var i=0; i<game.playerHands[j].length; i++){
+    dealerHand.innerHTML+=showCard(game.playerHands[j][i], i);
   }
-  userScore.innerHTML=game.userTotal;
-  dealerScore.innerHTML=game.dealerTotal;
-  var firstCard = dealerHand.getElementsByClassName("card")[0];
-  firstCard.setAttribute("id", "hidden-card");
+  dealerScore.innerHTML+="</div>"
 }
 
-this.showCard =function showCard(card){
+
+}
+
+this.showCard =function showCard(card, cardNumber){
   var html="";
   switch(card.suit){
     case "hearts": suit_text = "&hearts;"; break;
@@ -112,7 +115,8 @@ this.showCard =function showCard(card){
     case "spades": suit_text = "&spades;"; break;
     case "clubs": suit_text = "&clubs;"; break;
   }
-  html="<div class='card " + card.suit + "'><div class='card-value'>" + card.symbol + "</div><div class='suit'>" + suit_text + "</div><div class='main-number'>"+card.symbol +"</div><div class='invert card-value'>"+card.symbol+"</div><div class='invert suit'>"+suit_text+"</div></div>";
+  var hiddenCard = cardNumber===0 ? " id='hidden-card'" : "";
+  html="<div class='card " + card.suit + "'"+ hiddenCard + "><div class='card-value'>" + card.symbol + "</div><div class='suit'>" + suit_text + "</div><div class='main-number'>"+card.symbol +"</div><div class='invert card-value'>"+card.symbol+"</div><div class='invert suit'>"+suit_text+"</div></div>";
   return html;
 }
 
