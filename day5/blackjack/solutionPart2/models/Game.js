@@ -84,10 +84,11 @@ GameSchema.statics.giveDealerMoreCards = function (game){
   while(game.playerTotals[0] < 17){
     game.playerHands[0].push(game.deck.pop());
     game.playerTotals[0]= this.calcValue(game.playerHands[0]);
+    game.playerStatus[0] = "standing";
     if(parseInt(game.playerTotals[0]) > 21){
       game.playerStatus[0] = "lost";
-      game.markModified('playerStatus');
     }
+    game.markModified('playerStatus');
     game.markModified('playerHands');
     game.markModified('playerTotals');
   }
@@ -96,23 +97,25 @@ GameSchema.statics.giveDealerMoreCards = function (game){
 
 GameSchema.statics.checkGameOver = function gameOver(game){
   if (this.isGameOver(game)){
-  /*  game.status="over";
+   game.status="over";
     this.giveDealerMoreCards(game)
 
     for (var i=1; i<game.numberOfPlayers; i++){
       if(game.playerStatus[i] !== "lost" && (game.playerTotals[i] > game.playerTotals[0] || game.dealerStatus === "lost")){
         game.playerStatus[i] = "won";
+        game.playerStatus[0] = "lost";
         //this.money+=2; // TODO += 2*bet
       }
       else if(game.playerTotals[i] === game.playerTotals[0] && game.playerStatus[i] !== "lost"){
         game.playerStatus[i] = "tied";
+        game.playerStatus[0] = "tied";
         //this.money++; // money += bet.
-      }else{
+      }/*else{
         game.playerStatus[i] = "lost";
-      }
+      }*/
     }
 
-*/
+
   console.log("over")
 }else{
   console.log("notOver")
