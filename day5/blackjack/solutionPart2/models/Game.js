@@ -74,7 +74,6 @@ GameSchema.statics.stand = function stand(game,playerNumber){
 GameSchema.statics.isGameOver = function (game){
   for (var i=1; i<game.numberOfPlayers; i++){
     if(game.playerStatus[i]==="waiting"){
-      console.log(game.playerStatus[i])
       return false;
     }
   }
@@ -115,7 +114,9 @@ GameSchema.statics.checkGameOver = function gameOver(game){
 
 */
   console.log("over")
-  }
+}else{
+  console.log("notOver")
+}
 }
 
 function Card(suit, val, symbol) {

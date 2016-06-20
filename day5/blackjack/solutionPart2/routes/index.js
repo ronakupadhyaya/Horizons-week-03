@@ -79,7 +79,9 @@ router.get('/game/:id', function(req, res, next) {
     GameModel.findById(req.params.id, function (err, game) {
       if (err) {return next(err);}
 
-        console.log(game)
+
+    GameModel.checkGameOver(game);
+     //console.log(gameRepresentation(game, req.user.id))
       res.format({
         html: function(){
           res.render('viewgame', { title: 'View Game', game: gameRepresentation(game, req.user.id)});
