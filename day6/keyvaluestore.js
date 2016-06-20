@@ -33,6 +33,8 @@
 // And add a 'pairs' property and give it a blank object as value
 function KeyValueStore() {
   // YOUR CODE HERE
+  this.length =  0;
+  this.pairs = {};
 }
 
 // Write a function that adds new (key,value) pairs to the store.
@@ -46,6 +48,14 @@ function KeyValueStore() {
 // Then the store kvs.pairs should have -> { '53': 3, McDonalds: 12, Subway: 2, 'Other key': 'Other Value' }
 KeyValueStore.prototype.put = function(key, value) {
   // YOUR CODE HERE
+  var kvs = new KeyValueStore();
+  if (!value) {
+    kvs.pairs = {};
+  }
+  else {
+    kvs.pairs[key] = value;
+  }
+
 }
 
 // Write a function that checks if the store contains a specific key;
@@ -53,6 +63,7 @@ KeyValueStore.prototype.put = function(key, value) {
 // And return true or false if the object has the key.
 KeyValueStore.prototype.containsKey = function(key) {
   // YOUR CODE HERE
+  if (this.pairs.i)
 }
 
 // Write a function that gets the values for a given key.
