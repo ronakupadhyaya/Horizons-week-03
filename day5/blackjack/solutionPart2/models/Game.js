@@ -97,7 +97,7 @@ GameSchema.statics.giveDealerMoreCards = function (game){
 
 GameSchema.statics.checkGameOver = function gameOver(game){
   if (this.isGameOver(game)){
-   game.status="over";
+    game.status="over";
     this.giveDealerMoreCards(game)
 
     for (var i=1; i<game.numberOfPlayers; i++){
@@ -110,16 +110,14 @@ GameSchema.statics.checkGameOver = function gameOver(game){
         game.playerStatus[i] = "tied";
         game.playerStatus[0] = "tied";
         //this.money++; // money += bet.
-      }/*else{
+      }else{
         game.playerStatus[i] = "lost";
-      }*/
+        game.playerStatus[0] = "won";
+      }
     }
+    game.markModified('playerStatus');
 
-
-  console.log("over")
-}else{
-  console.log("notOver")
-}
+  }
 }
 
 function Card(suit, val, symbol) {

@@ -15,10 +15,10 @@ function getData(noReload){
       if (game.isUserInGame){
         if (game.players.length<game.numberOfPlayers){
           $("#game-status").text("Waiting for more players");
-            setTimeout(function(){
-                console.log("thisOne?")
-              getData();
-            }, 2000);
+          setTimeout(function(){
+            console.log("thisOne?")
+            getData();
+          }, 2000);
 
         } else{
           play(game)
@@ -73,37 +73,38 @@ function play(game){
     }
   }
 
-  /*
   if (game.status === 'over' ){
-  status.innerHTML='You '+game.userStatus;
-  if (game.userStatus === "won"){
-  status.innerHTML+= " "+ parseInt(game.player1bet)*2;
-} else if (game.userStatus === "won"){
-status.innerHTML+= " "+ parseInt(game.player1bet);
-}
-hitButton.style.visibility = "hidden";
-standButton.style.visibility = "hidden";
-}
-*/
-
-dealerHand.innerHTML="<h2>Other people's Hands</h2>";
-userHand.innerHTML="<h2>User Hand</h2>";
-//hit.setAttribute("style", "");
-//stand.setAttribute("style", "");
-
-for(var i=0; i<game.playerHands[userInGamePosition].length; i++){
-  userHand.innerHTML+=showCard(game.playerHands[userInGamePosition][i]);
-}
-userScore.innerHTML=game.userTotal;
-
-var opponents = game.playerHands.slice();
-opponents.splice(userInGamePosition,1);
-
-for(var j=0; j<opponents.length; j++){
-  for(var i=0; i<opponents[j].length; i++){
-    dealerHand.innerHTML+=showCard(opponents[j][i], i);
+    $("#game-status").text("Game over: You "+game.playerStatus[userInGamePosition]);
+    $(".dealer-area").hide();
+    $(".user-area").hide();
   }
-}
+  /*  if (game.userStatus === "won"){
+      status.innerHTML+= " "+ parseInt(game.player1bet)*2;
+    } else if (game.userStatus === "won"){
+      status.innerHTML+= " "+ parseInt(game.player1bet);
+    }
+    hitButton.style.visibility = "hidden";
+    standButton.style.visibility = "hidden";
+  }*/
+
+  dealerHand.innerHTML="<h2>Other people's Hands</h2>";
+  userHand.innerHTML="<h2>User Hand</h2>";
+  //hit.setAttribute("style", "");
+  //stand.setAttribute("style", "");
+
+  for(var i=0; i<game.playerHands[userInGamePosition].length; i++){
+    userHand.innerHTML+=showCard(game.playerHands[userInGamePosition][i]);
+  }
+  userScore.innerHTML=game.userTotal;
+
+  var opponents = game.playerHands.slice();
+  opponents.splice(userInGamePosition,1);
+
+  for(var j=0; j<opponents.length; j++){
+    for(var i=0; i<opponents[j].length; i++){
+      dealerHand.innerHTML+=showCard(opponents[j][i], i);
+    }
+  }
 
 
 }
@@ -129,23 +130,23 @@ function hit(){
     data: { userInGamePosition: userInGamePosition },
     cache: false,
     success: function(data){
-        console.log("hit?")
+      console.log("hit?")
       getData(true);
     }
   });
 }
 
 function stand(){
-if(globalGame.playerStatus[userInGamePosition]!=="standing"){
-  $.ajax({
-    type: "POST",
-    url: '/game/'+globalGame.id+'/stand',
-    dataType: 'json',
-    data: { userInGamePosition: userInGamePosition },
-    cache: false,
-    success: function(data){
-      getData(true);
-    }
-  });
-}
+  if(globalGame.playerStatus[userInGamePosition]!=="standing"){
+    $.ajax({
+      type: "POST",
+      url: '/game/'+globalGame.id+'/stand',
+      dataType: 'json',
+      data: { userInGamePosition: userInGamePosition },
+      cache: false,
+      success: function(data){
+        getData(true);
+      }
+    });
+  }
 }

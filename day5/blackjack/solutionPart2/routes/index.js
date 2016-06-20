@@ -120,8 +120,6 @@ router.post('/game/:id', function(req, res, next) {
     GameModel.findById(req.params.id, function (err, game) {
       if (err) return next(err);
       // TODO CHeck bets????  if (game.status==="started") return next(new Error("Bet already set"))
-      // var bet = req.body.bet|| 10;
-
       if(game.players.length===game.numberOfPlayers){
         res.json({error: "Game has enough players"});
       }
