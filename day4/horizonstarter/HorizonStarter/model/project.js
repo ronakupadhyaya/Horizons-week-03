@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://spark423:psh8181@ds017544.mlab.com:17544/horizon_starter')
+mongoose.connect('mongodb://spark423:psh8181@ds019254.mlab.com:19254/horizonstart')
 var projectSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -40,5 +40,23 @@ var projectSchema = new mongoose.Schema({
 		required: true
 	}
 });
+
+projectSchema.virtual('raised').get(function() {
+	this.contributions.map(function(el) {
+		return el.amount
+	}).reduce(function(a,b) {
+		return a+b;
+	},0)
+})
+
+projectSchema.virtual('progress').get(function() {
+	if (this.goal>0) {
+		return Math.floor(this.raised/this.goal*100)
+	}
+})
+
+
+
+
 module.exports = mongoose.model('Project', projectSchema);
 

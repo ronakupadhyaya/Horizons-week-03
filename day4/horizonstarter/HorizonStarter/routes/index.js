@@ -79,25 +79,23 @@ router.post('/project/:_id', function(req, res) {
     	console.error(errors);
     	res.render('project', {
     		project: project,
-    		start: project.start,
-    		end: project.end,
     		data: req.body
     	});
     } else {
-    	project.contributions.push({
-            name: req.body.name,
-            comment: req.body.comment,
-            amount: req.body.amount
+      project.contributions.push({
+        name: req.body.name,
+        comment: req.body.comment,
+        amount: req.body.amount
+      });
+      project.save(function(error) {
+        console.error(error);
+        res.render('project', {
+          project: project,
+          start: req.body.start,
+          end: req.body.end,
+          data: req.body
         });
-        project.save(function(error) {
-        	console.error(error);
-        	res.render('project', {
-        		project: project,
-                start: project.start,
-                end: project.end,
-                data: req.body
-            });
-        });
+      });
     }
   });
 });

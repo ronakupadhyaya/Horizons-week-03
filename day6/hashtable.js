@@ -78,8 +78,9 @@ function HashTable() {
   // The size of your hashtable is independent of how many keys we storing
   this.tableSize = 10000;
   // This is an array full of nulls, we're going to store our keys and values here
-  this.table = _.range(this.tableSize).map(_.constant(null));
+  this.table = _.range(this.tableSize).map(_.constant([]));
   // YOUR CODE HERE
+  this.length = 0;
 }
 
 // Our implementation of a hash was good! But, the longer the word, the larger it's
@@ -89,7 +90,8 @@ function HashTable() {
 // into a number between 0 and this.tableSize.
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
-  // YOUR CODE HERE
+  var hash = simpleHashCode(String(str)) % this.tableSize;
+  return Math.abs(hash);
 }
 
 // Write a function that adds new (key,value) pairs to the store using hashes!
@@ -100,8 +102,8 @@ HashTable.prototype.hashCode = function (str){
 // h.put("Sam Smith", "+593 2442 93957");
 
 // Then the store kvs.pairs should have ->  [
-//      70: ['Sam Smith': '+593 2442 93957'],
-//      84: ['John Smith': '+593 9846 19872'], ['Sara Zhmiu': '+593 6274 93957']
+//      70: ['Sam Smith', '+593 2442 93957'],
+//      84: ['John Smith', '+593 9846 19872'], ['Sara Zhmiu', '+593 6274 93957']
 // ]
 // We have both John and Sara on '84' because their hashes are the same. We  avoid
 // collisions by appending both arrays to the hash 84.
@@ -111,8 +113,24 @@ HashTable.prototype.hashCode = function (str){
 // smith with the same value, it shouldn't be added twice.
 // Also, if we put 'Sam Smith' with a new value: '+593 2442 93957', it's value must
 // be updated
-HashTable.prototype.put = function(key, value) {
-  // YOUR CODE HERE
+HashTable.prototype.put = function(key, value){
+  console.log("key is " + key);
+  console.log("value is " + value);
+  var h = this.hashCode(key)
+  console.log("h is " + h);
+  console.log("shit is " + this.table[h]);
+  var arr = [];
+  arr.push(key, value);
+  for (var array in this.table[h]) {
+    var pair = this.table[h][array];
+    if (pair[0] === key) {
+      pair[1] = value;
+      return true;
+    }
+  }
+  this.table[h].push(arr);
+  this.length++;
+  return false;
 }
 
 // Write a function that gets the values for a given key.
@@ -121,13 +139,20 @@ HashTable.prototype.put = function(key, value) {
 // Note: Have in mind that if this.pairs[hash] has more than one (key, value)
 // pair inside of it, you will have to go through the array to find its values!
 HashTable.prototype.get = function(key){
-  // YOUR CODE HERE
+  var h = this.hashCode(key)
+  for (var pair in this.table[h]) {
+    pair = this.table[h][pair];
+    if (pair[0] === key) {
+      return pair[1];
+    }
+  }
+  return undefined;
 };
 
 // Write a function that returns how many items we have in store.
 // It shouldn't take arguments, and it should return a number.
 HashTable.prototype.getSize = function() {
-  // YOUR CODE HERE
+  return this.length;
 }
 
 // Implement a function that deletes a certain (key,value) pair.
@@ -138,35 +163,65 @@ HashTable.prototype.getSize = function() {
 // *Note 2: Don't forget that this.pairs[hash] may have many [key, value] elements
 // and you have to iterate through them to delete!
 HashTable.prototype.delete  = function(key){
-  // YOUR CODE HERE
+  var h = this.hashCode(key)
+  for (var pair in this.table[h]) {
+    pair = this.table[h][pair];
+    if (pair[0] === key) {
+      this.table[h].splice(pair,1);
+      this.length--;
+      return true;
+    }
+  }
+  return false;
 };
 
 // Write a function that checks if the store contains a specific key;
 // It should receive a key of any type: object, number, string
 // And return true or false if the object has the key.
 HashTable.prototype.containsKey = function(key) {
-  // YOUR CODE HERE
+  var h = this.hashCode(key)
+  for (var pair in this.table[h]) {
+    pair = this.table[h][pair];
+    if (pair[0] === key) {
+      return true;
+    }
+  }
+  return false;
 };
 
 // Write a function that checks if the store contains a specific value;
 // It should receive a key of any type: object, number, string
 // And return true or false if the object has the value.
 HashTable.prototype.containsValue = function(value) {
-  // YOUR CODE HERE
+  for (var hash in this.table) {
+    for (var pair in this.table[hash]) {
+      if (this.table[hash][pair][1] === value) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
-
 // Write a forEach style iterator for all values in the HashTable
 // that takes a function fn and calls it.
 // fn will be called with each key -> fn(key)
 HashTable.prototype.keys = function(fn) {
-  // YOUR CODE HERE
+  for (var hash in this.table) {
+    for (var pair in this.table[hash]) {
+      fn(this.table[hash][pair][0]);
+    }
+  }
 }
 
 
 // Write a forEach style iterator for all values in the HashTable
 // that takes a function fn and calls it with each value: fn(value);
 HashTable.prototype.values = function(fn) {
-  // YOUR CODE HERE
+    for (var hash in this.table) {
+    for (var pair in this.table[hash]) {
+      fn(this.table[hash][pair][1]);
+    }
+  }
 }
 
 // Write a forEach style iterator for all keys & values in the
@@ -174,7 +229,13 @@ HashTable.prototype.values = function(fn) {
 // fn will be called with [key, value], a two item array where
 // first item is the key and the second item is the value: fn([key, value])
 HashTable.prototype.keysValues = function(fn) {
-  // YOUR CODE HERE
+  for (var hash in this.table) {
+    for (var pair in this.table[hash]) {
+      var arr = [];
+      arr.push(this.table[hash][pair][0],this.table[hash][pair][1]);
+      fn(arr);
+    }
+  }
 }
 
 
