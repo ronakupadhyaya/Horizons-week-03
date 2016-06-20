@@ -53,11 +53,14 @@ router.post('/game', function(req, res, next) {
   }else{
     GameModel.newGame({}, function (err, game) {
       if (err) return next(err);
+  
+      game.numberOfPlayers=req.body.number;
       game.playerTotals.push(0)
       game.playerStatus.push("waiting")
       game.playerHands.push({})
       game.playerbets.push(0);
       game.players.push(null);
+
       game.save();
       console.log('New game id:'+game.id);
       res.redirect('/game/'+game.id);
@@ -72,7 +75,7 @@ router.get('/game/:id', function(req, res, next) {
   }else{
     GameModel.findById(req.params.id, function (err, game) {
       if (err) return next(err);
-      //  console.log(gameRepresentation(game))
+        console.log(gameRepresentation(game))
       res.format({
         html: function(){
           res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });

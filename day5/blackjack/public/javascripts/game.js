@@ -9,10 +9,9 @@ function getData(){
     dataType: 'json',
     cache: false,
     success: function(game){
-      status.innerHTML=game.status
       //TODO check if playerAlreadyInGame
-      if (game.players.length<game.numberOfPlayers){ // And plate
-        //alert("please set bet");
+      if (game.players.length<game.numberOfPlayers){
+        $("#game-status").text("Bet to get in the game");
         $("#betForm").show();
         $(".dealer-area").hide();
         $(".user-area").hide();
@@ -35,9 +34,9 @@ $(document).on("submit", "form", function(e){
     success: function(game){
       console.log(game)
       if (game.players.length<game.numberOfPlayers){
-        play(game);
+          $("#game-status").text("Waiting for more players");
       }else{
-        status.innerHTML="Waiting for more players"
+          play(game);
       }
     }
   });
@@ -59,9 +58,7 @@ function play(game){
   hitButton.addEventListener("click", function(){ hit() },false);
   standButton.addEventListener("click", function(){ stand() },false);
 
-
-  status.innerHTML="";
-
+  $("#game-status").text(" ");
   if (game.status === 'over' ){
     status.innerHTML='You '+game.userStatus;
     if (game.userStatus === "won"){
