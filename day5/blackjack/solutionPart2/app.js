@@ -16,7 +16,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var Account = require('./models/account');
 
-
 mongoose.connect(config.db.localhost, function(err) {
     if(err) {
         console.log('connection error', err);
@@ -24,7 +23,6 @@ mongoose.connect(config.db.localhost, function(err) {
         console.log('connection successful');
     }
 });
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
