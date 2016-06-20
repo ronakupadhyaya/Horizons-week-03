@@ -9,14 +9,23 @@ function getData(){
     dataType: 'json',
     cache: false,
     success: function(game){
+      console.log(game)
       //TODO check if playerAlreadyInGame
-      if (game.players.length<game.numberOfPlayers){
+      if (game.isUserInGame){
+        if (game.players.length<game.numberOfPlayers){
+          $("#game-status").text("Waiting for more players");
+          setTimeout(function(){
+              console.log("BAM")
+              getData();
+          }, 2000);
+        } else{
+          play(game)
+        }
+      }else{
         $("#game-status").text("Bet to get in the game");
         $("#betForm").show();
         $(".dealer-area").hide();
         $(".user-area").hide();
-      }else{
-        play(game);
       }
     }
   });
@@ -32,12 +41,7 @@ $(document).on("submit", "form", function(e){
     data: { bet: $("#bet-amount").val() || 10 },
     cache: false,
     success: function(game){
-      console.log(game)
-      if (game.players.length<game.numberOfPlayers){
-          $("#game-status").text("Waiting for more players");
-      }else{
-          play(game);
-      }
+      getData();
     }
   });
   return  false;

@@ -7,7 +7,7 @@ var GameModel = require('../models/Game.js');
 var passport = require('passport');
 var Account = require('../models/account');
 
-var gameRepresentation = function(game) {
+var gameRepresentation = function(game, isUserInGame) {
   return {
     id: game.id,
     status: game.status,
@@ -16,7 +16,8 @@ var gameRepresentation = function(game) {
     playerStatus : game.playerStatus,
     playerHands : game.playerHands,
     playerbets : game.playerbets,
-    numberOfPlayers : game.numberOfPlayers
+    numberOfPlayers : game.numberOfPlayers,
+    isUserInGame: isUserInGame || false
   }
 }
 
@@ -53,7 +54,7 @@ router.post('/game', function(req, res, next) {
   }else{
     GameModel.newGame({}, function (err, game) {
       if (err) return next(err);
-  
+
       game.numberOfPlayers=req.body.number;
       game.playerTotals.push(0)
       game.playerStatus.push("waiting")
@@ -74,14 +75,19 @@ router.get('/game/:id', function(req, res, next) {
     res.redirect('/login');
   }else{
     GameModel.findById(req.params.id, function (err, game) {
-      if (err) return next(err);
-        console.log(gameRepresentation(game))
+      if (err) {return next(err);}
+        var isUserInGame = false;
+        for (var i = 1; i < game.players.length; i++){
+          if ((game.players[i]+"")===(req.user.id+"")){
+            isUserInGame = true;
+          }
+        }
       res.format({
         html: function(){
-          res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
+          res.render('viewgame', { title: 'View Game', game: gameRepresentation(game)});
         },
         json: function(){
-          res.json(gameRepresentation(game));
+          res.json(gameRepresentation(game, isUserInGame));
         }
       });
     });
