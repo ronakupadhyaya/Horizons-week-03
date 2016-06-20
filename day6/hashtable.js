@@ -90,6 +90,9 @@ function HashTable() {
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
   // YOUR CODE HERE
+  var hash = simpleHashCode(str);
+  hash = hash % this.tableSize;
+  return hash; 
 }
 
 // Write a function that adds new (key,value) pairs to the store using hashes!
@@ -113,6 +116,11 @@ HashTable.prototype.hashCode = function (str){
 // be updated
 HashTable.prototype.put = function(key, value) {
   // YOUR CODE HERE
+  if (!this.table[key]) {
+    return false;
+  }
+  this.table[key] = value;
+  return true;
 }
 
 // Write a function that gets the values for a given key.

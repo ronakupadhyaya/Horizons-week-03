@@ -33,6 +33,9 @@
 // And add a 'pairs' property and give it a blank object as value
 function KeyValueStore() {
   // YOUR CODE HERE
+  this.length = 0;
+  this.pairs = {}
+
 }
 
 // Write a function that adds new (key,value) pairs to the store.
@@ -46,6 +49,9 @@ function KeyValueStore() {
 // Then the store kvs.pairs should have -> { '53': 3, McDonalds: 12, Subway: 2, 'Other key': 'Other Value' }
 KeyValueStore.prototype.put = function(key, value) {
   // YOUR CODE HERE
+  this.pairs[key] = value;
+  this.length++;
+  return;
 }
 
 // Write a function that checks if the store contains a specific key;
@@ -53,6 +59,10 @@ KeyValueStore.prototype.put = function(key, value) {
 // And return true or false if the object has the key.
 KeyValueStore.prototype.containsKey = function(key) {
   // YOUR CODE HERE
+  if (this.pairs[key]) {
+    return true;
+  }
+  return false;
 }
 
 // Write a function that gets the values for a given key.
@@ -60,12 +70,17 @@ KeyValueStore.prototype.containsKey = function(key) {
 // And return either the key, or undefined if it is not on the store.
 KeyValueStore.prototype.get = function(key) {
   // YOUR CODE HERE
+  if (this.pairs[key]) {
+    return this.pairs[key];
+  }
+  return undefined;
 }
 
 // Write a function that returns how many items we have in store.
 // It shouldn't take arguments, and it should return a number.
 KeyValueStore.prototype.getSize = function() {
   // YOUR CODE HERE
+  return this.length;
 }
 
 // This function is very similar to containsKey(key), but this time the other way
@@ -73,6 +88,12 @@ KeyValueStore.prototype.getSize = function() {
 // that value and return it.
 KeyValueStore.prototype.containsValue = function(value) {
   // YOUR CODE HERE
+  for (var key in this.pairs) {
+    if (this.pairs[key] === value) {
+      return true;
+    }
+  }
+  return false;
 }
 
 // Implement a function that deletes a certain (key,value) pair.
@@ -82,18 +103,31 @@ KeyValueStore.prototype.containsValue = function(value) {
 // are able to delete a value
 KeyValueStore.prototype.delete = function(key) {
   // YOUR CODE HERE
+  if (this.pairs[key]) {
+    delete this.pairs[key];
+    this.length--;
+    return true;
+  }
+  return false;
 }
 
 // Write a forEach style iterator for all keys in the HashTable
 // that takes a function fn and calls it with each key: fn(key);
 KeyValueStore.prototype.keys = function(fn) {
   // YOUR CODE HERE
+  debugger;
+  for (var key in this.pairs) {
+    fn(key);
+  }
 }
 
 // Write a forEach style iterator for all values in the HashTable
 // that takes a function fn and calls it with each value: fn(value);
 KeyValueStore.prototype.values = function(fn) {
   // YOUR CODE HERE
+  for (var key in this.pairs) {
+    fn(this.pairs[key])
+  }
 }
 
 // Write a forEach style iterator for all keys & values in the
@@ -102,4 +136,7 @@ KeyValueStore.prototype.values = function(fn) {
 // first item is the key and the second item is the value: fn([key, value])
 KeyValueStore.prototype.keysValues = function(fn) {
   // YOUR CODE HERE
+  for (var key in this.pairs) {
+    fn([key, this.pairs[key]]);
+  }
 }
