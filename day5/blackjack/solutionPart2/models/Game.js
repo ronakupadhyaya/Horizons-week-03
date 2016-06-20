@@ -99,7 +99,7 @@ GameSchema.statics.checkGameOver = function gameOver(game){
   if (this.isGameOver(game)){
     game.status="over";
     this.giveDealerMoreCards(game)
-
+    console.log(game)
     for (var i=1; i<game.numberOfPlayers; i++){
       if(game.playerStatus[i] !== "lost" && (game.playerTotals[i] > game.playerTotals[0] || game.dealerStatus === "lost")){
         game.playerStatus[i] = "won";

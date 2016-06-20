@@ -10,13 +10,10 @@ function getData(noReload){
     dataType: 'json',
     cache: false,
     success: function(game){
-      console.log(game)
-      //TODO check if playerAlreadyInGame
       if (game.isUserInGame){
         if (game.players.length<game.numberOfPlayers){
           $("#game-status").text("Waiting for more players");
           setTimeout(function(){
-            console.log("thisOne?")
             getData();
           }, 2000);
 
@@ -43,9 +40,7 @@ $(document).on("submit", "form", function(e){
     data: { bet: $("#bet-amount").val() || 10 },
     cache: false,
     success: function(game){
-      console.log("thisOne?")
       getData();
-
     }
   });
   return  false;
@@ -73,24 +68,15 @@ function play(game){
     }
   }
 
-  if (game.status === 'over' ){
+    console.log(game)
+  if (game.status === 'over' || game.playerStatus[userInGamePosition]==='lost'){
     $("#game-status").text("Game over: You "+game.playerStatus[userInGamePosition]+" - Bet: " +game.playerbets[userInGamePosition]);
     $(".dealer-area").hide();
     $(".user-area").hide();
   }
-  /*  if (game.userStatus === "won"){
-      status.innerHTML+= " "+ parseInt(game.player1bet)*2;
-    } else if (game.userStatus === "won"){
-      status.innerHTML+= " "+ parseInt(game.player1bet);
-    }
-    hitButton.style.visibility = "hidden";
-    standButton.style.visibility = "hidden";
-  }*/
 
   dealerHand.innerHTML="<h2>Other people's Hands</h2>";
   userHand.innerHTML="<h2>User Hand</h2>";
-  //hit.setAttribute("style", "");
-  //stand.setAttribute("style", "");
 
   for(var i=0; i<game.playerHands[userInGamePosition].length; i++){
     userHand.innerHTML+=showCard(game.playerHands[userInGamePosition][i]);
@@ -105,8 +91,6 @@ function play(game){
       dealerHand.innerHTML+=showCard(opponents[j][i], i);
     }
   }
-
-
 }
 
 this.showCard =function showCard(card, cardNumber){
@@ -130,7 +114,6 @@ function hit(){
     data: { userInGamePosition: userInGamePosition },
     cache: false,
     success: function(data){
-      console.log("hit?")
       getData(true);
     }
   });
