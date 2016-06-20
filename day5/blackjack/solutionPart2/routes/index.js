@@ -37,7 +37,9 @@ router.get('/games', function (req, res, next) {
       for (var i=0; i< games.length; i++){
         var game ={
           id: games[i].id,
-          status: games[i].status === "over"? "over" : "progress"
+          status: games[i].status === "over" ? "over" : "progress",
+          canBeJoined : games[i].numberOfPlayers > games[i].players.length
+
         }
         if (!req.query.status || req.query.status === game.status){
           filteredGames.push(game)
@@ -56,14 +58,12 @@ router.post('/game', function(req, res, next) {
   }else{
     GameModel.newGame({}, function (err, game) {
       if (err) return next(err);
-
       game.numberOfPlayers=req.body.number;
       game.playerTotals.push(0)
       game.playerStatus.push("waiting")
       game.playerHands.push({})
       game.playerbets.push(0);
       game.players.push(null);
-
       game.save();
       console.log('New game id:'+game.id);
       res.redirect('/game/'+game.id);
@@ -79,7 +79,7 @@ router.get('/game/:id', function(req, res, next) {
     GameModel.findById(req.params.id, function (err, game) {
       if (err) {return next(err);}
 
-     //console.log(gameRepresentation(game, req.user.id))
+      //console.log(gameRepresentation(game, req.user.id))
       res.format({
         html: function(){
           res.render('viewgame', { title: 'View Game', game: gameRepresentation(game, req.user.id)});
@@ -148,7 +148,7 @@ router.post('/game/:id', function(req, res, next) {
 router.post('/game/:id/hit', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(game);
-  //  if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
+    //  if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.hit(game, req.body.userInGamePosition)
     game.save();
     res.json(gameRepresentation(game, req.user.id, isUserInGame(game, req)));
@@ -170,9 +170,9 @@ router.post('/game/:id/stand', function(req, res, next) {
 });
 
 // Code to delete all games on db.
-/*GameModel.remove({}, function (err, user) {
+/* GameModel.remove({}, function (err, user) {
 if (err) console.log(err);
-});*/
+}); */
 
 router.get('/', function (req, res) {
   if (req.user) res.redirect('/games')

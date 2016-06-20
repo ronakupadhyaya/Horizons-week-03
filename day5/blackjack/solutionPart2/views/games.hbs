@@ -2,30 +2,35 @@
 
 
 <form action="/game" method="post">
-    <button name="foo" value="upvote">New game</button>
-</form>
-<form action="/game" method="post">
-    <input type="number" name="number">
-    <input type="submit" name="New Multiplayergame!"></input>
+  <label for="number">New game. Enter number of players:</label>
+  <input id="number" type="number" name="number" >
+  <input type="submit" name="New Multiplayergame!"></input>
+  <p>Number of players must include dealer</p>
 </form>
 
 <p>
-<a href="/games?status=progress">View in-progress</a>
-<a href="/games?status=over">View finished games</a>
+  <a href="/games?status=progress">View in-progress</a>
+  <a href="/games?status=over">View finished games</a>
 </p>
 
 <!-- YOUR CODE HERE -->
 {{#each filteredGames}}
 <article>
   <a href="/game/{{id}}">
-  <h2>{{id}}</h2>
-</a>
+    <h2>{{id}}</h2>
+  </a>
   <p>{{status}}</p>
+
+  {{#if canBeJoined}}
+  <p>Can be joined </p>
+  {{/if}}
+
+
 </article>
 <hr />
 {{/each}}
 
 <div class="session">
-<p> You are currently logged in as {{user.username}} </p>
-<a href="/logout"> Logout</a>
+  <p> You are currently logged in as {{user.username}} </p>
+  <a href="/logout"> Logout</a>
 </div>
