@@ -1,20 +1,6 @@
 var globalGame;
-$(document).on("submit", "form", function(e){
-  e.preventDefault();
-  console.log( $(location).attr('href') );
-  $.ajax({
-    type: "POST",
-    url: $(location).attr('href'),
-    data: { bet: 234 },
-    cache: false,
-    success: function(game){
-      play(game);
-    }
-  });
-  return  false;
-});
-
 window.addEventListener("load", getData, false);
+var status = document.getElementById("game-status");
 
 function getData(){
   $.ajax({
@@ -23,7 +9,9 @@ function getData(){
     dataType: 'json',
     cache: false,
     success: function(game){
-      if (game.status==="Not Started"){
+      status.innerHTML=game.status
+      //TODO check if playerAlreadyInGame
+      if (game.players.length<game.numberOfPlayers){ // And plate
         //alert("please set bet");
         $("#betForm").show();
         $(".dealer-area").hide();
@@ -35,22 +23,43 @@ function getData(){
   });
 }
 
+// Setting a new bet
+$(document).on("submit", "form", function(e){
+  e.preventDefault();
+  $.ajax({
+    type: "POST",
+    dataType: 'json',
+    url: $(location).attr('href'),
+    data: { bet: $("#bet-amount").val() || 10 },
+    cache: false,
+    success: function(game){
+      console.log(game)
+      if (game.players.length<game.numberOfPlayers){
+        play(game);
+      }else{
+        status.innerHTML="Waiting for more players"
+      }
+    }
+  });
+  return  false;
+});
+
 
 function play(game){
-  //this.deck on real life is game.deck
   globalGame=game;
-  $("#betForm").hide();
-  $(".dealer-area").show();
-  $(".user-area").show();
-  var hitButton = document.getElementById("hit")
-  var standButton = document.getElementById("stand");
-  hitButton.addEventListener("click", function(){ hit() },false);
-  standButton.addEventListener("click", function(){ stand() },false);
   var userHand = document.getElementById("user-hand");
   var dealerHand = document.getElementById("dealer-hand");
   var userScore = document.getElementById("user-score");
   var dealerScore = document.getElementById("dealer-score");
-  var status = document.getElementById("game-status");
+  var hitButton = document.getElementById("hit")
+  var standButton = document.getElementById("stand");
+  $("#betForm").hide();
+  $(".dealer-area").show();
+  $(".user-area").show();
+  hitButton.addEventListener("click", function(){ hit() },false);
+  standButton.addEventListener("click", function(){ stand() },false);
+
+
   status.innerHTML="";
 
   if (game.status === 'over' ){

@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
 
 var GameSchema = new mongoose.Schema({
   deck: [],
-  status: {type: String, default: 'Not Started'},
-  player1bet: {type: Number, default: 0},
-  userTotal: {type: Number, default: 0},
-  dealerTotal: {type: Number, default: 0},
-  userStatus: {type: String, default: "waiting"},
-  dealerStatus: {type: String, default: "waiting"},
-  currentPlayerHand: [],
-  houseHand: [],
+  status: {type: String, default: 'Waiting for players'},
+  playerTotals: [{type: Number, default: 0}],
+  playerStatus: [],
+  playerHands: [],
+  playerbets: [{type: Number, default: 0}],
+  players:[{ type: ObjectId, ref: 'Account' }],
+  numberOfPlayers: {type: Number, default: 2}
 });
 
 GameSchema.statics.newGame = function (item, callback){
@@ -46,7 +47,6 @@ GameSchema.statics.hit = function (game){
   game.currentPlayerHand.push(game.deck.pop());
   game.userTotal = this.calcValue(game.currentPlayerHand);
   if(parseInt(game.userTotal) > 21){
-    console.log("asd")
     game.userStatus = "lost";
     this.gameOver(game);
   }

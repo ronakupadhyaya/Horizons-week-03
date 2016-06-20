@@ -4,20 +4,22 @@ var router = express.Router({ mergeParams: true });
 var jsonfile = require('jsonfile');
 var file = 'data.json';
 var GameModel = require('../models/Game.js');
+var passport = require('passport');
+var Account = require('../models/account');
 
 var gameRepresentation = function(game) {
   return {
     id: game.id,
-    player1bet: game.player1bet,
     status: game.status,
-    userTotal : game.userTotal,
-    dealerTotal : game.dealerTotal,
-    userStatus : game.userStatus,
-    dealerStatus : game.dealerStatus,
-    currentPlayerHand : game.currentPlayerHand,
-    houseHand : game.houseHand
+    players: game.players,
+    playerTotals : game.playerTotals,
+    playerStatus : game.playerStatus,
+    playerHands : game.playerHands,
+    playerbets : game.playerbets,
+    numberOfPlayers : game.numberOfPlayers
   }
 }
+
 
 // Write the function for the / route in the game. It should display the list of
 // all the games. You should be able to click from the page and navigate to any
@@ -44,28 +46,46 @@ router.get('/games', function (req, res, next) {
 });
 
 // Write a route that creates a new game and redirects to the game page with the
-// id. It shoudl redirect to -> `/game/:id`
+// id. It should redirect to -> `/game/:id`
 router.post('/game', function(req, res, next) {
-  GameModel.newGame({}, function (err, game) {
-    if (err) return next(err);
-    console.log('New game id:'+game.id);
-    res.redirect('/game/'+game.id);
-  });
-});
-router.get('/game/:id', function(req, res, next) {
-  GameModel.findById(req.params.id, function (err, game) {
-    if (err) return next(err);
-    res.format({
-      html: function(){
-        res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
-      },
-      json: function(){
-        res.json(gameRepresentation(game));
-      }
+  if(!req.user){
+    res.redirect('/login');
+  }else{
+    GameModel.newGame({}, function (err, game) {
+      if (err) return next(err);
+      game.playerTotals.push(0)
+      game.playerStatus.push("waiting")
+      game.playerHands.push({})
+      game.playerbets.push(0);
+      game.players.push(null);
+      game.save();
+      console.log('New game id:'+game.id);
+      res.redirect('/game/'+game.id);
     });
-  });
+  }
 });
 
+//Gets the current game
+router.get('/game/:id', function(req, res, next) {
+  if(!req.user){
+    res.redirect('/login');
+  }else{
+    GameModel.findById(req.params.id, function (err, game) {
+      if (err) return next(err);
+      //  console.log(gameRepresentation(game))
+      res.format({
+        html: function(){
+          res.render('viewgame', { title: 'View Game', game: gameRepresentation(game) });
+        },
+        json: function(){
+          res.json(gameRepresentation(game));
+        }
+      });
+    });
+  }
+});
+
+// TODO edit this.
 // Write a function that posts to the game id with the bet amount the user is making
 // the bet should be received from the body. It should start the game after the bet,
 // give the first cards to every player and set the game status to started.
@@ -73,18 +93,37 @@ router.get('/game/:id', function(req, res, next) {
 // Remember to bring the game from the mongo database by :id and to respond with
 // the JSON representation to the client. Also remember to save the game status on
 // the database.
+
+// This functions joins players to the game
 router.post('/game/:id', function(req, res, next) {
-  console.log('here')
-  GameModel.findById(req.params.id, function (err, game) {
-    if (err) return next(err);
-    if (game.status==="started") return next(new Error("Bet already set"))
-    var bet = req.body.bet|| 10;
-    game.player1bet=bet;
-    GameModel.deal21(game);
-    game.status="started";
-    game.save();
-    res.json(gameRepresentation(game));
-  });
+
+  if(!req.user){
+    res.redirect('/login');
+  }else{
+    GameModel.findById(req.params.id, function (err, game) {
+      if (err) return next(err);
+      // TODO CHeck bets????  if (game.status==="started") return next(new Error("Bet already set"))
+      // var bet = req.body.bet|| 10;
+
+      if(game.players.length===game.numberOfPlayers){
+        res.json({error: "Game has enough players"});
+      }
+      game.players.push(req.user);
+      game.playerTotals.push(0)
+      game.playerStatus.push("waiting")
+      game.playerHands.push({})
+      game.playerbets.push(req.body.bet);
+
+      console.log(gameRepresentation(game))
+
+      if(game.players.length===game.numberOfPlayers){
+        GameModel.deal21(game);
+        game.status="started";
+      }
+      game.save();
+      res.json(gameRepresentation(game));
+    });
+  }
 });
 
 // This function should add a card to the player. If the bet is not already set,
@@ -122,15 +161,9 @@ if (err) console.log(err);
 });
 */
 
-
-var passport = require('passport');
-var Account = require('../models/account');
-
-
 router.get('/', function (req, res) {
   if (req.user) res.redirect('/games')
   else res.redirect('login')
-  //    res.render('index', { user : req.user });
 });
 
 router.get('/register', function(req, res) {
@@ -139,10 +172,7 @@ router.get('/register', function(req, res) {
 
 router.post('/register', function(req, res) {
   Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-    if (err) {
-      return res.render('register', { account : account });
-    }
-
+    if (err) { return res.render('register', { account : account }); }
     passport.authenticate('local')(req, res, function () {
       res.redirect('/games');
     });
