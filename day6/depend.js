@@ -1,7 +1,7 @@
 "use strict";
 
 /*
-To start building our dependency manager, we first need a wey to store all of
+To start building our dependency manager, we first need a way to store all of
 our module's dependencies. We need to tell our Tracker (or Dependency manager) which
 module depends on which. There are many ways of doing this, and you can pick the
 one that feels the best. One good option is creating an object "module", that has
@@ -24,12 +24,13 @@ has. That is: The userInstalledComponents + their dependencies.
 
 function Tracker() {
   this.dependencies={};
-  this.installedComponents=[];
-  this.userRequiredComponents=[];
+  this.installedComponents={};
+  this.userRequiredComponents={};
+  this.dependenciesReverse={};
 }
 
 // Okay, now we need to start walking through the dependencies graph. We need to
-// get a starting compontent, and then go through all the components it dependes on.
+// get a starting compontent, and then go through all the components it depends on.
 //For these dependencies we'll have to install their dependencies too! So, we need
 // a recursive function that goes through all the nodes on the graph.
 
@@ -38,8 +39,20 @@ function Tracker() {
 // A component can depend on many other components, there should be no restrictions
 // on here because components are just declaring their dependencies and not yet
 // being installed.
-Tracker.prototype.depend = function(component, dependsOn) {
-  // YOUR CODE HERE
+Tracker.prototype.depend = function(component, dependsOn, second) {
+  var depGraph = second ? this.dependenciesReverse : this.dependencies;
+
+  var deps = depGraph[component];
+  if (! deps) {
+    deps = depGraph[component] = [];
+  }
+  if (deps.indexOf(dependsOn) === -1) {
+    deps.push(dependsOn);
+  }
+
+  if(!second) {
+    this.depend(dependsOn, component, true);
+  }
 }
 
 // It should return an array representing all components that need to be installed,
@@ -56,8 +69,26 @@ Tracker.prototype.depend = function(component, dependsOn) {
 // getDependenciesForModule('A', neededModules, []);
 // This approach uses recurson to visit other nodes, and thus can't have one single
 // return value, that is why we use the outside var neededModules to call the function.
-Tracker.prototype.getDependenciesForModule = function(component, resolved, seen){
-  // YOUR CODE HERE
+Tracker.prototype.getDependenciesForModule = function(depsGraph, component, resolved, seen){
+  return this.walkGraph(this.dependencies, component);
+}
+
+Tracker.prototype.walkGraph = function(depsGraph, component, resolved, seen){
+  resolved = resolved || [];
+  seen = seen || [];
+  if(seen.indexOf(component) !== -1){
+    return [];
+  }
+
+  seen.push(component);
+
+  var deps = depsGraph[component] || [];
+  for (var i = 0; i < deps.length; i++) {
+    var dep = deps[i];
+    this.getDependenciesForModule(dep, resolved, seen);
+  }
+  resolved.push(component);
+  return resolved;
 }
 
 // Write a function that takes a component and installs it. It should save this
@@ -68,7 +99,14 @@ Tracker.prototype.getDependenciesForModule = function(component, resolved, seen)
 // Bonus: Adding circular dependencies like A depends on B and B depends on A cannot
 // be possible. Throw an exception when installing circular deps.
 Tracker.prototype.install = function(component) {
-  // YOUR CODE HERE
+  if (this.installedComponents[component]){
+    return;
+  }
+  this.userRequiredComponents[component] = true; //mark as installed explicitly by user
+  var deps = this.getDependenciesForModule(component); //get all dependencies for this component
+  deps.forEach(function(dep){ //mark each dependency as installed
+    this.installedComponents[dep] = true;
+  }.bind(this));
 }
 
 // Write a function that uninstalls the given component. The function should receive
@@ -82,15 +120,19 @@ Tracker.prototype.install = function(component) {
 // were uninstalled.
 
 Tracker.prototype.uninstall = function(component) {
-  // YOUR CODE HERE
+  if (! this.installedComponents[component]){
+    return;
+  }
+  this.userRequiredCom
+  var toUninstall = this.walkGraph(this.dependenciesReverse, component);
 }
 
 // Get an array representing all components that have been installed by the user
 Tracker.prototype.getUserInstalled = function() {
-  // YOUR CODE HERE
+  return _.keys(this.userRequiredComponents); //get all keys for the components (that's what _.keys does)
 }
 // Get an array representing all components that have been installed by the user
 // plus their dependencies
 Tracker.prototype.getAllInstalledComponents = function() {
-  // YOUR CODE HERE
+  return _.keys(this.installedComponents);
 }
