@@ -91,17 +91,18 @@ userHand.innerHTML="<h2>User Hand</h2>";
 //hit.setAttribute("style", "");
 //stand.setAttribute("style", "");
 
-for(var i=0; i<game.playerHands[1].length; i++){
-  userHand.innerHTML+=showCard(game.playerHands[1][i]);
+for(var i=0; i<game.playerHands[userInGamePosition].length; i++){
+  userHand.innerHTML+=showCard(game.playerHands[userInGamePosition][i]);
 }
 userScore.innerHTML=game.userTotal;
-for(var j=0; j<game.playerHands.length; j++){
-  dealerScore.innerHTML+="<div class='spacer'>"
 
-  for(var i=0; i<game.playerHands[j].length; i++){
-    dealerHand.innerHTML+=showCard(game.playerHands[j][i], i);
+var opponents = game.playerHands.slice();
+opponents.splice(userInGamePosition,1);
+
+for(var j=0; j<opponents.length; j++){
+  for(var i=0; i<opponents[j].length; i++){
+    dealerHand.innerHTML+=showCard(opponents[j][i], i);
   }
-  dealerScore.innerHTML+="</div>"
 }
 
 

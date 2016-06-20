@@ -28,6 +28,7 @@ game.playerbets.push(req.body.bet);
 GameSchema.statics.deal21 = function (game) {
   game.playerHands=[];
   game.playerTotals=[]
+  
   for(var i=0; i<game.numberOfPlayers ; i++){
     var currentPlayerHand=[]
     currentPlayerHand.push(game.deck.pop());
