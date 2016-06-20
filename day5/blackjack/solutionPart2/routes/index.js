@@ -78,24 +78,29 @@ router.get('/game/:id', function(req, res, next) {
   }else{
     GameModel.findById(req.params.id, function (err, game) {
       if (err) {return next(err);}
-        var isUserInGame = false;
-        for (var i = 1; i < game.players.length; i++){
-          if ((game.players[i]+"")===(req.user.id+"")){
-            isUserInGame = true;
-          }
-        }
+
         console.log(game)
       res.format({
         html: function(){
           res.render('viewgame', { title: 'View Game', game: gameRepresentation(game, req.user.id)});
         },
         json: function(){
-          res.json(gameRepresentation(game, req.user.id, isUserInGame));
+          res.json(gameRepresentation(game, req.user.id, isUserInGame(game,req)));
         }
       });
     });
   }
 });
+
+function isUserInGame(game, req){
+  var isUserInGame = false;
+  for (var i = 1; i < game.players.length; i++){
+    if ((game.players[i]+"")===(req.user.id+"")){
+      isUserInGame = true;
+    }
+  }
+  return isUserInGame;
+}
 
 // TODO edit this.
 // Write a function that posts to the game id with the bet amount the user is making
@@ -148,7 +153,7 @@ router.post('/game/:id/hit', function(req, res, next) {
   //  if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
     GameModel.hit(game, req.body.userInGamePosition)
     game.save();
-    res.json(gameRepresentation(game, req.user.id));
+    res.json(gameRepresentation(game, req.user.id, isUserInGame(game, req)));
   });
 });
 
@@ -160,10 +165,9 @@ router.post('/game/:id/stand', function(req, res, next) {
   GameModel.findById(req.params.id, function (err, game) {
     if (err) return next(game);
     //if (game.status!=="started" || game.player1bet === 0) return next(new Error("Start game and set bet"))
-    GameModel.stand(game)
+    GameModel.stand(game, req.body.userInGamePosition)
     game.save();
-    res.json(gameRepresentation(game, req.user.id));
-    // Renders JSON of Game State Representation
+    res.json(gameRepresentation(game, req.user.id, isUserInGame(game, req)));
   });
 });
 

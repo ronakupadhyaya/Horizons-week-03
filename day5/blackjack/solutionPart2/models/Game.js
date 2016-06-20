@@ -47,7 +47,6 @@ GameSchema.statics.calcValue = function (hand){
 }
 
 GameSchema.statics.hit = function (game, playerNumber){
-  console.log("once")
   game.playerHands[playerNumber].push(game.deck.pop());
   //  console.log( game.playerHands[playerNumber])
   game.markModified('playerHands');
@@ -60,31 +59,62 @@ GameSchema.statics.hit = function (game, playerNumber){
   if(parseInt(game.playerTotals[playerNumber]) > 21){
     game.playerStatus[playerNumber] = "lost";
     game.markModified('playerStatus');
+    this.checkGameOver(game)
   }
 };
 
-GameSchema.statics.stand = function stand(game){
-  game.playerStatus[playerNumber] = "standing";
-  //  this.gameOver(game);
+GameSchema.statics.stand = function stand(game,playerNumber){
+  if(game.playerStatus[playerNumber]!=="lost"){
+    game.playerStatus[playerNumber] = "standing";
+    game.markModified('playerStatus');
+  }
+  this.checkGameOver(game);
 }
 
-GameSchema.statics.gameOver = function gameOver(game){
-  game.status="over";
-  if(game.userTotal > game.dealerTotal && game.userStatus !== "lost" || game.dealerStatus === "lost"){
-    game.userStatus= "won";
-    game.dealerStatus= "lost";
-    //this.money+=2; // TODO += 2*bet
-    // RESPONSE YOU WIN
+GameSchema.statics.isGameOver = function (game){
+  for (var i=1; i<game.numberOfPlayers; i++){
+    if(game.playerStatus[i]==="waiting"){
+      console.log(game.playerStatus[i])
+      return false;
+    }
   }
-  else if(game.userTotal === game.dealerTotal && game.userStatus !== "lost"){
-    console.log("HAH you tied.")
-    game.dealerStatus= "tied";
-    game.userStatus= "tied";
-    //this.money++; // money += bet.
-    //response -> TIED
-  }else{
-    game.userStatus= "lost";
-    game.dealerStatus= "won";
+  return true;
+}
+GameSchema.statics.giveDealerMoreCards = function (game){
+
+  while(game.playerTotals[0] < 17){
+    game.playerHands[0].push(game.deck.pop());
+    game.playerTotals[0]= this.calcValue(game.playerHands[0]);
+    if(parseInt(game.playerTotals[0]) > 21){
+      game.playerStatus[0] = "lost";
+      game.markModified('playerStatus');
+    }
+    game.markModified('playerHands');
+    game.markModified('playerTotals');
+  }
+  //this.gameOver(game);
+}
+
+GameSchema.statics.checkGameOver = function gameOver(game){
+  if (this.isGameOver(game)){
+  /*  game.status="over";
+    this.giveDealerMoreCards(game)
+
+    for (var i=1; i<game.numberOfPlayers; i++){
+      if(game.playerStatus[i] !== "lost" && (game.playerTotals[i] > game.playerTotals[0] || game.dealerStatus === "lost")){
+        game.playerStatus[i] = "won";
+        //this.money+=2; // TODO += 2*bet
+      }
+      else if(game.playerTotals[i] === game.playerTotals[0] && game.playerStatus[i] !== "lost"){
+        game.playerStatus[i] = "tied";
+        //this.money++; // money += bet.
+      }else{
+        game.playerStatus[i] = "lost";
+      }
+    }
+
+*/
+  console.log("over")
   }
 }
 

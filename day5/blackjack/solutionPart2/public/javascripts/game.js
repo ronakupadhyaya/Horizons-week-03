@@ -3,7 +3,7 @@ window.addEventListener("load", getData, false);
 var status = document.getElementById("game-status");
 var userInGamePosition;
 
-function getData(){
+function getData(noReload){
   $.ajax({
     type: "GET",
     url: $(location).attr('href'),
@@ -15,10 +15,11 @@ function getData(){
       if (game.isUserInGame){
         if (game.players.length<game.numberOfPlayers){
           $("#game-status").text("Waiting for more players");
-          setTimeout(function(){
-            console.log("BAM")
-            getData();
-          }, 2000);
+            setTimeout(function(){
+                console.log("thisOne?")
+              getData();
+            }, 2000);
+
         } else{
           play(game)
         }
@@ -42,7 +43,9 @@ $(document).on("submit", "form", function(e){
     data: { bet: $("#bet-amount").val() || 10 },
     cache: false,
     success: function(game){
+      console.log("thisOne?")
       getData();
+
     }
   });
   return  false;
@@ -126,19 +129,23 @@ function hit(){
     data: { userInGamePosition: userInGamePosition },
     cache: false,
     success: function(data){
-      getData();
+        console.log("hit?")
+      getData(true);
     }
   });
 }
 
 function stand(){
+if(globalGame.playerStatus[userInGamePosition]!=="standing"){
   $.ajax({
     type: "POST",
     url: '/game/'+globalGame.id+'/stand',
     dataType: 'json',
+    data: { userInGamePosition: userInGamePosition },
     cache: false,
     success: function(data){
-      getData();
+      getData(true);
     }
   });
+}
 }
