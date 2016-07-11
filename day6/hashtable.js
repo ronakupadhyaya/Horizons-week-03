@@ -79,6 +79,17 @@ function HashTable() {
   this.tableSize = 10000;
   // This is an array full of nulls, we're going to store our keys and values here
   this.table = _.range(this.tableSize).map(_.constant(null));
+
+  this.pairs = [];
+  this.length = 0;
+
+  /*
+  like saying
+  this.table = _.range(this.tableSize).map(function(current){
+    return null;
+  });
+
+  */
   // YOUR CODE HERE
 }
 
@@ -89,6 +100,7 @@ function HashTable() {
 // into a number between 0 and this.tableSize.
 // *Hint: use the modulo operator.
 HashTable.prototype.hashCode = function (str){
+  return this.simpleHashCode(str) % this.tableSize;
   // YOUR CODE HERE
 }
 
@@ -112,7 +124,8 @@ HashTable.prototype.hashCode = function (str){
 // Also, if we put 'Sam Smith' with a new value: '+593 2442 93957', it's value must
 // be updated
 HashTable.prototype.put = function(key, value) {
-  // YOUR CODE HERE
+  var h = this.hasCode(key);
+  if (this.pairs(h))
 }
 
 // Write a function that gets the values for a given key.

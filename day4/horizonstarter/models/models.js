@@ -41,7 +41,7 @@ module.exports = {
 			type: String,
 		},
 		amount: {
-			type: Number,
+			type: String,
 			required: true
 		},
 		projectid: {

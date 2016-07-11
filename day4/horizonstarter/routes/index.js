@@ -75,14 +75,14 @@ router.post('/projects/:id', function(req, res) {
 	var c = new models.contribution({
 		name: req.body.name,
 		comment: req.body.comment,
-		amount: req.body.amount,
+		amount: req.body.money,
 		projectid: req.params.id
 	})
 	c.save(function(error, project) {
 		if(error) {
 			res.status(400).send("Error making coontribution: " + error)
 		} else {
-			res.redirect('projects/' +req.params.id);
+			res.redirect('/projects/' + req.params.id);
 		}
 	})
 })

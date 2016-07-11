@@ -9,11 +9,25 @@
 				 <div class = "attribute" id="data"> {{project.category}} </div>
 			<div class = "attribute"> FUNDRAISING GOAL: </div> 
 				<div class = "attribute" id="data">${{project.goal}} </div>
-			<div class = "attribute"> TOTAL CONTRIBUTIONS: </div> 
+			<div class = "attribute" id="merp"> TOTAL CONTRIBUTIONS: </div> 
 			<div class="progress">
-  				<div class="progress-bar" role="progressbar" style="width:70%">
+  				<div class="progress-bar" role="progressbar" id="hallo">
     				<span></span>
   				</div>
+				<script> 
+					var sum = 0;
+					{{#each contributions}}
+						sum += {{amount}};
+					{{/each}}
+
+					var raise = 100 * sum / {{project.goal}}
+					var raised = (raise).toFixed(2);
+
+					console.log(raised);
+
+					document.getElementById("hallo").style.width = raised+ "%";
+					document.getElementById("merp").innerHTML = "TOTAL CONTRIBUTIONS: " +  raised+ "%";
+				</script>
 			</div>			
 			<div class = "attribute"> START DATE: </div> 
 				<div class = "attribute" id="data">{{project.start}} </div>
@@ -27,7 +41,7 @@
 </div> 
 
 <div class = "formpad">
-<form class = "form" method ="POST"> 
+<form class = "form"  method ="POST"> 
   <div class = "form-group">
     <label for="name"> Name </label>
     <input type = "text" class="form-control" name = "name" placeholder = "Name">
@@ -47,3 +61,22 @@
   <button type="submit" class="btn btn-danger">Contribute!</button>
  </form>
  </div>
+
+<div class = "letters" id = "letters" > Contributions</div>
+{{#each contributions}}
+	<div class= "commentbox">
+		<div class = "innerbox">
+			<div class= "commentname">
+				{{name}} contributed...
+			</div>
+			<div class = "commentcomment">
+				{{comment}}
+			</div>
+		</div>
+		<div class = "sidebox">
+			<div class = "contrib">
+				${{amount}}
+			</div>
+		</div>
+	</div>
+{{/each}}
