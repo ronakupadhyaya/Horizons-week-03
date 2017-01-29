@@ -1,50 +1,22 @@
 "use strict";
 var fs = require('fs');
-var investmentCalc = require("./functions");
 const csv=require('csvtojson')
-
-//var exports = module.exports = {};
-var multiply = function (multiplier1, multiplier2) {
-
-};
-
-// Do a function that imports csv 1 +2
-const csvFilePath='Workbook1.csv'
-let arr = [];
-
-csv()
-.fromFile(csvFilePath)
-.on('json',(jsonObj)=>{
-//  console.log(jsonObj.Company)
-  arr.push(jsonObj)
-})
-.on('done',(error)=>{
-    //console.log(arr)
-
-    var asd = investmentCalc.largestInvestment(arr);
-    console.log(asd);
-})
+var csvjson = require('csvjson');
+var path = require("path");
 
 
- //
- // function averageInvestment
- // bestInvestor
- // company with most Capital?
- // Percent growth return OriginalCapital(1+x)=F
- // Total for company
- // total for investor.
+function fileReader(csvFilePath){
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'});
+  var options = {
+    delimiter : ',',
+    quote: '"'
+  };
+  return csvjson.toObject(data, options);
+}
 
-
+ // TODO
  // Json report.
- // Concatenate files
-
-
-
-
-
-
-
 
 module.exports = {
-  multiply
+  fileReader
 }

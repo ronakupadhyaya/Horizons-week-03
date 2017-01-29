@@ -1,10 +1,17 @@
 #!javascript
 
-var calculator = require("../app");
+var app = require("../app");
+const csvFilePath='investments1.csv'
+var investmentCalc = require("../functions");
 
 describe("multiplication", function () {
+
+
   it("should multiply 2 and 3", function () {
-    var product = calculator.multiply(2, 3);
-    expect(product).toBe(6);
+    var data = app.fileReader(csvFilePath);
+     var asd  = investmentCalc.largestInvestment(data)
+    console.log(asd);
+  //  var product = calculator.multiply(2, 3);
+    expect(asd).toBe(1100000);
   });
 });
