@@ -14,6 +14,16 @@ function fileReader(csvFilePath){
   return csvjson.toObject(data, options);
 }
 
+function parser(arr){
+  // Fields to be parsed: "originalInvestment", "valueToday"
+  return arr.map(function(investment){
+    parsedInvestment = Object.assign({}, investment);
+    parsedInvestment.originalInvestment = Number(investment.originalInvestment);
+    parsedInvestment.valueToday = Number(investment.valueToday);
+    return parsedInvestment;
+  })
+}
+
  // TODO
  // Json report.
 

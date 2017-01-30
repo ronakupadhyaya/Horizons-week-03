@@ -1,24 +1,46 @@
-
-
-
-function largestInvestment(arr){
-  return arr.reduce(function(accumulator, investment){
-    if (Number(investment.originalInvestment) > accumulator){
-      return Number(investment.originalInvestment)
-    }
-    return accumulator
-  }, 0)
-}
-
-// TODOg
-// function averageInvestment
-// bestInvestor
-// company with most Capital?
-// Percent growth return OriginalCapital(1+x)=F
-// Total for company
-// total for investor.
-
-
 module.exports = {
-  largestInvestment
+
+
+
+
+  // Find the company that has the largest amount of money invested.
+  // You should iterate over the array of investments and find out the largest "original
+  // investment" made on a company.
+  // Return the entire investment object, not just the amount. (So we can use the
+  // id of the company and investor later on).
+  largestInvestment: function(arr){
+    return arr.reduce(function(accumulator, investment){
+      if (investment.originalInvestment > accumulator){
+        return originalInvestment
+      }
+      return accumulator
+    }, 0)
+  },
+
+  averageInvestment: function(arr){
+    //
+  },
+  totalInvestmentForCompany: function(arr, companyId){
+    //
+  },
+  totalInvestmentByInvestor: function(arr, investorId){
+    //
+  },
+  totalCurrentValueOfInvestor: function(arr, investorId){
+    //
+  },
+  bestInvestor: function(arr){
+    // The best investor is the one that has a larger totalCurrentValueOfInvestor
+    // to totalInvestmentByInvestor ratio
+  },
+  investorWithLargestInvestment: function(arr){
+    // Hint, iterate over the array of investments use totalInvestmentForCompany
+  },
+  mostInvestedCompany: function(arr){
+    //
+  },
+
 }
+
+// company with mostGrowthCapital?
+// Percent growth return OriginalCapital(1+x)=F
