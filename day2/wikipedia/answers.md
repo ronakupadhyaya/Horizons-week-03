@@ -3,25 +3,21 @@
 Results calculated for June 6th 2016 1700 GMT:
 [Raw data](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160606-170000.gz)
 
-# Part 1: Popularity contest
+# Exercise 1: Most popular pages
 
-1. Top 10 most popular pages
-  <table>
-    <tr>
-      <th>Page</th>
-      <th>Visits</th>
-    </tr>
-    <tr><td>Main_Page</td><td>744393</td></tr>
-    <tr><td>Mexico_City</td><td>48773</td></tr>
-    <tr><td>Wikipedia:Hauptseite</td><td>34663</td></tr>
-    <tr><td>Wikip%C3%A9dia:Accueil\_principal</td><td>30510</td></tr>
-    <tr><td>%D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0</td><td>29219</td></tr>
-    <tr><td>Muhammad_Ali</td><td>26340</td></tr>
-    <tr><td>Special:Search</td><td>25189</td></tr>
-    <tr><td>Special:NewItem</td><td>19005</td></tr>
-    <tr><td>Wikipedia:Portada</td><td>17641</td></tr>
-    <tr><td>Cleverman</td><td>13347</td></tr>
-  </table>
+| Language | Page | Visits |
+| ------------- | ------------- | ---- |
+| en | Main\_Page | 744393 |
+| en | Mexico\_City | 48773 |
+| de | Wikipedia:Hauptseite | 34663 |
+| fr | Wikip%C3%A9dia:Accueil\_principal | 30510 |
+| ru | %D0%97%D0%B0%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F\_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0 | 29219 |
+| en | Muhammad\_Ali | 26340 |
+| es | Wikipedia:Portada | 17641 |
+| en | Cleverman | 13347 |
+| it | Pagina\_principale | 12418 |
+| es | Periodo\_cr%C3%ADtico | 12079 |
+
 1. Top 10 most popular languages in decreasing order
   <table>
     <tr><th>Language</th></tr>
