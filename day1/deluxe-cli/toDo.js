@@ -40,8 +40,15 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
-// YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 
+// YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Deletes Tasks")
+  .action(deleteTask);
+  
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
