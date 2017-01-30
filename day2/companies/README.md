@@ -15,30 +15,63 @@ Your app will perform calculations on these JSON objects to find out the best in
 
 ## Instructions
 
-### Step 1: Setting up the project
-1. Open up your console and navigate to the `week3/day2/companies` directory.
-1. Install node jasmine by typing `npm install jasmine-node -g` into the console to install the test plugin on your computer. Using `-g` saves the module for all the projects in your computer from now on.
-1. Add the `csvjson` module to your project by typing `npm install -s csvjson` in the console. Using the flag `--save` stores the module on your `package.json` file! Check that `csvtojson` was added to the dependencies object.
-1. Run `npm install` to install all the required modules to your project.
-1. The scripts area of your tests file allows you to specify certain commands that will be normally used in your project. We want to add a `test` script that will run whenever you type `npm test` on your console.
+## Exercise 1: Setting up the project
 
-  Currently, running `npm test` prints out 'Error: no test specified'. Add `jasmine-node spec` to your `package.json` file to make it look like this:
+1. Open up your terminal and navigate to the `week03/day2/companies` directory.
+1. Install the [`jasmine-node`](https://www.npmjs.com/package/jasmine-node) NPM
+  package for all Node projects on your computer.
+
+  ```
+  npm install -g jasmine-node
+  ```
+
+  `-g` (short for global) installs a package for all projects. 
+
+1. Add the [`csvjson`](https://github.com/pradeep-mishra/csvjson) NPM package to
+   your current project.
+
+   ```
+   npm install -s csvjson
+   ```
+
+   `-s` (short for save) updates your `package.json` and adds the given package
+   to the `dependencies` section.
+1. Run `npm install` to install all dependencies listed in your `package.json`.
+1. Try running `npm test` in your terminal. Note how this prints out
+  `Error: no test specified`. This is because we haven't told NPM how to
+  run tests for our project yet.
+
+  Create a new `"scripts"` section to your `package.json`. Inside this section
+  set `"test"` to `"jasmine-node spec"`. Your `package.json` should now look
+  like:
 
   ![Package](images/capture3.jpeg)
 
-Run `npm test` again to verify your tests are now running. If you get a similar screen with all the failing/passing tests you are ready to start developing!
+1. Run `npm test` again to verify your tests are now running. If you get a
+   similar screen with all the failing/passing tests you are ready to start
+   developing!
 
-![Failing Tests](images/capture4.jpeg)
+  ![Failing Tests](images/capture4.jpeg)
 
-### Step 2: Calculating Results
+### Exercise 2: Parsing CSVs
 
-You can now check your tests and see them failing/passing. Open your `functions.js` file and fill in the functions to perform the different calculations. Each function has a short description of the expected results and some hints to achieve them.  
+TODO
 
-Every time you modify a function or want to check your progress, go to the command line and run `npm test`.
+### Exercise 3: Calculating Results
+
+You can now check your tests and see them failing/passing. Open your
+`functions.js` file and fill in the functions to perform the different
+calculations. Each function has a short description of the expected results and
+some hints to achieve them.  
+
+Every time you modify a function or want to check your progress, go to the
+command line and run `npm test`.
 
 ## Results
+
 By the end of this exercise, you should be familiar with the following concepts:
-  1. Installing modules to your application using `npm install MODULE_NAME`
-  1. Running your tests using `npm test`
-  1. Adding scripts to your `package.json` file.
-  1. Parsing CSV data and calculating output from it.
+
+1. Installing modules to your application using `npm install MODULE_NAME`
+1. Running your tests using `npm test`
+1. Adding scripts to your `package.json` file.
+1. Parsing CSV data and calculating output from it.
