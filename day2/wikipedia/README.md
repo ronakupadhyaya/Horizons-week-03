@@ -4,70 +4,127 @@
 
 The goal of this exercise is to learn how to deal with large real-world datasets.
 
-## Instructions
+## Introduction
 
-In this exercise we will be working with real life web traffic data for Wikipedia.
-You will be calculating interesting stats about Wikipedia traffic using JavaScript.
+Wikipedia is one of the largest sites on the internet and they publish their
+hourly visitor statistics for the world to see.
 
-You can find the actual results of running this analysis in [answers.md](answers.md).
-Compare your results to verify your code!
+In this exercise we will be analyizing real visitor data from Wikipedia for
+June 6th and 7th 2016.
 
-### Part 1: Popularity contest
+## The data 📀
 
-Calculate which languages and pages are the most popular on Wikipedia on June 6th 2016 1700 GMT (see data files at the bottom):
+We will be working with 2 files, each containing taffics stats for one hour.
+Each file is ~100 Mb compressed, ~400 Mb uncompressed.
 
-1. Find the top-10 most popular Wikipedia languages
-1. Find the top-10 most popular Wikipedia pages
-1. For the top 3 most popular languages, find the top-10
-   most popular pages
+- [Day #1: 1 hour of Wikipedia traffic from June 6th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160606-170000.gz)
+- [Day #2: 1 hour of Wikipedia traffic from June 7th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160607-170000.gz)
 
-### Part 2: Wikipedia traffic trends
+These are files are compressed with GZip. On Mac and Linux you can unzip them
+by double clicking on the file. On Windows, use [7-zip](http://www.7-zip.org/) 
+to unzip them.
 
-Find the top 10 pages from day 1. Calculate their gain and loss in traffic
-compared to the next day, June 7th 2016 1700 GMT.
-
-Measuring changes in traffic is many sites implement features such as Trending Topics.
-
-### (Bonus) Part 3: Upload your results to Google Spreadsheets
-
-1. [Create an API token for Google Sheets](https://console.developers.google.com/apis/api/sheets.googleapis.com/overview)
-1. Install [the google-spreadsheet NPM package](https://www.npmjs.com/package/google-spreadsheet)
-1. Upload results of analysis to a Google Spreadsheet using Spreadsheets API.
-
-You should have a tab in this spreadsheet for each part of this exercise.
-
-[Example Google Spreadsheet](https://docs.google.com/spreadsheets/d/1MmYfb_lh96-F7SCAXIMHUCkKgQVsXotLc3CyuVcIbJU/edit?usp=sharing)
-
-### (Double Bonus) Part 4: Biggest winner and loser
-
-Find the pages that had the greatest absolute increase or decrease
-from day 1 to day 2.
-
-## Data files
-
-These files contain all Wikipedia pages that were access during these time
-periods. Each line in each file contains three to four fields:
+Each line in each file contains 4 fields separated by a single space character:
 
 ```
-[language] [optional page name] [number of visits] [data transferred]
+[language] [page name] [number of visits] [bandwidth usage in bytes]
 ```
 
-Sample data can be found the file [`sample.data`](sample.data).
+For example the following line means the page (i.e. article) on Annie Villeneuve
+in the French language Wikipedia received 4 visits, which resulted in 40,831
+bytes (~40 Kb)being downloaded.
 
-For this exercise we only care about the first three fields: language, page name and visits.
+```
+fr Annie_Villeneuve 4 40831
+```
 
 ### Data cleanup
 
-As with all real world data, there's some cleanup you need to get good answers
-from this data.
+As with all real world data, there's some cleaning we need to do to get good
+answers from this dataset. When processing this dataset follow these rules:
 
-1. Ignore lines with only three fields.
-1. Ignore languages that contain `.mw`.
-1. **When counting page traffic:** Ignore lines where language is equal to page. These are aggregate numbers.
+1. Ignore lines where the language contains the string `.mw`. These are
+  mobile subtotals that we don't care about. Example:
 
-### Actual data
+  ```
+  en.mw en 5178493 118985328227
+  ady.mw ady 1 12033
+  ```
 
- - [File #1: 1 hour of Wikipedia traffic from June 6th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160606-170000.gz)
- - [File #2: 1 hour of Wikipedia traffic from June 7th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160607-170000.gz)
+1. Ignore lines where the page name contains the string `Special:`. These pages
+  don't contain articles so we don't care about them. Example:
+
+  ```
+  en Special:Search 25189 190452063
+  aa Special:Contributions/Sirmylesnagopaleentheda 1 5812
+  ```
+
+### Sample data for testing
+
+Our dataset is very large so you may find it convenient to test your
+code using a smaller subset.
+
+Sample data is in file [`week02/day1/wikipedia/sample.data`](sample.data).
+
+### Checking your answers
+
+To check if your code is correct compare the results of your calculations to
+[`week02/day1/wikipedia/answers.md`](answers.md).
+
+## Dealing with "big" data
+
+We can process very large files faster by dealing with only one line at a time.
+This way no matter how much data we are dealing with, we only need to keep one
+line of data in our computer's memory.
+
+The following function counts the lines in a given file by only looking at
+one line at a time using the
+[`readline` library](https://nodejs.org/api/readline.html):
+
+```javascript
+var fs = require('fs');
+var readline = require('readline');
+
+function countLines(fileName) {
+  var input = fs.createReadStream(fileName);
+  var rl = readline.createInterface({
+    input: input
+  });
+  var count = 0;
+  rl.on('line', function(line) {
+    // This is called for each line in file
+    count++;
+  });
+  rl.on('close', function() {
+    // This is called when the file is done being read finished
+    console.log('There are %s lines in file %s', count, fileName);
+  });
+}
+```
+
+### Exercise 1: Most popular pages
+
+Calculate which pages received the most visits during one hour starting June 6th
+2016 1700 GMT.
+
+### Exercise 2: Most popular languages
+
+Calculate which languages received the most visits during one hour starting June
+6th 2016 1700 GMT.
+
+### Exercise 3: Most popular pages for 3 most popular languages
+
+For the top 3 most popular languages from Exercise 2, calculate which pages
+written in that language received the most visits during one hour starting June
+6th 2016 1700 GMT.
+
+### (Bonus) Exercise 4: Wikipedia traffic trends
+
+For the top 10 pages you found for Exercise 1, calculate the total gain or loss
+in traffic compared to the same hour the next day, June 7th 2016 1700
+GMT.
+
+Measuring changes in visitor counts is useful for implementing features such
+as "trending topics" for social media apps.
 
 [File Information](https://wikitech.wikimedia.org/wiki/Analytics/Data/Pagecounts-raw)
