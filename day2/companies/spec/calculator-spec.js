@@ -44,11 +44,11 @@ describe("Functions: ", function () {
     );
   });
 
-
   it("Get an object containing investorIds as keys and the total they originally invested", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
     var asd  = investmentCalc.totalInvestmentByInvestors(parsedData)
+
     expect(asd).toEqual(
       {
         1: 1300000,
@@ -65,11 +65,11 @@ describe("Functions: ", function () {
     );
   });
 
-
     it("Get an object containing investorIds as keys and the total of their value now", function () {
       var data = app.fileReader(csvFilePath);
       var parsedData = app.parser(data);
       var asd  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
+
       expect(asd).toEqual(
         {
           1 : 1190000,
@@ -81,12 +81,23 @@ describe("Functions: ", function () {
           7 : 100000,
           8 : 12000,
           9 : 328000,
-          10 : 115000 
+          10 : 115000
         }
       );
     });
 
+    it("Get the investoId with the highest earning ratio from Current/Original value", function () {
+      var data = app.fileReader(csvFilePath);
+      var parsedData = app.parser(data);
+      var asd  = investmentCalc.bestInvestorByValueIncrease(parsedData)
+      expect(asd).toEqual('10')
+    });
 
-
+    it("Get an object containing the id of the companyId that has the most amount invested in", function () {
+      var data = app.fileReader(csvFilePath);
+      var parsedData = app.parser(data);
+      var asd  = investmentCalc.mostInvestedCompany(parsedData)
+      expect(asd).toEqual('9')
+    });
 
 });
