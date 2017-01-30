@@ -26,3 +26,5 @@ if [ -d "$GITDIR" ] ; then
     echo "Update commit hooks in $GITDIR"
     cp -f pre-commit "$GITDIR/hooks/pre-commit"
 fi
+
+echo 'Success! Your Git repository is ready to use'
