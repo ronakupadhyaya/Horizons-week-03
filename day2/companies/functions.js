@@ -89,11 +89,15 @@ module.exports = {
     });
     return investorCurrentValues;
   },
-  
-  //
+
+  // To find out who the best investor is, you need to find out the ratio in which
+  // they made money. If they invested 100 and their todayValue is 200, they made
+  // 2x their investment. Calculate this for all investors and figure out who the
+  // best one is!
+  // Note: Remember to use their total of investments and the total of current value:
+  // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
+  // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // The best investor is the one that has a larger totalCurrentValueOfInvestor
-    // to totalInvestmentByInvestor ratio
     var investmentRatios = {}
     var totalInvestmentByInvestors = this.totalOriginalInvestmentsByInvestors(arr)
     var totalCurrentValueOfInvestors = this.totalCurrentValueOfInvestors(arr)
@@ -115,6 +119,8 @@ module.exports = {
     return bestInvestor;
   },
 
+// Find out which company was invested the most in using the originalInvestment.
+// Return a companyId
   mostInvestedCompany: function(arr){
     var companyCurrentValues = {};
     arr.forEach(function(investment) {
