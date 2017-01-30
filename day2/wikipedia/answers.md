@@ -95,4 +95,4 @@ Results calculated for June 6th 2016 1700 GMT:
 | es | Wikipedia:Portada | 17641 | 17889 |
 | en | Cleverman | 13347 | 158 |
 | it | Pagina\_principale | 12418 | 12525 |
-| es | Periodo\_cr%C3%ADtico | 12079 |p
+| es | Periodo\_cr%C3%ADtico | 12079 | 0 |
