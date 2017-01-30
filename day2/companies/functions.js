@@ -5,7 +5,7 @@ module.exports = {
   // investment" made on a company.
   // Return the entire investment object, not just the amount. (So we can use the
   // id of the company and investor later on).
-  largestInvestment: function(arr){
+  singleLargestInvestment: function(arr){
     return arr.reduce(function(accumulator, investment){
       if (investment.originalInvestment > accumulator){
         return investment.originalInvestment
@@ -14,14 +14,14 @@ module.exports = {
     }, 0)
   },
 
-  averageOriginalInvestment: function(arr){
+  averageOfOriginalInvestments: function(arr){
     var sum = arr.reduce(function(accumulator, investment){
       return accumulator + investment.originalInvestment;
     }, 0)
     return sum/arr.length;
   },
 
-  totalInvestmentForCompanies: function(arr){
+  totalOriginalInvestmentForCompanies: function(arr){
     var investmentAmounts = {};
     arr.forEach(function(investment) {
       if (investmentAmounts[investment.company] === undefined){
@@ -32,7 +32,7 @@ module.exports = {
     return investmentAmounts;
   },
 
-  totalInvestmentByInvestors: function(arr){
+  totalOriginalInvestmentsByInvestors: function(arr){
     var investorAmounts = {};
     arr.forEach(function(investment) {
       if (investorAmounts[investment.investorId] === undefined){
@@ -56,7 +56,7 @@ module.exports = {
     // The best investor is the one that has a larger totalCurrentValueOfInvestor
     // to totalInvestmentByInvestor ratio
     var investmentRatios = {}
-    var totalInvestmentByInvestors = this.totalInvestmentByInvestors(arr)
+    var totalInvestmentByInvestors = this.totalOriginalInvestmentsByInvestors(arr)
     var totalCurrentValueOfInvestors = this.totalCurrentValueOfInvestors(arr)
     for (var investor in totalInvestmentByInvestors) {
       if (totalInvestmentByInvestors.hasOwnProperty(investor)) {

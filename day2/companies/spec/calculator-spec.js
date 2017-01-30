@@ -1,12 +1,10 @@
-#!javascript
-
 var app = require("../app");
 const csvFilePath='investments1.csv'
 var investmentCalc = require("../functions");
 
 describe("Functions: ", function () {
 
-  it("Should convert originalInvestment and valueToday to numbers for each investment", function () {
+  it("Should convert each investment's originalInvestment and valueToday to numbers", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
     parsedData.forEach(function(investment){
@@ -15,25 +13,25 @@ describe("Functions: ", function () {
     })
   });
 
-  it("Find the company that has the largest amount of money invested", function () {
+  it("Find the companyId that has the single largest amount of money invested", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
-    var asd  = investmentCalc.largestInvestment(parsedData)
-    expect(asd).toBe(1100000);
+    var data  = investmentCalc.singleLargestInvestment(parsedData)
+    expect(data).toBe(1100000);
   });
 
-  it("Find the average of original investments", function () {
+  it("Find the average of all original investments", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
-    var asd  = investmentCalc.averageOriginalInvestment(parsedData)
-    expect(asd).toBe(242111.11111111112);
+    var data  = investmentCalc.averageOfOriginalInvestments(parsedData)
+    expect(data).toBe(242111.11111111112);
   });
 
   it("Get an object containing CompanyIds as keys and the total that was originally invested", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
-    var asd  = investmentCalc.totalInvestmentForCompanies(parsedData)
-    expect(asd).toEqual(
+    var data  = investmentCalc.totalOriginalInvestmentForCompanies(parsedData)
+    expect(data).toEqual(
       {
         1: 595000,
         2: 1024000,
@@ -52,9 +50,8 @@ describe("Functions: ", function () {
   it("Get an object containing investorIds as keys and the total they originally invested", function () {
     var data = app.fileReader(csvFilePath);
     var parsedData = app.parser(data);
-    var asd  = investmentCalc.totalInvestmentByInvestors(parsedData)
-
-    expect(asd).toEqual(
+    var data  = investmentCalc.totalOriginalInvestmentsByInvestors(parsedData)
+    expect(data).toEqual(
       {
         1: 1300000,
         2: 590000,
@@ -73,9 +70,8 @@ describe("Functions: ", function () {
     it("Get an object containing investorIds as keys and the total of their value now", function () {
       var data = app.fileReader(csvFilePath);
       var parsedData = app.parser(data);
-      var asd  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
-
-      expect(asd).toEqual(
+      var data  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
+      expect(data).toEqual(
         {
           1 : 1190000,
           2 : 863000,
@@ -91,18 +87,18 @@ describe("Functions: ", function () {
       );
     });
 
-    it("Get the investoId with the highest earning ratio from Current/Original value", function () {
+    it("Get the investorId with the highest earning ratio from Current/Original value", function () {
       var data = app.fileReader(csvFilePath);
       var parsedData = app.parser(data);
-      var asd  = investmentCalc.bestInvestorByValueIncrease(parsedData)
-      expect(asd).toEqual('10')
+      var data  = investmentCalc.bestInvestorByValueIncrease(parsedData)
+      expect(data).toEqual('10')
     });
 
     it("Get an object containing the id of the companyId that has the most amount invested in", function () {
       var data = app.fileReader(csvFilePath);
       var parsedData = app.parser(data);
-      var asd  = investmentCalc.mostInvestedCompany(parsedData)
-      expect(asd).toEqual('9')
+      var data  = investmentCalc.mostInvestedCompany(parsedData)
+      expect(data).toEqual('9')
     });
 
 });
