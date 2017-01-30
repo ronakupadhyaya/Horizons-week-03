@@ -19,19 +19,26 @@ module.exports = {
 
   averageOriginalInvestment: function(arr){
     var sum = arr.reduce(function(accumulator, investment){
-        return accumulator + investment.originalInvestment;
+      return accumulator + investment.originalInvestment;
     }, 0)
-   return sum/arr.length;
+    return sum/arr.length;
   },
-  
-  totalInvestmentForCompany: function(arr, companyId){
-    //
+
+  totalInvestmentForCompanies: function(arr){
+    var investmentAmounts = {};
+    arr.forEach(function(investment) {
+      if (investmentAmounts[investment.company] === undefined){
+        investmentAmounts[investment.company] = 0;
+      }
+      investmentAmounts[investment.company] += investment.originalInvestment
+    });
+    return investmentAmounts;
   },
-  totalInvestmentByInvestor: function(arr, investorId){
+  totalInvestmentByInvestors: function(arr){
     //
   },
   totalCurrentValueOfInvestor: function(arr, investorId){
-    //
+    //s
   },
   bestInvestor: function(arr){
     // The best investor is the one that has a larger totalCurrentValueOfInvestor
