@@ -6,8 +6,13 @@ var investmentCalc = require("../functions");
 
 describe("Functions: ", function () {
 
-  it("Parser", function () {
-
+  it("Should convert originalInvestment and valueToday to numbers for each investment", function () {
+    var data = app.fileReader(csvFilePath);
+    var parsedData = app.parser(data);
+    parsedData.forEach(function(investment){
+      expect(isNaN(investment.originalInvestment)).toBe(false);
+      expect(isNaN(investment.valueToday)).toBe(false);
+    })
   });
 
   it("Find the company that has the largest amount of money invested", function () {
