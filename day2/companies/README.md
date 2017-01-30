@@ -32,9 +32,9 @@ Run `npm test` again to verify your tests are now running. If you get a similar 
 
 ### Step 2: Calculating Results
 
-1. To make your tests pass, open your `functions.js` file and fill in the functions.
+You can now check your tests and see them failing/passing. Open your `functions.js` file and fill in the functions to perform the different calculations. Each function has a short description of the expected results and some hints to achieve them.  
 
-TODO// COMPLETE STEPS TO CALCULATE RESULTS.
+Every time you modify a function or want to check your progress, go to the command line and run `npm test`.
 
 ## Results
 By the end of this exercise, you should be familiar with the following concepts:
@@ -42,19 +42,3 @@ By the end of this exercise, you should be familiar with the following concepts:
   1. Running your tests using `npm test`
   1. Adding scripts to your `package.json` file.
   1. Parsing CSV data and calculating output from it.
-  1. Writing to a file.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- s
