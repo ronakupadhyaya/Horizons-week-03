@@ -24,7 +24,7 @@ investors, companies with more money and so on.
 
 ## Instructions
 
-## Exercise 1: Setting up the project
+### Exercise 1: Setting up the project
 
 1. Open up your terminal and navigate to the `week03/day1/companies` directory.
 1. Install the [`jasmine-node`](https://www.npmjs.com/package/jasmine-node) NPM
