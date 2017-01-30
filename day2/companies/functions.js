@@ -35,7 +35,14 @@ module.exports = {
     return investmentAmounts;
   },
   totalInvestmentByInvestors: function(arr){
-    //
+    var investorAmounts = {};
+    arr.forEach(function(investment) {
+      if (investorAmounts[investment.investorId] === undefined){
+        investorAmounts[investment.investorId] = 0;
+      }
+      investorAmounts[investment.investorId] += investment.originalInvestment
+    });
+    return investorAmounts;
   },
   totalCurrentValueOfInvestor: function(arr, investorId){
     //s
