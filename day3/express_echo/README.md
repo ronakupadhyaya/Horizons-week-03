@@ -4,7 +4,7 @@
 
 ## Instructions
 
-1. Open this folder (`week03/day3/express_echo`) in your Terminal on Mac or PowerShell on Windows.
+1. Open this folder (`week03/day2/express_echo`) in your Terminal on Mac or PowerShell on Windows.
 1. Install dependencies with NPM:
 
   ```bash
