@@ -1,10 +1,11 @@
 module.exports = {
 
-  // Find the company that has the largest amount of money invested.
-  // You should iterate over the array of investments and find out the largest "original
-  // investment" made on a company.
-  // Return the entire investment object, not just the amount. (So we can use the
-  // id of the company and investor later on).
+  // Find the company that has the largest single amount of money invested. In this
+  // case, we are not looking for the sum of all investments made on a company. But
+  // the largest sum invested by one investor.
+  // You should iterate over the array of investments and find out the single largest
+  // "original investment" made on a company.
+  // Return the entire investment object, not just the amount.
   singleLargestInvestment: function(arr){
     return arr.reduce(function(accumulator, investment){
       if (investment.originalInvestment > accumulator){
@@ -14,6 +15,10 @@ module.exports = {
     }, 0)
   },
 
+// Find the average of all the original investments for all companies.
+// This is equal to the sum of all the original investments divided by the number
+// of investments.
+// Return a Number.
   averageOfOriginalInvestments: function(arr){
     var sum = arr.reduce(function(accumulator, investment){
       return accumulator + investment.originalInvestment;
@@ -21,6 +26,16 @@ module.exports = {
     return sum/arr.length;
   },
 
+// Find out how much a company got as the original investments. In this case, You
+// will have to iterate over the companies and find all the investments for each
+// company and add them up to find how much money they started with.
+// Return an object that contains company ids as keys and their total original investment
+// as values. The object's structure should look something like this:
+// {
+//  1: 595000,
+//  2: 1024000,
+//   ...
+// }
   totalOriginalInvestmentForCompanies: function(arr){
     var investmentAmounts = {};
     arr.forEach(function(investment) {
@@ -32,6 +47,16 @@ module.exports = {
     return investmentAmounts;
   },
 
+  // Find out how much money an investor spent as  original investments. You will
+  // need to iterate through all the investments, find all the investments for each
+  // investor and add them up to find how much money someone invested at the beginning.
+  // Return an object that contains investor ids as keys and their total original investment
+  // as values.  The object's structure should look something like this:
+  // {
+  //  1: 595000,
+  //  2: 1024000,
+  //   ...
+  // }
   totalOriginalInvestmentsByInvestors: function(arr){
     var investorAmounts = {};
     arr.forEach(function(investment) {
@@ -42,6 +67,18 @@ module.exports = {
     });
     return investorAmounts;
   },
+
+  // This function is similar to the one above, but it returns the current value
+  // for each investor. To get this value, you need to iterate through all the investments,
+  // find all the currentValues for each investor and add them up to find how much
+  // money someone has now from their investment
+  // Return an object that contains investor ids as keys and their total todayValue
+  // as values. The object's structure should look something like this:
+  // {
+  //  1: 595000,
+  //  2: 1024000,
+  //   ...
+  // }
   totalCurrentValueOfInvestors: function(arr, investorId){
     var investorCurrentValues = {};
     arr.forEach(function(investment) {
@@ -52,6 +89,8 @@ module.exports = {
     });
     return investorCurrentValues;
   },
+  
+  //
   bestInvestorByValueIncrease: function(arr){
     // The best investor is the one that has a larger totalCurrentValueOfInvestor
     // to totalInvestmentByInvestor ratio
