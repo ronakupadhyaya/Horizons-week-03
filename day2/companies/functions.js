@@ -18,7 +18,12 @@ module.exports = {
   },
 
   averageInvestment: function(arr){
-    //
+    return arr.reduce(function(accumulator, investment){
+      if (investment.originalInvestment > accumulator){
+        return originalInvestment
+      }
+      return accumulator
+    }, 0)
   },
   totalInvestmentForCompany: function(arr, companyId){
     //

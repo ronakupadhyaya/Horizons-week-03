@@ -48,6 +48,7 @@ TODO Add capture of running rests
 
 1. To make your tests pass, open your `functions.js` file and fill in the functions.
 
+TODO// COMPLETE STEPS TO CALCULATE RESULTS. 
 
 ## Results
 By the end of this exercise, you should be familiar with the following concepts:
