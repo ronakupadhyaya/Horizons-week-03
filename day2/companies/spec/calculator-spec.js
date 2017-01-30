@@ -66,5 +66,27 @@ describe("Functions: ", function () {
   });
 
 
+    it("Get an object containing investorIds as keys and the total of their value now", function () {
+      var data = app.fileReader(csvFilePath);
+      var parsedData = app.parser(data);
+      var asd  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
+      expect(asd).toEqual(
+        {
+          1 : 1190000,
+          2 : 863000,
+          3 : 3260000,
+          4 : 30000,
+          5 : 350000,
+          6 : 154000,
+          7 : 100000,
+          8 : 12000,
+          9 : 328000,
+          10 : 115000 
+        }
+      );
+    });
+
+
+
 
 });

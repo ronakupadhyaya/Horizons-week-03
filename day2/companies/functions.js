@@ -34,6 +34,7 @@ module.exports = {
     });
     return investmentAmounts;
   },
+
   totalInvestmentByInvestors: function(arr){
     var investorAmounts = {};
     arr.forEach(function(investment) {
@@ -44,8 +45,15 @@ module.exports = {
     });
     return investorAmounts;
   },
-  totalCurrentValueOfInvestor: function(arr, investorId){
-    //s
+  totalCurrentValueOfInvestors: function(arr, investorId){
+    var investorCurrentValues = {};
+    arr.forEach(function(investment) {
+      if (investorCurrentValues[investment.investorId] === undefined){
+        investorCurrentValues[investment.investorId] = 0;
+      }
+      investorCurrentValues[investment.investorId] += investment.valueToday
+    });
+    return investorCurrentValues;
   },
   bestInvestor: function(arr){
     // The best investor is the one that has a larger totalCurrentValueOfInvestor
