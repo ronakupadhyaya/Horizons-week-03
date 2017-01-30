@@ -15,14 +15,9 @@ function fileReader(csvFilePath){
 
 // You will get an array of investment objects, iterate over them parsing the
 // originalInvestment and valueToday of each one to Numbers, return an array.
+// Fields to be parsed: "originalInvestment", "valueToday"
 function parser(arr){
-  // Fields to be parsed: "originalInvestment", "valueToday"
   // YOUR CODE HERE
-  return arr.map(function(investment){
-    investment.originalInvestment = Number(investment.originalInvestment);
-    investment.valueToday = Number(investment.valueToday);
-    return investment;
-  })
 }
 
 module.exports = {
