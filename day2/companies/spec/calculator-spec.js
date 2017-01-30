@@ -1,8 +1,108 @@
 var app = require("../app");
-const csvFilePath='investments1.csv'
+const csvFilePath = 'investments1.csv';
 var investmentCalc = require("../functions");
 
-describe("Functions: ", function () {
+describe("Exercise 2: Parsing CSV: ", function () {
+  it("app.fileReader('investments1.csv') -> array of objects containing data", function() {
+    expect(app.fileReader('investments1.csv')).toEqual([ { id: '1',
+      investorId: '1',
+      company: '9',
+      originalInvestment: '1100000',
+      valueToday: '1000000' },
+      { id: '2',
+        investorId: '1',
+        company: '1',
+        originalInvestment: '200000',
+        valueToday: '190000' },
+      { id: '3',
+        investorId: '5',
+        company: '10',
+        originalInvestment: '234000',
+        valueToday: '300000' },
+      { id: '4',
+        investorId: '4',
+        company: '6',
+        originalInvestment: '20000',
+        valueToday: '30000' },
+      { id: '5',
+        investorId: '5',
+        company: '10',
+        originalInvestment: '60000',
+        valueToday: '50000' },
+      { id: '6',
+        investorId: '2',
+        company: '3',
+        originalInvestment: '356000',
+        valueToday: '300000' },
+      { id: '7',
+        investorId: '3',
+        company: '2',
+        originalInvestment: '1000000',
+        valueToday: '2500000' },
+      { id: '8',
+        investorId: '3',
+        company: '7',
+        originalInvestment: '10000',
+        valueToday: '60000' },
+      { id: '9',
+        investorId: '3',
+        company: '1',
+        originalInvestment: '345000',
+        valueToday: '700000' },
+      { id: '10',
+        investorId: '2',
+        company: '6',
+        originalInvestment: '234000',
+        valueToday: '563000' },
+      { id: '11',
+        investorId: '10',
+        company: '8',
+        originalInvestment: '32000',
+        valueToday: '15000' },
+      { id: '12',
+        investorId: '9',
+        company: '3',
+        originalInvestment: '500000',
+        valueToday: '250000' },
+      { id: '13',
+        investorId: '8',
+        company: '2',
+        originalInvestment: '24000',
+        valueToday: '12000' },
+      { id: '14',
+        investorId: '7',
+        company: '4',
+        originalInvestment: '75000',
+        valueToday: '100000' },
+      { id: '15',
+        investorId: '6',
+        company: '4',
+        originalInvestment: '54000',
+        valueToday: '94000' },
+      { id: '16',
+        investorId: '6',
+        company: '1',
+        originalInvestment: '50000',
+        valueToday: '60000' },
+      { id: '17',
+        investorId: '9',
+        company: '8',
+        originalInvestment: '54000',
+        valueToday: '78000' },
+      { id: '18',
+        investorId: '10',
+        company: '5',
+        originalInvestment: '10000',
+        valueToday: '100000' } ]
+    );
+  });
+
+  it("app.parser([{id: '1', investorId: '1', company: '9', originalInvestment: '1100000', valueToday: '1000000' }]) -> [{id: '1', investorId: '1', company: '9',originalInvestment: 1100000, valueToday: 1000000}]", function() {
+    expect(app.parser([{id: '1', investorId: '1', company: '9', originalInvestment: '1100000', valueToday: '1000000' }]) ).toEqual([{id: '1', investorId: '1', company: '9',originalInvestment: 1100000, valueToday: 1000000}]);
+  });
+});
+
+describe("Exercise 3: Functions: ", function () {
 
   it("Should convert each investment's originalInvestment and valueToday to numbers", function () {
     var data = app.fileReader(csvFilePath);
