@@ -4,25 +4,15 @@
 
 The goal of this exercise is for you to get familiar with node. We will cover the basics about node, files, npm, the package.json file and running your app. You will build an investment report app that takes in two `CSV` files and performs some calculations with the data on the files. CSV stands for "comma-separated values". It is a format to store tables of data such as spreadsheets, by separating each column with a comma.
 
-TODO Insert csv file capture.
+![CSV](images/capture1.jpeg)
 
-The first line on a CSV file is usually the header. Ours contains `id, investorId, company, originalInvestment, valueToday`. The header of the file specifies the names of the columns for the table. After the header, a single data entry looks like this: `10, 2, 6, 234000, 563000`. To be able to use it, we will convert it to a JSON object that looks like this:
+The first line on a CSV file is usually the header. Ours contains `id, investorId, company, originalInvestment, valueToday`. The header of the file specifies the names of the columns for the table. After the header, a single data entry looks like this: `10, 2, 6, 234000, 563000`. To be able to use it, we will convert them to JSON objects that look like this:
 
-```javascript
-{
-  id: 1,
-  investorId: 1,
-  company: 9,
-  originalInvestment: 100000,
-  valueToday: 1000000
-}
-```
+![JSON](images/capture2.jpeg)
 
 Your app will perform calculations on these JSON objects to find out the best investors, companies with more money and so on.
 
 
-
-Package.json
 ## Instructions
 
 ### Step 1: Setting up the project
@@ -48,7 +38,7 @@ TODO Add capture of running rests
 
 1. To make your tests pass, open your `functions.js` file and fill in the functions.
 
-TODO// COMPLETE STEPS TO CALCULATE RESULTS. 
+TODO// COMPLETE STEPS TO CALCULATE RESULTS.
 
 ## Results
 By the end of this exercise, you should be familiar with the following concepts:
