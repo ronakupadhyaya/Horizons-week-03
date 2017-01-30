@@ -40,6 +40,10 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('add')
+  .description("Create Tasks")
+  .action(addTask);
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 
 // ---Flags---
@@ -64,6 +68,7 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+.option('-p, --priority', 'Specify priority of task')
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -77,8 +82,8 @@ if (process.argv.length === 2) {
 
 // This is a function that converts remaining unprocessed arguments into a string
 // so we can create tasks using it.
-function getRemainingArgs () {
-  var args = program.args.splice(0, (program.args.length-1));
+function getRemainingArgs() {
+  var args = program.args.splice(0, (program.args.length - 1));
   return args.join(" ");
 }
 
@@ -96,7 +101,7 @@ function addTask() {
     priority: priority,
     completed: false
   });
-  console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
+  console.log("Added task named: " + name + ", with id: " + data.length + ", and priority: " + priority);
 }
 
 
@@ -117,14 +122,14 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
-function showTasks(){
+function showTasks() {
   // YOUR CODE HERE
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
-function deleteTask(){
+function deleteTask() {
   // YOUR CODE HERE
 }
 
@@ -135,7 +140,7 @@ function writeFile(data) {
 }
 
 function ensureFileExists() {
-  if (! fs.existsSync(JSON_FILE)) {
+  if (!fs.existsSync(JSON_FILE)) {
     writeFile([]);
   }
 }
