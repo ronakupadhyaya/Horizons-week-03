@@ -67,38 +67,38 @@ describe("Functions: ", function () {
     );
   });
 
-    it("Get an object containing investorIds as keys and the total of their value now", function () {
-      var data = app.fileReader(csvFilePath);
-      var parsedData = app.parser(data);
-      var data  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
-      expect(data).toEqual(
-        {
-          1 : 1190000,
-          2 : 863000,
-          3 : 3260000,
-          4 : 30000,
-          5 : 350000,
-          6 : 154000,
-          7 : 100000,
-          8 : 12000,
-          9 : 328000,
-          10 : 115000
-        }
-      );
-    });
+  it("Get an object containing investorIds as keys and the total of their value now", function () {
+    var data = app.fileReader(csvFilePath);
+    var parsedData = app.parser(data);
+    var data  = investmentCalc.totalCurrentValueOfInvestors(parsedData)
+    expect(data).toEqual(
+      {
+        1 : 1190000,
+        2 : 863000,
+        3 : 3260000,
+        4 : 30000,
+        5 : 350000,
+        6 : 154000,
+        7 : 100000,
+        8 : 12000,
+        9 : 328000,
+        10 : 115000
+      }
+    );
+  });
 
-    it("Get the investorId with the highest earning ratio from Current/Original value", function () {
-      var data = app.fileReader(csvFilePath);
-      var parsedData = app.parser(data);
-      var data  = investmentCalc.bestInvestorByValueIncrease(parsedData)
-      expect(data).toEqual('10')
-    });
+  it("Get the investorId with the highest earning ratio from Current/Original value", function () {
+    var data = app.fileReader(csvFilePath);
+    var parsedData = app.parser(data);
+    var data  = investmentCalc.bestInvestorByValueIncrease(parsedData)
+    expect(data).toEqual('10')
+  });
 
-    it("Get an object containing the id of the companyId that has the most amount invested in", function () {
-      var data = app.fileReader(csvFilePath);
-      var parsedData = app.parser(data);
-      var data  = investmentCalc.mostInvestedCompany(parsedData)
-      expect(data).toEqual('9')
-    });
+  it("Get an object containing the id of the companyId that has the most amount invested in", function () {
+    var data = app.fileReader(csvFilePath);
+    var parsedData = app.parser(data);
+    var data  = investmentCalc.mostInvestedCompany(parsedData)
+    expect(data).toEqual('9')
+  });
 
 });
