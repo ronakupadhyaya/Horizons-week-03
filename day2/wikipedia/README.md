@@ -4,14 +4,13 @@
 
 The goal of this exercise is to learn how to deal with large real-world datasets.
 
-## Instructions
+## Introduction
 
 Wikipedia is one of the largest sites on the internet and they publish their
 hourly visitor statistics for the world to see.
 
 In this exercise we will be analyizing real visitor data from Wikipedia for
 June 6th and 7th 2016.
-
 
 ## The data 📀
 
@@ -22,8 +21,8 @@ Each file is ~100 Mb compressed, ~400 Mb uncompressed.
 - [Day #2: 1 hour of Wikipedia traffic from June 7th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160607-170000.gz)
 
 These are files are compressed with GZip. On Mac and Linux you can unzip them
-by double clicking. On Windows, you can use [7-zip](http://www.7-zip.org/) to
-unzip them.
+by double clicking on the file. On Windows, use [7-zip](http://www.7-zip.org/) 
+to unzip them.
 
 Each line in each file contains 4 fields separated by a single space character:
 
@@ -31,8 +30,13 @@ Each line in each file contains 4 fields separated by a single space character:
 [language] [page name] [number of visits] [bandwidth usage in bytes]
 ```
 
-For this exercise we only care about the first three fields: language, page name
-and visits.
+For example the following line means the page (i.e. article) on Annie Villeneuve
+in the French language Wikipedia received 4 visits, which resulted in 40,831
+bytes (~40 Kb)being downloaded.
+
+```
+fr Annie_Villeneuve 4 40831
+```
 
 ### Data cleanup
 
