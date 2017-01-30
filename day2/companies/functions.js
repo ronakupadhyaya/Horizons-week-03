@@ -10,7 +10,7 @@ function largestInvestment(arr){
   }, 0)
 }
 
-// TODO
+// TODOg
 // function averageInvestment
 // bestInvestor
 // company with most Capital?
