@@ -17,10 +17,9 @@ function fileReader(csvFilePath){
 function parser(arr){
   // Fields to be parsed: "originalInvestment", "valueToday"
   return arr.map(function(investment){
-    parsedInvestment = Object.assign({}, investment);
-    parsedInvestment.originalInvestment = Number(investment.originalInvestment);
-    parsedInvestment.valueToday = Number(investment.valueToday);
-    return parsedInvestment;
+    investment.originalInvestment = Number(investment.originalInvestment);
+    investment.valueToday = Number(investment.valueToday);
+    return investment;
   })
 }
 
@@ -28,5 +27,6 @@ function parser(arr){
  // Json report.
 
 module.exports = {
-  fileReader
+  fileReader,
+  parser
 }

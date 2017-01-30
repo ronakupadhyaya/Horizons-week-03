@@ -11,20 +11,19 @@ module.exports = {
   largestInvestment: function(arr){
     return arr.reduce(function(accumulator, investment){
       if (investment.originalInvestment > accumulator){
-        return originalInvestment
+        return investment.originalInvestment
       }
       return accumulator
     }, 0)
   },
 
-  averageInvestment: function(arr){
-    return arr.reduce(function(accumulator, investment){
-      if (investment.originalInvestment > accumulator){
-        return originalInvestment
-      }
-      return accumulator
+  averageOriginalInvestment: function(arr){
+    var sum = arr.reduce(function(accumulator, investment){
+        return accumulator + investment.originalInvestment;
     }, 0)
+   return sum/arr.length;
   },
+  
   totalInvestmentForCompany: function(arr, companyId){
     //
   },
@@ -43,7 +42,7 @@ module.exports = {
   },
   mostInvestedCompany: function(arr){
     //
-  },
+  }
 
 }
 
