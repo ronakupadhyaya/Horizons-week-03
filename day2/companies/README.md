@@ -24,15 +24,11 @@ Your app will perform calculations on these JSON objects to find out the best in
 
   Currently, running `npm test` prints out 'Error: no test specified'. Add `jasmine-node spec` to your `package.json` file to make it look like this:
 
-  ```javascript   
-    "scripts": {
-      "test": "jasmine-node spec"
-    }
-  ```
+  ![Package](images/capture3.jpeg)
 
 Run `npm test` again to verify your tests are now running. If you get a similar screen with all the failing/passing tests you are ready to start developing!
 
-TODO Add capture of running rests
+![Failing Tests](images/capture4.jpeg)
 
 ### Step 2: Calculating Results
 

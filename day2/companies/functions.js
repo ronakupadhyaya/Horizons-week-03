@@ -6,7 +6,6 @@ module.exports = {
   // Return the entire investment object, not just the amount. (So we can use the
   // id of the company and investor later on).
   singleLargestInvestment: function(arr){
-    console.log(arr)
     return arr.reduce(function(accumulator, investment){
       if (investment.originalInvestment > accumulator){
         return investment.originalInvestment
