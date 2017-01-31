@@ -40,7 +40,14 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("calls showTasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("calls deleteTask")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,7 +71,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
-
+  program
+    .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -118,14 +126,64 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+
+  // console.log("FUCK*************");
+
+  var id;
+  var idFlag = false;
+
+  if(program.id){
+
+    id = program.id - 1;
+    idFlag = true;
+
+  }
+
+  var str = "";
+
+  if(idFlag){
+
+    // str += data[id].name;
+
+    // console.log(data);
+    // console.log(data[program.id-1].priority);
+
+    var currInd = id;
+    str += "Task #"+(id+1) + " ";
+    str += "Priority " + data[currInd].priority + ": ";
+    str += data[currInd].name;
+    console.log(str);
+
+  } else{
+
+    data.forEach(function(item, index){
+
+      var currInd = index + 1;
+      str = "";
+      str += "Task #"+(currInd) + " ";
+      str += "Priority " + item.priority + ": ";
+      str += item.name;
+      console.log(str);
+
+
+    });
+
+  }
+
+  
+  
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+
+
+  data.splice(program.id - 1, 1);
+
+
 }
 
 // ---Utility functions---
