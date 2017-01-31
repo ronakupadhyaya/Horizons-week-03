@@ -1,8 +1,15 @@
 {
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.14.1"
   },
   "scripts": {
     "start": "node app.js"
-  }
+  },
+  "name": "express_echo",
+  "description": "1. Open this folder (`week03/day2/express_echo`) in your Terminal on Mac or PowerShell on Windows.\r 1. Install dependencies with NPM:",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }
