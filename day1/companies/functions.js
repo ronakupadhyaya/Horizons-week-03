@@ -7,7 +7,12 @@ module.exports = {
   // "original investment" made on a company.
   // Return the entire investment object, not just the amount.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    return arr.reduce(function(initial, compare) {
+      if (initial < compare.originalInvestment) {
+        return compare.originalInvestment
+      }
+      return initial;
+    }, 0)
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +20,7 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    return arr.reduce(function(a, b) {return a + b.originalInvestment}, 0)/arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +35,14 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var investmentsTotal = {};
+    arr.forEach(function(investment) {
+      if (!investmentsTotal[investment.company]) {
+        investmentsTotal[investment.company] = 0;
+      }
+      investmentsTotal[investment.company] = investmentsTotal[investment.company] + investment.originalInvestment;
+    });
+    return investmentsTotal;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +57,14 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var investmentsTotal = {};
+    arr.forEach(function(investment) {
+      if (!investmentsTotal[investment.investorId]) {
+        investmentsTotal[investment.investorId] = 0;
+      }
+      investmentsTotal[investment.investorId] = investmentsTotal[investment.investorId] + investment.originalInvestment;
+    });
+    return investmentsTotal;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +80,14 @@ module.exports = {
   // }
   totalCurrentValueOfInvestors: function(arr, investorId){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var investmentsTotal = {};
+    arr.forEach(function(investment) {
+      if (!investmentsTotal[investment.investorId]) {
+        investmentsTotal[investment.investorId] = 0;
+      }
+      investmentsTotal[investment.investorId] = investmentsTotal[investment.investorId] + investment.valueToday;
+    });
+    return investmentsTotal;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +98,41 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var original = this.totalOriginalInvestmentsByInvestors(arr);
+    var current = this.totalCurrentValueOfInvestors(arr);
+    var rankedArray = [];
+    var investorArray = Object.keys(original);
+
+    for (var i = 0; i < investorArray.length; i++) {
+      rankedArray.push([investorArray[i], current[investorArray[i]]/original[investorArray[i]]]);
+    };
+
+    var winner = rankedArray.reduce(function(initial, compare) {
+      if (initial[1] < compare[1]) {
+        return compare;
+      }
+      return initial;
+    })
+    return winner[0];
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  }
+    var original = this.totalOriginalInvestmentForCompanies(arr);
+    var rankedArray = [];
+    var companyArray = Object.keys(original);
 
+    for (var i = 0; i < companyArray.length; i++) {
+      rankedArray.push([companyArray[i], original[companyArray[i]]]);
+    };
+
+    var winner = rankedArray.reduce(function(initial, compare) {
+      if (initial[1] < compare[1]) {
+        return compare;
+      }
+      return initial;
+    })
+    return winner[0];
+  }
 }

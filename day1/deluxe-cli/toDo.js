@@ -40,7 +40,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
+  program.command('complete')
+    .description("Toggle tasks completion status")
+    .action(toggleCompleted);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,7 +71,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority of task')
+  .option('-c, --completed', 'Specify completion status of task')
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -119,14 +132,55 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
-}
+  if(program.completed) {
+    for (var i = 0; i < data.length; i ++) {
+      if (data[i].completed === true) {
+        console.log('Task #%d Priority %d: %s',
+          i + 1,
+          data[i].priority,
+          data[i].name);
+      };
+    };
+  } else {
+    if(program.id) {
+      console.log('Task #%d Priority %d: %s',
+        program.id,
+        data[program.id-1].priority,
+        data[program.id-1].name)
+    } else {
+      for (var i = 0; i < data.length; i ++) {
+        console.log('Task #%d Priority %d: %s',
+          i + 1,
+          data[i].priority,
+          data[i].name);
+      };
+    };
+  };
+};
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
-}
+  if (program.id) {
+    data.splice((program.id-1),1);
+    console.log('Task #' + program.id + 'was deleted.')
+  } else {
+    throw new Error('Task was not identified.')
+  };
+};
+
+function toggleCompleted() {
+  if (program.id) {
+    if (data[program.id - 1].completed === false) {
+      data[program.id - 1].completed = true;
+    } else {
+      data[program.id - 1].completed = false;
+    };
+  } else {
+  throw new Error('Task was not identified.');
+  };
+};
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.

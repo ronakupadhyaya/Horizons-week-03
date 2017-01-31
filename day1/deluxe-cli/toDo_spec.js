@@ -47,6 +47,32 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes")
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy")
   });
+
+  it("Mark task 1 as completed", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js complete -i 1')
+    var stdout = runAndCleanStdout('node toDo.js show -c');
+    expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes")
+    expect(stdout[1]).toEqual(undefined)
+  });
+
+  it("Mark task 2 as completed", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js complete -i 2')
+    var stdout = runAndCleanStdout('node toDo.js show -c');
+    expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv")
+    expect(stdout[1]).toEqual(undefined)
+  });
+
+  it("Mark task 1 and 3 as completed", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js complete -i 1')
+    child_process.execSync('node toDo.js complete -i 3')
+    var stdout = runAndCleanStdout('node toDo.js show -c');
+    expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes")
+    expect(stdout[1]).toEqual("Task #3 Priority 3: Call the internet guy")
+    expect(stdout[2]).toEqual(undefined)
+  });
 });
 
 function runAndCleanStdout(cmd){
