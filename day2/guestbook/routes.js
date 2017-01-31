@@ -1,7 +1,5 @@
 "use strict";
 var express = require('express');
-var jsonfile = require('jsonfile');
-
 var router = express.Router();
 
 // We use this module to store and retrieve data.
@@ -9,7 +7,11 @@ var router = express.Router();
 // data.write(data): Write the given data to disk.
 var data = require('./data');
 
-// ---Part 1. Login---
+router.get('/', function(req, res) {
+  res.redirect('/login');
+});
+
+// ---Exercise 1. Login---
 
 // GET /login: Renders the form to log into the app when the user opens /login
 // on their browser. This function is already implemented for you to have as a model.
@@ -24,7 +26,7 @@ router.post('/login', function(req, res) {
   res.cookie('username', req.body.username).redirect('/posts');
 });
 
-// ---Part 2. View Posts---
+// ---Exercise 2. View Posts---
 
 // GET /posts: Renders a list of all available posts. No need to be logged in.
 // This function should render all the posts ordered descending by date if no params
@@ -33,8 +35,7 @@ router.post('/login', function(req, res) {
 // If the function is called with a username like /posts?username=steven, you should
 // filter all posts that aren't done by that user.
 // Hint: to get the username, use req.query.username
-// Hint: use jsonfile.readFileSync() to read the post data from data.json 
-
+// Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
 
@@ -45,15 +46,17 @@ router.get('/posts', function (req, res) {
   });
 });
 
-// ---Part 3. New post form---
+// ---Exercise 3. New post form---
 // GET /posts/new: Renders the form page, where the user creates the request.
 // User must be logged in to be able to visit this page.
 // Hint: if req.cookies.username is set, the user is logged in.
+// Hint: use data.read() to get current posts
+// Hint: use data.save(posts) to update posts
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
 });
 
-// ---Part 4. Create new post
+// ---Exercise 4. Create new post
 // POST /posts: This route receives the information for the new post. User must
 // be logged in to use this route. It should create a new post and redirect to
 // posts.
