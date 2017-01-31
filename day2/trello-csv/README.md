@@ -2,7 +2,9 @@
 
 ## Goal
 
-The goal of this exercise is to build a script for uploading and downloading Trello boards as CSV files. This will give you experience with using API's inside node and dealing with files and the file system.
+The goal of this exercise is to build a script for uploading and downloading
+Trello boards as CSV files. This will give you experience with using API's
+inside node and dealing with files and the file system.
 
 We'll be using [this Trello client](https://github.com/norberteder/trello) for
 communicating with Trello's API. You still have to get your corresponding auth
@@ -71,7 +73,7 @@ As you can see, the first row of the csv file corresponds to the names of each
 of the lists. The following rows show the names of each card in its respective
 list, by position. Since the second list does not have any cards at all, the
 second position of every row after the first will be blank (**like this:**
-`...,,...`);
+`column 1,,column 3`);
 
 There's a sample csv file included with this folder, [`sample.csv`](sample.csv).
 You can use the NPM package [`csv`](https://www.npmjs.com/package/csv) for

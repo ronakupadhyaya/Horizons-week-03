@@ -1,3 +1,5 @@
+"use strict";
+
 var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
 var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
 
@@ -19,15 +21,15 @@ program.parse(process.argv);
 // Remaining arguments after flags are stored in program.args
 // - The first argument should be board id
 // - The second argument should be the csv file
-// ex. var board_id = program.args[0];
+// ex. var boardId = program.args[0];
 // YOUR CODE HERE
-var board_id;
-var csv_fname;
+var boardId;
+var csvFilename;
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
-var uploadToTrello = function(board_id, csv_fname) {
-  var csvData = fs.readFileSync(csv_fname).toString();
+var uploadToTrello = function(boardId, csvFilename) {
+  var csvData = fs.readFileSync(csvFilename).toString();
 
   csv.parse(csvData, { columns: true}, function(err, data){
     console.log(data);
