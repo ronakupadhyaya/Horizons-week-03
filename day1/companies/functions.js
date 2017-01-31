@@ -1,5 +1,5 @@
+var _ = require('underscore');
 module.exports = {
-
   // Find the company that has the largest single amount of money invested. In this
   // case, we are not looking for the sum of all investments made on a company. But
   // the largest sum invested by one investor.
@@ -7,7 +7,10 @@ module.exports = {
   // "original investment" made on a company.
   // Return the entire investment object, not just the amount.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr.sort(function (a,b) {
+      return b-a
+    })
+    return arr[0].originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,6 +18,12 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
+    var arr1 = [];
+    for (var x = 0; x<arr.length; x++) {
+      arr1.push(arr[x].originalInvestment)
+    };
+    var total = arr1.reduce(function (a,b) {return a+b})
+    return total/(arr.length)
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -29,6 +38,18 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
+      var x = _.groupBy(arr, function (obj) {
+        return obj.company;
+      });
+      var obj = {};
+      for (var key in x) {
+        var total = 0
+        x[key].forEach(function (item) {
+          total += item['originalInvestment']
+        }) //hollys code
+        obj[key] = total
+      };
+      return obj
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -43,6 +64,19 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
+    var x = _.groupBy(arr, function (obj) {
+      return obj.investorId;
+    });
+    var obj = {};
+    for (var key in x) {
+      var temparr=[];
+      var total = 0
+      x[key].forEach(function (item) {
+        total += item['originalInvestment']
+      })
+      obj[key] = total
+    };
+    return obj
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -58,6 +92,19 @@ module.exports = {
   //   ...
   // }
   totalCurrentValueOfInvestors: function(arr, investorId){
+    var x = _.groupBy(arr, function (obj) {
+      return obj.investorId;
+    });
+    var obj = {};
+    for (var key in x) {
+      var temparr=[];
+      var total = 0
+      x[key].forEach(function (item) {
+        total += item['valueToday']
+      }) //hollys code
+      obj[key] = total
+    };
+    return obj
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -69,13 +116,28 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
+    var currval = module.exports.totalCurrentValueOfInvestors(arr);
+    var orig = module.exports.totalOriginalInvestmentsByInvestors(arr);
+    var newarr = [];
+    for (var x=0; x<10; x++) {
+      newarr.push( (currval[x+1] ) / (orig[x+1] ) )
+    }
+    var i = newarr.indexOf(Math.max.apply(Math, newarr))
+    return (i+1).toString();
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var orig = module.exports.totalOriginalInvestmentForCompanies(arr);
+    newarr = [];
+    for (var key in orig) {
+      newarr.push(orig[key])
+    }
+    var i = newarr.indexOf(Math.max.apply(Math, newarr))
+    return (i+1).toString()
   }
 
 }
