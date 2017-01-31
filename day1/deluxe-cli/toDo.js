@@ -41,6 +41,17 @@ program.command('add')
 
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('show')
+  .description('action to show something')
+  .action(showTasks)
+
+program.command('delete')
+  .description('delete a task')
+  .action(deleteTask)
+
+  program.command('toggle')
+    .description('toggle the truth of a task')
+    .action(toggleComplete)
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -57,13 +68,15 @@ program.command('add')
 // will be parsed with parseInt. Here we can specify the number of the episode that
 // we want to watch.
 
-// Example: first flag: --id or -i. This one will specify which task commands
+
 // like 'show' or 'delete' are called on.
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of the task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -117,15 +130,41 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
+//
+// var priority = program.priority || 1;
+// var name = getRemainingArgs();
+// data.push({
+//   name: name,
+//   priority: priority,
+//   completed: false
+// });
+// console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
 function showTasks(){
-  // YOUR CODE HERE
+  var id = program.id;
+  var num = 1;
+  if (id === undefined) {
+    data.forEach(function(item) {
+      console.log('Task #'+ (num) + ' Priority ' + item.priority + ': ' + item.name);
+      num++;
+    })
+  } else {
+    console.log('Task #'+ id + ' Priority ' + data[id-1].priority + ': ' + data[id-1].name);
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var id = program.id;
+  data.splice(id - 1, 1);
+}
+
+
+//for the kids toggle
+function toggleComplete(){
+  var id = program.id;
+  data[id - 1].completed = !data[id - 1].completed;
 }
 
 // ---Utility functions---
