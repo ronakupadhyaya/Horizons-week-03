@@ -37,11 +37,16 @@ var program = require('commander');
 // Example. Create the 'add' command.
 program.command('add')
   .description("Create Tasks")
-  .action(addTask);
+  .action(addTask)
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks)
 // YOUR CODE HERE for "Delete" its action must call deleteTask
-
+program.command('show')
+  .description("Delete Tasks")
+  .action(showTasks)
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -60,10 +65,14 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p', '--priority <n>', 'priority', parseInt)
+  .option('-c', '--completed', 'completed')
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
