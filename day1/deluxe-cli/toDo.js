@@ -36,11 +36,17 @@ var program = require('commander');
 
 // Example. Create the 'add' command.
 program.command('add')
-  .description("Create Tasks")
-  .action(addTask);
+.description("Create Tasks")
+.action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+.description('Show Tasks')
+.action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+.description('Delete Tasks')
+.action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,7 +66,12 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+.option('-i, --id <n>', 'Specify id of task', parseInt)
+.option('-p, --priority <n>','Specify priority',parseInt);
+// .option('-c, --completed','Show command');
+
+
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -81,6 +92,8 @@ function getRemainingArgs () {
   var args = program.args.splice(0, (program.args.length-1));
   return args.join(" ");
 }
+
+
 
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
@@ -118,7 +131,13 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+  if(program.id){
+    console.log('Task #%d Priority %d: %s', program.id, data[program.id-1].priority,data[program.id-1].name)
+  } else {
+    for(var i =0; i < data.length; i++){
+      console.log('Task #%d Priority %d: %s', i+1, data[i].priority, data[i].name);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +145,13 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(!!program.id && program.id >= 0 && program.id < data.length){
+    var id = program.id;
+    data.splice(id-1,1);
+  }else{
+    console.log('Id doesnt exist')
+  }
+
 }
 
 // ---Utility functions---
