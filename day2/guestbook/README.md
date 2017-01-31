@@ -22,9 +22,14 @@ users to login, view posts and create new posts.
 1. Visit [http://localhost:3000/login](http://localhost:3000/login) to make sure that your server is working.
 1. Edit your routes (aka endpoints) in `week03/day2/guestbook/routes.js`.
 1. Edit your css rules in `week03/day2/guestbook/public/css/style.css`.
-1. When users create or edit posts, save them using `data.save()`. To read data use `data.read()`.
 
-### Guestbook post object
+### Saving data
+
+When users create or edit posts, save them using `data.save(posts)`.
+To read saved data back use `data.read()`.
+
+`data.save(posts)` takes one argument that is an array of guestbook post objects.
+`data.read()` returns an array of guestbook post objects.
 
 Each guestbook post is represented by an object with the following properties:
 
