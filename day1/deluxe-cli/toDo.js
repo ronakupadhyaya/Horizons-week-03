@@ -40,7 +40,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description('Show Tasks')
+  .action(showTasks)
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description('Delete Tasks')
+  .action(deleteTask)
+
+program.toggle('toggle')
+  .description('Toggle')
+  .action(toggleComplete)
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -62,12 +73,16 @@ program.command('add')
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
+
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
+
 program.parse(process.argv);
 
 // If no arguments are specified print help.
@@ -90,6 +105,7 @@ function getRemainingArgs () {
 // `node toDo.js add Do the dishes`
 function addTask() {
   var priority = program.priority || 1;
+  console.log(priority);
   var name = getRemainingArgs();
   data.push({
     name: name,
@@ -119,6 +135,15 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  var id = program.id;
+  if(id === undefined){
+    for(var i = 0; i < data.length; i++){
+      var idNum = i + 1;
+      console.log('Task #' + idNum + ' Priority ' + data[i].priority + ': ' + data[i].name)
+    }
+  } else{
+    console.log('Task #' + id + ' Priority ' + data[id-1].priority + ': ' + data[id-1].name)
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +151,13 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var id = program.id;
+  data.splice(id-1,1);
+}
+
+function toggleComplete(){
+  var id = program.id;
+  data[id-1].completed = !data[id-1].completed
 }
 
 // ---Utility functions---
