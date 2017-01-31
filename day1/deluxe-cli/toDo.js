@@ -36,8 +36,16 @@ var program = require('commander');
 
 // Example. Create the 'add' command.
 program.command('add')
-  .description("Create Tasks")
-  .action(addTask);
+.description("Create Tasks")
+.action(addTask);
+
+program.command('show')
+.description("Show Tasks")
+.action(showTasks);
+
+program.command('delete')
+.description("Delete Tasks")
+.action(deleteTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
@@ -60,7 +68,10 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+.option('-i, --id <n>', 'Specify id of task', parseInt)
+.option('-p, --priority <n>', 'Specify id of priority', parseInt)
+.option('-c, --completed', 'Specify completed')
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -113,20 +124,64 @@ function addTask() {
 //
 // ex.
 //  data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
+
 //  node toDo.js show -i 2 -> "Clean Dishes"
+
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
+
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
+
 function showTasks(){
-  // YOUR CODE HERE
+  // var priority = program.priority || 1;
+  // var name = getRemainingArgs();
+  // console.log(name);
+  var args = process.argv;
+  var flagsPresent = [];
+
+
+  // var program = require('commander');
+  args.forEach(function(item){
+    if(item === '-i' || item === '-p'){
+      flagsPresent.push(item);
+    }
+  });
+
+  if(flagsPresent.length < 1){
+    if(data.length === 0){
+      // console.log();
+    }
+    for(var i = 0; i < data.length; i++){
+      console.log("Task #" + (i+1) + " Priority " + data[i].priority + ": " + data[i].name);
+    }
+  }
+
+  // if we find an i, we'll know where to go in data
+
+  if(flagsPresent.includes('-i')){
+    console.log("Task #" + args[4] + " Priority " + data[args[4]-1].priority + ": " + data[args[4]-1].name);
+  }
+
+
 }
+
+
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  // var priority = program.priority || 1;
+  // var args = process.argv;
+  // data.splice(args[4]-1, args[4]);
+  if(program.id){
+    data.splice(program.id-1, 1);
+  } else {
+    console.log("id doesn't exist");
+  }
 }
+
+
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.
