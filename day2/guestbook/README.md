@@ -47,7 +47,7 @@ Your login page shoud look like:
 
 When you click the `Login` button you should see this:
 
-![](img/login.png)
+![](img/login2.png)
 
 ### Exercise 2: View posts
 
