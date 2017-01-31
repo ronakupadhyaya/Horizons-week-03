@@ -11,7 +11,7 @@
   npm install
   ```
 
-1. Open `app.js` in your editor of choice and add an express http endpoint so that it prints correctly on step 4
+1. Open `app.js` in your editor of choice and add an express http endpoint so that it prints correctly on step 5
 1. Start your server. **Note**: When you change `app.js` you have to restart it to see your changes!
 
   ```bash
