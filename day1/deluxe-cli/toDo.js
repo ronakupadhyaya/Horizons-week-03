@@ -40,7 +40,17 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
+program.command('toggleCompleted')
+  .description("Mark task as completed")
+  .action(toggleCompleted);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,7 +74,11 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
+program
+  .option('-c', '--completed', 'Show completed tasks');
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -119,6 +133,21 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  if (program.completed) {
+    data.forEach(function(todo, index) {
+      if (todo.completed)
+        console.log("Task #%d Priority %d: %s", index + 1, todo.priority, todo.name);
+    });
+  } else if (program.id) {
+    data.forEach(function(todo, index) {
+      if ((index) === program.id - 1)
+        console.log("Task #%d Priority %d: %s", index + 1, todo.priority, todo.name);
+    });
+  } else {
+    data.forEach(function(todo, index) {
+      console.log("Task #%d Priority %d: %s", index + 1, todo.priority, todo.name);
+    });
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +155,19 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if (!program.id) throw "please specify an id to delete";
+
+  if (program.id <= data.length && program.id > 0)
+    data.splice(program.id - 1, 1);
+}
+
+function toggleCompleted() {
+  if (!program.id) throw "please specify an id of task";
+
+  if (program.id <= data.length && program.id > 0) {
+    var isCompleted = data[program.id-1].completed;
+    data[program.id-1].completed = !isCompleted;
+  }
 }
 
 // ---Utility functions---
