@@ -7,7 +7,7 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +15,7 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +29,7 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +43,7 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -57,8 +57,8 @@ module.exports = {
   //  2: 1024000,
   //   ...
   // }
-    // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    // YOUR CODE HERE
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +69,13 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    // YOUR CODE HERE
   }
 
 }
