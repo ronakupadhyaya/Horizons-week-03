@@ -1,12 +1,18 @@
-# Day 4 Exercises
+# Week 3 Day 5 Exercises
 
-## Warmup exercise
-1. [Setting up MongoDB and Mongoose](./warmup.md)
+## Inline Exercises
 
-## Inline exercises
-1. [Mongoose](models/README.md)
-1. [Handlebars partials](partials/README.md)
+1. [Warmup](warmup/README.md)
+1. [AJAX Counter](ajax-counter/README.md)
 
-## Pair programming exercises
-1. [Horizon Starter: backend-rendered web app](./horizonstarter)
-1. [(Bonus) Forms: connecting your forms to a database](./forms)
+## Pair Programming Exercises
+
+
+1. [Horizon Starter: Finish up yesterday](../day4/horizonstarter/README.md)
+
+  Get through the following: 
+    - [MVP Features](../day4/horizonstarter/README.md#the-goal). Tip: Use [this](../day4/horizonstarter/playbook.md)
+    - [These bonus features](../day4/horizonstarter/README.md#a-real-challenge-adding-users)
+    - [Ignore these](../day4/horizonstarter/README.md#if-you-are-bored)
+	
+2. [Horizon Starter: AJAX Edition](horizonstarter-ajax/README.md)
