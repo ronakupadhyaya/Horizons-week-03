@@ -34,6 +34,7 @@ app.get('/', function(req, res){
 // the server.
 app.get('/register', function(req, res){
   // YOUR CODE HERE
+  console.log(req);
   res.render('register');
 });
 
