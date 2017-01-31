@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csvjson": "^4.0.2"
+    "csvjson": "^4.0.2",
+    "jasmine-node": "^1.14.5"
   }
 }

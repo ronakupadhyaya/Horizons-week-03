@@ -37,7 +37,26 @@ var program = require('commander');
 // Example. Create the 'add' command.
 program.command('add')
   .description("Create Tasks")
-  .action(addTask);
+  .action(addTask)
+
+program.command('show')
+  .description('Show tasks to be done')
+  .action(showTasks)
+
+program.command('delete')
+  .description('Delete this task')
+  .action(deleteTask)
+
+  program.command('clearAll')
+    .description('Delete this task')
+    .action(foobar)
+
+function foobar() {
+  data = [];
+  console.log(data);
+
+}
+
 
 // YOUR CODE HERE for "Show" its action must call showTasks
 // YOUR CODE HERE for "Delete" its action must call deleteTask
@@ -60,7 +79,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'priority', parseInt)
+  //.option('-c, --completed', 'completed')
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -118,7 +139,16 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+
+  if (program.id) {
+    var showId = program.id - 1;
+    console.log("Task #" + (showId + 1) + " Priority " + data[showId].priority + ": " + data[showId].name );
+  } else {
+    var counter = 1;
+    data.forEach(function(item) {
+      console.log("Task #" + (counter++) + " Priority " + item.priority + ": " + item.name );
+    })
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +156,9 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var deleteIndex = program.id - 1;
+  data.splice(deleteIndex, 1);
+  console.log('deleted task # ' + program.id);
 }
 
 // ---Utility functions---
