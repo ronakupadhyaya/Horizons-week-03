@@ -63,7 +63,7 @@ To start our application we are going to run the following commands.
 
 ### Steps
 
-1. Open this folder `week03/day2/deluxe-cli` and install npm packages
+1. Open this folder `week03/day1/deluxe-cli` and install npm packages
 
   ```bash
   npm install
