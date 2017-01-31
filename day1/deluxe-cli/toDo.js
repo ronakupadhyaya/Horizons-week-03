@@ -36,23 +36,23 @@ var program = require('commander');
 
 // Example. Create the 'add' command.
 program.command('add')
-  .description("Create Tasks")
-  .action(addTask);
+.description("Create Tasks")
+.action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
 program.command('show')
-  .description("Show Tasks")
-  .action(showTasks);
+.description("Show Tasks")
+.action(showTasks);
 
 // YOUR CODE HERE for "Delete" its action must call deleteTask
 program.command('delete')
-  .description("Delete Tasks")
-  .action(deleteTask);
+.description("Delete Tasks")
+.action(deleteTask);
 
 // CODE HERE FOR TOGGLE completed
 program.command('toggleCompleted')
-  .description("Toggle Completed")
-  .action(toggleCompleted);
+.description("Toggle Completed")
+.action(toggleCompleted);
 
 
 
@@ -74,15 +74,15 @@ program.command('toggleCompleted')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt)
+.option('-i, --id <n>', 'Specify id of task', parseInt)
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
-  .option('-p, --priority <n>', 'Specify priority of task', parseInt)
-  // .option('-n, --name <n>', 'Specify name')
-  // .option('-x, --bool', 'Specify bool');
+.option('-p, --priority <n>', 'Specify priority of task', parseInt)
+// .option('-n, --name <n>', 'Specify name')
+// .option('-x, --bool', 'Specify bool');
 
-  .option('-c, --completed', 'Specify priority of task');
+.option('-c, --completed', 'Specify priority of task');
 
 
 
@@ -143,24 +143,28 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  if(!program.id) {
+  if(!program.id && !program.completed) {
     for(var i = 0; i < data.length; i++) {
-      console.log("Task #" + parseInt(i+1) + " Priority " + parseInt(data[i].priority) + ": " + data[i].name);
+      console.log("Task #" + parseInt(i+1) + " Priority " + parseInt(data[i].priority) + ": " + data[i].name + " Completed = " + data[i].completed);
+    }
+  } else if (program.completed) {
+    for(var x = 0; x < data.length; x++) {
+      if(data[x].completed) {
+        console.log("Task #" + parseInt(x+1) + " Priority " + parseInt(data[x].priority) + ": " + data[x].name + " Completed = " + data[x].completed);
+      }
     }
   } else {
-    // if(data[program.id - 1].completed) {
-    //   console.log("Task #" + parseInt(i+1) + " Priority " + parseInt(data[i].priority) + ": " + data[i].name + " Completed");
-    // }
-    console.log("Task #" + program.id + " Priority " + data[program.id - 1].priority + ": " + data[program.id - 1].name);
+    console.log("Task #" + program.id + " Priority " + data[program.id - 1].priority + ": " + data[program.id - 1].name + " Completed = " + data[program.id-1].completed);
   }
-  // if(process.argv.indexOf()] )
-  // for(var i = 1; i < data.length; i++) {
-  //   console.log(data[i]);
-  // }
 }
 
 function toggleCompleted() {
-  data[program.id - 1].completed = true;
+  if(program.id) {
+    if(!data[program.id - 1].completed) {
+      data[program.id - 1].completed = true;
+    }
+    else data[program.id - 1].completed = false;
+  } else throw 'Error';
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
