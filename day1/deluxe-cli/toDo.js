@@ -14,7 +14,7 @@ ensureFileExists();
 //
 // Each object represents a TO-DO item and has three properties
 // - name: a string, name of the task
-// - prirority: a number, the priority of the task
+// - priority: a number, the priority of the task
 // - completed: a boolean, true if task is completed, false otherwise
 //
 // We're going to be modifying data with our commands.
@@ -40,7 +40,14 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show all tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+
+program.command('delete')
+  .description("Delete all tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,10 +67,17 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  // what's the Integer doing here?
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+  .option('-p, --priority <n>', 'Specify priority for task', parseInt);
+  // <n> next item will be an integer
+//
+// //completed flag
+//   .option('-c, --completed', 'Show command')
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -100,7 +114,7 @@ function addTask() {
 }
 
 
-// Write function showTasks(). It is be called when the program is called like
+// Write function showTasks(). It is be called when the program is called
 // 'node toDo.js show' or 'node toDo.js show -i 3'
 // This function should output the appropriate TO-Do tasks using console.log().
 // The format of the output should be exactly:
@@ -119,6 +133,16 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id;
+    console.log("Task #%d Priority %d: %s",id,data[id-1]['priority'],  data[id-1]["name"])
+  }
+  else{
+    for(var key in data){
+      console.log("Task #%d Priority %d: %s",parseInt(key)+1,data[key]['priority'],  data[key]["name"]);
+    }
+  }
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +150,11 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+if(!!program.id && program.id>0 && program.id<data.length){
+  var id = program.id;
+  data.splice(id-1,1); // id-1 because array index starts at 0, 1 to just cut it off
+}
+
 }
 
 // ---Utility functions---

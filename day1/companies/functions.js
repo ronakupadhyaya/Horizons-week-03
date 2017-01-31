@@ -1,3 +1,4 @@
+var _ = require('underscore')
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -6,17 +7,40 @@ module.exports = {
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
   // Return the entire investment object, not just the amount.
-  singleLargestInvestment: function(arr){
+
+singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
-  },
+    var highest= arr[0]['originalInvestment'];
+    for(var i = 0; i<arr.length; i++){
+      if(arr[i]['originalInvestment']> highest){
+        return arr[i]['originalInvestment'];
+      }
+      else{
+        return highest;
+      }
+  }
+},
+
 
   // Find the average of all the original investments for all companies.
   // This is equal to the sum of all the original investments divided by the number
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  },
+
+    var sum = 0;
+  arr.forEach(function(x){
+    sum += x.originalInvestment;
+  })
+  return sum/arr.length;
+},
+
+/*var sum = arr.reduce(function(a,b){
+    return (a+parseInt(b.originalInvestment));
+  })
+
+  return sum/arr.length;
+}, */
 
   // Find out how much a company got as the original investments. In this case, You
   // will have to iterate over the companies and find all the investments for each
@@ -29,7 +53,19 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+
+var obj= {};
+for(var i = 0; i< arr.length; i++){
+  if(obj[arr[i]]=== false){ // if this thing doesn't exist
+    obj[i] = arr[i].originalInvestment;
+  }
+  else{
+    obj[i]+= arr[i].originalInvestment;
+  }
+}
+return obj;
+
+  //forin loop
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +79,12 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj ={};
+    for(var i =0;i<arr.length; i++){
+      if(obj[i]=== false){
+        obj[i]=== arr.
+      }
+    }
   },
 
   // This function is similar to the one above, but it returns the current value
