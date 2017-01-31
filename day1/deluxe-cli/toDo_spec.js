@@ -49,6 +49,12 @@ describe("Test toDo.js", function() {
   });
 });
 
+  // it("Toggle the completed status", function(){
+  //   generateTasks();
+  //   var stdout = runAndCleanStdout('node toDo.js toggleCompleted')
+  //   expect(stdout[0]).toEqual("Task #1")
+  // })
+
 function runAndCleanStdout(cmd){
   var stdout = child_process.execSync(cmd, {encoding:'utf-8'});
   stdout = stdout.split(/\r\n|\r|\n/);
