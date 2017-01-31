@@ -8,6 +8,19 @@ module.exports = {
   // Return the entire investment object, not just the amount.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+     var largestInvestment = 0;
+    for (var i = 0; i < arr.length; i++) {
+        var current = parseInt(arr[i].originalInvestment)
+      if ((current) > largestInvestment) {
+        largestInvestment = current;
+      }
+    }
+    return largestInvestment;
+    for (var m = 0; m < arr.length; m++) {
+      if(parseInt(arr[m].originalInvestment) === largestInvestment) {
+        return arr[m];
+      }
+    }
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +28,13 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var investments = [];
+    for (var i = 0; i < arr.length; i++) {
+        investments.push(parseInt(arr[i].originalInvestment));
+    }
+    return investments.reduce(function (a, b){
+      return a + b
+    })/ investments.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,7 +49,26 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+
+    var obj = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0
+    }
+    for (var i = 0; i < arr.length; i++) {
+      obj[arr[i].company] += arr[i].originalInvestment;
+    }
+      return obj;
   },
+
+
 
   // Find out how much money an investor spent as  original investments. You will
   // need to iterate through all the investments, find all the investments for each
@@ -44,6 +82,22 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0
+    }
+    for (var i = 0; i < arr.length; i++) {
+      obj[arr[i].investorId] += arr[i].originalInvestment;
+    }
+      return obj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +113,22 @@ module.exports = {
   // }
   totalCurrentValueOfInvestors: function(arr, investorId){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0
+    }
+    for (var i = 0; i < arr.length; i++) {
+      obj[arr[i].investorId] += arr[i].valueToday;
+    }
+      return obj;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +140,45 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var bestId;
+    var best = 0;
+    for (var i = 0; i < 11; i++) {
+      var current = 0;
+      var og = 0;
+      for (var m = 0; m < arr.length; m++) {
+        if (parseInt(arr[m].investorId) === i) {
+          current += parseInt(arr[m].valueToday);
+          og += parseInt(arr[m].originalInvestment);
+        }
+      }
+      if (current/og > best) {
+        best = current/og;
+        bestId = i;
+      }
+    }
+    return bestId.toString();
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
-  }
+    var bestId;
+    var best = 0;
+    for (var i = 0; i < 11; i++) {
+      var og = 0;
+      for (var m = 0; m < arr.length; m++) {
+        if (parseInt(arr[m].company) === i) {
+          og += parseInt(arr[m].originalInvestment);
+        }
+      }
+      if (og > best) {
+        best = og;
+        bestId = i;
+      }
+    }
+    return bestId.toString();
 
+
+}
 }
