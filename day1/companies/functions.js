@@ -5,7 +5,7 @@ module.exports = {
   // the largest sum invested by one investor.
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
-  // Return the entire investment object, not just the amount.
+  // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     arr.sort(function (a,b) {
       return b-a
@@ -105,7 +105,9 @@ module.exports = {
       obj[key] = total
     };
     return obj
+
     // Fields to be parsed: "originalInvestment", "valueToday"
+  totalCurrentValueOfInvestors: function(arr){
   },
 
   // To find out who the best investor is, you need to find out the ratio in which

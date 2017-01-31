@@ -2,14 +2,8 @@
 
 ## Goal
 
-The goal of this exercise is to create a basic web application that allows users
-to login, view posts and create new posts.
-
-## Instructions
-
-We have created an express app for you. It already handles the basics like
-server creation and using a couple of templates. Now, you have to fill in the routes
-and templates to build the Guestbook.
+The goal of this exercise is to create a basic guestbook web app that allows 
+users to login, view posts and create new posts.
 
 ### Getting started
 
@@ -26,61 +20,110 @@ and templates to build the Guestbook.
   ```
 
 1. Visit [http://localhost:3000/login](http://localhost:3000/login) to make sure that your server is working.
-1. Edit your routes (aka endpoints) in `routes.js`.
-1. Edit your css rules in `public/css/style.css`.
-1. when users create posts, save them using `data.save()`. To read data use `data.read()`.
+1. Edit your routes (aka endpoints) in `week03/day2/guestbook/routes.js`.
+1. Edit your css rules in `week03/day2/guestbook/public/css/style.css`.
 
-### Your tasks
+### Saving data
 
-You should implement the following pieces of functionality:
+When users create or edit posts, save them using `data.save(posts)`.
+To read saved data back use `data.read()`.
 
-1. View posts: When the user visits the `/posts` URL, they must be see all the posts
-on the system. Fill out the code for the routes and the post.hbs view.
-1. View posts from one guest: If the user wants to see the posts from user named
-Steven, they visit `/posts?username=steven` This uses the same routes and templates
-as the above.
-1. Sort posts by date: passing a new parameter to the url: `/posts?order=descending`,
-should display all the posts ascending/descending order.
-1. Login: When the user navigates to `/login` from a browser (thus making a GET
-request), a form must be displayed. After filling and sending the form, they should
-receive a cookie so they know they are logged in (POST request). In this case, we'll
-just the username as a cookie and no password.
-1. Create Post: If a user is logged in, meaning they have a cookie, they must be
-able to create posts. Navigating to `/posts/new` should display a form. Sending the
-form creates a new post.
+`data.save(posts)` takes one argument that is an array of guestbook post objects.
+`data.read()` returns an array of guestbook post objects.
 
-A valid post must contain these fields:
+Each guestbook post is represented by an object with the following properties:
 
-1. Author
-1. Post date
-1. Post title
-1. Post body
+1. `author`
+1. `date`
+1. `title`
+1. `body`
 
-### Style tasks
+### Exercise 1: Login
+
+1. Implement the `GET /login` endpoint in `week03/day2/guestbook/routes.js`.
+1. Add an HTML form with `method="POST"` and `action="/login"` 
+  to `week03/day2/guestbook/views/login.hbs`. This login form should contain
+  a single `<input>` element of `type="text"` and `name="username"`
+  and [a submit button](http://www.w3schools.com/html/html_forms.asp)
+
+Your login page shoud look like:
+
+![](img/login.png)
+
+When you click the `Login` button you should see this:
+
+![](img/login2.png)
+
+### Exercise 2: View posts
+
+#### Endpoint: `GET /posts`
+
+1. Implement the `GET /posts` endpoint in `week03/day2/guestbook/routes.js`.
+1. Use Handlebars `{{each}}` to display posts in `week03/day2/guestbook/views/posts.hbs`.
+
+### Exercise 3: Create post
+
+1. Implement the `GET /posts/new` endpoint in `week03/day2/guestbook/routes.js`.
+1. Add an HTML form here with `method="POST"` and `action="/posts"`.
+  to `week03/day2/guestbook/views/post_form.hbs`.
+  This login form should have input elements for title, body and date and a
+  submit button.
+1. Implement the `POST /posts` endpoint:
+  1. If the user is not logged, respond with `401` status code and display an
+    error.
+  1. If any of body, title or date are missing (or empty) respond with a `400`
+    status code and display an error.
+  1. If the form contents are valid, create a new post object and store it
+    using `date.save()`.
+
+### Exercise 4: Sort posts
+
+Make it possible to sort posts by date using a URL parameter.
+
+1. Add a request parameter `order` to the `GET /posts` endpoint in
+   `week03/day2/guestbook/routes.js`.
+   
+   `/posts?order=ascending` should display posts in chronological order (oldest
+   first).
+
+   `/posts?order=descending` should display posts in reverse chronological order
+   (newest first).
+
+1. Add 2 links to `week03/day2/guestbook/views/posts.hbs` to sort posts in ascending or
+  descending order.
+
+### Exercise 5: Filter by author
+
+1. Add a request parameter `author` to the `GET /posts` endpoint in
+   `week03/day2/guestbook/routes.js`. When this parameter is specified, only posts
+   belonging to the specified author should be displayed.
+1. Update `week03/day2/guestbook/views/posts.hbs`, add a link next to each post to 
+  "View only posts by this author" that takes you to
+  `/posts?author=name-of-author-here`
+1. When posts are being filtered by author, add a link to `posts.hbs` to
+  "View posts by all authors" again.
+1. Make sure it's possible to sort and filter posts simultaneously.
+  `/posts?order=ascending&author=Moose` should work.
+  
+### Bonus Exercise: Stylin
 
 Use [Bootstrap](http://getbootstrap.com/) to style your views (i.e. your pages).
-You can download Bootstrap into the `public/`. The contents of this folder are accessible
-inside pages.
+You can download Bootstrap into `week03/day2/guestbook/public/`. The contents
+of this folder are accessible all templates.
 
-There are three views (i.e. pages) in this app, these are rendered
-using [Handlebars Templates](http://handlebarsjs.com/).
+Use [Bootstrap form elements](http://getbootstrap.com/css/#forms)
+and add inline form validation messages like this:
 
-1. Login view -> `views/login.hbs`
-1. View posts view -> `views/posts.hbs`
-1. Create post view -> `views/post_form.hbs`
+![](img/valid.png)
 
-When creating posts, you should validate input and display validation
-errors on the page.
+### Double Bonus Exercise: Admin interface
 
-### Bonus Section:
+Implement a Guestbook Admin Interface that can:
 
-1. Put validation errors inline with form elements that have validation errors.
-   Bootstrap supports inline form validation messages like this:
-
-   ![](img/valid.png)
-
-1. Render Markdown posts using [Marked](https://github.com/chjj/marked)
-1. Implement a Guestbook Admin Interface that can modify or delete posts:
   1. Edit post
   1. Delete single post
   1. Delete all posts by author
+
+### Triple Bonus Exercise: Markdown
+
+Render Markdown posts using [Marked](https://github.com/chjj/marked)
