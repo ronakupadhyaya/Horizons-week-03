@@ -1,4 +1,4 @@
-# Warmup Exercise: Setup Postman
+# Exercise: Setup Postman
 
 ## Time limit: 15 minutes
 
