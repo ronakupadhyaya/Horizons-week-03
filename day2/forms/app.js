@@ -42,6 +42,8 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+
 }
 
 // ---Part 3: Render errors and profile---
@@ -50,6 +52,7 @@ function validate(req) {
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+  console.log(req.body);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
