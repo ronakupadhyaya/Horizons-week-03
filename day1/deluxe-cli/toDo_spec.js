@@ -39,6 +39,12 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv")
   });
 
+  it("Toggle Completed", function() {
+    genereteTasks();
+    var stdout = runAndCleanStdout('node toDo.js toggleCompleted -i 1')
+    expect(stdout[2]).onToggle("true")
+  });
+
   it("Delete task with id", function() {
     generateTasks();
     child_process.execSync('node toDo.js delete -i 2')
@@ -61,3 +67,5 @@ function generateTasks(){
   child_process.execSync('node toDo.js add Fix tv --priority 2');
   child_process.execSync('node toDo.js add Call the internet guy -p 3');
 }
+
+function
