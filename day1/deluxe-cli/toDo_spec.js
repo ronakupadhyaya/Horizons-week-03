@@ -47,6 +47,13 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes")
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy")
   });
+
+  it("Mark Task with id As Completed", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted -i 3')
+    var stdout = runAndCleanStdout('node toDo.js toggleCompleted -i 3');
+    expect(stdout).toEqual(true)
+  });
 });
 
 function runAndCleanStdout(cmd){

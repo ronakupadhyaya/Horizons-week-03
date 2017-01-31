@@ -38,9 +38,17 @@ var program = require('commander');
 program.command('add')
   .description("Create Tasks")
   .action(addTask);
-
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete task")
+  .action(deleteTask);
+program.command('toggleCompleted')
+  .description("Mark Task As Completed")
+  .action(toggleCompleted);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,7 +68,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <p>', 'Specify priority', parseInt)
+  .option('-c, --completed', 'Specify the completed')
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -119,6 +129,15 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+  // console.log(program.id)
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+  }else{
+    for (var i=0; i<data.length; i++){
+      console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -126,6 +145,21 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+    data.splice(id, 1);
+  }
+}
+
+function toggleCompleted(){
+  // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    console.log("Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name)
+    data[id].completed = true;
+    console.log(data[id].completed)
+  }
 }
 
 // ---Utility functions---
@@ -142,3 +176,4 @@ function ensureFileExists() {
 
 // This command writes  our tasks to the disk
 writeFile(data);
+

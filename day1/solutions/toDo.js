@@ -66,7 +66,7 @@ program
 
 // YOUR CODE HERE for "--priority and -p"
 
-
+process.argv[1]
 // Arguments
 // These line is part of the 'Commander' module. It tells them to process all the
 // other arguments that are sent to our program with no specific name.

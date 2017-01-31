@@ -4,7 +4,11 @@
   "description": "Investment exercise w3d1",
   "main": "app.js",
   "author": "",
+  "scripts": {
+  	"test": "jasmine-node spec"
+  },
   "license": "ISC",
   "dependencies": {
   }
+
 }
