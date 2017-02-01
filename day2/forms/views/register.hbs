@@ -6,19 +6,148 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
+  .container{ text-align: center; background-color: white}
+  .bioTextbox{ height: 100px; width: 500px}
+  select {width: 100%}
+  .left-column{text-align: right}
+  .right-column{text-align: left}
+  .opt{font-weight: 400}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+
+    <div>
+      <div>
+        <form class="form-horizontal" action="/register" method="post">
+
+        </br>
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2">First Name</label>
+          <div class = "right-column col-xs-5 ">
+            <input type="text" placeholder="First Name" name="firstName" class="form-control" required>
+          </div>
+        </div>
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2">Middle Initial</label>
+          <div class = "right-column col-xs-5">
+            <input type="text" placeholder="Middle Initial" name="middleInitial" class="form-control">
+          </div>
+        </div>
+
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2">Last Name</label>
+          <div class = "right-column col-xs-5">
+            <input type="text" placeholder="Last Name" name="lastName" class="form-control"required>
+          </div>
+        </div>
+
+        <div class = "row form-group">
+          <label class="left-column control-label col-xs-2 col-xs-offset-2" for="DOBMonth">DOB Month</label>
+          <div class="right-column col-xs-5">
+            <select class="form-control" name = "DOBMonth">
+              {{#each months}}
+              <option>{{this}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2" for="DOBDay">DOB Day</label>
+          <div class = "right-column col-xs-5">
+            <select class = "form-control" name="DOBDay">
+              {{#each days}}
+              <option>{{this}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2" for="DOBYear">DOB Year</label>
+          <div class = "right-column col-xs-5">
+            <select class = "form-control" name="DOBYear">
+              {{#each years}}
+              <option>{{this}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2">Password</label>
+          <div class = "right-column col-xs-5 ">
+            <input type="password" placeholder="Password" name="password" class="form-control" required>
+          </div>
+        </div>
+
+        <div class = "row form-group">
+          <label class = "left-column control-label col-xs-2 col-xs-offset-2">Repeat Password</label>
+          <div class = "right-column col-xs-5 ">
+            <input type="password" placeholder="Repeat Password" name="repeatPassword" class="form-control" required>
+          </div>
+        </div>
+
+
+
+
+        <div class="row">
+          <label class = "left-column form-check-label col-xs-2 col-xs-offset-2">Gender</label>
+          <div class = "form-check right-column col-xs-5">
+            <label class="form-check-label">
+              <input class="form-check-input opt" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" required>
+              Male
+            </label>
+          </div>
+        </div>
+        <div class="form-check row">
+          <label class = "left-column col-xs-2 col-xs-offset-2"></label>
+          <div class = "right-column col-xs-5">
+            <label class="form-check-label">
+              <input class="form-check-input opt" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              Female
+            </label>
+          </div>
+        </div>
+        <div class = "form-check row">
+          <label class = "left-column col-xs-2 col-xs-offset-2"></label>
+          <div class="right-column col-xs-5">
+            <label class="form-check-label">
+              <input class="form-check-input opt" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+              Prefer not to say
+            </label>
+          </div>
+        </div>
+
+
+
+
+
+
+        <!-- <p>Gender
+        <input type = "radio" name = "gender" required>Male</br>
+        <input type = "radio" name = "gender">Female </br>
+        <input type = "radio" name = "gender">Prefer not to say
+      </p> -->
+
+
+
+      <p>Sing Up for newsletter
+        <input type = "checkbox" required>
+      </p>
+      <p>Biography
+        <input type = "text" class = "bioTextbox" required>
+      </p>
+      <input type="submit">
+    </form>
   </div>
+</div>
+</div>
 </body>
 </html>

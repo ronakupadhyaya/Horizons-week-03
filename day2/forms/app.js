@@ -34,7 +34,21 @@ app.get('/', function(req, res){
 // the server.
 app.get('/register', function(req, res){
   // YOUR CODE HERE
-  res.render('register');
+  var days = [];
+  for(var i =0; i<31; i++){
+    days[i]=i+1;
+  }
+  var months = [];
+  for(var i =0; i<12; i++){
+    months[i]=i+1;
+  }
+  var years = [];
+  for(var i =0; i<100; i++){
+    years[i]=2017-i;
+  }
+
+  
+  res.render('register', {days: days, months: months, years: years});
 });
 
 // ---Part 2: Validation---
