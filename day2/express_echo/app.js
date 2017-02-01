@@ -9,6 +9,7 @@ var app = express();
 app.get('/hello', function(request, response) {
   response.send('Hello there'+ reg.query.name)
 });
+//cuz in the guide it said reg.query.name
 
 // Create a route that listens to /hello and takes one query parameter
 // name and responds with 'Hello there NAME!'

@@ -41,7 +41,32 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+
+  req.checkBody('firstName', 'Invalid firstName').notEmpty(); 
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+
+  req.checkBody('repassword', 'Invalid password repeat').notEmpty().equals(req.body.password);
+  req.checkBody('bio', 'Invalid bio').notEmpty();
+
+
+
+  // var schema = {
+  //   'reppeatpassword': {
+  //     notEmpty: true,
+  //     matches: {
+  //       options: ['password'] // pass options to the validator with the options property as an array
+  //       // options: [/example/i] // matches also accepts the full expression in the first parameter
+  //     },
+  //     errorMessage: 'Invalid Password repeat' // Error message for the parameter
+  //   }
+  // };
+  // console.log(schema);
+  // req.checkBody(schema);
+
+
+
+
 }
 
 // ---Part 3: Render errors and profile---
@@ -50,6 +75,7 @@ function validate(req) {
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+  console.log(req.body);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
@@ -57,7 +83,7 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
