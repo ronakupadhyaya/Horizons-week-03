@@ -8,6 +8,7 @@ var router = express.Router();
 var data = require('./data');
 
 router.get('/', function(req, res) {
+  console.log('server is up');
   res.send('Your server is working!');
 });
 
@@ -21,7 +22,11 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  console.log(data.read());
+  res.render('login', {
+    posts: 'HELLO',
+    username: req.cookies.username
+  });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
