@@ -52,8 +52,6 @@ to use it.
   mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
   ```
 
-  By the way, a **URI** is like a **URL** for things that are not ne
-
 1. Create new file `week03/day3/horizonstarter/config.js` and use
    `module.exports` to return an object with a single key `MONGODB\_URI`.
    Set the value of this key to the URI from the previous step. It should
