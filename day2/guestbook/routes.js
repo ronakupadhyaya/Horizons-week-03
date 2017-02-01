@@ -5,10 +5,10 @@ var router = express.Router();
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
-var data = require('./data');
+var data = require('./data.js');
 
 router.get('/', function(req, res) {
-  res.send('Your server is working!');
+  res.redirect('/login');
 });
 
 // ---Exercise 1. Login form---
@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -41,10 +41,27 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
+  var newPosts = data.read();
+  if(req.query.order === 'ascending') {
+    newPosts.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date);
+    })
+  } else if(req.query.order === 'descending'){
+    newPosts.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
+  if(req.query.author) {
+    newPosts = newPosts.filter(function(x){
+      console.log(x)
+      return x.author === req.query.author
+    })
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: newPosts
   });
 });
 
@@ -58,7 +75,15 @@ router.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username) {
+    res.render('post_form')
+  } else {
+    throw 'Error'
+  }
+});
+
+router.get('/login', function(req, res) {
+  res.redirect('/login')
 });
 
 // POST /posts:
@@ -77,8 +102,35 @@ router.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
+var expressValidator = require('express-validator');
+router.use(expressValidator());
+
+function validate(req) {
+  req.checkBody('title', 'No Title').notEmpty();
+  req.checkBody('body', 'No Body').notEmpty();
+  req.checkBody('date', 'Invalid Date').notEmpty();
+}
+
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var arrPost = data.read();
+  var newPost = {};
+  var errors = req.validationErrors();
+  if(errors) {
+    if(!req.cookies.username) {
+      res.status(401).send('Login Required')
+    } if(!req.body.title || !req.body.body || !req.body.date) {
+      res.status(400).send(validate(req))
+    }
+  }
+  newPost = {
+    author: req.cookies.username,
+    title: req.body.title,
+    body: req.body.body,
+    date: req.body.date
+  }
+arrPost.push(newPost);
+data.save(arrPost);
+res.redirect('/posts');
 });
 
 module.exports = router;

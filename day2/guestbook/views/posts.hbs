@@ -15,14 +15,35 @@
 
 <h2>Your username: {{username}}</h2>
 
+<form method="GET" action="/login">
+  <button type="submit">Logout</button>
+</form>
+
+<form method="GET" action="/posts/new">
+  <button type="submit">Post</button>
+</form>
+
+<a href="http://localhost:3000/posts?order=ascending">Posts Ascending</a>
+<a href="http://localhost:3000/posts?order=descending">Posts Descending</a>
+
+{{#if req.query.author}}
+<a href="http://localhost:3000/posts">Return to all posts</a>
+{{/if}}
+
 <!-- Exercise 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
-<!-- YOUR CODE HERE -->
+{{#each posts}}
+  <div>
+    <h1>{{this.author}}</h1>
+    <h2>{{this.title}}</h2>
+    <p>{{this.body}}</p>
+    <p>{{this.date}}</p>
+  </div>
+{{/each}}
 
 </body>
 </html>
