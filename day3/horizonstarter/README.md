@@ -99,7 +99,7 @@ created document.
     res.render('template', {items: array});
   });
   ```
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and use `{{#each}}`
+1. Edit `week03/day3/horizonstarter/views/index.hbs` and use [`{{#each}}`](http://handlebarsjs.com/builtin_helpers.html)
   to display all the `Project`s you get from `.find()`.
 
 ### Exercise 2: Create project
@@ -212,7 +212,7 @@ that allows us to make contributions.
   When the project edit page loads, it should have all the properties of
   the project being edited pre-filled into form fields.
 
-  You can use the `value=""` HTML property for this purpose:
+  You can use the `value=""` HTML attribute for this purpose:
 
   ```html
   <input type="text" name="title" value={{project.title}}>
