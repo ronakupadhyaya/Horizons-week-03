@@ -1,4 +1,4 @@
-# Day 4 Exercises
+# Day 3 Exercises
 
 ## Warmup exercise
 1. [Setting up MongoDB and Mongoose](./warmup.md)
