@@ -19,7 +19,8 @@ users to login, view posts and create new posts.
   npm start
   ```
 
-1. Visit [http://localhost:3000/login](http://localhost:3000/login) to make sure that your server is working.
+1. Visit [http://localhost:3000/](http://localhost:3000/) to make sure that
+   your server is working.
 1. Edit your routes (aka endpoints) in `week03/day2/guestbook/routes.js`.
 1. Edit your css rules in `week03/day2/guestbook/public/css/style.css`.
 

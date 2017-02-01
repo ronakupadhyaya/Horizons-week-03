@@ -28,10 +28,11 @@ app.get('/', function(req, res) {
   res.redirect('/register');
 });
 
-// ---Part 1: GET /register---
+// GET /register route
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
+
 app.get('/register', function(req, res) {
   // YOUR CODE HERE
   res.render('register');
@@ -41,6 +42,7 @@ app.get('/register', function(req, res) {
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
+
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
   req.checkBody('lastName', 'Invalid lastName').notEmpty();
@@ -51,11 +53,13 @@ function validate(req) {
   req.checkBody('Bio', 'Invalid bio').notEmpty();
 }
 
-// ---Part 3: Render errors and profile---
+// ---Exercise 2: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
+
 app.post('/register', function(req, res) {
+
   validate(req);
   console.log(req.body);
   // Get errors from express-validator
