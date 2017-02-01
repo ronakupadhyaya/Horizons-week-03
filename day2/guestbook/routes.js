@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login', {title: 'Login Test'});
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -44,7 +44,8 @@ router.get('/posts', function (req, res) {
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+        username: req.cookies.username,
+        posts: data.read()
   });
 });
 
@@ -58,7 +59,10 @@ router.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies && req.cookies.username){
+  res.render('post_form', { title: 'New Post' });
+}
+else{ console.log("not logged in") }
 });
 
 // POST /posts:

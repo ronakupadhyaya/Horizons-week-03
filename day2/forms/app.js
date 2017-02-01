@@ -28,6 +28,12 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
+// $( "options" ).on( "click", function() {
+//   for(var i; i<13; i++){
+//     $('options').append('options');
+//   }
+// });
+
 // ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
@@ -42,6 +48,18 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  console.log("clicked");
+  req.checkBody('middleInitial', 'Invalid middleInitial').notEmpty();
+  req.checkBody('lastName', 'Invalid firstName').notEmpty();
+  req.checkBody('DOBMonth', 'Invalid firstName').notEmpty().isInt();
+  req.checkBody('DOBDay', 'Invalid firstName').notEmpty().isInt();
+  req.checkBody('DOBYear', 'Invalid firstName').notEmpty().isInt();
+  req.checkBody('password', 'Invalid firstName').notEmpty();
+  req.checkBody('repeatPassword', 'Invalid firstName').notEmpty();
+  req.checkBody('gender', 'Invalid firstName').notEmpty();
+  //req.checkBody('signUpForNewsletter', 'Invalid firstName').notEmpty();
+  req.checkBody('bio', 'Invalid firstName').notEmpty();
+  //req.checkBody('userRegistrationDate', 'Invalid firstName').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
