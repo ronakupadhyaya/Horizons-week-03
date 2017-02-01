@@ -1,4 +1,4 @@
-# Warmup Exercise: Setup Postman
+# Exercise: Setup Postman
 
 ## Time limit: 15 minutes
 
@@ -43,7 +43,7 @@ Make a request to `https://horizons-postman.herokuapp.com/2` using Postman:
 1. Set the body to be `raw` add the content `{ "foods": ["bacon", "lettuce", "tomato"] }`
   ![](img/postman2a.png)
 1. Set header `Content-Type` to `application/json`
-  ![](img/postman2a.png)
+  ![](img/postman2b.png)
 
 Success message:
 
