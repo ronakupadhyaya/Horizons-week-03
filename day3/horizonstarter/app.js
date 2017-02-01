@@ -1,46 +1,55 @@
+"use strict";
+
+// Express setup
+var fs = require('fs');
 var express = require('express');
+var exphbs  = require('express-handlebars');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-
+// Initialize Express
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// mongoose configuration
+var mongoose = require('mongoose');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+if (! fs.existsSync('./config.js')) {
+  throw new Error('config.js file is missing');
+}
+var config = require('./config');
+if (! config.MONGODB_URI) {
+  throw new Error('MONGODB_URI is missing in file config.js');
+}
+mongoose.connection.on('connected', function() {
+  console.log('Success: connected to MongoDb!');
+});
+mongoose.connection.on('error', function() {
+  console.log('Error connecting to MongoDb. Check MONGODB_URI in config.js');
+  process.exit(1);
+});
+mongoose.connect(config.MONGODB_URI);
+
+// Handlabars setup
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.set('view engine', '.hbs');
+
 app.use(logger('dev'));
+
+// Parse req.body contents
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Setup express-validator
+app.use(validator());
+
+// Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// All of our routes are in routes.js
+var routes = require('./routes');
+app.use('/', routes);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+console.log('Express started. Listening on port', process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
