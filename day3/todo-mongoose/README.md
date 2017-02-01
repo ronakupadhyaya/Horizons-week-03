@@ -25,5 +25,8 @@ Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags an
 
   **REMEMBER** to use the mongoose docs found at [http://mongoosejs.com/index.html](http://mongoosejs.com/index.html).
 
+### `config.js`
+
+
 ### Test
 Use the `npm test` command to test your functions. The tests could take a long time to run, so please be aware that this is normal.
