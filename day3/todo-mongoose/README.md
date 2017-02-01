@@ -25,8 +25,8 @@ Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags an
 
   **REMEMBER** to use the mongoose docs found at [http://mongoosejs.com/index.html](http://mongoosejs.com/index.html).
 
-### `config.js`
-
+### `config.js` - IMPORTANT DISCLAIMER
+Your `MONGODB_URI` has your username and password along with a link to your URI, so you should place this in a separate `config.js` file and export it. Then add `config.js` to your `.gitignore` to make sure `git` ignores the file. This makes it available to your node app locally on your machine, but does not make the URI available within your git repo. **DO NOT** under any circumstance push code to Github that contains your MONGODB_URI, or else other people will get access to your username and password.
 
 ### Test
 Use the `npm test` command to test your functions. The tests could take a long time to run, so please be aware that this is normal.
