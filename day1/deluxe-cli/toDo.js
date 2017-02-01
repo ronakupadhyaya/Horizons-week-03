@@ -24,6 +24,8 @@ var data = JSON.parse(fs.readFileSync(JSON_FILE));
 // command line commands, arguments and flags.
 var program = require('commander');
 
+
+
 // ---Commands---
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -40,7 +42,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+
+program.command('show')
+  .description("show tasks")
+  .action(showTasks);
+
+
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+
+program.command('delete')
+  .description("delete tasks")
+  .action(deleteTask);
+
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,7 +73,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>','Specify priority of task',parseInt)
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
@@ -69,6 +84,9 @@ program
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
+
+
+
 
 // If no arguments are specified print help.
 if (process.argv.length === 2) {
@@ -105,6 +123,8 @@ function addTask() {
 // This function should output the appropriate TO-Do tasks using console.log().
 // The format of the output should be exactly:
 // Task #ID Priority PRIORITY: NAME
+
+
 //
 // Note:
 // - if there is a flag value for id, the program should only display that task
@@ -118,15 +138,42 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+
+  if(!isNaN(program.id)) {
+    if(program.id >=data.length) throw 'error id does not exists'
+    console.log('Task %s Priority %d: %s', program.id,data[program.id].priority, data[program.id].name);
+  }
+  else {for (var i = 0; i < data.length; i++) {
+    console.log( "Tasks %s Priority %d: %s", i, data[i].priority, data[i].name);
+  }
 }
+}
+
+// YOUR CODE HERE
+
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
+  if(!isNaN(program.id)) {
+    if(program.id >=data.length) throw "error id is not listed"
+    data.splice(program.id,1);
+      }
+
+  }
+
+  function toggleCompleted() {
+
+      console.log(data[program.id].completed);
+
+
+  }
+
+
+
   // YOUR CODE HERE
-}
+
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.

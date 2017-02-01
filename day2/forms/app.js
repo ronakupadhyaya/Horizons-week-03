@@ -28,20 +28,32 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
+
+
 // ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
   res.render('register');
 });
+
+
+
+
 
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -50,16 +62,21 @@ function validate(req) {
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+  console.log(req.body);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
+
+
+
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
