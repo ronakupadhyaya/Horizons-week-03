@@ -16,8 +16,11 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
-## Connect to MongoDB using mongoose
-Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and implement missing functionality. **NOTE** be sure to do `npm install` before you begin.
+### `config.js` - IMPORTANT DISCLAIMER
+Your `MONGODB_URI` has your username and password along with a link to your URI, so you should place this in a separate `config.js` file and export it (using `module.exports`). Then add `config.js` to your `.gitignore` to make sure `git` ignores the file. This makes it available to your node app locally on your machine, but does not make the URI available within your git repo. **DO NOT** under any circumstance push code to Github that contains your MONGODB_URI, or else other people will get access to your username and password.
+
+## Exercises
+Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and implement missing functionality where it says `// YOUR CODE HERE`. **NOTE:** be sure to do `npm install` before you begin.
 
   **REMEMBER** in order to pass a string (task name) into commander in your command line you should use double quotes.
 
@@ -25,8 +28,6 @@ Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags an
 
   **REMEMBER** to use the mongoose docs found at [http://mongoosejs.com/index.html](http://mongoosejs.com/index.html).
 
-### `config.js` - IMPORTANT DISCLAIMER
-Your `MONGODB_URI` has your username and password along with a link to your URI, so you should place this in a separate `config.js` file and export it. Then add `config.js` to your `.gitignore` to make sure `git` ignores the file. This makes it available to your node app locally on your machine, but does not make the URI available within your git repo. **DO NOT** under any circumstance push code to Github that contains your MONGODB_URI, or else other people will get access to your username and password.
 
 ### Test
 Use the `npm test` command to test your functions. The tests could take a long time to run, so please be aware that this is normal.
