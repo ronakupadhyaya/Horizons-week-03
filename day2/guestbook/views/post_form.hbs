@@ -21,7 +21,12 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <!-- YOUR CODE HERE -->
-
+  <form action="/posts" method="POST">
+    <!-- YOUR CODE HERE -->
+    <input type="text" name="title" placeholder="Title" />
+    <input type="date" name="date" />
+    <input type="text" name="text" placeholder="Post Body" />
+    <input type="submit" value="Submit" />
+  </form>
 </body>
 </html>

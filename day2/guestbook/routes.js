@@ -22,13 +22,20 @@ router.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
+
+router.use('/test/:hey', function(req, res){
+  res.json({body: req.body, params: req.params, query: req.query})
+})
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 // This endpoint is implemented for you.
 router.post('/login', function(req, res) {
+  // data.save(req.body.username);
   res.cookie('username', req.body.username);
+
   res.redirect('/posts');
 });
 
@@ -41,10 +48,40 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
+
+  var posts = data.read();
+
+  if (req.query.order === 'ascending'){
+    posts = data.read().sort(function(a,b) {
+      var aTime = new Date(a.date);
+      var bTime = new Date(b.date);
+      console.log(aTime.getTime());
+      console.log(bTime.getTime());
+      return bTime.getTime() - aTime.getTime();
+    })
+    data.save(posts);
+
+  } else if (req.query.order === 'descending'){
+    posts = data.read().sort(function(a,b) {
+      var aTime = new Date(a.date);
+      var bTime = new Date(b.date);
+      return aTime.getTime() - bTime.getTime();
+    })
+    data.save(posts);
+  }
+
+  if (req.query.author) {
+    posts = data.read().filter(function(item){
+      return (item.author === req.query.author)
+    })
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: posts
+
   });
 });
 
@@ -59,6 +96,7 @@ router.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form')
 });
 
 // POST /posts:
@@ -79,6 +117,18 @@ router.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  console.log(req.body);
+  var posts = data.read(data.js)
+
+  posts.push({
+    title: req.body.title,
+    body: req.body.text,
+    author: req.cookies.username,
+    date: req.body.date,
+  })
+
+  data.save(posts);
+  res.redirect('/posts')
 });
 
 module.exports = router;

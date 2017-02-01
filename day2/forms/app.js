@@ -42,6 +42,62 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  //req.checkBody('repeatPwd', 'Invalid').isSamePassword(req.repeatPwd);
+  req.checkBody({'middle': {
+                    isLength: {
+                      options: [{ min: 1, max: 1 }],
+                      errorMessage: 'Must be single character'
+                    },
+                    errorMessage: 'Invalid Middle Initial'
+                  },
+                  'lastName': {
+                    notEmpty: true,
+                    errorMessage: 'Need last name'
+                  },
+
+                 'password': {
+                      notEmpty: true,
+                      errorMessage: 'Invalid password'
+                  },
+                  'repeatPwd': {
+                      notEmpty: true,
+
+                     matches: {
+                        options: [req.body.password]
+                        errorMessage: 'Passwords do not match'
+                      },
+                      errorMessage: 'Invalid'
+                  },
+                  'bio': {
+                      notEmpty: true,
+                      errorMessage: 'Must put something in bio'
+                  },
+
+                 'month': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 12 }],
+                        errorMessage: 'Must be between 1 and 12'
+                          },
+                      errorMessage: 'Invalid month of birth'
+                  },
+                  'day': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 31 }],
+                        errorMessage: 'Must be between 1 and 31'
+                          },
+                      errorMessage: 'Invalid day of birth'
+                  },
+                  'year': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 10000 }],
+                        errorMessage: 'Must be positive value'
+                          },
+                      errorMessage: 'Invalid year of birth'
+                  }
+  });
 }
 
 // ---Part 3: Render errors and profile---
@@ -49,15 +105,17 @@ function validate(req) {
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
+  console.log(req.body);
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
