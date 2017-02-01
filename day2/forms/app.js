@@ -33,8 +33,7 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
-  res.render('register');
+  res.render('register', {errors: errors});
 });
 
 // ---Part 2: Validation---
@@ -42,6 +41,32 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+}
+
+// function validate (req) {
+//   req.checkBody('middleInitial', 'Invalid middleInitial').function() {
+//     var x = isLength: {
+//       options: [{min}]
+//     }
+
+function validate(req) {
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+}
+
+function validate(req) {
+  req.checkBody('password', 'No Password inputted').notEmpty();
+}
+
+function validate(req) {
+  req.checkBody('repeatpassword', 'Passwords did not match').notEmpty(); && ('repeatpassword' === 'password')
+}
+
+function validate(req) {
+  req.checkBody('password', 'No Password inputted').notEmpty();
+}
+
+function validate(req) {
+  req.checkBody('bio', 'No Bio inputted').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
