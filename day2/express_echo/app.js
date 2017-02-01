@@ -9,7 +9,9 @@ var app = express();
 app.get('/', function(request, response) {
   response.send('Express is running!')
 });
-
+app.get('/hello', function(req, response) {
+  response.send('Hello there' + req.query.name);
+});
 // Create a route that listens to /hello and takes one query parameter
 // name and responds with 'Hello there NAME!'
 // You can access the query parameter 'name' via request.query.name.
