@@ -6,7 +6,7 @@ var fs = require('fs');
 // command line commands, arguments and flags.
 var program = require('commander');
 
-// EXERCISE 0: Create config.js to export the MONGODB_URI
+// EXERCISE 0: Create a config.js file that should export the MONGODB_URI (use module.exports)
 
 var config = require('./config');
 
