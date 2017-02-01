@@ -41,23 +41,39 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
+  console.log(req.body)
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('repassword', 'Invalid repassword').notEmpty();
+  req.checkBody('repassword', 'Invalid repassword').notEmpty().equals(req.body.password);
+  // req.checkBody('repassword', 'Invalid repassword').passValid(req.body.password, req.body.repassword);
 }
 
+app.use(expressValidator({
+ customValidators: {
+    passValid: function(value1, value2) {
+        return value1 === value2;
+    }
+ }
+}));
 // ---Part 3: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
+  // console.log(req.body)
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
+  console.log(errors)
   if (errors) {
-    res.render('register', {errors: errors});
+    console.log(errors)
+    res.render('register', errors[0]);
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 

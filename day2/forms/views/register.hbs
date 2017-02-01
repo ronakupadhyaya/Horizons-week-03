@@ -2,21 +2,95 @@
 <html>
 <head>
   <title>Registration</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
   </style>
+  <script>
+    function counter(id,par1, par2){
+      for(var i = par1; i <= par2; i++){
+        $(id).append(`<option value = "${i}">${i}</option>`)
+      }
+    }
+  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+  <div class="container" style="background-color: white; border-radius:0.25; padding: 50px">
+    <!-- <h1>Put your registration form here</h1> -->
+    <div><strong>Errors:</strong>{{msg}}</div>
     <div class="row">
+
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <div class="form-group">
+          <label for="usr">First Name:</label>
+          <input type="text" class="form-control" placeholder="First Name" name="firstName">
+        </div>
+        <div class="form-group">
+          <label for="usr">Middle Initial:</label>
+          <input type="text" class="form-control" placeholder="Middle Initial" name="middleName">
+        </div>
+        <div class="form-group">
+          <label for="usr">Last Name:</label>
+          <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sel1">DOB Month</label>
+          <select class="form-control" id="dobmonth">
+            <script type="text/javascript">
+              counter('#dobmonth',1,12);
+            </script>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sel1">DOB Day</label>
+          <select class="form-control" id="dobday">
+            <script type="text/javascript">
+              counter('#dobday',1,31)
+            </script>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sel1">DOB Year</label>
+          <select class="form-control" id="dobyear">
+            <script type="text/javascript">
+              counter('#dobyear', 1960,2016)
+            </script>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="usr">Password:</label>
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="usr">Retype Password:</label>
+          <input type="password" class="form-control" placeholder="Password" name="repassword" required>
+        </div>
+        <div class="gender-form">
+          <label for="usr">Gender:</label>
+          <div class="radio">
+            <label><input type="radio" name="gender" value = "female" required>feMale</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="gender" value="male">male</label>
+          </div>
+          <div class="radio disabled">
+            <label><input type="radio" name="gender" value="prefer not to say">Prefer not to say</label>
+          </div>
+        </div>
+        <div class="gender-form">
+          <label for="usr">Sign up for newsletter:</label>
+          <div class="newsletter">
+            <label><input type="radio" name="newsLetter" required></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="usr">Biography:</label>
+          <input type="text" class="form-control" placeholder="Biography" name="bio" required>
+        </div>
+          <input type="submit" class = "form-control">
       </form>
     </div>
   </div>

@@ -19,7 +19,6 @@ ensureFileExists();
 //
 // We're going to be modifying data with our commands.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
-
 // This is the NPM module commander, we use it to interpret
 // command line commands, arguments and flags.
 var program = require('commander');
@@ -48,6 +47,11 @@ program.command('delete')
 .description('Delete Tasks')
 .action(deleteTask);
 
+//-c
+program.command('toggleCompleted')
+.description('Complete Tasks')
+.action(toggleCompleted);
+
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -67,7 +71,8 @@ program.command('delete')
 // like 'show' or 'delete' are called on.
 program
 .option('-i, --id <n>', 'Specify id of task', parseInt)
-.option('-p, --priority <n>','Specify priority',parseInt);
+.option('-p, --priority <n>','Specify priority',parseInt)
+.option('-c, --completed','Desc');
 // .option('-c, --completed','Show command');
 
 
@@ -153,6 +158,16 @@ function deleteTask(){
   }
 
 }
+
+//toggleTask
+function toggleCompleted(){
+  console.log(data[program.id - 1].completed);
+  if(program.id){
+    data[program.id - 1].completed = true;
+  }
+  console.log(data[program.id - 1].completed);
+}
+
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.
