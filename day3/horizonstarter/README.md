@@ -88,11 +88,10 @@ created document.
 ### Exercise 1: View all projects
 
 1. Implement the `GET /` endpoint in `week03/day3/horizonstarter/routes.js`.
-  Use `Project.find()` to get all the `Project`s from MongoDb. Render
-  `index.hbs` and pass the array you get back from `.find()` as a template
-  varaable
+  Use `Project.find()` to get all the `Project`s from MongoDb and render
+  them on `index.hbs`.
 
-  Remember you have do `res.render()` inside the callback for `.find()` like
+  Remember you have to do `res.render()` inside the callback for `.find()` like
   so:
 
   ```javascript
@@ -100,15 +99,16 @@ created document.
     res.render('template', {items: array});
   });
   ```
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and render all the
-   projects from MongoDb using `{{#each}}`
+1. Edit `week03/day3/horizonstarter/views/index.hbs` and use `{{#each}}`
+  to display all the `Project`s you get from `.find()`.
 
 ### Exercise 2: Create project
 
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and add a link (i.e. an
-   `a` tag) pointing `http://localhost:3000/new` at the bottom of the page.
-1. Edit `week03/day3/horizonstarter/models.js` and add/edit properties for the
-   `Project` model:
+1. Edit `week03/day3/horizonstarter/views/index.hbs` and add a link (i.e. an `a`
+   tag) that reads "Create new project" and points to
+   `http://localhost:3000/new` at the bottom of the page.
+1. Edit `week03/day3/horizonstarter/models.js` and add/edit these properties for
+   the `Project` model:
 
    1. `title`: make this field required
    1. `goal`: Type: `Number`, required
