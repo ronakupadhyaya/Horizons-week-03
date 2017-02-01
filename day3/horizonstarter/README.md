@@ -15,7 +15,37 @@ Files you will **not** edit:
 
 ## Setup
 
-`config.js`
+We don't store MongoDb usernames and passwords in Git for security reasons.
+So you need to create new MongoDb database on mLab and configure your app
+to use it.
+
+1. Create a new Database in [mLab](https://mlab.com/home)
+1. Click on the Databse you've just created, then click on Users `>` Add
+   database user`, pick a username and password
+1. Copy the **MongoDb URI** and replace `<dbuser>` `<dbpassword>` with the
+  username and password you just created. It should look like this:
+  
+  ```
+  mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
+  ```
+
+  By the way, a **URI** is like a **URL** for things that are not ne
+
+1. Create new file `week03/day3/horizonstarter/config.js` and use
+   `module.exports` to return an object with a single key `MONGODB\_URI`.
+   Set the value of this key to the URI from the previous step. It should
+   look like this:
+
+  ```
+  module.exports = {
+    MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
+  }
+  ```
+<!--1. Start your app, if you see this message then you are good to go!-->
+
+  ```
+  Success: connected to MongoDb!
+  ```
 
 ## Exercises
 
