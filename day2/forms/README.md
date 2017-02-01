@@ -4,14 +4,14 @@
 
 The goal of this exercise if to familiarize yourself with a few key concepts: **server-side rendering w/ templating** and **form validation**.
 
-In comparison to everything we've done before, this will feel a little bit 
-different. Typically, we fetch data and then render new items on a page 
-client-side (that is, the browser). In this case, we're going to be fetching 
-*static* pages, and showing those. *Static* pages that you won't have to render 
-anything on, ***because it's already done ('compiled' with the necessary data) 
+In comparison to everything we've done before, this will feel a little bit
+different. Typically, we fetch data and then render new items on a page
+client-side (that is, the browser). In this case, we're going to be fetching
+*static* pages, and showing those. *Static* pages that you won't have to render
+anything on, ***because it's already done ('compiled' with the necessary data)
 on the server*** before it's sent.
 
-At the end of this, you should be a bit more comfortable with using templates to 
+At the end of this, you should be a bit more comfortable with using templates to
 render a page and validating form input.
 
 ## Instructions
@@ -118,7 +118,7 @@ render a page and validating form input.
     </tr>
   <table>
 
-  You will be creating two pages: a registration form page and a profile page. 
+  You will be creating two pages: a registration form page and a profile page.
   Create a form with these fields using Bootstrap and Handlebars. Similarly, create a separate page for displaying all this information once you've successfully registered.
 
   If all data is valid, render a profile page using this information after submit.
@@ -129,12 +129,12 @@ render a page and validating form input.
 
 1. Make a `/register` route in your express app.
 
-  The `/register` route should respond to 2 http methods: **GET** and **POST**. 
+  The `/register` route should respond to 2 http methods: **GET** and **POST**.
   It should do two things:
     1. if it's a **GET** request, it should return the handlebars-compiled empty form
     2. if it's a **POST** request, it should validate the post data, and if the post data is:
       + **valid**, it should send the handlebars-compiled profile page
-      + **invalid**, it should send the handlebars-compiled registration form 
+      + **invalid**, it should send the handlebars-compiled registration form
       with an error message about which form fields are invalid.
 
 ## Validation
