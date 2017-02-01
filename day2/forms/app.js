@@ -13,7 +13,18 @@ app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
-app.use(expressValidator());
+
+app.use(expressValidator({
+  customValidators: {
+    checkLength: function (val) {
+      if (val.length ===1) {return true}
+      else {return false}
+    },
+    checkPassword: function (val1, val2) {
+      return val1 === val2
+    }
+  }
+}));
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
@@ -33,7 +44,6 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
   res.render('register');
 });
 
@@ -42,14 +52,18 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('middleinitial', 'Invalid middleinitial').checkLength();
+  req.checkBody('password','Invalid repeatpassword').checkPassword(req.body.repeatpassword)
 }
-
 // ---Part 3: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
@@ -57,7 +71,7 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
