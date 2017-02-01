@@ -22,7 +22,27 @@
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
-<!-- YOUR CODE HERE -->
+<form name="logout" method="POST" action="/logout">
+  <button type="submit">Logout</button>
+</form>
+
+<form name="post" method="GET" action="posts/new">
+  <button type="submit">Post</button>
+</form>
+
+<!-- <a href="posts/new">POST</a> -->
+
+
+
+{{#each posts}}
+<div>
+  <h1>{{this.author}}</h1>
+  <h2>{{this.title}}</h2>
+  <p>{{this.body}}</p>
+  <p>{{this.date}}</p>
+  <a href="posts?author={{this.author}}">View only posts by this author</a>
+</div>
+{{/each}}
 
 </body>
 </html>

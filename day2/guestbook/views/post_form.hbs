@@ -10,6 +10,12 @@
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
+<style>
+.hidden{
+  display: none;
+}
+
+</style>
 <body>
   <h1>Create new post</h1>
 
@@ -21,7 +27,14 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <!-- YOUR CODE HERE -->
+
+<form name="myPost" method="POST" action="/posts">
+  <input type="text" name="author" placeholder="Author">  
+  <input type="text" name="title" placeholder="Title">
+  <input type="text" name="body" placeholder="Body">
+  <input type="text" name="date" placeholder="Date">
+  <button type="submit">Submit</button>
+</form>
 
 </body>
 </html>

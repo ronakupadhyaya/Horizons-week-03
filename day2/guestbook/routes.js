@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -30,6 +30,11 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
   res.redirect('/posts');
+});
+
+router.post('/logout', function(req, res) {
+  res.clearCookie('username');
+  res.redirect('/login');
 });
 
 // ---Exercise 2. View Posts---
@@ -41,10 +46,35 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
-  res.render('posts', {
+  var d = data.read();
+
+  // for sorting
+  if(req.query.order === 'ascending') {
+    d.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date);
+    });
+  } else if(req.query.order === 'descending') {
+    d.sort(function(a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
+  }
+  d.forEach(function(item) {
+    if (!item.author) {
+      item.author = req.cookies.username;
+    } // took out "else" because we want the following code to run no matter what
+    if(req.query.author === item.author) {
+      console.log('inside sorting')
+      d = d.filter(function(value) {
+        return value.author === req.query.author;
+      });
+    }
+  });
+
+  res.render('posts.hbs', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: d
   });
 });
 
@@ -58,7 +88,11 @@ router.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(!req.cookies.username) {
+    throw 'Error';
+  } else {
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -77,8 +111,35 @@ router.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
+
+var expressValidator = require('express-validator');
+router.use(expressValidator());
+
+
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  console.log(req.body);
+  // req.cookies.username;
+  var errors = req.validationErrors();
+  var newArr = data.read();
+  var newObj = {}
+  if(errors){
+    console.log('in errors');
+    if(!req.cookies.username) {
+      res.status(401).send('User not logged in');
+    } else if(!req.body.title || !req.body.body || !req.body.date) {
+      res.status(400).send('Missing elements');
+    }
+  } else {
+    newObj = {
+      author: req.body.author,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date
+    };
+    newArr.push(newObj);
+    data.save(newArr);
+    res.redirect('/posts');
+  }
 });
 
 module.exports = router;
