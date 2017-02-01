@@ -1,24 +1,155 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Registration</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
+  <script>
+    function counter(id, par1, par2) {
+      for (var i = par1; i <= par2; i++) {
+        $(id).append(`<option value = ${i}> ${i}</option>`);
+      }
+    }
+  </script>
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body {
+      background-color: #2ECC71;
+      padding-top: 2em;
+    }
+
+    .container {
+      background-color: #FFFFFF;
+      padding-top: 2em;
+      padding-bottom: 2em;
+      padding-right: 2em;
+    }
+
+    .form-group {
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+
+    .bio {
+      height: 200px;
+    }
   </style>
 </head>
+
+
 <body>
+
   <div class="container">
-    <h1>Put your registration form here</h1>
+    <!-- <h1>Put your registration form here</h1> -->
     <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
+
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2  control-label"> First Name </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="middleInitial" class="col-sm-2 control-label"> Middle Initial </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Middle Initial" name="middleInitial">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="col-sm-2 control-label"> Last Name </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+            <label for="DOB-Month" class="col-sm-2 control-label"> DOB Month </label>
+            <div class="col-sm-10">
+              <!-- <input type="select" class="form-control" placeholder="Month" name="DOB-Month"> -->
+              <select class="form-control" name = "dobMonth" id="dobMonth">
+                <script type="text/javascript">
+                  counter('#dobMonth',1,12);
+                </script>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="DOB-Day" class="col-sm-2 control-label"> DOB Day </label>
+            <div class="col-sm-10">
+              <!-- <input type="select" class="form-control" placeholder="Day" name="DOB-Day"> -->
+              <select class="form-control" name = "dobDay" id="dobDay">
+                <script type="text/javascript">
+                  counter('#dobDay',1,31);
+                </script>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="DOB-Year" class="col-sm-2 control-label"> DOB Year </label>
+            <div class="col-sm-10">
+              <!-- <input type="select" class="form-control" placeholder="Year" name="DOB-Year"> -->
+              <select class="form-control" name="dobYear" id="dobYear">
+                <script type="text/javascript">
+                  counter('#dobYear',1960,2016);
+                </script>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label"> Password </label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" placeholder="Password" name="password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password-repeated" class="col-sm-2 control-label"> Repeat Password </label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" placeholder="Password Repeated" name="password-repeat" required>
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="divider col-sm-2">
+              <label for="gender"> Gender</label>
+            </div>
+            <!-- <input type="text" placeholder="Gender" name="gender" required> -->
+            <div class="secondDivide">
+              <div name="gender" class="control-label">
+                <div class="radio-option col-sm-10">
+                  <label><input type = "radio" name = "optradio" value = "male"> Male </label>
+                </div>
+                <div class="radio-option col-sm-offset-2 col-sm-10">
+                  <label><input type = "radio" name = "optradio" value = "female"> Female </label>
+                </div>
+                <div class="radio-option  col-sm-offset-2 col-sm-10">
+                  <label><input type = "radio" name = "optradio" value = "prefer not to say"> Prefer Not to Say</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group ">
+            <label for="newsletter-signup" class="col-sm-2"> Sign Up For NewsLetter </label>
+            <input type="checkbox" placeholder="Newsletter Signup" name="newsletter-signup" required>
+          </div>
+          <div class="form-group">
+            <label for="Bio" class="col-sm-2 control-label"> Biography </label>
+            <div class="col-sm-10">
+              <input type="textarea" class="bio form-control" placeholder="biography" name="Bio" required>
+            </div>
+          </div>
+          <input type="hidden" placeholder="user registration date" name="register-date" required>
+          <div class="wrapped">
+            <div class="submit-button">
+              <button type="submit" class="btn btn-default col-sm-2"> Register </button>
+            </div>
+          </div>
+        </form>
       </form>
     </div>
   </div>
 </body>
+
 </html>
