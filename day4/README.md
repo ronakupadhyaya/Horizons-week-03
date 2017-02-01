@@ -1,4 +1,4 @@
-# Week 3 Day 5 Exercises
+# Week 3 Day 4 Exercises
 
 ## Inline Exercises
 
