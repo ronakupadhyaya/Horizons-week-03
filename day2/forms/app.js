@@ -33,7 +33,7 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
+
   res.render('register');
 });
 
@@ -41,8 +41,14 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('fullName', 'Invalid fullName').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('Repeatpassword', 'Invalid Repeatpassword').notEmpty();
+  req.checkBody('DOBmonth', 'Invalid DOBmonth').notEmpty();
+  req.checkBody('DOBday', 'Invalid DOBday').notEmpty();
+  req.checkBody('DOByear', 'Invalid DOByear').notEmpty();
 }
+console.log(req);
 
 // ---Part 3: Render errors and profile---
 // POST /register

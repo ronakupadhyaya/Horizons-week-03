@@ -6,19 +6,145 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
+  *[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.3em;
+  }
+
+  *[role="form"] h2 {
+    margin-left: 5em;
+    margin-bottom: 1em;
+  }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
-  </div>
+    <form class="form-horizontal" role="form">
+      <h2>Registration Form</h2>
+      <div class="form-group">
+        <label for="firstName" class="col-sm-3 control-label">FullName</label>
+        <div class="col-sm-9">
+          <input type="text" name="fullName" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-9">
+          <input type="password" name="password" id="password" placeholder="Password" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-3 control-label">RepeatPassword</label>
+        <div class="col-sm-9">
+          <input type="password" name="Repeatpassword" id="password" placeholder="Repeat Password" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="DOB"class="col-sm-3 control-label">DOBmonth</label>
+        <div class="col-sm-9">
+          <select id="DOB" name="DOBmonth" class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+            <option>11</option>
+            <option>12</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="DOB" class="col-sm-3 control-label">DOBday</label>
+        <div class="col-sm-9">
+          <select id="DOBday" name="DOBday" class="form-control">
+
+          </select>
+        </div>
+      </div> <!-- /.form-group -->
+      <div class="form-group">
+        <label for="DOB" class="col-sm-3 control-label">DOByear</label>
+        <div class="col-sm-9">
+          <select id="DOByear" name="DOByear" class="form-control">
+
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Gender</label>
+        <div class="col-sm-6">
+          <div class="row">
+            <div class="col-sm-4">
+              <label class="radio-inline">
+                <input type="radio" id="femaleRadio" value="Female">Female
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <label class="radio-inline">
+                <input type="radio" id="maleRadio" value="Male">Male
+              </label>
+            </div>
+            <div class="col-sm-4">
+              <label class="radio-inline">
+                <input type="radio" id="uncknownRadio" value="Unknown">Prefer not to say
+              </label>
+            </div>
+          </div>
+        </div>
+      </div> <!-- /.form-group -->
+      <div class="form-group">
+        <label for="firstName" class="col-sm-3 control-label">Biography</label>
+        <div class="col-sm-9">
+          <input type="text" id="firstName" placeholder="Biography" class="form-control" autofocus>
+        </div>
+      </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox">I accept <a href="#">terms</a>
+            </label>
+          </div>
+        </div>
+      </div> <!-- /.form-group -->
+      <div class="form-group">
+        <div class="col-sm-9 col-sm-offset-3">
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+      </div>
+    </form> <!-- /form -->
+  </div> <!-- ./container -->
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script>
+
+  $(function() {
+    var string = "";
+    for (var i = 0; i < 32; i++) {
+      string += "<option>" +  i + "</option>";
+    }
+    $("#DOBday").html(string);
+    var string2 = "";
+    for (var i = 1901; i < 2016; i++) {
+      string2 += "<option>" +  i + "</option>";
+    }
+    $("#DOByear").html(string2);
+
+  });
+  </script>
 </body>
+
 </html>
