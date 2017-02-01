@@ -1,4 +1,4 @@
-# Server-side app: Horizon Starter
+# Pair Programming Exercise: Horizon Starter
 
 ## Introduction
 
@@ -254,19 +254,20 @@ We can't sort by total contributions inside MongoDb because there is no
 `totalContributions` property. Get all projects from MongoDb then
 sort the array yourself. You can install `underscorejs` with NPM if you'd like.
 
-### Exercise TODO: Filter projects by funding status
+### Exercise 9: Filter projects by funding status
 
 Make it possible to filter projects based whether they have met their funding
-goal. It should be possible to view only projects that are fully funded and
-it should be possible to view on TODO
+goal.
 
-### Bonus: Exercise TODO: Project images
+TODO
+
+### Bonus: Exercise 10: Project images
 
 Allow users to specify an optional image URL when creating project.  Display
 this image on both the "View all projects" and the "View a single project"
 pages.
 
-### Double Bonus: Exercise TODO: Validate forms with Bootstrap
+### Double Bonus: Exercise 11: Validate forms with Bootstrap
 
 Use
 [HTML form validation rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Data_form_validation)
