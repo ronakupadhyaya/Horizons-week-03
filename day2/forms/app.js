@@ -1,4 +1,4 @@
-"use strict";
+  "use strict";
 
 var express = require('express');
 var app = express();
@@ -33,7 +33,6 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
   res.render('register');
 });
 
@@ -42,6 +41,14 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid Month').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid Day').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid Year').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('repeatPassword', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Pick a gender!').notEmpty();
+  req.checkBody('biography', 'Biography should not be empty!').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -49,15 +56,17 @@ function validate(req) {
 // This is the endpoint that the user hits when they submit
 // the registration form.
 app.post('/register', function(req, res){
+  console.log(req.body);
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 

@@ -12,7 +12,99 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <form class="form-horizontal" action="/register" method="post">
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">First Name:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{firstName}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Middle Initial:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{middleInitial}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Last Name:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{lastName}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">DOB Month:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{dobMonth}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">DOB Day:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{dobDay}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">DOB Year:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{dobYear}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Password:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{password}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Repeat Password:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{repeatPassword}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Gender:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{gender}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Sign Up for Newsletter:</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{newsletter}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3">Biography</label>
+                <div class="col-sm-9">
+                  <p class="form-control">{{biography}}</p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3"></label>
+                <div class="col-sm-9">
+                  <input type="hidden" class="form-control" name="registerDate" placeholder="RegisterDate">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

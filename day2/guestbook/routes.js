@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -30,6 +30,11 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
   res.redirect('/posts');
+});
+
+router.post('/logout', function(req, res) {
+  res.clearCookie('username')
+  res.redirect('/login');
 });
 
 // ---Exercise 2. View Posts---
@@ -41,10 +46,30 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
+  var username = req.cookies.username;
+  var posts = data.read();
+  var authorFilter = req.query.author
+
+  if (authorFilter) {
+    posts = posts.filter(function(a) {
+      return a.author === authorFilter;
+    })
+  };
+
+  if (req.query.order === 'ascending') {
+    posts.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date);
+    })
+  } else if (req.query.order === 'descending') {
+    posts.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
+  };
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: username,
+    posts: posts,
+    authorFilter: authorFilter
   });
 });
 
@@ -58,7 +83,11 @@ router.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username){
+    res.render('post_form');
+  } else {
+    console.log("Error: User must be logged in")
+  }
 });
 
 // POST /posts:
@@ -78,7 +107,57 @@ router.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  console.log(req.body)
+  var post = {
+    title: req.body.title,
+    body: req.body.body,
+    author: req.cookies.username,
+    date: req.body.date,
+  };
+
+  function validate(req) {
+    req.checkBody('title', 'Title must not be empty.').notEmpty();
+    req.checkBody('date', 'Date must not be empty.').notEmpty();
+    req.checkBody('body', 'Body must not be empty.').notEmpty();
+  };
+
+  validate(req);
+  var errors = req.validationErrors();
+
+  if (errors){
+    console.log(errors)
+    res.status(400).send('You must have a title, body, and date.');
+  } else if (!req.cookies.username) {
+    res.status(401).send('You must be logged in.');
+  } else {
+    var postArray = data.read()
+    postArray.push(post);
+    data.save(postArray)
+    res.redirect('/posts')
+  }
+});
+
+router.post('/delete', function(req, res) {
+  var postArray = data.read();
+  var chosen = req.body
+  postArray = postArray.filter(function(a) {
+    return !(a.author === chosen.author &&
+              a.title === chosen.title &&
+              a.date === chosen.date &&
+              a.body === chosen.body)
+  })
+  data.save(postArray)
+  res.redirect('/posts')
+});
+
+router.post('/deleteAll', function(req, res) {
+  var postArray = data.read();
+  var chosen = req.body
+  postArray = postArray.filter(function(a) {
+    return !(a.author === chosen.author)
+  })
+  data.save(postArray)
+  res.redirect('/posts')
 });
 
 module.exports = router;

@@ -13,16 +13,45 @@
 <body>
 <h1>View all posts</h1>
 
+<a href="posts?order=ascending">Sort by ascending</a>
+<a href="posts?order=descending">Sort by descending</a>
+<a href="posts/new">Post a new message</a>
+
+<br>
+<br>
+
+<form method="POST" action="/logout">
+  <button type="submit">Logout</button>
+
+  <!-- <input type="submit" value="Logout"> -->
+</form>
+
 <h2>Your username: {{username}}</h2>
 
-<!-- Exercise 2: Display posts -->
+{{#if authorFilter}}
+<a href="posts">View posts by all authors</a>
+{{/if}}
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
-
-<!-- YOUR CODE HERE -->
+{{#each posts}}
+<div>
+  <h1>{{title}}</h1>
+  <h2>{{author}}</h2>
+  <h3>{{date}}</h3>
+  <p>{{body}}</p>
+  <a href="posts?author={{author}}">View only posts by this author</a>
+  <form method="post" action="/delete">
+    <input type="text" name="title" style="display: none" value="{{this.title}}"></input>
+    <input type="text" name="author" style="display: none" value="{{this.author}}"></input>
+    <input type="text" name="date" style="display: none" value="{{this.date}}"></input>
+    <input type="text" name="body" style="display: none" value="{{this.body}}"></input>
+    <button type="submit">Delete</button>
+  </form>
+  <form method="post" action="/deleteAll">
+    <input type="text" name="author" style="display: none" value="{{this.author}}"></input>
+    <button type="submit">Delete all posts by this author.</button>
+  </form>
+</div>
+{{/each}}
 
 </body>
 </html>

@@ -22,6 +22,28 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
+  <div class="container">
+    <h2>Vertical (basic) form</h2>
+    <form action="/posts" method="post">
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" class="form-control" name="title" placeholder="Enter title">
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Date:</label>
+        <input type="date" class="form-control" name="date" placeholder="Enter date">
+      </div>
+      <br>
+      <div class="form-group">
+        <label>Body:</label>
+        <textarea class="form-control" rows="5" name="body"></textarea>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-default" value="submit">Submit</button>
+    </form>
+  </div>
+
 
 </body>
 </html>
