@@ -33,6 +33,14 @@ app.get('/other', function(req, res) {
   res.render('other');
 });
 
+Handlebars.registerHelper('times', function(num, block) {
+    var accum = '';
+    for(var i = 0; i < num; ++i)
+        accum += block.fn(i);
+    return accum;
+});
+
+
 
 // app.engine('hbs', exphbs({extname:'hbs', defaultLayout: 'main.hbs'}));
 // app.set('view engine', 'hbs');
