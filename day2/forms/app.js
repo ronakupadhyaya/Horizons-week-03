@@ -41,7 +41,17 @@ app.get('/register', function(req, res){
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('fname', 'Invalid fname').notEmpty();
+  req.checkBody('minitial', 'Invalid minitial').isLength({min:1, max:1});
+  req.checkBody('lname', 'Invalid lname').notEmpty();
+  req.checkBody('month', 'Invalid month').isInt({min:1, max:12});
+  req.checkBody('day', 'Invalid day').isInt({min:1, max:31});
+  req.checkBody('year', 'Invalid year').isInt({min:0});
+  //TODO
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('repeatPassword', 'Invalid repeatPassword').notEmpty();
+  req.checkBody('gender', 'Invalid gender').notEmpty();
+  req.checkBody('bio', 'Invalid bio').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -57,7 +67,7 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
