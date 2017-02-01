@@ -68,7 +68,7 @@ router.get('/posts/new', function(req, res) {
   if (req.cookies.username) {
     res.render("post_form");
   } else {
-    res.status(403).send("Unauthorized");
+    res.status(401).send("Unauthorized");
   }
 });
 
