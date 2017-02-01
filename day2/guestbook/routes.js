@@ -22,6 +22,8 @@ router.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
+
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -40,12 +42,15 @@ router.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
-router.get('/posts', function (req, res) {
+router.get('/posts', function(req, res) {
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read(data.js)
   });
+  // console.log(data.read(data.js));
 });
 
 // ---Exercise 3. Create new posts---
@@ -59,6 +64,12 @@ router.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  console.log(req.cookies.username);
+  if (req.cookies.username) {
+    res.render("post_form");
+  } else {
+    res.status(403).send("Unauthorized");
+  }
 });
 
 // POST /posts:
@@ -79,6 +90,11 @@ router.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  console.log("req.params");
+  console.log(req.params);
+  console.log(req.body.post);
+  req.body.date = new Date();
+  data.read(data.js);
 });
 
 module.exports = router;
