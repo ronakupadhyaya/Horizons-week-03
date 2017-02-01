@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: #2ECC71; padding-top: 2em;}
+    .container{background-color: #FFFFFF;}
+  </style>
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+    function counter(id, startIdx, endIdx){
+      for(var i = startIdx; i<=endIdx; i++){
+        $(id).append(`<option value=${i}> ${i} </option>`);
+      }
+    }
+  </script>
+
+  <div class="container">
+    <h1>Put your registration form here</h1>
+    <div><strong>Errors:</strong>{{errors}}</div>
+    <div class="row">
+      <form action="/register" method="post">
+
+          <div class="form-group">
+            <label for="firstName" class="col-sm-2 control-label">First Name</label>
+            <div class="form-group col-sm-10">
+              <input type="text" class="form-control" name="firstName" placeholder="First Name" value="Sungsu">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="middleInitial" class="col-sm-2 control-label">Middle Initial</label>
+            <div class="form-group col-sm-10">
+              <input type="text" class="form-control" name="middleInitial" placeholder="Middle Initial" value="GG">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+            <div class="form-group col-sm-10">
+              <input type="text" class="form-control" name="lastName" placeholder="Last Name" value="Lim">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dobMonth" class="col-sm-2 control-label">DOB Month</label>
+              <div class="form-group col-sm-10">
+                <select class="form-control" name="selMonth" id="selMonth">
+                  <script>
+                    counter("#selMonth",1,12);
+                  </script>
+                </select>
+              </div>
+              <!-- <input type="text" class="form-control" name="dobMonth" placeholder="Month" value="10"> -->
+          </div>
+
+          <div class="form-group">
+            <label for="dobDay" class="col-sm-2 control-label">DOB Day</label>
+            <div class="form-group col-sm-10">
+              <select class="form-control" name="selDay" id="selDay">
+                <script>
+                  counter("#selDay",1,31);
+                </script>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="dobYear" class="col-sm-2 control-label">DOB Year</label>
+            <div class="form-group col-sm-10">
+              <select class="form-control" name="selYear" id="selYear">
+                <script>
+                  counter("#selYear",1960,2016);
+                </script>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="form-group col-sm-10">
+              <input type="password" class="form-control" name="password" placeholder="Password" value="asdf">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="repassword" class="col-sm-2 control-label">Repeat Password</label>
+            <div class="form-group col-sm-10">
+              <input type="password" class="form-control" name="repassword" placeholder="Repeat Password" value="asdf">
+            </div>
+          </div>
+
+          <label for="radio" class="col-sm-2 control-label">Gender</label>
+          <div class="radio col-sm-10">
+            <label><input type="radio" name="gender" value="male">Male</label>
+          </div>
+          <div class="radio col-sm-offset-2 col-sm-10">
+            <label><input type="radio" name="gender" value="female">Female</label>
+          </div>
+          <div class="radio col-sm-offset-2 col-sm-10">
+            <label><input type="radio" name="gender" value="no">Rather not say</label>
+          </div>
+
+          <div class="form-group col-sm-12">
+
+                <label for="signup" class="col-sm-2"> Sign Up For newsLetter</label>
+                  <input type="checkbox" class="col-sm-1" placeholder="signup" name="signup">
+
+
+          </div>
+
+          <div class="form-group">
+            <label for="bio" class="col-sm-2 control-label">Biography</label>
+            <div class="form-group col-sm-10">
+              <input type="textarea" class="form-control" rows=5 columns=10 name="bio" placeholder="Biography" value="This is my bio">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-group col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default col-sm-2"> Register </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
