@@ -16,8 +16,22 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
+1. Create new file `week03/day3/todo-mongoose/config.js` and use
+   `module.exports` to return an object with a single key `MONGODB\_URI`.
+   Set the value of this key to the URI from the previous step. It should
+   look like this:
+
+  ```
+  module.exports = {
+    MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
+  }
+  ```
+
 ### `config.js` - IMPORTANT DISCLAIMER
-Your `MONGODB_URI` has your username and password along with a link to your URI, so you should place this in a separate `config.js` file and export it (using `module.exports`). Then add `config.js` to your `.gitignore` to make sure `git` ignores the file. This makes it available to your node app locally on your machine, but does not make the URI available within your git repo. **DO NOT** under any circumstance push code to Github that contains your MONGODB_URI, or else other people will get access to your username and password.
+
+We've put `config.js` into the `.gitignore` file so you may notice that Git doesn't prompt you to
+commit changes `config.js`. We've excluded `config.js` from Git because you shouldn't put your database
+username and password on GitHub, where other people can see it!
 
 ## Exercises
 Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and implement missing functionality where it says `// YOUR CODE HERE`. **NOTE:** be sure to do `npm install` before you begin.
