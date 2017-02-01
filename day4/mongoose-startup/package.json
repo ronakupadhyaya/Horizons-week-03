@@ -1,0 +1,14 @@
+{
+  "name": "day4",
+  "version": "1.0.0",
+  "description": "## Warmup exercise 1. [Setting up MongoDB and Mongoose](./warmup.md)",
+  "main": "mongoose.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.8.1"
+  }
+}
