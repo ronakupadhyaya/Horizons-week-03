@@ -77,7 +77,7 @@ router.get('/posts/new', function(req, res) {
 //
 //
 // Create a new post object with right author, title, body and date.
-// Read author, title, body, date from req.params.
+// Read author, title, body, date from req.body.
 //
 // Example post object:
 // {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
