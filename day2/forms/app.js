@@ -28,33 +28,15 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
-// ---Part 1: GET /register---
+// GET /register route
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
   res.render('register');
 
 });
 
-app.use(expressValidator({
- customValidators: {
-    lte: function(param, num) {
-        return param <= num;
-    },
-    gte: function(param, num) {
-        return param >= num;
-    },
-    equal: function(param, num){
-      return param == num;
-    }
- }
-}));
-
-// ---Part 2: Validation---
-// Write a function that takes a request object and does
-// validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstname', 'Invalid firstName').notEmpty();
   req.checkBody('middlename', 'Invalid Middlename').notEmpty().lte(1);
@@ -69,10 +51,15 @@ function validate(req) {
   req.checkBody('bio', 'Invalid Bio').notEmpty();
 }
 
-// ---Part 3: Render errors and profile---
+// ---Exercise 2: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
+//
+// 1. Update register.hbs to display error messages in a readable way.
+// 2. Pass in all the submitted user information (from req) when rendering profile.hbs
+// 3. Update profile.hbs to display all the submitted user profile fields. This
+//    profile should not be editable.
 app.post('/register', function(req, res){
   validate(req);
   console.log("this should not be undefined");
