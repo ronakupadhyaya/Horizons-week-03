@@ -28,18 +28,21 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
-// ---Part 1: GET /register---
+// GET /register route
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
   res.render('register');
 });
 
-// ---Part 2: Validation---
-// Write a function that takes a request object and does
-// validation on it using express-validator.
+// ---Exercise 1: Validation---
+// Write a function that takes a request object and does validation on it using
+// express-validator.
+// We've provided an example validation rule that validates the firstName
+// field.
+// Read the express-validator docs to see how to do other validations:
+// https://github.com/ctavan/express-validator
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
   req.checkBody('lastName', 'Invalid lastName').notEmpty();
@@ -48,10 +51,15 @@ function validate(req) {
   req.checkBody('biography', 'Invalid firstName').notEmpty();
 }
 
-// ---Part 3: Render errors and profile---
+// ---Exercise 2: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
+//
+// 1. Update register.hbs to display error messages in a readable way.
+// 2. Pass in all the submitted user information (from req) when rendering profile.hbs
+// 3. Update profile.hbs to display all the submitted user profile fields. This
+//    profile should not be editable.
 app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
