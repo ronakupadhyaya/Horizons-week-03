@@ -1,5 +1,36 @@
 # Server-side app: Horizon Starter
 
+## Goal
+
+## Project files
+
+Files you **will** edit:
+
+- `week03/day3/horizonstarter/models.js`: your Mongoose models
+- `week03/day3/horizonstarter/routes.js`: Express routes (i.e. endpoints)
+
+Files you will **not** edit:
+
+- `week03/day3/horizonstarter/app.js`
+
+## Setup
+
+`config.js`
+
+## Exercises
+
+### Exercise TODO: Create project
+
+### Exercise TODO: View all projects
+
+### Exercise TODO: View a single project
+
+### Exercise TODO: Contribute to a project
+
+### Exercise TODO: Filter projects
+
+### Exercise TODO: Sort projects
+
 ## Contents
 
 - [Introduction](#introduction)
