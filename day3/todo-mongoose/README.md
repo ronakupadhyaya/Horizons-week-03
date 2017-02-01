@@ -17,7 +17,7 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
 ## Connect to MongoDB using mongoose
-Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and finish writing those functions. **NOTE** be sure to do `npm install` before you begin.
+Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and implement missing functionality. **NOTE** be sure to do `npm install` before you begin.
 
   **REMEMBER** in order to pass a string (task name) into commander in your command line you should use double quotes.
 

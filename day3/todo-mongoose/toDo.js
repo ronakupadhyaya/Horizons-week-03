@@ -6,35 +6,37 @@ var fs = require('fs');
 // command line commands, arguments and flags.
 var program = require('commander');
 
-// TODO: require the mongoose package
+// EXERCISE 0: Create config.js to export the MONGODB_URI
 
-// YOUR CODE HERE
+var config = require('./config');
 
-// TODO: connect to your Mongo Database
+// require the mongoose package
+var mongoose = require('mongoose');
 
-// YOUR CODE HERE
+// connect to your Mongo Database
+mongoose.connect(config.MONGODB_URI);
+mongoose.Promise = global.Promise;
 
-// TODO: check if the connection was successful
+// check if the connection was successful
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // connected!
+});
 
-// YOUR CODE HERE
+// EXERCISE 1: Create the Model
 
 // Everything in Mongoose starts with a Schema. Each schema
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
 //
-// TODO: create a schema for the toDoItem. Your schema should
-//    look like the following:
-//    {
-//      name: String,
-//      priority: String,
-//      completed: Boolean
-//    }
-
-// YOUR CODE HERE
-
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
-// TODO: Compile schema into model called toDo
+//
+// TODO: create a model (called ToDoItem) with a "name" property that
+//    is a String, a "priority" property that is a String, and a
+//    "completed" property that is a Boolean.
+
 // YOUR CODE HERE
 
 // Time to start defining our Commands. What are we going to do with our program?
@@ -105,12 +107,14 @@ function parseArgs () {
   return args.join(" ");
 }
 
+// EXERCISE 2: ADD TASK
+
 // Example: This is a function that is called to create a new task.
-// Calling `node to_do.js add Do the dishes -p 3` must all our function addTask.
+// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
 // it should get the name of the task by calling parseArgs() and the priority
 // for the tast from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
-// `node to_do.js add Do the dishes`
+// `node toDo.js add Do the dishes`
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
@@ -128,27 +132,35 @@ function addTask(){
   // YOUR CODE HERE
 }
 
-// Write function showTasks(). It is be called when the program is called like
-// 'node to_do.js show' and 'node to_do.js show -t laundry'
-// if there is a flag value for name, the program should only display that task
+// EXERCISE 3: SHOW TASKS
+
+// Write function showTasks(). It is called when the program is run using the commands
+// 'node toDo.js show' or 'node toDo.js show -t "Do Laundry"'
+
+// Good Command Syntax (with quotes): node toDo.js show -t "Do Laundry"
+// Bad Command Syntax (without quotes): node toDo.js show -t Do Laundry
+
+// if there is a flag value for name, the program should only display the task with the specified name
 // it there is no flag task, the program should return all tasks.
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
-// Here,  'node to_do.js show -t Clean dishes' will show "Clean dishes"
+// Here,  'node toDo.js show -t "Clean dishes"' will show "Task: Clean dishes, Priority: 1, Completed: false"
 // use console.log to write to the command line.
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
 function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
-  //    .find({key: value}, function(err, task) { // do things } ) - only finds tasks where {key: value} matches
+  //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
 }
 
-// Write a function that is called when the command `node to_do.js delete -t laundry`
+// EXERCISE 4: DELETE TASKS
+
+// Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
-  // TODO: IF program.task exists you should use mongoose's .remove function
+  // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE

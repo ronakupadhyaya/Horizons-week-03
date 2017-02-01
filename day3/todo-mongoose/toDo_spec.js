@@ -30,10 +30,10 @@ describe("Test toDo.js", function() {
 
   it("Delete task with name", function() {
     generateTasks();
-    child_process.execSync('node toDo.js delete -t "Fix tv"')
+    child_process.execSync('node toDo.js add "asdfghjkl qwertyuiop"');
+    child_process.execSync('node toDo.js delete -t "asdfghjkl qwertyuiop"')
     var stdout = runAndCleanStdout('node toDo.js show');
-    expect(stdout).toContain("Task: Do the dishes, Priority: 1, Completed: false")
-    expect(stdout).toContain("Task: Call the internet guy, Priority: 3, Completed: false")
+    expect(stdout).not.toContain("asdfghjkl qwertyuiop");
   });
 });
 
