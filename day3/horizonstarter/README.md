@@ -258,7 +258,7 @@ that allows us to make contributions.
   }
   ```
 
-1. Add buttons to `week03/day3/horizonstarter/views/index.hbs` to sort
+1. Add buttons or links to `week03/day3/horizonstarter/views/index.hbs` to sort
   projects by `start`, `end`, `goal` using the query parameters from 
   the previous step.
 
