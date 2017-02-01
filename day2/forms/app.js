@@ -33,7 +33,7 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  // YOUR CODE HERE
+  //return handlebars-compiled empty form;
   res.render('register');
 });
 
@@ -42,6 +42,13 @@ app.get('/register', function(req, res){
 // validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -51,6 +58,8 @@ function validate(req) {
 app.post('/register', function(req, res){
   validate(req);
   // Get errors from express-validator
+  req.checkBody('requiredNumberParam', 'Invalid requiredNumberParam').notEmpty().isInt();
+  req.checkQuery('required', 'Invalid getparam').isInt();
   var errors = req.validationErrors();
   if (errors) {
     res.render('register', {errors: errors});
