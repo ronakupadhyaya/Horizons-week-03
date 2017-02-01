@@ -21,6 +21,14 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+{{#each posts}}
+  <div>
+    <p>{{this.title}}</p>
+    <p>{{this.author}}</p>
+    <p>{{this.date}}</p>
+    <p>{{this.body}}</p>
+  </div>
+{{/each}}
 
 <!-- YOUR CODE HERE -->
 
