@@ -1,6 +1,7 @@
 "use strict";
 var express = require('express');
 var router = express.Router();
+var admin = "Julian"
 
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
@@ -35,8 +36,10 @@ router.use('/test/:hey', function(req, res){
 router.post('/login', function(req, res) {
   // data.save(req.body.username);
   res.cookie('username', req.body.username);
+  console.log(admin);
+  console.log(req.cookies);
+  (req.cookies.username === admin)? res.redirect('/admin-posts'):res.redirect('/posts');
 
-  res.redirect('/posts');
 });
 
 // ---Exercise 2. View Posts---
@@ -84,6 +87,45 @@ router.get('/posts', function (req, res) {
 
   });
 });
+
+router.get('/admin-posts', function (req, res) {
+
+  var posts = data.read();
+
+  if (req.query.order === 'ascending'){
+    posts = data.read().sort(function(a,b) {
+      var aTime = new Date(a.date);
+      var bTime = new Date(b.date);
+      console.log(aTime.getTime());
+      console.log(bTime.getTime());
+      return bTime.getTime() - aTime.getTime();
+    })
+    data.save(posts);
+
+  } else if (req.query.order === 'descending'){
+    posts = data.read().sort(function(a,b) {
+      var aTime = new Date(a.date);
+      var bTime = new Date(b.date);
+      return aTime.getTime() - bTime.getTime();
+    })
+    data.save(posts);
+  }
+
+  if (req.query.author) {
+    posts = data.read().filter(function(item){
+      return (item.author === req.query.author)
+    })
+  }
+  res.render('admin-posts', {
+    // Pass `username` to the template from req.cookies.username
+    // Pass `posts` to the template from data.read()
+    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: posts
+
+  });
+});
+
 
 // ---Exercise 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
