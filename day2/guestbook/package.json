@@ -1,5 +1,5 @@
 {
-  "name": "Guestbook",
+  "name": "asd",
   "scripts": {
     "start": "nodemon app.js"
   },
@@ -12,5 +12,10 @@
     "express-validator": "^2.20.5",
     "jsonfile": "^2.3.1",
     "nodemon": "^1.9.2"
-  }
+  },
+  "description": "## Goal",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }

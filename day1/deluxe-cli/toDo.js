@@ -48,7 +48,7 @@ program.command('show')
 program.command('delete')
   .description("Deletes Tasks")
   .action(deleteTask);
-  
+
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -71,6 +71,11 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority for our task', parseInt);
+
+program
+  .option('-c, --completed', 'Specify completed');
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -126,6 +131,17 @@ function addTask() {
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
   // YOUR CODE HERE
+
+
+
+  var priority = program.priority;
+  var name = getRemainingArgs();
+
+  // if there is a flag value for id, the program should only display that task
+  console.log(name);
+
+  // it there is no flag id, the program should return all tasks.
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
