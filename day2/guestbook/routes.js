@@ -8,7 +8,7 @@ var router = express.Router();
 var data = require('./data');
 
 router.get('/', function(req, res) {
-  res.redirect('/login');
+  res.send('Your server is working!');
 });
 
 // ---Exercise 1. Login form---
@@ -70,7 +70,7 @@ else{ console.log("not logged in") }
 //
 //
 // Create a new post object with right author, title, body and date.
-// Read author, title, body, date from req.params.
+// Read author, title, body, date from req.body.
 //
 // Example post object:
 // {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
