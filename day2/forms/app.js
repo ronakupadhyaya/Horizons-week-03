@@ -28,44 +28,49 @@ app.get('/', function(req, res){
   res.redirect('/register');
 });
 
-// GET /register route
+// ---Part 1: GET /register---
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
+
   res.render('register');
 });
 
-// ---Exercise 1: Validation---
-// Write a function that takes a request object and does validation on it using
-// express-validator.
-// We've provided an example validation rule that validates the firstName
-// field.
-// Read the express-validator docs to see how to do other validations:
-// https://github.com/ctavan/express-validator
+// ---Part 2: Validation---
+// Write a function that takes a request object and does
+// validation on it using express-validator.
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('bio', 'Invalid bio').notEmpty();
+  req.checkBody('middleName', 'Invalid Middle Initial').isSingle(req.body.middleName);
+  req.checkBody('newsletter', 'Invalid signup').notEmpty();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('repPass', 'Invalid Confirmation').notEmpty().equals(req.body.password);
 }
 
-// ---Exercise 2: Render errors and profile---
+app.use(expressValidator({
+customValidators: {
+   isSingle: function(letter) {
+       return (letter.length === 1)
+   },
+  }
+}));
+// ---Part 3: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
-//
-// 1. Update register.hbs to display error messages in a readable way.
-// 2. Pass in all the submitted user information (from req) when rendering profile.hbs
-// 3. Update profile.hbs to display all the submitted user profile fields. This
-//    profile should not be editable.
 app.post('/register', function(req, res){
+  console.log(req.data);
   validate(req);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
     res.render('register', {errors: errors});
   } else {
-    // YOUR CODE HERE
-    // Include the data of the profile to be rendered with this template
-    res.render('profile');
+    req.body.date = new Date();
+    res.render('profile', req.body);
   }
 });
 

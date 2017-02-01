@@ -2,21 +2,102 @@
 <html>
 <head>
   <title>Registration</title>
-
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <!-- <script src="./optionsloop.js"></script> -->
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container {background-color: white; padding: 30px; height:75%; width:60%; border-radius:10px;}
+    div {width:100%;}
+    .row {margin:8px 0;}
+    input {border-radius:5px; border:0.5px solid;}
+    select {border-radius:5px; border:0.5px solid;}
   </style>
+
+  <script type="text/javascript">
+  function makeDropdown(num1, num2, elemId) {
+    for(var i = num1; i <= num2; i++) {
+      $(elemId).append(`<option value="${i}">${i}</option>`);
+    }
+  }
+  </script>
+
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <div><strong>Errors:</strong>{{#each errors}}
+                                  <p>{{this.msg}}</p>
+                                  {{/each}}</div>
+    <div>
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <div class="row">
+        <label class="col-xs-4">First Name</label>
+        <input class="col-xs-8" type="text" placeholder="First Name" name="firstName" required>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Middle Name</label>
+        <input class="col-xs-8" type="text" placeholder="Middle Name" name="middleName">
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Last Name</label>
+        <input class="col-xs-8" type="text" placeholder="Last Name" name="lastName" required>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">DOB Month</label>
+        <select class="col-xs-8" id="dobmonth" name="DOB-Month">
+          <script type="text/javascript">
+          makeDropdown(1, 12, '#dobmonth');
+          </script>
+        </select>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">DOB Day</label>
+        <select class="col-xs-8" id="dobday" name="DOB-Day">
+          <script type="text/javascript">
+          makeDropdown(1, 31, '#dobday');
+          </script>
+        </select>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">DOB Year</label>
+        <select class="col-xs-8" id="dobyear" name="DOB-Year">
+          <script type="text/javascript">
+          makeDropdown(1995, 2017, '#dobyear');
+          </script>
+        </select>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Password</label>
+        <input class="col-xs-8" type="password" placeholder="Password" name="password" required>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Repeat Password</label>
+        <input class="col-xs-8" type="password" placeholder="Password" name="repPass" required>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Gender</label>
+        <p class="col-xs-1">Male</p><input class="col-xs-1" type="radio" name="gender" value="Male" required>
+        <p class="col-xs-1">Female</p> <input class="col-xs-1" type="radio" name="gender" value="Female" required>
+        <p class="col-xs-1">Other</p> <input class="col-xs-1" type="radio" name="gender" value="Other" required>
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Sign Up for newsletter</label>
+        <input class="col-xs-1" type="checkbox" placeholder="Sign-up for newsletter" name="newsletter" required>Sign me up!
+      </div>
+      <div class="row">
+        <label class="col-xs-4">Biography</label>
+        <input class="col-xs-8" type="textarea" placeholder="Bio" name="bio" required>
+      </div>
+      <div class="row">
+        <input class="col-xs-8" type="hidden" placeholder="User Registration Date" name="userRegisDate" required>
+      </div>
+      <div class="row">
+        <input class="col-xs-3" type="submit">
+      </div>
       </form>
     </div>
   </div>

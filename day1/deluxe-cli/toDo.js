@@ -40,8 +40,17 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "Show" its action must call showTasks
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 
+program.command('complete')
+  .description("Complete Task")
+  .action(toggleCompleted);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -60,10 +69,13 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt)
+  .option('-c, --completed', 'Completion of task');
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -118,14 +130,35 @@ function addTask() {
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
 function showTasks(){
-  // YOUR CODE HERE
+  if(!program.id && !program.completed) {
+    for(var i=0;i<data.length;i++) {
+      console.log("Task #" + parseFloat(i+1) + " Priority " + data[i].priority + ": " + data[i].name)
+    }
+  } else if (program.completed) {
+    for(var x=0;x<data.length;x++) {
+      if(data[x]["completed"]) {
+      console.log("Task #" + parseFloat(x+1) + " Priority " + data[x].priority + ": " + data[x].name + " is completed")
+      }
+    }
+  } else {
+    console.log("Task #" + program.id + " Priority " + data[program.id-1].priority + ": " + data[program.id-1].name)
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  data.splice(program.id-1,1);
+}
+
+function toggleCompleted(){
+  if(data[program.id-1].completed === false) {
+    data[program.id-1].completed = true;
+    console.log(data[program.id-1].name + " completed");
+  } else {
+    data[program.id-1].completed = false;
+  }
 }
 
 // ---Utility functions---
