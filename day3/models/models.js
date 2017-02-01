@@ -11,3 +11,6 @@ Cat.find(function(error, cats) {
     console.log('Cats', cats);
   }
 });
+
+var document = new Cat({ name: 'TheChosenCat' });
+document.save(function (err) { });
