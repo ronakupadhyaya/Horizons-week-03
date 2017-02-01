@@ -21,14 +21,20 @@ Here are the features we're going to implement:
 
 ## Project files
 
-Files you **will** edit:
+We've set up a simple Express project for you.
 
-- `week03/day3/horizonstarter/models.js`: your Mongoose models
-- `week03/day3/horizonstarter/routes.js`: Express routes (i.e. endpoints)
+These are the files you will be editing for this exercise:
 
-Files you will **not** edit:
+- Express routes (i.e. endpoints): `week03/day3/horizonstarter/routes.js`
+- Mongoose models are in: `week03/day3/horizonstarter/models.js`
+- Your views are in the folder: `week03/day3/horizonstarter/views/`
+- CSS styles for all pages: `week03/day3/horizonstarter/public/css/main.css`
 
-- `week03/day3/horizonstarter/app.js`
+These files, you do **not** need to edit, but you may still find them interesting:
+
+- Express starter script: `week03/day3/horizonstarter/app.js`
+- Handlebars layout template:
+  `week03/day3/horizonstarter/views/layouts/main.hbs1
 
 ## Setup
 
