@@ -41,13 +41,13 @@ db.once('open', function() {
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
-// Syntax: lets say you want your program to go to sleep. You would define it like:
-// program.command('goToSleep')
-// .description("Make our program go to sleep")
-// .action(goToSleep);
-
-// Remeber to declare function goToSleep() so it is called when
-// "node Program.js goToSleep" is called.
+// Syntax: lets say you want your program to add a task. You would define it like:
+// program.command('add')
+// .description("Create Tasks")
+// .action(addTask);
+//
+// addTask is a function that should be defined somewhere in your code. The
+// function will be called when the add command is run.
 
 // THIS PART IS DONE FOR YOU. BE SURE TO READ THROUGH IT AND UNDERSTAND
 // THE CODE.
@@ -85,19 +85,18 @@ program
 // YOUR CODE HERE
 
 // Arguments
-// These line is part of the 'Commander' module. It tells them to process all the
+// These lines are part of the 'Commander' module. They tell it to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 if (process.argv.length === 2) {
   program.help();
 }
 
-// All the arguments that are not specified as flags are stored on an array called
-// program.args
+// All the arguments that are not specified as flags are stored on an array called program.args
 // Calling our program with unkown args like 'node program.js No One'  means nothing
 // to our program. It is not a flag or command. It is an extra argument, so our
 // programs.args contain -> ['No', 'One', {}].
-// 'No One' is the name of the GoT episode. and the last item is an object that contains
+// 'No One' is the name of the Game of Thrones episode. and the last item is an object that contains
 // many other more advanced arguments that are not going to be used now
 
 // The function parseArgs eliminates the last element on the array and joins
@@ -107,7 +106,7 @@ function parseArgs () {
   return args.join(" ");
 }
 
-// EXERCISE 2: ADD TASK
+// EXERCISE 2: Add task
 
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
@@ -132,7 +131,7 @@ function addTask(){
   // YOUR CODE HERE
 }
 
-// EXERCISE 3: SHOW TASKS
+// EXERCISE 3: Show tasks
 
 // Write function showTasks(). It is called when the program is run using the commands
 // 'node toDo.js show' or 'node toDo.js show -t "Do Laundry"'
@@ -155,7 +154,7 @@ function showTasks() {
   // YOUR CODE HERE
 }
 
-// EXERCISE 4: DELETE TASKS
+// EXERCISE 4: Delete tasks
 
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
