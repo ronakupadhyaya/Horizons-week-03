@@ -33,15 +33,14 @@ router.post('/login', function(req, res) {
 // If the function is called with a username like /posts?username=steven, you should
 // filter all posts that aren't done by that user.
 // Hint: to get the username, use req.query.username
-// Hint: use jsonfile.readFileSync() to read the post data from data.json 
+// Hint: use jsonfile.readFileSync() to read the post data from data.json
 
 router.get('/posts', function (req, res) {
   // YOUR CODE HERE
-
   // This renders the posts
   res.render('posts', {
-    title: 'Posts',
-    posts: []
+    posts: data.read(),
+    username : req.cookies.username
   });
 });
 

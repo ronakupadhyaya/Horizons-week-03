@@ -1,3 +1,5 @@
+var app = require('./app.js');
+var _ = require('underscore')
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -7,7 +9,11 @@ module.exports = {
   // "original investment" made on a company.
   // Return the entire investment object, not just the amount.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    arr.sort(function(a,b){
+      return b.originalInvestment - a.originalInvestment
+    })
+    return arr[0].originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +21,12 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var answer = 0
+    for(var i=0;i<arr.length;i++){
+      answer += arr[i].originalInvestment;
+    }
+    return (answer/arr.length);
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +40,18 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr= app.parser(arr);
+    var compObj = _.groupBy(arr,function(item){
+      return item.company;
+    })
+    var answer = {};
+    for(var key in compObj){
+      answer[key]=0;
+      for(var i=0;i<compObj[key].length;i++){
+        answer[key] += compObj[key][i].originalInvestment;
+      }
+    }
+    return answer;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +65,18 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr= app.parser(arr);
+    var compObj = _.groupBy(arr,function(item){
+      return item.investorId;
+    })
+    var answer = {};
+    for(var key in compObj){
+      answer[key]=0;
+      for(var i=0;i<compObj[key].length;i++){
+        answer[key] += compObj[key][i].originalInvestment;
+      }
+    }
+    return answer;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -58,7 +91,19 @@ module.exports = {
   //   ...
   // }
   totalCurrentValueOfInvestors: function(arr, investorId){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr= app.parser(arr);
+    var compObj = _.groupBy(arr,function(item){
+      return item.investorId;
+    })
+    var answer = {};
+    for(var key in compObj){
+      answer[key]=0;
+      for(var i=0;i<compObj[key].length;i++){
+        answer[key] += compObj[key][i].valueToday;
+      }
+    }
+
+    return answer;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +114,37 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var toOgInv = module.exports.totalOriginalInvestmentsByInvestors(arr);
+    var toCuInv = module.exports.totalCurrentValueOfInvestors(arr);
+    console.log('value today'+ toCuInv)
+    console.log('originalInvestment total'+ toOgInv)
+    var bestInvObj = {}
+    var best = 0;
+    for(var key in toCuInv){
+      bestInvObj[key] = toCuInv[key] - toOgInv[key];
+    //  console.log(bestInvObj[key])
+    }
+   //console.log(bestInvObj);
+   var answer =  Object.keys(bestInvObj).reduce(function(a, b){ return bestInvObj[a] > bestInvObj[b] ? a : b });
+   //console.log(answer);
+   return answer;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
-  }
-
+    arr= app.parser(arr);
+    var compObj = _.groupBy(arr,function(item){
+      return item.company;
+    })
+    var answer = {};
+    for(var key in compObj){
+      answer[key]=0;
+      for(var i=0;i<compObj[key].length;i++){
+        answer[key] += compObj[key][i].originalInvestment;
+      }
+    }
+    var compObj=  Object.keys(answer).reduce(function(a, b){ return answer[a] > answer[b] ? a : b });  
+ return compObj.company;
 }

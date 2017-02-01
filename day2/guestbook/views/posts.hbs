@@ -19,6 +19,13 @@ and to create new post! -->
 
 
 <!-- YOUR CODE HERE -->
-
+<h2>Your username: {{username}}</h2>
+<ul>
+{{#each posts}}
+<li>{{this.author}}</li>
+<li>{{this.title}}<li>
+<li>{{this.body}}<li>
+{{/each}}
+</ul>
 </body>
 </html>
