@@ -246,6 +246,18 @@ that allows us to make contributions.
 
   [Mongoose `.sort()` usage](http://stackoverflow.com/a/15081087)
   
+  Example query parameter usage with sort:
+
+  ```javascript
+  if (req.query.sort) {
+    var sortObject = {};
+    sortObject[req.query.sort] = 1;
+    SomeMongoDbModel.find().sort(sortObject).exec(function(err, array) {
+      // YOUR CODE HERE
+    });
+  }
+  ```
+
 1. Add buttons to `week03/day3/horizonstarter/views/index.hbs` to sort
   projects by `start`, `end`, `goal` using the query parameters from 
   the previous step.
