@@ -21,7 +21,7 @@ router.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -41,10 +41,13 @@ router.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
+  //res.send("what up")
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read()
   });
 });
 
@@ -58,7 +61,12 @@ router.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username) {
+      res.render('post_form');
+
+  }
+
+  else throw '404';
 });
 
 // POST /posts:
@@ -77,8 +85,32 @@ router.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
-router.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+router.post('/posts/new', function(req, res) {
+  var newComment = {
+    title: req.body.title,
+    body: req.body.commentBody,
+    author: req.cookies.username,
+    date: req.body.commentDate
+  }
+
+  var arr = data.read();
+  console.log(arr);
+  arr.push(newComment);
+  data.save(arr);
+
+  res.redirect('/posts');
+});
+
+
+
+
+router.get('/:order', function(req, res, next) {
+  if (req.params.order === 'ascending') {
+
+  }
+  else if (req.params.order === 'descending') {
+
+  }
 });
 
 module.exports = router;

@@ -13,7 +13,7 @@
 <body>
 <h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+<h2>Your username: {{username}} </h2>
 
 <!-- Exercise 2: Display posts -->
 
@@ -23,6 +23,36 @@
 -->
 
 <!-- YOUR CODE HERE -->
+
+<div class="ascending">
+  <form class="order-ascending" action="/posts/" method="get">
+    <input type="submit" name="newCom" value="Order by date ascending">
+</div>
+
+<div class="descending">
+  <form class="order-descending" action="/posts/" method="get">
+    <input type="submit" name="newCom" value="Order by date descending">
+</div>
+
+
+<div class="all-posts">
+  <ul>{{#each posts}}
+    <div class="one-post">
+      <div class="author">{{this.author}}</div>
+      <div class="date">{{this.date}}</div>
+      <div class="title">{{this.title}}</div>
+      <div class="body">{{this.body}}</div>
+    </div>
+    {{/each}}
+  </ul>
+</div>
+
+
+<div class="new-comment">
+  <form class="post-new" action="/posts/new" method="get">
+    <input type="submit" name="newCom" value="Post new comment">
+</div>
+
 
 </body>
 </html>

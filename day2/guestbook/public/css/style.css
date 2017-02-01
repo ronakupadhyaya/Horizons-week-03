@@ -7,3 +7,34 @@ body {
 a {
   color: #00B7FF;
 }
+
+form {
+  display: block;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.author {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 9px;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.one-post {
+  border: 1px dotted black;
+  margin-bottom: 10px;
+  padding: 10px 10px;
+
+}
+.login-form {
+  display: inline-block;
+}
