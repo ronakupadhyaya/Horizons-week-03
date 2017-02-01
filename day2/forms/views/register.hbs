@@ -4,21 +4,218 @@
   <title>Registration</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
+  <!-- <link rel="javascript" type="text/css" href="/css/bootstrap.min.css"> -->
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    ::-webkit-input-placeholder {
+   color: red;
+}
+/*input[placeholder] {
+   font-size: 40px; 
+}*/
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+<div class="container" style="background-color: white; border-radius: 5px; padding: 20px;">
+  <div><strong>Errors: </strong>
+  {{#each errors}}
+    {{this.msg}}
+  {{/each}}
+  <form action="/register" method="post">
+    <div class="form-group row  text-center">
+      <label for="firstname" class="col-sm-2 col-form-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" name="firstname" class="form-control" id="first" placeholder="First Name">
+      </div>
     </div>
-  </div>
+    <div class="form-group row  text-center">
+      <label for="middlename" class="col-sm-2 col-form-label">Middle Initial</label>
+      <div class="col-sm-10">
+        <input type="text" name="middlename" class="form-control" id="middle" placeholder="Middle Initial">
+      </div>
+    </div>
+    <div class="form-group row text-center">
+      <label for="lastname" class="col-sm-2 col-form-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" name="lastname" class="form-control" id="last" placeholder="Last Name">
+      </div>
+    </div>
+    <div class="form-group row text-center">
+        <label for="example-month-input" class="col-sm-2 col-form-label">Month</label>
+        <div class="col-sm-10">
+           <select class="form-control" name="month" id="month">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row text-center">
+        <label for="day" class="col-sm-2 col-form-label">day</label>
+        <div class="col-sm-10">
+           <select class="form-control" name="day"  id="day">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+              <option>21</option>
+              <option>22</option>
+              <option>23</option>
+              <option>24</option>
+              <option>25</option>
+              <option>26</option>
+              <option>27</option>
+              <option>28</option>
+              <option>29</option>
+              <option>30</option>
+              <option>31</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row text-center">
+        <label for="year" class="col-sm-2 col-form-label">year</label>
+        <div class="col-sm-10">
+           <select class="form-control" name="year" id="year">
+                <option value="16">2016</option>
+                <option value="17">2017</option>
+                <option value="18">2018</option>
+                <option value="19">2019</option>
+                <option value="20">2020</option>
+                <option value="21">2021</option>
+                <option value="22">2022</option>
+                <option value="23">2023</option>
+                <option value="24">2024</option>
+                <option value="25">2025</option>
+                <option value="26">2026</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row text-center">
+      <label for="passwo" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="passwo" id="passwo" placeholder="Password">
+      </div>
+    </div>
+    <div class="form-group row text-center">
+      <label for="passwo1" class="col-sm-2 col-form-label">Repeat Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="passwo1" id="passwo1" placeholder="Repeat Password">
+      </div>
+    </div>
+    <fieldset class="form-group row ">
+      <label for="gender" class="col-form-label col-sm-2 text-center">Gender</label>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gender" id="gender1" value="option1">
+            Male
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gender" id="gender2" value="option2">
+            Female
+          </label>
+        </div>
+        <div class="form-check disabled">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gender" id="gender3" value="option3" disabled>
+            Prefer not to say
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group row">
+      <label class="col-sm-2">Sign Up for newsletter</label>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" name="news" id="newsletter" type="checkbox">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2">Biography</label>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <label class="form-check-label">
+             <textarea class="form-control" name="bio" placeholder="Biography" id="exampleTextarea" rows="3" cols="100"></textarea>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row text-center">
+      <div class="col-sm-10">
+        <input type="hidden" class="form-control" id="create">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-offset-10 col-sm-2">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </div>
+  </form>
+</div>
 </body>
 </html>
+<!-- 
+var express = require('express')
+var app = express();
+var port = process.env.PORT || 3000
+
+app.get('/', function(request, response, next) {
+  response.type('text/plain')
+  response.send('hello world'+ (request.query.name || 'nysterious stranger'));
+
+  response.format({
+    'text/plain' : function(){
+      response.send("hello there!");
+    },
+    'text/plain' : function(){
+
+    }
+  })
+});
+
+app.get('/hello/:name', function(request, response, next){
+  response.type('text/plain');
+  response.send('hellow there ' + (request.params.name || "m"));
+})
+
+app.listen(port);
+console.log("hey im running on port %", port)
+
+app.use(express.static('public'))
+
+var echo = require("./echo");
+app.use('/echo', echo);
+
+var status = require("./status");
+app.use("/status", status); -->

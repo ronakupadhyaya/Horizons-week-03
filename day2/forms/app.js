@@ -35,13 +35,38 @@ app.get('/', function(req, res){
 app.get('/register', function(req, res){
   // YOUR CODE HERE
   res.render('register');
+
 });
+
+app.use(expressValidator({
+ customValidators: {
+    lte: function(param, num) {
+        return param <= num;
+    },
+    gte: function(param, num) {
+        return param >= num;
+    },
+    equal: function(param, num){
+      return param == num;
+    }
+ }
+}));
 
 // ---Part 2: Validation---
 // Write a function that takes a request object and does
 // validation on it using express-validator.
 function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('firstname', 'Invalid firstName').notEmpty();
+  req.checkBody('middlename', 'Invalid Middlename').notEmpty().lte(1);
+  req.checkBody('lastname', 'Invalid lastName').notEmpty();
+  req.checkBody('month', 'Invalid month').isInt();
+  req.checkBody('day', 'Invalid day').isInt();
+  req.checkBody('year', 'Invalid year').isInt();
+  req.checkBody('passwo', 'Invalid Password').notEmpty().equal(req.passwo1);
+  req.checkBody('passwo1', 'Password not the same').notEmpty().equal(req.passwo);
+  req.checkBody('gender', 'Invalid password').notEmpty();
+  req.checkBody('news', 'Must not be blank').notEmpty();
+  req.checkBody('bio', 'Invalid Bio').notEmpty();
 }
 
 // ---Part 3: Render errors and profile---
@@ -50,6 +75,8 @@ function validate(req) {
 // the registration form.
 app.post('/register', function(req, res){
   validate(req);
+  console.log("this should not be undefined");
+  console.log(req.body);
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
