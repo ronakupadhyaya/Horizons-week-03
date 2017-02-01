@@ -22,6 +22,19 @@
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
+<h2><strong>Posts:</strong></h2><br/>
+	{{#each posts}} 
+	<div>
+		<p><strong>author:</strong> {{this.author}}</p>
+		<p><strong>title: </strong>{{this.title}}</p>
+		<p><strong>body: </strong>{{this.body}}</p>
+		<p><strong>date: </strong>{{this.date}}</p><br/><br/>
+	</div>
+	{{/each}}
+
+
+
+
 <!-- YOUR CODE HERE -->
 
 </body>
