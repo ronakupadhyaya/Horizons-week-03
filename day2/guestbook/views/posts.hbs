@@ -14,6 +14,14 @@
 <h1>View all posts</h1>
 
 <h2>Your username: {{username}}</h2>
+  {{# each posts}}
+  <div>
+  <p>{{this.author}}</p>
+  <p>{{this.title}}</p>
+  <p>{{this.body}}</p>
+  <p>{{this.date}}</p>
+</div>
+  {{/each}}
 
 <!-- Exercise 2: Display posts -->
 

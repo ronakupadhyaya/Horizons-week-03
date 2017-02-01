@@ -22,6 +22,7 @@ router.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -45,6 +46,8 @@ router.get('/posts', function (req, res) {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read(),
   });
 });
 
@@ -59,6 +62,9 @@ router.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies){
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -79,6 +85,30 @@ router.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 router.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Invalid title').notEmpty();
+  req.checkBody('body', 'Invalid body').notEmpty();
+// Get errors from express-validator
+var errors = req.validationErrors();
+console.log(errors);
+if (errors) {
+  console.log('fuck');
+  res.render('posts', {errors: errors});
+}
+if (req.cookies && !errors){
+  console.log('ok');
+  var post = {
+    author: req.cookies.username,
+    date: req.body.date,
+    title: req.body.title,
+    text: req.body.text
+  }
+}
+console.log('yes');
+var posts = data.read()
+console.log(posts);
+posts.push(post);
+console.log(posts);
+data.save(posts);
+res.redirect('/posts');
 });
-
 module.exports = router;
