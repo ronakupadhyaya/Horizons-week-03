@@ -8,7 +8,7 @@ var router = express.Router();
 var data = require('./data');
 
 router.get('/', function(req, res) {
-  res.send('Your server is working!');
+  res.send('Your server is working');
 });
 
 // ---Exercise 1. Login form---
@@ -22,6 +22,7 @@ router.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 router.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -42,6 +43,8 @@ router.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 router.get('/posts', function (req, res) {
   res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read()
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
@@ -59,6 +62,7 @@ router.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 router.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username)
 });
 
 // POST /posts:
