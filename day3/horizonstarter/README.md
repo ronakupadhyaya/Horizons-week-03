@@ -263,9 +263,13 @@ sort the array yourself. You can install `underscorejs` with NPM if you'd like.
 ### Exercise 9: Filter projects by funding status
 
 Make it possible to filter projects based whether they have met their funding
-goal.
+goal. Similar to "Exercise 8" we have to get all `Project`s from MongoDb
+and filter them ourselves.
 
-TODO
+You should add links to `index.hbs` to allow:
+
+1. View fully funded projects
+1. View projects that are not fully funded
 
 ### Bonus: Exercise 10: Project images
 
