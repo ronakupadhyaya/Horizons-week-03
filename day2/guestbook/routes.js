@@ -8,7 +8,7 @@ var router = express.Router();
 var data = require('./data');
 
 router.get('/', function(req, res) {
-  res.redirect('/login');
+  res.send('Your server is working!');
 });
 
 // ---Exercise 1. Login form---
