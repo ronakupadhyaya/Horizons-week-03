@@ -219,11 +219,11 @@ that allows us to make contributions.
   ```
 
 1. Create a new endpoint in `routes.js` `POST /projects/:projectid/edit`.
-  The HTML form in `editProject.hbs` should submit data to this endpoint
+  The HTML form in `editProject.hbs` should `POST` data to this endpoint
   (using `action` and `method`).
 
-  When this route is called use `.findByIdAndUpdate()` to update the
-  `Project` object:
+  When this route is called use [`.findByIdAndUpdate()`](http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate)
+  to update the `Project` object:
 
   ```javascript
   Project.findByIdAndUpdate(req.params.projectid, {
