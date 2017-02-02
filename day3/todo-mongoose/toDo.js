@@ -43,7 +43,7 @@ var ToDoItem = mongoose.model('ToDoItem', {
   name: String,
   priority: String,
   completed: Boolean
-})
+});
 
 
 // Time to start defining our Commands. What are we going to do with our program?

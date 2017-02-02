@@ -1,6 +1,21 @@
 <h2>Create project</h2>
 
 <!-- Exercise 2: Create project -->
+
+<div>
+	{{#each errors}}
+		{{this.msg}} <br/>
+	{{/each}}
+</div>
+
+<form action="/new" method="POST">
+	<div>title<input type="text" name="title"></div>
+	<div>goal<input type="number" name="goal"></div>
+	<div>description<input type="textarea" name="description"></div>
+	<div>start<input type="date" name="start"></div>
+	<div>end<input type="date" name="end"></div>
+	<input type="submit">
+
+</form>
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
-
