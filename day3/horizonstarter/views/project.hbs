@@ -2,8 +2,23 @@
 
 <!-- Exercise 3: View a single project -->
 
-<!-- YOUR CODE HERE -->
+<div><h3>{{project.title}}</h1><br>
+<span>{{project.goal}}</span><br>
+<span>{{project.description}}</span><br>
+<span>{{project.start}}</span><br>
+<span>{{project.end}}</span></div><br>
+<span>{{project.contributions}}</span><br>
+<span>{{total}}</span>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+  </div>
+</div>
 
 <!-- Exercise 4: Contribute to a project -->
 
-<!-- YOUR CODE HERE -->
+<form action = "/project/{{project._id}}" method = 'post'>
+  <input type= 'text' placeholder= 'Name' name= 'name'></input></br>
+  <input type= 'Number' placeholder= 'Amount' name= 'amount'></input></br>
+  <input type='submit' name='submit' value='submit'></input>
+</form>
