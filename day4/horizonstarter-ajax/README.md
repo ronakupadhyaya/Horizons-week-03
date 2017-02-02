@@ -1,12 +1,10 @@
 # Hybrid web app: adding AJAX to Horizon Starter
 
-TODO: Remove AJax, Leave scripts. 
 
-TODO: Do a sample endpoint. POST some shit with AJAX, return whatever, JQUERy into scrreen. 
 
 ## Introduction
 
-*Can take from old descriotion of exercise for here*
+*Can take from old description of exercise for here*
 
 1. Ajax lets connect without page refresh
 
@@ -59,7 +57,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
 6. client: user clicks on the `sort: ascending button`
 
-7. client: sends an ajax request to `/api/projects?order=ascending`
+7. client: sends an ajax request to `/api/projects?sortDirection=ascending`
 
 8. server: matches the route for  `/api/projects`
 
@@ -75,14 +73,13 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
 1.    Create a new endpoint route in your routes file: `week03/day3/horizonstarter/routes.js`. The new route should be: `POST /api/project/:projectId/contribution` 
 
-      - When posting to pur new route, It search the database for the project with the correct `projectId`. If it is not able to find the project, it should return an error! 
+      - When posting to our new route, search the database for the project with the correct `projectId`. Return an error if no such project is found.
 
-      - It if is able to find it, then it should:
+      - Once you have the project:
 
         - Build a contribution object from 2 elements on the request body: `name` and `amount`
-        - It should add the new contribution to the project's contribution array: `project.contributions`
-        - It should save the project to update the contributions.
-        - It should respond with the newly created contribution as JSON and a status of 200 -> ok using: `res.json()`
+        - Push the object to the project's contribution array: `project.contributions`
+        - `.save()` the `project`, if save is successful respond using `res.json()` with the contribution object
 
         **Testing**: 
 
@@ -101,53 +98,52 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
         ​
 
-2.    Make the POST request from the client in ajax.
+2.    Make an AJAX request from the browser to the new endpoint.
 
-                  Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. You have to setup a couple of things before being able to perform an AJAX request. 
+      Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. You have to setup a couple of things before being able to perform an AJAX request. 
 
-      - Create a file on your `public/js` folder called `contributions.js`
-      - Add a script tag to your `project.hbs` that looks like this `<script src="/js/contributions.js">` which loads the new file you created at `public/js/contibutions.js`. 
-      - Open your `project.hbs` file and remove the `<input type="submit">` from the form, and add a `<button id="contribute">`
-      - Open the `contributions.js` file and add a `click` event listener for the button we just created. Remember that event handlers can only be added when the document is ready! On your event handler, call  `sendContribution();` whenever someone clicks the button. 
-      - Define the  `sendContribution();` function. Inside this function, you have to code the AJAX `POST /api/project/:projectId/contribution` request. Follow this steps:
-        1. Get the data from the form using JQuery. 
+      1. Create a file on your `public/js` folder called `contributions.js`
 
-        2. Create a new contribution object from the data.
+      2. Add a script tag to your `project.hbs` that looks like this `<script src="/js/contributions.js">` which loads the new file you created at `public/js/contibutions.js`. 
 
-             ```  
-              var newContribution = {
-              	name: // value you get from the form.
-              	amount: // value you get from the form. 
-              };
-             ```
+      3. Open your `project.hbs` file and remove the `<input type="submit">` from the form, and add a `<button>` instead
+      4. Open `contributions.js`  and add a `click` event listener for the button we just created. Remember that event handlers can only be added when the document is ready! On your event handler, call  `sendContribution();` whenever someone clicks the button. 
+      5. Define the  `sendContribution();` function. Inside this function, you have to code the AJAX `POST /api/project/:projectId/contribution` request. Follow this steps:
+         1. Get the data from the form using jQuery. 
 
-        3. Send the data via `$.ajax()` POST to the endpoint you created on the previous step.
+         2. Create a new contribution object from the data.
 
-        4. If the request was succesful, clear the form and call:
+              ```  
+               var newContribution = {
+               	name: // value you get from the form.
+               	amount: // value you get from the form. 
+               };
+              ```
 
-           `renderNewContribution(newContribution)` This method takes the object for the new contribution.
+         3. Send the data via `$.ajax()` POST to the endpoint you created on the previous step.
 
-        5. Call `showFlashMessage("Thanks for your contribution! You rock!", 'success');` to display a success message on the screen! 
+         4. Define  `showFlashMessage()` that inserts a notification message somewhere near the top of the page. [Check out the bootstrap documentation on notifications.](http://www.w3schools.com/bootstrap/bootstrap_alerts.asp) A 'danger' message is red, while the 'success' one is green.
 
-        6. If the request was not succesful call `showFlashMessage("An error ocurred", 'danger');`
+         5. If the request was succesful:
 
-        7. Define the `showFlashMessage()` so that it shows a flash message on the screen. Check the bootstrap documentation on how to do this! A 'danger' message is red, while the 'success' one is green.
+            1. Clear the contribution form input elements.
+            2. Call `showFlashMessage("Thanks for your contribution! You rock!", 'success');` to display a success message on the screen! 
+            3. If the request was not succesful call `showFlashMessage("An error ocurred", 'danger');`
 
-      **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser, click on any project. Fill in the form and add a contribution! You should get a green message if there were no errors. You shouldn't be able to see the new contribution right away, but if your code works up to this point, refreshing the page should make the new contribution appear.
-
-      ​
+      **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser, click on any project. Fill in the form and add a contribution! You should get a green message if there were no errors. You will **not**  be able to see the new contribution on your page right away. But if you refresh the page,  the new contribution will appear.
 
 3.    Use JQuery to update the page after adding a contribution. 
 
-                  Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet. We have to refresh to get all the new contributions from the database. We are going to fix that now. 
+      Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
 
-      1. On the sucess of your AJAX request, we called `renderNewContribution(newContribution);` 
-      2. Define the `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`.
-      3. Append `contributionHTML` to the list of contributions.
+
+      1. Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
+      2. Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);` 
 
 4.    Validate contributions are greater than 0.
 
-                   You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+      You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+
 
       1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
       2. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client. 
@@ -158,7 +154,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
 ## Exercise 2: Ajax filter projects
 
-On this exercise, we are going to implement project filtering on the homepage. We want the user to be able to filter projects by status: "Fully funded", "Not fully funded" and "show all".
+In this exercise, we are going to implement project filtering in `index.hbs` via AJAX. We want the user to be able to filter projects by status: "Fully funded", "Not fully funded" and "show all".
 
 
 
@@ -203,23 +199,24 @@ This is similar to yesterday's filter projects by funded or not funded. The diff
 
 3.  Add a script tag to your `index.hbs` to import the file you created `public/js/index.js`. 
 
-4.  Open the `index.js` file and add `click` event listeners for the buttons we just created. Your 3 buttons can call the same functions, but you must know which button was clicked. 
+4.  Open  `public/js/index.js` file and add `click` event listeners for the 3 buttons we just created. When each button is clicked:
 
-5.  Inside the function you created, code the AJAX `GET /api/project` request. Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
+    1.  Make an AJAX request to `GET /api/project` . Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
 
-**Testing**: To test this request, add a `console.log(req.query)` on the first line of the route made on the step before. 
+**Testing**: To test this request:
 
-1. Visit `localhost:3000`  and check your node console. It should print a blank object. 
-2. Visit `localhost:3000` click on "Funded" and check your node console. It should print an object containing  `funded: true`
-3. Visit `localhost:3000` click on "Not Funded" and check your node console.  It should print an object containing  `funded: false`
+1. Add a `console.log(req.query)` to `GET /api/project`
+2. Visit `localhost:3000`  and check your terminal (i.e. node console). It should print a blank object. 
+3. Visit `localhost:3000` click on the "Funded" button and check your terminal (i.e. node console). It should print an object containing  `funded: true`
+4. Visit `localhost:3000` click on the "Not Funded" button and check terminal (i.e. node console).  It should print an object containing  `funded: false`
 
 **3. Rendering the results**
 
-You are going to use JQuery to update the page after adding a contribution. Edit the callbacks on your AJAX request. 
+You are going to use JQuery to update the page after filtering results.
 
-1. If the request was succesful, clear the projects div and render the posts you got back from the request onto the page.
+1. If the AJAX request to `GET /api/project`  was succesful, clear the projects div and turn each project into HTML and append them to the projects div.
 
-2. If the request failed, display an error banner using bootstrap.  
+2. If the AJAX request `GET /api/project`  failed, display an error banner using bootstrap.  
 
 
 **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser. On the homepage click on all three buttons, they should filter the projects accordingly. 
@@ -239,50 +236,50 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
 
 1.   Modify it to get 2 new parameters: 
 
-     a. `sortBy` that could take in the values "percentageFunded", "amountFunded" or not be present.
+     a. `sort` that could take in the values "percentageFunded", "amountFunded" or not be present.
 
-     b. `order` that could take in the values "ascending", "descending" and no value, to which we will asume no sorting is required. 
+     b. `sortDirection` that could take in the values "ascending", "descending" and no value, to which we will asume no sorting is required. 
 
      * This means our URL can now take in up to 3 optional arguments. The most basic request would look like this `localhost:3000/api/project`. But we should be able to query these:
        * `localhost:3000/api/project?funded=true`
-       * `localhost:3000/api/project?funded=true&sortBy=amountFunded` which should default to ascending order. 
-       * `localhost:3000/api/project?funded=false&sortBy=amountFunded&order=descending`
-       * And all other possible combinations of these params. Note that order should only be applied when sortBy is present. Otherwise there is no field to sortBy. 
+       * `localhost:3000/api/project?funded=true&sort=amountFunded` which should default to ascending order. 
+       * `localhost:3000/api/project?funded=false&sort=amountFunded&sortDirection=descending`
+       * And all other possible combinations of these params. Note that `sortDirection` should only be applied when `sort` is present. Otherwise there is no field to `sort`. 
 
-2.   To be able to hadle this, you need to add a new step in your route logic. Up to **Exercise 2** you had a filter function to remove the posts that you didn't want such as 'Fully funded' or "Not Fully Funded". Now, you have to add new functionality to order your posts. 
+2.   To be able to hadle this, you need to add a new step in your route logic. In **Exercise 2** we filtered posts based on being "Fully funded" or "Not Fully Funded". Now, you have to add new functionality to change the ordering of projects:
 
-     - You need to sort your posts **after** you have filtered the posts, but **before** sending them back
-     - Only sort your posts if there is a `sortBy` parameter. 
-     - If there is a `sortBy` parameter and no `order` , asume it should be ordered ascending. 
+     - You need to sort projects **after** you have filtered them, but **before** sending them back
+     - Only sort your projects if there is a `sort` parameter. 
+     - If there is a `sort` parameter and no `order` , user ascending (i.e. increasing) sort.
 
 3.   Send back the data of the filtered & sorted posts back by doing `res.json(posts)`
 
-         **Testing**: 
+     **Testing**: Start your server and open Postman perform the following requests:	
 
-         Start your server and open Postman perform the following requests:	
 
      1. `GET localhost:3000/api/project`. You should get all the projects back.
-     2. `GET localhost:3000/api/project?funded=true&sortBy=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
-     3. `GET localhost:3000/api/project?funded=false&sortBy=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
+     2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
+     3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
 
 **2. Making the request **
 
-Now, we have to add a way for users to sort the posts. Follow the following steps. 
+Now, we have connect our new route to the page.
 
-1. Edit the`index.js` file and add two dropdowns:
+1. Edit `views/index.hbs`  and add two dropdowns:
 
-   1. SortBy, that should contain two options:  "percentageFunded", "amountFunded"
-   2. Order, that sould contain two options: "ascending", "descending" 
+   1. Sort By, that should contain two options:  "Percentage Funded", "Amount Funded"
+   2. Order, that sould contain two options: "Ascending", "Descending" 
 
-2. Add a button called "sort" after the dropdowns. 
+2. Add a button called "Sort" after the dropdowns. 
 
-3. Add an event listener for this button. On the listener, perfom an AJAX GET request to the endpoint defined in the previous step, sending the correct parameters `order` and `sortBy` by getting them from the dropdowns.
+3. Add an event listener for this button. On the listener, perfom an AJAX GET request to `GET /api/projects`, sending the correct parameters `order` and `sortBy` by getting them from the dropdowns.
 
-**Testing**: To test this request, add a `console.log(req.query)` on the first line of the route made on the step before. 
+**Testing**: To test this request:
 
- 1. Visit `localhost:3000`  and check your node console. It should print a blank object. 
- 2. Visit `localhost:3000` select "Percentage Funded" from your sortBy dropdown and click sort.  Check your node console. It should print an object containing  `SortBy: "percentageFunded"`
- 3. Visit `localhost:3000` select "Amount Funded" from your sortBy dropdown, select "Descending" from your orderBy dropdown and click sort.  Check your node console. It should print an object containing   `SortBy: "amoutFunded", order: "descending"`
+ 1. Add a `console.log(req.query)` to the route `GET /api/projects`
+ 2. Visit `localhost:3000`  and check your node console. It should print a blank object. 
+ 3. Visit `localhost:3000` select "Percentage Funded" from your sortBy dropdown and click sort.  Check your node console. It should print an object containing  `SortBy: "percentageFunded"`
+ 4. Visit `localhost:3000` select "Amount Funded" from your sortBy dropdown, select "Descending" from your orderBy dropdown and click sort.  Check your node console. It should print an object containing   `SortBy: "amoutFunded", order: "descending"`
 
    
 
