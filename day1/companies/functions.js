@@ -87,7 +87,7 @@ module.exports = {
   //   ...
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
-<<<<<<< HEAD
+
     var obj = {}
     arr.forEach(function(item){
       if(obj.hasOwnProperty(item.investorId)){
@@ -97,9 +97,6 @@ module.exports = {
       }
     })
     return obj;
-=======
-  totalCurrentValueOfInvestors: function(arr){
->>>>>>> master
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -143,5 +140,4 @@ module.exports = {
     })
     return company;
   }
-
 }

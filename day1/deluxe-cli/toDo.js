@@ -45,6 +45,7 @@ program.command('show')
   .action(showTasks)
 
 // YOUR CODE HERE for "Delete" its action must call deleteTask
+
 program.command('delete')
   .description('Delete Tasks')
   .action(deleteTask)
@@ -68,7 +69,7 @@ program.toggle('toggle')
 // will be parsed with parseInt. Here we can specify the number of the episode that
 // we want to watch.
 
-// Example: first flag: --id or -i. This one will specify which task commands
+
 // like 'show' or 'delete' are called on.
 program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
@@ -76,6 +77,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority and -p"
+program
+  .option('-p, --priority <n>', 'Specify priority of the task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -133,6 +136,15 @@ function addTask() {
 // ex.
 //  data = [{name: "Do Laundry", priority: 2}]
 //  node toDo.js show -> Task #1 Priority 2: Do Laundry
+//
+// var priority = program.priority || 1;
+// var name = getRemainingArgs();
+// data.push({
+//   name: name,
+//   priority: priority,
+//   completed: false
+// });
+// console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
 function showTasks(){
   // YOUR CODE HERE
   var id = program.id;

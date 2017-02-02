@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this exercise is to create a basic guestbook web app that allows 
+The goal of this exercise is to create a basic guestbook web app that allows
 users to login, view posts and create new posts.
 
 ### Getting started
@@ -42,7 +42,7 @@ Each guestbook post is represented by an object with the following properties:
 ### Exercise 1: Login
 
 1. Implement the `GET /login` endpoint in `week03/day2/guestbook/routes.js`.
-1. Add an HTML form with `method="POST"` and `action="/login"` 
+1. Add an HTML form with `method="POST"` and `action="/login"`
   to `week03/day2/guestbook/views/login.hbs`. This login form should contain
   a single `<input>` element of `type="text"` and `name="username"`
   and [a submit button](http://www.w3schools.com/html/html_forms.asp)
@@ -83,7 +83,7 @@ Make it possible to sort posts by date using a URL parameter.
 
 1. Add a request parameter `order` to the `GET /posts` endpoint in
    `week03/day2/guestbook/routes.js`.
-   
+
    `/posts?order=ascending` should display posts in chronological order (oldest
    first).
 
@@ -98,14 +98,14 @@ Make it possible to sort posts by date using a URL parameter.
 1. Add a request parameter `author` to the `GET /posts` endpoint in
    `week03/day2/guestbook/routes.js`. When this parameter is specified, only posts
    belonging to the specified author should be displayed.
-1. Update `week03/day2/guestbook/views/posts.hbs`, add a link next to each post to 
+1. Update `week03/day2/guestbook/views/posts.hbs`, add a link next to each post to
   "View only posts by this author" that takes you to
   `/posts?author=name-of-author-here`
 1. When posts are being filtered by author, add a link to `posts.hbs` to
   "View posts by all authors" again.
 1. Make sure it's possible to sort and filter posts simultaneously.
   `/posts?order=ascending&author=Moose` should work.
-  
+
 ### Bonus Exercise: Stylin
 
 Use [Bootstrap](http://getbootstrap.com/) to style your views (i.e. your pages).
