@@ -33,27 +33,15 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 **Hybrid app**: Today's approach!
 
 1. user: Visits `localhost:3000/projects`
-
 2. server: matches route on `routes.js`
-
 3. server: loads data for `projects` from `mongoose`
-
 4. server: gets template + fills in data for projects to create an `html` file  **Rendering HTML**
-
 5. client: displays html file. 
-
 6. client: user clicks on the `sort: ascending button`
-
 7. client: sends an ajax request to `/api/projects?sortDirection=ascending`
-
 8. server: matches the route for  `/api/projects`
-
 9. server: loads data from mongoose for projects, sends data back to client as JSON. 
-
 10. client: gets data as JSON, converts it into html, displays it on page **Rendering HTML**
-
-   ​
-
 
 
 ## Exercise 1: Ajax contributions
@@ -83,7 +71,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
         If you get back the same object, you are good to go!
 
-        ​
+  
 
 2.    Make an AJAX request from the browser to the new endpoint.
 
@@ -295,8 +283,6 @@ The easiest way to do this is by having an AJAX call that fires every 5 seconds 
 
 #### 2. Search by project title or description 
 
-
-
-
+Add a search bar on your home 
 
 
