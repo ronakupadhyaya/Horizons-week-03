@@ -13,7 +13,7 @@ Write to and read from MongoDb using a Mongoose model.
   ![](img/mlab1.png)
 1. Copy the MongoDb URI
   ![](img/mlab2.png)
-1. Open `week03/day4/models` and rename `connect_copy.js` to `connect.js`
+1. Open `week03/day3/models` and rename `connect_copy.js` to `connect.js`
 1. Open `connect.js` and paste the MongoDb URI you copied where it says `MongoDB-URI-HERE`
 1. Edit `models.js` and add code to create 3 cats and save them to MongoDb.
   1. Name: Crookshanks Color: Black
