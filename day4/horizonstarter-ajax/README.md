@@ -293,27 +293,10 @@ The easiest way to do this is by having an AJAX call that fires every 5 seconds 
 	2. Add a contribution in one tab
 	3. Switch to the other tab, it should appear after 5 seconds!
 
-####  
+#### 2. Search by project title or description 
 
 
 
-## TODO: OPTIONAL Bonus
 
-**TODO ** THESE WERE HERE BEFORE. MABE ONE IS USEFUL? 
-
-If you need more of a challenge in this project, add the following:
-
-- More project filters, e.g.:
-  - Filter by user
-  - Filter by category
-- Search by project title or description
-- Allow multiple filters to be combined
-- Allow projects to be sorted:
-  - Sort by user
-  - Sort by funding level (both absolute dollars and funding percent)
-  - Alphabetic sort
-  - Chronological sort
-  - Display projects in the order in which they expire, soonest expiration first
-- Use web sockets for truly realtime polling (http://socket.io/)
 
 
