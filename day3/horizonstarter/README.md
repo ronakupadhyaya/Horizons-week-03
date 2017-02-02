@@ -118,7 +118,7 @@ created document.
 
 1. Implement the `GET /new` endpoint in `week03/day3/horizonstarter/routes.js`.
   Render `new.hbs`.
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and render an HTML form
+1. Edit `week03/day3/horizonstarter/views/new.hbs` and render an HTML form
   that has `method` `POST` and `action` `/new`. This form should contain:
     1. `title`: text input field 
     1. `goal`: text input field
