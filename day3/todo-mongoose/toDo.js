@@ -6,48 +6,56 @@ var fs = require('fs');
 // command line commands, arguments and flags.
 var program = require('commander');
 
-// EXERCISE 0: Create a config.js file that should export the MONGODB_URI (use module.exports)
+var config = require('./config')
 
-var config = require('./config');
-
-// require the mongoose package
+// TODO: require the mongoose package
+// YOUR CODE HERE
 var mongoose = require('mongoose');
 
-// connect to your Mongo Database
+// TODO: connect to your Mongo Database
+// YOUR CODE HERE
 mongoose.connect(config.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 // check if the connection was successful
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error. did you remember to create a config file? '));
+db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // connected!
 });
-
-// EXERCISE 1: Create the Model
 
 // Everything in Mongoose starts with a Schema. Each schema
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
 //
+// TODO: create a schema for the ToDoItemItem. Your schema should
+//    look like the following:
+//    {
+//      name: String,
+//      priority: String,
+//      completed: Boolean
+//    }
+
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
-//
-// TODO: create a model (called ToDoItem) with a "name" property that
-//    is a String, a "priority" property that is a String, and a
-//    "completed" property that is a Boolean.
+// TODO: Compile schema into model called ToDoItem
 
 // YOUR CODE HERE
+var task = mongoose.model('task', mongoose.Schema({
+  name: String,
+  priority: String,
+  completed: Boolean
+}));
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
-// Syntax: lets say you want your program to add a task. You would define it like:
-// program.command('add')
-// .description("Create Tasks")
-// .action(addTask);
-//
-// addTask is a function that should be defined somewhere in your code. The
-// function will be called when the add command is run.
+// Syntax: lets say you want your program to go to sleep. You would define it like:
+// program.command('goToSleep')
+// .description("Make our program go to sleep")
+// .action(goToSleep);
+
+// Remeber to declare function goToSleep() so it is called when
+// "node Program.js goToSleep" is called.
 
 // THIS PART IS DONE FOR YOU. BE SURE TO READ THROUGH IT AND UNDERSTAND
 // THE CODE.
@@ -78,25 +86,29 @@ program.command('delete')
 // will be parsed with parseInt. Here we can specify the number of the episode that
 // we want to watch.
 
-// TODO: add flags for "-t and --task" (do not use parseInt as the
-//    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task <value>', 'Specify name of task')
+.option('-c, --completed', 'Specify the completed')
+// TODO: add flags for "-t and --task" (do not use parseInt as the
+//    task name should be kept a string)
+
 // YOUR CODE HERE
 
 // Arguments
-// These lines are part of the 'Commander' module. They tell it to process all the
+// These line is part of the 'Commander' module. It tells them to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 if (process.argv.length === 2) {
   program.help();
 }
 
-// All the arguments that are not specified as flags are stored on an array called program.args
+// All the arguments that are not specified as flags are stored on an array called
+// program.args
 // Calling our program with unkown args like 'node program.js No One'  means nothing
 // to our program. It is not a flag or command. It is an extra argument, so our
 // programs.args contain -> ['No', 'One', {}].
-// 'No One' is the name of the Game of Thrones episode. and the last item is an object that contains
+// 'No One' is the name of the GoT episode. and the last item is an object that contains
 // many other more advanced arguments that are not going to be used now
 
 // The function parseArgs eliminates the last element on the array and joins
@@ -106,22 +118,25 @@ function parseArgs () {
   return args.join(" ");
 }
 
-// EXERCISE 2: Add task
-
 // Example: This is a function that is called to create a new task.
-// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
+// Calling `node to_do.js add Do the dishes -p 3` must all our function addTask.
 // it should get the name of the task by calling parseArgs() and the priority
 // for the tast from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
-// `node toDo.js add Do the dishes`
+// `node to_do.js add Do the dishes`
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
 
-  // TODO: create new instance of your toDo model (call it task) and
+  // TODO: create new instance of your ToDoItem model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var tasks = new task({
+    name: name,
+    priority: priority,
+    completed: false
+  });
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -129,38 +144,69 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  tasks.save(function (err, task) {
+    if(err){
+    return err;
+    } 
+    console.log("Added task named: "+ tasks.name + ", and priority: " + tasks.priority);
+    mongoose.connection.close();
+  });
 }
 
-// EXERCISE 3: Show tasks
-
-// Write function showTasks(). It is called when the program is run using the commands
-// 'node toDo.js show' or 'node toDo.js show -t "Do Laundry"'
-
-// Good Command Syntax (with quotes): node toDo.js show -t "Do Laundry"
-// Bad Command Syntax (without quotes): node toDo.js show -t Do Laundry
-
-// if there is a flag value for name, the program should only display the task with the specified name
+// Write function showTasks(). It is be called when the program is called like
+// 'node to_do.js show' and 'node to_do.js show -t laundry'
+// if there is a flag value for name, the program should only display that task
 // it there is no flag task, the program should return all tasks.
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
-// Here,  'node toDo.js show -t "Clean dishes"' will show "Task: Clean dishes, Priority: 1, Completed: false"
+// Here,  'node to_do.js show -t Clean dishes' will show "Clean dishes"
 // use console.log to write to the command line.
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
-function showTasks() {
+function showTasks(){
   // Hint: Use the .find function on your model to get the tasks
-  //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
+  //    .find({key: value}, function(err, task) { // do things } ) - only finds tasks where {key: value} matches
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if(program.task){
+    task.find({name: program.task}, function (err, tasks) {
+     if (err){
+      	return err;
+      }
+
+	      tasks.forEach(function(key) {
+	        console.log(`Task: ${key.name}, Priority: ${key.priority}, Completed: ${key.completed}`);
+	      });
+
+      mongoose.connection.close();
+    });
+  } else{
+    task.find(function (err, tasks) {
+      if (err){
+      	return err;
+      }
+
+	      tasks.forEach(function(key) {
+	      	console.log(`Task: ${key.name}, Priority: ${key.priority}, Completed: ${key.completed}`);
+	      });
+
+      mongoose.connection.close();
+    });
+  }
 }
 
-// EXERCISE 4: Delete tasks
-
-// Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
+// Write a function that is called when the command `node to_do.js delete -t laundry`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
-  // TODO: If program.task exists you should use mongoose's .remove function
+  // TODO: IF program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  if(program.task){
+    task.remove({name: program.task}, function (err, tasks) {
+ 
+
+      mongoose.connection.close();
+    });
+  } 
 }
