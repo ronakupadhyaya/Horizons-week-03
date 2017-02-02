@@ -1,25 +1,18 @@
-<h2>Create project</h2>
-
-<!-- Exercise 2: Create project -->
-<!-- Exercise 5: Project categories -->
-
-<!-- YOUR CODE HERE -->
 <form action ="/new" method="post">
   Title:<br>
-  <input type="text" name="title"><br>
+  <input type="text" name="title" value={{project.title}}><br>
   Goal:<br>
-  <input type="number" name="goal"><br>
+  <input type="number" name="goal" value={{project.goal}}><br>
   Description:<br>
-  <input>
-  <textarea name="description"></textarea></input><br>
+  <textarea name="description">{{project.description}}</textarea><br>
   End Date:<br>
-  <input type="date" name="end"><br>
+  <input type="date" name="end" value={{date}}><br>
   categories: <select name="categories">
       <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
       <option value="Current Black Presidents">Current Black Presidents</option>
       <option value="The Pen Is Mightier">The Pen Is Mightier</option>
       <option value="Famous Mothers">Famous Mothers</option>
-      <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+      <option selected value="Drummers Named Ringo">Drummers Named Ringo</option>
       <option value="1-Letter Words">1-Letter Words</option>
       <option value='Months That Start With "Feb"'>Months That Start With "Feb"</option>
       <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>

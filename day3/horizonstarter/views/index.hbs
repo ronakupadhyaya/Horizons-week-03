@@ -2,7 +2,21 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
+<p>
+    {{#each array}}
+    <div style='background-color: green'>
+      <h3>{{this.title}}</h3>
+      <h4>{{this.description}}</h4>
+      <h3>{{this.goal}}</h3>
+      <h5>{{this.start}}</h5>
+      <h5>{{this.end}}</h5>
+    </br>
+    <form action ="/project/{{id}}" method="get">
+      <input type='submit' value='Check Out This Project!'>
+    </form>
+    </div>
+    {{/each}}
+</p>
