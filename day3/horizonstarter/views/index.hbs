@@ -2,7 +2,20 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<h1>{{title}}</h1>
+<ul>
+{{#each array}}
+  
+ <li>{{title}}</li>
+ <li>{{description}}</li>
+ <li>{{goal}}</li>
+ <li>{{start}}</li>
+ <li>{{end}}</li>
+ <li><a href="/project/{{id}}">View project</a></li>
+{{/each}}
+</ul>
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
+
 <a href="/new">Create a new project</a>

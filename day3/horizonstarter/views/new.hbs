@@ -4,3 +4,15 @@
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
 
+  {{#each errors}}
+    {{this.msg}}
+  {{/each}}
+
+
+<form action="/new" method="post">
+  title: <input type="text" name="title"><br>
+  goal: <input type="text" name="goal"><br>
+  description: <textarea name="description"></textarea>
+  end: <input type="date" name="end"><br>
+  <input type="submit" value="Submit">
+</form>
