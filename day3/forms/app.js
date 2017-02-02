@@ -55,28 +55,28 @@ function validate(req) {
 
 // POST /register
 // Create a user
-// If the fields are all validated, the data should be saved to the database 
-// using the user model and the page should redirect to the profile of the user 
+// If the fields are all validated, the data should be saved to the database
+// using the user model and the page should redirect to the profile of the user
 // that was just created.
-app.post('/register', function(req, res){
-  validate(req);
-  // Get errors from express-validator
-  var errors = req.validationErrors();
-  if (errors) {
-    res.render('register', {errors: errors});
-  } else {
-    // YOUR CODE HERE
-    
-  }
-});
+// app.post('/register', function(req, res){
+//   validate(req);
+//   // Get errors from express-validator
+//   var errors = req.validationErrors();
+//   if (errors) {
+//     res.render('register', {errors: errors});
+//   } else {
+//     // YOUR CODE HERE
+//
+//   }
+// });
 
 // GET /profile/:id
 // Show a user
-// This route should fetch the user wit the given ide from the database and 
+// This route should fetch the user wit the given ide from the database and
 // render the profile template with the user data.
 app.get('/profile/:id', function(req, res) {
   // YOUR CODE HERE
-  
+
 });
 
 app.listen(3000, function() {
