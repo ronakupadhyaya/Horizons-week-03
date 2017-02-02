@@ -2,7 +2,24 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each items}}
+<br>
+<div>
+   <span> Title:</span><span> {{this.title}} </span><br>
+  <span> Goal:</span><span> {{this.goal}} </span><br>
+  <span> Description:</span><span> {{this.description}} </span><br>
+  <span> Start Date:</span><span> {{this.start}} </span><br>
+  <span> End Date:</span><span> {{this.end}} </span><br>
+</div>
+<br>
+{{/each}}
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<a href="http://localhost:3000/new">Create a new project</a>
+
+
+
+
+
+
+</div>

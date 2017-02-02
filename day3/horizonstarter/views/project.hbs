@@ -2,8 +2,49 @@
 
 <!-- Exercise 3: View a single project -->
 
+
+
+<div>
+   <span> Title:</span><span> {{project.title}} </span><br>
+  <span> Goal:</span><span> {{project.goal}} </span><br>
+  <span> Description:</span><span> {{project.description}} </span><br>
+  <span> Start Date:</span><span> {{project.start}} </span><br>
+  <span> End Date:</span><span> {{project.end}} </span><br>
+</div>
+<br>
+
+<!-- Exercise 2: Create new project -->
+<!-- YOUR CODE HERE -->
+<!-- <a href="http://localhost:3000/new">Create a new project</a> -->
+
+
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
+<br>
+<h1> Contribute to me! </h1>
+<form action = "/project/{{project.id}}" method= "post">
+  <label> Name:</label><input type = "text" name = "name"><br>
+  <label> Amount:</label><input type = "Number" name = "contributions"><br>
+  <input type="submit" name="submit" value="submit"></input>
+</form>
+
+<br>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+  </div>
+</div>
+
+
+<label> Total Amount of Contributions: </label>
+<br>
+<span>{{total}}</span>
+<br>
+<span>{{project.contributions}}</span>
+<br>
+
+
 
 <!-- YOUR CODE HERE -->
