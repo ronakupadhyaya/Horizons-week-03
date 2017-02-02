@@ -37,7 +37,6 @@ router.get('/', function(req, res) {
 router.get('/new', function(req, res) {
   // YOUR CODE HERE
   res.render('new');
-  console.log('Successful Render')
 });
 
 // Exercise 2: Create project
@@ -61,6 +60,7 @@ router.post('/new', function(req, res) {
      description: req.body.description,
      start: req.body.start,
      end: req.body.end,
+     category: req.body.category
    })
    newProject.save(function(err){
      if(err){
@@ -116,5 +116,28 @@ router.post('/project/:projectid', function(req, res) {
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req,res){
+  Project.findById(req.params.projectid, function(err, doc){
+    if(err){
+      console.log('Error', err);
+    } else{
+      res.render('editProject', {project: doc});
+    }
+  });
+});
+// router.post('/project/:projectid/edit', function(req,resp){
+//   Project.findByIdAndUpdate(req.params.projectid, {
+//     title:req.body.title,
+//     goal: req.body.goal,
+//     description: req.body.description,
+//     start: req.body.start,
+//     end: req.body.end,
+//     category: req.body.category
+//   }, function(err, doc){
+//     if(err){
+//       console.log('Error,' err)
+//     } res.render('project', {project: doc})
+//   });
+// )
 
 module.exports = router;

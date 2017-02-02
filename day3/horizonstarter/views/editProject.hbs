@@ -1,0 +1,19 @@
+<form action = '/new' method = 'POST'>
+  <input type= 'text' placeholder= 'Title' name= 'title' value="{{project.title}}"></input></br>
+  <input type= 'Number' placeholder= 'Goal' name= 'goal' value="{{project.goal}}"></input></br>
+  <input type= 'textarea' placeholder= 'Description' name= 'description' value="{{project.description}}"></input></br>
+  <input placeholder= 'Start' name= 'start' type='date' value="{{project.start}}"></input></br>
+  <input placeholder= 'End' name= 'end' type='date' value="{{project.end}}"></input></br>
+  <select name="category" value="{{project.category}}">
+    <option>Famous Muppet Frogs</option>
+    <option>Current Black Presidents</option>
+    <option>The Pen Is Mightier</option>
+    <option>Famous Mothers</option>
+    <option>Drummers Named Ringo</option>
+    <option>Months That Start With "Feb"</option>
+    <option>How Many Fingers Am I Holding Up</option>
+    <option>1-Letter Words</option>
+    <option>Potent Potables</option>
+  </select></br>
+  <input type='submit' name='submit' value='submit'></input>
+</form>
