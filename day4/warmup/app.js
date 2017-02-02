@@ -4,7 +4,9 @@ var path = require('path');
 
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+	extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // We use a variable to store the count
@@ -12,14 +14,20 @@ var count = 0;
 
 // Display the current count
 app.get('/', function(req, res) {
-  res.render('index', {
-    count: count
-  });
+	res.render('index', {
+		count: count
+	});
 });
 
 // ---Task 1---
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
+app.post('/increment', function(req, res) {
+	count++;
+	res.redirect("/");
+});
+
+
 
 // YOUR CODE HERE
 
@@ -28,5 +36,10 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+app.post('/decrement', function(req, res) {
+	count--;
+	res.redirect("/");
+});
 
-app.listen(3000);
+
+app.listen(3001);
