@@ -1,6 +1,4 @@
-# Week 3 Day 5: Warmup exercise
-
-## Time limit: 15 minutes
+# Week 3 Day 4: Warmup exercise
 
 ## Instructions
 
