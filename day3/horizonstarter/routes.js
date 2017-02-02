@@ -29,7 +29,7 @@ router.get('/', function(req, res) {
     if (error) {
       console.log('Error', error);
     } else {
-      console.log('Projects', projects);
+      // console.log('Projects', projects);
       Project.find(function(err, array) {
         res.render('index', {
           items: projects
@@ -82,6 +82,10 @@ router.post('/new', function(req, res) {
       'end': {
         notEmpty: true,
         errorMessage: 'fill in end date'
+      },
+      'category': {
+        notEmpty: true,
+        errorMessage: 'fill in category'
       }
     };
     req.checkBody(schema);
@@ -105,7 +109,8 @@ router.post('/new', function(req, res) {
       goal: req.body.goal,
       description: req.body.description,
       start: req.body.start,
-      end: req.body.end
+      end: req.body.end,
+      category: req.body.category
     });
 
     project.save(function(err) {
@@ -130,36 +135,26 @@ router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
 
   // console.log(req.query.projectid);
-  console.log("pid" + req.params.projectid);
-  console.log(Project.findById(req.params.projectid));
+  // console.log("pid" + req.params.projectid);
+  // console.log(Project.findById(req.params.projectid));
+
 
   Project.findById(req.params.projectid, function(err, found) {
     if (err) {
       console.log("Error", err);
     } else {
+      // console.log(found.contributions);
       res.render('project', {
+        id: found._id,
         title: found.title,
         goal: found.goal,
         description: found.description,
         start: found.start,
-        end: found.end
+        end: found.end,
+        contributions: found.contributions
       });
     }
   });
-  // render("project");
-
-  // Project.findById(, function(error, projects) {
-  //   if (error) {
-  //     console.log('Error', error);
-  //   } else {
-  //     console.log('Projects', projects);
-  //     Project.find(function(err, array) {
-  //       res.render('index', {
-  //         items: projects
-  //       });
-  //     });
-  //   }
-  // });
 
 
 });
@@ -168,6 +163,23 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  Project.findOne({
+    _id: req.params.projectid
+  }, function(err, doc) {
+    doc.contributions.push({
+      name: req.body.name,
+      amount: req.body.amount
+    });
+
+    doc.save(function(err) {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.redirect("/project/" + req.params.projectid);
+      }
+    });
+
+  });
 });
 
 // Exercise 6: Edit project
