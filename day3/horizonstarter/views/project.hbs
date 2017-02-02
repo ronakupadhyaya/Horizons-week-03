@@ -1,9 +1,18 @@
 <h1>View Project</h1>
 
-<!-- Exercise 3: View a single project -->
+<p>{{title}}</p>
+<p>{{category}}</p>
+<p>{{goal}}</p>
+<p>{{description}}</p>
+<p>{{start}}</p>
+<p>{{end}}</p>
+<p>{{contributions}}</p>
 
-<!-- YOUR CODE HERE -->
 
-<!-- Exercise 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+<form method="POST" action="/project/{{id}}">
+  <p><label>Your Name</label>
+  <input type="text" placeholder="Name" name="name"></p>
+  <p><label>Contribution Amount</label>
+  <input type="number" placeholder="$" name="amount"></p>
+  <p><input type="submit"></p>
+</form>
