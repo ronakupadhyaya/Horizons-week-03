@@ -39,6 +39,12 @@ db.once('open', function() {
 
 // YOUR CODE HERE
 
+var ToDoItem = mongoose.model('ToDoItem', {
+  name: String,
+  priority: String,
+  completed: Boolean
+});
+
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
 // Syntax: lets say you want your program to add a task. You would define it like:
@@ -83,6 +89,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <task>', 'Specify the task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -122,6 +129,7 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var taskTracker = new ToDoItem({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -129,6 +137,14 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  taskTracker.save(function(error) {
+    if (error) {
+      console.log('Error', error);
+    } else {
+      console.log('Task successfully saved! Task: "' + taskTracker.name + '" Priority: ' + taskTracker.priority);
+    }
+    mongoose.connection.close();
+  });
 }
 
 // EXERCISE 3: Show tasks
@@ -152,7 +168,35 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
-}
+  var specificTask = program.task;
+  if (specificTask) {
+    ToDoItem.find({name: specificTask}, function(err, task) {
+      if (err) {
+        console.log('Error', err)
+      } else {
+        for (var i = 0; i < task.length; i++) {
+          console.log('Task: %s, Priority: %d, Completed: %s',
+            task[i].name,
+            task[i].priority,
+            task[i].completed)
+        }
+      }
+    });
+  } else {
+    ToDoItem.find(function(err, task) {
+      if (err) {
+        console.log('Error', err)
+      } else {
+        for (var i = 0; i < task.length; i++) {
+          console.log('Task: %s, Priority: %d, Completed: %s',
+            task[i].name,
+            task[i].priority,
+            task[i].completed)
+        }
+      }
+    });
+  };
+};
 
 // EXERCISE 4: Delete tasks
 
@@ -163,4 +207,20 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  var specificTask = program.task;
+  if (specificTask) {
+    ToDoItem.remove({name: specificTask}, function(err, task) {
+      if (err) {
+        console.log('Error', err)
+      } else {
+        for (var i = 0; i < task.length; i++) {
+          console.log('Task: %s with Priority: %d deleted',
+            task[i].name,
+            task[i].priority)
+        }
+      }
+    });
+  } else {
+    console.log('Error: No task specified!' )
+  }
 }
