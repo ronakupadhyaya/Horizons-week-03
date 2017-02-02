@@ -6,8 +6,28 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project', {
   title: {
     type: String,
-  }
-  // YOUR CODE HERE
+  },
+  goal: {
+    type: Number,
+  },
+  description: {
+    type: String,
+  },
+  start: {
+    type: Date,
+  },
+  end: {
+    type: Date,
+  },
+  contributions: [{
+  name: {
+      type: String
+    },
+
+   amount: {
+     type: Number
+     }
+   }]
 });
 
 module.exports = {

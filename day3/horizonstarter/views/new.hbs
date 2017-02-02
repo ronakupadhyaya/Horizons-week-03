@@ -1,6 +1,21 @@
-<h2>Create project</h2>
+<h2>{{title}}</h2>
 
 <!-- Exercise 2: Create project -->
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
 
+{{#if errors}}
+{{#each errors}}
+{{this.msg}}
+
+{{/each}}
+{{/if}}
+
+<form method="POST" action="/new">
+  <p>Title</p> <input type="text" value="{{project.title}}" name="title"><br>
+  <p>Goal</p> <input type="text" value="{{project.Goal}}" name="goal"><br>
+  <p>Description</p> <input type="textarea" name="description"><br>
+  <p>Start</p> <input type="Date" name="start"><br>
+  <p>end</p> <input type="Date" name="end"><br>
+  <input type="submit">
+</form>

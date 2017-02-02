@@ -3,7 +3,22 @@
 <!-- Exercise 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<h1>Title: {{project.title}}</h1>
+<h1>Goal: {{project.goal}}</h1>
+<h1>Description: {{project.description}}</h1>
+<h1>Start date: {{project.start}}</h1>
+<h1>End date: {{project.end}}</h1>
 
 <!-- Exercise 4: Contribute to a project -->
+<form method="POST" action="/project/{{project._id}}">
+  <p>Name:</p> <input type="text" name="name"><br>
+  <p>Amount:</p> <input type="text" name="amount"><br>
+  <input type="submit">
+</form>
+
+{{#each project.contributions}}
+<li>{{this.name}}</li>
+<li>{{this.amount}}</li>
+{{/each}}
 
 <!-- YOUR CODE HERE -->
