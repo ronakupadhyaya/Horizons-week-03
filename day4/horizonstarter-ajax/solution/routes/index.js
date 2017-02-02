@@ -206,8 +206,7 @@ router.get('/api/project/:projectId/contribution', function(req, res) {
   });
 
 router.post('/api/project/:projectId/contribution', function(req, res) {
-  console.log(req.params.projectId)
-    console.log("asd")
+
     Project.findById(req.params.projectId, function (err, project) {
       if (err) {
         res.status(404).json(err);
@@ -230,7 +229,7 @@ router.post('/api/project/:projectId/contribution', function(req, res) {
       project.save(function(err) {
         console.error(err);
         if (err) {
-          res.status(500).json(err);
+          res.status(400).json(err);
           return;
         }
         res.status(201).json(newContribution);

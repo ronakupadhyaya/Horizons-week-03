@@ -1,5 +1,216 @@
 # Hybrid web app: adding AJAX to Horizon Starter
 
+TODO: Remove AJax, Leave scripts. 
+
+TODO: Do a sample endpoint. POST some shit with AJAX, return whatever, JQUERy into scrreen. 
+
+## Introduction
+
+*Can take from old descriotion of exercise for here*
+
+1. Ajax lets connect without page refresh
+
+2. How server rendering is slow, `res.render`
+
+3. Whats the difference with SPAs `res.json()` -> Data + AJAX
+
+4. Hybrid-> some rendered by server, soome updated on ylient by ajax.
+
+
+**JS on the client VS JS on the server.**
+
+
+
+### The goal
+
+Our goal is to improve the Horizon Starter app that was written in the previous exercise. Yesterday, we implemented the project using server-side rendering with handlebars.js. Today, we are going to use AJAX to make your app feel faster, and implement real time!
+
+Here are the features we're going to implement:
+
+- AJAX contributing: You no longer will need to refresh the page to see your contribution in the page. 
+
+- AJAX polling: The total amount of contributions is continuously updating. If someone else makes a contribution, you will see it too!
+
+- Handle errors when doing AJAX.
+
+- Filtering and sorting lists of products, without refreshing the page. 
+
+
+## Getting oriented
+
+yestedays project horizon starter was a server-side rendered app. Today, we are going to add client side rendering to it. When we talk about rendering, we are simply talking about generating HTML from data. Server rendered apps **Render HTML** once, hybrids render twice. See below for an overview of both approaches:
+
+**Server rendered app**: Horizon Starter
+
+1. user: Visits `localhost:3000/projects`
+2. server: matches route on `routes.js`
+3. server: loads data for `projects` from `mongoose`
+4. server: gets template + fills in data for projects to create an HTML file. **Rendering HTML**
+5. client: displays html file. 
+
+**Hybrid app**: Today's approach!
+
+1. user: Visits `localhost:3000/projects`
+
+2. server: matches route on `routes.js`
+
+3. server: loads data for `projects` from `mongoose`
+
+4. server: gets template + fills in data for projects to create an `html` file  **Rendering HTML**
+
+5. client: displays html file. 
+
+6. client: user clicks on the `sort: ascending button`
+
+7. client: sends an ajax request to `/api/projects?order=ascending`
+
+8. server: matches the route for  `/api/projects`
+
+9. server: loads data from mongoose for projects, sends data back to client as JSON. 
+
+10. client: gets data as JSON, converts it into html, displays it on page **Rendering HTML**
+
+   ​
+
+
+
+## Exercise 1: Ajax contributions
+
+1. Create a new endpoint route in routes.js: `POST /api/project/:projectId/contribution` 
+
+   - It should look for the project with the id reveived from the query: `projectId`. If it is not able to find the project, it should return an error. It if is able to find it, then it should:
+
+   - Build a contribution object from 3 elements on the request body: 
+
+     - name 
+     - amount
+
+   - it should add the new contribution to the project's contribution array: `project.contributions.`
+
+   - It should respond with the newly created contribution as JSON and a status of 200 -> ok using: `res.json()`
+
+     **Testing**: 
+
+     Start your server and visit `localhost:3000` on your browser. Create a new project and fill the information. Save it and visit that project's page. Copy the project's id from the url. Now open up Postman and do a POST request to `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` with a body containing:
+
+     ```
+     {
+     	"name": "RandomInvestor",
+         "amount": 1000
+     }
+     ```
+
+     Visit mlab.com, find the project with the id you contributed to and check the contributions array. Your new contribution should be there. 
+
+     If you get back the same object, you are good to go!
+
+     ​
+
+2. Make the POST request from the client in ajax.
+
+   Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. We have setup a couple of things for you for this step. Check them out:
+
+   - `project.hbs` contains `<script src="/js/contributions.js">` which loads the file available at `public/js/contibutions.js`. Open that file. 
+   - We have handled the event click for the `Contribute` button. Scroll down to the end of the file. Whenever someone clicks the button, we call `sendContribution();`
+   - We set up the URL for the previous step at `apiUrl`. Use this for all AJAX requests
+
+   Start coding:
+
+   - You have to code the AJAX `POST /api/project/:projectId/contribution` . Follow this steps:
+
+     1. Get the data from the form using JQuery. 
+
+     2. Create a new contribution object from the data.
+
+        ```  
+        var newContribution = {
+        	name: // value you get from the form.
+        	amount: // value you get from the form. 
+        };
+        ```
+
+     3. We setup the URL for the Send the data via `$.ajax()` POST using the `apiUrl` as URL.
+
+     4. If the request was succesful, clear the form and call:
+
+        `renderNewContribution(newContribution)` This method takes the object for the new contribution.
+
+     5. Call `showFlashMessage("Thanks for your contribution! You rock!", 'success');` to display a success message on the screen! 
+
+     6. If the request was not succesful call `showFlashMessage("An error ocurred", 'danger');`
+
+        ​
+
+     **Testing**: to check your code works up to this point, visit `localhost:3000` on chrome, click on any post. Fill in the form and add a contribution!  You shouldn't be able to see it right away, but if your code works up to this point, refreshing the page should make the new contribution appear.
+
+   TODO: CHANGE POST TO PROJECT
+
+3. Use JQuery to update the page after adding a contribution. 
+
+   Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet. We have to refresh to get all the new contributions from the database. We are going to fix that now. 
+
+   1. On the sucess of your AJAX request, we called `renderNewContribution(newContribution);` find the function on the code. Now we are going to fill it.
+   2. You have the `newContribution` object. Create the html to show the contribution.
+   3. Append the contribution to the list of contributions with `$('#contributionsAnchor')`
+
+4. Validate contributions>0 (Server-side validation). Return status code 400. 
+
+   You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+
+   1. Modify your `routes/index.js` to validate the request. 
+   2. If there is an error, respond with  `res.status(400).json(err);` Send the error to the client. 
+   3. Modify the `contributions.js` file on the AJAX part. On the error callback, instead of calling `showFlashMessage("An error ocurred", 'danger');`, with "An error ocurred", send the appropriate message.
+
+
+**Steps to achieve this  TODO MERGE WITH ^**
+
+1. Ajax POST new contribution to endpoint + check with refresh
+2. Do JQuery to load without refresh!
+3. Validation on endpoint -> respond with error if negartive, handle on errror callback display message. 
+
+
+
+
+## Exercise 2: ajax filter projects
+
+
+
+**Filter via AJAX. By status.**
+
+1. new endpoint, returns JSON, ttakes filter constatnts.
+2. Empty ProjectsDIV. 
+3. Create project elements, load them to div. 
+
+
+
+## Exercise 3: ajax sort projects
+
+
+
+
+
+## Bonus: Exercise 4
+
+#### 1. Polling contributions -> Contribute on a new tab and everything updates. 
+
+#### 2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Contents
 
 - [Introduction](#introduction)
@@ -95,31 +306,31 @@ another application! Here are some key differences:
 We need a new set of routes for our AJAX API.
 
 1. Create a new file in `routes/api.js`. Similar to `routes/index.js` this
-  file should declare a `Router` at the top and return it via `module.exports`
-  at the bottom.
+   file should declare a `Router` at the top and return it via `module.exports`
+   at the bottom.
 
-  ```javascript
+```javascript
   var express = require('express');
   var router = express.Router();
 
   // Your routes here
 
   module.exports = router;
-  ```
+```
 
 1. Add the routes from `routes/api.js` to your Express app in `app.js`.
 
-  ```javascript
+```javascript
   app.use('/', routes); // this was here before
   // Adding routes from your new router to your app!
   // Note how we use /api as the prefix!
   app.use('/api', require('./routes/api'));
-  ```
+```
 1. Now when I add a route in `routes/api.js` I don't need to type `/api` again.
-  In `app.js`, we added the prefix `/api` to ALL of the routes in
+   In `app.js`, we added the prefix `/api` to ALL of the routes in
    `routes/api.js`!
 
-  ```javascript
+```javascript
   // This route shows up as /api
   router.get('/', function(req, res) {
     res.json({
@@ -135,7 +346,7 @@ We need a new set of routes for our AJAX API.
       "you are in": "/api/hello"
     });
   });
-  ```
+```
 
 ## Advanced Express Configuration (Optional)
 
@@ -291,8 +502,8 @@ is missing) and we'll need to alert the user either way. As a recap, remember
 that validation happens in different stages, and that each has a role:
 
 1. Frontend validation: _before the AJAX call_
-1. Backend validation: _after the AJAX call, before hitting the database_
-1. Database validation: _from the database, if data doesn't match the schema_
+2. Backend validation: _after the AJAX call, before hitting the database_
+3. Database validation: _from the database, if data doesn't match the schema_
 
 
 ## Phase 5. Polling
