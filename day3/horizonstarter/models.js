@@ -3,9 +3,24 @@
 // Project model
 var mongoose = require('mongoose');
 
-var Project = mongoose.model('Project', {
+var Project = mongoose.model('project', {
   title: {
-    type: String,
+    type: String
+  },
+  goal: {
+    type: Number
+  },
+  description: {
+    type: String
+  },
+  start: {
+    type: Date
+  },
+  end: {
+    type: Date
+  },
+  contributions: {
+    type: [{name: String, amount: Number}]
   }
   // YOUR CODE HERE
 });

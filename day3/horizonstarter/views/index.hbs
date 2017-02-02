@@ -2,7 +2,10 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each projects}}
+<h4>Title: {{title}}</h4>
+<p>Description: {{description}}</p>
+{{/each}}
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
