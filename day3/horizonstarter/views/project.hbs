@@ -3,7 +3,27 @@
 <!-- Exercise 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div><strong>Title: </strong>{{found.title}}</div>
+<div><strong>Goal: </strong>{{found.goal}}</div>
+<div><strong>Description: </strong>{{found.desc}}</div>
+<div><strong>Start Date: </strong>{{found.start}}</div>
+<div><strong>End Date: </strong>{{found.end}}</div>
 
 <!-- Exercise 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<br/>
+
+<form action="/project/{{found._id}}" method="POST">
+  <input type="text" name="name" placeholder="Name">
+  <input type="text" name="amount" placeholder="Amount">
+  <button type="submit" name="button">Contribute</button>
+</form>
+
+{{#each found.contributions}}
+  <br/>
+  <span><strong>Name: </strong></span>{{this.name}}
+  <br/>
+  <span><strong>Amount: </strong></span>{{this.amount}}
+  <br/>
+{{/each}}
