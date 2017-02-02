@@ -4,6 +4,30 @@
 
 <!-- YOUR CODE HERE -->
 
+<h1>Title: {{this.title}}</h1>
+<h3>Goal: {{this.goal}}</h3>
+<h3>Description: {{this.description}}</h3>
+<h3>Start: {{this.start}}</h3>
+<h3>End: {{this.end}}</h3>
+<br>
+<h2>Contributions</h2>
+{{#each this.contributions}}
+<li>Donor: {{name}}</li>
+<li>Amount: {{amount}}</li>
+{{/each}}
+
 <!-- Exercise 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<!-- <form action='/new' method="post"> -->
+<form method="post">
+  <div class=formgirl>
+    name:<span class="required">*</span><br>
+    <input type="text" placeholder="they call me" name="name"><br>
+    amount:<span class="required">*</span><br>
+    <input type="text" placeholder="amt of moneyz fo u" name="amount"><br>
+
+    <br><br>
+    <input type="submit" value="Submit">
+  </div>
+</form>

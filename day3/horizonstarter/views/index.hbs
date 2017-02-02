@@ -3,6 +3,17 @@
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+{{#each items}}
+<h3>Title: {{title}}</h3>
+<h4>Goal: {{goal}}</h4>
+<h4>Description: {{description}}</h4>
+<h4>Start: {{startdate}}</h4>
+<h4>End: {{enddate}}</h4>
+<h5>Id: {{this.id}}</h5>
+
+<a href="/project/{{id}}">Link to Project</a>
+
+{{/each}}
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>

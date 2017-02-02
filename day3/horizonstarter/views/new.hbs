@@ -1,6 +1,37 @@
 <h2>Create project</h2>
 
 <!-- Exercise 2: Create project -->
+<!-- Edit week03/day3/horizonstarter/views/new.hbs and render an HTML form that has
+method POST and action /new. This form should contain:
+
+title: text input field
+goal: text input field
+description: Textarea field
+start: Date input field
+end: Date input field -->
+{{#if errors}}
+  {{#each errors}}
+    <div class="alert alert-danger">{{msg}}</div>
+  {{/each}}
+{{/if}}
+
+<form action='/new' method="post">
+  <div class=formgirl>
+    title:<span class="required">*</span><br>
+    <input type="text" placeholder="best project name ever" name="title"><br>
+    goal:<span class="required">*</span><br>
+    <input type="text" placeholder="save the world" name="goal"><br>
+    description:<br>
+    <textarea placeholder="input a description please" name="description"   rows="4" cols="50"></textarea><br>
+    start date:<span class="required">*</span><br>
+    <input type="date" name="startdate"><br>
+    end date:<span class="required">*</span><br>
+    <input type="date" name="enddate"><br>
+    <br><br>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
-
