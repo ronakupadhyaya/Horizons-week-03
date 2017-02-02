@@ -1,11 +1,17 @@
 {
   "dependencies": {
     "body-parser": "^1.15.1",
-    "express": "^4.13.4",
+    "express": "^4.14.1",
     "express-handlebars": "^3.0.0",
     "nodemon": "^1.9.2"
   },
   "scripts": {
     "start": "nodemon app.js"
-  }
+  },
+  "name": "warmup",
+  "description": "## Time limit: 15 minutes",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }
