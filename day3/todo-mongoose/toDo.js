@@ -36,9 +36,12 @@ db.once('open', function() {
 // TODO: create a model (called ToDoItem) with a "name" property that
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
-
+var ToDoItem = mongoose.model('ToDoItem',{
+   name: "string",
+   priority: "string",
+   completed: Boolean
+});
 // YOUR CODE HERE
-
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
 // Syntax: lets say you want your program to add a task. You would define it like:
@@ -51,7 +54,6 @@ db.once('open', function() {
 
 // THIS PART IS DONE FOR YOU. BE SURE TO READ THROUGH IT AND UNDERSTAND
 // THE CODE.
-
 program.command('add')
 .description("Create Tasks")
 .action(addTask);
@@ -82,6 +84,8 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task <n>', 'Specify task')
+
 // YOUR CODE HERE
 
 // Arguments
@@ -117,11 +121,11 @@ function parseArgs () {
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
-
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new ToDoItem({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -129,6 +133,15 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(error){
+    if(error){
+      console.log(error)
+      throw "Error "
+    }else{
+      console.log(name +" saved")
+    }
+
+  })
 }
 
 // EXERCISE 3: Show tasks
@@ -152,6 +165,25 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if(program.task)
+  ToDoItem.find({name: program.task},function(err,task){
+    if(err){
+      throw err
+    }else {
+      console.log(" task " + task[0].name + " ID " + task[0]._id + " priority " + task[0].priority)
+    }
+  })
+  else{ToDoItem.find(function(err,task){
+    if(err){
+      throw err
+    }else{
+      task.forEach(function(item){
+        console.log(item.name)
+      })
+    }
+  })
+ }
+//  ToDoItem.find(function(err,task){})
 }
 
 // EXERCISE 4: Delete tasks
