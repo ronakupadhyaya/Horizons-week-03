@@ -36,7 +36,11 @@ router.get('/', function(req, res) {
 // Exercise 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  res.render('new');
+  res.render('new', {
+  title: "Create new project",
+  categories: Project.schema.path('category').enumValues.map(function (el) {
+    return {val: el}
+  })
 });
 
 // Exercise 2: Create project
@@ -52,24 +56,35 @@ function validate(req){
 }
 
 router.post('/new', function(req, res) {
-
-  // YOUR CODE HERE
   validate(req);
   var errors = req.validationErrors();
   if (errors) {
-    res.render('new', {errors: errors});
+    res.render('new', {data: req.body, categories: Project.schema.path('category').enumValues.map(function(chosen) {
+      // This is messy, but we can't have logic in handlebars.
+      return {val: chosen, selected: chosen===req.body.category};
+    })
+  });
   } else {
+    // console.log(req.body.enumValues);
+    // var category = Project.path('category').enumValues
+    // console.log(category);
+
     var newProject = new Project({
       title: req.body.title,
       goal: req.body.goal,
       description: req.body.description,
       start: req.body.start,
       end: req.body.end
+      category: req.body.category
     });
     newProject.save(function(err){
       console.log("save")
       if (err){
-        console.log(err)
+        res.render('new', {data: req.body, categories: Project.schema.path('category').enumValues.map(function(chosen) {
+          // This is messy, but we can't have logic in handlebars.
+          return {val: chosen, selected: chosen===req.body.category};
+        }
+      });
       }
       res.redirect('/');
     //  res.render('/', {data: newProject})
@@ -101,7 +116,7 @@ router.get('/project/:projectid', function(req, res) {
 router.post('/project/:projectid', function(req, res) {
   Project.findById(req.params.projectid, function(err, project){
     if(err){
-      console.log(this[project][contribution]);
+      // console.log(this[project][contribution]);
       console.log("error finding project", err)
     } else {
 
