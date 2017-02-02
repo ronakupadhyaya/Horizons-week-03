@@ -7,13 +7,22 @@
   <body>
     <form>
       From
-      <!-- Task 1: Make this element display the timestamp passed in -->
-      <input type="date" name="when" value="{{when}}">
+
+      <!-- Make this element change based on the 'when' query parameter -->
+      <input type="date" name="when">
+
       to
-      <input type="number" min="0" name="amount" value="{{amount}}">
+
+      <!-- Make this element change based on the 'amount' query parameter -->
+      <input type="number" min="0" name="amount">
+
+      <!-- Make this element change based on the 'units' query parameter -->
       <select name="units">
-        {{{select units}}}
+        <option>days</option>
+        <option>months</option>
+        <option>years</option>
       </select>
+
       <input type="submit" name="action" value="to the future!">
       <input type="submit" name="action" value="to the past">
     </form>
