@@ -81,7 +81,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
       2. Add a script tag to your `project.hbs` that looks like this `<script src="/js/contributions.js"></script>` which loads the new file you created at `public/js/contibutions.js`.
 
-      3. Open your `project.hbs` file. Change your "add contribution" input `<input type="submit">` or button `<button type="submit">` to make it a button without a type `<button>` instead. Add an id to the button.
+      3. Open your `project.hbs` file. Change your "Add Contribution" input `<input type="submit">` or button `<button type="submit">` to make it a button without a type instead. Add an id to the button. `<button id="send-contribution">Add Contribution</button>`.
       4. Open `contributions.js`  and add a `click` event listener for the button we just created, using its id. Remember that event handlers can only be added when the document is ready! On your event handler, call  `sendContribution();` whenever someone clicks the button.
       5. Define the  `sendContribution();` function. Inside this function, you have to code the AJAX `POST /api/project/:projectId/contribution` request. Follow this steps:
          1. Get the data from the form using jQuery.
@@ -166,15 +166,15 @@ In this exercise, we are going to implement project filtering in `index.hbs` via
 
 **2. Making the request**
 
-This is similar to yesterday's filter projects by funded or not funded. The difference is that, instead of adding links to pages by linking to `localhost:3000/api/project?funded=false`, you can reuse the buttons/dropdown you made yesterday or make new buttons that will filter the projects, without refreshing the page.
+This is similar to yesterday's filter projects by funded or not funded. The difference is that, instead of adding links to pages by linking to `localhost:3000/api/project?funded=false`, we are making buttons with event listeners. You can reuse the buttons you made yesterday or make new buttons for our events that will filter the projects, without refreshing the page. If you want to make it look better, make it a dropdown, with an event listener for when someone selects an option.
 
-1.  Add 3 buttons to your `index.hbs` template. They should be: "Funded", "Not completely funded" and "show all".
+1.  Add 3 buttons/dropdown to your `index.hbs` template. They should be: "Funded", "Not completely funded" and "show all".
 
 2.  Create a file on your `public/js` folder called `projects.js`
 
 3.  Add a script tag to your `index.hbs` to import the file you created `public/js/index.js`.
 
-4.  Open  `public/js/index.js` file and add `click` event listeners for the 3 buttons we just created. When each button is clicked:
+4.  Open  `public/js/index.js` file and add `click` event listeners for the 3 buttons/dropdown we just created. When each button is clicked:
 
     1.  Make an AJAX request to `GET /api/project` . Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
 
@@ -240,7 +240,7 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
 
 Now, we have connect our new route to the page.
 
-1. Edit `views/index.hbs`  and add two dropdowns:
+1. Edit `views/index.hbs`  and add two dropdowns (or modify the ones from yesterday.):
 
    1. Sort By, that should contain two options:  "Percentage Funded", "Amount Funded"
    2. Order, that sould contain two options: "Ascending", "Descending"
