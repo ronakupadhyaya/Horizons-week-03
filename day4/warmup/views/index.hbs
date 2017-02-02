@@ -9,16 +9,23 @@
 
     <!-- Task 1
       Create a form with a button than when clicked sends a POST request
-      to /decrement
+      to /increment
 
       The button should say "Increase" on it.
     -->
-
+    <form method="post" action="/increment">
+    <input type="submit" value="increase">
+  </form>
+<!-- <button>Increase</button> -->
     <!-- Task 2
       Create a form with a button than when clicked sends a POST request
       to /decrement
 
       The button should say "Decrease" on it.
     -->
+    <br>
+    <form method="post" action="/decrement">
+    <input type="submit" value="decrease">
+  </form>
   </body>
 </html>
