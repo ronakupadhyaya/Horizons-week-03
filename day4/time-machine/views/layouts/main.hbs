@@ -1,0 +1,22 @@
+{{ count times }}
+
+{{{ count times }}}
+
+<form action="/test" method="post">
+  {{!<input type="date" name="when">}}
+  {{!<select name="make" multiple>}}
+    {{!<option>Volvo</option>}}
+    {{!<option>Ford</option>}}
+    {{!<option selected>Toyota</option>}}
+    {{!<option value="chrysler">Daimler Chrysler</option>}}
+  {{!</select>}}
+  <input type="submit" name="differentName" value="Submit my form please">
+  <input type="submit" name="inputButtonName" value="Maybe submit my form">
+  <input type="submit" name="inputButtonName" value="Do not submit my form">
+</form>
+
+{{!<form> <!-- action="/" method="get"> -->}}
+  {{!<input type="text" name="textParameterName" }}
+  {{!<input type="submit" value="Submit back to this page">}}
+{{!</form>}}
+
