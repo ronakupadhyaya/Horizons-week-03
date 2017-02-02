@@ -32,7 +32,7 @@ app.listen(3001);
 
 //  var Cat = mongoose.model('Cat', schema);
 
-// var namelessCat = new Cat({name: 'Mr Whiskers', furColor: 'calico'});
+// var MRwHISKERS = new Cat({name: 'Mr Whiskers', furColor: 'calico'});
 
 // mrWhiskers.save(function(error){
 // 	if(error){

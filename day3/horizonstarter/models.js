@@ -27,8 +27,11 @@ var Project = mongoose.model('Project', {
    contributions: {
   	type: Array,
   },
-  // YOUR CODE HERE
-});
+  categories: {
+    type: String
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter Word', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables' ]
+  }, // YOUR CODE HERE
+})
 
 module.exports = {
   Project: Project
