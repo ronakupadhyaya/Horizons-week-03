@@ -1,31 +1,34 @@
 
 
+<script type="text/javascript">
+  document.getElementById('start').value = Date();
+</script>
 
 <!-- Exercise 2: Create project -->
  <div class="container">
    <div class="row well">
-     <h2>Create project</h2>
+     <h2>Edit project</h2>
      <div>{{#each errors}} {{this.msg}} {{/each}}</div>
-     <form action="/new" method="post">
+     <form action="/project/{{_id}}/edit" method="post">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" name="title" placeholder="Enter title">
+        <input type="text" class="form-control" value="{{title}}" name="title" placeholder="Enter title">
       </div>
       <div class="form-group">
         <label for="goal">Goal</label>
-        <input type="number" class="form-control" name="goal" placeholder="Enter Goal (Number)">
+        <input type="number" class="form-control" value="{{goal}}"name="goal" placeholder="Enter Goal (Number)">
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" name="description" rows="3"></textarea>
+        <textarea class="form-control" name="description" rows="3">{{description}}</textarea>
       </div>
       <div class="form-group">
         <label for="start">Start Date</label>
-        <input type="date" class="form-control" name="start" placeholder="Enter Start Date">
+        <input type="date" class="form-control" id="start" name="start" placeholder="Enter Start Date">
       </div>
       <div class="form-group">
         <label for="start">End Date</label>
-        <input type="date" class="form-control" name="end" placeholder="Enter End Date">
+        <input type="date" class="form-control" value="{{end}}" name="end" placeholder="Enter End Date">
       </div>
       <div class="form-group">
         <label for="category">Select Category</label>

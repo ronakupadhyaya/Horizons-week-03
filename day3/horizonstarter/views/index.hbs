@@ -2,6 +2,10 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<ul>{{#each items}}
+<li><a href="/project/{{this._id}}">{{this.title}}</a></li>
+{{/each}}
+</ul>
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->

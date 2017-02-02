@@ -1,9 +1,47 @@
-<h1>View Project</h1>
+
 
 <!-- Exercise 3: View a single project -->
+<div class="container">
+  <h1>View Project</h1>
+  <div><a class="btn btn-default" href="/">Back to Project List</a>
+    <a class="btn btn-default" href="/project/{{_id}}/edit">Edit Project</a>
+</div>
+
+  <div class="row well">
+    <div><h3>{{title}}</h3></div>
+    <div><b>Category: {{category}}</b></div>
+    <div><b>Description: <i>{{description}}</i></b></div>
+    <div><b>Goal: </b>${{goal}}</div>
+    <div><b>Start date: </b>{{start}}</div>
+    <div><b>End date: </b>{{end}}</div>
+    <div><b>Goal progress bar:</b></div>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar"
+        aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}">
+      <span class="sr-only">70% Complete</span>
+    </div>
+  </div>
+  <div>{{#each contributions}}<div><b>{{this.name}}:</b> {{this.amount}}</div>{{/each}}</div>
+  </div>
+</div>
 
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+<div class="container">
+  <div class="row well">
+    <h3>Contribute to this project:</h3>
+    <div>{{#each errors}} {{this.msg}} {{/each}}</div>
+    <form action="/project/{{_id}}" method="post">
+     <div class="form-group">
+       <label for="title">Name</label>
+       <input type="text" class="form-control" name="name" placeholder="Your name">
+     </div>
+     <div class="form-group">
+       <label for="goal">Amount</label>
+       <input type="number" class="form-control" name="amount" placeholder="Enter contribution amount">
+     </div>
+     <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

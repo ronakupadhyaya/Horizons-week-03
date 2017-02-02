@@ -17,5 +17,9 @@
     "nodemon": "^1.11.0",
     "strftime": "^0.10.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "description": "## Introduction",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }
