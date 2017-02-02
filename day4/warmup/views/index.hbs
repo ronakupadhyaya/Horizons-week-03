@@ -7,18 +7,24 @@
   <body>
     <h1>Count: {{count}}</h1>
 
-    <!-- Task 1
-      Create a form with a button than when clicked sends a POST request
-      to /decrement
+      <!-- Task 1
+        Create a form with a button than when clicked sends a POST request
+        to /decrement
 
-      The button should say "Increase" on it.
-    -->
+        The button should say "Increase" on it.
+      -->
+    <form method="POST" action="/increment">
+      <input type=submit value="increment"> </input>
+    </form>
+      <!-- Task 2
+        Create a form with a button than when clicked sends a POST request
+        to /decrement
 
-    <!-- Task 2
-      Create a form with a button than when clicked sends a POST request
-      to /decrement
-
-      The button should say "Decrease" on it.
-    -->
+        The button should say "Decrease" on it.
+      -->
+    <form method="POST" action="/decrement">
+      <input type=submit value=decrement> </input>
+    </form>
+    
   </body>
 </html>
