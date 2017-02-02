@@ -17,7 +17,23 @@
       // ---Task 1---
       // Add a click handler to #increment
 
-      // YOUR CODE HERE
+    $('#increment').click(function({
+      $.ajax ({ 
+        url: '/increment',
+        type: 'post',
+        success: function(result){
+            $('.modal-box').text(result).fadeIn(700, function() {
+                setTimeout(function() 
+                {
+                    $('.modal-box').fadeOut();
+                }, 2000);
+            });
+        }
+    })
+    });
+
+    
+
 
       // ---Task 2---
       // Create a second button above
@@ -27,3 +43,4 @@
     </script>
   </body>
 </html>
+

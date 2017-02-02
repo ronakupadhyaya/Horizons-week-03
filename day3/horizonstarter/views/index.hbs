@@ -1,8 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: #EFEFEF; padding-top: 2em;}
+    .main{
+      border: 1px solid transparent;
+      background-color: transparent;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    p{
+      font-family: sans-serif;
+      font-size: 20px;
+      font-weight: lighter;
+    }
+    .articlebox{
+      border: 1px solid transparent;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    h1{
+      text-align: center;
+      color: #2BDE73;
+    }
+    .newproject{
+      color:white;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<div class="container top">
+  <div class="col-md-offset-4 col-md-4">
 <h1>View projects</h1>
-
+<button type="button" class="btn btn-primary btn-block"><a href="/new" class="newproject">Create a new project</a></button>
+</div>
+</div>
 <!-- Exercise 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<div class="container main">
+  <div class="row">
 
+{{#each items}}
+<div class="col-md-4">
+  <div class="articlebox">
+  <h1>Title {{this.title}}</h1>
+  <p>Goal {{this.goal}}</p>
+  <p>Start Date{{this.start}}</p>
+  <p>End Date {{this.end}}</p>
+  <form action="/project/{{id}}" method="GET">
+    <button type="sumbit" class="btn btn-primary btn-block">View Project</button>
+  </form>
+</div>
+  </div>
+{{/each}}
+
+  </div>
+</div>
+</html>
 <!-- Exercise 2: Create new project -->
-<!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>

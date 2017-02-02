@@ -37,7 +37,7 @@ db.once('open', function() {
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
-// YOUR CODE HERE
+var ToDoItem = mongoose.model('ToDoItem', {name: String, priority: String, completed: Boolean})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -82,6 +82,7 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task', 'Set task');
 // YOUR CODE HERE
 
 // Arguments
@@ -104,6 +105,7 @@ if (process.argv.length === 2) {
 function parseArgs () {
   var args = program.args.splice(0, (program.args.length-1));
   return args.join(" ");
+
 }
 
 // EXERCISE 2: Add task
@@ -115,12 +117,13 @@ function parseArgs () {
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask(){
+
   var priority = program.priority || 1;
   var name = parseArgs();
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
-
+    var task = new ToDoItem({ name: name, priority: priority, completed: false })
   // YOUR CODE HERE
 
   // TODO: Use mongoose's save function to save task (the new instance of
@@ -128,7 +131,17 @@ function addTask(){
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
-  // YOUR CODE HERE
+  task.save(function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('saved');
+    console.log("Task:" + program.name + ', Priority' + program.priority)
+    mongoose.connection.close();
+  }
+
+});
+
 }
 
 // EXERCISE 3: Show tasks
@@ -150,8 +163,24 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
-
-  // YOUR CODE HERE
+  if(program.task){
+   ToDoItem.find({name: program.task}, function(err, task) {
+     task.forEach(function(item){
+       console.log("Task: " + item.name +", Priority: " + item.priority + ", Completed: " + item.completed)
+     })
+   })
+ } else {
+   ToDoItem.find(function(err,task) {
+     if(err) {
+       console.log('Error')
+     } else {
+       task.forEach(function(item){
+         console.log("Task: " + item.name +", Priority: " + item.priority + ", Completed: " + item.completed)
+       })
+     }
+   })
+ }
+ mongoose.connection.close();
 }
 
 // EXERCISE 4: Delete tasks
@@ -162,5 +191,16 @@ function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
-  // YOUR CODE HERE
+  if(program.task){
+    ToDoItem.remove({ name: program.task }, function (err) {
+      if (err) {
+        return console.error(err);
+      }
+      console.log("Deleted task: " + program.task);
+      mongoose.connection.close();
+    });
+  } else {
+    console.log("No task specified");
+    mongoose.connection.close();
+  }
 }

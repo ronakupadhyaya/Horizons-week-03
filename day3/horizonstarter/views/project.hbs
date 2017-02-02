@@ -1,9 +1,50 @@
-<h1>View Project</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
 
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: #EFEFEF; padding-top: 2em;}
+    .projectmain{background-color: white; padding: 20px; border-radius: 8px;}
+  </style>
+</head>
 <!-- Exercise 3: View a single project -->
+<div class="container projectmain">
+  <div class="col-md-8">
+<h1>{{title}}</h1>
+<p>Goal: {{goal}}</p>
+<p>{{description}}</p>
+<p>{{start}}</p>
+<p>{{end}}</p>
+  </div>
+  <div class="col-md-4">
+<h2>Total Amount Contributed: ${{total}}</h2>
+<div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    40% Complete (success)
+  </div>
+</div>
+    </div>
+    <div class="col-md-12">
+<form method="POST" action="/project/{{id}}" name="contribution">
+  <button type="button" class="btn btn-success">Back This Project</button>
+  <input type="text" placeholder="name" name="name">
+  <input type="number" placeholder="amount" name="amount">
+  <input type="submit">
+</form>
+  </div>
+  <div class="col-md-12">
+<h2>Total Contribution</h2>
+{{#each contributions}}
+<p>Contributions</p>
+<p>Name: {{this.name}}</p>
+<p>Amount: {{this.amount}}</p>
+{{/each}}
+  </div>
+</div>
 
-<!-- YOUR CODE HERE -->
 
-<!-- Exercise 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+</head>

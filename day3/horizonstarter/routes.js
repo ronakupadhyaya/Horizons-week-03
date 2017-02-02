@@ -23,31 +23,82 @@ router.get('/create-test-project', function(req, res) {
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
+  Project.find(function(err, array) {
+  if(err){
+    console.log(err);
+  }
+  else{
+    res.render('index', {items: array });
+  }
+});
 });
 
 // Exercise 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('new');
 });
 
+
+// var expressValidator = require('express-validator');
+// router.use(expressValidator());
+//
+// function validate(req){
+//
+// }
 // Exercise 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  // YOUR CODE HERE
+  req.checkBody('title', 'Title is missing').notEmpty();
+  req.checkBody('goal', 'Goal is missing').notEmpty().isInt();
+  req.checkBody('start', 'Enter start date').notEmpty();
+  req.checkBody('end', 'Enter start date').notEmpty();
+  var errors = req.validationErrors();
+  if(errors){
+    req.body.errors = errors;
+    console.log(errors)
+    res.render('new', req.body)
+  } else{
+    var newproj = new Project(req.body);
+    newproj.save(function(err){
+      if(err){
+        console.log(err)
+      } else{
+        res.redirect('/')
+      }
+    })
+  }
+
+
 });
 
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  Project.findById(req.params.projectid,function(err,project){
+    project.total = 0;
+    project.contributions.forEach(function(obj){
+      project.total += obj.amount;
+    });
+      project.percent = (project.total/project.goal)*100;
+      console.log(project.percent);
+      res.render('project', project)
+  })
 });
 
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  Project.findById(req.params.projectid, function(err,project){
+    project.contributions.push(req.body)
+    project.save(function(err){
+      if(err){
+        console.log(err)
+      } else{
+        res.redirect('/project/' + req.params.projectid);
+      }
+    })
+  })
 });
 
 // Exercise 6: Edit project
