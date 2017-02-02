@@ -150,7 +150,7 @@ router.post('/project/:projectid', function(req, res) {
 //////////////////////////////////////////////////////////////////////////////
 
 // All projects (with filter).
-router.post('/api/project', function(req, res) {
+router.post('/api/:project', function(req, res) {
   Project.find(function(err, projects) {
     if (err) {
       res.status(500).json(err);
