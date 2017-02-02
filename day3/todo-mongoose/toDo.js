@@ -85,7 +85,7 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
-.option('-t, --task <n>', 'Listing a task')
+.option('-t, --task <t>', 'Listing a task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -135,14 +135,8 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
-  task.save(function(error) {
-    console.log('save function');
-    if(error) {
-      console.log('Error');
-    }
-    else {
-      console.log('task')
-    }
+  task.save(function() {
+
     mongoose.connection.close();
   });
 }
@@ -169,20 +163,21 @@ function showTasks() {
 
   // YOUR CODE HERE
   if(program.task) {
-    ToDoItem.find({name: program.task}, function(err, task))
-    if(err) {
-      throw error
-    }
-    else {
-      return program.task
-    }
-  }
-  else {
-  ToDoItem.find(function (err, task) { /
-    / do things } )
-
-  }
+    ToDoItem.find({name: program.task}, function(err, task) {
+      //task = [objects with the name program.task]
+      task.forEach (function(item){
+      console.log("Task:" + item.name +", Priority:" + item.priority + ", Completed: " + item.completed);
+    })
+  });
   mongoose.connection.close();
+}else{
+  ToDoItem.find({}, function(err, task) {
+    task.forEach(function(item)) {
+      console.log("Task:" + item.name +", Priority:" + item.priority + ", Completed: " + item.completed);
+    })
+  });
+  mongoose.connection.close();
+}
 }
 
 // EXERCISE 4: Delete tasks
@@ -195,5 +190,9 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  ToDoItem.remove({name:program.task}, function(err, task) {
+
+  })
   mongoose.connection.close();
 }
+m
