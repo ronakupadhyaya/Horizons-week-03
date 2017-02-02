@@ -163,6 +163,21 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
+//   var name = parseArgs();
+//   var searchObj;
+//   if(program.task){
+//     searchObj = {name: program.task};
+//   } else {
+//     searchObj = {};
+//   }
+//   ToDoItem.find(searchObj,function(err,tasks){
+//     if (err) {
+//       throw err
+//     } else {
+//       console.log(tasks)
+//     }
+//   });
+// }
 
   // YOUR CODE HERE
   if(program.task)
@@ -183,7 +198,6 @@ function showTasks() {
     }
   })
  }
-//  ToDoItem.find(function(err,task){})
 }
 
 // EXERCISE 4: Delete tasks
@@ -193,6 +207,10 @@ function showTasks() {
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
-  // YOUR CODE HERE
+      task.remove({name:program.task},function(err)){
+    if(err){
+      throw 'error'
+    }else{
+    console.log("task doesn't exist")
+  }
 }
