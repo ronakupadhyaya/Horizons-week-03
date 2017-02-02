@@ -38,6 +38,19 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var goose = mongoose.model('goose', {
+  name: {
+    type: String
+  },
+  priority: {
+    type: String
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  }
+
+});
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -47,8 +60,7 @@ db.once('open', function() {
 // .action(addTask);
 //
 // addTask is a function that should be defined somewhere in your code. The
-// function will be called when the add command is run.
-
+// function will be called when the add command is run
 // THIS PART IS DONE FOR YOU. BE SURE TO READ THROUGH IT AND UNDERSTAND
 // THE CODE.
 
@@ -81,7 +93,10 @@ program.command('delete')
 // TODO: add flags for "-t and --task" (do not use parseInt as the
 //    task name should be kept a string)
 program
-.option('-p, --priority <p>', 'Specify priority for task', parseInt)
+  .option('-t, --task <t>', 'Specify task')
+  .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+  .option('-c, --completed', 'Specify if the task is complete')
+// .option('-t, --task <t>', 'Specify task')
 // YOUR CODE HERE
 
 // Arguments
@@ -116,19 +131,37 @@ function parseArgs () {
 // `node toDo.js add Do the dishes`
 function addTask(){
   var priority = program.priority || 1;
+  var completed = false;
   var name = parseArgs();
+  // console.log(name);
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+    var task = new goose (
+      { name: program.task,
+        priority: priority,
+        completed: completed
+      });
 
+      // console.log(goose);
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(error){
+    if (error) {
+      return error;
+    } else {
+      // console.log(program.task);
+      console.log(`Task: ${task.task}, Priority: ${task.priority}, Completed: ${task.completed}`);
+    }
+  });
+
+  mongoose.connection.close();
 }
 
 // EXERCISE 3: Show tasks
@@ -152,6 +185,29 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if (program.task){
+  goose.find({name: program.task}, function(error, tasks){
+    if (error) {
+      console.log(error);
+      return error;
+    } else {
+      tasks.forEach(function(value, key){
+        console.log(`Task: ${key.task}, Priority: ${key.priority}, Completed: ${key.completed}`)
+      })
+    }
+  });
+} else {
+  goose.find(function(error, task){
+    if (error){
+      return error;
+    }
+      task.forEach( function(value, key){
+        console.log(`Task: ${key.task}, Priority: ${key.priority}, Completed: ${key.completed}`)
+      })
+  });
+}
+  mongoose.connection.close();
+
 }
 
 // EXERCISE 4: Delete tasks
@@ -163,4 +219,5 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  mongoose.connection.close();
 }
