@@ -7,5 +7,11 @@
   },
   "scripts": {
     "start": "nodemon app.js"
-  }
+  },
+  "name": "time-machine",
+  "description": "In this exercise we're going to build a simple form that allows you to\r add or subtract days, months or years from a given date",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }
