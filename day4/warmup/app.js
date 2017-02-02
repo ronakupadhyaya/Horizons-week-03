@@ -41,5 +41,13 @@ app.post('/decrement', function(req, res) {
 	res.redirect("/");
 });
 
+app.use('/test', function(req, res) {
+  res.json({
+    method: req.method,
+    body: req.body,
+    query: req.query,
+    params: req.params
+  });
+});
 
 app.listen(3001);

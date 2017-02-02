@@ -182,6 +182,33 @@ router.post('/project/:projectid', function(req, res) {
   });
 });
 
+
+router.get('/project/:projectid/edit', function(req, res) {
+  //get project
+  Project.findById(req.params.projectid, function(err, found) {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      // console.log(found.contributions);
+      res.render('editProject', {
+        id: found._id,
+        title: found.title,
+        goal: found.goal,
+        description: found.description,
+        start: found.start,
+        end: found.end,
+        contributions: found.contributions
+      });
+    }
+  });
+
+  console.log(req.params.projectid);
+
+
+});
+
+
+
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
