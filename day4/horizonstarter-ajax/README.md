@@ -27,18 +27,15 @@ Our goal is to improve the Horizon Starter app that was written in the previous 
 
 Here are the features we're going to implement:
 
-- AJAX contributing: You no longer will need to refresh the page to see your contribution in the page. 
-
-- AJAX polling: The total amount of contributions is continuously updating. If someone else makes a contribution, you will see it too!
-
-- Handle errors when doing AJAX.
-
+- AJAX contributions: You no longer will need to refresh the page to see your contribution in the page. 
+- Handling errors when doing AJAX.
 - Filtering and sorting lists of products, without refreshing the page. 
+- AJAX polling: The total amount of contributions is continuously updating. If someone else makes a contribution, you will see it too!
 
 
 ## Getting oriented
 
-yestedays project horizon starter was a server-side rendered app. Today, we are going to add client side rendering to it. When we talk about rendering, we are simply talking about generating HTML from data. Server rendered apps **Render HTML** once, hybrids render twice. See below for an overview of both approaches:
+Yesteday's project horizon starter was a server-side rendered app. Today, we are going to add client side rendering. When we talk about rendering, we are simply talking about generating HTML from data. Server rendered apps **Render HTML** once, hybrids render twice. See below for an overview of both approaches:
 
 **Server rendered app**: Horizon Starter
 
@@ -76,110 +73,149 @@ yestedays project horizon starter was a server-side rendered app. Today, we are 
 
 ## Exercise 1: Ajax contributions
 
-1. Create a new endpoint route in routes.js: `POST /api/project/:projectId/contribution` 
+1.    Create a new endpoint route in your routes file: `week03/day3/horizonstarter/routes.js`. The new route should be: `POST /api/project/:projectId/contribution` 
 
-   - It should look for the project with the id reveived from the query: `projectId`. If it is not able to find the project, it should return an error. It if is able to find it, then it should:
+      - When posting to pur new route, It search the database for the project with the correct `projectId`. If it is not able to find the project, it should return an error! 
 
-   - Build a contribution object from 3 elements on the request body: 
+      - It if is able to find it, then it should:
 
-     - name 
-     - amount
+        - Build a contribution object from 2 elements on the request body: `name` and `amount`
+        - It should add the new contribution to the project's contribution array: `project.contributions`
+        - It should save the project to update the contributions.
+        - It should respond with the newly created contribution as JSON and a status of 200 -> ok using: `res.json()`
 
-   - it should add the new contribution to the project's contribution array: `project.contributions.`
+        **Testing**: 
 
-   - It should respond with the newly created contribution as JSON and a status of 200 -> ok using: `res.json()`
+        Start your server and visit `localhost:3000` on your browser. Create a new project and fill the information. Save it and visit that project's page. Copy the project's id from the url. Now open up Postman and do a POST request to `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` with a body containing:
 
-     **Testing**: 
-
-     Start your server and visit `localhost:3000` on your browser. Create a new project and fill the information. Save it and visit that project's page. Copy the project's id from the url. Now open up Postman and do a POST request to `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` with a body containing:
-
-     ```
-     {
-     	"name": "RandomInvestor",
-         "amount": 1000
-     }
-     ```
-
-     Visit mlab.com, find the project with the id you contributed to and check the contributions array. Your new contribution should be there. 
-
-     If you get back the same object, you are good to go!
-
-     ​
-
-2. Make the POST request from the client in ajax.
-
-   Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. We have setup a couple of things for you for this step. Check them out:
-
-   - `project.hbs` contains `<script src="/js/contributions.js">` which loads the file available at `public/js/contibutions.js`. Open that file. 
-   - We have handled the event click for the `Contribute` button. Scroll down to the end of the file. Whenever someone clicks the button, we call `sendContribution();`
-   - We set up the URL for the previous step at `apiUrl`. Use this for all AJAX requests
-
-   Start coding:
-
-   - You have to code the AJAX `POST /api/project/:projectId/contribution` . Follow this steps:
-
-     1. Get the data from the form using JQuery. 
-
-     2. Create a new contribution object from the data.
-
-        ```  
-        var newContribution = {
-        	name: // value you get from the form.
-        	amount: // value you get from the form. 
-        };
+        ```
+        {
+        	"name": "RandomInvestor",
+            "amount": 1000
+        }
         ```
 
-     3. We setup the URL for the Send the data via `$.ajax()` POST using the `apiUrl` as URL.
+        Visit mlab.com, find the project with the id you contributed to and check the contributions array. Your new contribution should be there. 
 
-     4. If the request was succesful, clear the form and call:
-
-        `renderNewContribution(newContribution)` This method takes the object for the new contribution.
-
-     5. Call `showFlashMessage("Thanks for your contribution! You rock!", 'success');` to display a success message on the screen! 
-
-     6. If the request was not succesful call `showFlashMessage("An error ocurred", 'danger');`
+        If you get back the same object, you are good to go!
 
         ​
 
-     **Testing**: to check your code works up to this point, visit `localhost:3000` on chrome, click on any post. Fill in the form and add a contribution!  You shouldn't be able to see it right away, but if your code works up to this point, refreshing the page should make the new contribution appear.
+2.    Make the POST request from the client in ajax.
 
-   TODO: CHANGE POST TO PROJECT
+      Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. You have to setup a couple of things before being able to perform an AJAX request. 
 
-3. Use JQuery to update the page after adding a contribution. 
+      - Create a file on your `public/js` folder called `contributions.js`
+      - Add a script tag to your `project.hbs` that looks like this `<script src="/js/contributions.js">` which loads the new file you created at `public/js/contibutions.js`. 
+      - Open your `project.hbs` file and remove the `<input type="submit">` from the form, and add a `<button id="contribute">`
+      - Open the `contributions.js` file and add a `click` event listener for the button we just created. Remember that event handlers can only be added when the document is ready! On your event handler, call  `sendContribution();` whenever someone clicks the button. 
+      - Define the  `sendContribution();` function. Inside this function, you have to code the AJAX `POST /api/project/:projectId/contribution` request. Follow this steps:
+        1. Get the data from the form using JQuery. 
 
-   Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet. We have to refresh to get all the new contributions from the database. We are going to fix that now. 
+        2. Create a new contribution object from the data.
 
-   1. On the sucess of your AJAX request, we called `renderNewContribution(newContribution);` find the function on the code. Now we are going to fill it.
-   2. You have the `newContribution` object. Create the html to show the contribution.
-   3. Append the contribution to the list of contributions with `$('#contributionsAnchor')`
+             ```  
+              var newContribution = {
+              	name: // value you get from the form.
+              	amount: // value you get from the form. 
+              };
+             ```
 
-4. Validate contributions>0 (Server-side validation). Return status code 400. 
+        3. Send the data via `$.ajax()` POST to the endpoint you created on the previous step.
 
-   You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+        4. If the request was succesful, clear the form and call:
 
-   1. Modify your `routes/index.js` to validate the request. 
-   2. If there is an error, respond with  `res.status(400).json(err);` Send the error to the client. 
-   3. Modify the `contributions.js` file on the AJAX part. On the error callback, instead of calling `showFlashMessage("An error ocurred", 'danger');`, with "An error ocurred", send the appropriate message.
+           `renderNewContribution(newContribution)` This method takes the object for the new contribution.
 
+        5. Call `showFlashMessage("Thanks for your contribution! You rock!", 'success');` to display a success message on the screen! 
 
-**Steps to achieve this  TODO MERGE WITH ^**
+        6. If the request was not succesful call `showFlashMessage("An error ocurred", 'danger');`
 
-1. Ajax POST new contribution to endpoint + check with refresh
-2. Do JQuery to load without refresh!
-3. Validation on endpoint -> respond with error if negartive, handle on errror callback display message. 
+        7. Define the `showFlashMessage()` so that it shows a flash message on the screen. Check the bootstrap documentation on how to do this! A 'danger' message is red, while the 'success' one is green.
+
+      **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser, click on any project. Fill in the form and add a contribution! You should get a green message if there were no errors. You shouldn't be able to see the new contribution right away, but if your code works up to this point, refreshing the page should make the new contribution appear.
+
+      ​
+
+3.    Use JQuery to update the page after adding a contribution. 
+
+      Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet. We have to refresh to get all the new contributions from the database. We are going to fix that now. 
+
+      1. On the sucess of your AJAX request, we called `renderNewContribution(newContribution);` 
+      2. Define the `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`.
+      3. Append `contributionHTML` to the list of contributions.
+
+4.    Validate contributions are greater than 0.
+
+       You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+
+      1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
+      2. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client. 
+      3. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error ocurred", 'danger');`, with "An error ocurred", send the appropriate message that you got from the server.
 
 
 
 
 ## Exercise 2: ajax filter projects
 
+On this exercise, we are going to implement project filtering on the homepage. We want the user to be able to filter projects by status: "Fully funded", "Not fully funded" and "show all".
 
-
-**Filter via AJAX. By status.**
+**TODO REMOVE THIS. Filter via AJAX. By status.**
 
 1. new endpoint, returns JSON, ttakes filter constatnts.
+
 2. Empty ProjectsDIV. 
+
 3. Create project elements, load them to div. 
+
+   ​
+
+**1. Defining the route **
+
+
+1. Create a new endpoint route in `horizonstarter/routes.js` to `GET /api/project` 
+
+2. This route is similar to the `GET /project` you did yesterday. The only difference is that instead of rendering, it returns all the posts as JSON with `res.json(posts)`. You should:
+
+   1. Define the route. `GET /api/project` . 
+   2. Query the database to get all the projects. 
+   3. Get the `funded` param from the URL by doing `req.query.funded`. Our API can be called in 3 different ways:
+      - To get only funded projects `GET /api/project?funded=true`  
+      - To get only non-fully funded projects `GET /api/project?funded=false`
+      - To get all projects `GET /api/project`
+   4. Filter the array of projects you get back according to funded param. To do this, iterate over `projects`. To see if a project is fully funded, go over the contributions, adding them up to check if they are greater or equal to the required amount. 
+   5. Send the filtered results back as json  `res.json()`
+
+   ​
+
+   **Testing**: 
+
+   Visit `localhost:3000` and create a couple of projects. Make sure to leave a couple of them unfunded, and make contributions on some others so they become fully funded. 
+
+   Start your server and open Postman perform the following requests:	
+
+   1. `GET localhost:3000/api/project`. You should get all the projects back.
+   2. `GET localhost:3000/api/project?funded=true`. You should only get funded projects.
+   3. `GET localhost:3000/api/project?funded=false` You should only get unfunded projects.
+
+
+​	
+
+**2. Making the request **
+
+This is similar to yesterday's filter projects by funded or not funded. The difference is that, instead of adding links to pages by linking to `localhost:3000/api/project?funded=false`, you will make buttons that will filter the projects, without refreshing the page. 
+
+1.  Add 3 buttons to your `index.hbs` template. They should be: "Funded", "Not completely funded" and "show all".
+2.  Create a file on your `public/js` folder called `projects.js`
+3.  Add a script tag to your `index.hbs` to import the file you created `public/js/index.js`. 
+4.  Open the `index.js` file and add `click` event listeners for the buttons we just created. Your 3 buttons can call the same functions, but you must know which button was clicked. 
+5.  Inside the function you created, code the AJAX `GET /api/project` request. Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` .
+
+    1.  If the request was succesful, clear the posts div and render the posts you got back from the request onto the page.
+    2.  If the request failed, display an error banner using bootstrap. 
+
+**Testing**: to check your code works up to this point, visit `localhost:3000` on your browser. On the homepage click on all three buttons, they should filter the projects accordingly. 
+
 
 
 
@@ -258,11 +294,11 @@ configured--instructions
 [here](../../day4/horizonstarter/README.md#phase-2-mongo-mongoose)--and you may
 need to update the MongoDB URI in `config/db.js`). Then you can run:
 
-```
+   ```
 $ cd solution/
 $ npm install
 $ npm start
-```
+   ```
 
 Then open [http://localhost:3000/](http://localhost:3000/) in your browser
 to see it. Note that only the most basic styling has been applied to the
@@ -309,7 +345,7 @@ We need a new set of routes for our AJAX API.
    file should declare a `Router` at the top and return it via `module.exports`
    at the bottom.
 
-```javascript
+​```javascript
   var express = require('express');
   var router = express.Router();
 
@@ -320,7 +356,7 @@ We need a new set of routes for our AJAX API.
 
 1. Add the routes from `routes/api.js` to your Express app in `app.js`.
 
-```javascript
+​```javascript
   app.use('/', routes); // this was here before
   // Adding routes from your new router to your app!
   // Note how we use /api as the prefix!
