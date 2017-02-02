@@ -107,21 +107,23 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
       **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser, click on any project. Fill in the form and add a contribution! You should get a green message if there were no errors. You will **not**  be able to see the new contribution on your page right away. But if you refresh the page,  the new contribution will appear.
 
+      ​
+
 3.    Use JQuery to update the page after adding a contribution.
 
-                  Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
+Up to this point, you have to refresh the page you add a contribution.  This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
 
 
-      1. Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
-      2. Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);`
+1. Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
+2. Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);`
 
-4.    Validate contributions are greater than 0.
+3. Validate contributions are greater than 0.
 
       You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
 
 
-      1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
-      2. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
+   1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
+   2. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
       3. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error ocurred", 'danger');`, with "An error ocurred", send the appropriate message that you got from the server.
 
 
@@ -130,8 +132,6 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 ## Exercise 2: Ajax filter projects
 
 In this exercise, we are going to implement project filtering in `index.hbs` via AJAX. We want the user to be able to filter projects by status: "Fully funded", "Not fully funded" and "show all".
-
-
 
 **1. Defining the route**
 
@@ -231,10 +231,10 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
 
 
   **Testing**: Start your server and open Postman perform the following requests:
-  
-     1. `GET localhost:3000/api/project`. You should get all the projects back.
-     2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
-     3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
+
+1. `GET localhost:3000/api/project`. You should get all the projects back.
+2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
+3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
 
 **2. Making the request**
 
