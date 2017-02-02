@@ -8,7 +8,11 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
-
+// 
+// node install --save path
+// node install --save morgan
+// node install --save body-parser
+// node install --save express-validator
 // Initialize Express
 var app = express();
 

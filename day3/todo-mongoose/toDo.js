@@ -21,6 +21,7 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error. did you remember to create a config file? '));
 db.once('open', function() {
+  console.log("connected fuckers")
   // connected!
 });
 
@@ -38,6 +39,24 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+// var Schema = mongoose.Schema;
+//
+// var ToDoItemSchema= new Schema({
+//   name: String,
+//   priority: String,
+//   completed: Boolean
+// });
+//
+// var ToDoItem = mongoose.model('ToDoItem', ToDoItemSchema);
+
+// var Cat = mongoose.model('Cat', {name: String, furColor: String})
+
+
+var ToDoItem = mongoose.model('ToDoItem', {
+  name: String,
+  priority: String,
+  completed: Boolean
+});
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -55,9 +74,11 @@ db.once('open', function() {
 program.command('add')
 .description("Create Tasks")
 .action(addTask);
+
 program.command('show')
 .description("Show Tasks")
 .action(showTasks);
+
 program.command('delete')
 .description("Delete Tasks")
 .action(deleteTask);
@@ -83,6 +104,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <t>', 'specify task to do')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -122,6 +144,7 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new ToDoItem({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -129,6 +152,16 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+
+  task.save(function(error){
+    if (error){
+      console.log('Error', error);
+    } else {
+      console.log('It has been saved');
+    }
+    mongoose.connection.close();
+    console.log('has been closed');
+  });
 }
 
 // EXERCISE 3: Show tasks
@@ -141,7 +174,9 @@ function addTask(){
 
 // if there is a flag value for name, the program should only display the task with the specified name
 // it there is no flag task, the program should return all tasks.
+
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
+
 // Here,  'node toDo.js show -t "Clean dishes"' will show "Task: Clean dishes, Priority: 1, Completed: false"
 // use console.log to write to the command line.
 // Tasks must be logged in the following way:
@@ -150,9 +185,22 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
-
   // YOUR CODE HERE
-}
+// they have specified a task/ set flag -t
+  if (program.task){
+    ToDoItem.find({name: program.task}, function(error, task){
+      task.forEach(function(item){
+        console.log('Task: ' + item.name + ', Priority: ' + item.priority + ', Completed: ' + item.completed);
+      })
+        })
+  }else{
+    ToDoItem.find(function(error, task){
+      task.forEach(function(item){
+        console.log('Task: ' + item.name + ', Priority: ' + item.priority + ', Completed: ' + item.completed);
+      })
+    })
+  }
+};
 
 // EXERCISE 4: Delete tasks
 
@@ -163,4 +211,10 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  ToDoItem.remove({ name: program.task }, function (err) {
+  if (err) {console.log("we fucked up", err)}
+  else {console.log("removed: ", program.task)}
+  // removed!
+});
+
 }
