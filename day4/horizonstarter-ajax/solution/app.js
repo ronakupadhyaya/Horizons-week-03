@@ -26,7 +26,7 @@ var app = express();
 
 // // Some handlebars helpers
 // handlebars.registerHelper('fixId', function(obj) {
-//  
+//
 // });
 
 // view engine setup
@@ -61,8 +61,6 @@ app.use('/', routes);
  *
  * NOTE: apiApp here is an express (app) object.
  */
-var apiApp = require('./api');
-app.use('/api/1/', apiApp);
 
 // ALL OTHER REQUESTS which reach this point result in a 404 not found
 // catch 404 and forward to error handler

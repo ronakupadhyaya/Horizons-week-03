@@ -145,4 +145,97 @@ router.post('/project/:projectid', function(req, res) {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////
+////////////////////////////API ROUTES////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+// All projects (with filter).
+router.post('/api/project', function(req, res) {
+  Project.find(function(err, projects) {
+    if (err) {
+      res.status(500).json(err);
+      return;
+    }
+
+    // This query param is a bool so be careful how we read it!
+    if (req.query.hasOwnProperty('funded')) {
+      console.log("Got funded query");
+      var filter;
+      // Parse JSON so "0" string isn't truthy.
+      var funded = JSON.parse(req.query.funded);
+      if (funded) {
+        console.log("Filtering on projects that are FUNDED");
+        filter = function (el) { return el.funded };
+      }
+      else {
+        console.log("Filtering on projects that are NOT FUNDED");
+        filter = function (el) { return !el.funded };
+      }
+      projects = projects.filter(filter);
+    }
+
+    if (req.query.goalAbove) {
+      req.checkQuery('goalAbove', 'Invalid goalAbove').isInt();
+      var errors = req.validationErrors();
+      if (errors) {
+        // In a production app we may not want to return the raw errors here
+        // since it can be a bit dangerous!
+        res.status(400).json(errors);
+        return;
+      }
+      var goalAbove = req.query.goalAbove;
+      projects = projects.filter(function (el) { return el.goal >= goalAbove});
+    }
+
+    res.status(200).json(projects);
+  });
+});
+
+// Project contributions.
+// Chain our routes (since we handle multiple request types). Nifty!
+router.get('/api/project/:projectId/contribution', function(req, res) {
+    // Look up the project.
+    Project.findById(req.params.projectId, function (err, project) {
+      // The project ID doesn't exist.
+      if (err) {
+        res.status(404).json(err);
+        return;
+      }
+      res.status(200).json(project.contributions);
+    });
+  });
+
+router.post('/api/project/:projectId/contribution', function(req, res) {
+  console.log(req.params.projectId)
+    console.log("asd")
+    Project.findById(req.params.projectId, function (err, project) {
+      if (err) {
+        res.status(404).json(err);
+        return;
+      }
+      req.checkBody('name', 'Name is required').notEmpty();
+      req.checkBody('amount', 'Amount is required').notEmpty();
+      req.checkBody('amount', 'Amount must be an integer').isInt();
+      var errors = req.validationErrors();
+      if (errors) {
+        res.status(400).json(errors);
+        return;
+      }
+      var newContribution = {
+        name: req.body.name,
+        comment: req.body.comment,
+        amount: req.body.amount
+      };
+      project.contributions.push(newContribution);
+      project.save(function(err) {
+        console.error(err);
+        if (err) {
+          res.status(500).json(err);
+          return;
+        }
+        res.status(201).json(newContribution);
+      });
+    });
+  });
+
 module.exports = router;

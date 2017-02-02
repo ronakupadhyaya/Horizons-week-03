@@ -1,6 +1,6 @@
 "use strict";
 
-var apiUrl = '/api/1/project/' + projectId + '/contribution';
+var apiUrl = '/api/project/' + projectId + '/contribution';
 
 /**
  * Adds a contribution object to the DOM. Strictly renders to the DOM.
@@ -9,8 +9,7 @@ function addContribution(newContribution, doAlert) {
   // Construct and render the new contribution.
   var wrapper = $('<div class="well"></div>');
   var title = $('<h4>' + newContribution.name + ' contributed $' + newContribution.amount + '</h4>');
-  var comment = $('<p>' + newContribution.comment + '</p>');
-  wrapper.append(title, comment);
+  wrapper.append(title);
 
   // Add it to the DOM. Boom.
   $('#contributionsAnchor').append(wrapper);
@@ -50,7 +49,6 @@ function sendContribution(newContribution, next) {
 function newContribution() {
   var
     nameField = $('#name'),
-    commentField = $('#comment'),
     amountField = $('#amount'),
     nameGroup = $('#name-group'),
     amountGroup = $('#amount-group'),
@@ -78,7 +76,6 @@ function newContribution() {
     // Construct the new contribution object from the form data.
     var newContribution = {
       name: nameField.val(),
-      comment: commentField.val(),
       amount: amountField.val()
     };
 
@@ -89,7 +86,6 @@ function newContribution() {
 
       // Clear form
       nameField.val('');
-      commentField.val('');
       amountField.val('');
 
       // Mount new
