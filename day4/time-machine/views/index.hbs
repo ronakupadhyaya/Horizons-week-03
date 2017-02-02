@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Time machine</title>
+  </head>
+  <body>
+    <form>
+      From
+      <!-- Task 1: Make this element display the timestamp passed in -->
+      <input type="date" name="when" value="{{when}}">
+      to
+      <input type="number" min="0" name="amount" value="{{amount}}">
+      <select name="units">
+        {{{select units}}}
+      </select>
+      <input type="submit" name="action" value="to the future!">
+      <input type="submit" name="action" value="to the past">
+    </form>
+  </body>
+</html>
