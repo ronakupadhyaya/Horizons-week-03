@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nodemon app.js"
   },
-  "name": "warmup",
+  "name": "time-machine",
   "description": "## Instructions",
   "version": "1.0.0",
   "main": "app.js",
