@@ -13,19 +13,29 @@ var count = 0;
 // Display the current count
 app.get('/', function(req, res) {
   res.render('index', {
-    count: count
+    count: count,
   });
 });
 
 // ---Task 1---
 // POST /increment: create an endpoint (aka route) that increases the variable
 // 'count' by one and redirects back to /
-
+app.post('/increment',function(req,res) {
+  count++;
+  res.redirect('/')
+})
 // YOUR CODE HERE
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
+
+
+
+app.post('/decrease',function(req,res) {
+  count--;
+  res.redirect('/')
+})
 
 // YOUR CODE HERE
 

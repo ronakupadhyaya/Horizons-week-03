@@ -21,7 +21,10 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error. did you remember to create a config file? '));
 db.once('open', function() {
+
+  console.log('connected!')
   // connected!
+
 });
 
 // EXERCISE 1: Create the Model
@@ -33,10 +36,13 @@ db.once('open', function() {
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
-// TODO: create a model (called ToDoItem) with a "name" property that
+// TOD0: create a model (called ToDoItem) with a "name" property that
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
+
+
+var ToDoItem = mongoose.model( 'ToDoItem', { name: 'string', priority:'string', completed: Boolean });
 // YOUR CODE HERE
 
 // Time to start defining our Commands. What are we going to do with our program?
@@ -78,10 +84,12 @@ program.command('delete')
 // will be parsed with parseInt. Here we can specify the number of the episode that
 // we want to watch.
 
-// TODO: add flags for "-t and --task" (do not use parseInt as the
+// add flags for "-t and --task" (do not use parseInt as the
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task <n>', 'specify a task' )
+
 // YOUR CODE HERE
 
 // Arguments
@@ -118,16 +126,23 @@ function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
 
-  // TODO: create new instance of your toDo model (call it task) and
+  //  create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
-
+var task= new ToDoItem({name: name, priority: priority, completed:false})
   // YOUR CODE HERE
 
-  // TODO: Use mongoose's save function to save task (the new instance of
+  // : Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
+    task.save(function(error) {
+      if(error) {
+        throw 'errorsilly'
+      } else {
+        console.log( name+' '+'saved_to_database')
+      }
 
+    })
   // YOUR CODE HERE
 }
 
@@ -147,20 +162,64 @@ function addTask(){
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
 function showTasks() {
+  var name=parseArgs();
+
+  if(program.task) {
+    ToDoItem.find({name:program.task},function(err,task) {
+
+      if(err) {
+        throw 'error'
+      } else {
+        console.log('task:'+task[0].name+ ' '+'Priority:'+task[0].priority+' '+'status:'+task[0].completed)
+      }
+    })
+  } else {
+
+
+    ToDoItem.find(function(err,task){
+      if(err) {
+        console.log('nope')
+      } else {
+        task.forEach(function(item){
+          console.log('task:'+item.name+ ' '+'Priority:'+item.priority+' '+'status:'+item.completed);
+        })
+      }
+
+    })
+  }
+}
+
+
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
-}
+
 
 // EXERCISE 4: Delete tasks
 
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
-  // TODO: If program.task exists you should use mongoose's .remove function
+  // : If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
+
+if(program.task) {
+  ToDoItem.remove({name:program.task},function(err){
+
+    if(err) {
+      console.log('error!')
+    } else {
+      console.log( 'deleted'+program.task)
+    }
+  })
+}
+
+
+
+
+
 
   // YOUR CODE HERE
 }

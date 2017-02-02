@@ -6,10 +6,11 @@ var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
 
+
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
   var project = new Project({
-    title: 'I am a test project'
+    title: 'I am a test project CLOWN'
   });
   project.save(function(err) {
     if (err) {
@@ -20,28 +21,90 @@ router.get('/create-test-project', function(req, res) {
   });
 });
 
+
+router.get('/c',function(req,res) {
+  res.render('clown');
+})
+
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
+
+    Project.find(function(err,array) {
+      if(err) {
+        throw 'errorSilly'
+      } else {
+      res.render('index',{items:array});
+    }
+  });
+
   // YOUR CODE HERE
 });
+
+
 
 // Exercise 2: Create project
 // Implement the GET /new endpoint
-router.get('/new', function(req, res) {
-  // YOUR CODE HERE
-});
 
+
+router.get('/new',function(req,res) {
+  res.render('new')
+})
+
+
+
+
+
+
+
+router.post('/new',function(req,res) {
+
+
+
+
+var newProj=req.body
+   var project = new Project( {
+     title: newProj.title,
+     goal: parseInt(newProj.goal),
+     description: newProj.description,
+     start: new Date(newProj.start),
+     end:   new Date(newProj.end)
+   });
+
+
+  project.save(function(err) {
+    if (err) {
+      console.log('noclowns')
+      res.status(500).json(err);
+    } else {
+      res.redirect('/')
+    }
+  });
+
+})
 // Exercise 2: Create project
 // Implement the POST /new endpoint
-router.post('/new', function(req, res) {
-  // YOUR CODE HERE
-});
+// router.post('/new', function(req, res) {
+//   // YOUR CODE HERE
+// });
 
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  var id=req.params.projectid;
+  Project.findById(id,function(err,pro) {
+    if(err) {
+      console.log('err')
+    } else{
+      res.render('project', {project:pro})
+    }
+  })
+
+
+
+
+
 });
 
 // Exercise 4: Contribute to a project

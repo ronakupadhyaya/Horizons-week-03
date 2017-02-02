@@ -1,6 +1,31 @@
-<h2>Create project</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Project</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: white; padding-top: 2em;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>New Project</h1>
+    <div class="row">
+      <form action="/new" method="post">
+        <input type="text" placeholder="Title" name="title" required>
+        <input type="text" placeholder="Goal" name="goal" required>
+        <input type="textarea" placeholder="description" name="description">
+        <input type="date" name="start" required>
+        <input type="date" name="end" required>
+        <input type='submit' >
+      </form>
+    </div>
+  </div>
+</body>
+</html>
 
 <!-- Exercise 2: Create project -->
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
-
