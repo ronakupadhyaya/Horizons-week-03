@@ -1,6 +1,27 @@
 <h2>Create project</h2>
+<form action="/new"=m ethod="POST">
+  <label class="col-sm-3 control-label">Title</label>
+  <input type="text" name="title" value="{{info.title}}"></input>
+
+  <label class="col-sm-3 control-label">Goal</label>
+  <input type="text" name="goal" value="{{info.goal}}"></input>
+
+  <label class="col-sm-3 control-label">Description</label>
+  <textarea name="description">{{info.description}}</textarea>
+
+  <label class="col-sm-3 control-label">Start</label>
+  <input type="Date" name="start" value="{{info.start}}"></input>
+
+  <label class="col-sm-3 control-label">End</label>
+  <input type="Date" name="end" value="{{info.end}}"></input>
+
+  <label class="col-sm-3 control-label">Category</label>
+  <select>
+  <option value = ></option>
+</select>
+  <button type="submit"> submit </button>
+</form>
 
 <!-- Exercise 2: Create project -->
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
-

@@ -3,6 +3,13 @@
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+<body>
+  {{#each projects}}
+    {{this.title}}</br>
+    {{this.id}}</br>
+  {{/each}}
+</body>
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
+
 <a href="/new">Create a new project</a>

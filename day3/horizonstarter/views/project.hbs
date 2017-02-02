@@ -2,6 +2,39 @@
 
 <!-- Exercise 3: View a single project -->
 
+<body>
+  <label class="col-sm-3 control-label">Title</label> {{project.title}}
+  </br>
+  <label class="col-sm-3 control-label">goal</label> {{project.goal}}
+  </br>
+  <label class="col-sm-3 control-label">description</label> {{project.description}}
+  </br>
+  <label class="col-sm-3 control-label">start date</label> {{project.start}}
+  </br>
+  <label class="col-sm-3 control-label">end date</label> {{project.end}}
+  </br>
+
+  <form action="" method="POST">
+    <label class="col-sm-3 control-label">contributors</label>
+    <input type="text" class="form-control" name="name" placeholder="Name">
+    <input type="text" class="form-control" name="amount" placeholder="Amount">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{project.progressStr}}">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+    {{#each project.contributions}}
+      <label class="col-sm-3 control-label">contributor</label>
+      {{this.name}}</br>
+      <label class="col-sm-3 control-label">amount</label>
+      {{this.amount}}</br>
+    {{/each}}
+    <button type="submit"> submit </button>
+  </form>
+
+
+</body>
+
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
