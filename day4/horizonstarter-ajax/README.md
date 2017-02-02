@@ -71,7 +71,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
         If you get back the same object, you are good to go!
 
-  
+
 
 2.    Make an AJAX request from the browser to the new endpoint.
 
@@ -109,7 +109,7 @@ Yesteday's project horizon starter was a server-side rendered app. Today, we are
 
 3.    Use JQuery to update the page after adding a contribution. 
 
-      Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
+            Up to this point, you have to refresh the page you add a contribution. This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
 
 
       1. Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
@@ -229,7 +229,7 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
 
 3.   Send back the data of the filtered & sorted posts back by doing `res.json(posts)`
 
-     **Testing**: Start your server and open Postman perform the following requests:	
+         **Testing**: Start your server and open Postman perform the following requests:	
 
 
      1. `GET localhost:3000/api/project`. You should get all the projects back.
@@ -256,7 +256,7 @@ Now, we have connect our new route to the page.
  3. Visit `localhost:3000` select "Percentage Funded" from your sortBy dropdown and click sort.  Check your node console. It should print an object containing  `SortBy: "percentageFunded"`
  4. Visit `localhost:3000` select "Amount Funded" from your sortBy dropdown, select "Descending" from your orderBy dropdown and click sort.  Check your node console. It should print an object containing   `SortBy: "amoutFunded", order: "descending"`
 
-   
+
 
 **3. Rendering the results**
 
@@ -277,12 +277,23 @@ Now that you've got the contributions form and functionality working via AJAX, l
 
 The easiest way to do this is by having an AJAX call that fires every 5 seconds using `setInterval`. If there is new data for contributions, clear the div and add the new data. To test this:
 
-	1. Open the same project in two browser tabs. 
-	2. Add a contribution in one tab
-	3. Switch to the other tab, it should appear after 5 seconds!
+ 1. Open the same project in two browser tabs. 
+ 2. Add a contribution in one tab
+ 3. Switch to the other tab, it should appear after 5 seconds!
 
 #### 2. Search by project title or description 
 
-Add a search bar on your home 
+1. Add a search bar on your project's page.
 
+2. Create a posts/search/ route that takes in a search param. 
+
+3. Send an AJAX request to your new route containing the input from the searchbox. 
+
+4. Filter prjects on your `projects/search` route for projects that contain the search string. 
+
+   Refer to this URL for help setting up your [search funcionality](http://stackoverflow.com/questions/28775051/best-way-to-perform-a-full-text-search-in-mongodb-and-mongoose).
+
+5. Return the search results to the client.
+
+6. Use JQuery to remove old items and display the new projects. 
 
