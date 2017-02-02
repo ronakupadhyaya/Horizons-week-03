@@ -88,11 +88,17 @@ router.post('/project/:projectid', function(req, res) {
  // YOUR CODE HERE
  Project.findById(req.params.projectid, function(err, proj){
    if (proj.contributions) {
-     proj['contributions'].push({name:req.body.name ,amount:req.body.amount});
+     proj.contributions.push({name:req.body.name ,amount:req.body.amount});
      proj.save();
+     var total = 0;
+     project.contributions.forEach(function(item){
+       total += item.amount;
+     })
      res.redirect('/');
+     console.log("hate is bad");
+     console.log(total);
    } else {
-     proj['contributions'] = [];
+     proj.contributions = [];
      proj.contributions.push({name:req.body.name ,amount:req.body.amount});
      proj.save();
      res.redirect('/');
