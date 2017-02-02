@@ -1,0 +1,22 @@
+<h2>Edit project</h2>
+
+<!-- Exercise 2: Create project -->
+
+<form method="POST" action="/new">
+ <input type="text" name="title" placeholder="Title" value="{{title}}"></input>
+ <input type="text" name="goal" placeholder="Goal" value={{goal}}></input>
+ <textarea type="text" name="description" placeholder="Description" value="{{desc}}"></textarea>
+ <input type="Date" name="start" placeholder="Start" value="{{start}}"></input>
+ <input type="Date" name="end" placeholder="End"  value="{{end}}"></input>
+ <div class="form-group">
+  <select class="form-control" name="category">
+    {{#each selectArray}}
+      <option value="{{this.sel}}" {{this.cat}}>{{this.sel}}</option>
+    {{/each}}
+  </select>
+  </div>
+ <button type="submit">Submit</button>
+</form>
+
+<!-- Exercise 5: Project categories -->
+<!-- YOUR CODE HERE -->

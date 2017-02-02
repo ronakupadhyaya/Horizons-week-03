@@ -124,8 +124,8 @@ function parseArgs () {
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
-  console.log("priority", priority);
-  console.log(name);
+  // console.log("priority", priority);
+  // console.log(name);
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
@@ -186,16 +186,11 @@ function showTasks() {
       }
       else{
         task.forEach(function(item){
-          //Task: [task.name], Priority: [task.priority], Completed: [task.completed]
           console.log("Task: "+item.name+", Priority: "+item.priority+", Completed: "+item.completed);
         })
-        // console.log(task);
       }
-
     })
   }
-  // ToDoItem.find(function(err, task){
-//});
   mongoose.connection.close();
 }
 

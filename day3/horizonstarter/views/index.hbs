@@ -2,7 +2,19 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each arr}}
+<div>
+  <div>
+    <h3> Project: {{title}} </h3>
+    <div> Goal: {{goal}}</div>
+    <div> Description: {{description}}</div>
+    <div> Start date: {{start}}</div>
+    <div> End date: {{end}}</div>
+    <a href="/project/{{id}}">View Project </a>
+  </div>
+  </br>
+</div>
+{{/each}}
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
