@@ -2,8 +2,29 @@
 
 <!-- Exercise 3: View a single project -->
 
+  {{ this.title }}</br>
+  {{ this.goal }}</br>
+  {{ this.description }}</br>
+  {{ this.start }}</br>
+  {{ this.end}}</br>
+
+  {{#each this.contributions}}
+  <li>{{this.name}}</li>
+  <li>{{this.amount}}</li>
+  {{/each}}
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
+<form action="" method="post">
+  <div class="form-group">
+    <label for="usr">Name</label>
+    <input type="text" class="form-control" placeholder="Title" name="name" required>
+  </div>
+  <div class="form-group">
+    <label for="usr">Amount:</label>
+    <input type="number" class="form-control" placeholder="Amount" name="amount" required>
+  </div>
+    <button type="submit" class = "form-control">button</button>
+</form>
 
 <!-- YOUR CODE HERE -->

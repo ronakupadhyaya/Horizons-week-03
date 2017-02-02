@@ -5,4 +5,11 @@
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+
+
+<form class="submit" action="/new" method="post">
+  {{#each projects}}
+    {{ this.title }}</br>
+  {{/each}}
+  <a href="/new">Create a new project</a>
+</form>

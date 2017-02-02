@@ -3,4 +3,26 @@
 <!-- Exercise 2: Create project -->
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
-
+<form action="/newForm" method="post">
+  <div class="form-group">
+    <label for="usr">Title</label>
+    <input type="text" class="form-control" placeholder="Title" name="title" required>
+  </div>
+  <div class="form-group">
+    <label for="usr">Goal:</label>
+    <input type="number" class="form-control" placeholder="Goal. Don't fucking type in e" name="goal" required>
+  </div>
+  <div class="form-group">
+    <label for="usr">Description:</label>
+    <input type="text" class="form-control" placeholder="Description" name="description">
+  </div>
+  <div class="form-group">
+    <label for="usr">Start Date:</label>
+    <input type="date" class="form-control" name="startDate" required>
+  </div>
+  <div class="form-group">
+    <label for="usr">End Date:</label>
+    <input type="date" class="form-control" name="endDate" required>
+  </div>
+    <input type="submit" class = "form-control">
+</form>
