@@ -5,4 +5,11 @@
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
+{{#each arr}}
+<div>
+  <a href="/project/{{this.id}}"/>
+  {{this}}
+</div>
+{{/each}}
+
 <a href="/new">Create a new project</a>
