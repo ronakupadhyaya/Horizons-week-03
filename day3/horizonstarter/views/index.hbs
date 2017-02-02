@@ -1,7 +1,29 @@
 <h1>View projects</h1>
-
+<a href="/?sort=start">Sort projects by start date</a>
+<a href="/?sort=start&sortDirection=descending">Sort projects by start date descending</a>
+<a href="/?sort=end&sortDirection=descending">Sort projects by end date descending</a>
+<a href="/?sort=end">Sort projects by end date</a>
+<a href="/?sort=goal">Sort projects by goal amount</a>
+<a href="/?sort=goal&sortDirection=descending">Sort projects by goal amount descending</a>
+<a href="/?sort=totalContribution">Sort projects by total contributed</a>
+<a href="/?sort=totalContribution&sortDirection=descending">Sort projects by total contributed descending</a>
+<a href="/?sort=fullyFunded">Get fully funded projects</a>
+<a href="/?sort=notFullyFunded">Get projects still needing funding</a>
+<hr>
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each projects}}
+<div>
+  <h2>{{title}}</h2>
+  <p>{{description}}</p>
+  <p>{{start}}</p>
+  <p>{{end}}</p>
+  <p>{{goal}}</p>
+  <a href="/project/{{_id}}">View project</a>
+  <a href="/project/{{_id}}/edit">Edit project</a>
+</div>
+<hr>
+{{/each}}
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->

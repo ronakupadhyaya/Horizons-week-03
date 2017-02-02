@@ -2,8 +2,46 @@
 
 <!-- Exercise 3: View a single project -->
 
+<div>
+  <h2>{{project.title}}</h2>
+  <a href="/project/{{project.id}}/edit">Edit project</a>
+  <p>Project Goal: ${{project.goal}}.00 </p>
+  <p>Description: {{project.description}}</p>
+  <p>Category: {{project.category}}
+  <p>Start Date: {{project.start}}</p>
+  <p>End Date: {{project.end}}</p>
+  <p>Contribuions</p>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{raisedPercentage}}%">
+       {{raisedPercentage}}% Raised: ${{totalRaised}} / ${{project.goal}}
+    </div>
+  </div>
+</div>
+<hr>
+
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
 
+<form action="/project/{{project.id}}" method="post">
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" name="contributorName" placeholder="Your Name">
+  </div>
+  <div class="form-group">
+    <label>Amount to donate</label>
+    <input type="text" class="form-control" name="contributorAmount" placeholder="How much do you want to contribute?">
+  </div>
+  <button type="submit" class="btn btn-default">Confirm</button>
+</form>
+
 <!-- YOUR CODE HERE -->
+<a href="/">Go back to all projects</a>
+
+<div>
+  <h2>The Backers</h2>
+{{#each project.contributions}}
+  <p>{{name}}: ${{amount}}.00 </p>
+{{/each}}
+</div>

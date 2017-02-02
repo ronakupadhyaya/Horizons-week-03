@@ -4,3 +4,51 @@
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
 
+<form action="/new" method="post">
+
+  {{#if errors}}
+    {{#each errors}}
+      <div><strong>Errors:</strong>{{msg}}</div>
+    {{/each}}
+  {{/if}}
+
+  <div class="form-group">
+    <label>Project Title</label>
+    <input type="text" class="form-control" name="projectTitle" placeholder="Project Title" value={{title}}>
+  </div>
+  <div class="form-group">
+    <label>Project Goal</label>
+    <input type="text" class="form-control" name="projectGoal" placeholder="Project Goal" value={{goal}}>
+  </div>
+  <div class="form-group">
+    <label>Project Description</label>
+    <textarea class="form-control" rows="6" name="projectDescription">{{description}}</textarea>
+  </div>
+  <div class="form-group">
+    <label>Project Category</label>
+    <div>
+      <select class="form-control" name="projectCategory">
+        <option>Famous Muppet Frogs</option>
+        <option>Current Black Presidents</option>
+        <option>The Pen Is Mightier</option>
+        <option>Famous Mothers</option>
+        <option>Drummers Named Ringo</option>
+        <option>1-Letter Words</option>
+        <option>Months That Start With "Feb"</option>
+        <option>How Many Fingers Am I Holding Up</option>
+        <option>Potent Potables</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Project Start Date</label>
+    <input type="date" class="form-control" name="projectStart">
+  </div>
+  <div class="form-group">
+    <label>Project End Date</label>
+    <input type="date" class="form-control" name="projectEnd">
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<a href="/">Go back to all projects</a>
