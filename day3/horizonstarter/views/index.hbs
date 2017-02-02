@@ -1,8 +1,14 @@
 <h1>View projects</h1>
-
+<a href="/new">Create a new project</a>
 <!-- Exercise 1: View all projects -->
-<!-- YOUR CODE HERE -->
+{{#each items}}
+  <h3>{{this.title}}</h3>
+  <p>{{this.id}}</p>
+  <form method="GET" action="/project/{{id}}">
+    <input type="submit">
+  </form>
+{{/each}}
+
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
