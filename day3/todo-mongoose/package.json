@@ -8,6 +8,6 @@
   },
   "scripts": {
     "test": "jasmine-node .",
-    "start": "node toDo.js"
+    "start": "echo"
   }
 }
