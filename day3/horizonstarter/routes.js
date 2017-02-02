@@ -185,6 +185,8 @@ router.post('/project/:projectid', function(req, res) {
 
 router.get('/project/:projectid/edit', function(req, res) {
   //get project
+
+  console.log(categoryEnum);
   Project.findById(req.params.projectid, function(err, found) {
     if (err) {
       console.log("Error", err);
@@ -214,3 +216,5 @@ router.get('/project/:projectid/edit', function(req, res) {
 // Create the POST /project/:projectid/edit endpoint
 
 module.exports = router;
+
+var categoryEnum = ["Famous Muppet Frogs", "Current Black Presidents", "The Pen Is Mightier", "Famous Mothers", "Drummers Named Ringo", "1-Letter Words", "Months That Start With \"Feb\"", "How Many Fingers Am I Holding Up", "Potent Potables"];
