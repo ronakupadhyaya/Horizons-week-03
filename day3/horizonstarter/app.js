@@ -42,7 +42,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup express-validator
-app.use(validator());
+app.use(validator({
+
+	customValidators: {
+    gte: function(param, num) {
+        return param >= num;
+    },
+    isOneLetter: function(param){
+
+      return param.length === 1;
+
+    },
+    isBetween: function(param, first, last){
+
+      if(param <= last && param >= first) return true;
+
+      return false;
+    },
+    equalTo: function(param1, param2){
+      return param1 === param2;
+    }
+
+ }
+
+}));
 
 // Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));

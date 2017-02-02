@@ -1,6 +1,72 @@
 <h2>Create project</h2>
+<br/>
 
 <!-- Exercise 2: Create project -->
+
+<form action="/new" method="post" class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">title:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" placeholder="Enter title" name="title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">goal:</label>
+    <div class="col-sm-10"> 
+      <input type="number" class="form-control" placeholder="Enter goal" name="goal">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">description:</label>
+    <div class="col-sm-10"> 
+      <textarea class="form-control" placeholder="Enter description" name="description"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">start:</label>
+    <div class="col-sm-10"> 
+      <input type="date" class="form-control" placeholder="Enter start date" name="start">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">end:</label>
+    <div class="col-sm-10"> 
+      <input type="date" class="form-control" placeholder="Enter end date" name="end">
+    </div>
+  </div>
+   <div class="form-group">
+    <label class="control-label col-sm-2">Project Category: </label>
+    <div class="col-sm-10"> 
+	    <select name="category">
+	      <option>Famous Muppet Frogs</option>
+	      <option>Current Black Presidents</option>
+	      <option>The Pen Is Mightier</option>
+	      <option>Famous Mothers</option>
+	      <option>Drummers Named Ringo</option>
+	      <option>1-Letter Words</option>
+	      <option>Months That Start With "Feb"</option>
+	      <option>How Many Fingers Am I Holding Up</option>
+	      <option>Potent Potables</option>
+	    </select>
+	</div>
+  </div>
+  <div class="form-group">
+  	<div class="col-sm-10">
+  	</div>
+  	<div class="col-sm-2">
+  		<button type="submit" class="btn btn-default">Submit</button>
+  	</div>
+  </div>
+
+</form>
+
+<div><strong>Errors:</strong><br/>
+  {{#each errors}}
+  {{this.msg}}<br/>
+  {{/each}}
+</div>
+
+
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
 

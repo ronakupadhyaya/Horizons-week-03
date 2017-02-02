@@ -2,8 +2,69 @@
 
 <!-- Exercise 3: View a single project -->
 
+
+<h2><strong>{{project.title}}</strong></h2>
+<p><strong>goal:</strong> ${{project.goal}}</p>
+<p><strong>description:</strong> {{project.description}}</p>
+<p><strong>start data:</strong> {{project.start}}</p>
+<p><strong>end data:</strong> {{project.end}}</p>
+<p><strong>category:</strong> {{project.category}}</p>
+
+
+
+<a href="/">return home</a>
+
+
+
+
+
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
 
-<!-- YOUR CODE HERE -->
+<h2>Make a Contribution</h2>
+
+<form action="/project/{{project.id}}" method="post" class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-2">name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" placeholder="Enter title" name="name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2">amount:</label>
+    <div class="col-sm-10"> 
+      <input type="text" class="form-control" placeholder="Enter amount" name="amount">
+    </div>
+  </div>
+  <div class="form-group">
+  	<div class="col-sm-10">
+  	</div>
+  	<div class="col-sm-2">
+  		<button type="submit" class="btn btn-default">Submit</button>
+  	</div>
+  </div>
+</form>
+
+
+<h4>Total Number of Contributions Made: {{project.contributions.length}}</h4>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{project.contrPercent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{project.contrPercent}}%">
+    {{project.contrPercent}}%
+  </div>
+</div>
+
+
+<h3>Contributions made thus far:</h3>
+
+<div>
+	{{#each project.contributions}}
+  	<p>{{this.name}} gave ${{this.amount}}</p>
+  	{{/each}}
+</div>
+
+
+
+
