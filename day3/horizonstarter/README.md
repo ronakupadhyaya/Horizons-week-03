@@ -118,7 +118,7 @@ created document.
 
 1. Implement the `GET /new` endpoint in `week03/day3/horizonstarter/routes.js`.
   Render `new.hbs`.
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and render an HTML form
+1. Edit `week03/day3/horizonstarter/views/new.hbs` and render an HTML form
   that has `method` `POST` and `action` `/new`. This form should contain:
     1. `title`: text input field 
     1. `goal`: text input field
@@ -129,6 +129,13 @@ created document.
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
   1. Validate form fields using `express-validate`, if there are errors render
   `new.hbs` with error messages and the form fields filled in.
+  
+    You can use the `value=""` HTML attribute for this purpose:
+
+    ```html
+    <input type="text" name="title" value="{{project.title}}">
+    ```
+  
   1. If there are no validation errors, create a new `Project` and
   `.save()` it. If `.save()` is successful redirect to `/`.
 1. You should now see the newly created project on your "View all projects"
@@ -211,12 +218,6 @@ that allows us to make contributions.
 
   When the project edit page loads, it should have all the properties of
   the project being edited pre-filled into form fields.
-
-  You can use the `value=""` HTML attribute for this purpose:
-
-  ```html
-  <input type="text" name="title" value={{project.title}}>
-  ```
 
 1. Create a new endpoint in `routes.js` `POST /projects/:projectid/edit`.
   The HTML form in `editProject.hbs` should `POST` data to this endpoint

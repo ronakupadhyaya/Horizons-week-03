@@ -1,0 +1,6 @@
+<h1>Alex</h1>
+
+<ul>
+{{#each favoriteFoods}}
+<li>{{this}}</li>
+</ul>
