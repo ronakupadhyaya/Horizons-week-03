@@ -12,5 +12,21 @@
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
-
+<form class='contributions' method='post'>
+  <input type='text' placeholder='Name' name='name' required>
+  <input type='text' placeholder='Amount' name='amount' required>
+  <input  type="submit" name="contribution" value="contribution">
+</form>
 <!-- YOUR CODE HERE -->
+<h2>Total  {{total}}</h2>
+<!-- <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70%"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    <span class="sr-only">Complete</span>
+  </div>
+</div> -->
+<ul>
+  {{#each project.contributions}}
+  <li>Conrtibuter {{this.name}}  Amount {{this.amount}}</li>
+  {{/each}}
+</ul>
