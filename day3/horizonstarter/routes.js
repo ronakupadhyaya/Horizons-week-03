@@ -226,6 +226,25 @@ router.post('/project/:projectid', function(req, res) {
 });
 
 
+router.post('/project/:projectId/contribution', function(req, res) {
+  Project.findById(req.params.projectid, function(err, found) {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      // console.log(found.contributions);
+      res.render('project', {
+        id: found._id,
+        title: found.title,
+        goal: found.goal,
+        description: found.description,
+        start: found.start,
+        end: found.end,
+        contributions: found.contributions
+      });
+    }
+  });
+})
+
 router.get('/project/:projectid/edit', function(req, res) {
   //get project
 
