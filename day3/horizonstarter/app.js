@@ -11,7 +11,19 @@ var validator = require('express-validator');
 
 // Initialize Express
 var app = express();
-
+app.engine('.hbs', exphbs(
+  {
+    extname: '.hbs',
+    helpers: {
+      // You can define an Handlebars helper here
+      // YOUR CODE HERE
+      formatDate: function(dateString) {
+        var ret='';
+        
+        return ret;
+      }
+    }
+  }));
 // mongoose configuration
 var mongoose = require('mongoose');
 

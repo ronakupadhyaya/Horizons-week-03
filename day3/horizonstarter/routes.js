@@ -146,12 +146,13 @@ router.get('/project/:projectid', function(req, res) {
       res.render('project',{title: doc.title,
                             goal: doc.goal,
                             desc: doc.description,
-                            start: doc.start,
-                            end: doc.end,
+                            start: toDateStr(new Date(doc.start)),
+                            end: toDateStr(new Date(doc.end)),
                             category: doc.category,
                             totalCtr: totalCtr,
                             percent: percent,
-                            contributors: contributors});
+                            contributors: contributors,
+                            id: req.params.projectid});
     }
 
   })
