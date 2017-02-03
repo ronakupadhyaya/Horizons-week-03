@@ -33,7 +33,12 @@ router.get('/', function(req, res) {
 // Exercise 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  res.render('new', {title: "Create Project"}
+  var categories = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables']
+  var selected = project.category
+  var s = categories.splice(indexOf(selected), 1);
+  categories = s.concat(categories);
+
+  res.render('new', {title: "Create Project", arr: categories }
 );
   // YOUR CODE HERE
 });
@@ -106,11 +111,51 @@ router.post('/project/:projectid', function(req, res) {
       }
     });
   });
-  // YOUR CODE HERE
 });
+
 
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 
+router.get('/projects/:projectid/edit', function(req, res) {
+  var id = req.params.projectid;
+  Project.findById(id, function(err, project){
+    if(err){
+      console.log('error', err);
+    }else{
+      var categories = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables']
+      var selected = project.category;
+      var s = categories.splice(categories.indexOf(selected), 1);
+      categories = s.concat(categories);
+    res.render('editProject', {project: project, arr: categories, startDate: project.start, endDate: project.end});
+  }
+  });
+
+  // YOUR CODE HERE
+});
+
+
+router.post('/projects/:projectid/edit', function(req, res) {
+  Project.findByIdAndUpdate(req.params.projectid, function(err, project) {
+    req.checkBody('name', 'Contributor name').notEmpty();
+    req.checkBody('amount', 'Contributor amount').notEmpty().isInt();
+    var errors = req.validationErrors();
+    project.contributions.push(req.body);
+    project.save(function(err){
+      if (err){
+        console.log(err);
+      }
+      else {
+        res.redirect('/editProject/' + req.params.projectid)
+      }
+    });
+  });
+});
+router.get('/:sort/:sortDirection', function(req, res){
+
+  Project.find({}).sort({req.params.sort:req.params.sortDirection}).exec(function(err, docs) {
+        res.render('index', {projects: project});
+   });
+});
 module.exports = router;

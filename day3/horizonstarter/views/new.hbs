@@ -27,8 +27,17 @@
       <input type="date" name="end" value="{{project.end}}">
     </div>
   </br>
+  <label for="category">Category</label>
+  <select id="category" name="category" class="form-control">
+  {{#each arr}}
+    <option>{{this}}</option>
+  {{/each}}
+  </select>
+</br>
     <input type="submit">
-  </form>
+  </br>
+
 
 <!-- Exercise 5: Project categories -->
+</form>
 <!-- YOUR CODE HERE -->
