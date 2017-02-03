@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "dependencies": {
     "commander": "^2.9.0",
+    "config": "^1.25.1",
     "jasmine-node": "^1.14.5",
     "jsonfile": "^2.3.1",
     "mongoose": "^4.8.1"
@@ -9,5 +10,10 @@
   "scripts": {
     "test": "jasmine-node .",
     "start": "node toDo.js"
-  }
+  },
+  "name": "todo-mongoose",
+  "description": "Mongoose is a `Node.js` library that translates data in the Mongo database to JavaScript objects for use in your application. Let's take a look at creating and storing documents in a collection using MongoDB and Mongoose.",
+  "main": "config.js",
+  "author": "",
+  "license": "ISC"
 }

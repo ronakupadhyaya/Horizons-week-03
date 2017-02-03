@@ -1,9 +1,34 @@
 <h1>View Project</h1>
 
 <!-- Exercise 3: View a single project -->
+<h1>Title: {{project.title}}</h1>
+<h3>Goal: {{project.goal}}</h3>
+<h3>Description: {{project.description}}</h3>
+<h3>Start: {{project.start}}</h3>
+<h3>End: {{project.end}}</h3>
+<h3>Category: {{project.category}}</h3>
+<h2>We have raised ${{project.totalraised}} ({{project.percentraised}}%) of our goal of ${{project.goal}}. Please help us not be broke</h2>
+<div class="progress">
+  <div class="progress-bar" style="width:{{project.percentraised}}%">
+  </div>
+</div>
 
-<!-- YOUR CODE HERE -->
+<button>
+<a href="/projects/{{project._id}}/edit">
+edit
+</a>
+</button>
 
-<!-- Exercise 4: Contribute to a project -->
+<form method="post" >
+<input type="text" method="post" name="amount" placeholder="Amount Dontation">
+<input type="text" method="post" name="name" placeholder="Your Name">
+<input type="submit" value="submit">
 
-<!-- YOUR CODE HERE -->
+</form>
+<h3>Contributions:
+  {{#each project.contributions}}
+  <p>
+  {{amount}} - {{name}}
+</p>
+  {{/each}}
+</h3>

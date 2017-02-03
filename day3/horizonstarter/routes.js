@@ -52,14 +52,18 @@ router.post('/new', function(req, res) {
     res.render('new', {errors: errors});
   } else {
     var info = req.body;
+    console.log("info",info);
     var post = new Project({
       title: info.title,
       description: info.description,
       goal: parseInt(info.goal),
       start: new Date(info.start),
-      end: new Date(info.end)
-    })
-    console.log("fuck me")
+      end: new Date(info.end),
+      category: info.category,
+      percentraised: 0,
+      totalraised: 0
+    });
+    console.log("post", post)
     post.save(function(err) {
       if (err) {
         res.status(500).json(err);
@@ -73,30 +77,72 @@ router.post('/new', function(req, res) {
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
-  Project.findById(req.params.projectid, function(err, array) {
-    console.log(array)
-    if (err) {console.log("you done fucked up")}
-    else {
-      console.log("i am aray", array)
-      array.contributions.push({
-        name: req.body.,
-        amount: req.body.amount
-      })
-    }
+  // YOUR CODE HERE
+  // Get the Project with the given projectid from MongoDb
+  // using Project.findById() then render project.hbs with
+  // this Project. You can find projectid under req.params.
+  Project.findById(req.params.projectid, function(err, project) {
+    console.log(project)
+    res.render('project', {project: project});
   });
-});
+})
+
 
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  Project.findById(req.params.projectid, function(err, array) {
-    console.log(req.body)
-    res.render('project', {items: array});
+  Project.findById(req.params.projectid, function(err, project) {
+    var info = req.body;
+    project.contributions.push(info)
+    project.totalraised += parseInt(project.contributions[project.contributions.length-1].amount)
+    var perctotal = (100*(project.totalraised)/(project.goal)).toFixed(1);
+    project.percentraised = perctotal;
+    project.save()
+    res.render('project', {project: project});
   });
 });
 
+
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
+router.get('/projects/:projectid/edit', function(req, res) {
+  Project.findById(req.params.projectid, function(err, project) {
+    console.log("project", project)
+    res.render('editProject', {project: project});
+  });
+})
 
-module.exports = router;
+router.post('/projects/:projectid/edit', function(req, res) {
+  var info = req.body;
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: info.title,
+    description: info.description,
+    goal: parseInt(info.goal),
+    start: new Date(info.start),
+    end: new Date(info.end),
+    category: info.category,
+    percentraised: 0,
+    totalraised: 0
+  }, function(err) {
+    if (err) {
+      res.status(500).json(err);
+    }
+    else {
+      var errors = req.validationErrors();
+      if (errors) {
+        res.render('/projects/:projectid/edit', {errors: errors});
+      }
+      else {
+        var info = req.body;
+        if (err) {
+
+        } else {
+          res.redirect('/')}
+        }
+      }
+    })
+  }
+)
+    // Create the POST /project/:projectid/edit endpoint
+
+    module.exports = router;

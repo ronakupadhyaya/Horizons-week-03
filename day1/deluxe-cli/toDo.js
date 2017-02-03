@@ -148,6 +148,10 @@ function deleteTask(){
   console.log(data)
 }
 
+function toggleCompleted () {
+
+}
+
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.
 function writeFile(data) {

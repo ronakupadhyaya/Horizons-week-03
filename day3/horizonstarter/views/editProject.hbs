@@ -1,16 +1,4 @@
-<h2>Create project</h2>
-
-<!-- Exercise 5: Project categories -->
-<!-- YOUR CODE HERE -->
-
-
-
-  {{#if errors}}
-  {{#each errors}}
-  <div class="alert alert-danger">{{msg}}</div>
-  {{/each}}
-  {{/if}}
-<form action='/new' method = "Post" class="create-project">
+<form action='/projects/{{project._id}}/edit' method = "Post" class="create-project">
   <select name="category">
     <option value="Potent Potables">Potent Potables</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
@@ -20,23 +8,23 @@
   {{errors}}
   <p>
     title
-  <input type = "text" name="title" placeholder="title">
+  <input type = "text" name="title" placeholder="title" value="{{project.title}}">
 </p>
 <p>
   goal
-  <input type = "text" name="goal" placeholder="goal">
+  <input type = "text" name="goal" placeholder="goal" value="{{project.goal}}">
 </p>
 <p>
   comments
-  <textarea name = "description" rows="10" cols="20" placeholder="FUCK ME UP FAM"></textarea>
+  <textarea name = "description" rows="10" cols="20" placeholder="FUCK ME UP FAM">{{project.description}}</textarea>
   </p>
   <p>
     Start Date
-<input type="date" name="start">
+<input type="date" name="start" value="{{project.start}}">
   </p>
   <p>
     End Date
-<input type="date" name="end">
+<input type="date" name="end" value="{{project.end}}">
   </p>
   <p>
 <button>Press me pls to submit ur shit</button>

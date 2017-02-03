@@ -11,7 +11,6 @@ var validator = require('express-validator');
 
 // Initialize Express
 var app = express();
-
 // mongoose configuration
 var mongoose = require('mongoose');
 
