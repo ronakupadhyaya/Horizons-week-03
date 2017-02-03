@@ -12,55 +12,60 @@
   Description: <input type = "textarea" name = "description"><br>
   Start: <input type = "date" name = "start"><br>
   End: <input type = "date" name = "end"><br>
+
+  Category:
   <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Category
-    <span class="caret"></span></button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+    <select class="form-control" name="category">
       {{#each categories}}
-      {{#if selected}}
-      <option selected>{{val}}</option>
-      {{else}}
-      <option>{{val}}</option>
-  {{/if}}
-{{/each}}
+      <option>{{value}}</option>
+      {{/each}}
+    </select>
+
+  </div>
+<br />
+  <!-- <li role="presentation"><a role="menuitem" href="#">Famous Muppet Frogs</a></li>
+  <li role="presentation" class="divider"></li>
+  <li role="presentation"><a role="menuitem" href="#">Current Black Presidents</a></li>
+  <li role="presentation" class="divider"></li>
+  <li role="presentation"><a role="menuitem" href="#">The Pen Is Mightier</a></li>
+  <li role="presentation" class="divider"></li>
+  <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
 </ul>
-</div>
-
-      <!-- <li role="presentation"><a role="menuitem" href="#">Famous Muppet Frogs</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" href="#">Current Black Presidents</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" href="#">The Pen Is Mightier</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" href="#">About Us</a></li>
-    </ul>
-  </div> -->
+</div> -->
 
 
-  <input type="submit" name="submit" value="submit"></input>
+<input type="submit" name="submit" value="submit"></input>
 
 
 
 
-  <!-- <input type="submit" name="submit" value="submit"></input>
+<!-- <input type="submit" name="submit" value="submit"></input>
 </form> -->
 
 <!-- <p>
-  <label>Mode:</label>
-  {{#each project }}
-  <option value="{{this.category}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
-  {{/each}}
-  </select>
+<label>Mode:</label>
+{{#each project }}
+<option value="{{this.category}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+{{/each}}
+</select>
 </p>
 
 <p>
-  <label>Pair:</label>
-  <select name="config[pair]">
-    {{#each pairoption}}
-    <option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
-    {{/each}}
-  </select>
+<label>Pair:</label>
+<select name="config[pair]">
+{{#each pairoption}}
+<option value="{{value}}" {{#selected}}selected="selected"{{/selected}}>{{name}}</option>
+{{/each}}
+</select>
 </p>   -->
 
 
 <a href="http://localhost:3000/">Back to all posts</a>
+
+<!-- {{#each categories}}
+{{#if selected}}
+<option selected>{{value}}</option>
+{{else}}
+<option>{{value}}</option>
+{{/if}}
+{{/each}} -->

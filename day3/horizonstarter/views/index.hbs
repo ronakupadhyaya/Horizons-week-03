@@ -10,11 +10,32 @@
   <span> Description:</span><span> {{this.description}} </span><br>
   <span> Start Date:</span><span> {{this.start}} </span><br>
   <span> End Date:</span><span> {{this.end}} </span><br>
+  <span> Category:</span><span> {{this.category}} </span><br>
+
 </div>
 <br>
 {{/each}}
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
+
+
+<!-- <div>
+  <input type="submit" name="start" value="start"></input>
+  <input type="submit" name="end" value="end"></input>
+  <input type="submit" name="goal" value="goal"></input>
+</div> -->
+
+<div>
+<a href = "http://localhost:3000/?sort=goal" >Goal</a>
+<a href = "http://localhost:3000/?sort=start" >Start</a>
+<a href = "http://localhost:3000/?sort=end" >End</a>
+
+</div>
+
+
+
+
+
 <a href="http://localhost:3000/new">Create a new project</a>
 
 
