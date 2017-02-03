@@ -8,6 +8,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+var expressValidator = require('express-validator');
 
 // Initialize Express
 var app = express();
@@ -43,6 +44,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup express-validator
 app.use(validator());
+
+app.use(expressValidator({
+ customValidators: {
+    isGreaterThanZero: function(value) {
+        return value > 0
+    },
+    gte: function(param, num) {
+        return param >= num;
+    }
+ }
+}));
 
 // Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));

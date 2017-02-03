@@ -1,5 +1,21 @@
-<h1>View Project</h1>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script>
+  var projectId = '{{project.id}}';
+</script>
+
+<script src="/js/contributions.js"></script>
+
+</head>
+
+<div id="alertBox">
+
+</div>
+
+<div id="Top">
+  <h1>View Project</h1>
+</div>
 <!-- Exercise 3: View a single project -->
 
 <div>
@@ -8,8 +24,8 @@
   <p>Project Goal: ${{project.goal}}.00 </p>
   <p>Description: {{project.description}}</p>
   <p>Category: {{project.category}}
-  <p>Start Date: {{project.start}}</p>
-  <p>End Date: {{project.end}}</p>
+  <p>Start Date: {{start}}</p>
+  <p>End Date: {{end}}</p>
   <p>Contribuions</p>
   <div class="progress">
     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
@@ -24,23 +40,29 @@
 
 <!-- Exercise 4: Contribute to a project -->
 
+{{#if errors}}
+  {{#each errors}}
+    <div><strong>Errors:</strong>{{msg}}</div>
+  {{/each}}
+{{/if}}
+
 <form action="/project/{{project.id}}" method="post">
   <div class="form-group">
     <label>Name</label>
-    <input type="text" class="form-control" name="contributorName" placeholder="Your Name">
+    <input type="text" class="form-control" name="contributorName" id="contributorName" placeholder="Your Name">
   </div>
   <div class="form-group">
     <label>Amount to donate</label>
-    <input type="text" class="form-control" name="contributorAmount" placeholder="How much do you want to contribute?">
+    <input type="text" class="form-control" name="contributorAmount" id="contributorAmount" placeholder="How much do you want to contribute?">
   </div>
-  <button type="submit" class="btn btn-default">Confirm</button>
+  <button type="submit" id="send-contribution" class="btn btn-default">Add contribution</button>
 </form>
 
 <!-- YOUR CODE HERE -->
 <a href="/">Go back to all projects</a>
 
-<div>
-  <h2>The Backers</h2>
+<h2>The Backers</h2>
+<div id="contributorList">
 {{#each project.contributions}}
   <p>{{name}}: ${{amount}}.00 </p>
 {{/each}}

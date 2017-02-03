@@ -27,27 +27,24 @@
   <div class="form-group">
     <label>Project Category</label>
     <div>
-      <select class="form-control" name="projectEditCategory" value="{{project.category}}">
-        <!-- Consider doing #if for each option, or creating an array and looping through them -->
-        <option>Famous Muppet Frogs</option>
-        <option>Current Black Presidents</option>
-        <option>The Pen Is Mightier</option>
-        <option>Famous Mothers</option>
-        <option>Drummers Named Ringo</option>
-        <option>1-Letter Words</option>
-        <option>Months That Start With "Feb"</option>
-        <option>How Many Fingers Am I Holding Up</option>
-        <option>Potent Potables</option>
+      <select class="form-control" name="projectEditCategory">
+        {{#each categories}}
+          {{#if selected}}
+              <option selected>{{option}}</option>
+          {{else}}
+              <option>{{option}}</option>
+          {{/if}}
+        {{/each}}
       </select>
     </div>
   </div>
   <div class="form-group">
     <label>Project Start Date</label>
-    <input type="date" class="form-control" name="projectEditStart" value="{{project.start}}">
+    <input type="date" class="form-control" name="projectEditStart" value="{{start}}">
   </div>
   <div class="form-group">
     <label>Project End Date</label>
-    <input type="date" class="form-control" name="projectEditEnd" value="{{project.end}}">
+    <input type="date" class="form-control" name="projectEditEnd" value="{{end}}">
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>

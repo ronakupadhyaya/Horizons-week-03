@@ -1,3 +1,7 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="/js/projects.js"></script>
+
 <h1>View projects</h1>
 <a href="/?sort=start">Sort projects by start date</a>
 <a href="/?sort=start&sortDirection=descending">Sort projects by start date descending</a>
@@ -9,21 +13,51 @@
 <a href="/?sort=totalContribution&sortDirection=descending">Sort projects by total contributed descending</a>
 <a href="/?sort=fullyFunded">Get fully funded projects</a>
 <a href="/?sort=notFullyFunded">Get projects still needing funding</a>
+<button type="submit" id="sortFunded" class="btn btn-default">Funded</button>
+<button type="submit" id="sortNotFunded" class="btn btn-default">Not completely funded</button>
+<button type="submit" id="sortShowAll" class="btn btn-default">Show All</button>
+
+<form>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Funded</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Not Funded</label>
+  </div>
+</form>
+<form>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Option 1</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Option 2</label>
+  </div>
+</form>
+<form>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Option 1</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">Option 2</label>
+  </div>
+</form>
 <hr>
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<div id="projectsContainer">
 {{#each projects}}
-<div>
-  <h2>{{title}}</h2>
-  <p>{{description}}</p>
-  <p>{{start}}</p>
-  <p>{{end}}</p>
-  <p>{{goal}}</p>
-  <a href="/project/{{_id}}">View project</a>
-  <a href="/project/{{_id}}/edit">Edit project</a>
-</div>
-<hr>
+  <div>
+    <h2>{{title}}</h2>
+    <p>{{description}}</p>
+    <p>{{start}}</p>
+    <p>{{end}}</p>
+    <p>{{goal}}</p>
+    <a href="/project/{{_id}}">View project</a>
+    <a href="/project/{{_id}}/edit">Edit project</a>
+  </div>
+  <hr>
 {{/each}}
+<div>
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
