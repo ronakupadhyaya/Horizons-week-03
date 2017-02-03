@@ -1,9 +1,12 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-
+var mongoose = require('mongoose');
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
+
+var commander = require('dependencies');
+
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 

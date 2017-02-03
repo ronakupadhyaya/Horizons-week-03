@@ -7,5 +7,16 @@
   },
   "scripts": {
     "start": "nodemon app.js"
-  }
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-latest": "^6.22.0",
+    "nodemon": "^1.11.0"
+  },
+  "name": "warmup",
+  "description": "In this exercise we're going to build a simple counter using HTML forms and express.",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC"
 }
