@@ -106,9 +106,9 @@ router.get('/project/:projectid', function(req, res) {
       console.log("Error finding project");
     } else {
       var total = project.contributions.reduce(function(a,b) {
-        console.log('***', a, b.amount);
         return a + b.amount;
       }, 0);
+      project.total = total;
       project.progress = JSON.stringify(total/project.goal * 100) + '%';
       res.render('project', project);
     }
@@ -177,14 +177,93 @@ router.post('/project/:projectid/edit', function(req, res) {
 });
 
 router.get('/sort', function(req, res) {
-  if(req.query.sort) {
+  //if(req.query.sort) {
+
     var sortObj = {};
-    sortObj[req.query.sort] = 1;
+    if (req.query.order === 'descending') {
+      console.log("got descending");
+      sortObj[req.query.by] = -1;
+    } else {
+      sortObj[req.query.by] = 1;
+    }
     Project.find().sort(sortObj).exec(function(err, array) {
-      
+      if (err) {
+        console.log("Error sorting");
+      } else {
+        console.log("the array is printing below lol");
+        console.log(array);
+        res.render('index', {items: array});
+
+      }
     })
-  }
+  //}
 })
+
+router.get('/filter', function(req, res) {
+  res.redirect('/');
+})
+
+router.post('/api/project/:projectId/contribution', function(req, res) {
+  Project.findById(req.params.projectId, function(err, project) {
+    if (err) {
+      console.log("Error finding your project");
+      throw err;
+    } else {
+      var contributionObj = new Contribution(req.body);
+      //console.log(contributionObj);
+      contributionObj.save(function(err, contribution) {
+        if (err) {
+          console.log("Error with contribution");
+        } else if (contribution.amount < 0){
+          res.status(400).send({
+            message: "Amount cannot be below 0"
+          });
+        } else {
+          console.log(project);
+          project.contributions.push(contribution);
+          project.save(function(err, project) {
+            if (err) {
+              console.log("error WHYYYY");
+              console.log(project);
+
+            }
+            else {
+              res.json(contribution);
+            }
+          })
+        }
+      })
+    }
+  })
+});
+
+router.get('/api/project', function(req, res) {
+  Project.find()
+    .populate('contributions')
+    .exec(function(err, projects) {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+
+      //need to check req.query.amountFunded
+          //check req.query.sortDirection (only if amountFunded is present)
+
+      if (req.query.funded) {
+
+        projects = projects.filter(function(project) {
+          var contributionSum = project.contributions.reduce(function(a,b) {
+            if (b.amount === undefined) {
+              return a;
+            }
+            return a + b.amount;
+          }, 0);
+          return req.query.funded === 'true' ? (contributionSum >= project.goal) : (contributionSum < project.goal);
+        });
+      }
+      res.json(projects);
+    }
+  });
+});
 
 
 module.exports = router;

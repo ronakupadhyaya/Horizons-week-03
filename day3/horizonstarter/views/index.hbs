@@ -1,12 +1,46 @@
-<h1>View projects</h1>
+
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-<ul>{{#each items}}
-<li><a href="/project/{{this._id}}">{{this.title}}</a></li>
-{{/each}}
-</ul>
+<div class="container">
+  <h1>View projects</h1>
+  <div class="row well">
+    <div>
+      <form action="/sort" method="get">
+        <div>Sort <select class="form" name="order">
+          <option>ascending</option>
+          <option>descending</option>
+        </select>
+         by
+          <select class="form" name="by">
+            <option>name</option>
+            <option value="start">start date</option>
+            <option value="end">end date</option>
+            <option value="contributions">contributions</option>
+          </select>
+
+        <button type="submit" name="sort" value="sort">Sort!</button>
+
+        </div>
+      </form>
+      <div class="funded">
+        <button id="funded">View Fully-Funded Projects</button>
+        <button id="not-funded">View Not Fully-Funded Projects</button>
+        <button id="all-projects">View All Projects</button>
+      </div>
+    </div>
+    <div class="projects">
+  {{#each items}}
+  <div><a href="/project/{{this._id}}">{{this.title}}</a></div>
+  {{/each}}
+</div>
+<button method="get"><a href="/filter">View fully funded projects</a></button>
+<button name="filter" value="complete"><a href="/">View ongoing projects</a></button>
+  <button name="filter" value="ongoing"><a href="/new">Create a new project</a></button>
+
+</div>
+
+</div>
 
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
