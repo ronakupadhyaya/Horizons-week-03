@@ -25,10 +25,66 @@ router.get('/create-test-project', function(req, res) {
 router.get('/', function(req, res) {
   // YOUR CODE HERE
 
-  Project.find({}, function(err, array) {
-    res.render('index', {items: array});
-  });
+  if(req.query.sortKey === 'contributions'){
 
+    Project.find({}, function(err, array) {
+      
+      var newArray = array.sort(function(a, b){
+
+        if(a.contributions.length > b.contributions.length){
+          return 1;
+        } else if(a.contributions.length < b.contributions.length){
+          return -1;
+        }
+        return 0;
+      });
+
+
+      res.render('index', {items: newArray});
+
+      console.log(array);
+
+      if(err){
+        console.log(err);
+
+      }else{
+        console.log("Projects rendered on page.");
+      }
+
+    });
+
+    return;
+
+  }
+
+
+  if(req.query.sortKey){
+    var sortObject = {};
+    sortObject[req.query.sortKey] = req.query.sortVal;
+    Project.find().sort(sortObject).exec(function(err, array) {
+
+      res.render('index', {items: array});
+
+      if(err){
+        console.log(err);
+      }else{
+        console.log("Sorted projects rendered on page.");
+      }
+
+    });
+  } else{
+    Project.find({}, function(err, array) {
+      res.render('index', {items: array});
+
+      if(err){
+        console.log(err);
+
+      }else{
+        console.log("Projects rendered on page.");
+      }
+
+    });
+  }
 });
 
 // Exercise 2: Create project
@@ -79,6 +135,64 @@ router.post('/new', function(req, res) {
 
 });
 
+function pad(num) {
+  var norm = Math.abs(Math.floor(num));
+  return (norm < 10 ? '0' : '') + norm;
+}
+
+router.get('/project/:projectid/edit', function(req, res){
+
+  // gets the given Project from MongoDb 
+  // using .findById() and renders editProject.hbs with the Project object
+  var id = req.params.projectid;
+
+  Project.findById(id, function (err, proj) {
+
+    var startDate = new Date(proj.start);
+
+    var startYear = startDate.getFullYear();
+    var startYearStr = '' + startYear;
+
+    if(startYearStr.length < 4){
+      while(startYearStr.length < 4){
+        startYearStr = '0' + startYearStr;
+      }
+    }
+    var startDateStr = startYearStr + '-' + pad(startDate.getMonth() + 1) + '-' + pad(startDate.getDate() + 1); // b/c zero-indexed
+
+
+    var endDate = new Date(proj.end);
+    var endYearStr = '' + startYear;
+
+    if(endYearStr.length < 4){
+      while(endYearStr.length < 4){
+        endYearStr = '0' + endYearStr;
+      }
+    }
+
+
+    var endDateStr = endYearStr + '-' + pad(endDate.getMonth() + 1) + '-' + pad(endDate.getDate() + 1); // b/c zero-indexed
+
+
+    proj['startDateStr'] = startDateStr;
+    proj['endDateStr'] = endDateStr;
+
+    
+    if(err){
+      console.log(err);
+    } else{
+      console.log(proj);
+      res.render('editProject', {project: proj});
+    }
+
+  });
+
+});
+
+
+
+
+
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
@@ -104,6 +218,44 @@ router.get('/project/:projectid', function(req, res) {
 
 });
 
+
+router.post('/project/:projectid/edit', function(req, res) {
+
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category,
+    contributions: req.body.contributions,
+    contrSoFar: req.body.contrSoFar,
+    contrPercent: req.body.contrPercent
+
+    // YOUR CODE HERE
+    }, function(err) {
+    // YOUR CODE HERE
+
+    if(err){
+      console.log('THIS IS THE END');
+      console.log(err);
+    } else{
+      console.log('Project Updated Successfully.');
+    }
+
+    res.redirect('/');
+
+  });
+
+
+
+
+
+});
+
+
+
+
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
@@ -123,12 +275,8 @@ router.post('/project/:projectid', function(req, res) {
         proj['contributions'].push(obj);
       }
 
-      console.log("**************************************************************************");
-
       if('contributions' in proj){
         if(proj['contributions'].length > 0){
-
-          console.log('Hit here^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
           proj['contrSoFar'] = proj['contributions'].map(function(contribution){
             return contribution.amount;
           }).reduce(function(a,b){
