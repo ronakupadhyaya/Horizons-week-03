@@ -1,0 +1,20 @@
+<h1>View projects</h1>
+
+<!-- Exercise 1: View all projects -->
+<!-- YOUR CODE HERE -->
+
+{{#each items}}
+	Title: {{this.title}}<br/>
+	ID: <a href="/project/{{this.id}}">{{this.id}}</a><br/>
+	Description: {{this.description}}<br/>
+	Goal: {{this.goal}}<br/>
+	Category: {{this.category}}<br/><br/>
+{{/each}}
+
+{{#each errors}}
+	{{this}}
+{{/each}}
+
+<!-- Exercise 2: Create new project -->
+<!-- YOUR CODE HERE -->
+<a href="/new">Create a new project</a>

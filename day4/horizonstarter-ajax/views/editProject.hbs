@@ -1,0 +1,24 @@
+<h2>Edit project</h2>
+
+<div>
+	{{#each errors}}
+	{{this.msg}} <br/>
+	{{/each}}
+</div>
+
+<form action="/project/{{id}}/edit" method="POST">
+	<div>title<input type="text" name="title" value="{{title}}"></div>
+	<div>goal<input type="number" name="goal" value="{{goal}}"></div>
+	<div>description<input type="textarea" name="description" value="{{description}}"></div>
+	<div>start<input type="date" name="start" value="{{start}}"></div>
+	<div>end<input type="date" name="end" value="{{end}}"></div>
+
+
+	<select name="category">
+	{{{editCategoryDropdownHTML options category}}}
+	</select>
+
+
+	<input type="submit">
+
+</form>
