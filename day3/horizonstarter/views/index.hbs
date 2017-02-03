@@ -7,9 +7,26 @@
 <!-- YOUR CODE HERE -->
 {{#each arr}}
 <div>
-  <a href="/project/{{this.id}}"/>
-  {{this}}
+  <div>"Title: "{{this.title}}</div>
+  <div>"Goal: " {{this.goal}}</div>
+  <div>"Description: "{{this.description}}</div>
+  <div>"Start: " {{this.start}}</div>
+  <div>"End: " {{this.end}}</div>
+  <div>"Category: "{{this.category}}</div>
+  <div>
+    <a href="/project/{{this.id}}">More info</a>
+  </div>
 </div>
 {{/each}}
 
 <a href="/new">Create a new project</a>
+<form>
+  Sort by?
+  <p class="field switch">
+   <input type="radio" id="radio1" name="sortDirection" value="ascending" checked>ascending</input>
+   <input type="radio" id="radio2" name="sortDirection" value="descending">descending</input>
+ </p>
+  <input type="submit" name="sort" value="start">
+  <input type="submit" name="sort" value="end">
+  <input type="submit" name="sort" value="goal">
+</form>

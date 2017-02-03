@@ -24,9 +24,24 @@ router.get('/create-test-project', function(req, res) {
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, arr) {
-    res.render('index', {arr:arr});
-  })
+  var sortDirection = req.query.sortDirection;
+  if (req.query.sort === 'goal') {
+    Project.find(function(err, arr) {
+      res.render('index', {arr:arr});
+    }).sort({goal: sortDirection});
+  } else if (req.query.sort === 'start') {
+    Project.find(function(err, arr) {
+      res.render('index', {arr:arr});
+    }).sort({start: sortDirection});
+  } else if (req.query.sort === 'end'){
+    Project.find(function(err, arr) {
+      res.render('index', {arr:arr});
+    }).sort({end: sortDirection});
+  } else {
+    Project.find(function(err, arr) {
+        res.render('index', {arr:arr});
+    });  
+  }
 });
 
 
@@ -132,28 +147,46 @@ router.post('/project/:projectid', function(req, res) {
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 
+function pad(num) {
+  var norm = Math.abs(Math.floor(num));
+  return (norm < 10 ? '0' : '') + norm;
+}
+
+// This function
+function toDateStr(date) {
+  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate() + 1);
+}
 
 router.get('/project/:projectid/edit', function(req, res){
-  console.log(req.params.projectid, "PARAMS");
   Project.findById(req.params.projectid, function(err, doc) {
-    console.log("fuck me up");
     if (err) {
       console.log(err);
     } else {
+      var arr = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables'];
+      var ret = "";
+      arr.forEach(function(item) {
+        ret += '<option ';
+        if (item === doc.category) {
+          ret += 'selected ';
+        }
+        ret += ('value=' + "'" + item + "'" + '>' + item + '</option>');
+      })
+      console.log(doc.start);
       res.render('editProject', {
        title: doc.title,
        goal: doc.goal,
        description: doc.description,
-       start: doc.start,
-       end: doc.end,
-       category: doc.category
+       start: toDateStr(doc.start),
+       end: toDateStr(doc.end),
+       category: ret,
+       projectid: req.params.projectid
       })
     }
   })
-
 })
 
-router.post('/project/:projectid/edit', function(req, res) {
+router.post('/projects/:projectid/edit', function(req, res) {
+  console.log(req.params.projectid);
   Project.findByIdAndUpdate(req.params.projectid, {
     title: req.body.title,
     goal: req.body.goal,
@@ -165,10 +198,15 @@ router.post('/project/:projectid/edit', function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.render('')
+      res.redirect('/')
     }
   });
 })
+
+// router.get('/project/?sort=&sortDirection=', function(req, res) {
+//   console.log(req.query);
+// })
+
 
 
 module.exports = router;

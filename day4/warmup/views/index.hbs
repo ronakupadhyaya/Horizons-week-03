@@ -6,7 +6,15 @@
   </head>
   <body>
     <h1>Count: {{count}}</h1>
+    <form action="/increment" method="POST">
+      <!-- <input type="text" name="increment"placeholder="gimme"> -->
+      <button>Increment</button>
+    </form>
 
+    <form action="/decrement" method="POST">
+      <!-- <input type="text" name="increment"placeholder="gimme"> -->
+      <button>Decrease</button>
+    </form>
     <!-- Task 1
       Create a form with a button than when clicked sends a POST request
       to /decrement

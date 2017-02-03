@@ -5,11 +5,11 @@
     <title>Time machine</title>
   </head>
   <body>
-    <form>
+    <form >
       From
 
       <!-- Make this element change based on the 'when' query parameter -->
-      <input type="date" name="when">
+      <input type="date" name="when" value="{{date}}">
 
       to
 
@@ -17,14 +17,10 @@
       <input type="number" min="0" name="amount">
 
       <!-- Make this element change based on the 'units' query parameter -->
-      <select name="units">
-        <option>days</option>
-        <option>months</option>
-        <option>years</option>
-      </select>
+      {{{dateUp{{selected}}}}}
 
-      <input type="submit" name="action" value="to the future!">
-      <input type="submit" name="action" value="to the past">
+      <input type="submit" name="action" value="to the future!" >
+      <input type="submit" name="action" value="to the past" >
     </form>
   </body>
 </html>
