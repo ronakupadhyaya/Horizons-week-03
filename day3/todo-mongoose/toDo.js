@@ -217,9 +217,7 @@ function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
-  for (var program.test in toDoItem) {
-      task.remove({name: program.test})
-  }
+  toDoItem.remove({name: program.test}, function(err, test) {})
 
   mongoose.connection.close()
 }

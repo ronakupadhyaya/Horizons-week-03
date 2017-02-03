@@ -4,3 +4,16 @@
 <!-- Exercise 5: Project categories -->
 <!-- YOUR CODE HERE -->
 
+<h3>Errors</h3>
+<p>{{error.message}}</p>
+
+
+
+<form  method = "post" action="/new">
+    Title: <input name="title" type="text" value="{{product.title}}"> 
+    Goal: <input name="goal" type="text" value="{{product.name}}">
+    Description: <textarea name="description" rows="2" cols="40" value="{{product.description}}"></textarea>
+    Start: <input name="start" type="date" value="{{product.start}}">
+    End: <input name="end" type="date" value="{{product.end}}">
+    <input name="submit" type="submit">
+</form>

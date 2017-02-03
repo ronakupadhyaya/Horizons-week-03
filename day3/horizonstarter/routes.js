@@ -42,28 +42,60 @@ router.get('/', function(req, res) {
 // Exercise 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  Project.find(function(err, array) {
-    res.render('new', {})
-  })
+  res.render('new');
 });
 
 // Exercise 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  // YOUR CODE HERE
+  var product = new Project(req.body);
+  product.save(function (err) {
+    if (err) {
+      console.log(err);
+      res.render('new', {
+        error:err,
+        message: "Error",
+        product:product
+      })
+    }else{
+      res.redirect('/')
+    }
+
+  })
+  console.log(product)
+
 });
 
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  Project.findById(req.params.projectid, function(err, project) {
+    if (err) {
+      console.log('This is an error!')
+    }
+    res.render('project', {
+      project: project
+    })
+  })
+//then render project.hbs with this Project
+//You can find projectid under req.params
+res.render('project', user)
 });
 
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
-});
+  Project.findById(req.params.body);
+  var y = req.params.projectid;
+  var x = project.contributions.push(Project);
+  Project.save(x);
+  res.redirect('/project/y');
+
+  // 1. look for the project with projectid.
+  // 2. push the contibution that comes from the body into project.contributons array
+  // 3. save the project
+  // 4. redirect /project/req.params.projectid
+})
 
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
