@@ -186,19 +186,31 @@ router.post('/project/:projectid', function(req, res) {
 router.get('/project/:projectid/edit', function(req, res) {
   //get project
 
+  function toDateStr(date) {
+    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate() + 1);
+  }
+
+  function pad(num) {
+    var norm = Math.abs(Math.floor(num));
+    return (norm < 10 ? '0' : '') + norm;
+  }
+
   console.log(categoryEnum);
+
+
   Project.findById(req.params.projectid, function(err, found) {
     if (err) {
       console.log("Error", err);
     } else {
-      // console.log(found.contributions);
+      console.log(found.start);
+      console.log(toDateStr(found.start));
       res.render('editProject', {
         id: found._id,
         title: found.title,
         goal: found.goal,
         description: found.description,
-        start: found.start,
-        end: found.end,
+        start: toDateStr(found.start),
+        end: toDateStr(found.end),
         contributions: found.contributions
       });
     }
