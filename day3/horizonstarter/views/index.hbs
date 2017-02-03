@@ -2,9 +2,18 @@
 
 <!-- Exercise 1: View all projects -->
 {{#each items}}
-<li>{{this}}</li>
+<div><strong>Category: </strong>{{this.category}}</div>
+<div><strong>Title: </strong>{{this.title}}</div>
+<div><strong>Goal: </strong>{{this.goal}}</div>
+<div><strong>Description: </strong>{{this.description}}</div>
+<div><strong>Start date: </strong>{{this.start}}</div>
+<div><strong>End date: </strong>{{this.end}}</div>
+<div><a href="/project/{{this._id}}">LINK</a></div>
+<br/><br/>
 {{/each}}
 
-<!-- Exercise 2: Create new project -->
-<!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
+
+<form action="/" method="post">
+  <a href="/">SORT BY SOMETHING</a>
+</form>

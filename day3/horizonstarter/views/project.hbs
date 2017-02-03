@@ -2,6 +2,8 @@
 
 <!-- Exercise 3: View a single project -->
 
+<strong>Category:</strong> {{found.category}}
+<br/>
 <strong>Title:</strong> {{found.title}}
 <br/>
 <strong>Goal:</strong> {{found.goal}}
@@ -11,18 +13,25 @@
 <strong>Start date:</strong> {{found.start}}
 <br/>
 <strong>End date:</strong> {{found.end}}
+<br/>
+<a href="/project/{{found._id}}/edit">CLICK TO EDIT</a>
+<br/a>
 
+<br/>
+<div class="progress" style="width:35vw">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+  {{percent}}%
+</div>
+</div>
 
-<!-- Exercise 4: Contribute to a project -->
 <form action="/project/{{found._id}}" method="POST">
-  <br/>
   <input type = "text" name = "name" placeholder = "Name" value = "" required><br/><br/>
-  <input type = "number" name = "amount" placeholder = "Amount" value = "" required><br/><br/>
+  <input type = "number" min = "0" name = "amount" placeholder = "Amount" value = "" required><br/><br/>
   <button type = "submit">submitttt boyyyy</button>
 </form>
 
-
-
+<h2>Total Contributions: {{total}} :DDDD</h2>
 
 {{#each found.contributions}}
 <strong>Contributor: </strong>{{this.name}}<br/>

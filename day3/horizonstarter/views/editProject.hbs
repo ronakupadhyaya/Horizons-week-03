@@ -1,8 +1,6 @@
-<h2>Create project</h2>
-
-<!-- Exercise 2: Create project -->
-<form action="/new" method="POST">
+<form action="/project/{{myProject._id}}/edit" method="POST">
   <select name = "category">
+    <option selected>{{myProject.category}}</option>
     {{#each category}}
     <option>{{this}}</option>
     {{/each}}
@@ -21,6 +19,3 @@
 <div>{{this.msg}}</div>
 {{/each}}
 {{/if}}
-
-<!-- Exercise 5: Project categories -->
-<!-- YOUR CODE HERE -->
