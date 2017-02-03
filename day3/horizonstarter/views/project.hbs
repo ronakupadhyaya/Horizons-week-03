@@ -1,7 +1,10 @@
+<script>
+var projectId = '{{project._id}}';
+</script>
 <h1>View Project</h1>
 
 <!-- Exercise 3: View a single project -->
-
+<div class="hidden project-id">{{project._id}}</div>
 <div><h3>{{project.title}}</h1><br>
 <span>{{project.goal}}</span><br>
 <span>{{project.description}}</span><br>
@@ -19,7 +22,8 @@
 <!-- Exercise 4: Contribute to a project -->
 
 <form action = "/project/{{project._id}}" method = 'post'>
-  <input type= 'text' placeholder= 'Name' name= 'name'></input></br>
-  <input type= 'Number' placeholder= 'Amount' name= 'amount'></input></br>
-  <input type='submit' name='submit' value='submit'></input>
+  <input type= 'text' placeholder= 'Name' name= 'name' id ='name'></input></br>
+  <input type= 'Number' placeholder= 'Amount' name= 'amount' id ='amount'></input></br>
+  <button name='submit' id="send-contribution">Add Contributions</button>
 </form>
+<div id='projectContributions'></div>

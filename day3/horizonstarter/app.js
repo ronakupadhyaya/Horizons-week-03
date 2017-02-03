@@ -32,7 +32,20 @@ mongoose.connection.on('error', function() {
 mongoose.connect(config.MONGODB_URI);
 
 // Handlabars setup
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs',
+helpers :{
+  selected: function(val){
+   var ret ='';
+   var categories = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers',
+   'Drummers Named Ringo', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up',
+   '1-Letter Words', 'Potent Potables']
+   for(var i =0; i < categories.length; i ++){
+     categories[i] === val ? ret+=`<option selected>${categories[i]}</option>`  : ret+=`<option>${categories[i]}</option>`;
+   }
+   return ret;
+ }
+}
+}));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));

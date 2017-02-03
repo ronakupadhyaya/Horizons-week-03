@@ -2,6 +2,7 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
+
 {{#each items}}</br>
 <div><h3>{{this.title}}</h1>
 <span>{{this.goal}}</span>
@@ -16,5 +17,7 @@
 <a href="http://localhost:3000/new">Create a new project</a>
 
 <div>
-
+<a href="http://localhost:3000/?sort=start">Sort by Start</a>
+<a href="http://localhost:3000/?sort=end">Sort by End</a>
+<a href="http://localhost:3000/?sort=goal">Sort by Goal</a>
 </div>
