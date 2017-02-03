@@ -2,8 +2,30 @@
 
 <!-- Exercise 3: View a single project -->
 
+{{project.title}}
+{{project.goal}}
+{{project.description}}
+{{project.start}}
+{{project.end}}
+{{project.category}}
+</br>
+Contributions: </br>
+{{#each project.contributions}}
+{{this.name}}
+{{this.amount}}
+</br>
+{{/each}}
+</br>
+
+
 <!-- YOUR CODE HERE -->
 
 <!-- Exercise 4: Contribute to a project -->
+<h1>Make a contribution</h1>
 
+<form name = "contribution" method = 'post' action = "/project/{{project._id}}">
+  <input type = "text" name = "name" placeholder = "Your Name" value ="{{contribution.name}}">
+  <input type = "number" name = "amount" placeholder = "Contribution Amount" value = "{{contribution.amount}}" >
+  <input type="submit" name="submit" value="Submit">
+</form>
 <!-- YOUR CODE HERE -->

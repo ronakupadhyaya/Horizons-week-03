@@ -22,11 +22,18 @@ app.get('/', function(req, res) {
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
+app.post('/increment', function(req, res){
+  count++;
+  res.redirect('/');
+});
 
 // ---Task 2---
 // POST /decrement: create an endpoint (aka route) that decreases the variable
 // 'count' by one and redirects back to /
 
 // YOUR CODE HERE
-
+app.post('/decrement', function(req, res){
+  count--;
+  res.redirect('/');
+})
 app.listen(3000);
