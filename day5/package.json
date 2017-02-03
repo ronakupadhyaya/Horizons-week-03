@@ -1,0 +1,17 @@
+{
+  "name": "ho",
+  "version": "1.0.0",
+  "description": "### Setup project 1. `npm init` in a new folder to create a project 1. create a new `app.js` file 1. you will need to `npm install` dependencies as you come across them 1. for now install nodemon using npm and add a start script similar to the following: `\"start\": \"nodemon app.js\"`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.8.1",
+    "nodemon": "^1.11.0"
+  }
+}

@@ -153,7 +153,7 @@ router.post('/projects/:projectid/edit', function(req, res) {
   });
 });
 router.get('/:sort/:sortDirection', function(req, res){
-  Project.find({}).sort({req.params.sort}).exec(function(err, docs) {
+  Project.find({}).sort({req.params.sort: req.params.sortDirection}).exec(function(err, docs) {
         res.render('index', {projects: project});
    });
 });
