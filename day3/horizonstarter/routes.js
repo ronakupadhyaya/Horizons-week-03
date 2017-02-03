@@ -46,7 +46,8 @@ router.post('/newForm', function(req, res) {
     goal: req.body.goal,
     description: req.body.description,
     start: req.body.startDate,
-    end: req.body.endDate
+    end: req.body.endDate,
+    total: 0
   });
   project.save(function(err) {
     if (err) {
@@ -79,6 +80,7 @@ router.post('/project/:projectid', function(req, res) {
     } else {
       proj['contributions'] = [];
       proj.contributions.push({name:req.body.name ,amount:req.body.amount});
+      proj.total = proj.total + req.body.amount;
       proj.save();
       res.redirect('/');
     }

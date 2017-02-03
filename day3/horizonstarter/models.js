@@ -31,7 +31,14 @@ var Project = mongoose.model('Project', {
     amount:{
       type: Number
     }
-  }]
+  }],
+  total: {
+    type: Number
+  }
+  // category : {
+  //   type: String,
+  //   enum: [,]
+  // }
   // YOUR CODE HERE
 });
 
