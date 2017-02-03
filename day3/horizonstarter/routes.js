@@ -50,13 +50,16 @@ router.post('/new', function(req, res) {
     res.render('new', {errors: errors});
   } else {
     var info = req.body;
+    console.log(info)
     var proj = new Project({
       title: info.title,
       goal: parseInt(info.goal),
       description: info.description,
       start: new Date(info.startdate),
-      end: new Date(info.enddate)
+      end: new Date(info.enddate),
+      category: info.category
     })
+    console.log(proj);
     proj.save(function(err) {
       if (err) {
         res.status(500).json(err);
@@ -77,38 +80,59 @@ router.get('/project/:projectid', function(req, res) {
   // using Project.findById() then render project.hbs with
   // this Project. You can find projectid under req.params.
   Project.findById(req.params.projectid, function(err, project) {
-    console.log(project);
     res.render('project', project);
-
   });
 });
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
- // YOUR CODE HERE
- Project.findById(req.params.projectid, function(err, proj){
-   if (proj.contributions) {
-     proj.contributions.push({name:req.body.name ,amount:req.body.amount});
-     proj.save();
-     var total = 0;
-     project.contributions.forEach(function(item){
-       total += item.amount;
-     })
-     res.redirect('/');
-     console.log("hate is bad");
-     console.log(total);
-   } else {
-     proj.contributions = [];
-     proj.contributions.push({name:req.body.name ,amount:req.body.amount});
-     proj.save();
-     res.redirect('/');
-   }
- });
+  // YOUR CODE HERE
+  Project.findById(req.params.projectid, function(err, proj){
+    if (proj.contributions) {
+      proj.contributions.push(
+        {name:req.body.name,
+          amount:req.body.amount
+        });
+        var total = 0;
+        proj.contributions.forEach(function(item){
+          total += parseInt(item.amount);
+        })
+        var percent = 100*(total/(proj.goal));
+        proj.percentage = percent;
+        proj.totalraised = total;
+        proj.save();
+        //  res.render('project', {proj:proj, totalDonation: total, percentage: percent});
+        res.redirect('/');
+      } else {
+        proj.contributions = [];
+        proj.contributions.push(
+          {name:req.body.name ,
+            amount:req.body.amount
+          });
+          proj.save();
+          res.redirect('/');
+        }
+      });
+    });
+
+    // Exercise 6: Edit project
+    // Create the GET /project/:projectid/edit endpoint
+    // Create the POST /project/:projectid/edit endpoint
+
+    router.get('/project/:projectid/edit', function(req, res) {
+      Project.findById(req.params.projectid, function(err, project) {
+        res.render('editProject', project);
+      });
+    });
+
+    router.post('/project/:projectid/edit', function(req, res) {
+      Project.findByIdAndUpdate(req.params.projectid, {
+        title: req.body.title,
+        // YOUR CODE HERE
+      }, function(err) {
+        // YOUR CODE HERE
+      });
+    });
 
 
-});
-
-// Exercise 6: Edit project
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
-module.exports = router;
+    module.exports = router;

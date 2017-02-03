@@ -4,17 +4,28 @@
 
 <!-- YOUR CODE HERE -->
 
-<h1>Title: {{this.title}}</h1>
-<h3>Goal: {{this.goal}}</h3>
-<h3>Description: {{this.description}}</h3>
-<h3>Start: {{this.start}}</h3>
-<h3>End: {{this.end}}</h3>
+<h1>Title: {{title}}</h1>
+<h3>Goal: {{goal}}</h3>
+<h3>Description: {{description}}</h3>
+<h3>Start: {{start}}</h3>
+<h3>End: {{end}}</h3>
+<h3>Percentage of goal: {{percentage}}</h3>
+<h3>Total amount raised: {{this.totalraised}}</h3>
+
+<h2> we have raised ({{percentage}}%) of our goal of ${{goal}}. </h2>
+<br>
+<h3> Project category: {{category}}</h3>
 <br>
 <h2>Contributions</h2>
 {{#each this.contributions}}
 <li>Donor: {{name}}</li>
 <li>Amount: {{amount}}</li>
 {{/each}}
+
+<div class="progress">
+  <div class="progress-bar" style="width:{{this.percentage}}%">
+  </div>
+</div>
 
 <!-- Exercise 4: Contribute to a project -->
 
@@ -29,5 +40,6 @@
 
     <br><br>
     <input type="submit" value="Submit">
+    <a href="/project/{{id}}/edit">edit<a>
+
   </div>
-</form>
