@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
-
+var _ = require('underscore');
 
 
 var categoryEnum = ["Famous Muppet Frogs", "Current Black Presidents", "The Pen Is Mightier", "Famous Mothers", "Drummers Named Ringo", "1-Letter Words", "Months That Start With \"Feb\"", "How Many Fingers Am I Holding Up", "Potent Potables"];
@@ -51,9 +51,38 @@ router.get('/', function(req, res) {
     });
   }
 
-
-
 });
+
+router.get('/totalContributions', function(req, res) {
+  Project.find({}, function(err, projects) {
+    if (err) {
+      console.log("Error", err);
+    } else {
+
+
+      var sorted = _.sortBy(projects, function(project) {
+        // TODO: fix the algo
+        // projects.map(function(project) {
+        //   return project.contributions.map(function(contribution) {
+        //     return contribution.amount;
+        //   });
+        // }).map(function(contributions) {
+        //   return contributions.reduce(function(a, b) {
+        //     return -(-a + b);
+        //   }, 0);
+        // });
+
+      });
+      console.log(sorted);
+
+      res.render('index', {
+        items: sorted
+      });
+    }
+  });
+});
+
+
 
 // Exercise 2: Create project
 // Implement the GET /new endpoint
