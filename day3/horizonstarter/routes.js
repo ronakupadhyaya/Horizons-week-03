@@ -7,6 +7,14 @@ var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
 
+function pad(num) {
+  var norm = Math.abs(Math.floor(num));
+  return (norm < 10 ? '0' : '') + norm;
+}
+function toDateStr(date) {
+  return date.getUTCFullYear() + '-' + pad(date.getUTCMonth() + 1) + '-' + pad(date.getUTCDate()+1);
+}
+
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
   var project = new Project({
@@ -23,11 +31,47 @@ router.get('/create-test-project', function(req, res) {
 
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
+
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find({}, function(err, arr){
-    res.render('index',{arr:arr})
-  })
+  var sortType = req.query.sort;
+  var sortDirection = req.query.sortDirection || 'ascending';
+  var dirArray = [{dir:'ascending'},{dir:'descending'}];
+  if(sortDirection){
+    dirArray.forEach(function(item){
+      if(item.dir === sortDirection)
+        item['value'] = "checked";
+      else {
+        item['value'] = "";
+      }
+    })
+  }
+  console.log(dirArray);
+  if(sortType){
+    if(sortType === 'sortStart'){
+      Project.find({}, function(err, arr){
+        res.render('index',{projectArray:arr, directionArray:dirArray})
+      }).sort({start: sortDirection});
+    }
+    else if(sortType === 'sortEnd'){
+      Project.find({}, function(err, arr){
+        res.render('index',{projectArray:arr, directionArray:dirArray})
+      }).sort({end: sortDirection});
+    }
+    else if(sortType === 'sortGoal'){
+      Project.find({}, function(err, arr){
+        res.render('index',{projectArray:arr, directionArray:dirArray})
+      }).sort({goal: sortDirection});
+    }
+  }
+  else{
+    Project.find({}, function(err, arr){
+
+      res.render('index',{projectArray:arr, directionArray:dirArray})
+    })
+  }
+
+
 });
 
 // Exercise 2: Create project
@@ -66,8 +110,8 @@ router.post('/new', function(req, res) {
     var proj = new Project({title: req.body.title,
                             goal: req.body.goal,
                             description: req.body.description,
-                            start: new Date(req.body.start).toDateString(),
-                            end: new Date(req.body.end).toDateString(),
+                            start: toDateStr(new Date(req.body.start)),
+                            end: toDateStr(new Date(req.body.end)),
                             category: req.body.category
                           });
     proj.save(function(err){
@@ -139,8 +183,8 @@ router.post('/project/:projectid', function(req, res) {
           res.render('project', {title: doc.title,
                                 goal: doc.goal,
                                 desc: doc.description,
-                                start: new Date(doc.start).UTC(),
-                                end: new Date(doc.end).UTC(),
+                                start: doc.start,
+                                end: doc.end,
                                 category: doc.category,
                                 totalCtr: totalCtr,
                                 percent: percent,
@@ -162,9 +206,6 @@ router.get('/project/:projectid/edit', function(req, res) {
       console.log(err);
     }
     else{
-      // console.log("title",doc.title);
-      console.log(doc.start);
-      console.log('@@@@@@', (new Date(doc.start)).getMonth(), (doc.start).getDay(), (doc.start).getFullYear());
       var selectArray=[{sel:'Famous Muppet Frogs'}, {sel: 'Current Black Presidents'}, {sel:'The Pen Is Mightier'}, {sel: 'Famous Mothers'}, {sel: 'Drummers Named Ringo'}, {sel:'1-Letter Words'}, {sel:'Months That Start with \"Feb\"'}, {sel:'How Many Fingers Am I Holding Up'}, {sel:'Potent Potables'}];
       selectArray.forEach(function(item){
         if(doc.category === item.sel){
@@ -178,12 +219,34 @@ router.get('/project/:projectid/edit', function(req, res) {
       res.render('editProject',{title: doc.title,
                             goal: doc.goal,
                             desc: doc.description,
-                            start: doc.start,
-                            end: doc.end,
-                            selectArray: selectArray
+                            start: toDateStr(doc.start),
+                            end: toDateStr(doc.end),
+                            selectArray: selectArray,
+                            projectId: req.params.projectid
                             });
     }
 
   })
 });
+
+router.post('/project/:projectid/edit', function(req, res) {
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    desc: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+    // YOUR CODE HERE
+  }, function(err) {
+    if(err){
+      console.log(error);
+    }
+    else{
+      res.redirect('/');
+    }
+  });
+});
+
+
 module.exports = router;

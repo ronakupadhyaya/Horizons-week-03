@@ -2,7 +2,19 @@
 
 <!-- Exercise 1: View all projects -->
 <!-- YOUR CODE HERE -->
-{{#each arr}}
+<form>
+  <button name="sort" value="sortStart">Start</button>
+  <button name="sort" value="sortEnd">End</button>
+  <button name="sort" value="sortGoal">Goal</button>
+
+  <p class="field switch">
+    {{#each directionArray}}
+      <input type="radio" name="sortDirection" value="{{dir}}" {{value}}>{{dir}}</input>
+    {{/each}}
+  </p>
+</form>
+
+{{#each projectArray}}
 <div>
   <div>
     <h3> Project: {{title}} </h3>
