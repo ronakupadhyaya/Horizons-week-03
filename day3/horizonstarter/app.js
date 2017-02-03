@@ -32,7 +32,24 @@ mongoose.connection.on('error', function() {
 mongoose.connect(config.MONGODB_URI);
 
 // Handlabars setup
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs(
+  {
+    defaultLayout: 'main',
+    extname: '.hbs',
+    helpers: {
+
+      makeDropdown: function(selected, options) {
+        var rendered = '<option value="" disabled="disabled" selected>Please select a category</option>\n';
+        for (var i = 0; i < options.length; i++) {
+          rendered += "<option ";
+          if (selected === options[i]) rendered += "selected";
+          rendered += ">" + options[i] + "</option>\n"
+        }
+        return rendered;
+      }
+
+    }
+}));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));
