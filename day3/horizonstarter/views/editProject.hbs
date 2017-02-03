@@ -1,0 +1,19 @@
+
+<form action = "/project/{{project._id}}/edit" method= "post">
+  Title: <input type = "text" name = "title"><br>
+  Goal: <input type = "Number" name = "goal"><br>
+  Description: <input type = "textarea" name = "description"><br>
+  Start: <input type = "date" name = "start"><br>
+  End: <input type = "date" name = "end"><br>
+
+  Category:
+  <div class="dropdown">
+    <select class="form-control" name="category">
+      {{{selected project.category}}}
+    </select>
+
+  </div>
+  <input type="submit" name="submit" value="submit"></input>
+
+<br />
+</form>
