@@ -1,0 +1,33 @@
+
+
+<h2>Edit project</h2>
+<form action="/projects/{{info.id}}/edit" method="POST">
+  <label class="col-sm-3 control-label">Title</label>
+  <input class = "col-sm-10 form-control" type="text" name="title" value="{{info.title}}"></input>
+
+  <label class="col-sm-3 control-label">Goal</label>
+  <input class = "col-sm-10 form-control" type="text" name="goal" value="{{info.goal}}"></input>
+
+  <label class="col-sm-3 control-label">Description</label>
+  <textarea class = "col-sm-10 form-control" name="description">{{info.description}}</textarea>
+
+  <label class="col-sm-3 control-label">Start</label>
+  <input class = "col-sm-10 form-control" type="Date" name="start" value="{{{toDate info.start}}}"></input>
+
+  <label class="col-sm-3 control-label">End</label>
+  <input class = "col-sm-10 form-control" type="Date" name="end" value="{{{toDate info.end}}}"></input>
+
+  <label class="col-sm-3 control-label">Category</label>
+  <!-- 'Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers',
+          'Drummers Named Ringo', '1-Letter Words', 'Months That STart with "Feb"', 'How Many Fingers Am I Holding Up',
+        'Potent Potables' -->
+  <select class = "col-sm-10 form-control"name = "category">
+    {{{scrollDown options info.category}}}
+
+</select>
+  <button type = "submit" class = "form-control"> submit </button>
+</form>
+
+<!-- Exercise 2: Create project -->
+<!-- Exercise 5: Project categories -->
+<!-- YOUR CODE HERE -->

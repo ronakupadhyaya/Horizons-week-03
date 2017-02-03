@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
+<script>
+
+</script>
   <head>
     <meta charset="utf-8">
     <title>Time machine</title>
   </head>
   <body>
-    <form>
+    <form >
       From
 
       <!-- Make this element change based on the 'when' query parameter -->
-      <input type="date" name="when">
+      <input type="date" name="when" value = "{{dateUp}}">{{dateUp}}</input>
+
 
       to
 
@@ -23,7 +27,7 @@
         <option>years</option>
       </select>
 
-      <input type="submit" name="action" value="to the future!">
+      <input type="submit" name="action" value="to the future!" >
       <input type="submit" name="action" value="to the past">
     </form>
   </body>

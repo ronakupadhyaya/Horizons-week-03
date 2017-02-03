@@ -14,11 +14,14 @@ app.use(bodyParser.json());
 var expressValidator = require('express-validator');
 app.use(expressValidator());
 
+//changing date format helper
+function toDateStr(date) {
+  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+}
+
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
-  var project = new Project({
-    title: 'I am a test project'
-  });
+  var project = new Project({title: 'I am a test project'});
   project.save(function(err) {
     if (err) {
       res.status(500).json(err);
@@ -31,9 +34,29 @@ router.get('/create-test-project', function(req, res) {
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find( function (err, array){
-    res.render('index', {projects: array});
-  });
+
+  console.log(req.query);
+  if (req.query.sort) {
+    var sortVar = req.query.sort;
+    if (req.query.sortDirection) {
+      var dir = req.query.sortDirection;
+      var sortObject = {};
+      sortObject[sortVar] = dir;
+
+      Project.find().sort(sortObject).exec(function(err, array) {
+
+      });
+    } else {
+
+      Project.find().sort({sortVar: 'ascending'}).exec(function(err, array) {})
+    }
+  }
+
+    Project.find(function(err, array) {
+      res.render('index', {projects: array});
+    });
+
+
 });
 
 // Exercise 2: Create project
@@ -57,23 +80,27 @@ router.post('/new', function(req, res) {
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
-    res.render('new', {errors: errors, info: req.body});
+    res.render('new', {
+      errors: errors,
+      info: req.body
+    });
   } else {
-  var project = new Project({
-    title: req.body.title,
-    goal: req.body.goal,
-    description: req.body.description,
-    start: req.body.start,
-    end: req.body.end
-  });
-  project.save(function(err) {
-    if (err) {
-      res.status(500).json(err);
-    } else {
-      res.redirect('/');
-    }
-  });
-}
+    var project = new Project({
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end,
+      category: req.body.category
+    });
+    project.save(function(err) {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.redirect('/');
+      }
+    });
+  }
 });
 
 // Exercise 3: View single project
@@ -91,14 +118,14 @@ router.get('/project/:projectid', function(req, res) {
 router.post('/project/:projectid', function(req, res) {
   Project.findById(req.params.projectid, function(err, projectFound) {
 
-    projectFound.contributions.push({name:req.body.name, amount:req.body.amount});
-    var num = projectFound.contributions.reduce(function(a,b){
+    projectFound.contributions.push({name: req.body.name, amount: req.body.amount});
+    var num = projectFound.contributions.reduce(function(a, b) {
       console.log(a);
       console.log(b);
       return a + parseInt(b.amount);
     }, 0)
 
-    var progress = (num/projectFound.goal) * 100;
+    var progress = (num / projectFound.goal) * 100;
     projectFound.progressStr = JSON.stringify(progress) + '%';
 
     projectFound.save(function(err) {
@@ -114,5 +141,46 @@ router.post('/project/:projectid', function(req, res) {
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+var options = [
+  'Famous Muppet Frogs',
+  'Current Black Presidents',
+  'The Pen Is Mightier',
+  'Famous Mothers',
+  'Drummers Named Ringo',
+  '1-Letter Words',
+  'Months That Start with "Feb"',
+  'How Many Fingers Am I Holding Up',
+  'Potent Potables'
+]
+
+router.get('/projects/:projectid/edit', function(req, res) {
+
+  Project.findById(req.params.projectid, function(err, projectFound) {
+    res.render('editProject', {
+      info: projectFound,
+
+      options: options
+    });
+
+  })
+
+})
+
+router.post('/projects/:projectid/edit', function(req, res) {
+
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+
+  }, function(err, foundProject) {
+    console.log(foundProject);
+  });
+  res.redirect('/');
+
+})
 
 module.exports = router;

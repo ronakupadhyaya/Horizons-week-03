@@ -3,16 +3,27 @@
 <!-- Exercise 3: View a single project -->
 
 <body>
-  <label class="col-sm-3 control-label">Title</label> {{project.title}}
+  <div class = "form group">
+  <label class="col-sm-2 control-label">Title</label>
+  <div class="col-sm-10 form-control" > {{project.title}}</div>
+
   </br>
-  <label class="col-sm-3 control-label">goal</label> {{project.goal}}
+  <label class="col-sm-2 control-label">goal</label>
+  <div class="col-sm-10 form-control"> {{project.goal}} </div>
   </br>
-  <label class="col-sm-3 control-label">description</label> {{project.description}}
+  <label class="col-sm-2 control-label">description</label>
+  <div class="col-sm-10 form-control"> {{project.description}} </div>
   </br>
-  <label class="col-sm-3 control-label">start date</label> {{project.start}}
+  <label class="col-sm-2 control-label">start date</label>
+  <div class="col-sm-10 form-control"> {{project.start}} </div>
   </br>
-  <label class="col-sm-3 control-label">end date</label> {{project.end}}
+  <label class="col-sm-2 control-label">end date</label>
+  <div class="col-sm-10 form-control">{{project.end}}</div>
   </br>
+  <label class="col-sm-2 control-label">Category</label>
+  <div class="col-sm-10 form-control">{{project.category}}</div>
+  </br>
+</div>
 
   <form action="" method="POST">
     <label class="col-sm-3 control-label">contributors</label>

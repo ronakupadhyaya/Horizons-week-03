@@ -1,31 +1,38 @@
 <h2>Create project</h2>
-<form action="/new"=m ethod="POST">
-  <label class="col-sm-3 control-label">Title</label>
-  <input type="text" name="title" value="{{info.title}}"></input>
+<form action="/new"= method="POST">
+  <label class="col-sm-2 control-label">Title</label>
+  <input type="text" class = "col-sm-10 form-control" name="title" value="{{info.title}}"></input>
 
-  <label class="col-sm-3 control-label">Goal</label>
-  <input type="text" name="goal" value="{{info.goal}}"></input>
+  <label class="col-sm-2 control-label">Goal</label>
+  <input type="text" class = "col-sm-10 form-control" name="goal" value="{{info.goal}}"></input>
 
-  <label class="col-sm-3 control-label">Description</label>
-  <textarea name="description">{{info.description}}</textarea>
+  <label class="col-sm-2 control-label">Description</label>
+  <textarea name="description" class = "col-sm-10 form-control">{{info.description}}</textarea>
 
-  <label class="col-sm-3 control-label">Start</label>
-  <input type="Date" name="start" value="{{info.start}}"></input>
+  <label class="col-sm-2 control-label">Start</label>
+  <input type="Date" name="start"  class = "col-sm-10 form-control" value="{{info.start}}"></input>
 
-  <label class="col-sm-3 control-label">End</label>
-  <input type="Date" name="end" value="{{info.end}}"></input>
+  <label class="col-sm-2 control-label">End</label>
+  <input type="Date" name="end" class = "col-sm-10 form-control"value="{{info.end}}"></input>
 
-  <label class="col-sm-3 control-label">Category</label>
+  <label class="col-sm-2 control-label">Category</label>
   <!-- 'Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers',
           'Drummers Named Ringo', '1-Letter Words', 'Months That STart with "Feb"', 'How Many Fingers Am I Holding Up',
         'Potent Potables' -->
-  <select>
+  <select name = "category" class = "col-sm-10 form-control">
+
 
   <option value = "Famous Muppet Frogs"> Famous Muppet Frogs</option>
   <option value = "Current Black Presidents"> Current Black Presidents</option>
   <option value = "The Pen Is Mightier"> The Pen Is Mightier</option>
+  <option value = "Famous Mothers"> Famous Mothers</option>
+  <option value = "Drummers Named Ringo"> Drummers Named Ringo</option>
+    <option value = "1-Letter Words"> 1-Letter Words</option>
+    <option value = "Months That Start with 'Feb'"> Months That Start with "Feb"</option>
+    <option value = "How Many Fingers Am I Holding Up"> How Many Fingers Am I Holding Up</option>
+    <option value = "Potent Potables"> 1-Letter Words</option>
 </select>
-  <button type="submit"> submit </button>
+  <button type="submit" class = "col-sm-10 form-control"> submit </button>
 </form>
 
 <!-- Exercise 2: Create project -->

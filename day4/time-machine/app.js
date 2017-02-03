@@ -4,6 +4,7 @@ var path = require('path');
 
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
+var dateUp = 0;
 app.engine('.hbs', exphbs(
   {
     extname: '.hbs',
@@ -25,8 +26,9 @@ function toDateStr(date) {
 }
 
 app.get('/', function(req, res) {
-  // YOUR CODE HERE
-  res.render('index');
+  dateUp= new Date(req.query.when);
+
+  res.render('index', {dateUp: toDateStr(dateUp)});
 });
 
 app.listen(3000);
