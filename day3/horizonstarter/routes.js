@@ -32,7 +32,7 @@ router.get('/create-test-project', function(req, res) {
     }
   });
 });
-
+//
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
