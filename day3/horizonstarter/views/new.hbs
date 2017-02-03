@@ -6,6 +6,17 @@
   <textarea type = "text" name = "description" placeholder = "Description">{{myProject.description}}</textarea><br/><br/>
   <input type = "date" name = "start" placeholder = "Start date" value = "{{myProject.start}}" required><br/><br/>
   <input type = "date" name = "end" placeholder = "End date" value = "{{myProject.end}}" required><br/><br/>
+  <select name = "category">
+  <option value="famous">Famous Muppet Frogs</option>
+  <option value="current">Current Black Presidents</option>
+  <option value="pen">The Pen Is Mightier</option>
+  <option value="famous">Famous Mothers</option>
+  <option value="drummers">Drummers Named Ringo</option>
+  <option value="words">1-Letter Words</option>
+  <option value="feb">Months That Start With "Feb"</option>
+  <option value="fingers">How Many Fingers Am I Holding Up</option>
+  <option value="potent">Potent Potables</option>
+</select>
   <button type = "submit">Submit</button>
 </form>
 {{#if errors}}

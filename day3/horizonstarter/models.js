@@ -1,7 +1,9 @@
 "use strict";
+
 // Project model
-//ctrl+shift+p -> auto indent
 var mongoose = require('mongoose');
+//mongoose is a library, used to talk to the database
+
 var Project = mongoose.model('Project', {
   title: {
      type: String,
@@ -21,18 +23,27 @@ var Project = mongoose.model('Project', {
    end: {
      type: Date,
      required: true
+   },
+   contributions: [
+     {
+       name: {type: String},
+       amount: {type: Number}
+     }
+   ],
+
+   category: {
+     type: String,
+     enum: ['Famous Muppet Frogs','Current Black Presidents','The Pen Is Mightier',
+   'Famous Mothers','Drummers Named Ringo','1-Letter Words',
+ 'Months That Start With "Feb"','How Many Fingers Am I Holding Up',
+'Potent Potables']
    }
-}),
 
-  contribution: {
-    type: [{
-      name: String,
-      amount: Number
-    }]
+   //put the name, which is the category here
 
-    //Array, contains an array of objects with name and amount properties.
 
-  }
-module.exports = {
-  Project: Project
-}
+ });
+
+ module.exports = {
+   Project: Project
+ }
