@@ -33,9 +33,6 @@ var Project = mongoose.model('Project', {
   }
 });
 
-Project.prototype.findById = function(){
-
-}
 
 module.exports = {
   Project: Project

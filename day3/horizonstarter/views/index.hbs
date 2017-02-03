@@ -5,8 +5,14 @@
 <!-- Exercise 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
+<a href= "/?sort=total">Sort by Total Contributions</a>
+<a href= "/?sort=goal">Sort by Goal</a>
+<a href= "/?sort=start">Sort by Start</a>
+<a href= "/?sort=end">Sort by End</a>
+{{#if sort}}<a href= "/?sort={{sort}}&sortDirection=descending">Descending</a>{{/if}}
+
 <p>
-    {{#each array}}
+    {{#each projects}}
     <div style='background-color: green'>
       <h3>{{this.title}}</h3>
       <h4>{{this.description}}</h4>

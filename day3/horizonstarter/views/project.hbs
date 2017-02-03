@@ -5,11 +5,11 @@
 <!-- YOUR CODE HERE -->
 <p>
   <div style='background-color: green'>
-    <h3>{{this.title}}</h3>
-    <h4>{{this.description}}</h4>
-    <h3>{{this.goal}}</h3>
-    <h5>{{this.start}}</h5>
-    <h5>{{this.end}}</h5>
+    <h3>{{project.title}}</h3>
+    <h4>{{project.description}}</h4>
+    <h3>{{project.goal}}</h3>
+    <h5>{{project.start}}</h5>
+    <h5>{{project.end}}</h5>
   </br>
   <h3>Contribute to this project:</h3>
   <form action ="/project/{{project.id}}" method="post">
@@ -33,7 +33,7 @@
   </form>
   <br/>
   <a href="/">Back to all projects</a>
-  <form action = "/project/{{project.id}}/edit" method "get">
+  <form action = "/project/{{project.id}}/edit" method "post">
     <input type='submit' value = 'Edit Project'></button>
   </form>
   </div>

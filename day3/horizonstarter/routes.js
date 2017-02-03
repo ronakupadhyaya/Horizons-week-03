@@ -27,16 +27,56 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, projects) {
-    var array = [];
-    // console.log(projects);
-    for (var i = 0; i < projects.length; i++){
-      array.push(projects[i])
+  if (req.query.sort === 'total') {
+    Project.find(function(error, projects) {
+      // console.log(array);
+      if( error ){
+        res.redirect('/')
+      }
+      var newSort = projects.sort(function(project1, project2){
+        var sum1 = project1['contributions'].map(function(item){
+          return item.amount;
+        }).reduce(function(a, b){
+          return parseInt(a) + parseInt(b)
+        }, 0)
+        var sum2 = project2['contributions'].map(function(item){
+          return item.amount;
+        }).reduce(function(a, b){
+          return parseInt(a) + parseInt(b)
+        },0);
+
+        return sum2 - sum1;
+      })
+      // console.log(newSort)
+      // console.log(projects)
+      console.log(newSort);
+    res.render('index', {projects: newSort});
+    })
+  } else if (req.query.sort) {
+    var sortObject = {};
+    sortObject[req.query.sort] = 1;
+    if (req.query.sortDirection === 'descending'){
+      sortObject[req.query.sort] = -1;
     }
-    console.log(req.params);
-    res.render('index', {array});
-    // console.log(array);
-  });
+    Project.find().sort(sortObject).exec(function(error, projects) {
+      // YOUR CODE HERE
+      if (error){
+        res.redirect('/')
+      }
+      res.render('index', {
+        projects: projects,
+        sort: req.query.sort
+      });
+    });
+  } else {
+    Project.find(function(error, projects) {
+      // console.log(array);
+      if( error ){
+        res.redirect('/')
+      }
+      res.render('index', {projects: projects});
+    })
+  }
 });
 
 // Exercise 2: Create project
@@ -79,7 +119,7 @@ router.get('/project/:projectid', function(req, res) {
     if (error) {
       res.send(error);
     }
-  console.log(project);
+    console.log(project);
     project.save(function(error, task){
       if (error){
         return error;
@@ -144,19 +184,39 @@ router.get('/project/:projectid/edit', function(req, res) {
       res.send(error);
       res.redirect('/')
     }
-      var date = project.end;
-      date = date.toString().substring(0,10);
-      console.log(date)
-      console.log('*****' + project+'*****')
-      res.render('editProject', {
+    function pad(x){
+      return (Math.floor(x / 10.0) < 1) ? ('0' + x) : x;
+    }
+    var date = project.end;
+    function toDateStr(date) {
+      return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate() + 1);
+    }
+    var dateStr = toDateStr(date);
+    console.log(dateStr);
+    res.render('editProject', {
       project: project,
-      date: date
+      date: dateStr
     })
   });
+});
+router.post('/project/:projectid/edit', function(req, res) {
+  console.log(req.body);
+  Project.findByIdAndUpdate(req.params.projectid, req.body,
+    function(error) {
+      // YOUR CODE HERE
+      if (error) {
+        res.send(error)
+        res.redirect('/')
+      }
+      res.redirect('/')
+    });
+  })
+
+
   // res.redirect('/')
   // res.render('editProject', project)
 
-});
-// Create the POST /project/:projectid/edit endpoint
 
-module.exports = router;
+  // Create the POST /project/:projectid/edit endpoint
+
+  module.exports = router;

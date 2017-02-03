@@ -21,12 +21,33 @@ function pad(num) {
 
 // This function
 function toDateStr(date) {
-  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate() + 1);
 }
 
 app.get('/', function(req, res) {
   // YOUR CODE HERE
-  res.render('index');
+  console.log(req.query.action);
+  var inputs = req.query
+  var date = new Date(inputs.when);
+  var amount = req.query.amount;
+  if (req.query.action === "to the past") {
+    amount = -amount;
+  }
+
+  if (inputs.units === 'days'){
+    date.setDate(date.getDate() + parseInt(amount))
+  } else if (inputs.units === 'months'){
+      date.setMonth(date.getMonth() + parseInt(amount))
+  } else if (inputs.units === 'years'){
+      date.setFullYear(date.getFullYear() + parseInt(amount))
+  }
+
+  date = toDateStr(date);
+
+
+  res.render('index', {
+    date: date,
+    amount: inputs.amount});
 });
 
 app.listen(3000);
