@@ -4,10 +4,19 @@
 
 <!-- YOUR CODE HERE -->
 <div><strong>Title: </strong>{{found.title}}</div>
+<div><strong>Category: </strong>{{found.category}}</div>
 <div><strong>Goal: </strong>{{found.goal}}</div>
 <div><strong>Description: </strong>{{found.desc}}</div>
 <div><strong>Start Date: </strong>{{found.start}}</div>
 <div><strong>End Date: </strong>{{found.end}}</div>
+
+<br/>
+
+<div class="progress" style="width:35vw">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">{{percent}}%
+  </div>
+</div>
 
 <!-- Exercise 4: Contribute to a project -->
 
@@ -16,9 +25,11 @@
 
 <form action="/project/{{found._id}}" method="POST">
   <input type="text" name="name" placeholder="Name">
-  <input type="text" name="amount" placeholder="Amount">
+  <input type="number" min="0" name="amount" placeholder="Amount">
   <button type="submit" name="button">Contribute</button>
 </form>
+
+<h3><strong>Total Contributions: </strong>{{total}}</h3>
 
 {{#each found.contributions}}
   <br/>

@@ -9,10 +9,11 @@
   {{/each}}
 {{/if}}
 
-<form action="/new" method="POST">
+<form action="/project/{{thisProject._id}}/edit" method="POST">
   <br/>
 
     <select name="category">
+      <option selected>{{thisProject.category}}</option>
       {{#each category}}
         <option>{{this}}</option>
       {{/each}}
@@ -46,7 +47,5 @@
   <br/>
   <br/>
 
-  <button type="submit" name="submit">Submit</button>
+  <button type="submit" name="submit">Save Changes</button>
 </form>
-<!-- Exercise 5: Project categories -->
-<!-- YOUR CODE HERE -->

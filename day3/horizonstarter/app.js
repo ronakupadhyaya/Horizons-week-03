@@ -51,5 +51,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes');
 app.use('/', routes);
 
-console.log('Express started. Listening on port', process.env.PORT || 8000);
-app.listen(process.env.PORT || 8000);
+console.log('Express started. Listening on port', process.env.PORT || 8004);
+app.listen(process.env.PORT || 8004);

@@ -1,4 +1,4 @@
-var express = require('express');
+ var express = require('express');
 var app = express();
 var path = require('path');
 
@@ -26,7 +26,17 @@ function toDateStr(date) {
 
 app.get('/', function(req, res) {
   // YOUR CODE HERE
-  res.render('index');
+  var unitsArray = ['days', 'months', 'years'];
+  var selected = req.query.units;
+  if(selected) {
+    unitsArray.splice(unitsArray.indexOf(selected), 1);
+  }
+  res.render('index', {
+    date: req.query.when,
+    number: req.query.amount,
+    unitsArray: unitsArray,
+    selectedUnit: selected
+  });
 });
 
 app.listen(3000);
