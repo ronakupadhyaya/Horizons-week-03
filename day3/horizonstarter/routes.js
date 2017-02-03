@@ -80,7 +80,7 @@ router.get('/project/:projectid', function(req, res) {
     project.contributions.forEach(function(obj){
       project.total += obj.amount;
     });
-      project.percent = (project.total/project.goal)*100;
+      project.percent = ((project.total/project.goal)*100).toFixed(1);
       console.log(project.percent);
       res.render('project', project)
   })
@@ -104,5 +104,13 @@ router.post('/project/:projectid', function(req, res) {
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
-
+router.get('/projects/:projectid/edit', function(req,res){
+  Project.findById(req.params.projectid, function(err, project){
+    if(err){
+      res.send(err);
+    } else{
+      res.render('editProject', project);
+    }
+  })
+})
 module.exports = router;
