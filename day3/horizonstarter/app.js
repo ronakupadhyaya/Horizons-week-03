@@ -8,6 +8,7 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
+var Project = require('./models').Project;
 
 // Initialize Express
 var app = express();
@@ -32,7 +33,17 @@ mongoose.connection.on('error', function() {
 mongoose.connect(config.MONGODB_URI);
 
 // Handlabars setup
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs',
+helpers: {
+  dropDownCat: function (obj) {
+    var ret = ''
+    obj.categories = Project.schema.path('category').enumValues
+      for(var i=0;i<obj.categories.length;i++) {
+        ret += `<option>${obj.categories[i]}</option>`
+      }
+      return ret;
+  }
+}}));
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));

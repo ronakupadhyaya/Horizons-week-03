@@ -1,11 +1,23 @@
 <h1>View projects</h1>
-<a href="/new">Create a new project</a>
+<a href="/new">Create a new project</a></br>
+<form method="GET" action="/">
+<p>Sort by: start, end, or goal</p>
+<input type="text" name="sort" value="">
+<p>ascend or descend</p>
+<input type="text" name="sortDirection" value=""></br>
+<input type="submit">
+</form>
+<a href="/?status=fullyFunded">View Fully Funded Projects</a></br>
+<a href="/?status=funding">View Partially Funded Projects</a>
+
 <!-- Exercise 1: View all projects -->
 {{#each items}}
   <h3>{{this.title}}</h3>
-  <p>{{this.id}}</p>
+  <p>Project ID: {{this.id}}</p>
+  <p>Goal: ${{this.goal}}</p>
+  <p>Contributions: ${{this.total}}
   <form method="GET" action="/project/{{id}}">
-    <input type="submit">
+    <button type="submit">View</button>
   </form>
 {{/each}}
 

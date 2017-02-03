@@ -7,10 +7,12 @@
 <form method="POST" action="/new" >
   <input name="title" type="text" placeholder="Title" value={{title}}>
   <input name="goal" type="text" placeholder="Goal" value={{goal}}>
-  <textarea name="descrip" rows="4" cols="50" placeholder="Description..." name="description"></textarea>
+  <textarea name="description" rows="4" cols="50" placeholder="Description..." name="description"></textarea>
   <input name="start" type="date" value={{start}}> Start Date
   <input name="end" type="date"value={{end}}> End Date
-  <select>
+  <select name="category">
+    {{{dropDownCat this}}}
+  </select>
   <input type="submit">
 </form>
 <!-- Exercise 5: Project categories -->
