@@ -1,10 +1,13 @@
 "use strict";
-
 // Routes, with inline controllers for each route.
 var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+
+
+
+var categoryEnum = ["Famous Muppet Frogs", "Current Black Presidents", "The Pen Is Mightier", "Famous Mothers", "Drummers Named Ringo", "1-Letter Words", "Months That Start With \"Feb\"", "How Many Fingers Am I Holding Up", "Potent Potables"];
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -24,19 +27,30 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-
-  Project.find({}, function(error, projects) {
-    if (error) {
-      console.log('Error', error);
-    } else {
-      // console.log('Projects', projects);
-      Project.find(function(err, array) {
+  if (req.query.sort) {
+    var sortObject = {};
+    if (req.query.sortDirection) {
+      sortObject[req.query.sort] = req.query.sortDirection;
+    }
+    Project.find().sort(sortObject).exec(function(err, array) {
+      console.log(array);
+      res.render('index', {
+        items: array
+      });
+    });
+  } else {
+    Project.find({}, function(error, projects) {
+      if (error) {
+        console.log('Error', error);
+      } else {
+        // console.log('Projects', projects);
         res.render('index', {
           items: projects
         });
-      });
-    }
-  });
+      }
+    });
+  }
+
 
 
 });
@@ -101,7 +115,7 @@ router.post('/new', function(req, res) {
       errors: errors
     });
   } else {
-    console.log(req.body);
+
 
     //push project
     var project = new Project({
@@ -211,7 +225,9 @@ router.get('/project/:projectid/edit', function(req, res) {
         description: found.description,
         start: toDateStr(found.start),
         end: toDateStr(found.end),
-        contributions: found.contributions
+        contributions: found.contributions,
+        category: found.category,
+        options: categoryEnum
       });
     }
   });
@@ -222,11 +238,39 @@ router.get('/project/:projectid/edit', function(req, res) {
 });
 
 
-
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 
-module.exports = router;
 
-var categoryEnum = ["Famous Muppet Frogs", "Current Black Presidents", "The Pen Is Mightier", "Famous Mothers", "Drummers Named Ringo", "1-Letter Words", "Months That Start With \"Feb\"", "How Many Fingers Am I Holding Up", "Potent Potables"];
+router.post('/project/:projectid/edit', function(req, res) {
+  Project.findById({
+    _id: req.params.projectid
+  }, function(err, doc) {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log("BODY TITLE", req.body.title);
+      console.log("DOC", doc);
+      doc.title = req.body.title;
+      doc.goal = req.body.goal;
+      doc.description = req.body.description;
+      doc.start = req.body.start;
+      doc.end = req.body.end;
+      doc.category = req.body.category;
+      doc.save(function(err) {
+        if (err) {
+          console.log("Error", err);
+        } else {
+          console.log("Edited Project");
+          res.redirect("/project/" + req.params.projectid);
+        }
+      })
+    }
+  })
+
+});
+
+
+
+module.exports = router;
