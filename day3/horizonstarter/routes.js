@@ -7,6 +7,7 @@ var Project = require('./models').Project;
 var strftime = require('strftime');
 
 
+
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
   var project = new Project({
@@ -59,9 +60,6 @@ router.get('/new',function(req,res) {
 
 router.post('/new',function(req,res) {
 
-
-
-
 var newProj=req.body
    var project = new Project( {
      title: newProj.title,
@@ -86,9 +84,7 @@ var newProj=req.body
 // Implement the POST /new endpoint
 // router.post('/new', function(req, res) {
 //   // YOUR CODE HERE
-// });
-
-// Exercise 3: View single project
+// });// Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
@@ -97,21 +93,38 @@ router.get('/project/:projectid', function(req, res) {
     if(err) {
       console.log('err')
     } else{
+
       res.render('project', {project:pro})
-    }
+      }
+    });
   })
-
-
-
-
-
-});
 
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
-});
+    Project.findById(req.params.projectid, function(err,pro) {
+      if(err) {
+        console.log('errorsilly')
+      } else {
+        console.log(req.body)
+        console.log('party')
+        pro.contributions.push(req.body)
+        console.log(pro)
+        pro.save(function(err) {
+          if(err) {
+            console.log('noSave')
+          } else {
+            var total=0
+            total+=item.amount;
+              res.render('project', {project:pro,
+                                   totalcont:total})
+          }
+        });
+      };
+    });
+  });
+
+
 
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint

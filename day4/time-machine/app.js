@@ -8,6 +8,12 @@ app.engine('.hbs', exphbs(
   {
     extname: '.hbs',
     helpers: {
+      water: function() {
+      var ret=
+      for(var i=0;i<options.length;i++) {
+        ret +=
+      '<h1>I AM HERE</h1>'
+    }
       // You can define an Handlebars helper here
       // YOUR CODE HERE
     }
@@ -25,8 +31,12 @@ function toDateStr(date) {
 }
 
 app.get('/', function(req, res) {
+
   // YOUR CODE HERE
-  res.render('index');
+  res.render('index', {
+      time: req.query.when,
+    number:req.query.amount
+  });
 });
 
 app.listen(3000);
