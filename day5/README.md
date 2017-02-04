@@ -18,6 +18,7 @@
 ### Create models
 - we will create three different files
 - `token.js`: mongoose model definition for tokens
+
   ```javascript
   {
     userId: String,
@@ -26,13 +27,13 @@
   }
   ```
 - `user.js`: mongoose model definition for users
+
   ```javascript
   {
     fname: String,
     lname: String,
     email: String,
-    password: String,
-    token: Object
+    password: String
   }
   ```
 - `post.js`: mongoose model definition for posts
