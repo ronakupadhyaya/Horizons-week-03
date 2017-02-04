@@ -1,9 +1,0 @@
-{
-	"apps":[{
-		"script":	"bin/www",
-		"env": {
-			"PORT": "8092"
-		},
-		"name": "horizonstarter-ajax"
-		}]
-}

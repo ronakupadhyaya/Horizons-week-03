@@ -9,11 +9,16 @@
       From
 
       <!-- Make this element change based on the 'when' query parameter -->
+<<<<<<< HEAD
       <input type="date" name="when" value="{{date}}">
+=======
+      <input type="date" name="when">
+>>>>>>> master
 
       to
 
       <!-- Make this element change based on the 'amount' query parameter -->
+<<<<<<< HEAD
       <input type="number" min="0" name="amount" value="{{number}}">
 
       <!-- Make this element change based on the 'units' query parameter -->
@@ -26,6 +31,19 @@
 
       <input type="submit" name="whichButton" value="to the future!">
       <input type="submit" name="whichButton" value="to the past">
+=======
+      <input type="number" min="0" name="amount">
+
+      <!-- Make this element change based on the 'units' query parameter -->
+      <select name="units">
+        <option>days</option>
+        <option>months</option>
+        <option>years</option>
+      </select>
+
+      <input type="submit" name="action" value="to the future!">
+      <input type="submit" name="action" value="to the past">
+>>>>>>> master
     </form>
   </body>
 </html>

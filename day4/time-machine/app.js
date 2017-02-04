@@ -25,6 +25,7 @@ function toDateStr(date) {
 }
 
 app.get('/', function(req, res) {
+<<<<<<< HEAD
   var when = req.query.when;
   var date = new Date(when);
   var amount = parseInt(req.query.amount);
@@ -58,4 +59,10 @@ if (req.query.units === 'days') {
 //   res.render('index', {date: toDateStr(req.body.when))
 // }
 
+=======
+  // YOUR CODE HERE
+  res.render('index');
+});
+
+>>>>>>> master
 app.listen(3000);
