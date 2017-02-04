@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var User = require('./models/user').User;
 var Token = require('./models/token').Token;
 var Post = require('./models/post').Post;
-
+var ObjectId = mongoose.Types.ObjectId;
 var config = require('./config');
 if (! fs.existsSync('./config.js')) {
   throw new Error('config.js file is missing');
@@ -142,6 +142,7 @@ app.post('/api/users/logout', function(req, res) {
 //GET POSTS
 app.get('/api/posts', function(req, res) {
   if(req.query.token) {
+    console.log('inside')
     Post.find({}, function(err, found) {
       if(err) {
         console.log(err);
@@ -164,10 +165,6 @@ app.post('/api/posts', function(req, res) {
       if(err) {
         console.log(err)
       } else {
-        console.log('inside first found')
-        console.log(found)
-        console.log('user')
-        console.log(User)
         // found is currently a token
         User.findOne({_id: found.userId}, function(err, found) {
           // found is now a user object
@@ -178,18 +175,24 @@ app.post('/api/posts', function(req, res) {
             console.log(found)
             var posterName = found.fname + " " + found.lname;
             var posterId = found._id; // ??????
-
             var post = new Post({
               poster: {
                 name: posterName,
                 id: posterId
               },
               content: req.body.content, // only token and content are part of body
-              likes: [], // can't have likes instantly right?
+              likes: [],
               comments: [],
               createdAt: Date.now() // probably need to convert to readable date later
             })
-            res.json(post); // OR RES.RENDER?
+            post.save(function(err) {
+              if(err) {
+                console.log(err);
+              } else {
+                console.log('post saved')
+              }
+            });
+            res.json(post);
           }
         })
       }
@@ -209,6 +212,41 @@ app.post('/api/posts', function(req, res) {
   //   }
   // })
 
+
+// GET COMMENTS OF A POST
+app.get('/api/posts/comments/:id', function(req, res) {
+  if(req.query.token) {
+    Post.findById(req.params.id, function(err, found) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.json(found.comments)
+      }
+    })
+  } else {
+    console.log('no token')
+  }
+});
+
+// MAKE COMMENT ON A POST
+app.post('/api/posts/comments/:id', function(req, res) {
+  console.log(req.params.id)
+  if(req.body.token) { // check if token exists
+    Post.findOne({'_id': mongoose.mongo.BSONPure.ObjectID.fromHexString(""+req.params.id)}, function(err, found) { // here we get the post
+      if(err) {
+        console.log(err);
+      } else {
+        console.log(found)
+        // create new object but first find poster, then push object
+        found.comments.push(req.body.content);
+        found.save();
+        res.json(found);
+      }
+    })
+  } else {
+    console.log('no token')
+  }
+});
 
             // Post.find({
             //   poster: {
