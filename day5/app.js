@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 // var validator = require('express-validator');
 var User = require('./models/user').User;
 var Token = require('./models/token').Token;
-var Post = require('./models/post').Token;
+var Post = require('./models/post').Post;
 
 var config = require('./config');
 if (! fs.existsSync('./config.js')) {
@@ -77,7 +77,8 @@ app.post('/api/users/register', function(req, res) {
     if(err) {
       console.log(err);
     } else {
-      res.send('Success: registered a user object in MongoDb');
+      // res.send('Success: registered a user object in MongoDb');
+      res.json(user)
     }
   });
 });
@@ -104,6 +105,13 @@ app.post('/api/users/login', function(req, res) {
           userId: found._id,
           token: found._id + Date.now(),
           createdAt: Date.now()
+        })
+        token.save(function(err) {
+          if(err) {
+            console.log(err)
+          } else {
+            res.send('saved token')
+          }
         })
         res.json({
           message: 'hello',
@@ -133,46 +141,73 @@ app.post('/api/users/logout', function(req, res) {
 
 //GET POSTS
 app.get('/api/posts', function(req, res) {
-  if(req.body.token) {
-
+  if(req.query.token) {
+    Post.find({}, function(err, found) {
+      if(err) {
+        console.log(err);
+      } else{
+        console.log('hello')
+        res.json(found);
+      }
+    })
   }
-  res.render('/api/posts');
 })
 
 // MAKE POST
 app.post('/api/posts', function(req, res) {
   // validate that we're logged in. must validate contents as well
-
+  console.log('outside')
   // RECEIVE TOKEN AND CONTENT
   if(req.body.token) {
+    console.log('inside token')
     Token.findOne({token: req.body.token}, function(err, found) {
       if(err) {
         console.log(err)
       } else {
+        console.log('inside first found')
+        console.log(found)
+        console.log('user')
+        console.log(User)
         // found is currently a token
-        User.findOne({userId: found.userId}, function(err, found) {
+        User.findOne({_id: found.userId}, function(err, found) {
+          // found is now a user object
+          console.log('THANKS HAM')
           if(err) {
             console.log(err)
           } else {
+            console.log(found)
             var posterName = found.fname + " " + found.lname;
             var posterId = found._id; // ??????
 
-            var Post = new Post({
+            var post = new Post({
               poster: {
                 name: posterName,
                 id: posterId
               },
               content: req.body.content, // only token and content are part of body
-              likes: null, // can't have likes instantly right?
-              comments: null,
+              likes: [], // can't have likes instantly right?
+              comments: [],
               createdAt: Date.now() // probably need to convert to readable date later
             })
-            res.redirect('/api/posts'); // OR RES.RENDER?
+            res.json(post); // OR RES.RENDER?
           }
         })
       }
     })
-  }})
+  } else {
+    console.log('you didnt get in at all');
+  }
+})
+
+
+// LIMIT NUMBER OF POSTS
+  // app.get('/api/posts/:numberOfPosts', function(req, res) {
+  //   if(req.query.token){
+  //
+  //   } else {
+  //     console.log('no token');
+  //   }
+  // })
 
 
             // Post.find({
