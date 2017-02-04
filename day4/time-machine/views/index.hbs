@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Time machine</title>
+  </head>
+  <body>
+    <form>
+      From
+
+      <!-- Make this element change based on the 'when' query parameter -->
+      <input type="date" name="when" value="{{date}}">
+
+      to
+
+      <!-- Make this element change based on the 'amount' query parameter -->
+      <input type="number" min="0" name="amount" value="{{number}}">
+
+      <!-- Make this element change based on the 'units' query parameter -->
+      <select name="units">
+        <option>{{first}}</option>
+        {{#each time}}
+        <option>{{this}}</option>
+        {{/each}}
+      </select>
+
+      <input type="submit" name="whichButton" value="to the future!">
+      <input type="submit" name="whichButton" value="to the past">
+    </form>
+  </body>
+</html>

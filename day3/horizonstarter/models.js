@@ -3,31 +3,31 @@
 // Project model
 var mongoose = require('mongoose');
 
-var Project = mongoose.model('Project', {
+var Project = mongoose.model('project', {
   title: {
-    type: String,
+    type: String
   },
   goal: {
-    type: Number,
+    type: Number
   },
   description: {
-    type: String,
+    type: String
   },
   start: {
-    type: Date,
+    type: Date
   },
   end: {
-    type: Date,
+    type: Date
   },
   contributions: [{
-  name: {
-      type: String
-    },
-
-   amount: {
-     type: Number
-     }
-   }]
+    name: {type: String},
+    amount: {type: Number}
+  }],
+  category: {
+    type: String,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables']
+  }
+  // YOUR CODE HERE
 });
 
 module.exports = {

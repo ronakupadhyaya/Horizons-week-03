@@ -1,0 +1,14 @@
+
+<form method="POST" action="/new">
+  <p>Title</p> <input type="text" value="{{project.title}}" name="title"><br>
+  <p>Goal</p> <input type="text" value="{{project.Goal}}" name="goal"><br>
+  <p>Description</p> <input type="textarea" value={{project.description}} name="description"><br>
+  <p>Start</p> <input type="Date" value={{project.start}} name="start"><br>
+  <p>end</p> <input type="Date" value={{project.end}} name="end"><br>
+  <p>insert</p> <select value={{project.insert}} name="category">
+    {{#each arr}}
+    <option>{{this}} </option>
+    {{/each}}
+  </select>
+  <input type="submit">
+</form>

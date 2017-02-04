@@ -1,21 +1,43 @@
 <h2>{{title}}</h2>
 
 <!-- Exercise 2: Create project -->
-<!-- Exercise 5: Project categories -->
-<!-- YOUR CODE HERE -->
 
-{{#if errors}}
 {{#each errors}}
 {{this.msg}}
-
 {{/each}}
-{{/if}}
+<form method="post" action="/new">
+  <div class="form-group">
+    <h2>Title</h2>
+    <input type="text" name="title" value="{{project.title}}">
+  </div>
+    <div class="form-group">
+      <h2>Description</h2>
+      <input type="text" name="description" value="{{project.description}}">
+    </div>
+    <div class="form-group">
+      <h2>Goal</h2>
+      <input type="text" name="goal" value="{{project.goal}}">
+    </div>
+    <div class="form-group">
+      <h2>Start Date</h2>
+      <input type="date" name="start" value="{{project.start}}">
+    </div>
+    <div class="form-group">
+      <h2>End Date</h2>
+      <input type="date" name="end" value="{{project.end}}">
+    </div>
+  </br>
+  <label for="category">Category</label>
+  <select id="category" name="category" class="form-control">
+  {{#each arr}}
+    <option>{{this}}</option>
+  {{/each}}
+  </select>
+</br>
+    <input type="submit">
+  </br>
 
-<form method="POST" action="/new">
-  <p>Title</p> <input type="text" value="{{project.title}}" name="title"><br>
-  <p>Goal</p> <input type="text" value="{{project.Goal}}" name="goal"><br>
-  <p>Description</p> <input type="textarea" name="description"><br>
-  <p>Start</p> <input type="Date" name="start"><br>
-  <p>end</p> <input type="Date" name="end"><br>
-  <input type="submit">
+
+<!-- Exercise 5: Project categories -->
 </form>
+<!-- YOUR CODE HERE -->

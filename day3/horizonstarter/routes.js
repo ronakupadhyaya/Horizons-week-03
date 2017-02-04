@@ -23,85 +23,127 @@ router.get('/create-test-project', function(req, res) {
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
+  Project.find(function(err, project) {
+  //  console.log(projects);
+    res.render('index', {projects: project});
+  });
   // YOUR CODE HERE
-  Project.find(function (err, project){
-
-    res.render('index', {projects: project} )
-  })
 });
 
 // Exercise 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  res.render('new', {title: "Create Project"})
+  var categories = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables']
+
+  res.render('new', {title: "Create Project", arr: categories }
+);
+  // YOUR CODE HERE
 });
 
 // Exercise 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
+    req.checkBody('title', 'Invalid title').notEmpty();
+    req.checkBody('goal', 'Invalid goal').notEmpty();
+    req.checkBody('description', 'Invalid goal').notEmpty();
+    req.checkBody('start', 'Invalid start date').notEmpty();
+    req.checkBody('end', 'Invalid end date').notEmpty();
+    var err = req.validationErrors();
+    if(err){
+      res.render('/new', {errors: err, project: req.body});
+    }
+    else {
+      var newProject = new Project({
+        title: req.body.title,
+        description: req.body.description,
+        goal: req.body.goal,
+        start: req.body.start,
+        end: req.body.end
+      });
+      newProject.save(function(err){
+        if (err){
+          console.log("error", err)
+        }
+        res.redirect('/')
+      })
+    }
+
   // YOUR CODE HERE
-  req.checkBody('title', 'Invalid title').notEmpty();
-  req.checkBody('goal', 'Invalid title').notEmpty().isInt();
-  req.checkBody('description', 'Invalid title').notEmpty();
-  req.checkBody('start', 'Invalid title').notEmpty();
-  req.checkBody('end', 'Invalid title').notEmpty();
-  var err = req.validationErrors();
-  if(err) {
-    res.render('new', {errors: err, project: req.body})
-  }
-  else {
-    var newProject = new Project(req.body);
-    console.log(req.body)
-    newProject.save(function(err){
-      if(err){
-        console.log("error", err)
-      }
-      res.redirect('/');
-    });
-  }
 });
 
 // Exercise 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   var id = req.params.projectid;
-  Project.findById(id, function (err, project) {
-    if (err) {
-      console.log("error", err)
-    }
-    else {
-      res.render('project', {project: project})
-      console.log(project)
-    }
-  })
+  Project.findById(id, function(err, project){
+    project.total = 0;
+    project.contributions.forEach(function(obj){
+    project.total += obj.amount;
+    });
+    project.percent = (project.total/project.goal)*100;
+    if(err){
+      console.log("error", err);
+    }else{
+    res.render('project', project);
+  }
+  });
+
+  // YOUR CODE HERE
 });
 
 // Exercise 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
   Project.findById(req.params.projectid, function(err, project) {
-    if(err) {
-      console.log(err);
-    }
-    else {
-      project.contributions.push({name: req.body.name, amount: req.body.amount});
-      project.save(function(err, project) {
-        if(err) {
-          console.log('bs')
-        } else {
-          res.render('project', {
-            project:project
-          })
-        }
-      });
-    }
-  })
+    req.checkBody('name', 'Contributor name').notEmpty();
+    req.checkBody('amount', 'Contributor amount').notEmpty().isInt();
+    var errors = req.validationErrors();
+    project.contributions.push(req.body);
+    project.save(function(err){
+      if (err){
+        console.log(err);
+      }
+      else {
+        res.redirect('/project/' + req.params.projectid)
+      }
+    });
+  });
+});
+router.get('/projects/:projectid/edit', function(req, res) {
+  var id = req.params.projectid;
+  Project.findById(id, function(err, project){
+    if(err){
+      console.log("error", err);
+    }else{
+    res.render('editProject', {project: project});
+  }
+  });
 
+  // YOUR CODE HERE
+});
+
+
+router.post('/projects/:projectid/edit', function(req, res) {
+  Project.findById(req.params.projectid, function(err, project) {
+    req.checkBody('name', 'Contributor name').notEmpty();
+    req.checkBody('amount', 'Contributor amount').notEmpty().isInt();
+    var errors = req.validationErrors();
+    project.contributions.push(req.body);
+    project.save(function(err){
+      if (err){
+        console.log(err);
+      }
+      else {
+        res.redirect('/editProject/' + req.params.projectid)
+      }
+    });
+  });
 });
 
 // Exercise 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+
+
 
 module.exports = router;
