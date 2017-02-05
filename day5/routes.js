@@ -95,40 +95,54 @@ router.get('/api/posts/error', function(req, res){
 
 //GET posts
 router.get('/api/posts', function(req, res){
-  var token = authenticateToken(req.body.token);
-  if(token){
-    Post.find({}, function(err, postArr){
-      res.send({success: true, response: postArr});
-    })
-  }
-  else{
-    res.status(400).json({error: "Get post error"});
+  Token.find({token:req.params.token}, function(err, token){
+    if(err){
+      console.log("Authentication Error");
     }
+    else{
+      if(token){
+        Post.find({}, function(err, postArr){
+          res.send({success: true, response: postArr});
+        })
+      }
+      else{
+        res.redirect('/api/users/login');
+      }
+    }
+  })
 })
 
 //POST posts
 router.post('/api/posts', function(req, res){
   //gets token if found, else false
-  var token = authenticateToken(req.body.token);
-  if(token){
-    User.findOne({_id:token.userId}, function(err, user){
-      var newPost = new Post({poster: {name: user.fname+" "+user.lname, id: token.userId},
-                          content: req.body.content,
-                          likes: [],
-                          comments: [],
-                          createdAt: new Date()
-      })
-      newPost.save(function(err){
-        if(err)
-          res.status(400).json({error: "No post content"});
-        else
-          res.send({success: true, response: newPost});
-      })
-    })
-  }
-  else{
-    res.redirect('/api/users/login');
-  }
+
+  Token.findOne({token:req.body.token}, function(err, token){
+    if(err){
+      res.redirect('/api/users/login');
+    }
+    else{
+      if(token){
+        User.findById(token.userId, function(err, user){
+          var newPost = new Post({poster: {name: user.fname+" "+user.lname, id: token.userId},
+                              content: req.body.content,
+                              likes: [],
+                              comments: [],
+                              createdAt: new Date()
+          })
+          newPost.save(function(err){
+            if(err)
+              res.status(400).json({error: "No post content"});
+            else
+              res.send({success: true, response: newPost});
+          })
+        })
+      }
+      else{
+        res.redirect('/api/users/login');
+      }
+
+    }
+  })
 })
 
 // router.get('/api/posts/:numberOfPosts', function(req, res){
@@ -137,58 +151,100 @@ router.post('/api/posts', function(req, res){
 
 //GET comments/:id
 router.get('/api/posts/comments/:id', function(req, res){
-  var token = authenticateToken(req.body.token);
-  if(token){
-    Post.findOne({_id:req.params.id}, function(err, post){
-      if(!err)
-        res.send({success: true, response:post});
-    })
-  }
-  else{
-    res.redirect('/api/users/login');
-  }
+  Token.findOne({token:req.body.token}, function(err, token){
+    if(err){}
+    else{
+      Post.findOne({_id:req.params.id}, function(err, post){
+        if(err){}
+        else{
+          res.send({success: true, response:post});
+        }
+      })
+    }
+  })
 })
 
 //POST comments/:id
 router.post('/api/posts/comments/:id', function(req,res){
-  var token = authenticateToken(req.body.token);
-  if(token){
-    User.findOne({_id:token.userId}, function(err, user){
-      if(err){
+  Token.findOne({token: req.body.token}, function(err, token){
+    if(err){}
+    else{
+      if(token){
+        User.findById(token.userId, function(err, user){
+          if(err){}
+          else{
 
+            Post.findById(req.params.id, function(err, post){
+              if(err){}
+              else{
+                post.comments.push({
+                                    createdAt: new Date(),
+                                    content: req.body.content,
+                                    poster: {name: user.fname+" "+user.lname, id: token.userId}
+                                  });
+                post.save(function(err){
+                  if(err) {}
+                  else{
+                    console.log("Updated post with new comment");
+                    res.send({success: true, response:post});
+                  }
+                })
+              }
+            });
+          }
+        })
       }
       else{
-        Post.findOne({_id:req.params.id}, function(err, post){
-          if(err){
-
-          }
-          else{
-            post.comments.push({
-                                createdAt: new Date(),
-                                content: req.body.content,
-                                poster: {name: user.fname+" "+user.lname, id: token.userId}
-                              });
-          }
-        });
+        res.redirect('/api/users/login');
       }
-    })
-  }
-  else{
-    res.redirect('/api/users/login');
-  }
+    }
+  })
 })
 
-function authenticateToken(token){
-  Token.findOne({userId:token}, function(err, token){
-    if(err){
-      console.log("Authentication Error");
-    }
+router.get('/api/posts/likes/:id',function(req, res){
+  Token.findOne({token: req.query.token}, function(err, token){
+    if(err){}
     else{
-      console.log("Authentication succeeded");
-      return token;
+      if(token){
+        User.findById(token.userId, function(err, user){
+          if(err){}
+          else{
+            Post.findById(req.params.id, function(err, post){
+              if(err){}
+              else{
+                if(post){
+                  (post.likes).push({name: user.fname+ " " + user.lname,
+                                    id: token.userId});
+                  post.save(function(err){
+                    if(err){}
+                    else{
+                      console.log("successfully liked the post");
+                      res.send({success: true, response: post});
+                    }
+                  })
+                }
+                else{
+                  //Bad post ID
+                }
+              }
+            })
+          }
+        })
+      }
+      else{
+        //Bad login request
+        res.redirect('/api/users/login');
+      }
     }
-    return false;
   })
-}
+});
+
+
+router.post('/api/users/logout', function(req,res){
+  Token.findOne({token: req.body.token}, function(err, token){
+    
+  })
+})
+
 
 module.exports = router;
