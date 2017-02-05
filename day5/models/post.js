@@ -13,11 +13,11 @@ var Post = mongoose.model('Post', {
   },
   likes: {
     type: Array,
-    required: true
+    required: false
   },
   comments: {
     type: Array,
-    required: true
+    required: false
   },
   createdAt: {
     type: Date,

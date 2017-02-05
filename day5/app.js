@@ -86,15 +86,6 @@ app.post('/api/users/register', function(req, res) {
 //VALIDATION FOR REGISTER: IF ACCOUNT ALREADY EXISTS, DON'T ALLOW
 
 app.post('/api/users/login', function(req, res) {
-  // var user = new User({
-  //   email: req.body.email,
-  //   password: req.body.password
-  // })
-  // var token = new Token({
-  //   userId: req.body._id,
-  //   token: req.body.token,
-  //   createdAt: req.body.createdAt
-  // })
   User.findOne({email: req.body.email}, function(err, found) {
     if(err) {
       console.log(err);
@@ -102,9 +93,9 @@ app.post('/api/users/login', function(req, res) {
       if(found.password === req.body.password) {
         console.log('good')
         var token = new Token({
-          userId: found._id,
-          token: found._id + Date.now(),
-          createdAt: Date.now()
+          userId: req.body.email,
+          token: req.body.email + new Date(),
+          createdAt: new Date()
         })
         token.save(function(err) {
           if(err) {
@@ -143,12 +134,16 @@ app.post('/api/users/logout', function(req, res) {
 app.get('/api/posts', function(req, res) {
   if(req.query.token) {
     console.log('inside')
-    Post.find({}, function(err, found) {
+    Post.find(function(err, posts) {
       if(err) {
         console.log(err);
       } else{
         console.log('hello')
-        res.json(found);
+        console.log(posts)
+        res.status(200).json({
+          "success": true,
+          "response": posts
+        })
       }
     })
   }
@@ -161,30 +156,29 @@ app.post('/api/posts', function(req, res) {
   // RECEIVE TOKEN AND CONTENT
   if(req.body.token) {
     console.log('inside token')
-    Token.findOne({token: req.body.token}, function(err, found) {
+    Token.findOne({'token': req.body.token}, function(err, token) {
       if(err) {
         console.log(err)
       } else {
         // found is currently a token
-        User.findOne({_id: found.userId}, function(err, found) {
+        User.findOne({'email': token.userId}, function(err, user) {
           // found is now a user object
           console.log('THANKS HAM')
           if(err) {
             console.log(err)
           } else {
-            console.log(found)
-            var posterName = found.fname + " " + found.lname;
-            var posterId = found._id; // ??????
+            console.log('no error yet')
             var post = new Post({
               poster: {
-                name: posterName,
-                id: posterId
+                name: user.fname + " " + user.lname,
+                id: user.id
               },
               content: req.body.content, // only token and content are part of body
               likes: [],
               comments: [],
-              createdAt: Date.now() // probably need to convert to readable date later
+              createdAt: new Date() // probably need to convert to readable date later
             })
+            console.log(post)
             post.save(function(err) {
               if(err) {
                 console.log(err);
@@ -230,25 +224,83 @@ app.get('/api/posts/comments/:id', function(req, res) {
 
 // MAKE COMMENT ON A POST
 app.post('/api/posts/comments/:id', function(req, res) {
-  console.log(req.params.id)
-  if(req.body.token) { // check if token exists
-    Post.findOne({'_id': mongoose.mongo.BSONPure.ObjectID.fromHexString(""+req.params.id)}, function(err, found) { // here we get the post
-      if(err) {
-        console.log(err);
-      } else {
-        console.log(found)
-        // create new object but first find poster, then push object
-        found.comments.push(req.body.content);
-        found.save();
-        res.json(found);
-      }
-    })
-  } else {
-    console.log('no token')
-  }
+  var token = req.body.token;
+  var _id = req.params.id;
+  Token.findOne({'token': token}, function(err, token) {
+    if(err) {
+      console.log(err);
+    } else {
+      Post.findOne({'_id': _id}, function(err, post) {
+        if(err) {
+          console.log(err);
+        } else {
+          User.findOne({'email': token.userId}, function(err, user) {
+            var newComment = {
+              createdAt: new Date(),
+              content: req.body.content,
+              poster: {
+                name: user.fname + " " + user.lname,
+                id: user.id
+              }
+            };
+            var newArray = post.comments;
+            newArray.push(newComment);
+            Post.findOneAndUpdate({'_id': req.params.id}, {"comments": newArray},
+            function(err, postUpdate) {
+              if(err) {
+                console.log(err);
+              } else {
+                res.json(postUpdate)
+              }
+            })
+          })
+        }
+      })
+    }
+  })
 });
 
-            // Post.find({
+// "GET" LIKES
+app.get('/api/posts/likes/:id', function(req, res) {
+  console.log('called')
+  var myToken = req.query.token;
+  console.log(myToken)
+  var _id = req.params.id;
+  Token.findOne({token: myToken}, function(err, token) { // omg findOne != find lmao
+    if(err) {
+      console.log(err);
+    } else {
+      Post.findOne({'_id': _id}, function(err, post) {
+        if(err) {
+          console.log(err);
+        } else {
+          User.findOne({'email': token.userId}, function(err, user) {
+            var newLike = {
+              name: user.fname + " " + user.lname,
+              id: user.id
+            }
+            var newLikesArray = post.likes;
+            newLikesArray.push(newLike);
+            console.log('reached post')
+            Post.findOneAndUpdate({'_id': _id}, {"likes": newLikesArray},
+            function(err, newUpdate) {
+              if(err) {
+                console.log(err);
+              } else {
+                res.json(newUpdate);
+              }
+            })
+          })
+        }
+      });
+    }
+  });
+});
+
+
+
+
+          // Post.find({
             //   poster: {
             //     name: posterName,
             //     id: posterId
