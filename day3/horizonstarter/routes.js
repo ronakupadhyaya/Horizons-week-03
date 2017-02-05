@@ -18,27 +18,27 @@ function toDateStr(date) {
   return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate() + 1);
 }
 
-function mainCallback(error, array) {
-  if (error) {
-    console.log("Error: ", error);
-  } else {
-    res.render('index', {items: array});
-  }
-};
+// function mainCallback(error, array) {
+//   if (error) {
+//     console.log("Error: ", error);
+//   } else {
+//     res.render('index', {items: array});
+//   }
+// };
 
 // Example endpoint
-router.get('/create-test-project', function(req, res) {
-  var project = new Project({
-    title: 'I am a test project'
-  });
-  project.save(function(err) {
-    if (err) {
-      res.status(500).json(err);
-    } else {
-      res.send('Success: created a Project object in MongoDb');
-    }
-  });
-});
+// router.get('/create-test-project', function(req, res) {
+//   var project = new Project({
+//     title: 'I am a test project'
+//   });
+//   project.save(function(err) {
+//     if (err) {
+//       res.status(500).json(err);
+//     } else {
+//       res.send('Success: created a Project object in MongoDb');
+//     }
+//   });
+// });
 
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
@@ -175,6 +175,28 @@ router.post('/project/:projectid/edit', function(req, res) {
         res.redirect("/project/" + req.params.projectid);
       }
   });
+});
+
+
+//AJAX DAY 4 STUFF
+
+// Basically a copy of post /project/:projectid  per instructions on day 4
+router.post('/project/:projectid/contribution', function(req, res) {
+  Project.findById(req.params.projectid, function(error, proj) {
+    if (error) {
+      res.status(500).json(error);
+    } else {
+      var contribObj = {name: req.body.name, amount:req.body.amount};
+      proj.contributions.push(contribObj);
+      proj.save(function(err) {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).json(contribObj);
+        }
+      })
+    }
+  })
 });
 
 module.exports = router;

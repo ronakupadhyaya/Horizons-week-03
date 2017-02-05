@@ -1,3 +1,4 @@
+<script src="/js/contributions.js"></script>
 <h1>View Project</h1>
 
 <p>{{title}}</p>
@@ -6,13 +7,16 @@
 <p>{{description}}</p>
 <p>{{start}}</p>
 <p>{{end}}</p>
-<p>{{contributions}}</p>
+<div id="contributionsDiv">
+  {{#each contributions}}
+    <p>{{this}}</p>
+  {{/each}}
+</div>
 
-
-<form method="POST" action="/project/{{id}}">
+<!-- <form method="POST" action="/project/{{id}}"> -->
   <p><label>Your Name</label>
-  <input type="text" placeholder="Name" name="name"></p>
+  <input type="text" placeholder="Name" name="name" id="nameField"></p>
   <p><label>Contribution Amount</label>
-  <input type="number" placeholder="$" name="amount"></p>
-  <p><input type="submit"></p>
-</form>
+  <input type="number" placeholder="$" name="amount" id="amountField"></p>
+  <p><button id="send-contribution">Add Contribution</button></p>
+<!-- </form> -->
