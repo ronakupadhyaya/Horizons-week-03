@@ -2,6 +2,11 @@
 var express = require('express');
 var app = express();
 
+// BodyParser
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Mongoose
 var mongoose = require('mongoose');
 var MONGO_URI = require('./config.js').MONGO_URI;
@@ -17,6 +22,8 @@ mongoose.connect(MONGO_URI);
 // Routes
 var userRouter = require('./routes/userRoutes.js');
 app.use('/api/users', userRouter);
+var postRouter = require('./routes/postRoutes.js');
+app.use('/api/posts', postRouter);
 
 //
 // var Token = require('./models/token');
