@@ -225,6 +225,7 @@ router.get('/api/posts/likes/:id',function(req, res){
                 }
                 else{
                   //Bad post ID
+                  console.log("no post ID found");
                 }
               }
             })
@@ -241,8 +242,11 @@ router.get('/api/posts/likes/:id',function(req, res){
 
 
 router.post('/api/users/logout', function(req,res){
-  Token.findOne({token: req.body.token}, function(err, token){
-    
+  Token.remove({token: req.body.token}, function(err, token){
+    if(err){}
+    else{
+      res.send({success: true});
+    }
   })
 })
 
