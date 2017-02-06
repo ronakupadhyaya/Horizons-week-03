@@ -1,0 +1,19 @@
+<h2>Edit project</h2>
+{{#each errors}}
+<p>{{this.msg}}</p>
+{{/each}}
+
+<!-- Exercise 2: Create project -->
+<form method="POST" action="/project/{{project.id}}/edit" >
+  <input name="title" type="text" placeholder="Title" value={{project.title}}>
+  <input name="goal" type="text" placeholder="Goal" value={{project.goal}}>
+  <textarea name="descrip" rows="4" cols="50" placeholder="Description..." name="description">{{project.description}}</textarea>
+  <input name="start" type="date" value={{start}}> Start Date
+  <input name="end" type="date"value={{end}}> End Date
+  <select name="category">
+    {{{dropDownCat this}}}
+  </select>
+  <input type="submit">
+</form>
+<!-- Exercise 5: Project categories -->
+<!-- YOUR CODE HERE -->
