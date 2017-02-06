@@ -266,6 +266,8 @@ router.post('/project/:projectid', function(req, res) {
       console.log(err);
     } else{
 
+      console.log("*************FUCK MY LIFE*********************");
+
       var obj = {name: req.body.name, amount: req.body.amount};
 
       if('contributions' in proj){
@@ -288,7 +290,7 @@ router.post('/project/:projectid', function(req, res) {
       proj['contrPercent'] = (proj['contrSoFar']/ proj['goal']) * 100;
       
       
-      console.log(proj);
+      // console.log(proj);
 
       proj.save(function(err){
 
@@ -306,10 +308,52 @@ router.post('/project/:projectid', function(req, res) {
   });
 
   
-
 });
-// Exercise 6: Edit project
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
+
+
+
+router.post('/api/project/:projectId/contribution', function(req, res){
+
+  Project.findById(req.params.projectId, function (err, proj) {
+    // console.log("BLAH BLAH BLAH");
+    // console.log(proj);
+
+    if(err){
+      res.status(400).json("Couldn't find project with specified Id.");
+    }
+
+    var contributionObj = {
+
+      name: req.body.name,
+      amount: req.body.amount
+    };
+
+    if('contributions' in proj){
+      proj['contributions'].push(contributionObj);
+    } else{
+      proj['contributions'] = [];
+      proj['contributions'].push(contributionObj);
+    }
+
+    proj.save(function(err){
+
+        if(err){
+          res.status(400).json("Trouble saving project with new contributor");
+        }else{
+          console.log("Project saved.");
+          res.status(201).json("Successully modified contributors.");
+          // res.redirect('/project/'+req.params.projectid);
+        }
+
+    });
+
+
+
+
+
+  });
+});
+
+
 
 module.exports = router;
