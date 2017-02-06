@@ -40,26 +40,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-// TESTING
-// app.get('/create-test-account', function(req, res) {
-//   console.log('im here')
-//   var user = new User({
-//     fname: 'I am a test user',
-//     lname: 'what up',
-//     email: 'email',
-//     password: 'hello'
-//   });
-//   user.save(function(err) {
-//     if (err) {
-//       res.status(500).json(err);
-//     } else {
-//       res.send('Success: created a User object in MongoDb');
-//     }
-//   });
-// });
-///////////////////////////////////////////////////////////////////////////
-
-
 // MY ROUTES
 app.get('/', function(req, res) {
   res.render('index.hbs')
@@ -84,7 +64,6 @@ app.post('/api/users/register', function(req, res) {
 });
 
 //VALIDATION FOR REGISTER: IF ACCOUNT ALREADY EXISTS, DON'T ALLOW
-
 app.post('/api/users/login', function(req, res) {
   User.findOne({email: req.body.email}, function(err, found) {
     if(err) {
@@ -125,10 +104,6 @@ app.post('/api/users/logout', function(req, res) {
     }
   })
 })
-
-//GET login
-
-// GET POSTS Error
 
 //GET POSTS
 app.get('/api/posts', function(req, res) {
@@ -296,55 +271,6 @@ app.get('/api/posts/likes/:id', function(req, res) {
     }
   });
 });
-
-
-
-
-          // Post.find({
-            //   poster: {
-            //     name: posterName,
-            //     id: posterId
-            //   }, function(err, found) {
-            //     if(err) {
-            //       console.log(err);
-            //     } else {
-            //       // FOUND IS NOW A POST OBJECT
-            //
-            //     }
-            //   }
-            // })
-            //
-            // var Post = new Post({
-            //   //found is now the user
-            //   poster: {
-            //     name: found.fname + " " + found.lname,
-            //     id: found._id //or found.userId???
-            //   },
-            //   content: req.body.content???,
-            //   likes: req.body.likes???,
-            //   comments: req.body.comments???,
-            //   createdAt: req.body.createdAt???
-            // })
-
-
-
-    // var Post = new Post({
-    //   poster: {
-    //     name: ?, // SEARCH THROUGH TOKEN
-    //     id: ? // SEARCH
-    //   },
-    //   content: req.body.content,
-    //   likes: req.body.likes,
-    //   comments: req.body.comments,
-    //   createdAt: req.body.createdAt
-    // })
-    // res.redirect('/api/posts');
-    // // OR res.render
-    //
-
-
-
-
 //////////////////////////////////////////////////////////////////////////////
 console.log('Express started. Listening on port', process.env.PORT || 3000);
 app.listen(process.env.PORT || 3000);

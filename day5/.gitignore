@@ -1,7 +1,7 @@
 .DS_Store
 dump.rdb
 gs
-config
+./config.js
 logs
 *.log
 npm-debug.log*
