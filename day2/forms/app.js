@@ -45,6 +45,62 @@ app.get('/register', function(req, res){
 // https://github.com/ctavan/express-validator
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  //req.checkBody('repeatPwd', 'Invalid').isSamePassword(req.repeatPwd);
+  req.checkBody({'middle': {
+                    isLength: {
+                      options: [{ min: 1, max: 1 }],
+                      errorMessage: 'Must be single character'
+                    },
+                    errorMessage: 'Invalid Middle Initial'
+                  },
+                  'lastName': {
+                    notEmpty: true,
+                    errorMessage: 'Need last name'
+                  },
+
+                  'password': {
+                      notEmpty: true,
+                      errorMessage: 'Invalid password'
+                  },
+                  'repeatPwd': {
+                      notEmpty: true,
+
+                      matches: {
+                        options: [req.body.password]
+                        errorMessage: 'Passwords do not match'
+                      },
+                      errorMessage: 'Invalid'
+                  },
+                  'bio': {
+                      notEmpty: true,
+                      errorMessage: 'Must put something in bio'
+                  },
+
+                  'month': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 12 }],
+                        errorMessage: 'Must be between 1 and 12'
+                          },
+                      errorMessage: 'Invalid month of birth'
+                  },
+                  'day': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 31 }],
+                        errorMessage: 'Must be between 1 and 31'
+                          },
+                      errorMessage: 'Invalid day of birth'
+                  },
+                  'year': {
+                      isInt: {
+                      options: [{
+                        min: 1, max: 10000 }],
+                        errorMessage: 'Must be positive value'
+                          },
+                      errorMessage: 'Invalid year of birth'
+                  }
+  });
 }
 
 // ---Exercise 2: Render errors and profile---
@@ -58,6 +114,7 @@ function validate(req) {
 //    profile should not be editable.
 app.post('/register', function(req, res){
   validate(req);
+
   // Get errors from express-validator
   var errors = req.validationErrors();
   if (errors) {
@@ -65,7 +122,8 @@ app.post('/register', function(req, res){
   } else {
     // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
-    res.render('profile');
+
+    res.render('profile', req.body);
   }
 });
 

@@ -8,17 +8,136 @@
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
   </style>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+    function loadYear() {
+      var start = 1900;
+      var end = new Date().getFullYear();
+      var options = "";
+      for(var year = start ; year <=end; year++){
+        options += "<option>"+ year +"</option>";
+      }
+      document.getElementById("year").innerHTML = options;
+    }
+    function loadMonth() {
+      var start = 1;
+      var end = new Date().getFullYear();
+      var options = "";
+      for(var month = start ; month <=12; month++){
+        options += "<option>"+ month +"</option>";
+      }
+      document.getElementById("month").innerHTML = options;
+    }
+    function loadDay() {
+      var start = 1;
+      var end = new Date().getFullYear();
+      var options = "";
+      for(var day = start ; day <=31; day++){
+        options += "<option>"+ day +"</option>";
+      }
+      document.getElementById("day").innerHTML = options;
+    }
+  </script>
+
 </head>
-<body>
+<body onload="loadYear(); loadMonth(); loadDay()">
+
+
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+    <div><strong><ul>{{#each errors}}<li>{{this.msg}}</li>{{/each}}</ul></strong></div>
+  <form class="form-horizontal" action="/register" method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="first">First Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
+      </div>
     </div>
-  </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="middle">Middle Initial:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Middle Initial" name="middle" maxlength="1">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="last">Last Name:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="month">DOB Month:</label>
+      <div class="col-sm-10">
+
+        <select id="month" name="month" class="form-control"></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="month">DOB Day:</label>
+      <div class="col-sm-10">
+
+        <select id="day" name="day" class="form-control"></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="month">DOB Year:</label>
+      <div class="col-sm-10">
+
+        <select id="year" name="year" class="form-control"></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-10">
+        <input type="password" name="password" class="form-control" id="pwd" placeholder="Password">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Repeat Password:</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="repeatPwd" placeholder="Repeat Password">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" name="gender">Gender:</label>
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="genderButton">
+          <label><input type="radio">Male</label>
+          <label><input type="radio">Female</label>
+          <label><input type="radio">Prefer not to say</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Sign up for newsletter:</label>
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox"></label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="last">Biography</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="bio" placeholder="Biography" height="200px" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+        <input type="submit" name="Submit" value="Submit">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
 </body>
 </html>

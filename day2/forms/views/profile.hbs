@@ -4,6 +4,10 @@
   <title>User Profile</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
@@ -11,8 +15,14 @@
 </head>
 <body>
   <div class="container">
+    <h1>User profile:</h1>
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <div class="thing">First Name: {{firstName}}</div>
+      <div class="thing">Middle Initial: {{middle}}</div>
+      <div class="thing">Last Name: {{lastName}}</div>
+      <div class="thing">DOB: {{month}}/{{day}}/{{year}}</div>
+      <div class="thing">Gender: {{gender}}</div>
+      <div class="thing">Bio: {{bio}}</div>
     </div>
   </div>
 </body>
