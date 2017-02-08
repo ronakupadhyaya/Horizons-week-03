@@ -27,7 +27,7 @@ var Project = mongoose.model('Project', {
     type:[
       {
         name: String,
-        amount: String
+        amount: Number
       }
     ]
   },

@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+var _= require('underscore');
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -23,13 +24,66 @@ router.get('/create-test-project', function(req, res) {
 // Exercise 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
-  Project.find(function(err, array){
-    res.render('index',{
-      items: array
+  // YOUR CODE
+  console.log("--");
+  console.log(req.query.sort);
+  if(req.query.sort && req.query.sort!=="totalContributions"){
+    var sortObject = {};
+    console.log(req.query.sort);
+
+    sortObject[req.query.sort] = 1;
+    console.log(sortObject);
+    Project.find({}).sort(sortObject).exec(function(err, array) {
+      res.render('index',{
+        items: array
+      });
+    });
+  } else if (req.query.sort === "totalContributions") {
+    Project.find(function(err, array){
+      var totalContributionsArr = [];
+      var retTotalContribution;
+      totalContributionsArr = _.map(array, function(element){
+          retTotalContribution = 0;
+          element.contributions.forEach(function(item){
+          retTotalContribution += item.amount;
+        })
+        return retTotalContribution;
+      })
+
+      var sortArray = []
+      array.forEach(function(element){
+        var objectToPush = {project: element};
+        objectToPush.contribution = retTotalContribution[array.indexOf(element)];
+        sortArray.push(objectToPush);
+      })
+      var sortedArray = sortArray.sort(function(a,b){
+        return a.contribution-b.contribution;
+      })
+      var retArray = [];
+      sortedArray.forEach(function(element){
+        retArray.push(element.project)
+      })
+      res.render('index', {
+        items: retArray
+      });
+
     })
-  })
+
+
+
+
+
+
+
+  } else {
+    Project.find(function(err, array){
+      res.render('index',{
+        items: array
+      })
+    })
+  }
 });
+
 
 // Exercise 2: Create project
 // Implement the GET /new endpoint
@@ -41,22 +95,22 @@ router.get('/new', function(req, res) {
 // Exercise 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-var product = new Project(req.body)
-console.log("hello");
-console.log(req.body);
+  var product = new Project(req.body)
+  console.log("hello");
+  console.log(req.body);
 
 
-product.save(function(err){
-  if(err){
-    res.render('new', {
-      error: err,
-      message: "Error",
-      product: product
-    })
-  } else {
-    res.redirect('/');
-  }
-})
+  product.save(function(err){
+    if(err){
+      res.render('new', {
+        error: err,
+        message: "Error",
+        product: product
+      })
+    } else {
+      res.redirect('/');
+    }
+  })
   //.render('new')
 });
 
@@ -75,15 +129,18 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
-  Project.findById(req.params.projectid, function(err, project){
-    var contribution = {name: req.body.name , amount: req.body.amount}
-    project.contributions.push(contribution)
-    project.save(function(err){
+  var projectId = req.params.projectid;
+  var name = req.body.name;
+  var amount = req.body.amount;
+  Project.findById(projectId, function(err, foundProject){
+    var contribution = {name: name , amount: amount}
+    foundProject.contributions.push(contribution)
+    foundProject.save(function(err){
       if(err){
-        res.render('/project/'+req.params.projectid, {
+        res.render('project', {
           error: err,
           message: "Error",
-          project: project,
+          project: foundProject,
           contribution: contribution
         })
       } else {
@@ -91,8 +148,6 @@ router.post('/project/:projectid', function(req, res) {
       }
     })
   })
-
-
 });
 
 // Exercise 6: Edit project
@@ -102,14 +157,28 @@ router.get('/projects/:projectid/edit', function(req,res){
   Project.findById(req.params.projectid, function(err, product){
     res.render('editProject', {
       product: product
+    })
   })
 })
+
+router.post('/projects/:projectid/edit', function(req,res){
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    // YOUR CODE HERE
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  }, function(err) {
+    // YOUR CODE HERE
+    if(err){
+      res.redirect('/projects/:'+req.params.projectid+'/edit/')
+    } else {
+      res.redirect('/');
+    }
+  });
 })
 
-router.post()
-
-
-router.post('')
 
 
 
