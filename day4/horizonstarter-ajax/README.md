@@ -205,9 +205,10 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
 1.   Send back the data of the filtered & sorted posts back by doing `res.json(posts)`
 
 **Testing**: Start your server and open Postman perform the following requests:
-    1. `GET localhost:3000/api/project`. You should get all the projects back.
-    2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
-    3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
+
+  1. `GET localhost:3000/api/project`. You should get all the projects back.
+  2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
+  3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
 
 **2. Making the request**
 
@@ -224,10 +225,10 @@ Now, we have to connect our new route to the page.
 
 **Testing**: To test this request perform the following tasks
 
-    1. Add a `console.log(req.query)` to the route `GET /api/projects`
-    1. Visit `localhost:3000`  and check your node console. It should print a blank object.
-    1. Visit `localhost:3000` select "Percentage Funded" from your sortBy dropdown and click sort.  Check your node console. It should print an object containing  `SortBy: "percentageFunded"`
-    1. Visit `localhost:3000` select "Amount Funded" from your sortBy dropdown, select "Descending" from your orderBy dropdown and click sort.  Check your node console. It should print an object containing   `SortBy: "amountFunded", order: "descending"`
+  1. Add a `console.log(req.query)` to the route `GET /api/projects`
+  1. Visit `localhost:3000`  and check your node console. It should print a blank object.
+  1. Visit `localhost:3000` select "Percentage Funded" from your sortBy dropdown and click sort.  Check your node console. It should print an object containing  `SortBy: "percentageFunded"`
+  1. Visit `localhost:3000` select "Amount Funded" from your sortBy dropdown, select "Descending" from your orderBy dropdown and click sort.  Check your node console. It should print an object containing   `SortBy: "amountFunded", order: "descending"`
 
 **3. Rendering the results**
 
