@@ -46,30 +46,30 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
 1.    Create a new endpoint route in your routes file: `/horizonstarter/routes.js`. The new route should be: `POST /api/project/:projectId/contribution`
 
-    - When posting to our new route, search the database for the project with the correct `projectId`. Return an error if no such project is found.
+    1. When posting to our new route, search the database for the project with the correct `projectId`. Return an error if no such project is found.
 
-    - Once you have the project:
+    1. Once you have the project:
 
-      - Build a contribution object from 2 elements on the request body: `name` and `amount`
-      - Push the object to the project's contribution array: `project.contributions`
-      - `.save()` the `project`, if save is successful respond using `res.json()` with the contribution object
+        - Build a contribution object from 2 elements on the request body: `name` and `amount`
+        - Push the object to the project's contribution array: `project.contributions`
+        - `.save()` the `project`, if save is successful respond using `res.json()` with the contribution object
 
-      **Testing**:
+    **Testing**:
 
-      Start your server and visit `localhost:3000` on your browser. Create a new project and fill the information. Save it and visit that project's page. Copy the project's id from the url. Now open up Postman and do a POST request to `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` with a body containing:
+    Start your server and visit `localhost:3000` on your browser. Create a new project and fill the information. Save it and visit that project's page. Copy the project's id from the url. Now open up Postman and do a POST request to `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` with a body containing:
 
-      ```
-      {
-      	"name": "RandomInvestor",
-          "amount": 1000
-      }
-      ```
+    ```
+    {
+    	"name": "RandomInvestor",
+        "amount": 1000
+    }
+    ```
 
-      Visit mlab.com, find the project with the id you contributed to and check the contributions array. Your new contribution should be there.
+    Visit mlab.com, find the project with the id you contributed to and check the contributions array. Your new contribution should be there.
 
-      If you get back the same object, you are good to go!
+    If you get back the same object, you are good to go!
 
-1.    Make an AJAX request from the browser to the new endpoint.
+1. Make an AJAX request from the browser to the new endpoint.
 
     Now, we want to send the contribution data to the `localhost:3000/api/project/YOUR_PROJECT_ID_HERE/contribution` endpoint via ajax. You have to setup a couple of things before being able to perform an AJAX request.
 
@@ -111,17 +111,13 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
 1. Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);`
 
-3. Validate contributions are greater than 0.
+1. Validate contributions are greater than 0.
 
-      You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
+    You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
 
-
-   1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
-   2. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
-      3. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error ocurred", 'danger');`, with "An error ocurred", send the appropriate message that you got from the server.
-
-
-
+    1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
+    1. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
+        1. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error occurred", 'danger');`, with "An error occurred", send the appropriate message that you got from the server.
 
 ## Exercise 2: Ajax filter projects
 
