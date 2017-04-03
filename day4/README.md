@@ -9,4 +9,4 @@
 ## Pair Programming Exercises
 
 1. [Horizon Starter: Finish up yesterday](../day3/horizonstarter/README.md)
-2. [Horizon Starter: AJAX Edition](horizonstarter-ajax/README.md)
+1. [Horizon Starter: AJAX Edition](horizonstarter-ajax/README.md)
