@@ -9,7 +9,7 @@ fully-fledged, fully-functional backend web application.
 ### The goal
 
 Our goal is to write the Horizon Starter app (a clone of Kickstarter) with Node
-and Express. 
+and Express.
 
 Here are the features we're going to implement:
 
@@ -34,30 +34,30 @@ These files, you do **not** need to edit, but you may still find them interestin
 
 - Express starter script: `week03/day3/horizonstarter/app.js`
 - Handlebars layout template:
-  `week03/day3/horizonstarter/views/layouts/main.hbs1
+  `week03/day3/horizonstarter/views/layouts/main.hbs`
 
 ## Setup
 
 We don't store MongoDb usernames and passwords in Git for security reasons.
-So you need to create new MongoDb database on mLab and configure your app
+So you need to create a new MongoDb database on mLab and configure your app
 to use it.
 
-1. Create a new Database in [mLab](https://mlab.com/home)
-1. Click on the Databse you've just created, then click on Users `>` Add
-   database user`, pick a username and password
+1. Create a new database in [mLab](https://mlab.com/home)
+1. Click on the database you've just created, then click on `Users > Add
+   database user`, and pick a username and password
 1. Copy the **MongoDb URI** and replace `<dbuser>` `<dbpassword>` with the
   username and password you just created. It should look like this:
-  
+
   ```
   mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
   ```
 
 1. Create new file `week03/day3/horizonstarter/config.js` and use
-   `module.exports` to return an object with a single key `MONGODB\_URI`.
+   `module.exports` to return an object with a single key `MONGODB_URI`.
    Set the value of this key to the URI from the previous step. It should
    look like this:
 
-  ```
+  ```js
   module.exports = {
     MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
   }
@@ -73,9 +73,9 @@ to use it.
 
 We've implemented the `GET /create-test-project` endpoint in
 `week03/day3/horizonstarter/routes.js` for your reference.  This endpoint
-creates a `Project` object and saves it to MongoDb. 
+creates a `Project` object and saves it to MongoDb.
 
-You can find the definition of the `Project` model in 
+You can find the definition of the `Project` model in
 `week03/day3/horizonstarter/models.js`.
 
 Visit [http://localhost:3000/create-test-project](http://localhost:3000/create-test-project)
@@ -88,7 +88,7 @@ created document.
 ### Exercise 1: View all projects
 
 1. Implement the `GET /` endpoint in `week03/day3/horizonstarter/routes.js`.
-  Use `Project.find()` to get all the `Project`s from MongoDb and render
+  Use `Project.find()` to get all the Projects from MongoDb and render
   them on `index.hbs`.
 
   Remember you have to do `res.render()` inside the callback for `.find()` like
@@ -100,44 +100,44 @@ created document.
   });
   ```
 1. Edit `week03/day3/horizonstarter/views/index.hbs` and use [`{{#each}}`](http://handlebarsjs.com/builtin_helpers.html)
-  to display all the `Project`s you get from `.find()`.
+  to display all the Projects you get from `.find()`.
 
 ### Exercise 2: Create project
 
-1. Edit `week03/day3/horizonstarter/views/index.hbs` and add a link (i.e. an `a`
+1. Edit `week03/day3/horizonstarter/views/index.hbs` and add a link (i.e. an `<a>`
    tag) that reads "Create new project" and points to
    `http://localhost:3000/new` at the bottom of the page.
 1. Edit `week03/day3/horizonstarter/models.js` and add/edit these properties for
    the `Project` model:
 
-   1. `title`: make this field required
-   1. `goal`: Type: `Number`, required
-   1. `description`: Type: `String`
-   1. `start`: Type: `Date`, required
-   1. `end`: Type: `Date`, required
+    1. `title`: make this field required
+    1. `goal`: Type: `Number`, required
+    1. `description`: Type: `String`
+    1. `start`: Type: `Date`, required
+    1. `end`: Type: `Date`, required
 
 1. Implement the `GET /new` endpoint in `week03/day3/horizonstarter/routes.js`.
   Render `new.hbs`.
 1. Edit `week03/day3/horizonstarter/views/new.hbs` and render an HTML form
   that has `method` `POST` and `action` `/new`. This form should contain:
-    1. `title`: text input field 
+    1. `title`: text input field
     1. `goal`: text input field
-    1. `description`: [Textarea](http://www.w3schools.com/TAgs/tag_textarea.asp) 
-    field 
+    1. `description`: [Textarea](http://www.w3schools.com/TAgs/tag_textarea.asp)
+    field
     1. `start`: Date input field
     1. `end`: Date input field
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
-  1. Validate form fields using `express-validate`, if there are errors render
-  `new.hbs` with error messages and the form fields filled in.
-  
-    You can use the `value=""` HTML attribute for this purpose:
+    1. Validate form fields using `express-validate`, if there are errors render
+    `new.hbs` with error messages and the form fields filled in.
 
-    ```html
-    <input type="text" name="title" value="{{project.title}}">
-    ```
-  
-  1. If there are no validation errors, create a new `Project` and
-  `.save()` it. If `.save()` is successful redirect to `/`.
+      You can use the `value=""` HTML attribute for this purpose:
+
+      ```html
+      <input type="text" name="title" value="{{project.title}}">
+      ```
+
+    1. If there are no validation errors, create a new `Project` and
+    `.save()` it. If `.save()` is successful redirect to `/`.
 1. You should now see the newly created project on your "View all projects"
   page.
 
@@ -157,9 +157,7 @@ We're going to add a new form to the "View a single project" page
 that allows us to make contributions.
 
 1. Add a property to the `Project` model in `week03/day3/horizonstarter/models.js`:
-
-  `contributions`: Type: `Array`, contains an array of objects with `name` and
-  `amount` properties.
+    - `contributions`: Type: `Array`, contains an array of objects with `name` and `amount` properties.
 1. Edit `week03/day3/horizonstarter/views/project.hbs` and add an HTML form
   for making contributions. This form should have `name` and `amount` input
   fields for specifying who is making the contribution and the size of the
@@ -177,31 +175,30 @@ that allows us to make contributions.
 
 1. Add a property to the `Project` model in `week03/day3/horizonstarter/models.js`:
 
-  `category`: Type: `String`, required. Ensure that this property can only have 
-  one of these values using the `enum` option in mongoose:
+    - `category`: Type: `String`, required. Ensure that this property can only have
+    one of these values using the `enum` option in mongoose:
 
-  1. `Famous Muppet Frogs`
-  1. `Current Black Presidents`
-  1. `The Pen Is Mightier`
-  1. `Famous Mothers`
-  1. `Drummers Named Ringo`
-  1. `1-Letter Words`
-  1. `Months That Start With "Feb"`
-  1. `How Many Fingers Am I Holding Up`
-  1. `Potent Potables`
+        1. `Famous Muppet Frogs`
+        1. `Current Black Presidents`
+        1. `The Pen Is Mightier`
+        1. `Famous Mothers`
+        1. `Drummers Named Ringo`
+        1. `1-Letter Words`
+        1. `Months That Start With "Feb"`
+        1. `How Many Fingers Am I Holding Up`
+        1. `Potent Potables`
 
-  Example `enum` usage:
+    Example `enum` usage:
 
-  ```javascript
-  // This model can be used to create Fords and Toyotas
-  mongoose.Model('Car', {
-    make: {
-      type: String,
-      enum: ['Ford', 'Toyota']
-    }
-  })
-  ```
-
+    ```javascript
+    // This model can be used to create Fords and Toyotas
+    mongoose.Model('Car', {
+      make: {
+        type: String,
+        enum: ['Ford', 'Toyota']
+      }
+    })
+    ```
 1. Edit `week03/day3/horizonstarter/views/new.hbs` and add a dropdown
   (i.e. a picklist) to the form to specify the `Project` `category`.
 1. Edit `week03/day3/horizonstarter/views/project.hbs` and display
@@ -214,53 +211,51 @@ that allows us to make contributions.
   to start with!
 1. Create a new endpoint in `routes.js` `GET /projects/:projectid/edit`
   that gets the given `Project` from MongoDb using `.findById()` and
-  renders `editProject.hbs` with the `Project` object.
-
-  When the project edit page loads, it should have all the properties of
-  the project being edited pre-filled into form fields.
-
+  renders `editProject.hbs` with the `Project` object. When the project
+  edit page loads, it should have all the properties of the project
+  being edited pre-filled into form fields.
 1. Create a new endpoint in `routes.js` `POST /projects/:projectid/edit`.
   The HTML form in `editProject.hbs` should `POST` data to this endpoint
   (using `action` and `method`).
 
-  When this route is called use [`.findByIdAndUpdate()`](http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate)
-  to update the `Project` object:
+    When this route is called use [`.findByIdAndUpdate()`](http://mongoosejs.com/docs/api.html#model_Model.findByIdAndUpdate)
+    to update the `Project` object:
 
-  ```javascript
-  Project.findByIdAndUpdate(req.params.projectid, {
-    title: req.body.title,
-    // YOUR CODE HERE
-  }, function(err) {
-    // YOUR CODE HERE
-  });
-  ```
+    ```javascript
+    Project.findByIdAndUpdate(req.params.projectid, {
+      title: req.body.title,
+      // YOUR CODE HERE
+    }, function(err) {
+      // YOUR CODE HERE
+    });
+    ```
 
 ### Exercise 7: Sort projects
 
 1. Add two query parameters `GET /`: `sort` and `sortDirection`.
 
-  When the `sort` query parameter is specified use `.sort()` when doing
-  `.find()` to sort results you're getting back from MongoDb.
+    When the `sort` query parameter is specified use `.sort()` when doing
+    `.find()` to sort results you're getting back from MongoDb.
 
-  If `sortDirection` is not specified assume ascending (i.e. increasing)
-  order.
+    If `sortDirection` is not specified assume ascending (i.e. increasing)
+    order.
 
-  [Mongoose `.sort()` usage](http://stackoverflow.com/a/15081087)
-  
-  Example query parameter usage with sort:
+    [Mongoose `.sort()` usage](http://stackoverflow.com/a/15081087)
 
-  ```javascript
-  if (req.query.sort) {
-    var sortObject = {};
-    sortObject[req.query.sort] = 1;
-    SomeMongoDbModel.find().sort(sortObject).exec(function(err, array) {
-      // YOUR CODE HERE
-    });
-  }
-  ```
+    Example query parameter usage with sort:
+
+    ```javascript
+    if (req.query.sort) {
+      var sortObject = {};
+      sortObject[req.query.sort] = 1;
+      SomeMongoDbModel.find().sort(sortObject).exec(function(err, array) {
+        // YOUR CODE HERE
+      });
+    }
+    ```
 
 1. Add buttons or links to `week03/day3/horizonstarter/views/index.hbs` to sort
-  projects by `start`, `end`, `goal` using the query parameters from 
+  projects by `start`, `end`, `goal` using the query parameters from
   the previous step.
 
 ### Exercise 8: Sort by total contributions
