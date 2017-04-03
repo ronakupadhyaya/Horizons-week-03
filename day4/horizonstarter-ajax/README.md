@@ -160,12 +160,12 @@ This is similar to yesterday's filter projects by funded or not funded. The diff
 
     1. Make an AJAX request to `GET /api/project`. Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
 
-    **Testing**: To test this request:
+**Testing**: To test this request:
 
-    1. Add a `console.log(req.query)` to `GET /api/project`
-    1. Visit `localhost:3000`  and check your terminal (i.e. node console). It should print a blank object.
-    1. Visit `localhost:3000` click on the "Funded" button and check your terminal (i.e. node console). It should print an object containing  `funded: true`
-    1. Visit `localhost:3000` click on the "Not Funded" button and check terminal (i.e. node console).  It should print an object containing  `funded: false`
+1. Add a `console.log(req.query)` to `GET /api/project`
+1. Visit `localhost:3000`  and check your terminal (i.e. node console). It should print a blank object.
+1. Visit `localhost:3000` click on the "Funded" button and check your terminal (i.e. node console). It should print an object containing  `funded: true`
+1. Visit `localhost:3000` click on the "Not Funded" button and check terminal (i.e. node console).  It should print an object containing  `funded: false`
 
 **3. Rendering the results**
 
