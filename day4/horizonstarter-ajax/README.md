@@ -251,10 +251,10 @@ Now that you've got the contributions form and functionality working via AJAX, l
 
 The easiest way to do this is by having an AJAX call that fires every 5 seconds using `setInterval`. If there is new data for contributions, clear the div and add the new data. To test this:
 
-    1. Open the same project in two browser tabs.
-    1. Add a contribution in one tab
-    1. Switch to the other tab, it should appear after 5 seconds!
-    1. Show a green notification message on the page when the project reaches its goal.
+1. Open the same project in two browser tabs.
+1. Add a contribution in one tab
+1. Switch to the other tab, it should appear after 5 seconds!
+1. Show a green notification message on the page when the project reaches its goal.
 
 ### 2. Search by project title or description
 
