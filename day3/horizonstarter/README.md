@@ -48,26 +48,26 @@ to use it.
 1. Copy the **MongoDb URI** and replace `<dbuser>` `<dbpassword>` with the
   username and password you just created. It should look like this:
 
-  ```
-  mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
-  ```
+    ```
+    mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
+    ```
 
 1. Create new file `week03/day3/horizonstarter/config.js` and use
    `module.exports` to return an object with a single key `MONGODB_URI`.
    Set the value of this key to the URI from the previous step. It should
    look like this:
 
-  ```js
-  module.exports = {
-    MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
-  }
-  ```
+    ```js
+    module.exports = {
+      MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
+    }
+    ```
 
 1. Start your app with `npm start`, if you see this message then you are good to go!
 
-  ```
-  Success: connected to MongoDb!
-  ```
+    ```
+    Success: connected to MongoDb!
+    ```
 
 ## Getting oriented
 
