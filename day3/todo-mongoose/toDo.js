@@ -6,7 +6,7 @@ var fs = require('fs');
 // command line commands, arguments and flags.
 var program = require('commander');
 
-// EXERCISE 0: Create a config.js file that should export the MONGODB_URI (use module.exports)
+// PART 0: Create a config.js file that should export the MONGODB_URI (use module.exports)
 
 var config = require('./config');
 
@@ -24,7 +24,7 @@ db.once('open', function() {
   // connected!
 });
 
-// EXERCISE 1: Create the Model
+// PART 1: Create the Model
 
 // Everything in Mongoose starts with a Schema. Each schema
 // maps to a MongoDB collection and defines the shape of
@@ -106,7 +106,7 @@ function parseArgs () {
   return args.join(" ");
 }
 
-// EXERCISE 2: Add task
+// PART 2: Add task
 
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
@@ -131,7 +131,7 @@ function addTask(){
   // YOUR CODE HERE
 }
 
-// EXERCISE 3: Show tasks
+// PART 3: Show tasks
 
 // Write function showTasks(). It is called when the program is run using the commands
 // 'node toDo.js show' or 'node toDo.js show -t "Do Laundry"'
@@ -154,7 +154,7 @@ function showTasks() {
   // YOUR CODE HERE
 }
 
-// EXERCISE 4: Delete tasks
+// PART 4: Delete tasks
 
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.

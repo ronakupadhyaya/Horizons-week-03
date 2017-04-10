@@ -34,7 +34,7 @@ app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
 
-// ---Exercise 1. Login form---
+// ---Part 1. Login form---
 
 // GET /login: The login page
 // Make this endpoint render the template 'views/login.hbs' using res.render().
@@ -55,7 +55,7 @@ app.post('/login', function(req, res) {
   res.redirect('/posts');
 });
 
-// ---Exercise 2. View Posts---
+// ---Part 2. View Posts---
 
 // GET /posts: View posts page
 //
@@ -71,7 +71,7 @@ app.get('/posts', function (req, res) {
   });
 });
 
-// ---Exercise 3. Create new posts---
+// ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
 //
 // Render 'post_form.hbs'.

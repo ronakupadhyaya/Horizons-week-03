@@ -85,7 +85,7 @@ created document.
 
 ## Exercises
 
-### Exercise 1: View all projects
+### Part 1: View all projects
 
 1. Implement the `GET /` endpoint in `week03/day3/horizonstarter/routes.js`.
   Use `Project.find()` to get all the Projects from MongoDb and render
@@ -102,7 +102,7 @@ created document.
 1. Edit `week03/day3/horizonstarter/views/index.hbs` and use [`{{#each}}`](http://handlebarsjs.com/builtin_helpers.html)
   to display all the Projects you get from `.find()`.
 
-### Exercise 2: Create project
+### Part 2: Create project
 
 1. Edit `week03/day3/horizonstarter/views/index.hbs` and add a link (i.e. an `<a>`
    tag) that reads "Create new project" and points to
@@ -141,7 +141,7 @@ created document.
 1. You should now see the newly created project on your "View all projects"
   page.
 
-### Exercise 3: View a single project
+### Part 3: View a single project
 
 1. Implement the `GET /project/:projectid` endpoint in `week03/day3/horizonstarter/routes.js`.
   Get the `Project` with the given `projectid` from MongoDb using `Project.findById()`
@@ -150,7 +150,7 @@ created document.
 1. Edit `week03/day3/horizonstarter/views/project.hbs` and display
   the `Project` `title`, `goal`, `description`, `start` and `end` dates.
 
-### Exercise 4: Contribute to a project
+### Part 4: Contribute to a project
 
 Let's add the ability to make contributions to projects a la Kickstarter.
 We're going to add a new form to the "View a single project" page
@@ -171,7 +171,7 @@ that allows us to make contributions.
     (use [a Bootstrap progress bar](http://www.w3schools.com/bootstrap/bootstrap_progressbars.asp))
   1. List of all contributions showing who and how much.
 
-### Exercise 5: Project categories
+### Part 5: Project categories
 
 1. Add a property to the `Project` model in `week03/day3/horizonstarter/models.js`:
 
@@ -204,7 +204,7 @@ that allows us to make contributions.
 1. Edit `week03/day3/horizonstarter/views/project.hbs` and display
   the project category.
 
-### Exercise 6: Edit project
+### Part 6: Edit project
 
 1. Create a new view in `views` called `editProject.hbs`, add form fields
   to represent all the `Project` properties. You can copy `new.hbs`
@@ -230,7 +230,7 @@ that allows us to make contributions.
     });
     ```
 
-### Exercise 7: Sort projects
+### Part 7: Sort projects
 
 1. Add two query parameters `GET /`: `sort` and `sortDirection`.
 
@@ -258,7 +258,7 @@ that allows us to make contributions.
   projects by `start`, `end`, `goal` using the query parameters from
   the previous step.
 
-### Exercise 8: Sort by total contributions
+### Part 8: Sort by total contributions
 
 Make it possible to sort projects by their total contribution.
 
@@ -266,10 +266,10 @@ We can't sort by total contributions inside MongoDb because there is no
 `totalContributions` property. Get all projects from MongoDb then
 sort the array yourself. You can install `underscorejs` with NPM if you'd like.
 
-### Exercise 9: Filter projects by funding status
+### Part 9: Filter projects by funding status
 
 Make it possible to filter projects based whether they have met their funding
-goal. Similar to "Exercise 8" we have to get all `Project`s from MongoDb
+goal. Similar to "Part 8" we have to get all `Project`s from MongoDb
 and filter them ourselves.
 
 You should add links to `index.hbs` to allow:
@@ -277,13 +277,13 @@ You should add links to `index.hbs` to allow:
 1. View fully funded projects
 1. View projects that are not fully funded
 
-### Bonus: Exercise 10: Project images
+### Bonus: Part 10: Project images
 
 Allow users to specify an optional image URL when creating project.  Display
 this image on both the "View all projects" and the "View a single project"
 pages.
 
-### Double Bonus: Exercise 11: Validate forms with Bootstrap
+### Double Bonus: Part 11: Validate forms with Bootstrap
 
 Use
 [HTML form validation rules](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Data_form_validation)

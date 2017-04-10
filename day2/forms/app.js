@@ -36,7 +36,7 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
-// ---Exercise 1: Validation---
+// ---Part 1: Validation---
 // Write a function that takes a request object and does validation on it using
 // express-validator.
 // We've provided an example validation rule that validates the firstName
@@ -47,7 +47,7 @@ function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
 }
 
-// ---Exercise 2: Render errors and profile---
+// ---Part 2: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
