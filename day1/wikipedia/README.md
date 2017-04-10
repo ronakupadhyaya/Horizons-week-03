@@ -21,7 +21,7 @@ Each file is ~100 Mb compressed, ~400 Mb uncompressed.
 - [Day #2: 1 hour of Wikipedia traffic from June 7th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160607-170000.gz)
 
 These are files are compressed with GZip. On Mac and Linux you can unzip them
-by double clicking on the file. On Windows, use [7-zip](http://www.7-zip.org/) 
+by double clicking on the file. On Windows, use [7-zip](http://www.7-zip.org/)
 to unzip them.
 
 Each line in each file contains 4 fields separated by a single space character:
@@ -102,25 +102,25 @@ function countLines(fileName) {
 }
 ```
 
-### Exercise 1: Most popular pages
+### Part 1: Most popular pages
 
 Calculate which pages received the most visits during one hour starting June 6th
 2016 1700 GMT.
 
-### Exercise 2: Most popular languages
+### Part 2: Most popular languages
 
 Calculate which languages received the most visits during one hour starting June
 6th 2016 1700 GMT.
 
-### Exercise 3: Most popular pages for 3 most popular languages
+### Part 3: Most popular pages for 3 most popular languages
 
-For the top 3 most popular languages from Exercise 2, calculate which pages
+For the top 3 most popular languages from Part 2, calculate which pages
 written in that language received the most visits during one hour starting June
 6th 2016 1700 GMT.
 
-### (Bonus) Exercise 4: Wikipedia traffic trends
+### (Bonus) Part 4: Wikipedia traffic trends
 
-For the top 10 pages you found for Exercise 1, calculate the total gain or loss
+For the top 10 pages you found for Part 1, calculate the total gain or loss
 in traffic compared to the same hour the next day, June 7th 2016 1700
 GMT.
 

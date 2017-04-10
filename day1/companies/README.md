@@ -24,7 +24,7 @@ investors, companies with more money and so on.
 
 ## Instructions
 
-### Exercise 1: Setting up the project
+### Part 1: Setting up the project
 
 1. Open up your terminal and navigate to the `week03/day1/companies` directory.
 1. Install the [`jasmine-node`](https://www.npmjs.com/package/jasmine-node) NPM
@@ -34,7 +34,7 @@ investors, companies with more money and so on.
   npm install -g jasmine-node
   ```
 
-  `-g` (short for global) installs a package for all projects. 
+  `-g` (short for global) installs a package for all projects.
 
 1. Add the [`csvjson`](https://github.com/pradeep-mishra/csvjson) NPM package to
    your current project.
@@ -62,15 +62,15 @@ investors, companies with more money and so on.
 
   ![Failing Tests](images/capture4.jpeg)
 
-### Exercise 2: Parsing CSVs
+### Part 2: Parsing CSVs
 
 Open `week03/day1/companies/app.js` file and fill in the places where you see
-`YOUR CODE HERE`. 
+`YOUR CODE HERE`.
 
 You can now check your tests and see them failing/passing. Run `npm test` every
 time you make a change to make sure your code works.
 
-### Exercise 3: Calculating Results
+### Part 3: Calculating Results
 
 Open `week03/day1/companies/functions.js` file and fill in the functions to
 perform the different calculations. Each function has a short description of the
@@ -78,4 +78,3 @@ expected results and some hints to achieve them.
 
 Every time you modify a function or want to check your progress, go to the
 command line and run `npm test`.
-

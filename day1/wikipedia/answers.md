@@ -3,7 +3,7 @@
 Results calculated for June 6th 2016 1700 GMT:
 [Raw data](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160606-170000.gz)
 
-## Exercise 1: Most popular pages
+## Part 1: Most popular pages
 
 | Language | Page | Visits |
 | ------------- | ------------- | ---- |
@@ -18,7 +18,7 @@ Results calculated for June 6th 2016 1700 GMT:
 | it | Pagina\_principale | 12418 |
 | es | Periodo\_cr%C3%ADtico | 12079 |
 
-## Exercise 2: Most popular languages
+## Part 2: Most popular languages
 
 <table>
   <tr><th>Language</th></tr>
@@ -34,7 +34,7 @@ Results calculated for June 6th 2016 1700 GMT:
   <tr><td>zh</td></tr>
 </table>
 
-## Exercise 3: Most popular pages for 3 most popular languages
+## Part 3: Most popular pages for 3 most popular languages
 
 1. Top 10 most popular pages for `en`
 
@@ -82,7 +82,7 @@ Results calculated for June 6th 2016 1700 GMT:
   | ru | %D0%9A%D0%B0%D0%BB%D0%B8%D1%82%D0%B2%D0%B8%D0%BD%D1%86%D0%B5%D0%B2,\_%D0%AE%D1%80%D0%B8%D0%B9\_%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B5%D0%B2%D0%B8%D1%87 | 855 |
 
 
-### Exercise 4: Wikipedia traffic trends
+### Part 4: Wikipedia traffic trends
 
 | Language | Page | June 6th Visits | June 7th Visits |
 | ------------- | ------------- | ---- | --- |

@@ -42,7 +42,7 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 1. client: gets data as JSON, converts it into html, displays it on page **Rendering HTML**
 
 
-## Exercise 1: Ajax contributions
+## Part 1: Ajax contributions
 
 1.    Create a new endpoint route in your routes file: `/horizonstarter/routes.js`. The new route should be: `POST /api/project/:projectId/contribution`
 
@@ -117,7 +117,7 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
     1. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
         1. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error occurred", 'danger');`, with "An error occurred", send the appropriate message that you got from the server.
 
-## Exercise 2: Ajax filter projects
+## Part 2: Ajax filter projects
 
 In this exercise, we are going to implement project filtering in `index.hbs` via AJAX. We want the user to be able to filter projects by status: "Fully funded", "Not fully funded" and "show all".
 
@@ -177,9 +177,9 @@ You are going to use jQuery to update the page after filtering results.
 
 **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser. On the homepage click on all three buttons, they should filter the projects accordingly.
 
-## Exercise 3: AJAX sort projects
+## Part 3: AJAX sort projects
 
-On this last exercise, we are going to implement project sorting. We want to sort by "percentage funded" and "amount funded". This step is very similar to **Exercise 2**. We will reuse a great amount of code of the last one, only modifying it to be able to sort the projects when presenting them.
+On this last exercise, we are going to implement project sorting. We want to sort by "percentage funded" and "amount funded". This step is very similar to **Part 2**. We will reuse a great amount of code of the last one, only modifying it to be able to sort the projects when presenting them.
 
 **1. Defining the route**
 
@@ -197,7 +197,7 @@ The `GET localhost:3000/api/project` route is already defined on the last step.
             * `localhost:3000/api/project?funded=false&sort=amountFunded&sortDirection=descending`
             * And all other possible combinations of these params. Note that `sortDirection` should only be applied when `sort` is present. Otherwise there is no field to `sort`.
 
-1. To be able to handle this, you need to add a new step in your route logic. In **Exercise 2** we filtered posts based on being "Fully funded" or "Not Fully Funded". Now, you have to add new functionality to change the ordering of projects:
+1. To be able to handle this, you need to add a new step in your route logic. In **Part 2** we filtered posts based on being "Fully funded" or "Not Fully Funded". Now, you have to add new functionality to change the ordering of projects:
     1. You need to sort projects **after** you have filtered them, but **before** sending them back
     1. Only sort your projects if there is a `sort` parameter.
     1. If there is a `sort` parameter and no `order` , user ascending (i.e. increasing) sort.
