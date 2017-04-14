@@ -3,6 +3,7 @@
 ## Individual Examples
 
 1. [Express + Postman Examples/Videos](examples/README.md#express--postman-self-directed-examples)
+1. [Handlebars Examples/Videos](examples/README.md#handlebars-self-directed-examples)
 
 ## Pair programming exercises
 
