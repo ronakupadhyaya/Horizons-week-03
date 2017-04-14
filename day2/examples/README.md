@@ -34,5 +34,7 @@ Open `/week03/day2/examples/routes.js` in your favourite text editor and follow 
 	- __`POST /api/success`__: Send the json `{success: true}` using [`res.json()`](http://expressjs.com/en/api.html#res.json)
 1. listen on port __3000__
 
+__TESTING:__ Use Postman to test your solution!
+
 ### [Watch me: HTTP Queries and Parameters](https://vimeo.com/212995568)
 ### [Watch me: Status Codes](https://vimeo.com/213017476)
