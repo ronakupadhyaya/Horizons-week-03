@@ -2,7 +2,7 @@
 
 ## Individual Examples
 
-1. [Express + Postman Examples/Videos](examples/README.md)
+1. [Express + Postman Examples/Videos](examples/README.md#express--postman-self-directed-examples)
 
 ## Pair programming exercises
 
