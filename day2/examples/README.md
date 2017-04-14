@@ -37,4 +37,22 @@ Open `/week03/day2/examples/routes.js` in your favourite text editor and follow 
 __TESTING:__ Use Postman to test your solution!
 
 ### [Watch me: HTTP Queries and Parameters](https://vimeo.com/212995568)
+
+1. Open this folder (`week03/day2/examples/express_echo`) in your Terminal on Mac or PowerShell on Windows.
+1. Install dependencies with NPM:
+	```bash
+	npm install
+	```
+1. Open `app.js` in your editor of choice and add an express http endpoint so that it prints correctly on step 5 (follow the directions in the `app.js` file).
+1. Start your server. **Note**: When you change `app.js` you have to restart it to see your changes!
+	```bash
+	npm start
+	```
+1. Verify that your code is working correctly by opening [http://localhost:3000/hello?name=Simba](http://localhost:3000/hello?name=Simba) in Chrome. It should print:
+
+	```
+	Hello there Simba!
+	```
+1. Stop your server with <kbd>Control</kbd>+<kbd>C</kbd> in your Terminal/PowerShell.
+
 ### [Watch me: Status Codes](https://vimeo.com/213017476)
