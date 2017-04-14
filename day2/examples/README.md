@@ -123,3 +123,9 @@ __TESTING:__ Use Postman to test your solution!
 	Hello there Simba!
 	```
 1. Stop your server with <kbd>Control</kbd>+<kbd>C</kbd> in your Terminal/PowerShell.
+
+# [Handlebars](http://handlebarsjs.com/) Self Directed Examples
+
+### [Watch me: Express Templating](https://vimeo.com/213161919)
+### [Watch me: If-Else Handlebars](https://vimeo.com/213165829)
+### [Watch me: Looping in Handlebars](https://vimeo.com/213169153)
