@@ -59,5 +59,19 @@ __TESTING:__ Use Postman to test your solution!
 # [Handlebars](http://handlebarsjs.com/) Self Directed Examples
 
 ### [Watch me: Express Templating](https://vimeo.com/213161919)
+
+The following set of tasks will require setting up your own express app with handlebars templating. You should refer back to the video if you get stuck on a task.
+
+1. Navigate to `/week03/day2/examples/handlebars_examples/hello_world/`: This is the folder you will be working in
+1. Start your Node App (you can use `npm init`)
+1. Install the required packages
+    - `express`
+	- `express-handlebars`
+1. Create an `app.js` file: This is where you will set up express to use handlebars
+1. Create the following routes:
+    - `/`: Displays the text `"Hello World"` from a `.hbs` file
+	- `/:error`: Displays the text `"<error> page not found, did you enter the correct url?"` where `<error>` is the text entered as a param.
+	    - __Example:__ `/about` will render a handlebars page with the text `about page not found, did you enter the corrent url?`.
+1. Run your node app and make sure the above routes work!
 ### [Watch me: If-Else Handlebars](https://vimeo.com/213165829)
 ### [Watch me: Looping in Handlebars](https://vimeo.com/213169153)
