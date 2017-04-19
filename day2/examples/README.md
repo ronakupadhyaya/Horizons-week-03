@@ -141,5 +141,27 @@ The following set of tasks will require setting up your own express app with han
 	- `/:error`: Displays the text `"<error> page not found, did you enter the correct url?"` where `<error>` is the text entered as a param.
 	    - __Example:__ `/about` will render a handlebars page with the text `about page not found, did you enter the corrent url?`.
 1. Run your node app and make sure the above routes work!
+
 ### [Watch me: If-Else Handlebars](https://vimeo.com/213165829)
+
+- Open `/week03/day2/examples/handlebars_examples/conditional/views/condition.hbs`
+    - This file is rendered at route `/:word`
+	- It is passed in the following object
+	```js
+	{
+	  isEven: Boolean, // true if word has even number of letters
+	  word: String // the word entered at :word
+	}
+	```
+- Based on whether or not the word is even, you should write one of the following sentences in an `<h1>` tag
+    - `"The word <entered-word-here> has an odd number of letters!"`
+    - `"The word <entered-word-here> has an even number of letters!"`
+	
+#### Example Screenshots
+![odd]
+![even]
+
+[odd]: ../img/odd.png
+[even]: ../img/even.png
+
 ### [Watch me: Looping in Handlebars](https://vimeo.com/213169153)
