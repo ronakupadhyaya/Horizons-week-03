@@ -97,3 +97,13 @@ The following set of tasks will require setting up your own express app with han
 [even]: ../img/even.png
 
 ### [Watch me: Looping in Handlebars](https://vimeo.com/213169153)
+
+- Open `/week03/day2/examples/handlesbars_examples/profiles/`: This is the folder you will be working in.
+    - Take a look at `data.json`; this is a list of student info that contians `first_name`, `last_name`, `email`, and `gender`.
+	- Don't forget to do `npm install`
+- __Goal:__ You are to create a `handlebars` page to display all students. Create the following routes:
+    - `/`: A directory of __ALL__ students (you __must__ display their first name, last name, and email
+	- `/male`: A directory of __ALL MALE__ students
+	- `/female`: A directory of __ALL FEMALE__ students
+- Run `node app.js` to serve your handlebars files on `localhost:3000`
+- Make sure your above routes work as intended!
