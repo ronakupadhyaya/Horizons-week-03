@@ -110,25 +110,40 @@ The following set of tasks will require setting up your own express app with han
 
 # HTML Forms Self Directed Examples
 
-1. Part 1
-    1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
-        - `example1.js`
-    	- `views/example1.hbs`
-    1. Create a `GET /` route that renders a page with a header and a form.
-	    - `h1`: A heading tag that's text is based on the input box (in the form).
-		- `form`: A form with an `input` box and a submit button
-	1. Test your route by running `npm install` then `node example1.js` in the terminal. The following steps should work:
-	    1. Open your favourite web browser and navigate to `localhost:3000`
-		1. You should see a heading titled __Default Header__ and a input box with a submit button (like below)
-		    ![form_1_1]
-		1. Type __Change The Header__ into the input box and press submite
-		1. The heading should change to __Change The Header__ like below
-		    ![form_1_2]
+### Watch Meh
+1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
+    - `example1.js`
+    - `views/example1.hbs`
+1. Create a `GET /` route that renders a page with a header and a form.
+	- `h1`: A heading tag that's text is based on the input box (in the form).
+	- `form`: A form with an `input` box and a submit button
+1. Test your route by running `npm install` then `node example1.js` in the terminal. Th
+e following steps should work:
+    1. Open your favourite web browser and navigate to `localhost:3000`
+    1. You should see a heading titled __Default Header__ and a input box with a submit button (like below)
+        ![form_1_1]
+    1. Type __Change The Header__ into the input box and press submite
+    1. The heading should change to __Change The Header__ like below
+	![form_1_2]
 
-1. Part 2
-    1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
+### Watch Meh
+In this example you are to make a register form. Make sure that when you press submit, the form data does not change (use the `value` attribute).
+
+1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
         - `example2.js`
     	- `views/example2.hbs`
+1. Create a register form (in `views/example2.hbs`) with the following inputs:
+    - username (text input box)
+	- password (password input box)
+	- name (text input box)
+	- gender: male/female/other (radio buttons)
+	- state (dropdown)
+1. Add logic in `example2.js` to make sure the data in your form will __NOT__ be cleared when you press _Register_.
+1. `npm install && node example2.js` to test your app.
+1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
+    ![form_2_1]
 
 [form_1_1]: ../img/form_1_1.png
 [form_1_2]: ../img/form_1_2.png
+[form_2_1]: ../img/form_2_1.png
+
