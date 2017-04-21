@@ -107,3 +107,23 @@ The following set of tasks will require setting up your own express app with han
 	- `/female`: A directory of __ALL FEMALE__ students
 - Run `node app.js` to serve your handlebars files on `localhost:3000`
 - Make sure your above routes work as intended!
+
+# HTML Forms Self Directed Examples
+
+1. Part 1
+    1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
+        - `example1.js`
+    	- `views/example1.hbs`
+    1. Create a `GET /` route that renders a page with a header and a form.
+	    - `h1`: A heading tag that's text is based on the input box (in the form).
+		- `form`: A form with an `input` box and a submit button
+	1. Test your route. The following steps should work:
+	    1. Open your favourite web browser and navigate to `localhost:3000`
+		1. You should see a heading titled __Default Header__ and a input box with a submit button (like below)
+		    ![form_1_1]
+		1. Type __Change The Header__ into the input box and press submite
+		1. The heading should change to __Change The Header__ like below
+		    ![form_1_2]
+
+[form_1_1]: ../img/form_1_1.png
+[form_1_2]: ../img/form_1_2.png
