@@ -152,9 +152,9 @@ Now for this example we're going to implement login functionality for our users.
 1. Create a login form (in `views/example3.hbs`) with the following inputs:
     - email (text input field)
 	- password (password input field)
-1. Add an `action` & `method` to `POST` to `/login`
-1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.
-    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below)
+1. Add functionality for your form to `POST` to `/login` on submit
+1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.js`
+    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below). __NOTE__ that first name can be found in `accounts.json`
 	- Given __incorrect__ credentials render a _RED_ error message on your page.
 	
     ![form_3_1]
