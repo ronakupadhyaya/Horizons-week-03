@@ -142,8 +142,25 @@ In this example you are to make a register form. Make sure that when you press s
 1. `npm install && node example2.js` to test your app.
 1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
     ![form_2_1]
+	
+### Watch Meh
+Now for this example we're going to implement login functionality for our users. You are to create a __Login Form__ which contains an `email` and `password` field. The list of accounts (along with their passwords) are stored as `JSON` in accounts.js.
+
+1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
+    - `example3.js`
+    - `views/example3.hbs`
+1. Create a login form (in `views/example3.hbs`) with the following inputs:
+    - email (text input field)
+	- password (password input field)
+1. Add an `action` & `method` to `POST` to `/login`
+1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.
+    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below)
+	- Given __incorrect__ credentials render a _RED_ error message on your page.
+	
+    ![form_3_1]
 
 [form_1_1]: ../img/form_1_1.png
 [form_1_2]: ../img/form_1_2.png
 [form_2_1]: ../img/form_2_1.png
+[form_3_1]: ../img/form_3_1.png
 
