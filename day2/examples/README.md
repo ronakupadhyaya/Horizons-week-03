@@ -192,18 +192,18 @@ For the next few examples we will be building upon one file. This series of exam
 #### Validation
 You will be using `express-validator` for the rest of the parts in this series of exampes. If any of the following validation rules aren't met, you must display errors on their corresponding `.hbs` page. Errors should be displayed in a box at the top of your form.
 
-##### Validation 1: Username
+##### Part 1: Username
 1. Use `express-validator ` to check if the __email__ field is blank in both `login/register.hbs`
 1. Make sure that the __email__ field begins with a letter in `register.hbs`
 
-##### Validation 2: Passwords
+##### Part 2: Passwords
 1. Use `express-validator` to check if the __password__ field in `register.hbs` follows the following rules:
     - at least 5 characterds
 	- has __BOTH__ letters and numbers
 	- has at least one capital letter
 1. Use `express-validator` to make sure that __password__ and __confirm_password__ match
 
-##### Validation 3: Date of Birth
+##### Part 3: Date of Birth
 1. Use `express-validator` to make sure that the user is _at least_ 18 years old
 
 #### Verify your work!
