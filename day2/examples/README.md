@@ -155,9 +155,67 @@ Now for this example we're going to implement login functionality for our users.
 1. Add functionality for your form to `POST` to `/login` on submit
 1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.js`
     - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below). __NOTE__ that first name can be found in `accounts.json`
-	- Given __incorrect__ credentials render a _RED_ error message on your page.
-	
+	- Given __incorrect__ credentials render a _RED_ error message on your page.	
     ![form_3_1]
+1. Fill in the form with random credentials and make sure the error message pops up
+1. Fill in the form with someone's credentials from `accounts.js` and press Login. You should see the correct heading for that person pop up!
+
+### Watch Meh
+For the next few examples we will be building upon one file. This series of examples will walk you through setting up a complete registration/login system.
+
+#### Setting Up Views for Login/Register Forms
+
+1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
+    - `example4.js`
+    - `views/login.hbs`
+    - `views/register.hbs`
+1. Create a register form (in `views/register.hbs`) with the following inputs:
+    - email (text input box)
+	- password (password input box)
+	- confirm password (password input box)
+	- date of birth (type date input field)
+1. Once a user successfully registers, you should display a success message underneath the form and clear its' values.
+1. Create a login form (in `views/login.hbs`) with the following inputs:
+    - email (text input field)
+	- password (password input field)
+	![form_3_1]
+1. Add a blank heading to the `login.hbs` page (this will render `"Hi [insert-first-name-here]!"` on successful login)
+1. Make sure on submit the forms perform `POST` requests to their corresponding endpoints (`/login` or `/register`)
+
+#### Storing Data
+
+1. When a user posts to register, you should add their information to `accounts.js`. This will store your information, allowing you to successfully login.
+1. When a user posts to login with their credentials (email/password), check if it's in `accounts.js`.
+    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` in `login.hbs (example above). __NOTE__ that first name can be found in `accounts.json`
+	- Given __incorrect__ credentials render a _RED_ error message on your page.
+
+#### Validation
+You will be using `express-validator` for the rest of the parts in this series of exampes. If any of the following validation rules aren't met, you must display errors on their corresponding `.hbs` page. Errors should be displayed in a box at the top of your form.
+
+##### Validation 1: Username
+1. Use `express-validator ` to check if the __email__ field is blank in both `login/register.hbs`
+1. Make sure that the __email__ field begins with a letter in `register.hbs`
+
+##### Validation 2: Passwords
+1. Use `express-validator` to check if the __password__ field in `register.hbs` follows the following rules:
+    - at least 5 characterds
+	- has __BOTH__ letters and numbers
+	- has at least one capital letter
+1. Use `express-validator` to make sure that __password__ and __confirm_password__ match
+
+##### Validation 3: Date of Birth
+1. Use `express-validator` to make sure that the user is _at least_ 18 years old
+
+#### Verify your work!
+1. `npm install && node example4.js`
+1. Navigate to `localhost:3000/register`
+    1. Fill the form out incorrectly and make sure all validation errors show up
+	1. Fill the form out correctly and make sure the success message shows up
+1. Navigate to `localhost:3000/login`
+    1. Fill the form out incorrectly and make sure all validation errors show up
+	1. Fill the form out correctly and make sure the corresponding name shows up in the heading.
+	
+Congratulations! You have successfully set up a working registration/login system.
 
 [form_1_1]: ../img/form_1_1.png
 [form_1_2]: ../img/form_1_2.png
