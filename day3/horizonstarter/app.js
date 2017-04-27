@@ -31,7 +31,7 @@ mongoose.connection.on('error', function() {
 });
 mongoose.connect(config.MONGODB_URI);
 
-// Handlabars setup
+// Handlebars setup
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
