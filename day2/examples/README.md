@@ -1,3 +1,9 @@
+# Day 2 Self Directed Examples
+
+1. [Express + Postman Self Directed Examples](#express-postman-self-directed-examples)
+1. [Handlebars Self Directed Examples](#handlebars-self-directed-examples)
+1. [HTML Forms Self Directed Examples](#html-forms-self-directed-examples)
+
 # Express + Postman Self Directed Examples
 
 - **All videos have the password `horizonites`**
@@ -88,7 +94,7 @@ The following set of tasks will require setting up your own express app with han
 - Based on whether or not the word is even, you should write one of the following sentences in an `<h1>` tag
     - `"The word <entered-word-here> has an odd number of letters!"`
     - `"The word <entered-word-here> has an even number of letters!"`
-	
+
 #### Example Screenshots
 ![odd]
 ![even]
@@ -110,7 +116,8 @@ The following set of tasks will require setting up your own express app with han
 
 # HTML Forms Self Directed Examples
 
-### Watch Meh
+### [Watch Me: Input Fields & Names](https://vimeo.com/213177057)
+
 1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
     - `example1.js`
     - `views/example1.hbs`
@@ -126,7 +133,8 @@ e following steps should work:
     1. The heading should change to __Change The Header__ like below
 	![form_1_2]
 
-### Watch Meh
+### [Watch Me: Actions](https://vimeo.com/213177626)
+
 In this example you are to make a register form. Make sure that when you press submit, the form data does not change (use the `value` attribute).
 
 1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
@@ -142,8 +150,8 @@ In this example you are to make a register form. Make sure that when you press s
 1. `npm install && node example2.js` to test your app.
 1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
     ![form_2_1]
-	
-### Watch Meh
+
+### [Watch Me: Method]()
 Now for this example we're going to implement login functionality for our users. You are to create a __Login Form__ which contains an `email` and `password` field. The list of accounts (along with their passwords) are stored as `JSON` in accounts.js.
 
 1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
@@ -155,12 +163,13 @@ Now for this example we're going to implement login functionality for our users.
 1. Add functionality for your form to `POST` to `/login` on submit
 1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.js`
     - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below). __NOTE__ that first name can be found in `accounts.json`
-	- Given __incorrect__ credentials render a _RED_ error message on your page.	
+	- Given __incorrect__ credentials render a _RED_ error message on your page.
     ![form_3_1]
 1. Fill in the form with random credentials and make sure the error message pops up
 1. Fill in the form with someone's credentials from `accounts.js` and press Login. You should see the correct heading for that person pop up!
 
-### Watch Meh
+### [Watch Me: `express-validator`]()
+
 For the next few examples we will be building upon one file. This series of examples will walk you through setting up a complete registration/login system.
 
 #### Setting Up Views for Login/Register Forms
@@ -214,11 +223,10 @@ You will be using `express-validator` for the rest of the parts in this series o
 1. Navigate to `localhost:3000/login`
     1. Fill the form out incorrectly and make sure all validation errors show up
 	1. Fill the form out correctly and make sure the corresponding name shows up in the heading.
-	
+
 Congratulations! You have successfully set up a working registration/login system.
 
 [form_1_1]: ../img/form_1_1.png
 [form_1_2]: ../img/form_1_2.png
 [form_2_1]: ../img/form_2_1.png
 [form_3_1]: ../img/form_3_1.png
-
