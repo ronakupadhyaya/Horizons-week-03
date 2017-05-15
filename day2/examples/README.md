@@ -1,6 +1,6 @@
 # Day 2 Self Directed Examples
 
-1. [Express + Postman Self Directed Examples](#express-postman-self-directed-examples)
+1. [Express + Postman Self Directed Examples](#express--postman-self-directed-examples)
 1. [Handlebars Self Directed Examples](#handlebars-self-directed-examples)
 1. [HTML Forms Self Directed Examples](#html-forms-self-directed-examples)
 
