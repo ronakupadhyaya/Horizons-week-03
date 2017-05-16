@@ -3,7 +3,16 @@
 You __MUST__ do the following examples in the order specified below.
 
 1. [Express + Postman Self Directed Examples](#express--postman-self-directed-examples)
-    - [ ] [Watch me: Express Introduction](#watch-me-express-introduction)
+    1. [Watch me: Express Introduction](#watch-me-express-introduction)
+    1. [Watch me: HTTP Introduction + Postman](#watch-me-http-introduction--postman)
+    1. [Postman (Setup)](#postman-setup)
+    1. [Postman (Query Parameters)](#postman-query-parameters)
+    1. [Postman (Methods, Request body, and Content type)](#postman-methods-request-body-and-content-type)
+    1. [Postman (Delete)](#postman-delete)
+    1. [HTTP GET Routes Examples](#http-get-routes)
+    1. [Watch me: HTTP Queries and Parameters](#watch-me-http-queries-and-parameters)
+    1. [Watch me: Status Codes](#watch-me-status-codes)
+    1. [Watch me: Status Codes Examples](#watch-me-status-codes)
 1. [Handlebars Self Directed Examples](#handlebars-self-directed-examples)
 1. [HTML Forms Self Directed Examples](#html-forms-self-directed-examples)
 
