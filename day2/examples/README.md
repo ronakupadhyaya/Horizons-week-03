@@ -1,6 +1,6 @@
 # Day 2 Self Directed Examples
 
-You __MUST__ do the following examples in the order specified below.
+You __MUST__ do the following examples in the order specified below. Note that some videos are followed by examples that you have to finish.
 
 1. [Express + Postman Self Directed Examples](#express--postman-self-directed-examples)
     1. [Watch me: Express Introduction](#watch-me-express-introduction)
@@ -12,9 +12,15 @@ You __MUST__ do the following examples in the order specified below.
     1. [HTTP GET Routes Examples](#http-get-routes)
     1. [Watch me: HTTP Queries and Parameters](#watch-me-http-queries-and-parameters)
     1. [Watch me: Status Codes](#watch-me-status-codes)
-    1. [Watch me: Status Codes Examples](#watch-me-status-codes)
 1. [Handlebars Self Directed Examples](#handlebars-self-directed-examples)
+    1. [Watch me: Express Templating](#watch-me-express-templating)
+    1. [Watch me: If-Else Handlebars](#watch-me-if-else-handlebars)
+    1. [Watch me: Looping in Handlebars](#watch-me-looping-in-handlebars)
 1. [HTML Forms Self Directed Examples](#html-forms-self-directed-examples)
+    1. [Watch Me: Input Fields & Names](#watch-me-input-fields--names)
+    1. [Watch Me: Actions](#watch-me-actions)
+    1. [Watch Me: Method](#watch-me-method)
+    1. [Watch Me: `express-validator`](#watch-me-express-validator)
 
 # Express + Postman Self Directed Examples
 
