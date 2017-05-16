@@ -1,6 +1,9 @@
 # Day 2 Self Directed Examples
 
+You __MUST__ do the following examples in the order specified below.
+
 1. [Express + Postman Self Directed Examples](#express--postman-self-directed-examples)
+    - [ ] [Watch me: Express Introduction](#watch-me-express-introduction)
 1. [Handlebars Self Directed Examples](#handlebars-self-directed-examples)
 1. [HTML Forms Self Directed Examples](#html-forms-self-directed-examples)
 
@@ -181,7 +184,6 @@ The following set of tasks will require setting up your own express app with han
 	- `/female`: A directory of __ALL FEMALE__ students
 - Run `node app.js` to serve your handlebars files on `localhost:3000`
 - Make sure your above routes work as intended!
-<<<<<<< HEAD
 
 # HTML Forms Self Directed Examples
 
@@ -299,5 +301,3 @@ Congratulations! You have successfully set up a working registration/login syste
 [form_1_2]: ../img/form_1_2.png
 [form_2_1]: ../img/form_2_1.png
 [form_3_1]: ../img/form_3_1.png
-=======
->>>>>>> handlebars-examples

@@ -4,10 +4,8 @@
 
 1. [Express + Postman Examples/Videos](examples/README.md#express--postman-self-directed-examples)
 1. [Handlebars Examples/Videos](examples/README.md#handlebars-self-directed-examples)
-<<<<<<< HEAD
 1. [HTML Forms Examples/Videos](examples/README.md#html-forms-self-directed-examples)
-=======
->>>>>>> handlebars-examples
+
 
 ## Pair programming exercises
 
