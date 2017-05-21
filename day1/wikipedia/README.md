@@ -14,14 +14,14 @@ June 6th and 7th 2016.
 
 ## The data 📀
 
-We will be working with 2 files, each containing taffics stats for one hour.
+We will be working with 2 files, each containing traffic stats for one hour.
 Each file is ~100 Mb compressed, ~400 Mb uncompressed.
 
 - [Day #1: 1 hour of Wikipedia traffic from June 6th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160606-170000.gz)
 - [Day #2: 1 hour of Wikipedia traffic from June 7th](https://dumps.wikimedia.org/other/pagecounts-raw/2016/2016-06/pagecounts-20160607-170000.gz)
 
-These are files are compressed with GZip. On Mac and Linux you can unzip them
-by double clicking on the file. On Windows, use [7-zip](http://www.7-zip.org/)
+These files are compressed with GZip. On Mac and Linux you can unzip them
+by double clicking on the file. On Windows, you can use [7-zip](http://www.7-zip.org/)
 to unzip them.
 
 Each line in each file contains 4 fields separated by a single space character:
@@ -40,8 +40,7 @@ fr Annie_Villeneuve 4 40831
 
 ### Data cleanup
 
-As with all real world data, there's some cleaning we need to do to get good
-answers from this dataset. When processing this dataset follow these rules:
+As with most real world data, there is some data format issues we need to account for. When processing the dataset follow these rules:
 
 1. Ignore lines where the language contains the string `.mw`. These are
   mobile subtotals that we don't care about. Example:
@@ -62,7 +61,7 @@ answers from this dataset. When processing this dataset follow these rules:
 ### Sample data for testing
 
 Our dataset is very large so you may find it convenient to test your
-code using a smaller subset.
+code the smaller subset below.
 
 Sample data is in file [`week02/day1/wikipedia/sample.data`](sample.data).
 
@@ -77,8 +76,7 @@ We can process very large files faster by dealing with only one line at a time.
 This way no matter how much data we are dealing with, we only need to keep one
 line of data in our computer's memory.
 
-The following function counts the lines in a given file by only looking at
-one line at a time using the
+The function `countLines` counts the lines in a given file one line at a time
 [`readline` library](https://nodejs.org/api/readline.html):
 
 ```javascript
@@ -104,7 +102,7 @@ function countLines(fileName) {
 
 ### Part 1: Most popular pages
 
-Calculate which pages received the most visits during one hour starting June 6th
+Calculate which pages received the most visits during the one hour starting June 6th
 2016 1700 GMT.
 
 ### Part 2: Most popular languages
@@ -112,7 +110,7 @@ Calculate which pages received the most visits during one hour starting June 6th
 Calculate which languages received the most visits during one hour starting June
 6th 2016 1700 GMT.
 
-### Part 3: Most popular pages for 3 most popular languages
+### Part 3: Most popular pages for the three most popular languages
 
 For the top 3 most popular languages from Part 2, calculate which pages
 written in that language received the most visits during one hour starting June
@@ -120,11 +118,8 @@ written in that language received the most visits during one hour starting June
 
 ### (Bonus) Part 4: Wikipedia traffic trends
 
-For the top 10 pages you found for Part 1, calculate the total gain or loss
-in traffic compared to the same hour the next day, June 7th 2016 1700
+For some use cases it may be useful to know which topics are trending. In this part we will be calculating changes in traffic for the top 10 pages you found in Part 1. Calculate the total gain or loss in traffic compared to the same hour the next day, June 7th 2016 1700
 GMT.
 
-Measuring changes in visitor counts is useful for implementing features such
-as "trending topics" for social media apps.
 
 [File Information](https://wikitech.wikimedia.org/wiki/Analytics/Data/Pagecounts-raw)
