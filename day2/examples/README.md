@@ -101,7 +101,7 @@ __TESTING:__ Use Postman to test your solution!
 ### [Watch me: HTTP Queries and Parameters](https://vimeo.com/212995568)
 ### [Watch me: Status Codes](https://vimeo.com/213017476)
 
-1. Open this folder (`week03/day2/examples/express_echo`) in your Terminal on Mac or PowerShell on Windows.
+1. Open this folder (`week03/day2/examples/express_echo`) in your Terminal on Mac or Git Bash on Windows.
 1. Install dependencies with NPM:
 	```bash
 	npm install
