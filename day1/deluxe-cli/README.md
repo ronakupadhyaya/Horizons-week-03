@@ -2,47 +2,41 @@
 
 ## Goal
 
-The goal of this exercise is to learn how to use build command line tools with [the NPM package `commander`](https://www.npmjs.com/package/commander).
+The goal of this exercise is to learn how to use command line tools with [the NPM package `commander`](https://www.npmjs.com/package/commander).
 
 ## Intro to the command line
 
 Almost everything you do with a graphical user interface can be done through the command line. Since node runs on the command line, it's important to get comfortable
 using command line based tools.
 
-The purpose of this exercise is to build your first application that works completely
-on the command line. For this you will need 2 things: node to run your JavaScript
-program from the command line and a way to give options to your program, otherwise
-it would always do the same thing. For this, we use flags and arguments.
+In this exercise we will build a command line tool. A command line tool is an application that is intended to run on the command line. Our command line tool will be written in javascript so we will need NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well. 
 
 ### Flags and Arguments
 
 For example: `node myProgram.js` calls the program without any flags or args.  
 
 **Flags** are boolean values that are set by being included when calling the program.
-`node myProgram.js --cookies` is calling your program with the flag cookies
+`node myProgram.js --cookies` is calling `myProgram.js` with the flag cookies
 = true and the flag milk = false because it is not present.
 
-Flags have a simplified version of their commands, so --cookies is also -c. This helps
-users access our command line utilities faster.
+Flags normally have shortened versions, so --cookies is -c.
 `node myProgram.js -c`
 
-**Commands**  commands are the verbs of software. Yo can say:
-`node myProgram.js doSomething` doSomething is not a flag, thus it doesn't begin with --
-It is a sub-program inside our main app, for example a function. So if we are doing a
-calculator, our command line could receive commands like:
+**Commands**  commands are the verbs of software. You can run:
+`node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with --
+It is a sub-command inside our main app, for example if we have a
+calculator, our command line application could receive commands like:
 `node myProgram.js add`
 `node myProgram.js delete`
 
-**Arguments** Arguments are the last piece of the software. We can pass strings or
-numbers into our program. To do things like
-`node myProgram.js square 4` and it would have to print 16
+**Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters. 
+`node myProgram.js square 4` prints 16
 `node myProgram.js --add 2 3 2` here, add takes all the remaining args, to add them up
 and print 7
 
 ## Instructions
 
-We are going to build a ToDo list. ToDo lists are the main example when working on
-front end development frameworks in JS, but we are going to do it on the command line.
+We are going to build a ToDo list app that runs on the command line.
 
 Our list is going to take the following commands:
 
