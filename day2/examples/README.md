@@ -117,3 +117,55 @@ __TESTING:__ Use Postman to test your solution!
 	Hello there Simba!
 	```
 1. Stop your server with <kbd>Control</kbd>+<kbd>C</kbd> in your Terminal/PowerShell.
+
+# [Handlebars](http://handlebarsjs.com/) Self Directed Examples
+
+### [Watch me: Express Templating](https://vimeo.com/213161919)
+
+The following set of tasks will require setting up your own express app with handlebars templating. You should refer back to the video if you get stuck on a task.
+
+1. Navigate to `/week03/day2/examples/handlebars_examples/hello_world/`: This is the folder you will be working in
+1. Start your Node App (you can use `npm init`)
+1. Install the required packages
+    - `express`
+	- `express-handlebars`
+1. Create an `app.js` file: This is where you will set up express to use handlebars
+1. Create the following routes:
+    - `/`: Displays the text `"Hello World"` from a `.hbs` file
+	- `/:error`: Displays the text `"<error> page not found, did you enter the correct url?"` where `<error>` is the text entered as a param.
+	    - __Example:__ `/about` will render a handlebars page with the text `about page not found, did you enter the corrent url?`.
+1. Run your node app and make sure the above routes work!
+
+### [Watch me: If-Else Handlebars](https://vimeo.com/213165829)
+
+- Open `/week03/day2/examples/handlebars_examples/conditional/views/condition.hbs`
+    - This file is rendered at route `/:word`
+	- It is passed in the following object
+	```js
+	{
+	  isEven: Boolean, // true if word has even number of letters
+	  word: String // the word entered at :word
+	}
+	```
+- Based on whether or not the word is even, you should write one of the following sentences in an `<h1>` tag
+    - `"The word <entered-word-here> has an odd number of letters!"`
+    - `"The word <entered-word-here> has an even number of letters!"`
+	
+#### Example Screenshots
+![odd]
+![even]
+
+[odd]: ../img/odd.png
+[even]: ../img/even.png
+
+### [Watch me: Looping in Handlebars](https://vimeo.com/213169153)
+
+- Open `/week03/day2/examples/handlesbars_examples/profiles/`: This is the folder you will be working in.
+    - Take a look at `data.json`; this is a list of student info that contians `first_name`, `last_name`, `email`, and `gender`.
+	- Don't forget to do `npm install`
+- __Goal:__ You are to create a `handlebars` page to display all students. Create the following routes:
+    - `/`: A directory of __ALL__ students (you __must__ display their first name, last name, and email
+	- `/male`: A directory of __ALL MALE__ students
+	- `/female`: A directory of __ALL FEMALE__ students
+- Run `node app.js` to serve your handlebars files on `localhost:3000`
+- Make sure your above routes work as intended!
