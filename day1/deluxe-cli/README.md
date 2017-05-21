@@ -6,14 +6,13 @@ The goal of this exercise is to learn how to use command line tools with [the NP
 
 ## Intro to the command line
 
-Almost everything you do with a graphical user interface can be done through the command line. Since node runs on the command line, it's important to get comfortable
-using command line based tools.
+Many things you can do with a graphical user interface can be done through a text only interface on the command line. Since NodeJS frees up JavaScript to run outside the browser you can now create JavaScript applications that can run from your terminal! 
 
-In this exercise we will build a command line tool. A command line tool is an application that is intended to run on the command line. Our command line tool will be written in javascript so we will need NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well. 
+In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well. 
 
 ### Flags and Arguments
 
-For example: `node myProgram.js` calls the program without any flags or args.  
+For example: `node myProgram.js` calls the program without any flags or args (arguments).  
 
 **Flags** are boolean values that are set by being included when calling the program.
 `node myProgram.js --cookies` is calling `myProgram.js` with the flag cookies
@@ -22,36 +21,33 @@ For example: `node myProgram.js` calls the program without any flags or args.
 Flags normally have shortened versions, so --cookies is -c.
 `node myProgram.js -c`
 
-**Commands**  commands are the verbs of software. You can run:
+**Commands**  commands are arguments that specify specific actions. You can run:
 `node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with --
-It is a sub-command inside our main app, for example if we have a
-calculator, our command line application could receive commands like:
-`node myProgram.js add`
-`node myProgram.js delete`
+It is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running. 
 
 **Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters. 
-`node myProgram.js square 4` prints 16
-`node myProgram.js --add 2 3 2` here, add takes all the remaining args, to add them up
-and print 7
+`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command. 
+
+Flags, commands, and parameters are all specific kind of arguments. A flag is usually setting a Boolean and starts with a `-` , a command usually follows the main program and modifies or specifies the specific behavior (`square` and `add` in the calculator example above), and a parameter is usually what the command is taking in as its input. 
 
 ## Instructions
 
-We are going to build a ToDo list app that runs on the command line.
+To get comfortable with building command line tools we will start with a simple todo list application.
 
-Our list is going to take the following commands:
+Our command line application should satisfy the following:
 
-- `node toDo.js` is going to display the help section of our application.
-- `node toDo.js add Do the dishes` is going to run the command 'Add', with the name "Do the dishes" as arguments
-- `node toDo.js add Do the dishes -p 3`  is going to run the command 'Add', with the name "Do the dishes" as arguments with flag :priority 3 (default)
-- `node toDo.js show` runs the command show with the default value of all!
-- `node toDo.js show -i 5` runs the command show with flag id equal to 5. Only displays one element.
-- `node toDo.js delete --id 3` deletes the item number 3
+- `node toDo.js` displays helpful information on using the application
+- `node toDo.js add Do the dishes` adds a todo list item with text `Do the dishes` with a default priority of 3
+- `node toDo.js add Do the dishes -p 3`  also adds `Do the dishes` but also sets the priority 3 (default) explicitly using the flag `-p`
+- `node toDo.js show` shows all todo list items
+- `node toDo.js show -i 5` runs the command show with flag `-i` (id) as 5. Only displays one todo.
+- `node toDo.js delete --id 3` deletes the item with id 3
 
 Bonus tasks:
 
-- `node toDo.js toggleCompleted --id 3` is going to mark the task with id of `--id` as done.
-- `node toDo.js show --completed`
-- `node toDo.js show -c`
+- `node toDo.js toggleCompleted --id 3` is going to mark the task with id of 3 as done.
+- `node toDo.js show --completed` shows completed todos (you will have to add support for marking a todo as completed)
+- `node toDo.js show -c` works exactly like `node toDo.js show --completed`
 
 To start our application we are going to run the following commands.
 
@@ -74,4 +70,4 @@ To start our application we are going to run the following commands.
 
 1. Implement the `toggleCompleted` command.
 1. Implement the `-c` or `--completed` flag.
-1. Add tests and verify your new command and flag.
+1. Add tests for verification
