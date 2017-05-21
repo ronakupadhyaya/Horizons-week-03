@@ -281,7 +281,7 @@ For the next few examples we will be building upon one file. This series of exam
 
 1. When a user posts to register, you should add their information to `accounts.js`. This will store your information, allowing you to successfully login.
 1. When a user posts to login with their credentials (email/password), check if it's in `accounts.js`.
-    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` in `login.hbs (example above). __NOTE__ that first name can be found in `accounts.json`
+    - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` in `login.hbs` (example above). __NOTE__ that first name can be found in `accounts.json`
 	- Given __incorrect__ credentials render a _RED_ error message on your page.
 
 #### Validation
