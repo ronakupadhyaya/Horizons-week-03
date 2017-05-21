@@ -1,8 +1,8 @@
 # Day 2 exercises
 
-## Inline exercises
+## Individual Examples
 
-1. [Inline Exercise: Express Echo](express_echo/README.md)
+1. [Express + Postman Examples/Videos](examples/README.md#express--postman-self-directed-examples)
 
 ## Pair programming exercises
 
