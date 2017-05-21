@@ -85,7 +85,7 @@ Open `/week03/day2/examples/routes.js` in your favourite text editor and follow 
 1. create the following routes:
     - __`GET /`__: Send the string `"The Horizons Poet API v1.0"`.
 	- __`GET /api/*`__: Send the string `"We couldn’t find any routes matching this endpoint"`.
-	    - `*` denotes any string (i.e. `/api/anything`, `/api/unicorn`, /api/p/r/a/t/h`, etc.)
+	    - `*` denotes any string (i.e. `/api/anything`, `/api/unicorn`, `/api/p/r/a/t/h`, etc.)
 		- you will need to use `app.use()` for this
 	- __`GET /api/poem`__: Send the text from the file `/week03/day2/examples/poem.txt`
 	    - use the following code to read `poem.txt`
