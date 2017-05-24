@@ -237,7 +237,10 @@ In this example you are to make a register form. Make sure that when you press s
 1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
     ![form_2_1]
 
+### [Watch Me: Chrom DevTools Network Tab](https://vimeo.com/213266902)
+
 ### [Watch Me: Method]()
+
 Now for this example we're going to implement login functionality for our users. You are to create a __Login Form__ which contains an `email` and `password` field. The list of accounts (along with their passwords) are stored as `JSON` in accounts.js.
 
 1. Open `/week03/day2/examples/forms_examples/`: For this example you will write code in the following files
