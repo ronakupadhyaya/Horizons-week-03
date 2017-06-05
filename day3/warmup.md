@@ -14,7 +14,7 @@ In this exercise, we'll set up our own database with sample data in it.
   ![](img/mlab-1-signup.png)
 1. Open up your email account and verify your email address.
   ![](img/mlab-2-verify-email.png)
-1. Click `Create New` on the right side of the page to create a Database.
+1. Click `Create New` on the right side of the page to create a Database. If you see two "Create New" buttons, click the one next to "MongoDB Deployments".
   ![](img/mlab-3-create.png)
 1. Select `Single-node` and `Sandbox`
   ![](img/mlab-4-create.png)
@@ -22,7 +22,7 @@ In this exercise, we'll set up our own database with sample data in it.
   ![](img/mlab-5-create.png)
 1. Wait for the green checkmark indicating the database is ready. Then click on the database to open it.
   ![](img/mlab-6-create-success.png)
-1. Click the link in the notification bar to create a new user.
+1. Click `Users > Add Database User` to create a new user.
   ![](img/mlab-7-create-user.png)
 1. Pick a username and password for the database user. Make sure
   to save this information somewhere, we'll use it later.
@@ -31,18 +31,19 @@ In this exercise, we'll set up our own database with sample data in it.
   ![](img/mlab-8-create-user.png)
 1. Switch to the `Collections` tab, click `Add collection`. Type in `warmup` as collection name.
   ![](img/mlab-9-create-collection.png)
-1. Click on `warmup` on the list of collections, then click `Create document`
+1. Click on `warmup` on the list of collections, then click `Add document`
   ![](img/mlab-10-create-doc.png)
 1. Create document containing:
 
   ```json
   {"mongo": "awesome", "score": 10}
   ```
+  Then click `Create and go back`.
 
   ![](img/mlab-11-create-doc.png)
-1. Click on `Start new search` select `[new search]`.
+1. Click on `Start new search`, and select `[new search]`.
   ![](img/mlab-12-search.png)
-1. Type in search and click `Search`.
+1. Type then following in search, then click `Search`.
 
   ```json
   {"score": 10}

@@ -6,7 +6,7 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 ## Set up mLab
 1. Navigate to [https://mlab.com/login/](https://mlab.com/login/) and login to your mlab account (create an account if you do not have one).
 
-1. Beside the **MongoDB Deployments** tab press the **Create New** button. Select **Amazon Web Services** as the Cloud Provider, and the *FREE* Sandbox Plan under Plan. Once the correct options have been selected press `Create new MongoDB deployment`.
+1. Beside the **MongoDB Deployments** tab press the **Create New** button. Select **Amazon Web Services** as the Cloud Provider, and then **Single-node > *FREE* Sandbox Plan** under Plan. Don't forget to name the database. When you're all done, press `Create new MongoDB deployment`.
 
   ![newDeployment](./images/newDeploy.png)
 

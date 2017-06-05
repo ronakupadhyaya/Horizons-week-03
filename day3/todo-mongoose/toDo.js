@@ -109,8 +109,8 @@ function parseArgs () {
 // PART 2: Add task
 
 // Example: This is a function that is called to create a new task.
-// Calling `node toDo.js add Do the dishes -p 3` must all our function addTask.
-// it should get the name of the task by calling parseArgs() and the priority
+// Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
+// It should get the name of the task by calling parseArgs() and the priority
 // for the tast from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
