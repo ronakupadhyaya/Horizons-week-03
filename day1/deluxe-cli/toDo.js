@@ -39,8 +39,8 @@ program.command('add')
   .description("Create Tasks")
   .action(addTask);
 
-// YOUR CODE HERE for "Show" its action must call showTasks
-// YOUR CODE HERE for "Delete" its action must call deleteTask
+// YOUR CODE HERE for "show" - its action must call "showTasks"
+// YOUR CODE HERE for "delete" - its action must call "deleteTask"
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -63,7 +63,7 @@ program
   .option('-i, --id <n>', 'Specify id of task', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
-// YOUR CODE HERE for "--priority and -p"
+// YOUR CODE HERE for "--priority" and "-p"
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -112,11 +112,15 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
-//  node toDo.js show -i 2 -> "Clean Dishes"
-// ex.
-//  data = [{name: "Do Laundry", priority: 2}]
-//  node toDo.js show -> Task #1 Priority 2: Do Laundry
+//  data = [{name: "Do Laundry", priority: 3}, 
+//          {name: "Clean dishes", priority: 2}, 
+//          {name:"Call Mark", priority: 1}]
+
+//  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
+//  node toDo.js show -> 
+//            "Task #1 Priority 3: Do Laundry
+//             Task #2 Priority 2: Clean Dishes
+//             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
 }
