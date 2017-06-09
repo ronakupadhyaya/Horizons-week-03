@@ -60,7 +60,7 @@ investors, companies with more money and so on.
    similar screen with all the failing/passing tests you are ready to start
    developing!
 
-  ![Failing Tests](images/capture4.jpeg)
+    ![Failing Tests](images/capture4.jpeg)
 
 ### Part 2: Parsing CSVs
 
