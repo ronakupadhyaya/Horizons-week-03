@@ -28,13 +28,13 @@ investors, companies with more money and so on.
 
 1. Open up your terminal and navigate to the `week03/day1/companies` directory.
 1. Install the [`jasmine-node`](https://www.npmjs.com/package/jasmine-node) NPM
-  package for all Node projects on your computer.
+   package for all Node projects on your computer.
 
-  ```
-  npm install -g jasmine-node
-  ```
+   ```
+   npm install -g jasmine-node
+   ```
 
-  `-g` (short for global) installs a package for all projects.
+   `-g` (short for global) installs a package for all projects.
 
 1. Add the [`csvjson`](https://github.com/pradeep-mishra/csvjson) NPM package to
    your current project.
@@ -47,20 +47,20 @@ investors, companies with more money and so on.
    to the `dependencies` section.
 1. Run `npm install` to install all dependencies listed in your `package.json`.
 1. Try running `npm test` in your terminal. Note how this prints out
-  `Error: no test specified`. This is because we haven't told NPM how to
-  run tests for our project yet.
+   `Error: no test specified`. This is because we haven't told NPM how to
+   run tests for our project yet.
 
-  Create a new `"scripts"` section to your `package.json`. Inside this section
-  set `"test"` to `"jasmine-node spec"`. Your `package.json` should now look
-  like:
+   Create a new `"scripts"` section to your `package.json`. Inside this section
+   set `"test"` to `"jasmine-node spec"`. Your `package.json` should now look
+   like:
 
-  ![Package](images/capture3.jpeg)
+   ![Package](images/capture3.jpeg)
 
 1. Run `npm test` again to verify your tests are now running. If you get a
    similar screen with all the failing/passing tests you are ready to start
    developing!
 
-  ![Failing Tests](images/capture4.jpeg)
+    ![Failing Tests](images/capture4.jpeg)
 
 ### Part 2: Parsing CSVs
 
