@@ -2,9 +2,9 @@
 
 ## Goal
 
-The goal of this exercise is for you to get familiar with node. We will cover
-the basics about node, files, npm, the package.json file and running your app.
-You will build an investment report app that takes in two `CSV` files and
+The goal of this exercise is for you to get familiar with Node. We will cover
+the basics about Node, files, npm, the package.json file and running your app.
+You will build an investment report app that takes in two `.csv` files and
 performs some calculations with the data on the files. CSV stands for
 "comma-separated values". It is a format to store tables of data such as
 spreadsheets, by separating each column with a comma.
@@ -43,7 +43,7 @@ investors, companies with more money and so on.
    npm install --save csvjson
    ```
 
-   `-save` updates your `package.json` and adds the given package
+   `--save` updates your `package.json` and adds the given package
    to the `dependencies` section.
 1. Run `npm install` to install all dependencies listed in your `package.json`.
 1. Try running `npm test` in your terminal. Note how this prints out
