@@ -6,9 +6,9 @@ The goal of this exercise is to learn how to use command line tools with [the NP
 
 ## Intro to the command line
 
-Many things you can do with a graphical user interface can be done through a text only interface on the command line. Since NodeJS frees up JavaScript to run outside the browser you can now create JavaScript applications that can run from your terminal! 
+Many things you can do with a graphical user interface can be done through a text only interface on the command line. Since NodeJS frees up JavaScript to run outside the browser you can now create JavaScript applications that can run from your terminal!
 
-In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well. 
+In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well.
 
 ### Flags and Arguments
 
@@ -21,14 +21,14 @@ For example: `node myProgram.js` calls the program without any flags or args (ar
 Flags normally have shortened versions, so --cookies is -c.
 `node myProgram.js -c`
 
-**Commands**  commands are arguments that specify specific actions. You can run:
-`node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with --
-It is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running. 
+**Commands** are arguments that specify specific actions. You can run:
+`node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with `--`
+it is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running.
 
-**Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters. 
-`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command. 
+**Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters.
+`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command.
 
-Flags, commands, and parameters are all specific kind of arguments. A flag is usually setting a Boolean and starts with a `-` , a command usually follows the main program and modifies or specifies the specific behavior (`square` and `add` in the calculator example above), and a parameter is usually what the command is taking in as its input. 
+Flags, commands, and parameters are all specific kind of arguments. A flag is usually setting a Boolean and starts with a `-` , a command usually follows the main program and modifies or specifies the specific behavior (`square` and `add` in the calculator example above), and a parameter is usually what the command is taking in as its input.
 
 ## Instructions
 
@@ -55,18 +55,18 @@ To start our application we are going to run the following commands.
 
 1. Open this folder `week03/day1/deluxe-cli` and install npm packages
 
-  ```bash
-  npm install
-  ```
+    ```bash
+    npm install
+    ```
 
 1. Implement the `--priority` (or `-p`) flag.
 1. Implement the `show` command along with the `--completed` (or `-c`) flag.
 1. Implement the `delete` command.
 1. Run tests to verify your code.
 
-  ```bash
-  npm test
-  ```
+    ```bash
+    npm test
+    ```
 
 1. Implement the `toggleCompleted` command.
 1. Implement the `-c` or `--completed` flag.
