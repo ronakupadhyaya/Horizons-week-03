@@ -45,18 +45,18 @@ As with most real world data, there is some data format issues we need to accoun
 1. Ignore lines where the language contains the string `.mw`. These are
   mobile subtotals that we don't care about. Example:
 
-  ```
-  en.mw en 5178493 118985328227
-  ady.mw ady 1 12033
-  ```
+    ```
+    en.mw en 5178493 118985328227
+    ady.mw ady 1 12033
+    ```
 
 1. Ignore lines where the page name contains the string `Special:`. These pages
   don't contain articles so we don't care about them. Example:
 
-  ```
-  en Special:Search 25189 190452063
-  aa Special:Contributions/Sirmylesnagopaleentheda 1 5812
-  ```
+    ```
+    en Special:Search 25189 190452063
+    aa Special:Contributions/Sirmylesnagopaleentheda 1 5812
+    ```
 
 ### Sample data for testing
 
