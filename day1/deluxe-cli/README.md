@@ -2,17 +2,17 @@
 
 ## Goal
 
-The goal of this exercise is to learn how to use command line tools with [the NPM package `commander`](https://www.npmjs.com/package/commander).
+The goal of this exercise is to build a command line To-Do list manager
+with [the NPM package `commander`](https://www.npmjs.com/package/commander).
 
 ## Intro to the command line
 
-Many things you can do with a graphical user interface can be done through a text only interface on the command line. Since NodeJS frees up JavaScript to run outside the browser you can now create JavaScript applications that can run from your terminal! 
+Many things you can do with a graphical user interface can be done through a text only interface on the command line. Since NodeJS frees up JavaScript to run outside the browser you can now create JavaScript applications that can run from your terminal!
 
-In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well. 
+In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well.
 
-### Flags and Arguments
 
-For example: `node myProgram.js` calls the program without any flags or args (arguments).  
+### Flags
 
 **Flags** are boolean values that are set by being included when calling the program.
 `node myProgram.js --cookies` is calling `myProgram.js` with the flag cookies
@@ -21,20 +21,25 @@ For example: `node myProgram.js` calls the program without any flags or args (ar
 Flags normally have shortened versions, so --cookies is -c.
 `node myProgram.js -c`
 
-**Commands**  commands are arguments that specify specific actions. You can run:
-`node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with --
-It is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running. 
+### Commands
 
-**Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters. 
-`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command. 
+**Commands** are arguments that specify specific actions. You can run:
+`node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with `--`
+it is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running.
 
-Flags, commands, and parameters are all specific kind of arguments. A flag is usually setting a Boolean and starts with a `-` , a command usually follows the main program and modifies or specifies the specific behavior (`square` and `add` in the calculator example above), and a parameter is usually what the command is taking in as its input. 
+### Arguments
+
+**Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters.
+`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command.
+
+Flags, commands, and parameters are all specific kind of arguments. A flag is usually setting a Boolean and starts with a `-` , a command usually follows the main program and modifies or specifies the specific behavior (`square` and `add` in the calculator example above), and a parameter is usually what the command is taking in as its input.
 
 ## Instructions
 
-To get comfortable with building command line tools we will start with a simple todo list application.
+### Features
 
-Our command line application should satisfy the following:
+Our command line To-Do list manager should support the following commands and
+flags:
 
 - `node toDo.js` displays helpful information on using the application
 - `node toDo.js add Do the dishes` adds a todo list item with text `Do the dishes` with a default priority of 3
@@ -51,23 +56,25 @@ Bonus tasks:
 
 To start our application we are going to run the following commands.
 
-### Steps
+### Running and testing
 
-1. Open this folder `week03/day1/deluxe-cli` and install npm packages
+1. Go to `week03/day1/deluxe-cli` in your terminal and install npm dependencies
 
-  ```bash
-  npm install
-  ```
+    ```bash
+    npm install
+    ```
 
+1. Run tests to verify your code. As you implement functionality keep running
+tests to make sure your code works.
+
+    ```bash
+    npm test
+    ```
+
+1. Open `toDo.js` in Atom.
 1. Implement the `--priority` (or `-p`) flag.
 1. Implement the `show` command along with the `--completed` (or `-c`) flag.
 1. Implement the `delete` command.
-1. Run tests to verify your code.
-
-  ```bash
-  npm test
-  ```
-
-1. Implement the `toggleCompleted` command.
-1. Implement the `-c` or `--completed` flag.
-1. Add tests for verification
+1. **(Bonus)** Implement the `toggleCompleted` command and add tests in
+`toDo_spec.js` to verify that it works.
+1. **(Bonus)** Implement the `-c` or `--completed` flag and add tests to verify.
