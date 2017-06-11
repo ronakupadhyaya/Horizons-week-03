@@ -10,9 +10,8 @@ Many things you can do with a graphical user interface can be done through a tex
 
 In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using ,think git or npm, we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well.
 
-### Flags and Arguments
 
-For example: `node myProgram.js` calls the program without any flags or args (arguments).  
+### Flags
 
 **Flags** are boolean values that are set by being included when calling the program.
 `node myProgram.js --cookies` is calling `myProgram.js` with the flag cookies
@@ -21,9 +20,13 @@ For example: `node myProgram.js` calls the program without any flags or args (ar
 Flags normally have shortened versions, so --cookies is -c.
 `node myProgram.js -c`
 
+### Commands
+
 **Commands** are arguments that specify specific actions. You can run:
 `node myProgram.js doSomething` doSomething is not a flag, since it doesn't begin with `--`
 it is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running.
+
+### Arguments
 
 **Arguments** We can pass also pass strings or numbers into our program to be used as arguments or parameters.
 `node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command.
