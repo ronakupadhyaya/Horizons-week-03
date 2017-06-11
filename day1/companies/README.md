@@ -40,10 +40,10 @@ investors, companies with more money and so on.
    your current project.
 
    ```
-   npm install -S csvjson
+   npm install --save csvjson
    ```
 
-   `-S` (short for save) updates your `package.json` and adds the given package
+   `-save` updates your `package.json` and adds the given package
    to the `dependencies` section.
 1. Run `npm install` to install all dependencies listed in your `package.json`.
 1. Try running `npm test` in your terminal. Note how this prints out
