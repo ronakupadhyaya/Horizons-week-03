@@ -2,7 +2,8 @@
 
 ## Goal
 
-The goal of this exercise is to learn how to use command line tools with [the NPM package `commander`](https://www.npmjs.com/package/commander).
+The goal of this exercise is to build a command line To-Do list manager
+with [the NPM package `commander`](https://www.npmjs.com/package/commander).
 
 ## Intro to the command line
 
@@ -35,9 +36,10 @@ Flags, commands, and parameters are all specific kind of arguments. A flag is us
 
 ## Instructions
 
-To get comfortable with building command line tools we will start with a simple todo list application.
+### Features
 
-Our command line application should satisfy the following:
+Our command line To-Do list manager should support the following commands and
+flags:
 
 - `node toDo.js` displays helpful information on using the application
 - `node toDo.js add Do the dishes` adds a todo list item with text `Do the dishes` with a default priority of 3
@@ -54,9 +56,9 @@ Bonus tasks:
 
 To start our application we are going to run the following commands.
 
-### Steps
+### Running and testing
 
-1. Open this folder `week03/day1/deluxe-cli` and install npm packages
+1. Go to `week03/day1/deluxe-cli` in your terminal and install npm dependencies
 
     ```bash
     npm install
@@ -69,9 +71,10 @@ tests to make sure your code works.
     npm test
     ```
 
+1. Open `toDo.js` in Atom.
 1. Implement the `--priority` (or `-p`) flag.
 1. Implement the `show` command along with the `--completed` (or `-c`) flag.
 1. Implement the `delete` command.
-1. Implement the `toggleCompleted` command.
-1. Implement the `-c` or `--completed` flag.
-1. Add tests for verification
+1. **(Bonus)** Implement the `toggleCompleted` command and add tests in
+`toDo_spec.js` to verify that it works.
+1. **(Bonus)** Implement the `-c` or `--completed` flag and add tests to verify.
