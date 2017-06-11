@@ -62,15 +62,16 @@ To start our application we are going to run the following commands.
     npm install
     ```
 
-1. Implement the `--priority` (or `-p`) flag.
-1. Implement the `show` command along with the `--completed` (or `-c`) flag.
-1. Implement the `delete` command.
-1. Run tests to verify your code.
+1. Run tests to verify your code. As you implement functionality keep running
+tests to make sure your code works.
 
     ```bash
     npm test
     ```
 
+1. Implement the `--priority` (or `-p`) flag.
+1. Implement the `show` command along with the `--completed` (or `-c`) flag.
+1. Implement the `delete` command.
 1. Implement the `toggleCompleted` command.
 1. Implement the `-c` or `--completed` flag.
 1. Add tests for verification
