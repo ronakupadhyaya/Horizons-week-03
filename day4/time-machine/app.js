@@ -8,7 +8,7 @@ app.engine('.hbs', exphbs(
   {
     extname: '.hbs',
     helpers: {
-      // You can define an Handlebars helper here
+      // You can define your Handlebars helpers here
       // YOUR CODE HERE
     }
   }));
