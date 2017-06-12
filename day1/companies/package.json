@@ -5,6 +5,10 @@
   "main": "app.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "test": "jasmine-node spec"
+  },
   "dependencies": {
+    "csvjson": "^4.3.3"
   }
 }
