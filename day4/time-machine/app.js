@@ -19,7 +19,7 @@ function pad(num) {
   return (norm < 10 ? '0' : '') + norm;
 }
 
-// This function
+// Use this function to convert a Date object into a Date string.
 function toDateStr(date) {
   return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
 }
