@@ -164,7 +164,7 @@ function deleteTask(){
 
 function toggleCompleted() {
   if (program.id) {
-    data[id - 1].completed = true;
+    data[program.id - 1].completed = true;
   }
 }
 
