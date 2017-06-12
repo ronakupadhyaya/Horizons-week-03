@@ -1,5 +1,9 @@
 # Week 3 Day 4 Exercises
 
+## Morning Videos & Individual Exercises
+
+1. [Videos and Exercises](examples/README.md)
+
 ## Inline Exercises
 
 1. [Warmup](warmup/README.md)
