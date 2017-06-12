@@ -41,6 +41,13 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv");
   });
 
+  it("Show only completed tasks",function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    expect(stdout[0]).toEqual("Task #3 Priority 3: Call the internet guy");
+  });
+
   it("Delete task with id", function() {
     generateTasks();
     child_process.execSync('node toDo.js delete -i 2');

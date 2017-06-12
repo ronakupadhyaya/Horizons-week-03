@@ -48,6 +48,10 @@ program.command('delete')
   .description("Delete Tasks")
   .action(deleteTask);
 
+program.command('toggleCompleted')
+  .description("Toggle tasks whether completed or not")
+  .action(toggleTask);
+
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -72,6 +76,9 @@ program
 // YOUR CODE HERE for "--priority" and "-p"
 program
   .option('-p, --priority <n>', 'Specify a priority of task', parseInt);
+
+program
+  .option('-c, --completed', 'Show only completed task');
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -107,6 +114,10 @@ function addTask() {
   console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
 }
 
+function toggleTask() {
+  var id = program.id - 1;
+  data[id].completed = true;
+}
 
 // Write function showTasks(). It is be called when the program is called like
 // 'node toDo.js show' or 'node toDo.js show -i 3'
@@ -132,6 +143,14 @@ function addTask() {
 function showTasks(){
   // YOUR CODE HERE
   var id = program.id || 0;
+  if(program.completed) {
+    data.forEach(function(task) {
+      if (task.completed === true) {
+        var taskNum = data.indexOf(task)+1
+        console.log("Task #" + taskNum + " Priority " + task.priority + ": "+ task.name)
+      }
+    })
+  }
   if (id === 0) {
     for (var i=0; i<data.length;i++) {
       var currentTask = data[i];
