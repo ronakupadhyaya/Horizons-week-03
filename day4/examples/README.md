@@ -18,6 +18,8 @@ Complete the [forms exercise](forms/) in `week03/day4/examples/forms`.
 
 ### [Watch Me: Redirection](https://vimeo.com/221382208)
 
+---
+
 ## Section TODO: Redirection
 
 ### [Watch Me: AJAX in Express](TODO)
