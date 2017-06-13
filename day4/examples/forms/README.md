@@ -148,7 +148,7 @@ work through the exercise.
             Screenshot
             </summary><p>
 
-            ![Registration error](error.png)
+            ![Registration error](img/error.png)
 
             </p></details>
 
