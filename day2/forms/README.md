@@ -75,22 +75,10 @@ work through the exercise.
         <td> Must not be empty </td>
       </tr>
       <tr>
-        <td> DOB Month </td>
+        <td> Date of Birth </td>
         <td> N </td>
-        <td> select </td>
-        <td> Must be an integer between [1, 12] </td>
-      </tr>
-      <tr>
-        <td> DOB Day </td>
-        <td> N </td>
-        <td> select </td>
-        <td> Must be an integer between [1, 31] </td>
-      </tr>
-      <tr>
-        <td> DOB Year </td>
-        <td> N </td>
-        <td> select </td>
-        <td> Must be a non-negative integer </td>
+        <td> date </td>
+        <td> Must be a date in the past</td>
       </tr>
       <tr>
         <td> Password </td>
@@ -122,12 +110,6 @@ work through the exercise.
         <td> textarea </td>
         <td> Must not be blank </td>
       </tr>
-      <tr>
-        <td> User Registration Date </td>
-        <td> Y </td>
-        <td> text *(Hidden)* </td>
-        <td> Must not be filled with the date upon registration </td>
-      </tr>
     <table>
 
     You will be creating two pages: a registration form page and a profile page.
@@ -138,7 +120,7 @@ work through the exercise.
     If all data is valid, render a profile page using this information after submit.
 
     If not, render form back with error messages on validation errors.
-1. When you're done with your form it should look something like this.
+1. When you're done with your form it should look something like this (it's ok if it's slightly different).
 
     ![](img/form.png)
 
