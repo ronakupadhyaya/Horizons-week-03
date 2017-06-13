@@ -21,4 +21,33 @@ function countLines(fileName) {
   });
 }
 
-countLines(__filename);
+
+countLines('./sample.data');
+
+function mostPopular(fileName) {
+  var input = fs.createReadStream(fileName);
+  var rl = readline.createInterface({
+    input: input
+  });
+  var mostPopularPage = "";
+  var mostVisits = 0;
+  rl.on('line', function(line) {
+    // This is called for each line in file;
+    if (line.indexOf('.mw') > -1 || line.indexOf('Special:' > -1)) {
+
+    } else {
+      var arrLine = line.split(" ");
+      if (arrLine[2] > mostVisits) {
+        mostVisits = arrLine[2];
+        mostPopularPage = arrLine[1];
+      }
+    }
+  });
+  rl.on('close', function() {
+    // This is called when the file is done being read finished
+    console.log(mostPopularPage);
+    return mostPopularPage;
+  });
+}
+
+mostPopular('./sample.data');
