@@ -41,6 +41,18 @@ program.command('add')
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks)
+
+program.command('delete')
+  .description('Delete Tasks')
+  .action(deleteTask)
+
+program.command('toggleCompleted')
+  .description("Toggle Tasks")
+  .action(toggleCompleted)
+
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,10 +72,15 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt)
+  .option('-c, --completed', 'List all completed tasks');
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+// program
+//   .option('-p, --priority <n>', 'Specify priority of task', parseInt);
+
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -112,17 +129,49 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  // use process.argv
+  // if length is 3
+  if(program.completed){
+    var filtered = data.filter( (task, i) => {
+      if(i === 0) return true;
+      return false;
+    });
+    var ans = ``;
+    filtered.forEach( (task, i) => {
+      var temp = i+1;
+      ans += `Task #${temp} Priority ${task.priority}: ${task.name} Status: ${task.completed}\n`;
+    });
+    console.log(ans);
+    return;
+  }
+
+  if(process.argv.length === 3){
+    var ans = ``;
+    data.forEach( (task, i) => {
+      var temp = i+1;
+      ans += `Task #${temp} Priority ${task.priority}: ${task.name} Status: ${task.completed}\n`;
+    });
+    if(ans.length > 0){
+      console.log( ans.substring(0,ans.length-1) );
+    }
+  } else {
+    var index = parseInt(process.argv[process.argv.length - 1]);
+    var currTask = data[index-1];
+    console.log(`Task #${index} Priority ${currTask.priority}: ${currTask.name} Status: ${task.completed}`);
+  }
+
+  return data;
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +179,13 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var index = process.argv[process.argv.length - 1];
+  data.splice(index-1, 1);
+}
+
+function toggleCompleted(){
+  var index = process.argv[process.argv.length - 1];
+  data[index-1].completed = !data[index-1].completed;
 }
 
 // ---Utility functions---
