@@ -47,29 +47,29 @@ to use it.
 1. Create a new database in [mLab](https://mlab.com/home)
 1. Click on the database you've just created, then click on `Users > Add
    database user`, and pick a username and password
-1. Copy the **MongoDb URI** and replace `<dbuser>` `<dbpassword>` with the
-  username and password you just created. It should look like this:
+1. Copy the **MongoDb URI** on mLab and replace `<dbuser>` `<dbpassword>` with the
+  username and password you just created. It should look something like this:
 
     ```
-    mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
+    mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database
     ```
 
-1. Create new file `week03/day3/horizonstarter/config.js` and use
-   `module.exports` to return an object with a single key `MONGODB_URI`.
-   Set the value of this key to the URI from the previous step. It should
-   look like this:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `app.env` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
 
-    ```js
-    module.exports = {
-      MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
-    }
+    ```bash
+    export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database"
     ```
+
+1. Run `source env.sh` to import the environment variable from `env.sh`. For an explanation of `source` [click here](https://bash.cyberciti.biz/guide/Source_command). **IMPORTANT**: You must run this command each time you open a new shell. This is because the environmental variables are initialized each time a new shell is opened.
+
+1. Run `npm install` to install all of our project's dependencies.
 
 1. Start your app with `npm start`, if you see this message then you are good to go!
 
     ```
     Success: connected to MongoDb!
     ```
+    Note: If you encounter a warning reguarding `Db.prototype.authenticate` just ignore it for now. It has been documented as a [bug](https://github.com/Automattic/mongoose/issues/5304). Even professional programmers are known to make mistakes!
 
 ## Getting oriented
 
