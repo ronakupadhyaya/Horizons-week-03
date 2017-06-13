@@ -49,6 +49,35 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy");
   });
+
+  it("Toggle completed one task", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    expect(stdout.length).toBe(1);
+    expect(stdout[0]).toEqual("Task #3 Priority 3: Call the internet guy");
+  })
+
+  it("Toggle completed two tasks", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    child_process.execSync('node toDo.js toggleCompleted -i 2');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    expect(stdout.length).toBe(2);
+    expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv");
+    expect(stdout[1]).toEqual("Task #3 Priority 3: Call the internet guy");
+  })
+
+  it("Toggle completed two tasks with c flag", function() {
+    child_process.execSync('node toDo.js add Do the dishes');
+    child_process.execSync('node toDo.js add Fix tv --priority 2 -c');
+    child_process.execSync('node toDo.js add Call the internet guy -p 3 --completed');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    expect(stdout.length).toBe(2);
+    expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv");
+    expect(stdout[1]).toEqual("Task #3 Priority 3: Call the internet guy");
+  })
+
 });
 
 function runAndCleanStdout(cmd){
