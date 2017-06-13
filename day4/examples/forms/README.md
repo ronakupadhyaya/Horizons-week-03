@@ -144,13 +144,13 @@ work through the exercise.
         - **invalid**, it should send the handlebars-compiled registration form
         with an error message about which form fields are invalid.
 
-              <details><summary>
-              Screenshot
-              </summary><p>
+            <details><summary>
+            Screenshot
+            </summary><p>
 
-              ![Registration error](error.png)
+            ![Registration error](error.png)
 
-              </p></details>
+            </p></details>
 
 ## Validation
 
