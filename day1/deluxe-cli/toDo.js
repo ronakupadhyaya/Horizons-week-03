@@ -23,6 +23,7 @@ var data = JSON.parse(fs.readFileSync(JSON_FILE));
 // This is the NPM module commander, we use it to interpret
 // command line commands, arguments and flags.
 var program = require('commander');
+var args = process.argv;
 
 // ---Commands---
 // Time to start defining our Commands. What are we going to do with our program?
@@ -40,7 +41,16 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+program.command('toggleComplete')
+  .description("Toggle completeness of a task")
+  .action(toggleComplete);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +74,11 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Specify priority for the task', parseInt);
+
+program
+  .option('-c, --completed', 'Show completed tasks');
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -122,14 +137,46 @@ function addTask() {
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
-  // YOUR CODE HERE
+  if (program.id) {
+    var taskId = program.id;
+    console.log(`Task #${taskId} Priority ${data[taskId - 1].priority}: ${data[taskId - 1].name}`)
+  }
+  else if (program.completed) {
+    data.forEach(function(task, index) {
+      if (task.completed) {
+        console.log(`Task #${index - 1} Priority ${task.priority}: ${task.name} completed`);
+      }
+    })
+  }
+  else {
+    for (var i = 1; i <= data.length; i++ ) {
+      console.log(`Task #${i} Priority ${data[i - 1].priority}: ${data[i - 1].name}`);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  if (program.id) {
+    var taskId = program.id - 1;
+    data.splice(taskId, 1);
+  }
+}
+
+function toggleComplete() {
+  if (program.id) {
+    var taskId = program.id - 1;
+    if (data[taskId].completed) {
+      data[taskId].completed = false;
+      console.log('completed: ' + data[taskId].completed);
+    }
+    else {
+      data[taskId].completed = true;
+      console.log('completed: ' + data[taskId].completed);
+    }
+  }
 }
 
 // ---Utility functions---
