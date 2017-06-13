@@ -1,12 +1,22 @@
+var app = require('./app.js')
 module.exports = {
-
   // Find the company that has the largest single amount of money invested. In this
   // case, we are not looking for the sum of all investments made on a company. But
   // the largest sum invested by one investor.
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
   // Return the amount of the largest investment.
-  singleLargestInvestment: function(arr){
+  singleLargestInvestment: function(arr) {
+    var newArr = app.parser(arr);
+    var largest = -Infinity;
+    var firmName = '';
+    newArr.forEach(function(item) {
+      if (item.originalInvestment > largest) {
+        largest = item.originalInvestment;
+        firmName = item.company;
+      }
+    })
+    return largest;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -14,7 +24,22 @@ module.exports = {
   // This is equal to the sum of all the original investments divided by the number
   // of investments.
   // Return a Number.
-  averageOfOriginalInvestments: function(arr){
+  averageOfOriginalInvestments: function(arr) {
+    var newArr = app.parser(arr);
+    var length = newArr.length;
+    var newNum = newArr.map(function(item) {
+      return item.originalInvestment;
+    })
+    var sum = newNum.reduce(function(a, b) {
+      return a + b;
+    }, 0)
+    var sum2 = newArr.reduce(function(a, b) {
+      // console.log(a.originalInvestment); ////undefined ????
+      // console.log(b); ////
+      return a.originalInvestment + b.originalInvestment;
+    }, 0)
+    return sum / length;
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -28,7 +53,16 @@ module.exports = {
   //  2: 1024000,
   //   ...
   // }
-  totalOriginalInvestmentForCompanies: function(arr){
+  totalOriginalInvestmentForCompanies: function(arr) {
+    var newArr = app.parser(arr);
+    var result = new Object();
+    newArr.forEach(function(item) {
+      var name = item.company;
+      var oriInevst = item.originalInvestment;
+      if (!result.hasOwnProperty(name)) result[name] = oriInevst;
+      else result[name] += oriInevst;
+    })
+    return result;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -42,7 +76,16 @@ module.exports = {
   //  2: 1024000,
   //   ...
   // }
-  totalOriginalInvestmentsByInvestors: function(arr){
+  totalOriginalInvestmentsByInvestors: function(arr) {
+    var newArr = app.parser(arr);
+    var result = new Object();
+    newArr.forEach(function(item) {
+      var name = item.investorId;
+      var oriInevst = item.originalInvestment;
+      if (!result.hasOwnProperty(name)) result[name] = oriInevst;
+      else result[name] += oriInevst;
+    })
+    return result;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -57,8 +100,19 @@ module.exports = {
   //  2: 1024000,
   //   ...
   // }
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  totalCurrentValueOfInvestors: function(arr){
+  // Fields to be parsed: "originalInvestment", "valueToday"
+  totalCurrentValueOfInvestors: function(arr) {
+
+    var newArr = app.parser(arr);
+    var result = new Object();
+    newArr.forEach(function(item) {
+      var name = item.investorId;
+      var oriInevst = item.valueToday;
+      if (!result.hasOwnProperty(name)) result[name] = oriInevst;
+      else result[name] += oriInevst;
+    })
+    return result;
+
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -68,13 +122,39 @@ module.exports = {
   // Note: Remember to use their total of investments and the total of current value:
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
-  bestInvestorByValueIncrease: function(arr){
+  bestInvestorByValueIncrease: function(arr) {
+    // var newArr = app.parser(arr);
+    // console.log(this.totalCurrentValueOfInvestors);
+    var totalCurent = this.totalCurrentValueOfInvestors(arr);
+    var totalOrigin = this.totalOriginalInvestmentsByInvestors(arr);
+    var currentHigh = 1;
+    var currentId = 0;
+    var keyList = Object.keys(totalCurent);
+    keyList.forEach(function(item, index) {
+      item = parseInt(item);
+      var current = totalCurent[item];
+      var origin = totalOrigin[item];
+      if ((current / origin) > currentHigh) {
+        currentHigh = (current / origin);
+        currentId = item;
+      }
+    })
+    return currentId.toString();
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
-  mostInvestedCompany: function(arr){
+  mostInvestedCompany: function(arr) {
+
+    var newArr = app.parser(arr);
+    var largestAmount = this.singleLargestInvestment(arr);
+    var id = '';
+    newArr.forEach(function(item) {
+      if (item.originalInvestment === largestAmount) id = item.company;
+    })
+    return id;
     // Fields to be parsed: "originalInvestment", "valueToday"
   }
 
