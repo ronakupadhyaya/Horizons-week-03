@@ -35,13 +35,13 @@ var program = require('commander');
 // Where 'goToSleep' is function.
 
 // Example. Create the 'add' command.
-program.command('add')
-  .description("Create Tasks")
-  .action(addTask);
+program.command('add').description("Create Tasks").action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
-// YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('show').description('Show all the current tasks').action(showTasks);
 
+// YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete').description('Delete a specified task').action(deleteTask)
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -59,11 +59,11 @@ program.command('add')
 
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
-program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+program.option('-i, --id <n>', 'Specify id of task', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program.option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -77,8 +77,8 @@ if (process.argv.length === 2) {
 
 // This is a function that converts remaining unprocessed arguments into a string
 // so we can create tasks using it.
-function getRemainingArgs () {
-  var args = program.args.splice(0, (program.args.length-1));
+function getRemainingArgs() {
+  var args = program.args.splice(0, (program.args.length - 1));
   return args.join(" ");
 }
 
@@ -91,14 +91,9 @@ function getRemainingArgs () {
 function addTask() {
   var priority = program.priority || 1;
   var name = getRemainingArgs();
-  data.push({
-    name: name,
-    priority: priority,
-    completed: false
-  });
-  console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
+  data.push({name: name, priority: priority, completed: false});
+  console.log("Added task named: " + name + ", with id: " + data.length + ", and priority: " + priority);
 }
-
 
 // Write function showTasks(). It is be called when the program is called like
 // 'node toDo.js show' or 'node toDo.js show -i 3'
@@ -112,24 +107,45 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
-function showTasks(){
-  // YOUR CODE HERE
+function showTasks() {
+  var taskNum = 1;
+  if(process.argv.length === 3) {
+    data.forEach(function(task) {
+      console.log(`Task #${taskNum} Priority ${task.priority}: ${task.name}`)
+      taskNum += 1
+    });
+  }
+  else if(process.argv.length === 5) {
+    var index = process.argv[4];
+    var task = data[index - 1];
+    console.log(`Task #${index} Priority ${task.priority}: ${task.name}`)
+  }
+
+  return;
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
-function deleteTask(){
-  // YOUR CODE HERE
+function deleteTask() {
+  var argArray = process.argv;
+  var index = argArray[4];
+  console.log(index);
+  if(index !== undefined) {
+    console.log(data.splice(index - 1, 1));
+    return data
+  } else {
+    throw new Error('The index is out of range')
+  }
 }
 
 // ---Utility functions---
@@ -139,7 +155,7 @@ function writeFile(data) {
 }
 
 function ensureFileExists() {
-  if (! fs.existsSync(JSON_FILE)) {
+  if (!fs.existsSync(JSON_FILE)) {
     writeFile([]);
   }
 }
