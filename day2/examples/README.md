@@ -257,7 +257,7 @@ In this example you are to make a register form. Make sure that when you press s
     - name (text input box)
     - gender: male/female/other (radio buttons)
     - state (dropdown)
-1. Add logic in `example2.js` to make sure the data in your form will __NOT__ be cleared when you press _Register_.
+1. __BONUS__ Add logic in `example2.js` to make sure the data in your form will __NOT__ be cleared when you press _Register_.
 1. `npm install && node example2.js` to test your app.
 1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
 
