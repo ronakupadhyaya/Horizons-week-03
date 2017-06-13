@@ -10,6 +10,9 @@ app.get('/', function(request, response) {
   response.send('Express is running!')
 });
 
+app.get('/hello/:name', function(req, res) {
+  res.send("Hello there " + req.params.name)
+})
 // Create a route that listens to /hello and takes one query parameter
 // name and responds with 'Hello there NAME!'
 // You can access the query parameter 'name' via request.query.name.
@@ -18,3 +21,4 @@ app.get('/', function(request, response) {
 
 // Start the server listening on port 3000.
 app.listen(3000);
+console.log("server tart");

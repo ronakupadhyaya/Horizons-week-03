@@ -1,3 +1,30 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <ul>
+      {{#each dogs}}
+        <li>{{first}}</li>
+      {{/each}}
+    </ul>
+
+    <ul>
+      {{#if all}}
+      {{#each data}}
+      <li>First Name:{{first_name}} Last Name: {{last_name}} Email: {{email}} Gender: {{gender}} </li>
+      {{/each}}
+      {{/if}}
+
+      {{#if male}}
+        {{#each malArr}}
+            <li>First Name:{{first_name}} Last Name: {{last_name}} Email: {{email}} Gender: {{gender}} </li>
+        {{/each}}
+        {{/if}}
+
+      {{#if female}}
+        {{#each femArr}}
+            <li>First Name:{{first_name}} Last Name: {{last_name}} Email: {{email}} Gender: {{gender}} </li>
+        {{/each}}
+      {{/if}}
+
+    </ul>
+  </span>
 </div>
