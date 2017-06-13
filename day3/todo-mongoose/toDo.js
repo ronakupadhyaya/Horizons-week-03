@@ -6,20 +6,18 @@ var fs = require('fs');
 // command line commands, arguments and flags.
 var program = require('commander');
 
-// PART 0: Create a config.js file that should export the MONGODB_URI (use module.exports)
-
-var config = require('./config');
-
 // require the mongoose package
 var mongoose = require('mongoose');
 
+// PART 0: Create an env.sh file that should export the MONGODB_URI
+
 // connect to your Mongo Database
-mongoose.connect(config.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 // check if the connection was successful
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error. did you remember to create a config file? '));
+db.on('error', console.error.bind(console, 'connection error. did you remember to create env.sh?'));
 db.once('open', function() {
   // connected!
 });

@@ -15,21 +15,20 @@ var app = express();
 // mongoose configuration
 var mongoose = require('mongoose');
 
-if (! fs.existsSync('./config.js')) {
-  throw new Error('config.js file is missing');
+if (! fs.existsSync('./env.sh')) {
+  throw new Error('env.sh file is missing');
 }
-var config = require('./config');
-if (! config.MONGODB_URI) {
-  throw new Error('MONGODB_URI is missing in file config.js');
+if (! process.env.MONGODB_URI) {
+  throw new Error("MONGODB_URI is not in the environmental variables. Try running 'source env.sh'");
 }
 mongoose.connection.on('connected', function() {
   console.log('Success: connected to MongoDb!');
 });
 mongoose.connection.on('error', function() {
-  console.log('Error connecting to MongoDb. Check MONGODB_URI in config.js');
+  console.log('Error connecting to MongoDb. Check MONGODB_URI in env.sh');
   process.exit(1);
 });
-mongoose.connect(config.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 // Handlabars setup
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
