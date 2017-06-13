@@ -8,11 +8,15 @@ Today we will learn how to use AJAX in applications built with Express.
 
 ## Section TODO: Validation
 
-### [Watch Me: Redirection](TODO)
+### [Watch Me: Form validation](https://vimeo.com/221131674)
+
+Complete the [forms exercise](forms/) in `week03/day4/examples/forms`.
+
+---
 
 ## Section TODO: Redirection
 
-### [Watch Me: Redirection](TODO)
+### [Watch Me: Redirection](https://vimeo.com/221382208)
 
 ## Section TODO: Redirection
 

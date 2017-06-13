@@ -1,4 +1,4 @@
-# Pair Programming Exercise: Forms
+# Individual Exercise: Forms
 
 ## Goal
 
@@ -26,7 +26,6 @@ work through the exercise.
 
 ## Instructions
 
-1. [Watch Me: Form Validation](https://vimeo.com/221131674)
 1. Install your dependencies.
 
     ```bash
