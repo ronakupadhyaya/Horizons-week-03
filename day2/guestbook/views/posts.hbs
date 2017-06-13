@@ -23,6 +23,19 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+<form>
+  <div>
+    <ul>
+      {{#each posts}}
+      <li>
+        <a href="/posts?author={{author}}{{#if ../hasOrder}}&order={{../hasOrder}}{{/if}}">view only by this author</a>
+        {{author}} {{title}} {{date}} {{body}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</form>
+<form action="/posts/new">
+  <input type="submit" value="Create New Post">
+</form>
 </body>
 </html>
