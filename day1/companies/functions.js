@@ -1,3 +1,4 @@
+var util = require('./app.js')
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -7,6 +8,18 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
+    var newA = util.parser(arr);
+    var highest = arr[0];
+    var highestValue = arr[0].originalInvestment;
+    for (var i=1; i<arr.length; i++){
+      if (arr[i].originalInvestment>highestValue){
+        highest = arr[i];
+        highestvalue = arr[i].originalInvestment;
+      }
+
+    }
+    return highestValue;
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -15,6 +28,15 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
+    var newA=util.parser(arr);
+    var sum=0;
+    var companies=0;
+    for(var i=0; i<newA.length;i++){
+      companies+=1;
+      sum+=newA[i].originalInvestment
+    }
+    var average = sum/companies
+    return average;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -29,6 +51,19 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
+    var newA=util.parser(arr);
+    var pairs ={};
+
+    for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.company]){
+        pairs[comp.company]+=comp.originalInvestment;
+
+      } else {
+        pairs[comp.company]=comp.originalInvestment;
+      }
+    }
+    return pairs;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
@@ -43,7 +78,20 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var newA=util.parser(arr);
+    var pairs ={};
+
+    for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.investorId]){
+        pairs[comp.investorId]+=comp.originalInvestment;
+
+      } else {
+        pairs[comp.investorId]=comp.originalInvestment;
+      }
+    }
+    return pairs;
+
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +107,19 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var newA=util.parser(arr);
+    var pairs ={};
+
+    for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.investorId]){
+        pairs[comp.investorId]+=comp.valueToday;
+
+      } else {
+        pairs[comp.investorId]=comp.valueToday;
+      }
+    }
+    return pairs;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +130,49 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
+
+    var newA=util.parser(arr);
+    var totalCurrent = this.totalCurrentValueOfInvestors(newA);
+
+    var totalOriginal = this.totalOriginalInvestmentsByInvestors(newA);
+    var ratio = {};
+    var keys = Object.keys(totalCurrent);
+    var max= 0;
+    var maxId = null;
+    for(key in totalCurrent){
+      var r = totalCurrent[key]/totalOriginal[key];
+      ratio[key]=r;
+      if (r>max){
+        max = r;
+        maxId = key;
+
+      }
+    }
+    return maxId;
+
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var newA=util.parser(arr);
+    var pairs ={};
+   for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.company]){
+        pairs[comp.company]+=comp.originalInvestment;
+     } else {
+        pairs[comp.company]=comp.originalInvestment;
+      }
+    }
+    var max = 0;
+    for (var prop in pairs) {
+      if (prop > max) {
+        max = prop;
+      }
+    }
+    return max;
   }
-
 }
