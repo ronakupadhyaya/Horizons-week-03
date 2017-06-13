@@ -10,19 +10,112 @@
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
-<body>
-<h1>View all posts</h1>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    flex: 1;
+    border: 3px white dotted;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  h2 {
+    flex: 1;
+    font-weight: bold;
+    font-size: 1em;
+  }
+  h3, h5 {
+    margin-top: 0;
+  }
+  h5 {
+    margin-left: 2%;
+  }
+  h2, h4 {
+    color: rgb(132, 115, 122);
+  }
+  .all_posts {
+    flex: 7;
+  }
+  .post {
+    background-color: rgba(255,255,255,0.75);
+    padding: 5px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .post a {
+    color: rgb(112, 134, 137);
+    align-self: center;
+  }
+  .post div h5 {
+    color: rgb(112, 134, 137);
+    align-self: flex-end;
+  }
+  .post:hover {
+    font-size:105%;
+    padding: 7px;
+  }
+  #post_new {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: black;
+    text-decoration: none;
+    font-weight: normal;
 
-<h2>Your username: {{username}}</h2>
+  }
+  .buttons {
+    margin-bottom: 10px;
+  }
+  .buttons a, #logout {
+    color: rgb(112, 134, 137);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #header {
+    align-self: flex-end;
+    margin-right: 5%;
+  }
+  #header h2, #logout {
+    display: inline-block;
+    margin: 0;
+  }
 
-<!-- Part 2: Display posts -->
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+</style>
+<body class="elem">
+  <div id="header">
+    <h2> {{username}}</h2>
+    <a id="logout" href="/login" action='/login'>logout</a>
+  </div>
+  <!-- Part 1: Display header & buttons -->
+  <h1>view all posts</h1>
+  <a id="post_new" method="GET" action="/posts/new" href="/posts/new">post new</a>
 
-<!-- YOUR CODE HERE -->
+  <div class="buttons">
+    {{#if author}}
+      <a href="/posts?author=author&amp;order=flip">flip chronological</a>
+    {{else}}
+      <a href="/posts?order=flip">flip chronological</a>
+    {{/if}}
+    <a href="/posts?recover=true">show all posts</a>
+  </div>
+  <!-- Part 2: Display posts -->
+  <div class="all_posts">
+    {{#each posts}}
+      <div class="post">
+        <div> <h3>{{author}}</h3> <h5>{{date}}</h5> </div>
+        <h4>{{title}}</h4>
+        </h5>{{body}}</h5>
+        <br> </br>
+        <a href="/posts?author={{author}}">show posts by this author only</a>
+      </div>
+    {{/each}}
+  </div>
 
 </body>
 </html>

@@ -1,7 +1,72 @@
 /* YOUR CSS RULES GO HERE */
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Courier New", Courier, monospace;
+  background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 100%);
+  /*background-color: rgb(178, 155, 165);*/
+  /*background-image: linear-gradient(#e9ffad, #fcf0ea, #fceaea);*/
+  z-index: -1;
+
+}
+
+/*@keyframes aniBack {
+  0% {
+    background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 100%);
+  }
+  20% {
+    background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 87%);
+  }
+  40% {
+    background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 75%);
+  }
+  60% {
+    background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 87%);
+  }
+  100% {
+    background: radial-gradient(ellipse at center, rgba(214,249,255,1) 0%,rgba(229, 218, 223,1) 100%);
+  }
+}*/
+
+@keyframes aniBack {
+  0% {
+    background: rgba(214,249,255,1);
+  }
+  50% {
+    background: rgba(229, 218, 223,1);
+  }
+  100% {
+    background: rgba(214,249,255,1);
+  }
+}
+
+/*@keyframes aniBack {
+  0% {
+    background: linear-gradient(rgba(214,249,255,1),rgba(229, 218, 223,1),rgba(214,249,255,1));
+  }
+  100% {
+    background: linear-gradient(rgba(229, 218, 223,1), rgba(214,249,255,1), rgba(229, 218, 223,1));
+  }
+}*/
+
+.elem {
+  animation-iteration-count: infinite;
+  animation-name: aniBack;
+  animation-duration: 25s;
+  animation-timing-function: linear;
+
+}
+
+h3, h5  {
+  display: inline-block;
+  margin-bottom: 0;
+}
+h4 {
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+
+.post {
+  margin: 5px 5px 5px 5px;
 }
 
 a {

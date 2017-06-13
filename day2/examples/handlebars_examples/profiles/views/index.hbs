@@ -1,3 +1,15 @@
-<div>
-  <span>YOUR CODE HERE</span>
-</div>
+
+<head>
+  <title>For Looping IT</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Students in some random class:</h1>
+    <ul>
+      <!--show all-->
+      {{#each data}}
+          <li>{{this.last_name}}, {{this.first_name}}: {{email}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</body>
