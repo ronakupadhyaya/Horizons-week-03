@@ -8,9 +8,17 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// YOUR CODE HERE
+app.get("/", function(req, res) {
+  res.render("index", {
+    student: data
+  });
+});
+
+app.get("/:gender", function(req, res) {
+  var student = data.filter(s => s.gender.toLowerCase() === req.params.gender.toLowerCase());
+  res.render("index", {
+    student: student
+  });
+});
 
 app.listen(3000);
-
-
-
