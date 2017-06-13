@@ -45,6 +45,9 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login',{
+    username: req.query.username
+  })
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +67,28 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+
+  var content = data.read();
+  if (req.query.author){
+    content = content.filter(function(post){
+      return post.author===req.query.author
+    });
+  }
+  if (req.query.order==='ascending'){
+    content.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+  } else {
+    content.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
-  });
+    username: req.cookies.username,
+    posts: content,
+    author: req.query.author
+
+  })
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +102,10 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username){
+    res.render('post_form', { title: 'New Post' });
+  }
+  else{ console.log(" 401 you are not logged in") }
 });
 
 // POST /posts:
@@ -102,6 +126,29 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+  req.checkBody('body', 'Title must not be empty').notEmpty()
+  var errors = req.validationErrors();
+  var posts = data.read();
+  // var posts = data.read()
+  if(errors){
+    res.render('post_form',{
+      title: 'New Post',
+      error: res.statusCode('401').send('you are not logged in')
+    })
+  }
+  if(!errors && req.cookies.username){
+    var post = {
+      author: req.cookies.username,
+      title: req.body.title,
+      date: req.body.date,
+      body: req.body.body
+    }
+    posts.push(post)
+  // jsonfile.writeFileSync(posts,data)
+    data.save(posts)
+  }
+  
 });
 
 // Start the express server

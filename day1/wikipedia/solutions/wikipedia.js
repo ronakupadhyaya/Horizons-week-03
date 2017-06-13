@@ -28,12 +28,14 @@ reader.on('line', function(line) {
       }
     }
 
-    var lang = parts[0];
-    if (!_.has(languages, lang)) {
-      languages[lang] = 0;
+      var lang = parts[0];
+      if (!_.has(languages, lang)) {
+        languages[lang] = 0;
+      }
+      languages[lang] += visitors;
     }
-    languages[lang] += visitors;
   }
+  count ++
 });
 
 

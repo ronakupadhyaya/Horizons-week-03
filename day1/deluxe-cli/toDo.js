@@ -40,8 +40,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
-// YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('show')
+  .description("Shows Tasks")
+  .action(showTasks);
 
+// YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
+program.command('complete')
+  .description("Task completed")
+  .action(toggleCompleted);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -60,7 +70,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt)
+  .option('-c, --completed', 'Specify task completion', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
@@ -99,6 +111,15 @@ function addTask() {
   console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
 }
 
+// toggle completed
+
+function toggleCompleted() {
+  if(program.id){
+    console.log("Task #" + program.id +" is done.");
+  }
+}
+
+
 
 // Write function showTasks(). It is be called when the program is called like
 // 'node toDo.js show' or 'node toDo.js show -i 3'
@@ -123,6 +144,14 @@ function addTask() {
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id - 1;
+    console.log("Task #"+ program.id + " Priority " + data[id].priority + ": " + data[id].name)
+  }else{
+    for (var i=0; i<data.length; i++){
+      console.log("Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name)
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +159,14 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id - 1;
+    data.splice(id, 1)
+    console.log("The task removed was " + data[id])
+  }else{
+    console.log("No task specified")
+  }
+
 }
 
 // ---Utility functions---

@@ -1,5 +1,15 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post" action="/login">
+  <span>
+		<div>
+	      <input  name="email" placeholder="email" type="text" value="{{email}}">
+	    </div> 
+	    <div>
+	      <input  name="password" placeholder="password" type="password" value="{{password}}">
+	    <div>
+          <input  name="submit" value="Submit" type="submit">
+        </div> 
+        <h1>Hi {{name}}</h1>
+  </span>
 </form>
 
 

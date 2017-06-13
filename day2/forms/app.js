@@ -45,6 +45,13 @@ app.get('/register', function(req, res){
 // https://github.com/ctavan/express-validator
 function validate(req) {
   req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dobMonth', 'Invalid dobMonth').notEmpty().isInt();
+  req.checkBody('dobDay', 'Invalid dobDay').notEmpty().isInt();
+  req.checkBody('dobYear', 'Invalid dobYear').notEmpty().isInt();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
 }
 
 // ---Part 2: Render errors and profile---
