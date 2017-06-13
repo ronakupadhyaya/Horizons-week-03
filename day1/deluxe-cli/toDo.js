@@ -40,7 +40,22 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
+program.command('completed')
+  .description("Delete Tasks")
+  .action(completeTask);
+
+program.command('toggleCompleted')
+  .description("Delete Tasks")
+  .action(toggleCompleted);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +79,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Specify priority', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -98,8 +115,6 @@ function addTask() {
   });
   console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
 }
-
-
 // Write function showTasks(). It is be called when the program is called like
 // 'node toDo.js show' or 'node toDo.js show -i 3'
 // This function should output the appropriate TO-Do tasks using console.log().
@@ -112,24 +127,56 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  var args = getRemainingArgs();
+
+  // for node toDo.js show
+  if (program.id === undefined){
+    //console.log(data[0]);
+    for (var i = 0; i<data.length; i++){
+      console.log("Task #"+(i+1)+ " Priority " + data[i]["priority"] + ": " + data[i]["name"] + "Completed: "+ data[i]["completed"]);
+    }
+  }
+  else {
+    console.log("Task #"+(program.id)+ " Priority " + data[program.id-1]["priority"] + ": " + data[program.id-1]["name"]+ "Completed: "+ data[program.id-1]["completed"]);
+  }
+
+
 }
 
-// Write a function that is called when the command `node toDo.js add delete -i 3`
+// Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  //console.log(data);
+  var index = program.id;
+  data.splice(index-1, 1);
+}
+
+//BONUSSS
+function completeTask() {
+  var index = program.id;
+  data[index-1]["completed"] = true;
+}
+function toggleCompleted() {
+  var index = program.id;
+  if (data[index-1]["completed"] === true){
+    data[index-1]["completed"] = false;
+  }
+  else{
+    data[index-1]["completed"] = true;
+  }
 }
 
 // ---Utility functions---
