@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description('Show Tasks')
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description('Delete Task')
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +70,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Specify the priority of task', parseInt)
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -112,17 +120,27 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  if(process.argv.indexOf('-i') > -1 || process.argv.indexOf('--id') > -1){
+    var idLoc = process.argv.indexOf('-i')  + 1;
+    var id = parseInt(process.argv[idLoc]);
+    console.log(`Task #${id} Priority ${data[id-1].priority}: ${data[id-1].name}`);
+  } else {
+    data.forEach(function(task, index){
+      console.log(`Task #${index+1} Priority ${task.priority}: ${task.name}`);
+    })
+  }
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +148,13 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(process.argv.indexOf('-i') > -1 || process.argv.indexOf('--id') > -1){
+    var idLoc = process.argv.indexOf('-i') + 1;
+    var id = parseInt(process.argv[idLoc]);
+    data.splice(id-1, 1);
+  } else {
+    throw new Error('index not found')
+  }
 }
 
 // ---Utility functions---
