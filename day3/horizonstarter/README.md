@@ -93,14 +93,14 @@ created document.
   Use `Project.find()` to get all the Projects from MongoDb and render
   them on `index.hbs`.
 
-  Remember you have to do `res.render()` inside the callback for `.find()` like
-  so:
+    Remember you have to do `res.render()` inside the callback for `.find()` like
+    so:
 
-  ```javascript
-  SomeMongoDbModel.find(function(err, array) {
-    res.render('template', {items: array});
-  });
-  ```
+    ```javascript
+    SomeMongoDbModel.find(function(err, array) {
+      res.render('template', {items: array});
+    });
+    ```
 1. Edit `week03/day3/horizonstarter/views/index.hbs` and use [`{{#each}}`](http://handlebarsjs.com/builtin_helpers.html)
   to display all the Projects you get from `.find()`.
 
@@ -130,13 +130,13 @@ created document.
     1. `end`: Date input field
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
     1. Validate form fields using `express-validate`, if there are errors render
-    `new.hbs` with error messages and the form fields filled in.
+      `new.hbs` with error messages and the form fields filled in.
 
-      You can use the `value=""` HTML attribute for this purpose:
+        You can use the `value=""` HTML attribute for this purpose:
 
-      ```html
-      <input type="text" name="title" value="{{project.title}}">
-      ```
+        ```html
+        <input type="text" name="title" value="{{project.title}}">
+        ```
 
     1. If there are no validation errors, create a new `Project` and
     `.save()` it. If `.save()` is successful redirect to `/`.
