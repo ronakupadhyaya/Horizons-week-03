@@ -1,6 +1,8 @@
 "use strict";
 // The node builtin filesystem library.
 var fs = require('fs');
+var _ = require('underscore');
+
 
 // This is the file where we're storing our data.
 // It's in this directory you can open it and check out the contents.
@@ -40,7 +42,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask);
+
+  program.command('completed')
+    .description("Complete Task")
+    // .action();
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +77,13 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
+
+program
+  .option('-c, --completed <n>', 'completed tasks');
+
+
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -112,17 +132,63 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  // console.log(data);
+  var sortedTasks = _.sortBy(data,'priority');
+  // console.log(getRemainingArgs);
+  // console.log(sortedTasks);
+
+  if(program.id){
+    var id = program.id;
+    var item = data[program.id - 1];
+    // var completed = item.complete
+    console.log(`Task #${id} Priority ${item.priority}: ${item.name}`);
+    // if(item.completed){
+    //   console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name} Status: Completed`);
+    // }else{
+    //   console.log(`Task #${id} Priority ${item.priority}: ${item.name}`);
+    // }
+  }else{
+    // for (var i = sortedTasks.length-1; i >=0; i--) {
+    //   var prior = sortedTasks[i].priority;
+    //   var name = sortedTasks[i].name;
+    //   var id = sortedTasks.length-i;
+    //   console.log(`Task #${id} Priority ${prior}: ${name}`);
+    // }
+    for (var i = 0; i < data.length; i++) {
+      var id = i +1;
+      // var str = `Task #${id} Priority ${data[i].priority}: ${data[i].name}`;
+      // if(data[i].completed){
+      //   console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name} Status: Completed`);
+      // }else{
+      //   console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name} Status: Completed`);
+      //
+      // }
+      if(program.completed){
+        if(data[i].completed){
+          // str.append("Status: Completed");
+          console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name} Status: Completed`);
+        }
+      }else{
+        console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name}`);
+      }
+    }
+  }
+
+
+
+
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +196,28 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if(program.id){
+    data.splice(program.id-1,1);
+  }
+
+}
+
+function toggleCompleted(){
+  if(program.id){
+    var id = program.id;
+    var item = data[program.id - 1];
+    var status = item.completed;
+    item.completed = !status;
+    // console.log(`Task #${id} Priority ${item.priority}: ${item.name}`);
+  }else{
+    for (var i = 0; i < data.length; i++) {
+      // var id = i +1;
+      var item = data[i];
+      var status = item.completed;
+      item.completed = !status;
+      // console.log(`Task #${id} Priority ${data[i].priority}: ${data[i].name}`);
+    }
+  }
 }
 
 // ---Utility functions---

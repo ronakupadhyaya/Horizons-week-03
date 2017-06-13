@@ -1,8 +1,10 @@
 "use strict";
 
+
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
+// var _ = require('underscore');
 
 // Write a function that takes the path of a CSV file, reads its contents and
 // returns them as as an array of JavaScript objects.
@@ -31,9 +33,23 @@ var csvjson = require('csvjson');
 //      valueToday: '300000' },
 //      ...
 //    ]
+
+var options = {
+  delimiter : ',' // optional
+};
 function fileReader(csvFilePath){
   // YOUR CODE HERE
+  // console.log(csvFilePath);
+  // console.log();
+  var str = fs.readFileSync(csvFilePath, 'utf-8');
+  var json = csvjson.toObject(str,options);
+  // console.log(json);
+  return json;
+  // return str;
 }
+
+// fileReader('investments1.csv');
+
 
 // Write a function that takes an array of investment objects and replaces
 // the "originalInvestment", "valueToday" fields in each object with numbers
@@ -48,6 +64,15 @@ function fileReader(csvFilePath){
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
   // YOUR CODE HERE
+
+  arr.forEach(function(item){
+    var orig = item["originalInvestment"];
+    item["originalInvestment"] = parseInt(orig);
+    var val = item["valueToday"];
+    item["valueToday"] = parseInt(val);
+  })
+
+  return arr;
 }
 
 module.exports = {

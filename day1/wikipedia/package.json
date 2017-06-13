@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "heap": "^0.2.6",
+    "heap-min-max": "^1.0.4",
     "underscore": "^1.8.3"
   }
 }

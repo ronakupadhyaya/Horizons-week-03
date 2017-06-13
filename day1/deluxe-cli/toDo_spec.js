@@ -49,6 +49,20 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy");
   });
+
+
+  it("toggles completed, switches value of -c tag for item ", function() {
+    generateTasks();
+
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    // var stdout = runAndCleanStdout('node toDo.js toggleCompleted --id 3');
+    // expect(stdout.length).toBe(3);
+    // var status = stdout[0].completed;
+    // expect(stdout[0].completed).toEqual(false);
+    // expect(stdout[0].completed).toEqual(true);
+    expect(stdout[0]).toEqual("Task #2 Priority 3: Call the internet guy Status: Completed");
+  });
 });
 
 function runAndCleanStdout(cmd){
