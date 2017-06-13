@@ -1,5 +1,11 @@
+<form method="post" action="/login">
+  Email <input type="text" name="email" value="{{email}}">
+  Password <input type="password" name="password" value="{{password}}">
+  <input type="submit" value="Submit"/>
+</form>
+
 {{#if isValid}}
   <h1>Hi {{name}}!</h1>
 {{else}}
-  <h1>ERROR</h1>
+  <h1 style="color:red">ERROR: invalid login credentials</h1>
 {{/if}}

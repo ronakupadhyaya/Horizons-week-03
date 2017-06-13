@@ -11,14 +11,29 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
+  var isFemale, isMale, isOther = false;
+  if(req.query.gender ==="Female"){
+    isFemale=true;
+    isMale = false;
+    isOther = false;
+  } else if(req.query.gender ==="Male"){
+    isFemale=false;
+    isMale = true;
+    isOther = false;
+  } else if(req.query.gender ==="Other"){
+    isFemale=false;
+    isMale = false;
+    isOther = true;
+  }
   res.render('example2', {
     text: req.query.text,
     user: req.query.username,
     password: req.query.password,
     name: req.query.name,
     gender: req.query.gender,
-    isMale: req.query.gender=="Male",
-    isFemale: req.query.gender=="Female",
+    isMale: isMale,
+    isFemale: isFemale,
+    isOther: isOther
   });
 });
 

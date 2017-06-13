@@ -3,10 +3,23 @@
     <input type="text" name="username" value="{{user}}">
     <input type="password" name="password" value="{{password}}">
     <input type="text" name="name" value="{{name}}">
-    <input type="radio" name="gender" value="{{gender}}" checked={{isMale}}> Male<br>
-    <input type="radio" name="gender" value="Female" checked={{isFemale}}> Female <br>
-    <input type="radio" name="gender" value="Other"> Other
+    {{#if isMale}}
+      <input type="radio" name="gender" value="Male" checked> Male<br>
+      <input type="radio" name="gender" value="Female"> Female <br>
+      <input type="radio" name="gender" value="Other"> Other <br>
+    {{else}}
+      {{#if isFemale}}
+        <input type="radio" name="gender" value="Male"> Male<br>
+        <input type="radio" name="gender" value="Female" checked> Female <br>
+        <input type="radio" name="gender" value="Other"> Other <br>
+      {{else}}
+        <input type="radio" name="gender" value="Male"> Male<br>
+        <input type="radio" name="gender" value="Female"> Female <br>
+        <input type="radio" name="gender" value="Other" checked> Other <br>
+      {{/if}}
+    {{/if}}
     <input type="submit" value="Register"/>
     <!-- <input type="text" name="name" value="{{name}}"> -->
+<!-- <p>{{gender}}</p> -->
   <!-- </span> -->
 </form>
