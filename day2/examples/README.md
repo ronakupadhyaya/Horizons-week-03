@@ -192,8 +192,7 @@ if `isEven` is true, otherwise display
 1. Open `/week03/day2/examples/handlesbars_examples/profiles/` in your Terminal
 1. Run `npm install`
 1. Take a look at `data.json`; this is a list of student info that contians `first_name`, `last_name`, `email`, and `gender`.
-1. Create a Handlebars template under `views` that given an array of students displays
-displays their first name, last name, and email in a list.
+1. Create a Handlebars template under `views` that, given an array of students, displays their first name, last name, and email in a list.
 1. Create the following routes that render the template you created in the
 previous step:
     - `/`: A directory of __ALL__ students
@@ -229,7 +228,7 @@ e following steps should work:
 
         </p></details>
 
-    1. Type __Change The Header__ into the input box and press submite
+    1. Type __Change The Header__ into the input box and press submit
     1. The heading should change to __Change The Header__ like below
 
         <details><summary>
@@ -239,6 +238,9 @@ e following steps should work:
         ![form_1_2]
 
         </p></details>
+
+[form_1_1]: ../img/form_1_1.png
+[form_1_2]: ../img/form_1_2.png
 
 ### Section 4b. Form Action Attribute
 
@@ -267,9 +269,11 @@ In this example you are to make a register form. Make sure that when you press s
 
     </p></details>
 
+[form_2_1]: ../img/form_2_1.png
+
 ### Section 4c. Form Method Attribute
 
-### [Watch Me: Chrom DevTools Network Tab](https://vimeo.com/213266902)
+### [Watch Me: Chrome DevTools Network Tab](https://vimeo.com/213266902)
 
 ### [Watch Me: Form Method Attribute](https://vimeo.com/221123663)
 
@@ -296,4 +300,6 @@ Now for this example we're going to implement login functionality for our users.
 1. Fill in the form with random credentials and make sure the error message pops up
 1. Fill in the form with someone's credentials from `accounts.js` and press Login. You should see the correct heading for that person pop up!
 
-Woohoo! You completed the individual exercises for the day!
+[form_3_1]: ../img/form_3_1.png
+
+Woohoo! You've completed the individual exercises for the day!
