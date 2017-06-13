@@ -19,6 +19,7 @@ ensureFileExists();
 //
 // We're going to be modifying data with our commands.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
+// console.log(data);
 
 // This is the NPM module commander, we use it to interpret
 // command line commands, arguments and flags.
@@ -40,8 +41,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
-
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -60,7 +66,8 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
@@ -112,17 +119,34 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  // output: Task #ID Priority PRIORITY: NAME
+  // flag for id --> display on this task
+  // no flag id --> return all tasks
+  // id = index in data + 1
+  if(program.id) { //if id exists
+    var id = program.id - 1;
+    // console.log(data);
+    var tasks = data[id];
+    // console.log("taskks", tasks);
+    console.log("Task #" + program.id + " Priority " + tasks.priority + ": " + tasks.name);
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      var tasks2 = data[i];
+        console.log("Task #" + (i+1) +" Priority " + tasks2.priority +": " + tasks2.name )
+    }
+  }
+
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +154,11 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  if (program.id) {
+    var id = program.id - 1;
+    data.splice(id, 1); // splice it from our data
+    console.log(program.id);
+  } 
 }
 
 // ---Utility functions---
