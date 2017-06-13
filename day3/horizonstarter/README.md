@@ -6,6 +6,8 @@ Welcome to the wild world of Node web applications! With node, mongo+mongoose,
 Express and Handlebars, you now have the tools you need to build a
 fully-fledged, fully-functional backend web application.
 
+**⚠️ This is a two day project! Try to complete Parts 1 through 4 on the first day. ⚠️**
+
 ### The goal
 
 Our goal is to write the Horizon Starter app (a clone of Kickstarter) with Node
@@ -83,7 +85,7 @@ to create test data and look at your database in mLab. Note how there's now a
 collection called `projects` and inside this collection you should see the newly
 created document.
 
-## Exercises
+## Day 1 Exercises
 
 ### Part 1: View all projects
 
@@ -170,6 +172,11 @@ that allows us to make contributions.
   1. Percentage of the project goal met
     (use [a Bootstrap progress bar](http://www.w3schools.com/bootstrap/bootstrap_progressbars.asp))
   1. List of all contributions showing who and how much.
+
+
+## Try to complete exercises up to here on Day 1 of this exercise!
+
+---
 
 ### Part 5: Project categories
 
