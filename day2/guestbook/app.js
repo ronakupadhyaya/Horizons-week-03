@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +64,37 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var posts = data.read();
+  var link = "http://localhost:3000/posts";
+  var linkText = "View posts by this author";
+  var multiple = true;
+
+  if(req.query.order === "ascending"){
+      posts.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
+  } else {
+      posts.sort(function(a,b){
+        return new Date(b.date) - new Date(a.date);
+      });
+  }
+
+  if(req.query.author){
+    multiple = false;
+    posts = posts.filter(function(obj){
+      return obj.author === req.query.author;
+    });
+    linkText = "View posts by ALL authors";
+  }
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: posts,
+    link: link,
+    linkText: linkText,
+    multiple: multiple
   });
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +108,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(!req.cookies.username){
+    res.sendStatus(401);
+  }else{
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -101,6 +132,28 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
+  // if not logged in
+
+  if(!req.cookies.username){
+    res.sendStatus(401);
+  }else if(req.body.title && req.body.body && req.body.date){
+    var title = req.body.title;
+    var body = req.body.body;
+    var date = req.body.date;
+    console.log("date is", date);
+    console.log(typeof date);
+    var newPost = {author: req.cookies.username, title: title, body: body, date: date};
+
+    var newData = data.read();
+    newData.push(newPost);
+    data.save(newData);
+
+    res.send("Successfuly post!")
+
+  }else{
+    res.status(400).send("Sorry again");
+  }
+
   // YOUR CODE HERE
 });
 

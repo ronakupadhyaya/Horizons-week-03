@@ -1,5 +1,15 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post" action="/login">
+  <input type="text" name="email" placeholder="email" value={{formEmail}}>
+  <input type="password" name="password" placeholder="password" value={{formPassword}}>
+  <input type="submit" name="" value="Submit">
 </form>
 
+{{#if post}}
 
+{{#if name}}
+  <h1> HI {{name}} </h1>
+{{else}}
+  <font color="red"><h1> YOU ARE AN INTRUDER!! :O </h1> </font>
+{{/if}}
+
+{{/if}}

@@ -22,6 +22,30 @@
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
+<a href="http://localhost:3000/posts?order=ascending">Ascending</a>
+<a href="http://localhost:3000/posts?order=descending">Descending</a>
+
+<div id="board">
+
+  {{#each posts}}
+    <div>
+        <h4> {{this.author}} : {{this.date}} </h4>
+        <h5> {{this.title}} </h5>
+        <p> {{this.body}} </p>
+
+        {{#if ../multiple}}
+          <a href="{{../link}}?author={{this.author}}"> {{../linkText}}</a>
+        {{else}}
+          <a href="{{../link}}"> {{../linkText}} </a>
+        {{/if}}
+
+
+
+    </div>
+  {{/each}}
+
+</div>
+
 <!-- YOUR CODE HERE -->
 
 </body>
