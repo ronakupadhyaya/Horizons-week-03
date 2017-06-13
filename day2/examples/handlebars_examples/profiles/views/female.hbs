@@ -7,11 +7,11 @@
 	<body>
 		<div>
   			<ul>
-  				<em>
+  				{{#if this.gender === female}}
 					{{#each data}}
 						<li> {{this.first_name}} {{this.last_name}} </li>
 					{{/each}}
-				</em>
+				{{/if}}
 			</ul>
 		</div>
 	</body>
