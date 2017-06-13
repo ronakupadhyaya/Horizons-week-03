@@ -1,5 +1,5 @@
 "use strict";
-
+// var packageName = require('packageName');
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
@@ -31,8 +31,11 @@ var csvjson = require('csvjson');
 //      valueToday: '300000' },
 //      ...
 //    ]
-function fileReader(csvFilePath){
-  // YOUR CODE HERE
+function fileReader(csvFilePath) {
+  var data = fs.readFileSync(csvFilePath, { 
+    encoding :   'utf8'
+  });
+  return csvjson.toObject(data);
 }
 
 // Write a function that takes an array of investment objects and replaces
@@ -46,8 +49,14 @@ function fileReader(csvFilePath){
 //   [{id: '1', investorId: '1', company: '9',
 //     originalInvestment: 1100000, // Note conversion from string to number
 //     valueToday: 1000000}] // Note conversion from string to number
-function parser(arr){
-  // YOUR CODE HERE
+function parser(arr) {
+  arr.forEach(function(item) {
+    var oInv = item["originalInvestment"];
+    item["originalInvestment"] = parseInt(oInv);
+    var vToday = item["valueToday"];
+    item["valueToday"] = parseInt(vToday);
+  });
+  return arr;
 }
 
 module.exports = {
