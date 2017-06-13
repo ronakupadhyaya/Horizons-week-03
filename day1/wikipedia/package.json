@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "csvjson": "^4.3.3",
     "underscore": "^1.8.3"
-  }
+  },
+  "name": "wikipedia",
+  "description": "## Goal",
+  "version": "1.0.0",
+  "main": "wikipedia.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ahijaouy",
+  "license": "ISC"
 }
