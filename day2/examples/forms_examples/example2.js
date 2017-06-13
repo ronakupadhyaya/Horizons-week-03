@@ -11,8 +11,21 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  res.render('example2', {
+
+  });
 });
+
+app.get('/registration', function(req, res){
+  res.render('example2', {
+    usernameVal: req.query.username,
+    passwordVal: req.query.password,
+    nameVal: req.query.name,
+    maleVal: req.query.gender,
+    femaleVal: req.query.gender,
+    Other: req.query.gender
+  });
+})
 
 // start the express app
 var port = process.env.PORT || 3000;

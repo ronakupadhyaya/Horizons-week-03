@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.write(data): Write the given data to disk.
 var data = require('./data');
 
+
 app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
@@ -45,6 +46,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -68,6 +70,8 @@ app.get('/posts', function (req, res) {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read()
   });
 });
 
@@ -82,6 +86,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username && req.cookies) {
+    res.render('post_form');
+  } else {
+    throw ("Error! You Must Login First")
+  }
 });
 
 // POST /posts:
@@ -102,6 +111,28 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  // specified -->author, title, body can't be empty
+  req.checkBody('body', 'body cannot be empty').notEmpty();
+  req.checkBody('title', 'title cannot be empty').notEmpty();
+  var err = req.validationErrors();
+
+  if (err) {
+    res.render('post_form', {
+      error:'enter something'
+    });
+  }
+  var newArr = data.read();
+  if(req.cookies.username && req.cookies) {
+    var newPost = {
+      author: req.cookies.username,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date
+    }
+  }
+  newArr.push(newPost);
+  data.save(newArr);
+  res.redirect('/posts');
 });
 
 // Start the express server

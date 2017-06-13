@@ -1,5 +1,20 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HEHE</title>
+  </head>
+  <body>
+    <form method='post'>
+      Email <input type='text' name='email' value='{{emailVal}}'>
+      Password: <input type'password' name='secret' value=''>
+      <input type="submit" value="Login">
+    </form>
+    {{#if}}
+      <h1>Hi {{accounts.first_name}} !</h1>
+      {{else}}
+        ERROR
+    {{/if}}
 
-
+  </body>
+</html>
