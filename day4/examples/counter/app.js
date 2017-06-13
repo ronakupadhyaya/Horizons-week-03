@@ -1,33 +1,37 @@
+"use strict";
+
 var express = require('express');
+var app = express();
 var path = require('path');
 
-var app = express();
+// Set up handlebar templates
+var exphbs = require('express-handlebars');
+app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
-// Add static files to Express
+// Enable POST request body parsing
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Redirect / to /index.html since we're not going to be rendering
-// html in the server in this exercise
-app.get('/', function(req, res) {
-  res.redirect('/index.html');
-});
-
-// We use a variable to keep count
-var counter = 0;
-
-// This is a JSON endpoint that increases the count and returns its current
-// value.
-app.post('/increment', function(req, res) {
-  counter++;
-  res.json({
-    count: counter
+var count = 0;
+// ROUTES
+app.get('/', function(req, res){
+  res.render('index', {
+    count: count
   });
 });
 
-// ---Task 2---
-// POST /decrement: Create another JSON endpoint that decreases `count` by 1
-// and returns a JSON response indicating the new value of `count`.
-
+// Implement POST /up route
 // YOUR CODE HERE
 
-app.listen(3000);
+// Implement POST /down route
+// YOUR CODE HERE
+
+app.listen(3000, function() {
+  console.log("Example app listening on port 3000!");
+});
