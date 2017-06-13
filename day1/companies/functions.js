@@ -1,3 +1,5 @@
+var _ = require('underscore-node');
+
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -8,6 +10,13 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    arr.reduce(function(c1, c2) {
+      if (c1.originalInvestment > c2.originalInvestment)
+        return c1;
+      else 
+        return c2;
+    })
+    return arr[0].originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +24,11 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var total = 0;
+    arr.forEach(function(item) {
+      total += item.originalInvestment;
+    })
+    return total/arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,8 +42,21 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var groupedByCompanies = _.groupBy(arr, 'company');
+    var resultObj = {};
+
+    _.forEach(groupedByCompanies, function(investments,company) {
+      var total = 0;
+      investments.forEach(function(inv) {
+        total += inv.originalInvestment;
+      });
+      resultObj[company] = total;
+    });
+    return resultObj;
   },
+
+
+
 
   // Find out how much money an investor spent as  original investments. You will
   // need to iterate through all the investments, find all the investments for each
@@ -44,6 +70,17 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var groupedByInvestor = _.groupBy(arr, 'investorId');
+    var resultObj = {};
+
+    _.forEach(groupedByInvestor, function(investments,investor) {
+      var total = 0;
+      investments.forEach(function(inv) {
+        total += inv.originalInvestment;
+      });
+      resultObj[investor] = total;
+    });
+    return resultObj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +96,17 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var groupedByInvestor = _.groupBy(arr, 'investorId');
+    var resultObj = {};
+
+    _.forEach(groupedByInvestor, function(investments,investor) {
+      var total = 0;
+      investments.forEach(function(inv) {
+        total += inv.valueToday;
+      });
+      resultObj[investor] = total;
+    });
+    return resultObj;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +117,39 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var totalInvestments = this.totalOriginalInvestmentsByInvestors(arr);
+    var totalCurrVal = this.totalCurrentValueOfInvestors(arr);
+
+    var ratios = [];
+
+    for (var i = 1; i <= Object.keys(totalInvestments).length; i++) {
+      ratios.push([i, totalCurrVal[i] / totalInvestments[i]]);
+    }
+
+    var result = ratios.reduce(function(r1,r2){
+      if (r1[1] > r2[1])
+        return r1;
+      else
+        return r2;
+    })
+    return result[0] + '';
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var totalInvestments = this.totalOriginalInvestmentForCompanies(arr);
+    var maxInv = 0;
+    var maxComp;
+
+    _.forEach(totalInvestments, function(investment, company) {
+      if (investment > maxInv) {
+        maxComp = company;
+        maxInv = investment;
+      }
+    })
+    return maxComp;
   }
 
 }

@@ -6,5 +6,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "csvjson": "^4.3.3"
+  },
+  "scripts": {
+  	"test": "jasmine-node spec"
   }
 }

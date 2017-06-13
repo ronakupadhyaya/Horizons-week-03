@@ -10,8 +10,22 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
+// var username = '';
+// var password = '';
+// var name = '';
+// var state = '';
+
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+
+  res.render('example2', {
+  	usernameValue: req.query.username,
+  	passwordValue: req.query.password,
+  	nameValue: req.query.name,
+  	stateSelected: req.query.state,
+  	checkMale: req.query.checkMale,
+  	checkFemale: req.query.checkFemale
+  });
+
 });
 
 // start the express app

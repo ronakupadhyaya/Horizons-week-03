@@ -9,6 +9,8 @@ var JSON_FILE = 'data.json'
 // If file doesn't exist, create an empty one
 ensureFileExists();
 
+var args = process.argv;
+
 // This is where our TO-DO List data is stored.
 // It's an array of objects.
 //
@@ -40,7 +42,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask)
+
+program.command('toggleCompleted')
+  .description("Toggles whether Tasks were completed or not")
+  .action(toggleCompletedTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,7 +77,11 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Set priority of task', parseInt);
 
+program
+  .option('-c, --completed', 'Shows the completed tasks');
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -122,14 +139,34 @@ function addTask() {
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
-  // YOUR CODE HERE
+  if (program.id) {
+    var task = data[program.id-1];
+    console.log(`Task #${program.id} Priority ${task.priority}: ${task.name}`);
+  }
+  else if (program.completed) {
+    data.forEach(function(task, index) {
+      if (task.completed) {
+        console.log(`Task #${index+1} Priority ${task.priority}: ${task.name}`);
+      }
+    })
+  }
+  else {
+    data.forEach(function(task, index) {
+      console.log(`Task #${index+1} Priority ${task.priority}: ${task.name}`);
+    })
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  data.splice(program.id-1, 1);
+}
+
+function toggleCompletedTask() {
+  var task = data[program.id-1];
+  task['completed'] = !task['completed'];
 }
 
 // ---Utility functions---
