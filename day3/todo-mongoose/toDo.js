@@ -30,6 +30,13 @@ db.once('open', function() {
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
 //
+// TODO: create a schema for the ToDoItemItem. Your schema should look like the following:
+//    {
+//      name: String,
+//      priority: String,
+//      completed: Boolean
+//    }
+//
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
