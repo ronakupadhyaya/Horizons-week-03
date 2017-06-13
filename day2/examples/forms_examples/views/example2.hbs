@@ -1,3 +1,31 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <input type = 'text' name = 'username' placeholder="username" value = "{{username}}"></input>
+  <input type = 'password' name = 'password' placeholder = 'password' value = "{{password}}"></input>
+  <input type = 'text' name = 'name' placeholder="name" value = "{{name}}"></input>
+
+<br>
+<br>
+<br>
+
+  <input type="radio" name="gender" value="male" {{#if male}}checked{{/if}}> Male</input>
+  <input type="radio" name="gender" value="female" {{#if female}}checked{{/if}}> Female</input>
+  <input type="radio" name="gender" value="other" {{#if other}}checked{{/if}}> Other</input>
+
+<br>
+<br>
+<br>
+
+
+  <select>
+    <option value="pa">Pennsylvania</option>
+    <option value="ca">California</option>
+    <option value="vt">Vermont</option>
+  </select>
+
+  <br>
+  <br>
+  <br>
+
+    <input type = "submit" value = "SUBMIT"></input>
+
 </form>
