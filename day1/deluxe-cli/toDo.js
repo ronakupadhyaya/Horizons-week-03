@@ -40,8 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
-
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask);
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -60,11 +65,12 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
 
-// Second one will be '--priority' or '-p', that will specify a priority for our task.
-// YOUR CODE HERE for "--priority" and "-p"
 
+  // Second one will be '--priority' or '-p', that will specify a priority for our task.
+  // YOUR CODE HERE for "--priority" and "-p"
+  .option('-p, --priority <n>', 'Specify priority level of task', parseInt);
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -77,8 +83,8 @@ if (process.argv.length === 2) {
 
 // This is a function that converts remaining unprocessed arguments into a string
 // so we can create tasks using it.
-function getRemainingArgs () {
-  var args = program.args.splice(0, (program.args.length-1));
+function getRemainingArgs() {
+  var args = program.args.splice(0, (program.args.length - 1));
   return args.join(" ");
 }
 
@@ -96,7 +102,7 @@ function addTask() {
     priority: priority,
     completed: false
   });
-  console.log("Added task named: "+ name + ", with id: " + data.length +", and priority: " + priority);
+  console.log("Added task named: " + name + ", with id: " + data.length + ", and priority: " + priority);
 }
 
 
@@ -121,15 +127,28 @@ function addTask() {
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
-function showTasks(){
+function showTasks() {
   // YOUR CODE HERE
+  if (program.id) {
+    console.log("Task #" + program.id + " Priority " + data[program.id - 1].priority + ": " + data[program.id - 1].name);
+  } else {
+    for (let i = 0; i < data.length; i++) {
+      console.log("Task #" + (i + 1) + " Priority " + data[i].priority + ": " + data[i].name);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
-function deleteTask(){
+function deleteTask() {
   // YOUR CODE HERE
+  console.log(program.id)
+  if (program.id) {
+    data.splice(program.id - 1, 1);
+  } else {
+    throw new Error('no id');
+  }
 }
 
 // ---Utility functions---
@@ -139,7 +158,7 @@ function writeFile(data) {
 }
 
 function ensureFileExists() {
-  if (! fs.existsSync(JSON_FILE)) {
+  if (!fs.existsSync(JSON_FILE)) {
     writeFile([]);
   }
 }

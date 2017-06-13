@@ -8,6 +8,10 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    arr.reduce(function(a, b) {
+      return a.originalInvestment > b.originalInvestment ? a : b;
+    }, 0);
+    return arr[0].originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +20,11 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var total = 0;
+    arr.forEach(function(n) {
+      total += n.originalInvestment;
+    });
+    return total / arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +39,15 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+    arr.forEach(function(n) {
+      if (obj.hasOwnProperty(n.company)) {
+        obj[n.company] += n.originalInvestment;
+      } else {
+        obj[n.company] = n.originalInvestment;
+      }
+    })
+    return obj;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +62,15 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+    arr.forEach(function(n) {
+      if (obj.hasOwnProperty(n.investorId)) {
+        obj[n.investorId] += n.originalInvestment;
+      } else {
+        obj[n.investorId] = n.originalInvestment;
+      }
+    })
+    return obj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +86,15 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var obj = {};
+    arr.forEach(function(n) {
+      if (obj.hasOwnProperty(n.investorId)) {
+        obj[n.investorId] += n.valueToday;
+      } else {
+        obj[n.investorId] = n.valueToday;
+      }
+    })
+    return obj;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +106,41 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var currVal = this.totalCurrentValueOfInvestors(arr);
+    var origVal = this.totalOriginalInvestmentsByInvestors(arr);
+    obj = {}
+    for(var i = 0; i < Object.keys(currVal).length; i++){
+      if(!obj.hasOwnProperty(Object.keys(currVal)[i])){
+        obj[Object.keys(currVal)[i]] = 0;
+      }
+      obj[Object.keys(currVal)[i]] += currVal[Object.keys(currVal)[i]] / origVal[Object.keys(currVal)[i]];
+    }
+  
+    var vals = [];
+    Object.keys(obj).forEach(function(key) {
+      vals.push(obj[key]);
+    });
+  
+    var maxValIndex = vals.indexOf(Math.max.apply(null, vals));
+
+   return Object.keys(obj)[maxValIndex];
+
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    obj = this.totalOriginalInvestmentForCompanies(arr);
+
+    var vals = [];
+    Object.keys(obj).forEach(function(key) {
+      vals.push(obj[key]);
+    });
+  
+    var maxValIndex = vals.indexOf(Math.max.apply(null, vals));
+
+   return Object.keys(obj)[maxValIndex];
   }
 
 }
