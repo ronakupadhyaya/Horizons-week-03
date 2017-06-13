@@ -85,7 +85,7 @@ to create test data and look at your database in mLab. Note how there's now a
 collection called `projects` and inside this collection you should see the newly
 created document.
 
-## Day 1 Exercises
+## Exercises
 
 ### Part 1: View all projects
 
