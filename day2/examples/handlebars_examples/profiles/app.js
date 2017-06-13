@@ -8,9 +8,34 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// YOUR CODE HERE
+var male = [];
+var female = [];
+
+for (var i = 0; i < data.length; i++) {
+  if (data[i].gender === "Male") {
+    male.push(data[i])
+  } else if (data[i].gender === "Female") {
+    female.push(data[i])
+  }
+}
+
+
+app.get('/', function(req, res) {
+  res.render('index', {
+    student: data
+  })
+})
+
+app.get('/male', function(req, res) {
+  res.render('index', {
+    student: male
+  })
+})
+
+app.get('/female', function(req, res) {
+  res.render('index', {
+    student: female
+  })
+})
 
 app.listen(3000);
-
-
-
