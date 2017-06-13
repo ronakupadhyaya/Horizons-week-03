@@ -5,7 +5,6 @@
     1. Company investment reports
     1. Bonus: Wikipedia Traffic Patterns
 1. [Day 2](day2/README.md)
-    1. Intro to HTML Forms
     1. Web 1.0 Guestbook
     1. Bonus: Trello CSV Import Export
 1. [Day 3](day3/README.md)
