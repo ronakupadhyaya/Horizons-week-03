@@ -23,6 +23,9 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+{{#each posts}}
+  <div>{{this.author}} on {{this.date}}:</div>
+  <div><b>{{this.title}}</b>: {{this.body}}</div>
+{{/each}}
 </body>
 </html>

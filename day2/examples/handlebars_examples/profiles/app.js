@@ -9,6 +9,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
+app.get('/', function(req, res) {
+    res.render('page', {
+        data: data
+    })
+})
+
+var male = data.filter(function(student) {
+    return student.gender === 'Male';
+})
+
+app.get('/male', function(req, res) {
+    res.render('page', {
+        data: male
+    })
+})
 
 app.listen(3000);
 
