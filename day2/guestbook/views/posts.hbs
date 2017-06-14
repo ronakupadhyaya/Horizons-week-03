@@ -11,9 +11,14 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+<h1><u>ViEw PoStS</u></h1>
+<a href="/posts/new">Make New Post</a> ||
+<a href="/posts?order=ascending">View all Ascending</a> ||
+<a href="/posts?order=descending">View all Descending</a> ||
+<a href="/posts">View all Posts</a> ||
+<a href="/login">Log Out</a>
 
-<h2>Your username: {{username}}</h2>
+<h2><em>Hello {{username}} Check Out What Everyone is Saying</em></h2>
 
 <!-- Part 2: Display posts -->
 
@@ -23,6 +28,12 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+{{#each posts}}
+  <div>
+    <h3>{{this.title}} by {{this.author}} on {{this.date}}</h3>
+    <h7><a href='/posts?author={{this.author}}'>View Other Posts by This Author</a></h7>
+    <p>{{this.body}}<p>
+  </div>
+    {{/each}}
 </body>
 </html>
