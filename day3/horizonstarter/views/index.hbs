@@ -1,7 +1,22 @@
-<h1>View projects</h1>
+<h1>Horizons Starter</h1>
+<h4>Changing the world, one line of code at a time.</h4>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each items}}
+<div class='project-body'>
+<h3>{{this.title}}</h3>
+<div class='project-details'>
+  <ul>
+    <li>Goal: ${{this.goal}}</li>
+    <li>Description: {{this.description}}</li>
+    <li>Start: {{this.start}}</li>
+    <li>End: {{this.end}}</li>
+  </ul>
+</div>
+<a href="/project/{{this._id}}">View this project</a>
+</div>
+{{/each}}
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href='http://localhost:3000/new'>Create new project!</a>

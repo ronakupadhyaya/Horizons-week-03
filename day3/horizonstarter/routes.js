@@ -24,30 +24,105 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
+  Project.find(function(err, task){
+    if(err){
+      console.log(err);
+    } else{
+      res.render('index', {items: task});
+    }
+  })
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('new')
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
   // YOUR CODE HERE
+  //TODO validator
+  var project = new Project({
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  });
+
+  project.save(function(err){
+    if(err){
+      console.log("error: " + err);
+    } else{
+      //redirect
+      res.redirect('/');
+    }
+  });
+
 });
 
 // Part 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  var id = req.params.projectid;
+
+
+  Project.findById(id, function(err, found){
+    if(err){
+      res.render('project', {error: 'Page not found'});
+    }else{
+      var total = 0;
+      found.contributions.forEach(function(item){
+        total = total + parseInt(item.amount);
+      });
+      var progress = total/parseInt(found.goal) * 100;
+      if(progress > parseInt(found.goal)){
+        progress = 100;
+      };
+      res.render('project', {found: found, id: id, total: total, progress: parseInt(progress)});
+    };
+  })
 });
 
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  var id = req.params.projectid;
+  Project.findById(id, function(err, found){
+    if(err){
+      console.log(err);
+    }else{
+      var total = 0;
+      var obj = found;
+      var contr = obj.contributions;
+      contr.push(req.body);
+      obj.contributions = contr;
+      contr.forEach(function(item){
+        total = total + parseInt(item.amount);
+      });
+
+      var progress = total/parseInt(found.goal) * 100;
+      if(progress > parseInt(found.goal)){
+        progress = 100;
+      };
+
+      obj.save(function(err){
+        if(err){
+          console.log("error: " + err);
+        } else{
+          //redirect
+          //res.redirect('/');
+          res.render('project', {found: found, id: id, total: total, progress: parseInt(progress)});
+        }
+      });
+    };
+  })
+
 });
 
 // Part 6: Edit project

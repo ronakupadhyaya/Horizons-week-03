@@ -1,9 +1,52 @@
-<h1>View Project</h1>
+
 
 <!-- Part 3: View a single project -->
+{{#if error}}
+<h2>{{error}}</h2>
+{{else}}
+<h1>{{found.title}}</h1>
+<div class='project-body'>
+  <ul>
+    <li>Goal: {{found.goal}}</li>
+    <li>Description: {{found.description}}</li>
+    <li>Start: {{found.start}}</li>
+    <li>End: {{found.end}}</li>
+    <li>Total contributions: ${{total}}</li>
+    </ul>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar"
+      aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%"> {{progress}}%
+    </div>
+  </div>
+  <h4>Contributors:</h4>
+  <div class='contributions'>
+
+    {{#each found.contributions}}
+    <div class='contributions-body'>
+    <ul>
+    <li>Name: {{this.name}}</li>
+    <li>Amount: ${{this.amount}}</li>
+  </ul>
+</div>
+    {{/each}}
+
+</div>
+
+</div>
+{{/if}}
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
+<div>
+<form class='contribute-form' method='POST' action='{{id}}'>
+  <h3>Contribute to this project</h2>
+  Name <input type="text" name="name" value="" placeholder="Name"></br>
+  Amount <input type="text" name="amount" value="" placeholder="USD Amount"></br>
+  <input class='button' type="submit" name="" value="Contribute">
+</form>
+</div>
+
+<a href='/'>Take me back!</a>
 
 <!-- YOUR CODE HERE -->
