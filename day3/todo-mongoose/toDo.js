@@ -158,11 +158,18 @@ function addTask(){
 function showTasks() {
   if (program.task) {
     ToDoItem.find({name: program.task}, function(err, task) {
-      if (err) {console.log("ERROR:", err);}
+      if (err) {
+        console.log("ERROR:", err);
+      }
 
-      console.log(`Task: ${task[0].name}, Priority: ${task[0].priority}, Completed: ${task[0].completed}`);
+      if (task.length != 0) {
+        console.log(`Task: ${task[0].name}, Priority: ${task[0].priority}, Completed: ${task[0].completed}`);
+      }
+
+
     });
   } else {
+
     ToDoItem.find(function(err, task) {
       if (err) {console.log("ERROR:", err);}
       task.forEach(function(currTask) {
@@ -178,7 +185,7 @@ function showTasks() {
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
   if (program.task) {
-   ToDoItem.remove({name: program.task}, function(err, resp) {
+   ToDoItem.remove({name: program.task}, function(err) {
       if (err) {console.log("ERROR:", err);}
     });
   }
