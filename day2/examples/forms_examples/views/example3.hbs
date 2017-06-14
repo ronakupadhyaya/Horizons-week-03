@@ -1,5 +1,12 @@
-<form>
-  <span>YOUR CODE HERE</span>
+{{#if first_name}}
+<h1>Hi {{first_name}}</h1>
+{{else}}
+<h1>Error</h1>
+{{/if}}
+
+
+<form action='/login' method='post'>
+  <input type='email' name='email' value='{{email}}' placeholder='Email'/>
+  <input type='password' name='password' value='{{password}}' placeholder='Password'/>
+  <input type='submit' placeholder='Submit'/>
 </form>
-
-

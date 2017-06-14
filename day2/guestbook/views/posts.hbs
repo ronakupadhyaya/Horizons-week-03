@@ -16,6 +16,18 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
+{{#each posts}}
+<div>
+  Title: {{this.title}}
+  Body: {{this.body}}
+  Author: {{this.author}}
+  Date: {{this.date}}
+  <a href='http://localhost:3000/posts?author={{author}}'>View only posts by this author</a>
+</div>
+{{/each}}
+
+<a href='http://localhost:3000/posts?order=descending'>Date Order Descending</a>
+<a href='http://localhost:3000/posts?order=ascending'>Date Order Ascending</a>
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
