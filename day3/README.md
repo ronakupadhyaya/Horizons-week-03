@@ -1,3 +1,4 @@
+
 # Day 3 Exercises
 
 ## Pair programming exercises
