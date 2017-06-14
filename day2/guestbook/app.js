@@ -1,4 +1,3 @@
-// This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
 
@@ -11,7 +10,9 @@ app.use(cookieParser());
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
@@ -19,7 +20,9 @@ var expressValidator = require('express-validator');
 app.use(expressValidator());
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Make files in the folder `public` accessible via Express
@@ -44,7 +47,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,12 +66,50 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
-app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+app.get('/posts', function(req, res) {
+  var order = req.query.order;
+  var newList = data.read();
+  var list = data.read();
+  if (order === 'ascending') {
+    newList.sort(function(a, b) {
+      //console.log(new Date(a.date).getTime());
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    })
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: newList
+    })
+  } else if (order === 'descending') {
+    newList.sort(function(a, b) {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: newList
+    });
+  } else {
+
+    var para = req.query.author;
+    // console.log(para);
+    if (para) {
+      var listFiltered = newList.filter(function(item) {
+        // console.log(item.author);
+        if (item.author === para) return item;
+      })
+      // console.log(newList);
+      res.render('posts', {
+        username: req.cookies.username,
+        posts: listFiltered
+      })
+
+    } else {
+      res.render('posts', {
+        username: req.cookies.username,
+        posts: list
+      });
+
+    }
+  }
 });
 
 // ---Part 3. Create new posts---
@@ -81,8 +122,10 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('post_form')
 });
+
+
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
@@ -101,7 +144,21 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username === undefined) {
+    res.status(401).send("Please Log In!")
+  } else if (req.body.title === undefined || req.body.body === undefined || req.body.date1 === undefined) {
+    res.status(400).send("Please include all inputs!");
+  } else {
+    var posts = data.read();
+    posts.push({
+      title: req.body.title,
+      body: req.body.body,
+      author: req.cookies.username,
+      date: req.body.date1,
+    });
+    data.save(posts);
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server
