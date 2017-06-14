@@ -13,48 +13,46 @@ function countLines(fileName) {
   var count = 0;
   var data = [];
   var mPL = {};
-  var mPP;
+  var mPP = [];
   var mPPL;
   rl.on('line', function (line) {
     // This is called for each line in file
     count++;
     var temp = line.split(' ');
-    var tempObj = {
+    //Build temp page object
+    var page = {
       lang: temp[0],
       title: temp[1],
       visits: parseInt(temp[2]),
       band: parseInt(temp[3]),
     };
-    if (tempObj.lang.includes('.mw') ||
-      tempObj.title.includes('Special:')) {
+    //Check for restricted strings
+    if (page.lang.includes('.mw') ||
+      page.title.includes('Special:')) {
       return;
     }
-    data.push(tempObj);
+    //Add visits to languages
+    if (page.lang in mPL) {
+      mPL[page.lang] += page.visits;
+    } else {
+      mPL[page.lang] = page.visits;
+    }
+
+    //Check if it is a top 10 most popular page
+    for (var i = 0; i < mPP.length; i++) {
+      if (mPP[i].visits < page.visits) {
+        mPP.splice(i, 0, page);
+        if (mPP.length > 10) {
+          return mPP = mPP.slice(0, 10);
+        }
+      }
+    }
+    if (mPP.length < 10) {
+      mPP.push(page);
+    }
   });
 
   rl.on('close', function () {
-
-    //Build top languages and sites
-    mPP = data.reduce(function (arr, page) {
-      if (page.lang in mPL) {
-        mPL[page.lang] += page.visits;
-      } else {
-        mPL[page.lang] = page.visits;
-      }
-      for (var i = 0; i < arr.length; i++) {
-        if (arr[i].visits < page.visits) {
-          arr.splice(i, 0, page);
-          if (arr.length > 10) {
-            return arr.slice(0, 10);
-          }
-          return arr;
-        }
-      }
-      if (arr.length < 10) {
-        arr.push(page);
-      }
-      return arr;
-    }, []);
 
     //Find top Languages
     mPL = _.pairs(mPL);
