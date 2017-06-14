@@ -29,7 +29,7 @@
 <!-- YOUR CODE HERE -->
 <ul>
   {{#each posts}}
-    <h1>{{this.author}} <a href="http://localhost:3000/posts?author="{{this.author}}><button>View only posts by this author</button></a></h1>
+    <h1>{{this.author}} <a href="http://localhost:3000/posts?author="+{{aut}}><button>Only view posts by this author</button></a></h1>
     <h2>{{this.title}}</h2>
     <h3>{{this.body}}</h3>
     <h4>{{this.date}}</h4>

@@ -66,19 +66,23 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  var order = req.query.order;
   var post = data.read();
-  if (req.query.username){
-    post = post.filter(function(x){
-      return x.author===req.query.username
-    });
+  var aut = undefined;
+  if (req.query.author){
+    aut = req.query.author;
+    for (var i = 0; i < post.length; i++) {
+      if(post[i].author !== req.query.author){
+        post.splice(i, 1)
+      }
+    }
   }
-  if(order==='ascending'){
+  if (req.query.order=== 'ascending') {
     post.sort(function(a,b){return new Date(a.date) - new Date(b.date)});
-  }else{
+  }
+  if (req.query.order === 'descending') {
     post.sort(function(a,b){return new Date(b.date) - new Date(a.date)});
   }
-  res.render('posts', {username: req.cookies.username, posts: post});
+  res.render('posts', {username: req.cookies.username, posts: post, aut: aut});
 });
 
 // ---Part 3. Create new posts---
