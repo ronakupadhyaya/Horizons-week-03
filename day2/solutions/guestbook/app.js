@@ -75,7 +75,7 @@ app.get('/posts', function (req, res) {
 app.get('/posts/new', function(req, res) {
     // YOUR CODE HERE
   if (req.cookies && req.cookies.username){
-    res.render('post_form', { title: 'New Post' });
+    res.render('post_form', { title: 'New Post' }); // go to post_form, replace title with New Post
   }
   else{ console.log("not logged") }
 });

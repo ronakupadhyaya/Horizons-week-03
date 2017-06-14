@@ -11,10 +11,22 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-  <h1>Create new post</h1>
-
-  <p>{{error}}</p>
-
+  {{#if username}}
+    <h1>Create new post</h1>
+    <form action="/posts" method="post">
+      <!-- <label>Author</label>
+      <input type="text" name="author"> -->
+      <label>Title</label>
+      <input type="text" name="title">
+      <label>Body</label>
+      <input type="text" name="body">
+      <label>Date</label>
+      <input type="date" name="date"/>
+      <input type="submit" value="Create a post"/>
+    </form>
+  {{else}}
+    <p>{{error}}</p>
+  {{/if}}
 
   <!-- Part 3: Create post  -->
   <!--
@@ -23,5 +35,6 @@
   -->
   <!-- YOUR CODE HERE -->
 
+  </form>
 </body>
 </html>
