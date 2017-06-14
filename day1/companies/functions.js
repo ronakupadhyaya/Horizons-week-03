@@ -1,3 +1,5 @@
+var app = require('./app.js');
+
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -8,6 +10,14 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var ans = newarr[0]["originalInvestment"];
+    for (var i = 0; i < newarr.length; i++) {
+      if (ans < newarr[i]["originalInvestment"]) {
+        ans = newarr[i]["originalInvestment"];
+      }
+    }
+    return ans;
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +26,12 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var sum = 0;
+    for (var i = 0; i < newarr.length; i++) {
+      sum += newarr[i]["originalInvestment"];
+    }
+    return sum / newarr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +46,18 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var ans = {};
+    for (var i = 0; i < newarr.length; i++) {
+      var key = newarr[i]["company"].toString();
+      if (ans.hasOwnProperty(key)) {
+        ans[key] = ans[key] + newarr[i]["originalInvestment"];
+      }
+      else {
+        ans[key] = newarr[i]["originalInvestment"];
+      }
+    }
+    return ans;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +72,18 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var ans = {};
+    for (var i = 0; i < newarr.length; i++) {
+      var key = newarr[i]["investorId"].toString();
+      if (ans.hasOwnProperty(key)) {
+        ans[key] = ans[key] + newarr[i]["originalInvestment"];
+      }
+      else {
+        ans[key] = newarr[i]["originalInvestment"];
+      }
+    }
+    return ans;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +99,18 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var newarr = app.parser(arr);
+    var ans = {};
+    for (var i = 0; i < newarr.length; i++) {
+      var key = newarr[i]["investorId"].toString();
+      if (ans.hasOwnProperty(key)) {
+        ans[key] = ans[key] + newarr[i]["valueToday"];
+      }
+      else {
+        ans[key] = newarr[i]["valueToday"];
+      }
+    }
+    return ans;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +122,39 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var origobj = this.totalOriginalInvestmentsByInvestors(newarr);
+    var currobj = this.totalCurrentValueOfInvestors(newarr);
+    var ratio = 0;
+    var ans = newarr[0]["investorId"];
+    for (var i = 0; i < newarr.length; i++) {
+      var key = newarr[i]["investorId"].toString();
+      var curr_ratio = currobj[key] / origobj[key];
+      if (ratio < curr_ratio) {
+        ratio = curr_ratio;
+        ans = newarr[i]["investorId"];
+      }
+    }
+    return ans;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newarr = app.parser(arr);
+    var origobj = this.totalOriginalInvestmentForCompanies(newarr);
+    var objarr = Object.keys(origobj);  //array of keys of company ids
+    var max = origobj[objarr[0]];
+    var ans = objarr[0];
+    for (var i = 1; i < objarr.length; i++) { //objarr[i] is a key
+      var comp = origobj[objarr[i]];
+      if (max < origobj[objarr[i]]) {
+        max = origobj[objarr[i]];
+        ans = objarr[i];
+      }
+    }
+    return ans;
   }
 
 }

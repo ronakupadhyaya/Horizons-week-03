@@ -14,6 +14,19 @@ app.get('/', function(req, res) {
   res.render('example2', {text: req.query.text});
 });
 
+app.get('/register', function(req, res) {
+  res.render('example2',
+    {
+      user_val: req.query.Username,
+      pass_val: req.query.Password,
+      name_val: req.query.Name,
+      male: req.query.gender === "male",
+      female: req.query.gender === "female",
+      other: req.query.gender === "other"
+    }
+  );
+})
+
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);

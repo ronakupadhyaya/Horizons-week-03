@@ -13,6 +13,7 @@ function countLines(fileName) {
   var count = 0;
   rl.on('line', function(line) {
     // This is called for each line in file
+    //if ()
     count++;
   });
   rl.on('close', function() {

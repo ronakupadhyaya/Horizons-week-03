@@ -12,8 +12,9 @@
 </head>
 <body>
   <h1>Create new post</h1>
-
-  <p>{{error}}</p>
+  {{#if user_logged}}
+    <p>{{error}}</p>
+  {{/if}}
 
 
   <!-- Part 3: Create post  -->
@@ -22,6 +23,17 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
+  <form method="POST" action="/posts">
+    Title:
+    <input type="text" name="Title">
+    Author:
+    <input type="text" name="Author">
+    Content:
+    <input type="text" name="Body">
+    Date:
+    <input type="date" name="Date">
+    <input type="submit" value="Submit">
+  </form>
 
 </body>
 </html>

@@ -1,3 +1,24 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <form action="/register">
+      <input type="text" name="Username" value="{{user_val}}">
+      <input type="password" name="Password" value="{{pass_val}}">
+      <input type="text" name="Name" value="{{name_val}}">
+      <input type="radio" name="gender" value="male" {{#if male}}checked{{/if}}> Male<br>
+      <input type="radio" name="gender" value="female" {{#if female}}checked{{/if}}> Female<br>
+      <input type="radio" name="gender" value="other" {{#if other}}checked{{/if}}> Other
+      <select name="states">
+        <option value="ca">California</option>
+        <option value="tn">Tennessee</option>
+        <option value="or">Oregon</option>
+        <option value="wa">Washington</option>
+    </select>
+      <input type="submit" name="" value="Register">
+    </form>
+  </body>
+</html>
