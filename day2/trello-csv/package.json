@@ -2,7 +2,7 @@
   "dependencies": {
     "commander": "^2.9.0",
     "csv": "^1.1.0",
-    "trello": "^0.5.1",
+    "trello": "^0.7.0",
     "underscore": "^1.8.3"
   }
 }

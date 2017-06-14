@@ -45,12 +45,14 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render("login")
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
+  console.log(req.body);
   res.cookie('username', req.body.username);
   res.redirect('/posts');
 });
@@ -64,10 +66,21 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var displayposts = data.read();
+  console.log(displayposts)
+  // if (req.cookies.username){
+  //   displayposts = displayposts.filter(function(post){
+  //     return post.author===req.cookies.username
+  //   });
+  // }
+  if (req.query.order==='ascending'){
+    displayposts.sort(function(a,b) { return (new Date(a.date) - new Date(b.date)); })
+  } else {
+    displayposts.sort(function(a,b) { return (new Date(b.date) - new Date(a.date)); })
+  }
+  console.log(displayposts);
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    posts: displayposts
   });
 });
 
@@ -82,6 +95,10 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies && req.cookies.username){
+    res.render('post_form');
+  }
+  else{ console.log("Error not logged in") }
 });
 
 // POST /posts:
@@ -102,6 +119,30 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+  req.checkBody('text', 'Title must not be empty').notEmpty()
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.render("post_form", {
+      error: "TItle and body must not be empty"
+    })
+  }
+
+  if (req.cookies && req.cookies.username) {
+    console.log(req.cookies.username);
+    var oldPosts = data.read()
+    var newPost = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      text: req.body.text
+    }
+
+    oldPosts.push(newPost);
+    data.save(oldPosts);
+    res.redirect("/posts");
+  };
 });
 
 // Start the express server

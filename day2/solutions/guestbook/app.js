@@ -91,11 +91,12 @@ app.get('/posts/new', function(req, res) {
 // Append the new post to the posts array, and use jsonfile.writeFileSync(file, posts);
 // to write the entire posts array to disk
 app.post('/posts', function(req, res) {
-// YOUR CODE HERE
+  res.redirect("posts")
+    // YOUR CODE HERE
   req.checkBody('title', 'Title must not be empty').notEmpty();
   req.checkBody('text', 'Title must not be empty').notEmpty()
   var errors = req.validationErrors();
-
+ 
   if (errors){
     res.render('post_form', {
       title: 'New Post',
@@ -108,8 +109,10 @@ app.post('/posts', function(req, res) {
       title: req.body.title,
       text: req.body.text
     }
-    posts.push(post);
-    jsonfile.writeFileSync(file, posts);
+    var posts = data.read()
+    posts.push(post)
+    data.save(posts);
+    // jsonfile.writeFileSync(file, posts);
     res.redirect('/posts')
   }
 });
