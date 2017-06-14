@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var i = 3;
 var app = express();
 
 // Enable cookie parsing
@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +64,36 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var order = req.query.order;
+  var arr = data.read();
+  arr.sort(function compare(a, b){
+    var dateA = new Date(a.date);
+    var dateB = new Date(b.date);
+    if(dateA > dateB){
+      return -1;
+    } else if (dateA === dateB){
+      return 0;
+    } else if (dateA < dateB){
+      return 1;
+    }
+  })
+  if(order === 'ascending'){
+    arr.reverse();
+  }
+
+  var author = req.query.author;
+  if(author){
+    var arr = arr.filter(function(item){
+      return item.author === author;
+    });
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: arr,
+    author: author
   });
 });
 
@@ -81,7 +107,39 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('post_form');
+});
+
+app.get('/delete/:id', function(req, res){
+  var arr = data.read();
+  var index = arr.findIndex(function(item){
+    return item.id === Number.parseInt(req.params.id, 10);
+  });
+  if(req.cookies.username === arr[index].id){
+    arr.splice(index, 1);
+    data.save(arr);
+  }
+  res.redirect('/posts');
+});
+
+app.get('/edit/:id', function(req, res){
+  var arr = data.read();
+  var post;
+  arr.forEach(function(item, index){
+    if (item.id === Number.parseInt(req.params.id, 10)){
+      arr.splice(index, 1);
+      post = item;
+    }
+  });
+  data.save(arr);
+  if(req.cookies.username !== post.author){
+    res.send('You can\'t edit this post, you\'re not the original author!')
+  } else {
+    res.render('edit_form', {
+      title: post.title,
+      body: post.body
+    });
+  }
 });
 
 // POST /posts:
@@ -101,7 +159,20 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var post = {author: req.cookies.username, title: req.body.title, body: req.body.body, date: req.body.date, id: i};
+  i++;
+  if(!req.cookies.username){
+    res.sendStatus(401);
+    res.send('Error! You\'re not logged in');
+  } else if(!(req.body.body && req.body.date && req.body.title)){
+    res.sendStatus(400);
+    res.send('Error! You didn\'t give all the inputs');
+  } else {
+    var a = data.read();
+    a.push(post);
+    data.save(a);
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server

@@ -22,7 +22,24 @@
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
-<!-- YOUR CODE HERE -->
+{{#if author}}
+  <a href='/posts'>View all posts</a>
+{{/if}}
+{{#each posts}}
+  <div>
+    <h1>
+      {{this.title}}
+    </h1>
+    {{this.body}}
+    <h5>
+      {{this.author}}
+      {{this.date}}
+    </h5>
+    <a href='/posts?author={{this.author}}'>View posts by this author</a>
+    <a href='/edit/{{this.id}}'>Edit this post</a>
+    <a href='/delete/{{this.id}}'>Delete</a>
+  </div>
+{{/each}}
 
 </body>
 </html>

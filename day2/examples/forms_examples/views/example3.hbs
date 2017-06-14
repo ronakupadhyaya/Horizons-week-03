@@ -1,5 +1,11 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form action="/login" method="post">
+    <input type="text" name="email" value="{{email}}">
+    <input type="text" name="password" value="{{password}}">
+    <input type="submit" name="" value="Register">
 </form>
 
-
+{{#if name}}
+<h1> hi {{name}}</h1>
+{{else}}
+<h1>error</h1>
+{{/if}}
