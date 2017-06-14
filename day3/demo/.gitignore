@@ -1,3 +1,5 @@
 connect.js
 node_modules
 env.sh
+
+//if upload all modules to git, they change all the time so npm will deal with it. 
