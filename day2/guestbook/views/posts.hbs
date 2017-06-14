@@ -9,20 +9,54 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
 </head>
 <body>
-<h1>View all posts</h1>
+  <h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+  <h2>Your username: {{username}}</h2>
 
-<!-- Part 2: Display posts -->
+  <!-- Part 2: Display posts -->
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+  <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
 <!-- YOUR CODE HERE -->
+<div class="all_posts">
+  {{#if view_all}}
+  {{#each posts}}
+  <div class="individual_post">
+    <div class="content">
+      <em>{{this.dateString}}</em><br>
+      <span id="identifier"><b>Title:</b> {{this.title}} <b>by:</b> {{this.author}}</span>
+      <span id ="content-body">{{this.body}}<br></br></span>
+    </div>
+    <a href="?author={{this.author}}"><input type="submit" name="view_only" value="View only by this author"></a><br>
+  </div>
+  {{/each}}
+  {{else}}
+  <a href="/posts"><input type="submit" value="View all posts"></a><br>
+  {{#each posts}}
+  <div class="individual_post">
+    <div class="content">
+      <em>{{this.dateString}}</em><br>
+      <span id="identifier"><b>Title:</b> {{this.title}} <b>by:</b> {{this.author}}</span>
+      <span id ="content-body">{{this.body}}<br></br></span>
+    </div>
+  </div>
+  {{/each}}
+  {{/if}}
+</div>
+
+
+<form action="/posts/new">
+  <input type="submit" value="Add post">
+</form>
+
+<a href="?order=ascending"><input type="submit" name="ascending" value="Sort in ascending order"></a>
+<a href="?order=descending"><input type="submit" name="descending" value="Sort in descending order"></a>
 
 </body>
 </html>

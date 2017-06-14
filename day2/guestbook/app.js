@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render("login");
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -52,7 +52,12 @@ app.get('/login', function(req, res) {
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
-  res.redirect('/posts');
+  console.log("username", req.cookies.username);
+  if (req.cookies.username.length > 0) {
+      res.redirect('/posts');
+  } else {
+    res.send('<h1 style="color: red">ERROR! Not logged in</h1>');
+  }
 });
 
 // ---Part 2. View Posts---
@@ -64,10 +69,57 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var post_arr = data.read();
+  var order = req.query.order;
+  var author = req.query.author;
+  var view_all = true;
+  var url = req.body.url;
+  if (author) {
+    view_all = false;
+    post_arr = post_arr.filter(function(post) {
+      return post.author === author;
+    });
+    url +=`?author=${author}`
+  }
+  if (order === "ascending") {
+    post_arr.sort(function(a, b) {
+      if (a.date < b.date) {
+        return -1;
+      } else if (a.date > b.date) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    if (author) {
+      url +=`&order=ascending`
+    } else {
+        url +=`?order=ascending`
+    }
+  } else if (order === "descending") {
+    post_arr.sort(function(a, b) {
+      if (a.date > b.date) {
+        return -1;
+      } else if (a.date < b.date) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    if (author) {
+      url +=`&order=descending`
+    } else {
+        url +=`?order=descending`
+    }
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: post_arr,
+    view_all: view_all,
+    url: url
   });
 });
 
@@ -82,6 +134,7 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render("post_form");
 });
 
 // POST /posts:
@@ -102,6 +155,27 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  //req.body.date.getMonth() + "/"+ req.body.date.getDate()+ "/"+ req.body.date.getFullYear()
+  if (!req.body.title || !req.body.post_body ||!req.body.date) {
+    res.status(401).send('<h1 style="color: red">ERROR! Invalid post contents</h1>');
+  } else {
+    var arr = data.read();
+    var date = req.body.date.split("/");
+    arr.push({
+      title: req.body.title,
+      body: req.body.post_body,
+      author: req.cookies.username,
+      date: new Date(parseInt(date[2]), parseInt(date[0]), parseInt(date[1])),
+      dateString: req.body.date
+    });
+    console.log(arr[arr.length-1].date);
+    data.save(arr);
+    res.render("posts", {
+      username: req.cookies.username,
+      posts: data.read()
+    })
+  }
+
 });
 
 // Start the express server

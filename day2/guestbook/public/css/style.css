@@ -2,8 +2,30 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center
 }
 
 a {
   color: #00B7FF;
+}
+
+[name="post_body"] {
+  width: 300px;
+  height: 100px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.all_posts {
+  display: flex;
+  flex-direction: column;
+  width:
+}
+
+.individual_post {
+  border: solid 2px;
 }

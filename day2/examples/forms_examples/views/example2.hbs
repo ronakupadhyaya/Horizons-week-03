@@ -1,3 +1,80 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <form action="/register">
+      <input type="text" name="username" value="{{username}}" placeholder="Username"><br>
+      <input type="password" name="password" value="{{password}}" placeholder="Password"><br>
+      <input type="text" name="name" value="{{name}}" placeholder="Full name"><br>
+      {{#if male}}
+        <input type="radio" name="gender" value="Male" checked="true">Male<br>
+      {{else}}
+        <input type="radio" name="gender" value="Male" checked="false">Male<br>
+      {{/if}}
+      {{#if female}}
+        <input type="radio" name="gender" value="Female" checked="true">Female<br>
+      {{else}}
+        <input type="radio" name="gender" value="Female" checked="false">Female<br>
+      {{/if}}
+      {{#if other}}
+        <input type="radio" name="gender" value="Other" checked="true">Other<br>
+      {{else}}
+        <input type="radio" name="gender" value="Other" checked="false">Other<br>
+      {{/if}}
+      <select name="state">
+        <option>{{state}}</option>
+        <option>Alaska</option>
+        <option>Alabama</option>
+        <option>Arkansas</option>
+        <option>Arizona</option>
+        <option>California</option>
+        <option>Colorado</option>
+        <option>Connecticut</option>
+        <option>District of Columbia</option>
+        <option>Delaware</option>
+        <option>Florida</option>
+        <option>Georgia</option>
+        <option>Hawaii</option>
+        <option>Iowa</option>
+        <option>Idaho</option>
+        <option>Illinois</option>
+        <option>Indiana</option>
+        <option>Kansas</option>
+        <option>Kentucky</option>
+        <option>Louisiana</option>
+        <option>Massachusetts</option>
+        <option>Maryland</option>
+        <option>Maine</option>
+        <option>Michigan</option>
+        <option>Minnesota</option>
+        <option>Missouri</option>
+        <option>Mississippi</option>
+        <option>Montana</option>
+        <option>North Carolina</option>
+        <option>North Dakota</option>
+        <option>Nebraska</option>
+        <option>New Hampshire</option>
+        <option>New Jersey</option>
+        <option>New Mexico</option>
+        <option>Nevada</option>
+        <option>New York</option>
+        <option>Ohio</option>
+        <option>Oklahoma</option>
+        <option>Oregon</option>
+        <option>Pennsylvania</option>
+        <option>Puerto Rico</option>
+        <option>Rhode Island</option>
+        <option>South Carolina</option>
+        <option>South Dakota</option>
+        <option>Tennessee</option>
+        <option>Texas</option>
+        <option>Utah</option>
+        <option>Virginia</option>
+        <option>Vermont</option>
+        <option>Washington</option>
+        <option>Wisconsin</option>
+        <option>West Virginia</option>
+        <option>Wyoming</option>
+      </select><br>
+      <input type="submit" name="register" value="Register">
+    </form>
+  </span>
 </form>
