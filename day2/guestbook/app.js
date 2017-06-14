@@ -16,7 +16,7 @@ app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
-app.use(expressValidator());
+app.use(expressValidator()); //???
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +65,50 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+
+  var postObj = data.read();
+
+  if(req.query.order){
+    if(req.query.order==='ascending'){
+      function compare(a,b){
+        if(Date.parse(a.date)<Date.parse(b.date)){
+          return 1;
+        }
+        else if(Date.parse(a.date)>Date.parse(b.date)){
+          return -1;
+        }
+        return 0;
+      }
+    }
+    else if(req.query.order==='descending'){
+      function compare(a,b){
+        if(Date.parse(a.date)<Date.parse(b.date)){
+          return -1;
+        }
+        else if(Date.parse(a.date)>Date.parse(b.date)){
+          return 1;
+        }
+        return 0;
+      }
+    }
+    postObj.sort(compare);
+  }
+
+  if(req.query.author){
+    for(var i=0; i<postObj.length; i++){
+      if(postObj[i].author !== req.query.author){
+        postObj.splice(i, 1);
+        i--;
+      }
+    }
+  }
+    res.render('posts', {
+      // Pass `username` to the template from req.cookies.username
+      // Pass `posts` to the template from data.read()
+      // YOUR CODE HERE
+      username: req.cookies.username,
+      posts: postObj
+    });
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +122,12 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form');
+  }
+  else{
+    res.send("You're not logged in");
+  }
 });
 
 // POST /posts:
@@ -101,7 +147,32 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  // YOUR CODE
+    if(req.cookies.username){
+      if(req.body.date && req.body.title && req.body.body){
+
+        var newPost = {};
+        newPost.author = req.cookies.username;
+        newPost.date = req.body.date;
+        newPost.title = req.body.title;
+        newPost.body = req.body.body;
+        var posts = data.read();
+        posts.push(newPost);
+        data.save(posts);
+      }
+      else{
+        res.sendStatus(400); //form content is not valid
+      }
+    }
+    else{
+      res.sendStatus(401); //not logged in
+    }
+
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: data.read()
+    });
+
 });
 
 // Start the express server

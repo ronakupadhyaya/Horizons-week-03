@@ -23,6 +23,17 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+  <h1>{{title}}</h1>
+  <p>{{author}} {{date}}</p>
+  <p>{{body}}</p>
+{{/each}}
+
+<form>
+  <input type="submit" name="order" value="ascending">
+  <input type="submit" name="order" value="descending">
+</form>
+
 
 </body>
 </html>

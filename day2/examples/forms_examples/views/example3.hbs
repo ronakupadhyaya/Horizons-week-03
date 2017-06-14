@@ -1,5 +1,7 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post">
+  <input type="text" name="email" value="Email">
+  <input type="password" name="password" value="">
+  <input type="submit" value="Submit">
 </form>
 
-
+<h1 {{#if loginFailed}} style="color:red" {{/if}}>{{name}}</h1>
