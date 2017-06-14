@@ -124,7 +124,7 @@ function parseArgs () {
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
 // It should get the name of the task by calling parseArgs() and the priority
-// for the tast from program.priority.
+// for the task from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask(){
@@ -147,10 +147,11 @@ function addTask(){
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
-  toDoItem.save(function(err){
+  task.save(function(err){
     if(err){
       console.log("OH NO");
     }else{
+      console.log("save was a success");
       mongoose.connection.close();
     }
   });
@@ -173,14 +174,20 @@ function addTask(){
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
 function showTasks() {
+
+  // check if task was set
   if(program.task){
-    toDoItem.find({name: program.task}, function(err, task){
+    // parse name
+    toDoItem.findOne({name: program.task}, function(err, task){
       if(err){
-        console.log("ERROR IN showTasks");
+        console.log("ERROR in showTasks");
       }else{
-        console.log(`Task: ${task.name}, Priority: ${task.priority}, Completed: ${task.completed}`);
+        if(task){
+          console.log(`Task: ${task.name}, Priority: ${task.priority}, Completed: ${task.completed}`);
+        }
       }
     });
+
   }else{
     toDoItem.find(function(err, tasks){
       if(err){
@@ -188,12 +195,14 @@ function showTasks() {
       }else{
         var str = ``;
         tasks.forEach(function(task){
-          str += `Task: ${task.name}, Priority: ${$task.priority}, Completed: ${task.completed}\n`;
-      });
-      str.splice(str.length,1);
-      console.log(str);
-    })
+          str += `Task: ${task.name}, Priority: ${task.priority}, Completed: ${task.completed}\n`;
+        });
+        str.substring(0, str.length);
+        console.log(str);
+      }
+    });
   }
+  mongoose.connection.close();
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
@@ -209,7 +218,11 @@ function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
   if(program.task){
-    toDoItem.remove({name: program.task});
+    toDoItem.remove({name: program.task}, function(){});
+    console.log("successful removal");
+  }else{
+    console.log('failed');
   }
+  mongoose.connection.close();
   // YOUR CODE HERE
 }
