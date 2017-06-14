@@ -35,6 +35,11 @@ db.once('open', function() {
 //      completed: Boolean
 //    }
 //
+var ToDoItem = mongoose.model('ToDoItem',{
+  name: String,
+  priority: String,
+  completed: Boolean
+})
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
@@ -88,6 +93,8 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+program
+.option('-t, --task <p>', 'Specify priority for task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -127,6 +134,11 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new ToDoItem({
+    name: name,
+    priority: priority,
+    completed: false,
+  })
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -134,6 +146,14 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err){
+    if(err){
+      console.log('error in saving ', err)
+    } else{
+      console.log('success');
+      mongoose.connection.close();
+    }
+  })
 }
 
 // PART 3: Show tasks
@@ -157,6 +177,28 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  var name = program.task
+  if(!program.task){
+    ToDoItem.find(function(err, task){
+      if(err){
+        console.log('error in saving ', err)
+      } else{
+        task.forEach(function(i){
+          console.log('Task: '+ i.name+ ', Priority: '+ i.priority+ ', Completed: ' +i.completed);
+        })
+        mongoose.connection.close();
+      }
+    })
+  }else{
+    ToDoItem.find({name: name } ,function(err, task){
+      if(err){
+        console.log('error in saving ', err)
+      } else{
+        console.log('Task: '+ task[0].name+ ', Priority: '+ task[0].priority+ ', Completed: ' +task[0].completed);
+        mongoose.connection.close();
+      }
+    })
+  }
 }
 
 // PART 4: Delete tasks
@@ -168,4 +210,14 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  var name = program.task
+  if(program.task){
+    ToDoItem.remove({name: name } ,function(err, task){
+      if(err){
+        console.log('error in saving ', err)
+      } else{
+        console.log('removed')
+      }
+    })
+  }
 }
