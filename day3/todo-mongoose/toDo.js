@@ -43,6 +43,7 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var Todoitem = mongoose.model('Todoitem', {name: String, priority: String, completed: Boolean})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -88,6 +89,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <t>', 'Add a task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -127,6 +129,7 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new Todoitem({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -134,6 +137,9 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function() {
+    mongoose.connection.close()
+  })
 }
 
 // PART 3: Show tasks
