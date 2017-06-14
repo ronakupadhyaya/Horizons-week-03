@@ -1,4 +1,8 @@
+  var app = require('./app.js');
+
 module.exports = {
+
+
 
   // Find the company that has the largest single amount of money invested. In this
   // case, we are not looking for the sum of all investments made on a company. But
@@ -8,6 +12,16 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var parsedArr = app.parser(arr);
+    var largest = 0;
+    for(var i = 0; i < parsedArr.length; i++){
+          console.log(parsedArr[i]);
+      if(largest < parsedArr[i].originalInvestment){
+        largest = parsedArr[i].originalInvestment;
+
+      }
+    }
+    return largest;
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +30,14 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var parsedArr = app.parser(arr);
+    var sum = 0;
+
+    parsedArr.forEach(function(item){
+      sum+= item.originalInvestment;
+    })
+    return sum / parsedArr.length;
+
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +52,26 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var parsedArr = app.parser(arr);
+    var sum = 0;
+    var totalInvestments = [];
+    for(var i = 0; i < 10; i++){
+      while(parsedArr[i].company === i + 1){
+        sum += parsedArr[i].origInvestment;
+        console.log(sum);
+        i++
+      }
+      totalInvestments[i] = sum;
+        //compSum[i].push(sum);
+    }
+    return totalInvestments
+    //console.log(compSum[i].push(sum));
+    //start at where the company id is 0
+    // Sum up the original investments for that company
+    // Store the original investment and company id at the 0th index
+    // Do for the rest of the companies
+    // Return the array of objects
+
   },
 
   // Find out how much money an investor spent as  original investments. You will
