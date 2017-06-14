@@ -9,6 +9,18 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <style>
+    #body {
+      height: 100px;
+    }
+
+  </style>
+
 </head>
 <body>
   <h1>Create new post</h1>
@@ -21,11 +33,41 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <form id="myForm" method="post" action="/posts">
+  <!-- <form id="myForm" method="post" action="/posts">
     <input type="text" name="title" placeholder="Title">
     <textarea rows="4" cols="50" name="body" placeholder="Write..." form="myForm"></textarea>
     <input type="date" name="date">
     <input type="submit">
+  </form> -->
+
+  <form id="myForm" method="post" action="/posts">
+    <div class="form-group {{titleEmpty}}">
+        <label class="control-label" for="title"> Title </label>
+        <input value="{{title}}"type="text" class="form-control" name="title" placeholder="Title" id="title">
+        {{#if titleEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <div class="form-group {{bodyEmpty}}">
+        <label class="control-label" for="body"> Body </label>
+        <textarea form="myForm" type="text" class="form-control" name="body" placeholder="Write here..." id="body">{{body}}</textarea>
+        {{#if bodyEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <div class="form-group {{dateEmpty}}">
+        <label class="control-label" for="date"> Date </label>
+        <input value="{{date}}"type="date" class="form-control" name="date" id="date">
+        {{#if dateEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <button type="submit" class="btn btn-default"> Submit </button>
+
+
   </form>
 
 </body>

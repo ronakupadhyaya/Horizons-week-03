@@ -64,35 +64,39 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  var posts = data.read();
-  var link = "http://localhost:3000/posts";
-  var linkText = "View posts by this author";
-  var multiple = true;
 
+  var posts = data.read();
+  var authorStr = false;
+  var orderStr = false;
+
+  // sort by ascending or descending order
   if(req.query.order === "ascending"){
       posts.sort(function(a,b){
         return new Date(a.date) - new Date(b.date);
       });
-  } else {
+      orderStr = "order=ascending";
+  }
+
+  if(req.query.order === "descending") {
       posts.sort(function(a,b){
         return new Date(b.date) - new Date(a.date);
       });
+      orderStr = "order=descending";
   }
 
+  // check for author filter
   if(req.query.author){
-    multiple = false;
+    authorStr = "author=" + req.query.author;
     posts = posts.filter(function(obj){
       return obj.author === req.query.author;
     });
-    linkText = "View posts by ALL authors";
   }
 
   res.render('posts', {
     username: req.cookies.username,
     posts: posts,
-    link: link,
-    linkText: linkText,
-    multiple: multiple
+    authorStr: authorStr,
+    orderStr: orderStr
   });
 
 });
@@ -133,25 +137,35 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // if not logged in
-
   if(!req.cookies.username){
     res.sendStatus(401);
+  // if all are filled
   }else if(req.body.title && req.body.body && req.body.date){
-    var title = req.body.title;
-    var body = req.body.body;
-    var date = req.body.date;
-    console.log("date is", date);
-    console.log(typeof date);
-    var newPost = {author: req.cookies.username, title: title, body: body, date: date};
+    var newPost = {
+      author: req.cookies.username,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date
+    };
 
     var newData = data.read();
     newData.push(newPost);
     data.save(newData);
 
-    res.send("Successfuly post!")
-
+    res.redirect("/posts");
   }else{
-    res.status(400).send("Sorry again");
+      var titleEmpty = (req.body.title) ? undefined: "has-error";
+      var bodyEmpty = (req.body.body) ? undefined: "has-error";
+      var dateEmpty = (req.body.date) ? undefined: "has-error";
+      res.render('post_form', {
+        titleEmpty: titleEmpty,
+        bodyEmpty: bodyEmpty,
+        dateEmpty: dateEmpty,
+        title: req.body.title,
+        body: req.body.body,
+        date: req.body.date
+      });
+
   }
 
   // YOUR CODE HERE

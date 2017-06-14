@@ -9,6 +9,26 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+  <style>
+
+    .post {
+      border: 1px solid black;
+      margin-top: 5px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+    }
+
+    #board {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+  </style>
 </head>
 <body>
 <h1>View all posts</h1>
@@ -21,32 +41,34 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
-<a href="http://localhost:3000/posts?order=ascending">Ascending</a>
-<a href="http://localhost:3000/posts?order=descending">Descending</a>
+<!--1. if not multiple, then add &author=AUTHORNAME -->
+{{#if authorStr}}
+  <a href="/posts?order=ascending&amp;{{authorStr}}">Ascending</a>
+  <a href="/posts?order=descending&amp;{{authorStr}}">Descending</a>
+{{else}}
+  <a href="/posts?order=ascending">Ascending</a>
+  <a href="/posts?order=descending">Descending</a>
+{{/if}}
 
 <div id="board">
 
   {{#each posts}}
-    <div>
+    <div class="post">
         <h4> {{this.author}} : {{this.date}} </h4>
         <h5> {{this.title}} </h5>
         <p> {{this.body}} </p>
 
-        {{#if ../multiple}}
-          <a href="{{../link}}?author={{this.author}}"> {{../linkText}}</a>
+        {{#if ../authorStr}}
+          <a href="/posts?{{../orderStr}}"> View posts by all authors! </a>
         {{else}}
-          <a href="{{../link}}"> {{../linkText}} </a>
+          <a href="/posts?author={{this.author}}&amp;{{../orderStr}}"> View posts by this author</a>
         {{/if}}
-
-
 
     </div>
   {{/each}}
 
 </div>
 
-<!-- YOUR CODE HERE -->
 
 </body>
 </html>
