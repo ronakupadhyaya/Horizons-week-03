@@ -32,8 +32,13 @@ var csvjson = require('csvjson');
 //      ...
 //    ]
 function fileReader(csvFilePath){
-  // YOUR CODE HERE
+  //CSV file and returns contents
+  //returns as array of JS objects
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'});
+  return csvjson.toObject(data);
+  // console.log(csvjson.toObject(data));
 }
+//console.log(fileReader("investments1.csv"));
 
 // Write a function that takes an array of investment objects and replaces
 // the "originalInvestment", "valueToday" fields in each object with numbers
@@ -47,8 +52,14 @@ function fileReader(csvFilePath){
 //     originalInvestment: 1100000, // Note conversion from string to number
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
-  // YOUR CODE HERE
+  var newArray = arr.map(function(investmentObj){
+    investmentObj["originalInvestment"]=parseInt(investmentObj["originalInvestment"]);
+    investmentObj["valueToday"]=parseInt(investmentObj["valueToday"]);
+    return investmentObj
+  })
+  return newArray;
 }
+//console.log(parser(fileReader("investments1.csv")));
 
 module.exports = {
   fileReader: fileReader,

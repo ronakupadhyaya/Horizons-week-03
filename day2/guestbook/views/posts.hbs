@@ -17,12 +17,21 @@
 
 <!-- Part 2: Display posts -->
 
+
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+<a href = "/posts?order=ascending"> Show in Ascending Order </a> <br>
+<a href = "/posts?order=descending"> Show in Descending Order </a>
 
-<!-- YOUR CODE HERE -->
+{{#each posts}}
+  <div> {{this.author}} {{this.title}} {{this.body}} {{this.date}} </div>
+  <a href = "/posts?author={{this.author}}"> Show only posts by {{this.author}} </a> 
+{{/each}}
+
+
+
 
 </body>
 </html>

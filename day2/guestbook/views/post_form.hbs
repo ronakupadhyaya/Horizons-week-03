@@ -13,7 +13,6 @@
 <body>
   <h1>Create new post</h1>
 
-  <p>{{error}}</p>
 
 
   <!-- Part 3: Create post  -->
@@ -21,7 +20,17 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <!-- YOUR CODE HERE -->
+  {{#if isLoggedIn}}
+    <form class="" action="/posts" method="post">
+      <input type="text" name="title" value="title">
+      <input type="text" name="author" value="author">
+      <input type="text" name="body" value="body">
+      <input type="date" name="date" value="">
+      <input type="submit" name="" value="submit">
+    </form>
+  {{else}}
+    <h1> {{status}}: {{error}} </h1>
+  {{/if}}
 
 </body>
 </html>

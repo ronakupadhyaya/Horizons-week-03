@@ -1,3 +1,10 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <h1> I am HERE!</h1>
+  <span>
+    <ul>
+      {{#each students}}
+        <li> {{this.first_name}} {{this.last_name}} {{this.email}} </li>
+      {{/each}}
+    </ul>
+  </span>
 </div>
