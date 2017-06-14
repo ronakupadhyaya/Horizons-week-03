@@ -24,5 +24,14 @@
 
 <!-- YOUR CODE HERE -->
 
+
+{{#each posts}}
+<div>
+  {{this.author}} {{this.title}} {{this.body}} {{this.date}}
+  <a href ="?author={{this.author}}">View only posts by this author</a><br><br>
+</div>
+{{/each}}
+<a href ="?order=descending"><button>Ascending</button></a>
+<a href ="?order=ascending"><button>Decending</button></a>
 </body>
 </html>
