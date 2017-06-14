@@ -27,7 +27,9 @@
 {{#each posts}}
   <div class = "post">
     {{this.author}} {{this.title}} {{this.body}} {{this.date}}
-    <button class="delete">Delete</button>
+    <a href="/posts?author={{author}}">by this author</a>
+    <a href="/edit?author={{author}}&id={{id}}">by this author</a>
+
   </div>
 
 {{/each}}

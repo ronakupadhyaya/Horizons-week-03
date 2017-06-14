@@ -129,6 +129,11 @@ app.get('/posts/new', function(req, res) {
 // Create a new post object with right author, title, body and date.
 // Read author, title, body, date from req.body.
 //
+
+
+
+app.get('/edit')//redirects to edit.hbs which has form which has action to
+app.post('/editposts')
 // Example post object:
 // {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
 //
@@ -155,7 +160,7 @@ app.post('/posts', function(req, res) {
 });
 
 app.delete('/posts', function(req, res){
-  
+
 })
 
 // Start the express server
