@@ -1,3 +1,16 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <h1>Registration Form:</h1>
+    <input type="text" value="{{username}}" name="usernameBox" placeholder="Username" /><br />
+    <input type="password" value="{{password}}" name="passwordBox" placeholder="Password" /><br />
+    <input type="text" value="{{name}}" name="nameBox" placeholder="Name" /><br />
+    <input type="radio" value="Male" name="gender" {{#if male}} checked {{/if}}>Male<br />
+    <input type="radio" value="Female" name="gender" {{#if female}} checked {{/if}}>Female<br />
+    <input type="radio" value="Other" name="gender" {{#if other}} checked {{/if}}>Other<br />
+    <select>
+      <option name="state" value="AK" {{#if Alaska}} checked {{/if}}>Alaska</option>
+      <option name="state" value="CA" {{#if California}} checked {{/if}}>California</option>
+    </select>
+    <input type="submit" value="Register" />
+  </span>
 </form>

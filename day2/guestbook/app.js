@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +65,37 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+
+  if(req.query.order === "ascending") {
+    var tempArray = data.read();
+    tempArray.sort(function(a, b) {
+      return a.date - b.date;
+    });
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: tempArray
+    })
+  }
+
+  if(req.query.order === "descending") {
+    var tempArray = data.read();
+    tempArray.sort(function(a, b) {
+      return b.date - a.date;
+    });
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: tempArray
+    })
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read()
   });
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +109,9 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form', {
+    username: req.cookies.username
+  });
 });
 
 // POST /posts:
@@ -102,6 +132,32 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var author = req.cookies.username;
+  var title = req.body.title;
+  var body = req.body.body;
+  var date = req.body.postDate;
+
+  var newPost = {
+    author: author,
+    title: title,
+    body: body,
+    date: date
+  }
+
+  if(req.body.username) {
+    res.status(401).send("user not logged in :((()");
+  }
+
+  if(req.validationErrors()) {
+    res.status(400).send("empty or non initialized values :)");
+  }
+
+  var array = data.read();
+  array.push(newPost);
+  data.save(array);
+  console.log(newPost);
+
+  res.redirect('posts');
 });
 
 // Start the express server

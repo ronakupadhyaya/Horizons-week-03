@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "csvjson": "^4.3.3",
     "underscore": "^1.8.3"
   }
 }

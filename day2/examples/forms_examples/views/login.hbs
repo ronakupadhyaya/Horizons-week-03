@@ -1,5 +1,9 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    {{#if validAccount}}
+      <h1>Hi {{firstName}}!</h1>
+      {{else}}
+      <h1 style="color:red">Your login is invalid</h1>
+      {{/if}}
+ </span>
 </form>
-
-
