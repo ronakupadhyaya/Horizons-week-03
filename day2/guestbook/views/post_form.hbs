@@ -22,6 +22,12 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
+  <form action="/posts" method="post">
+    <input type="text" value="{{title}}" name="title" placeholder="tile..." />
+    <input type="text" value="{{body}}" name="body" placeholder="body..." />
+    <input type="text" value="{{date}}" name="date" placeholder="date..." />
+    <input type="submit" value="Submit" />
+  </form>
 
 </body>
 </html>

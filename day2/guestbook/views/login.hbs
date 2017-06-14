@@ -15,7 +15,9 @@
   <h1>Login</h1>
 
   <!-- Part 1: Login form -->
-
+  <form method="post" action="/login">
+  <input type="text" value="{{username}}" name="username" placeholder="username..." />
+  <input type="submit" value="Login" />
   <!--
     Add an HTML form with `method="POST"` and `action="/login"`.
     This login form should contain a single `<input>` element of `type="text"`

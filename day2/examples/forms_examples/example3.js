@@ -14,6 +14,16 @@ app.get('/', function(req, res) {
   res.render('example3');
 });
 
+var bodyParser = require('body-parser')
+app.use(bodyParser({extended:true}));
+
+app.post('/', function(req, res) {
+  res.render('example3', {
+    user: req.body.user
+  });
+});
+
+
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);

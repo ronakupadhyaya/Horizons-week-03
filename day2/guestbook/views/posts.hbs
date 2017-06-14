@@ -12,7 +12,9 @@
 </head>
 <body>
 <h1>View all posts</h1>
-
+<a href="/posts?order=ascending"></a>
+<a href="/posts?order=descending"></a>
+<a href="/posts?author=name-of-author-here"></a>
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
@@ -23,6 +25,14 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+<h3>Posts</h3>
+<p>
+  {{#each posts}}
+  {{this.author}} {{this.date}}
+  <ul>
+    <li>{{this.title}} {{this.body}}</li>
+  </ul>
+  {{/each}}
+</p>
 </body>
 </html>
