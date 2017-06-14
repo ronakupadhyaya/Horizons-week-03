@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Boop</title>
+  </head>
+  <body>
+    {{#if gender.isMale}}
+      <ul>
+        {{#each maleStudents}}
+          <li>
+            {{first_name}} {{last_name}}
+          </li>
+      </ul>
+    {{else if gender.isFemale}}
+      <ul>
+        {{#each femaleStudents}}
+          <li>
+            {{first_name}} {{last_name}}
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <ul>
+        {{#each data}}
+          <li>
+            {{first_name}} {{last_name}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </body>
+</html>

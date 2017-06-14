@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -52,7 +53,15 @@ app.get('/login', function(req, res) {
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
-  res.redirect('/posts');
+  // if(!req.body.username){
+  //   req.body.username = "";
+  // }
+  if(req.body.username){
+    res.redirect('/posts');
+  }
+  else{
+    throw new Error('You need to log in!');
+  }
 });
 
 // ---Part 2. View Posts---
@@ -64,10 +73,34 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var authBool = false;
+  var datArr = data.read();
+  var authArr = [];
+  var order = req.query.order;
+  var author = req.query.author;
+  if(order === 'ascending'){
+    datArr.sort(function(a, b){
+      return a.date > b.date;
+    })
+  }
+  if(order === 'descending'){
+    datArr.sort(function(a, b){
+      return b.date > a.date;
+    })
+  }
+  if(author){
+    var authArr = datArr.filter(function(item){
+      return item.author === author;
+    })
+    datArr = authArr.slice();
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    author: req.query.author,
+    data: datArr
   });
 });
 
@@ -82,6 +115,10 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(!req.cookies.username){
+    throw new Error("401: You are not logged in!");
+  }
+  res.render('post_form');
 });
 
 // POST /posts:
@@ -102,8 +139,24 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if(!req.cookies.username){
+    throw new Error("401: You are not logged in!");
+  }
+  if(!req.body.title || !req.body.body || !req.body.date){
+    throw new Error("400: All form areas must be filled in!")
+  }
+  var datArr = data.read();
+  datArr.push({
+    title: req.body.title,
+    body: req.body.body,
+    author: req.cookies.username,
+    date: req.body.date
+  })
+  data.save(datArr);
+  res.redirect('/posts');
 });
 
 // Start the express server
 var port = '3000'
+console.log("Running...")
 app.listen(port);

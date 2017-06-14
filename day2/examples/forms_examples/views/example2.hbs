@@ -1,3 +1,31 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>:)</title>
+</head>
+<body>
+  <h1>This is a form :)</h1>
+  <p>This is the name: {{name}}</p>
+  <form>
+    <span>
+      <br>Username:<br><input type="text" name="username" value={{username}}>
+      <br>Password:<br><input type="password" name="password" value={{password}}>
+      <br>Name:<br><input type="text" name="name" value={{name}}>
+      <br>State:<br>
+      <select name="state" value={{state}} id='stateSelect'>
+        {{#each stateData}}
+          <option value="{{this.name}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+      <br>Gender:<br>
+      {{#each gendersData}}
+        <div>
+          <input name="gender" type="radio" value="{{this.name}}" {{#if this.selected}}checked{{/if}}>{{this.name}}</option>
+        </div>
+      {{/each}}
+      <input type="submit" name="Submit" value="Register">
+    </span>
+  </form>
+</body>
+</html>

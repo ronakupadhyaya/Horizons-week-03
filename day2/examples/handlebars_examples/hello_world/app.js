@@ -1,0 +1,21 @@
+var express = require('express');
+var app = express();
+
+var handlebars = require('express-handlebars');
+app.engine('hbs', handlebars({
+  extname: '.hbs'
+}));
+app.set('view engine', 'hbs');
+
+app.get('/', function(req, res){
+  res.render('firstTemplate');
+})
+
+app.get('/:error', function(req, res){
+  //res.send(req.params.error + ' page not found, did you enter the correct url?');
+  res.render('firstTemplate', {
+    err: req.params.error
+  })
+})
+
+app.listen(3000);

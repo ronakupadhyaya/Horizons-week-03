@@ -23,6 +23,34 @@
 -->
 
 <!-- YOUR CODE HERE -->
+Sort Posts By Date:
+<a href='http://localhost:3000/posts/?order=ascending' class='button'>Ascending</a>
+<a href='http://localhost:3000/posts/' class='button'>Unordered</a>
+<a href='http://localhost:3000/posts/?order=descending' class='button'>Descending</a><br><br>
+
+<script type="text/javascript">
+  var authorName = getElementById("inputAuth").value();
+  res.render('posts', {
+    // Pass `username` to the template from req.cookies.username
+    // Pass `posts` to the template from data.read()
+    // YOUR CODE HERE
+    authorName: authorName
+  });
+</script>
+
+Search Posts By Author:
+<input type="text" name="author" id="inputAuth">
+<a href='http://localhost:3000/posts/?author={{authorName}}' class='button'>Search</a>
+<br><br>
+{{#each data}}
+  <div>
+    Author: {{this.author}} <br>
+    Title: {{this.title}} <br>
+    Body: {{this.body}} <br>
+    Date: {{this.date}} <br>
+    -------------------------------------------------------------------------------------
+  </div>
+{{/each}}
 
 </body>
 </html>

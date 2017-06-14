@@ -1,0 +1,14 @@
+[
+  {
+    "name": "male",
+    "selected": false
+  },
+  {
+    "name": "female",
+    "selected": false
+  },
+  {
+    "name": "other",
+    "selected": false
+  }
+]
