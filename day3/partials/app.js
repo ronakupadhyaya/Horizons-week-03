@@ -1,17 +1,29 @@
+"use strict";
+
 var path = require('path');
 var express = require('express');
 var exphbs  = require('express-handlebars');
 
 var app = express();
 
-app.engine('hbs', exphbs({extname:'hbs', defaultLayout: 'main.hbs'}));
+//my code
+// app.engine('hbs', exphbs({extname:'hbs', defaultLayout: 'main.hbs'}));
+
+// app.engine('hbs', exphbs({
+//   extname:'hbs',
+
+
+//master
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.get('/', function (req, res) {
-    res.render('index.hbs');
+  res.render('index');
+});
+
+app.get('/second', function (req, res) {
+  res.render('second');
 });
 
 
