@@ -11,7 +11,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res) {
   counter++;
-  res.render('index.hbs'{
+  res.render('index.hbs', {
     counter: counter
   });
 });
