@@ -10,16 +10,17 @@ var program = require('commander');
 var mongoose = require('mongoose');
 
 // PART 0: Create an env.sh file that should export the MONGODB_URI
+var config = require('./config.js')
 
 // connect to your Mongo Database
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(config.MONGO_URI);
 mongoose.Promise = global.Promise;
 
 // check if the connection was successful
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error. did you remember to create env.sh?'));
 db.once('open', function() {
-  // connected!
+  // Connection successful
 });
 
 // PART 1: Create the Model
@@ -42,7 +43,14 @@ db.once('open', function() {
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
-// YOUR CODE HERE
+var Schema = mongoose.Schema;
+var toDoSchema = new Schema({
+  name: String,
+  priority: String,
+  completed: Boolean
+});
+
+var ToDoItem = mongoose.model('ToDoItem', toDoSchema);
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -58,14 +66,14 @@ db.once('open', function() {
 // THE CODE.
 
 program.command('add')
-.description("Create Tasks")
-.action(addTask);
+       .description("Create Tasks")
+       .action(addTask);
 program.command('show')
-.description("Show Tasks")
-.action(showTasks);
+       .description("Show Tasks")
+       .action(showTasks);
 program.command('delete')
-.description("Delete Tasks")
-.action(deleteTask);
+       .description("Delete Tasks")
+       .action(deleteTask);
 
 // Flags
 // We will need two flags on our program. These will take values and convert them
@@ -86,7 +94,8 @@ program.command('delete')
 // TODO: add flags for "-t and --task" (do not use parseInt as the
 //    task name should be kept a string)
 program
-.option('-p, --priority <p>', 'Specify priority for task', parseInt)
+  .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+  .option('-t, --task <n>', 'Specify task name to show');
 // YOUR CODE HERE
 
 // Arguments
@@ -126,14 +135,20 @@ function addTask(){
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
-  // YOUR CODE HERE
+  var task = new ToDoItem({
+    name: name,
+    priority: priority,
+    completed: false
+  })
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
-  // YOUR CODE HERE
+  task.save(function(err, task) {
+    mongoose.connection.close();
+  });
 }
 
 // PART 3: Show tasks
@@ -155,8 +170,24 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
+  var args = parseArgs();
 
-  // YOUR CODE HERE
+  if (program.task) {
+    ToDoItem.find({name: program.task}, function(err, tasks) {
+      tasks.forEach(function(task) {
+        console.log("Task: " + task.name + ", Priority: " + task.priority + ", Completed: " + !!task.completed);
+      });
+      mongoose.connection.close();
+    });
+  } else {
+    ToDoItem.find(function(err, tasks) {
+      tasks.forEach(function(task) {
+        console.log("Task: " + task.name + ", Priority: " + task.priority + ", Completed: " + !!task.completed);
+      });
+      mongoose.connection.close();
+    });
+
+  }
 }
 
 // PART 4: Delete tasks
@@ -167,5 +198,13 @@ function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
-  // YOUR CODE HERE
+  if (program.task) {
+    ToDoItem.remove({name: program.task}, function(err, task) {
+      console.log("Item removed.")
+      mongoose.connection.close();
+    })
+  } else {
+    console.log("Task name needed. Use the -t tag to specify.")
+    mongoose.connection.close();
+  }
 }
