@@ -9,11 +9,20 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
 </head>
+
+
 <body>
 <h1>View all posts</h1>
 
 <h2>Your username: {{username}}</h2>
+<form class="sort">
+	<input type="button" value="Descending" onClick="self.location='/posts/?order=descending'">
+	<input type="button" value="Ascending" onClick="self.location='/posts/?order=ascending'">
+	<input type="button" value="New Post" onClick="self.location='/posts/new'">
+	<input type="button" value="Switch User" onClick="self.location='/login'">
+</form>
 
 <!-- Part 2: Display posts -->
 
@@ -21,7 +30,13 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
+	{{#each posts}}
+	<h3>Author: {{this.author}}<h3>
+	<h4>Title: {{this.title}}</h4>
+	<h5>Date: {{this.date}}</h5>
+	<p>Body: {{this.body}}</p><br>
+	<input type="button" value="View {{this.author}}'s Posts" onClick="self.location='/posts/?author={{this.author}}'">
+	{{/each}}
 <!-- YOUR CODE HERE -->
 
 </body>
