@@ -11,17 +11,31 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+  <h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+  <h2>Your username: {{username}}</h2>
 
-<!-- Part 2: Display posts -->
+  <!-- Part 2: Display posts -->
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+  <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+{{#each posts}}
+<div class="post">
+  {{author}}:  {{title}} <br>
+  {{body}}
+  <form action='/posts' >
+    <input type="hidden" name="author" value="{{author}}">
+    <input type="submit" name="" value="only see posts by this user">
+  </form>
+  <br>
+  {{date}}
+  <br>
+  <br>
+</div>
 
+{{/each}}
 <!-- YOUR CODE HERE -->
 
 </body>

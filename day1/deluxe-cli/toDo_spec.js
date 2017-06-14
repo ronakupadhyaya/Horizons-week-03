@@ -49,6 +49,23 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy");
   });
+
+  it("Toggle completed task with id", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    var stdout = runAndCleanStdout('node toDo.js show --id 3');
+    // expect(data[2].completed).toBe(true);
+    expect(stdout.length).toBe(1);
+    expect(stdout[0]).toEqual("Task #3 Priority 3: Call the internet guy");
+  })
+
+  it("Double toggle", function() {
+    generateTasks();
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    child_process.execSync('node toDo.js toggleCompleted --id 3');
+    var stdout = runAndCleanStdout('node toDo.js show --completed');
+    expect(stdout.length).toBe(0);
+  })
 });
 
 function runAndCleanStdout(cmd){

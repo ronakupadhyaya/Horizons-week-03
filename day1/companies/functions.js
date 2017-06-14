@@ -7,7 +7,13 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var highest_investment = arr[0];
+    arr.forEach(function(investment) {
+      if (investment.originalInvestment > highest_investment.originalInvestment) {
+        highest_investment = investment;
+      }
+    });
+    return highest_investment.originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +21,11 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    sum = 0;
+    arr.forEach(function(investment) {
+      sum += investment.originalInvestment;
+    })
+    return sum / arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +39,15 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var company_investments = {};
+    arr.forEach(function(investment) {
+      if (company_investments.hasOwnProperty(investment.company)) {
+        company_investments[investment.company] += investment.originalInvestment;
+      } else {
+        company_investments[investment.company] = investment.originalInvestment;
+      }
+    });
+    return company_investments;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +61,15 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var investor_investments = {};
+    arr.forEach(function(investment) {
+      if (investor_investments.hasOwnProperty(investment.investorId)) {
+        investor_investments[investment.investorId] += investment.originalInvestment;
+      } else {
+        investor_investments[investment.investorId] = investment.originalInvestment;
+      }
+    });
+    return investor_investments;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +85,15 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var investor_investments = {};
+    arr.forEach(function(investment) {
+      if (investor_investments.hasOwnProperty(investment.investorId)) {
+        investor_investments[investment.investorId] += investment.valueToday;
+      } else {
+        investor_investments[investment.investorId] = investment.valueToday;
+      }
+    });
+    return investor_investments;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +104,35 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var current_value = this.totalCurrentValueOfInvestors(arr);
+    var original_value = this.totalOriginalInvestmentsByInvestors(arr);
+    var max_investor = null;
+    var max_ratio = null;
+    var keys = Object.keys(current_value);
+    keys.forEach(function(key) {
+      var ratio = current_value[key] / original_value[key];
+      if (ratio > max_ratio) {
+        max_ratio = ratio;
+        max_investor = key;
+      }
+    })
+    return max_investor;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var company_investments = this.totalOriginalInvestmentForCompanies(arr);
+    var keys = Object.keys(company_investments);
+    var max_investments = null;
+    var max_company = null;
+    keys.forEach(function(key) {
+      if (company_investments[key] > max_investments) {
+        max_investments = company_investments[key];
+        max_company = key;
+      }
+    })
+    return max_company;
   }
 
 }

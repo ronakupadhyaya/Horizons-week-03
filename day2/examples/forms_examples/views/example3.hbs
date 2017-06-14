@@ -1,5 +1,15 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form class="" action="/login" method="post">
+  <span>
+    Username <input type="text" name="email" placeholder="email"><br>
+    Password  <input type="password" name="password"> <br>
+    <input type="submit" name="" value="click me">
+  </span>
 </form>
 
+{{#if loggedIn}}
+<h1> Hi {{name}}!</h1>
+{{/if}}
 
+{{#if incorrectInfo}}
+<h1 style="color:red">error wrong information entered! :(</h1>
+{{/if}}

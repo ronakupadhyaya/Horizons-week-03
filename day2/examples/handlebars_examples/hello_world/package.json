@@ -1,11 +1,16 @@
 {
   "name": "hello_world",
   "version": "1.0.0",
-  "description": "",
+  "description": "first app with handlebars",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "pradyut bansal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0"
+  },
+  "devDependencies": {}
 }

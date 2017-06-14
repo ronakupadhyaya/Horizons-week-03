@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +64,44 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var post_array = data.read();
+  if(req.query.order === "decending"){
+
+    post_array.sort(function(a,b){
+      if(new Date(a.date) < new Date(b.date)){
+        return 1;
+      }else if(new Date(b.date) < new Date(a.date)){
+        return -1;
+      }else{
+        return 0;
+      }
+    });
+  }
+  if(req.query.order === "ascending"){
+    post_array.sort(function(a,b){
+      if(new Date(a.date) < new Date(b.date)){
+        return -1;
+      }else if(new Date(b.date) < new Date(a.date)){
+        return 1;
+      }else{
+        return 0;
+      }
+    });
+  }
+  if(req.query.author){
+    var filtered_array =[];
+    post_array.forEach(function(post){
+      if(req.query.author === post.author){
+        filtered_array.push(post)
+      }
+    })
+    post_array = filtered_array.slice(0)
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts:post_array
   });
 });
 
@@ -81,7 +115,10 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username === null){
+    res.status(401).send("No user logged in.");
+  }
+  res.render('post_form');
 });
 
 // POST /posts:
@@ -101,7 +138,24 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var post_object = {
+    author: req.cookies.username,
+    title: req.body.title,
+    date: req.body.date,
+    body: req.body.body
+  }
+  if(req.cookies.username === null){
+    res.status(401).send("No user logged in.");
+  }
+  var errors = req.validationErrors();
+  if(errors){
+    res.status(400).send("incomplete information provided.")
+  }else{
+    var post_array = data.read();
+    post_array.push(post_object);
+    data.save(post_array);
+  }
+  res.redirect('/posts');
 });
 
 // Start the express server
