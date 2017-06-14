@@ -1,6 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
+var _ = require('underscore');
 
 var app = express();
 
@@ -29,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
 var data = require('./data');
-
+var loggedin = false;
 app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
@@ -38,50 +39,62 @@ app.get('/', function(req, res) {
 
 // GET /login: The login page
 // Make this endpoint render the template 'views/login.hbs' using res.render().
-//
-// Remember that when using res.render() you only need to give it the name of the
-// of the template without .hbs
-//
-// For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
+  // console.log(req.body);
   // YOUR CODE HERE
+  res.render('login', {
+    // username: req.body.username
+  });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
-// This endpoint is implemented for you.
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
+  loggedin = true;
   res.redirect('/posts');
 });
 
 // ---Part 2. View Posts---
+app.use(function(req,res,next){
+  if(!req.cookies.username){
+    res.status(401).send('not logged in');
+  }else{
+    next();
+  }
+})
 
 // GET /posts: View posts page
 //
 // Render 'posts.hbs` with the correct information.
-//
-// Hint: to get the username, use req.cookies.username
-// Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+
+  var unorderedposts = data.read();
+  if(req.query.order === 'ascending'){
+    unorderedposts = _.sortBy(unorderedposts,'date');
+  } else if(req.query.order == 'descending'){
+    var arr = _.sortBy(unorderedposts,'date');
+    unorderedposts= arr.reverse();
+  }
+
+
+  if(req.query.author){
+    unorderedposts = unorderedposts.filter(function(post){
+      return post.author==req.query.author;
+    })
+  }
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: unorderedposts,
+    order: req.query.order,
+    filterBy: req.query.author
   });
 });
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
-//
-// Render 'post_form.hbs'.
-//
-// User must be logged in to be able to visit this page. If
-// the user is not logged in display an error.
-//
-// Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('post_form');
 });
 
 // POST /posts:
@@ -101,7 +114,34 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  req.checkBody('body','Invalid body').notEmpty();
+  req.checkBody('title','Invalid title').notEmpty();
+  req.checkBody('date','Invalid date').notEmpty();
+  var errors = req.validationErrors();
+  if(errors){
+    errors.forEach(function(error){
+      if(error.param==='body' || error.param==='title' || error.param==='date' ){
+         res.status(400).send('missing fields');
+      }
+    })
+
+  }else{
+    var post = {
+      author: req.cookies.username,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date
+    }
+    // data.write(post);
+    var posts = data.read();
+    posts.push(post);
+    data.save(posts);
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: data.read()
+    });
+  }
+
 });
 
 // Start the express server

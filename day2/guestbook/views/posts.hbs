@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
 </head>
 <body>
 <h1>View all posts</h1>
@@ -16,13 +17,61 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
+{{#each posts}}
+<div class="postbox">
+  <div class = "flex-container postcontents">
+    <div class="contents title">
+      <div class="titlename">{{this.title}}</div>
+      <div class="date">{{this.date}}</div>
+      <button type="button" class="delete btn btn-default">delete</button>
+      <button type="button" class="edit btn btn-default">edit</button>
+    </div>
+    <div class="contents author">
+      Author: {{this.author}}
+    </div>
+    <div class="contents body">
+      {{this.body}}
+    </div>
+    {{#if ../filterBy}}
+    {{else}}
+      {{#if ../order}}
+        <a href="?order={{../order}}&amp;author={{this.author}}">show only posts from this author</a>
+      {{else}}
+        <a href="?author={{this.author}}">show only posts from this author</a>
+      {{/if}}
+    {{/if}}
+  </div>
+</div>
+{{/each}}
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+{{#if filterBy}}
+  <a href="?order=ascending&amp;author={{filterBy}}">sort in ascending order</a>
+  <a href="?order=descending&amp;author={{filterBy}}">sort in desc order</a>
+  <a href="/posts">View Posts by all authors</a>
+{{else}}
+  <a href="/posts?order=ascending">sort in ascending order</a>
+  <a href="/posts?order=descending">sort in desc order</a>
+{{/if}}
+
 
 <!-- YOUR CODE HERE -->
 
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+  $('.edit').on('click', function(event){
+    var post = $(this).parent().siblings('.body');
+    $(this).parent().siblings('.body').attr('contenteditable',true);//.val(true);
+    $(this).parent().siblings('.body').focus();
+    // post.hover();
+    // $(this).parent().siblings('.body').replaceWith(`<div class="contents body">hi</div>`);
+    console.log("Edit clicked");
+  });
+  $('.delete').on('click', function(event){
+    $(this).parent().parent().parent().remove();
+  });
+</script>
 </body>
+
 </html>
