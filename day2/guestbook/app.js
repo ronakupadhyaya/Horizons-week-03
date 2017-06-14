@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -66,8 +66,9 @@ app.post('/login', function(req, res) {
 app.get('/posts', function (req, res) {
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
+    username: req.cookies.username,
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    posts: data.read()
   });
 });
 
@@ -81,7 +82,14 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (!req.cookies.username) {
+    res.status(401).render('post_form',{
+      error: "not logged in"
+    });
+  }
+  else {
+    res.render('post_form')
+  }
 });
 
 // POST /posts:
@@ -101,7 +109,31 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  req.check('title', 'field required').notEmpty();
+  req.check('body', 'field required').notEmpty();
+  req.check('date', 'field required').notEmpty();
+  var error = req.validationErrors();
+  if (error) {
+    res.status(400).render('post_form', {
+      error: "shit cannot be empty fam"
+    })
+  }
+  else {
+    var x = {
+        title: req.body.title,
+        body:req.body.body,
+        date: req.body.date
+    };
+    var arr = data.read();
+    arr.push(x);
+    data.save(arr);
+  }
+  res.render('posts', {
+    // Pass `username` to the template from req.cookies.username
+    username: req.cookies.username,
+    // Pass `posts` to the template from data.read()
+    posts: data.read()
+  });
 });
 
 // Start the express server

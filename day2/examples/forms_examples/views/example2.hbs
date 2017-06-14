@@ -1,3 +1,23 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <p>username</p>
+    <input type="text" name="username" value={{username}}>
+    <p>
+      password
+    </p>
+    <input type="password" name="password" value={{password}}>
+    <p>
+      name
+    </p>
+    <input type="text" name="name" value={{name}}>
+      <input type="radio" name="gender" value="male"> Male<br>
+      <input type="radio" name="gender" value="female" {{#if fg}} checked {{/if}}> Female<br>
+      <select name="state">
+        <option value="indo">Indo</option>
+        <option value="us">US</option>
+        <option value="viet">Viet</option>
+        <option value="china">China</option>
+      </select>
+      <input type="submit" value="submit" />
+  </span>
 </form>
