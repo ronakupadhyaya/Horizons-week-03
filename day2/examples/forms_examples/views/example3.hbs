@@ -1,5 +1,13 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method: 'POST'>
+  <span>
+    Email: <input type="text" name="email" value="name@email.com"><br>
+    Password: <input type="password" name="password" value="">
+    <input type="submit" name="" value="Submit">
+  </span>
+
+  {{#if valid}}
+    <h1>Hi {{firstName}}!</h1>
+  {{else}}
+    <h1 style="color:red"> ERROR: no such account found </h1>
+  {{/if}}
 </form>
-
-

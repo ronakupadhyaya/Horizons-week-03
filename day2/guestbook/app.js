@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 
 var app = express();
-
+var loggedIn = false;
 // Enable cookie parsing
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('./login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -52,6 +53,7 @@ app.get('/login', function(req, res) {
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
+  loggedIn = true;
   res.redirect('/posts');
 });
 
@@ -63,12 +65,64 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+function chronOrder(arr, order) {
+  debugger;
+  if(order === "ascending"){
+    arr.sort(function(a,b) {
+      var aArr = a.date.split("/");
+      var aNum = aArr[2]*10000 + aArr[0]*100 + aArr[1]*1
+      var bArr = b.date.split("/");
+      var bNum = bArr[2]*10000 + bArr[0]*100 + bArr[1]*1
+
+      return aNum-bNum;
+    })
+  } else if (order === "descending") {
+    arr.sort(function(a,b) {
+      var aArr = a.date.split("/");
+      var aNum = aArr[2]*10000 + aArr[0]*100 + aArr[1]*1
+      var bArr = b.date.split("/");
+      var bNum = bArr[2]*10000 + bArr[0]*100 + bArr[1]*1
+      return bNum-aNum;
+    })
+  }
+  return arr;
+}
+
 app.get('/posts', function (req, res) {
-  res.render('posts', {
+  var order = req.query.order;
+  var author = req.query.author;
+  var arr = data.read()
+  var filteredArr;
+  var sortedArr = arr;
+
+  if(author){
+    console.log(`The author is ${author}`);
+    sortedArr = arr.filter(function(item){
+      return item.author === author
+    });
+  }
+  if(order){
+    console.log(`The order is ${order}`);
+    sortedArr = chronOrder(sortedArr, order);
+  }
+
+
+  if (loggedIn){
+    res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
-  });
+    username: req.cookies.username,
+    posts: sortedArr,
+    order: order,
+    uniqueAuthor: author
+
+    });
+  } else {
+    res.status(401).send("Error 401, not logged in")
+  }
+
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +136,12 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+
+  if (loggedIn){
+    res.render('post_form')
+  } else {
+    res.status(401).send('Error 401, not logged in');
+  }
 });
 
 // POST /posts:
@@ -102,6 +162,31 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var arr = data.read();
+  var validArgs = true;
+  for(var key in req.body) {
+    if(req.body[key].length < 1) {
+      res.status(400).send(`Error 400, ${key} is empty`);
+      validArgs = false;
+    }
+  }
+
+  if(loggedIn && validArgs) {
+    var postObj = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      body: req.body.body
+    }
+    arr.push(postObj)
+    data.save(arr);
+    res.redirect('/posts')
+  } else {
+    res.status(401).send('Error 401, not logged in');
+  }
+
+
+
 });
 
 // Start the express server

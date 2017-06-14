@@ -1,3 +1,18 @@
-<div>
-  <span>YOUR CODE HERE</span>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div>
+      <h1>Our list of students and their emails</h1>
+      <ul>
+        {{#each data}}
+          <li> {{first_name}} {{last_name}}: {{email}}</li>
+        {{/each}}
+      </ul>
+    </div>
+
+  </body>
+</html>

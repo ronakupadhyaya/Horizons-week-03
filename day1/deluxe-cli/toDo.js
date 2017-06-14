@@ -132,7 +132,7 @@ function addTask() {
 function showTasks(){
   // YOUR CODE HERE
   if(process.argv.indexOf('-i') > -1 || process.argv.indexOf('--id') > -1){
-    var idLoc = process.argv.indexOf('-i')  + 1;
+    var idLoc = hprocess.argv.indexOf('-i')  + 1;
     var id = parseInt(process.argv[idLoc]);
     console.log(`Task #${id} Priority ${data[id-1].priority}: ${data[id-1].name}`);
   } else {

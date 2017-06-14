@@ -11,7 +11,10 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+<form action="/posts" method="GET">
+
+  <input type="submit" name="" value="View All Posts">
+</form>
 
 <h2>Your username: {{username}}</h2>
 
@@ -23,6 +26,33 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+  <div class="container ">
+    <div class="row ">
+      <div class="user-post col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 well well-sm">
+        <legend class = 'post-body'>
+          <h2>{{this.title}}<br></h2>
+          <h3>{{this.author}}</h3>
+          <form action="/posts" method="GET">
+            <input type="hidden" name="author" value="{{this.author}}">
+            <input type="hidden" name="order" value="{{order}}">
+            <input type="submit" name="" value="View only posts by this author">
+          </form>
+          <p class = 'date-posted'>{{this.date}}</p>
+          <p class = 'user-post-content'>{{this.body}}</p>
+        </legend>
+      </div>
+    </div>
+  </div>
+{{/each}}
+<form action="/posts" method="GET">
+  <input type="hidden" name="author" value="{{uniqueAuthor}}">
+  <input type="submit" name="order" value="ascending">
 
+</form>
+<form action="/posts" method="GET">
+  <input type="hidden" name="author" value="{{uniqueAuthor}}">
+  <input type="submit" name="order" value="descending">
+</form>
 </body>
 </html>

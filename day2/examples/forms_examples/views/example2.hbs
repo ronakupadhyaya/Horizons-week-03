@@ -1,3 +1,10 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  Username: <input type="text" name="username" value="{{username}}"><br>
+  Password: <input type="password" name="password" value="{{password}}"><br>
+  Name: <input type="text" name="name" value="{{name}}"><br>
+  Gender: <input type="radio" name="gender" value="male" {{checkedMale}}> Male
+  <input type="radio" name="gender" value="female" {{checkedFemale}}> Female <br>
+  State: <input type="dropdown" name="state" value="{{state}}"><br>
+  <input type="submit" name="" value="Submit">
+
 </form>
