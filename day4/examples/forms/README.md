@@ -1,4 +1,4 @@
-# Pair Programming Exercise: Forms
+# Individual Exercise: Forms
 
 ## Goal
 
@@ -26,7 +26,6 @@ work through the exercise.
 
 ## Instructions
 
-1. [Watch Me: Form Validation](https://vimeo.com/221131674)
 1. Install your dependencies.
 
     ```bash
@@ -106,9 +105,9 @@ work through the exercise.
       </tr>
       <tr>
         <td> Bio </td>
-        <td> Y </td>
+        <td> N </td>
         <td> textarea </td>
-        <td> Must not be blank </td>
+        <td> </td>
       </tr>
     <table>
 
@@ -122,7 +121,7 @@ work through the exercise.
     If not, render form back with error messages on validation errors.
 1. When you're done with your form it should look something like this (it's ok if it's slightly different).
 
-    ![](img/form.png)
+    ![Empty form](img/form.png)
 
 1. Make a `/register` route in your express app.
 
@@ -132,9 +131,26 @@ work through the exercise.
     1. if it's a **GET** request, it should return the handlebars-compiled empty form
     2. if it's a **POST** request, it should validate the post data, and if the post data is:
 
-      - **valid**, it should send the handlebars-compiled profile page
-      - **invalid**, it should send the handlebars-compiled registration form
-      with an error message about which form fields are invalid.
+        - **valid**, it should send the handlebars-compiled profile page
+
+            <details><summary>
+            Screenshot
+            </summary><p>
+
+            ![Valid form output](img/registered.png)
+
+            </p></details>
+
+        - **invalid**, it should send the handlebars-compiled registration form
+        with an error message about which form fields are invalid.
+
+            <details><summary>
+            Screenshot
+            </summary><p>
+
+            ![Registration error](img/error.png)
+
+            </p></details>
 
 ## Validation
 
@@ -153,9 +169,9 @@ app.post('/', function(req, res) {
   var errors = req.validationErrors();
   if (errors) {
     res.send('There have been validation errors: ' + errors, 400);
-    return;
+  } else {
+    res.render('index');
   }
-  res.render('index');
 }
 ```
 

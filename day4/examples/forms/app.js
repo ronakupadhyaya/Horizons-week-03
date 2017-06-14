@@ -2,7 +2,6 @@
 
 var express = require('express');
 var app = express();
-var fs = require('fs');
 var path = require('path');
 
 // Set up handlebar templates
@@ -36,18 +35,6 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
-// ---Part 1: Validation---
-// Write a function that takes a request object and does validation on it using
-// express-validator.
-// We've provided an example validation rule that validates the firstName
-// field.
-// Read the express-validator docs to see how to do other validations:
-// https://github.com/ctavan/express-validator
-function validate(req) {
-  req.checkBody('firstName', 'Invalid firstName').notEmpty();
-}
-
-// ---Part 2: Render errors and profile---
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
@@ -57,14 +44,13 @@ function validate(req) {
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  validate(req);
-  // Get errors from express-validator
-  var errors = req.validationErrors();
+  // YOUR CODE HERE - Add express-validator validation rules here
+  var errors; // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
-    // YOUR CODE HERE
     // Include the data of the profile to be rendered with this template
+    // YOUR CODE HERE
     res.render('profile');
   }
 });
