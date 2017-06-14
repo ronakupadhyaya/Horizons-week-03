@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var underscore = require("underscore");
 var app = express();
 
 // Enable cookie parsing
@@ -66,10 +66,33 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var newPost = data.read();
+  var order =req.query.order;
+  var authorArr = [];
+  var finalArr = [];
+  var author = req.query.author;
+  newPost.forEach(function(i){
+    if(i.author === author) {
+      authorArr.push(author);
+      data.save(authorArr) //save the array into our current data
+    }
+  })
+
+  if (order === 'ascending') {
+    finalArr = underscore.sortBy(newPost, 'date');
+    data.save(finalArr);
+  }
+  if (order ==='descending') {
+    finalArr = underscore.sortBy(newPost, 'date');
+    finalArr = finalArr.reverse();
+    data.save(finalArr);
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    // IMPLEMENT PART4
+
     username: req.cookies.username,
     posts: data.read()
   });
