@@ -13,8 +13,63 @@
 <body>
 <h1>View all posts</h1>
 
+
+<a href="/posts?order=ascending">View posts by ascending orders</a>
+<a href="/posts?order=descending">View posts by descending orders</a>
+
+
+
 <h2>Your username: {{username}}</h2>
 
+
+<ul>
+  {{#each posts}}
+    <li>{{title}}</li>
+    <li>{{body}}</li>
+    <li>{{author}}</li>
+    <li>{{date}}</li>
+
+
+    {{#if authorExist}}
+
+      {{#if desExist}}
+      {{else}}
+      <a href="/posts">View posts by all authors</desExista>
+      {{/if}}
+
+      {{#if ascExist}}
+      {{else}}
+      <a href="/posts">View posts by all authors</desExista>
+      {{/if}}
+
+    {{else}}
+
+
+
+
+
+    {{#if desExist}}
+    <a href="/posts?author={{author}}&order=descending">View posts only by this author</a>
+    {{else}}
+    <a href="/posts?author={{author}}">View posts only by this author</a>
+    {{/if}}
+
+    {{#if ascExist}}
+    <a href="/posts?author={{author}}&order=ascending">View posts only by this author</a>
+    {{else}}
+    <a href="/posts?author={{author}}">View posts only by this author</a>
+    {{/if}}
+
+
+
+
+
+    {{/if}}
+
+  </br>
+
+    {{/each}}
+</ul>
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to

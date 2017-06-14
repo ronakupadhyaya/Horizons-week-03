@@ -8,9 +8,21 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// YOUR CODE HERE
+app.get('/', function(request, response) {
+  response.render('index', {
+    data: data
+  });
 
+  app.get('/male', function(request, response) {
+    response.render('index', {
+      data: data
+    });
+
+    app.get('/female', function(request, response) {
+      response.render('index', {
+        data: data
+      });
+
+      
+});
 app.listen(3000);
-
-
-

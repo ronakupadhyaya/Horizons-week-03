@@ -7,7 +7,15 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var highestInv = 0;
+    arr.forEach(function(item, index){
+      for(var key in item){
+        if(key === 'originalInvestment' && item[key] > highestInv){
+          highestInv = item[key];
+        }
+      }
+    });
+    return highestInv;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +23,16 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var sum = 0;
+    arr.forEach(function(item, index){
+      for(var key in item){
+        if(key === 'originalInvestment'){
+          sum += item[key];
+        }
+      }
+    });
+    var average = sum/arr.length;
+    return average;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +46,15 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var object = {};
+    arr.forEach(function(item, index){
+        if(!(item['company'] in object)){
+          object[item['company']] = item['originalInvestment'];
+        } else {
+          object[item['company']] = item['originalInvestment'] + object[item['company']];
+        }
+    });
+        return object;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +68,16 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var object = {};
+    arr.forEach(function(item, index){
+        if(!(item['investorId'] in object)){
+          object[item['investorId']] = item['originalInvestment'];
+        } else {
+          object[item['investorId']] = item['originalInvestment'] + object[item['investorId']];
+        }
+    });
+    console.log(object);
+        return object;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +93,15 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var object = {};
+    arr.forEach(function(item, index){
+        if(!(item['investorId'] in object)){
+          object[item['investorId']] = item['valueToday'];
+        } else {
+          object[item['investorId']] = item['valueToday'] + object[item['investorId']];
+        }
+    });
+        return object;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +112,36 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var highest = 0;
+    var highestInv = '';
+    var pastInv = this.totalOriginalInvestmentsByInvestors(arr);
+    var currentInv = this.totalCurrentValueOfInvestors(arr);
+    for(var key in pastInv){
+      for(var key1 in currentInv){
+        if(key === key1){
+          var temp = currentInv[key]/pastInv[key];
+          if(temp > highest){
+            highest = temp;
+            highestInv = key;
+          }
+        }
+      }
+    }
+    return highestInv;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var totalOri = this.totalOriginalInvestmentForCompanies(arr);
+    var highest = 0;
+    var highestCom = '';
+    for(var key in totalOri){
+      if(totalOri[key] > highest){
+        highest = totalOri[key];
+        highestCom = key;
+      }
+    }
+    return highestCom;
   }
-
 }
