@@ -23,6 +23,29 @@
 -->
 
 <!-- YOUR CODE HERE -->
+  {{#each posts}}
+    <article>
+      <hr>
+      <h3>{{this.title}}</h3>
+      <p>{{this.body}}</p>
+      <i><strong>{{this.author}}</strong></i>
+      {{this.date}}
+      <p><a href="/posts?author={{this.author}}">Filter to this author only</a>
+        <a href="/posts">Click to direct to all posts</a>
+      </p>
+
+      <hr>
+    </article>
+
+    <!-- {{this.author}}, {{this.date}}, {{this.title}}, {{this.body}} -->
+  {{/each}}
+
+  <p><a href="/posts/new">Create New Post</a></p>
+  <p>
+    <a href="/posts?order=ascending">Ascending order</a>
+    <a href="/posts?order=descending">Descending order</a>
+  </p>
+
 
 </body>
 </html>

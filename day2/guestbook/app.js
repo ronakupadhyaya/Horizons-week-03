@@ -44,6 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
+  res.render('login');
   // YOUR CODE HERE
 });
 
@@ -64,12 +65,59 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var data2 = data.read()
+  var username = req.cookies.username;
+  var arr2 = []
+  var arr3 = []
+
+
+  if (req.query.order==='ascending'){
+    data2.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+  } else {
+    data2.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+  }
+
+  // if (req.query.username) { // req.query.author==="author"
+  //   var arr = []
+
+  if (req.query.author) {
+    data2.forEach(function(indpost){
+      if (req.query.author===indpost.author) {
+        arr2.push(indpost)
+      }
+    })
+    data2 = arr2;
+  }
+
+  if (req.query.author && req.query.order==='ascending') {
+    data2.forEach(function(indpost){
+      if (req.query.author===indpost.author) {
+        arr3.push(indpost)
+      }
+    })
+    data2 = arr3;
+    data2.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+  } else if (req.query.author && req.query.order==='descending') {
+    data2.forEach(function(indpost){
+      if (req.query.author===indpost.author) {
+        arr3.push(indpost)
+      }
+    })
+    data2 = arr3;
+    data2.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+  }
+
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username : username,
+    posts : data2
   });
 });
+
+
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
@@ -81,6 +129,7 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
+  res.render('post_form');
   // YOUR CODE HERE
 });
 
@@ -102,6 +151,25 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var data2 = data.read()
+  req.checkBody('title', 'Invalid entry; title must not be empty').notEmpty();
+  req.checkBody('text', 'Invalid entry: text must not be empty').notEmpty();
+  req.checkBody('date', 'Invalid entry; date must be completed').notEmpty();
+  var valerr = req.validationErrors();
+
+  if (req.cookies.username && !valerr) {
+    var newpost = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      body: req.body.text
+    }
+    data2
+    data2.push(newpost)
+    data.save(data2)
+    res.redirect('/posts')
+
+  }
 });
 
 // Start the express server
