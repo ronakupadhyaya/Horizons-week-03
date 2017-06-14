@@ -23,6 +23,34 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<a href="/posts/new"> Create New Post </a>
+
+<div class="container">
+  <div class="row">
+  <a href="/posts?order=ascending"> sort by ascending order </a>
+</div>
+  <div class="row">
+  <a href="/posts?order=descending"> sort by descending order </a>
+  </div>
+  <div class="row">
+  <a href="/posts"> View all authors </a>
+  </div>
+{{#each posts}}
+<div class="row">
+<div class="card border">
+<h3 class="card-header"> <em>{{author}}</em></h3>
+<div class="card-block">
+  <h4 class="card-title">{{title}}</h4>
+  <p class="card-text">{{body}}</p>
+</div>
+<h5 class="card-footer pull-right">
+  {{date}}
+</h5>
+<a href="/posts?author={{author}}"> <font class="grey">View only posts by this author</font> </a>
+</div>
+</div>
+{{/each}}
+</div>
 
 </body>
 </html>

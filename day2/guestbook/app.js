@@ -1,6 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
+var _ = require('underscore');
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +66,23 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var feed = data.read()
+  if(req.query.order==="ascending"){
+    feed = _.sortBy(feed,function(item){return Date.parse(item.date)});
+  }
+  if(req.query.order==="descending"){
+    feed = _.sortBy(feed,function(item){return Date.parse(item.date)}).reverse();
+  }
+  if(req.query.author){
+    feed = _.filter(feed,function(item){return item.author===req.query.author});
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: feed
   });
 });
 
@@ -82,6 +97,17 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username){
+    res.render('post_form',{
+      flag: true
+    });
+  }
+  else{
+    res.render('post_form',{
+      flag: false,
+      error: "Problem with username"
+    });
+  }
 });
 
 // POST /posts:
@@ -102,6 +128,24 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if(req.validationErrors()){
+    res.send("There's an error with new post!")
+  }
+  else{
+    var newObj = {
+      author: req.body.author,
+      date: req.body.date,
+      title: req.body.title,
+      body: req.body.body
+    }
+    var arr = data.read()
+    arr.push(newObj);
+    data.save(arr);
+    res.render('posts',{
+      username: req.cookies.username,
+      posts: data.read()
+    })
+  }
 });
 
 // Start the express server

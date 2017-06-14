@@ -1,5 +1,22 @@
-<form>
-  <span>YOUR CODE HERE</span>
+
+<form method="post" action="/login">
+  <div class="form-group">
+    <label>Email</label>
+    <input type="text" class="form-control" name="email">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary" >Register</button>
 </form>
 
-
+<h1>
+{{#if thing}}
+<p> Hi {{name}}! </p>
+{{else}}
+<font color="red">
+Wrong username or password!
+</font>
+{{/if}}
+</h1>
