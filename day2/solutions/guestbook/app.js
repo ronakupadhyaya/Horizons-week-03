@@ -64,6 +64,7 @@ app.get('/posts', function (req, res) {
     displayposts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
   }
   res.render('posts', {
+    username: req.cookies.username,
     title: 'Posts',
     posts: displayposts
   });

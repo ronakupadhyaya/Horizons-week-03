@@ -116,31 +116,20 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
-  req.checkBody('title', 'Title must not be empty').notEmpty();
-  req.checkBody('text', 'Title must not be empty').notEmpty()
-  var errors = req.validationErrors();
-
-  if (errors){
-    res.render('post_form', {
-      title: 'New Post',
-      error:"Title and body can't be blank"});
-  }
-  if (req.cookies && req.cookies.username && !errors){
+  if (!(req.body.body && req.body.title && req.body.date)){
+    res.render('post_form', {error:"Title and body can't be blank"});
+  } else {
     var post = {
       author: req.cookies.username,
       date: req.body.date,
       title: req.body.title,
-      text: req.body.text
+      body: req.body.body
     }
-    posts.push(post);
-    jsonfile.writeFileSync(file, posts);
+    var arr = data.read()
+    arr.push(post)
+    data.save(arr);
     res.redirect('/posts')
   }
-  // req.check(req.body.title, res.status(400).send("FINISH!!!!!")).notEmpty()
-  // req.check(req.body.body, res.status(400).send("FINISH!!!!!")).notEmpty()
-  // req.check(req.body.date, res.status(400).send("FINISH!!!!!")).notEmpty()
-  // var post = {author: req.cookies.username, date: req.body.date, title: req.body.title, body: req.body.body}
-  // data.save(data.read().push(post));
 });
 
 // Start the express server
