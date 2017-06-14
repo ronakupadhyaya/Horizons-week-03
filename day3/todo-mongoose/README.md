@@ -16,21 +16,19 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
-1. Create new file `week03/day3/todo-mongoose/config.js` and use
-   `module.exports` to return an object with a single key `MONGODB\_URI`.
-   Set the value of this key to the URI from the previous step. It should
-   look like this:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `app.env` in `week03/day3/todo-mongoose` and put the `MONGODB_URI` from the previous step there:
 
-  ```
-  module.exports = {
-    MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
-  }
-  ```
+    ```bash
+    export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/example"
+    ```
 
-### `config.js` - IMPORTANT DISCLAIMER
+1. Run `source env.sh` to import the environment variable from `env.sh`. For an explanation of `source` [click here](https://bash.cyberciti.biz/guide/Source_command). **IMPORTANT**: You must run this command each time you open a new shell. This is because the environmental variables are initialized each time a new shell is opened.
 
-We've put `config.js` into the `.gitignore` file so you may notice that Git doesn't prompt you to
-commit changes `config.js`. We've excluded `config.js` from Git because you shouldn't put your database
+
+### `app.env` - IMPORTANT DISCLAIMER
+
+We've put `app.env` into the `.gitignore` file so you may notice that Git doesn't prompt you to
+commit changes `app.env`. We've excluded `app.env` from Git because you shouldn't put your database
 username and password on GitHub, where other people can see it!
 
 ## Exercises
