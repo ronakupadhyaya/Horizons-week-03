@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -55,6 +55,12 @@ app.post('/login', function(req, res) {
   res.redirect('/posts');
 });
 
+app.get('/posts/new', function(req, res) {
+  if (req.cookies.username!==undefined){
+    res.render('post_form');
+  }
+
+});
 // ---Part 2. View Posts---
 
 // GET /posts: View posts page
@@ -63,13 +69,38 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+// console.log(data1);
+// app.get('/posts', function (req, res) {
+//   res.redirect('/posts/ascending')
+// });
+
 app.get('/posts', function (req, res) {
+  var data1 = data.read('data.json')
+  if (req.query.order==='ascending'){
+    data1.sort(function(a,b){
+      return new Date(a.date) - new Date(b.date)
+    })
+  }
+  if (req.query.order==='descending'){
+    data1.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
+
+  if (req.query.author){
+  var data2=[];
+  for (var i = 0; i < data1.length; i++) {
+    if (req.query.author=== data1[i]['author']){
+      data2.push(data1[i])
+    }
+  }data1=data2}
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    posts : data1,
+    username:req.cookies.username
   });
 });
+
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
@@ -80,9 +111,7 @@ app.get('/posts', function (req, res) {
 // the user is not logged in display an error.
 //
 // Hint: check req.cookies.username to see if user is logged in
-app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
-});
+
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
@@ -102,7 +131,22 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if (req.body.title===''||req.body.date===''||req.body.body===''){
+  res.status(400).send('Error 400');
+}
+
+  var data1 = data.read();
+  var post = {
+    author:req.cookies.username,
+    date:req.body.date,
+    title:req.body.title,
+    body: req.body.body
+  }
+  data1.push(post);
+  data.save(data1);
+  res.redirect('/posts');
 });
+
 
 // Start the express server
 var port = '3000'
