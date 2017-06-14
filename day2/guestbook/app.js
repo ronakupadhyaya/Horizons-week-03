@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 // Make files in the folder `public` accessible via Express
 app.use(express.static(path.join(__dirname, 'public')));
 
-// We use this module to store and retrieve data.
+// We use this module to store and retrieve req.param.title;.
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
 var data = require('./data');
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -53,6 +54,7 @@ app.get('/login', function(req, res) {
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
   res.redirect('/posts');
+
 });
 
 // ---Part 2. View Posts---
@@ -64,11 +66,14 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var posts = data.read('./data');
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
-  });
+    username: req.cookies.username,
+    posts: data.read('./data')
+    });
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +87,8 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form');
+
 });
 
 // POST /posts:
@@ -102,6 +109,27 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var title = req.param.title;
+  var body = req.param.body;
+  var date = req.param.date;
+
+
+  req.check('title', 'title is empty').notEmpty();
+  req.check('body', 'body is empty').notEmpty();
+  req.check('date', 'date is empty').notEmpty();
+
+  var error = req.validationErrors();
+
+  if (error){
+    res.status(400);
+  } else{
+
+  }
+    res.render('post_form', {
+      error: error,
+    });
+
+
 });
 
 // Start the express server
