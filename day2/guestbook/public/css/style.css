@@ -7,3 +7,28 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post {
+  border: 2px solid darkgrey;
+  margin: 10px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.post-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 2px;
+}
+
+.date-author {
+  font-weight: lighter;
+  color: darkgrey;
+  display: flex;
+  align-items: center;
+}
+
+.post-content {
+  margin: 10px;
+}

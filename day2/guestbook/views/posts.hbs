@@ -7,22 +7,56 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+  <div class="container-fluid">
 
-<h2>Your username: {{username}}</h2>
+    <div class="row header">
+      <h1 class="col-xs-8">View all posts</h1>
 
-<!-- Part 2: Display posts -->
+      <p class="col-xs-4 text-right">You are logged in as {{username}}</p>
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+      <form class="col-xs-12" action="/posts" method="get">
+        <span>Sort by: </span>
+        <button class="btn btn-link" name="order" value="ascending"> Ascending </button>
+        <button class="btn btn-link" name="order" value="descending"> Descending </button>
+      </form>
 
-<!-- YOUR CODE HERE -->
+      <form class="col-xs-12 text-right" action="/posts/new" method="get">
+        <input class="btn btn-primary" type="submit" name="" value="Write a new post...">
+      </form>
+    </div>
+
+    <!-- Part 2: Display posts -->
+
+    <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+    display them on the page.
+    Put each post inside a div. Be sure to display the author, title, body and date of each post.
+  -->
+  {{#each posts}}
+  <div class="row post">
+    <div class="row post-header">
+      <div class="col-xs-8">
+        <div class="post-title">{{title}}</div>
+        <span class="date-author">Posted by <form class="form-inline" action="/posts">
+          <button class="btn-link" type="submit" name="author" value="{{author}}">{{author}}</button>
+        </form> on {{date}}</span>
+      </div>
+    </div>
+    <div class="row post-content">
+      <p>{{body}}</p>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </body>
 </html>
