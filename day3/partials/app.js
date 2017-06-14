@@ -14,5 +14,9 @@ app.get('/', function (req, res) {
     res.render('index.hbs');
 });
 
+app.get('/second', function (req, res) {
+    res.render('index.hbs');
+});
+
 
 app.listen(3000);
