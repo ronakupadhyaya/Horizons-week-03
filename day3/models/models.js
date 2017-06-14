@@ -5,11 +5,18 @@ if (! process.env.MONGODB_URI) {
   process.exit(1);
 }
 
+console.log(process.env.MONGODB_URI);
+
 // First let's set up our MongoDb connection
 var mongoose = require('mongoose');
+console.log('before it breaks!!!');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
+
+var Cat = mongoose.model('Cat', {name: String, height: Number});
+
+var feline = new Cat({name: 'Whiskers', height: 5})
+
 
 Cat.find(function(error, cats) {
   if (error) {
