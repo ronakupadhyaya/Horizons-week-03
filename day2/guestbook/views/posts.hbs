@@ -21,7 +21,20 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
+<div>
+  <div class = "posts">
+    {{#each posts}}
+      <div>
+        <h2> {{title}} </h2>
+        <p> {{body}} </p>
+        <div> {{author}} </div>
+        <div> {{date}} </div>
+        <a href = "/posts?author={{author}}">sort by author</a>
+      </div>
+    {{/each}}
+  </div>
+  <a href = "/posts"> view all posts</a>
+</div>
 <!-- YOUR CODE HERE -->
 
 </body>
