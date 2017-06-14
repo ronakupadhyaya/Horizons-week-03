@@ -1,23 +1,85 @@
-<h1>Posts</h1>
+<!DOCTYPE html>
 
-<!-- Iterate over al the posts using {{#each posts}} {{title}} {{/each}} to
-display them on the page. Add a couple of buttons to sort ascending/descending
-and to create new post! -->
+<html>
+
+<head>
+
+  <title>View Posts</title>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta http-equiv="Content-Language" content="en">
+
+
+
+  <link rel="stylesheet" href="/css/style.css"></link>
+
+  <link rel="stylesheet" href="/js/script.js"></link>
+
+</head>
+
+<body>
+
+<h1>View all posts</h1>
+
+
+
+<h2>Your username: {{username}}</h2>
+
+
+
+<a href="http://localhost:3000/posts?sort=ascending"><button>Sort ascending</button></a>
+
+<a href="http://localhost:3000/posts?sort=descending"><button>Sort descending</button></a>
+
+
+
+
+
+<!-- Part 2: Display posts -->
+
+
+
+<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+
+  display them on the page.
+
+  Put each post inside a div. Be sure to display the author, title, body and date of each post.
+
+-->
+
 
 
 <!-- YOUR CODE HERE -->
-{{#each posts}}
-<article>
-  <h2>{{title}}</h2>
-  <p>{{text}}</p>
-  <strong>{{author}}</strong>
-  {{date}}
-</article>
-<hr />
-{{/each}}
 
-<p><a href="/posts/new">New Post</a></p>
-<p>
-  <a href="/posts?order=ascending">View all Ascending</a>
-  <a href="/posts?order=descending">View all Descending</a>
-</p>
+<ul>
+
+  {{#each posts}}
+
+    <h1>{{this.author}} <a href="http://localhost:3000/posts?author="{{this.author}}><button>View only posts by this author</button></a></h1>
+
+    <h2>{{this.title}}</h2>
+
+    <h3>{{this.body}}</h3>
+
+    <h4>{{this.date}}</h4>
+
+  {{/each}}
+
+</ul>
+
+
+
+</body>
+
+
+
+<a href="http://localhost:3000/posts/new"><button>Create New Post</button></a>
+
+
+
+</html>
