@@ -23,6 +23,13 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+<button class="btn btn-default"><a href="/posts?order=ascending">sort ascending</a></button>
+<button class="btn btn-default"><a href="/posts?order=descending">sort descending</a></button>
+{{#if authorFilter}}
+<button class="btn btn-default"><a href="/posts">view all posts</a></button>
+{{/if}}
+{{#each posts}}
+  <div>{{title}} {{body}} {{author}} {{date}} <button class="btn btn-default"><a href="/posts?author={{author}}">view all by {{author}}</a></button></div>
+{{/each}}
 </body>
 </html>

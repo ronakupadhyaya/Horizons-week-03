@@ -1,0 +1,9 @@
+<div>
+  <h1>List:</h1>
+  {{!--<p>{{studentData[0].firstName}}</p>--}}
+  <ul>
+    {{#each studentData}}
+      <li> {{this.firstName}} {{this.lastName}} : {{this.email}}</li>
+    {{/each}}
+  </ul>
+</div>
