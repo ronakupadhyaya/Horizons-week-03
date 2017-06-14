@@ -3,7 +3,7 @@ var exphbs  = require('express-handlebars');
 
 // MONGOOSE
 var mongoose = require('mongoose');
-mongoose.connect(require('./connect'));
+mongoose.connect(process.env.MONGODB_URI);
 var Cat = mongoose.model('Cat', {name: String, furColor: String});
 // MONGOOSE
 
@@ -33,16 +33,19 @@ app.get('/other', function(req, res) {
   res.render('other');
 });
 
+app.get('/second', function(req, res) {
+  res.render('second');
+});
 
-// app.engine('hbs', exphbs({extname:'hbs', defaultLayout: 'main.hbs'}));
-// app.set('view engine', 'hbs');
-//
-// app.get('/', function (req, res) {
-//     res.render('index.hbs');
-// });
-//
-// app.get('/other', function (req, res) {
-//     res.render('other.hbs');
-// });
+app.engine('hbs', exphbs({extname:'hbs', defaultLayout: 'main.hbs'}));
+app.set('view engine', 'hbs');
+
+app.get('/', function (req, res) {
+    res.render('index.hbs');
+});
+
+app.get('/other', function (req, res) {
+    res.render('other.hbs');
+});
 
 app.listen(3000);

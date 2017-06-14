@@ -1,0 +1,9 @@
+{{#unless cats}}
+  No cats yet, sorry :(
+{{/unless}}
+
+{{#each cats}}
+  {{> cat name=name furColor=furColor}}
+{{/each}}
+
+{{> sophia}}
