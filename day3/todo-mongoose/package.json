@@ -4,7 +4,8 @@
     "commander": "^2.9.0",
     "jasmine-node": "^1.14.5",
     "jsonfile": "^2.3.1",
-    "mongoose": "^4.8.1"
+    "mongoose": "^4.8.1",
+    "node-env-file": "^0.1.8"
   },
   "scripts": {
     "test": "jasmine-node .",
