@@ -15,6 +15,10 @@
 
 <h2>Your username: {{username}}</h2>
 
+<a href="http://localhost:3000/posts?sort=ascending"><button>Sort ascending</button></a>
+<a href="http://localhost:3000/posts?sort=descending"><button>Sort descending</button></a>
+
+
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
@@ -23,6 +27,17 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<ul>
+  {{#each posts}}
+    <h1>{{this.author}} <a href="http://localhost:3000/posts?author="{{this.author}}><button>View only posts by this author</button></a></h1>
+    <h2>{{this.title}}</h2>
+    <h3>{{this.body}}</h3>
+    <h4>{{this.date}}</h4>
+  {{/each}}
+</ul>
 
 </body>
+
+<a href="http://localhost:3000/posts/new"><button>Create New Post</button></a>
+
 </html>

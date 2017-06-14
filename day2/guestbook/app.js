@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var _ = require('underscore');
 var app = express();
 
 // Enable cookie parsing
@@ -45,6 +45,8 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login', {
+  });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +66,19 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var order = req.query.order;
+  var post = data.read();
+  if (req.query.username){
+    post = post.filter(function(x){
+      return x.author===req.query.username
+    });
+  }
+  if(order==='ascending'){
+    post.sort(function(a,b){return new Date(a.date) - new Date(b.date)});
+  }else{
+    post.sort(function(a,b){return new Date(b.date) - new Date(a.date)});
+  }
+  res.render('posts', {username: req.cookies.username, posts: post});
 });
 
 // ---Part 3. Create new posts---
@@ -82,12 +92,16 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  var logged = (req.cookies.username !== undefined ? true:false);
+  if (logged) {
+    res.render('post_form', {
+  });
+ };
 });
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
-//
-//
+
 // Create a new post object with right author, title, body and date.
 // Read author, title, body, date from req.body.
 //
@@ -102,6 +116,31 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Title must not be empty').notEmpty();
+  req.checkBody('text', 'Title must not be empty').notEmpty()
+  var errors = req.validationErrors();
+
+  if (errors){
+    res.render('post_form', {
+      title: 'New Post',
+      error:"Title and body can't be blank"});
+  }
+  if (req.cookies && req.cookies.username && !errors){
+    var post = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      text: req.body.text
+    }
+    posts.push(post);
+    jsonfile.writeFileSync(file, posts);
+    res.redirect('/posts')
+  }
+  // req.check(req.body.title, res.status(400).send("FINISH!!!!!")).notEmpty()
+  // req.check(req.body.body, res.status(400).send("FINISH!!!!!")).notEmpty()
+  // req.check(req.body.date, res.status(400).send("FINISH!!!!!")).notEmpty()
+  // var post = {author: req.cookies.username, date: req.body.date, title: req.body.title, body: req.body.body}
+  // data.save(data.read().push(post));
 });
 
 // Start the express server
