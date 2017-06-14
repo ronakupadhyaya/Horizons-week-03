@@ -89,9 +89,8 @@ var oneAuthor = function(current, condition){ //condition = req.query.author
   }
   return posts;
 }
-// if(Object.keys(req.query).length === 0){
-//   posts = current;
-// }
+
+
 app.get('/posts', function (req, res) {
   var finalPost = data.read();
   for(var key in req.query){
