@@ -1,5 +1,6 @@
-module.exports = {
+var util = require('./app.js')
 
+module.exports = {
   // Find the company that has the largest single amount of money invested. In this
   // case, we are not looking for the sum of all investments made on a company. But
   // the largest sum invested by one investor.
@@ -7,17 +8,33 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
+    var newA = util.parser(arr);
+    var highestValue = arr[0].originalInvestment;
+    for (var i = 1; i < arr.length; i++){
+      if (arr[i].originalInvestment>highestValue){
+        highest = arr[i];
+        highestvalue = arr[i].originalInvestment;
+      }
+    }
+    return highestValue;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
-
   // Find the average of all the original investments for all companies.
   // This is equal to the sum of all the original investments divided by the number
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
+    var newA = util.parser(arr);
+    var sum = 0;
+    var companies = 0;
+    for (var i = 0; i < arr.length; i++){
+      companies+=1;
+      sum += arr[i].originalInvestment;
+      }
+      var avg = sum/companies;
+      return avg;
+    },
     // Fields to be parsed: "originalInvestment", "valueToday"
-  },
-
   // Find out how much a company got as the original investments. In this case, You
   // will have to iterate over the companies and find all the investments for each
   // company and add them up to find how much money they started with.
@@ -29,9 +46,21 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
+    var newA=util.parser(arr);
+    var pairs ={};
+
+   for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.company]){
+        pairs[comp.company]+=comp.originalInvestment;
+
+     } else {
+        pairs[comp.company]=comp.originalInvestment;
+      }
+    }
+    return pairs;
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
-
   // Find out how much money an investor spent as  original investments. You will
   // need to iterate through all the investments, find all the investments for each
   // investor and add them up to find how much money someone invested at the beginning.
@@ -43,9 +72,20 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  },
+    var newA=util.parser(arr);
+    var pairs ={};
 
+   for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.investorId]){
+        pairs[comp.investorId]+=comp.originalInvestment;
+
+     } else {
+        pairs[comp.investorId]=comp.originalInvestment;
+      }
+    }
+    return pairs;
+  },
   // This function is similar to the one above, but it returns the current value
   // for each investor. To get this value, you need to iterate through all the investments,
   // find all the currentValues for each investor and add them up to find how much
@@ -59,8 +99,20 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
-  },
+    var newA=util.parser(arr);
+    var pairs ={};
 
+   for(var i=0;i<newA.length;i++){
+      var comp = newA[i]
+      if(pairs[comp.investorId]){
+        pairs[comp.investorId]+=comp.valueToday;
+
+     } else {
+        pairs[comp.investorId]=comp.valueToday;
+      }
+    }
+    return pairs;
+  },
   // To find out who the best investor is, you need to find out the ratio in which
   // they made money. If they invested 100 and their todayValue is 200, they made
   // 2x their investment. Calculate this for all investors and figure out who the
@@ -69,13 +121,20 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var newA=util.parser(arr);
+    var pairs ={};
+    var totalCurrent = totalCurrentValueOfInvestors(arr);
+    var totalOriginal = totalOriginalInvestmentsByInvestors(arr);
+
+   for(var i=0;i<newA.length;i++){
+      var comp = newA[i];
+      if(pairs[comp.investorId]){
+        pairs[comp.investorId]+=comp.originalInvestment;
+
+     } else {
+        pairs[comp.investorId]=comp.originalInvestment;
+      }
+    }
+    return pairs;
   },
-
-  // Find out which company was invested the most in using the originalInvestment.
-  // Return a companyId
-  mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  }
-
-}
+  
