@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,12 +65,48 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+
+  var postObj = data.read();
+  // console.log(postObj);
+  var authfilt=false;
+  var author = req.query.author;
+  if (req.query.author){
+    authfilt=true;
+    postObj = postObj.filter(function(a){
+      return a.author === author;
+      console.log(authfilt);
+    });
+  }
+
+  var order = req.query.order;
+  var descending = (req.query.order === 'descending');
+  var ascending = (req.query.order === 'ascending');
+  var asc = postObj.sort(function(a, b){
+    var aTime = new Date(a.date).getTime();
+    var bTime = new Date(b.date).getTime();
+    return parseFloat(aTime) - parseFloat(bTime);
+  });
+  var neither = (req.query.order !=='ascending') && (req.query.order !=='descending')
+
+  var desc = [];
+  for (var i = asc.length-1; i >= 0 ; i--) {
+    desc.push(asc[i]);
+  }
   res.render('posts', {
+    username:req.cookies.username,
+    posts: postObj,
+    ascending: ascending,
+    descending: descending,
+    asc: asc,
+    desc: desc,
+    neither: neither,
+    authfilt:authfilt
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
   });
 });
+
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
@@ -81,9 +118,17 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username === undefined || req.cookies.username === ' '){
+    res.status(401).send("User is not logged in");
+  } else {
+    res.render('post_form');
+  }
 });
 
+
+// else if(!req.query.title||!req.query.body||!req.query.date){
+//   res.status(400).send(" Missing Info");
+// }
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
 //
@@ -101,9 +146,29 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var oldPosts=data.read();
+  // req.checkBody('title', 'Empty title').notEmpty();
+  var titleCheck = req.checkBody('title', 'Empty title').notEmpty().validationErrors;
+  var bodyCheck = req.checkBody('body', 'Empty title').notEmpty().validationErrors;
+  var dateCheck = req.checkBody('date', 'Empty title').notEmpty().validationErrors;
+  // console.log(req.sanitizeBody('date').toDate());
+  if (req.sanitizeBody('date').toDate() === null){
+    res.status(403).send('Wrong date format');
+  } else if (!titleCheck.length && !bodyCheck.length && !dateCheck.length){
+    var newPost={
+      author: req.cookies.username,
+      title: req.body.title,
+      body:req.body.body,
+      date:req.body.date
+    };
+    oldPosts.push(newPost);
+    data.save(oldPosts);
+  } else {
+    res.status(402).send('Something went wrong');
+  }
+
 });
 
 // Start the express server
 var port = '3000'
-app.listen(port);
+app.listen(port, function(){console.log("Running at port"+ port);});

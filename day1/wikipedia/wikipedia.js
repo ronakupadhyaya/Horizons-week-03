@@ -1,5 +1,5 @@
 "use strict";
-var _ = require('underscore')
+// var _ = require('underscore')
 var fs = require('fs');
 var readline = require('readline');
 
@@ -17,8 +17,36 @@ function countLines(fileName) {
   });
   rl.on('close', function() {
     // This is called when the file is done being read finished
-    console.log('There are %s lines in file %s', count, fileName);
+    // console.log('There are %s lines in file %s', count, fileName);
   });
 }
 
 countLines(__filename);
+
+
+function cleanData(fileName) {
+  // var rawData = fs.readFileSync(fileName, 'utf-8');
+  // var inputData = rawData.split('\\n');
+  // var cleanArr = [];
+  // inputData.forEach(function(item){
+  //   var itemObj = {};
+  //   var thisString = item.split(' ')
+  //   itemObj.language =
+  // })
+  var input = fs.createReadStream(fileName);
+  var rl = readline.createInterface({
+    input: input
+  });
+  rl.on('line', function(line) {
+    ;
+  });
+  rl.on('close', function() {
+
+  });
+}
+
+function arrayMaker(string) {
+  var clean = string.split(" ");
+}
+
+cleanData('sample.data');

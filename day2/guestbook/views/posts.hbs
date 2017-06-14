@@ -23,6 +23,50 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#if ascending}}
+{{#if authfilt}}
+<a href='http://localhost:3000/posts?'>Show posts by all authors</a>
+{{/if}}
+{{#each asc}}
+<div>Author: {{this.author}}, Title:{{this.title}}
+  <p>{{this.body}}</p>
+  <br>Date: {{this.date}}</div>
+{{/each}}
+{{/if}}
+
+{{#if descending}}
+{{#if authfilt}}
+<a href='http://localhost:3000/posts?'>Show posts by all authors</a>
+{{/if}}
+{{#each desc}}
+<div>Author: {{this.author}}, Title:{{this.title}}
+  <p>{{this.body}}</p>
+  <br>Date: {{this.date}}</div>
+{{/each}}
+{{/if}}
+
+{{#if neither}}
+{{#if authfilt}}
+<a href='http://localhost:3000/posts?'>Show posts by all authors</a>
+{{/if}}
+{{#each posts}}
+<div>Author: {{this.author}}, Title:{{this.title}}
+  <p>{{this.body}}</p>
+  <br>Date: {{this.date}}</div>
+{{/each}}
+{{/if}}
+
+<!-- {{#each posts}}
+<div>Author: {{this.author}}, Title:{{this.title}}
+  <p>{{this.body}}</p>
+  <br>Date: {{this.date}}</div>
+{{/each}} -->
+
+
+
+<a href='http://localhost:3000/posts?order=ascending'>Ascending</a>
+<a href='http://localhost:3000/posts?order=descending'>Descending</a>
+
 
 </body>
 </html>

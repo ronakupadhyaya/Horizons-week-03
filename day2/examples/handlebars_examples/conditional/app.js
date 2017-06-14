@@ -1,5 +1,5 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
+var express = require('./node_modules/express');
+var exphbs  = require('./node_modules/express-handlebars');
 var path = require('path');
 
 var app = express();
@@ -18,4 +18,4 @@ app.get('/:word', function(req, res) {
 });
 
 app.listen(3000);
-
+console.log('Works');

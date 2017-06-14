@@ -14,9 +14,16 @@ app.get('/', function(req, res) {
   res.render('example3');
 });
 
+var data = ('./accounts.json');
+
+// app.post('/login', function(req, res){
+//   req.body.username
+// });
+
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Express started. Listening on port %s', port);
+// console.log('Express started. Listening on port %s', port);
+console.log(data);
 
 module.exports = app;
