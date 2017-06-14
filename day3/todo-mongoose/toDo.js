@@ -19,7 +19,6 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error. did you remember to create env.sh?'));
 db.once('open', function() {
-  console.log("connected")
 });
 
 // PART 1: Create the Model
@@ -173,6 +172,7 @@ function showTasks() {
       task.forEach(function(todo) {
         console.log("Task: "+ todo.name+", " +"Priority: " + todo.priority+", " +"Completed: " + todo.completed);
       })
+      mongoose.connection.close();
     })
   } else {
     var name = parseArgs();
@@ -180,6 +180,7 @@ function showTasks() {
       task.forEach(function(todo) {
         console.log("Task: "+ todo.name+", " +"Priority: " + todo.priority+", " +"Completed: " + todo.completed);
       })
+      mongoose.connection.close();
     })
   }
 }
@@ -195,13 +196,14 @@ function deleteTask(){
   // YOUR CODE HERE
   ToDoItem.find({name:program.task},function(err,task){
     if (!err) {
-      ToDoItem.remove({name:name}).remove(function() {
+      ToDoItem.remove({name:program.task}).remove(function() {
         console.log("deleted")
         mongoose.connection.close();
       });
     } else {
       console.error(err)
       console.log("no such task");
+      mongoose.connection.close();
     }
   })
 }
