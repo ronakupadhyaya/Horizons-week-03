@@ -66,8 +66,8 @@ app.post('/login', function(req, res) {
 app.get('/posts/', function (req, res) {
   var order = req.query.order;
   var author = req.query.author;
-  var postArr =  data.read()
-  var authorSelected = []
+  var postArr =  data.read();
+  var authorSelected = [];
   postArr.forEach(function(post) {
     if(post.author === author){
       authorSelected.push(post)
