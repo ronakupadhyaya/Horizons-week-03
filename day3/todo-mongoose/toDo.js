@@ -44,6 +44,12 @@ db.once('open', function() {
 
 // YOUR CODE HERE
 
+var ToDoItem=mongoose.model('ToDoItem',{
+  name: String,
+  priority: String,
+  completed: Boolean
+});
+
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
 // Syntax: lets say you want your program to add a task. You would define it like:
@@ -88,6 +94,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <p>', 'Specify task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -127,6 +134,11 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task=new ToDoItem({
+    name:name,
+    priority:priority,
+    completed:false
+  });
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -134,6 +146,16 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err){
+    if(err){
+      console.log("could not save");
+    }
+    else{
+      console.log("success");
+    }
+    mongoose.connection.close();
+  });
+
 }
 
 // PART 3: Show tasks
@@ -157,6 +179,30 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  // if(parseArgs()){
+  //
+  // }
+  if(program.task){
+    ToDoItem.find({name: program.task}, function(err, tasks){
+      if(err){
+        console.log("error"+err);
+       }
+      else{
+        console.log("success"+tasks);
+      }
+    });
+  }
+  else{
+    ToDoItem.find(function (err, tasks){
+
+      if(err){
+        console.log("error"+err);
+       }
+      else{
+        console.log("success"+tasks);
+      }
+    });
+  }
 }
 
 // PART 4: Delete tasks
@@ -166,6 +212,13 @@ function showTasks() {
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
+  ToDoItem.remove({name: program.task}, function(err, tasks){
+    if(err){
+      console.log("error"+err);
+     }
+    else{
+      console.log("success"+tasks);
+    }
+  })
   // YOUR CODE HERE
 }

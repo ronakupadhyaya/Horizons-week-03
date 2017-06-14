@@ -8,8 +8,11 @@ if (! process.env.MONGODB_URI) {
 // First let's set up our MongoDb connection
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
-
-var Cat; // YOUR CODE HERE - define the cat model
+// YOUR CODE HERE - define the cat model
+var Cat=mongoose.model('Cat',{
+  name: String,
+  furColor: String
+});
 
 Cat.find(function(error, cats) {
   if (error) {
@@ -18,3 +21,45 @@ Cat.find(function(error, cats) {
     console.log('Cats', cats);
   }
 });
+
+var cat1= new Cat({
+  name: "Crookshanks",
+  furColor: "Black"
+});
+var cat2= new Cat({
+  name: "Mr. Bigglesworth",
+  furColor: "White"
+});
+var cat3= new Cat({
+  name: "Empurress",
+  furColor: "Calico"
+});
+
+cat1.save(function(err){
+  if(err){
+  	console.log("could not save");
+  }
+  else{
+  	console.log("success")
+  }
+});
+cat2.save(function(err){
+  if(err){
+  	console.log("could not save");
+  }
+  else{
+  	console.log("success")
+  }
+});
+cat3.save(function(err){
+  if(err){
+  	console.log("could not save");
+  }
+  else{
+  	console.log("success")
+  }
+});
+
+// var Model = mongoose.model('Model', { name: Cats });
+
+Cat.findOne({name: "Mr. Bigglesworth"}, function(error, m){});
