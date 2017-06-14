@@ -7,3 +7,27 @@ body {
 a {
   color: #00B7FF;
 }
+.list-container {
+    height: 100%;
+}
+.list-header{
+
+  margin-left: 8px;
+
+}
+.list-body {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 0.5em;
+    margin: 5px 5px;
+    border-radius: 3px;
+    background: #e2e4e6;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+.bottom-links{
+
+  margin-left: 8px;
+
+}

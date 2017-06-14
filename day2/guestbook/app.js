@@ -56,9 +56,7 @@ app.post('/login', function(req, res) {
   res.redirect('/posts');
 });
 
-app.post('/posts/delete',function(req,res){
 
-})
 // ---Part 2. View Posts---
 
 // GET /posts: View posts page
@@ -112,11 +110,16 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
+  var today = new Date();
+    var date = (today.getMonth()+1)+'/'+today.getDate() + '/' + today.getFullYear();
     if (req.cookies.username){
-      res.render('post_form')
+      res.render('post_form',{
+        date:date
+      })
     }else{
       res.render('post_form',{
-        error: 'Not logged in'
+        error: 'Not logged in',
+        date:date
       })
     }
 });
@@ -133,7 +136,67 @@ app.get('/posts/delete', function(req,res) {
   data.save(dataArr);
   res.redirect('/posts');
 
+
+
 })
+
+app.get('/posts/edit',function(req,res) {
+  var author = req.query.author;
+  var date = req.query.date;
+  var body = '';
+  var dataArr=data.read();
+  dataArr = dataArr.filter(function(item){
+    return item.author === author && item.date === date
+  })
+  res.render('edit',{
+    author:author,
+    date:date,
+    body:dataArr[0].body
+  })
+})
+
+app.post('/posts/edit', function(req,res){
+  req.checkBody('author','You need an author').notEmpty();
+  req.checkBody('body','You need a body').notEmpty();
+  req.checkBody('date','You need a date').notEmpty();
+  console.log(req.body.body);
+  console.log(req.body.author);
+  console.log(req.body.date);
+  var result = req.validationErrors();
+  if (result){
+    res.status(400).render('edit',{
+      error:'Title, body, and/or date cannot be blank!'
+    })
+  }else if(!req.cookies.username){
+    res.status(401).render('edit',{
+      error: 'You must be logged in'
+    })
+  }else if(!result){
+    var author = req.body.author;
+    var date = req.body.date;
+    var dataArr=data.read();
+    var post = dataArr.find(function(item){
+      return item.author === author && item.date === date
+    })
+    console.log(req.body.body);
+    console.log();
+    dataArr[dataArr.indexOf(post)].body = req.body.body;
+    data.save(dataArr);
+    res.redirect('/posts');
+  }
+})
+
+// app.post('/posts/edit',function(req,res){
+//   var dataArr = data.read();
+//   var newBody = req.body.body;
+//   dataArr = dataArr.filter(function(item){
+//     return item.author !== author && item.date !== date
+//   })
+//   dataArr[0].body = newBody;
+//   data.save(dataArr);
+//   res.redirect('/posts');
+//
+// })
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
 //

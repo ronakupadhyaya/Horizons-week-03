@@ -19,7 +19,7 @@
 
 </head>
 <body>
-<h1>View all posts</h1>
+<h1>Posts</h1>
 
 <h2>Your username: {{username}}</h2>
 
@@ -31,33 +31,42 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<div class="bottom-links">
+<a href='/posts/new'>Create a New Post</a>
+</div>
 {{#each posts}}
-<div>
-  <div>
-    {{author}}
-    {{#if ../linkData}}
-      <a href="/posts">View posts by all authors</a>
-    {{else}}
-      <a href="/posts?author={{author}}">View posts by only this author</a>
-    {{/if}}
-    {{#if ../admin}}
-      <a href="/posts/edit?author={{author}}&date={{date}}">Edit this post </a>
-      <a href="/posts/delete?author={{author}}&date={{date}}">Delete this post</a>
-    {{/if}}
-  </div>
-  <div>
-    {{date}}
-  </div>
-  <div>
-    {{title}}
+<div class="list-container">
+  <div class="list">
+    <div class="list-body">
+        <div class=author style="font-weight: bold; font-size:large">
+          {{author}}
+        </div>
+      <div style="font-size:medium;">
+        {{title}}
+       </div>
+       <div class=date style="font-style: italic; font-size:x-small;">
+         {{date}}
+       </div>
+       <div>
+         {{body}}
+       </div>
+     </div>
+     <div class="list-header">
+       {{#if ../admin}}
+         <a href="/posts/edit?author={{author}}&date={{date}}">Edit </a>
+         <a href="/posts/delete?author={{author}}&date={{date}}">Delete</a>
+       {{/if}}
+       {{#if ../linkData}}
+         <!-- <a href="/posts">View posts by all authors</a> -->
+       {{else}}
+         <a href="/posts?author={{author}}">View posts by only this author</a>
+       {{/if}}
+     </div>
    </div>
-   <div>
-     {{body}}
-   </div>
- </div>
- <div>
  </div>
 {{/each}}
-
+{{#if linkData}}
+<a class= bottom-links href="/posts">View posts by all authors</a>
+{{/if}}
 </body>
 </html>
