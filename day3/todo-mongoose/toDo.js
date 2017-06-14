@@ -26,6 +26,7 @@ db.once('open', function() {
 
 // PART 1: Create the Model
 
+
 // Everything in Mongoose starts with a Schema. Each schema
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
@@ -38,6 +39,11 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var todoItems = mongoose.model('ToDoItem', {
+  name: String,
+  priority: String,
+  completed: Boolean
+})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -83,6 +89,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <t>', 'Specify the task') //<t>? 
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -122,6 +129,7 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new toDoItems({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -129,6 +137,16 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err) {
+    if (err) {
+        console.log("Could not save", err)
+    } else {
+        console.log("Success")
+    }
+    mongoose.connection.close();
+  })
+
+  
 }
 
 // PART 3: Show tasks
@@ -152,6 +170,30 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  var task_name = parseArgs();
+  var myTask;
+
+  if (program.task){
+    data.forEach(function(obj){
+      if(obj['name']===task_name){
+        myTask = obj;
+      }
+    })
+    toDoItems.find(myTask, function(error, task) {
+          if (error) {
+            console.log("Can't find task: ", error);
+          } else {
+            console.log('Task: ' + task.name + ', Priority: ' + task.priority + ' Completed: ' + task.completed);
+          }
+        })
+
+  } else{
+    toDoItems.find()
+
+
+  };
+
+
 }
 
 // PART 4: Delete tasks
