@@ -112,6 +112,7 @@ function addTask() {
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
+<<<<<<< HEAD
   if(program.id && program.id<=data.length){
     var thisId = program.id-1;
     console.log("Task #"+(thisId+1) + " Priority "+data[thisId].priority+": "+data[thisId].name)
@@ -126,6 +127,12 @@ function showTasks(){
   }
 };
 // Write a function that is called when the command `node toDo.js add delete -i 3`
+=======
+  // YOUR CODE HERE
+}
+
+// Write a function that is called when the command `node toDo.js delete -i 3`
+>>>>>>> fbacc6ba69cc4b0e6d15ddea7a0225b595d85142
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
