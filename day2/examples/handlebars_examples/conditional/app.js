@@ -13,9 +13,14 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:word', function(req, res) {
-  var isEven = (req.params.word.length % 2 === 0 ? true : false);
+  var isEven = req.params.word.length % 2 === 0 ? true : false;
   res.render('condition', {word: req.params.word, isEven: isEven});
 });
 
 app.listen(3000);
 
+var a = 10
+setInterval(function(){
+  console.log("running...", a, " seconds");
+  a += 10
+}, 10000)

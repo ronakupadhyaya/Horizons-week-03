@@ -7,3 +7,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post {
+  -webkit-box-shadow: -1px 8px 18px -3px rgba(110,109,110,1);
+  -moz-box-shadow: -1px 8px 18px -3px rgba(110,109,110,1);
+  box-shadow: -1px 8px 18px -3px rgba(110,109,110,1);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 2px;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.post:hover {
+  -webkit-box-shadow: -1px 8px 61px 0px rgba(110,109,110,1);
+  -moz-box-shadow: -1px 8px 61px 0px rgba(110,109,110,1);
+  box-shadow: -1px 8px 61px 0px rgba(110,109,110,1);
+}

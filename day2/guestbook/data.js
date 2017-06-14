@@ -9,18 +9,18 @@ module.exports = {
   read: function() {
     if (!fs.existsSync(file)) {
       return [
-      {
-        title: 'Eggs',
-        body: 'Somebody has been eating my eggs! I have to label them.',
-        author: 'Darwish',
-        date: '6/13/2016',
-      },
-      {
-        title: 'First post',
-        body: 'This is the first post in the guest book',
-        author: 'Moose',
-        date: '1/20/2016',
-      }
+        {
+          title: 'Eggs',
+          body: 'Somebody has been eating my eggs! I have to label them.',
+          author: 'Darwish',
+          date: '6/13/2016',
+        },
+        {
+          title: 'First post',
+          body: 'This is the first post in the guest book',
+          author: 'Moose',
+          date: '1/20/2016',
+        }
       ];
     }
     return jsonfile.readFileSync(file);

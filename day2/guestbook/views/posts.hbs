@@ -11,9 +11,16 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+<div class="head">
 
-<h2>Your username: {{username}}</h2>
+
+  <h1>View all posts</h1>
+
+  <h2>Logged in as: {{username}}</h2>
+
+  <hr>
+
+</div>
 
 <!-- Part 2: Display posts -->
 
@@ -23,6 +30,13 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+  <div class="post">
+    <h3>{{this.author}} : <em>{{this.title}}</em></h3>
+    <h4>{{this.body}}</h4>
+    <h5>{{this.date}}</h5>
+  </div>
+{{/each}}
 
 </body>
 </html>

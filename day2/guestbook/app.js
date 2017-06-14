@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -66,9 +66,12 @@ app.post('/login', function(req, res) {
 app.get('/posts', function (req, res) {
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
+    username: req.cookies.username,
     // Pass `posts` to the template from data.read()
+    posts: data.read()
     // YOUR CODE HERE
   });
+
 });
 
 // ---Part 3. Create new posts---
@@ -81,7 +84,14 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (!req.cookies.username) {
+    res.status(401).send('You have to login to post geez')
+  } else {
+    res.render("post_form", {
+    })
+
+  }
+
 });
 
 // POST /posts:
@@ -101,7 +111,25 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if (!req.cookies.username) {
+    res.status(401).send('You have to login to post geez')
+  } else if(req.checkBody('title', 'Invalid postparam').notEmpty()
+          ||req.checkBody('body', 'Invalid postparam').notEmpty()
+          ||req.checkBody('date', 'Invalid postparam').notEmpty()) {
+    var new_post = {
+      author: req.cookies.username,
+      date: req.body.date,
+      title: req.body.title,
+      body: req.body.body
+    }
+    var posts_data = data.read();
+    posts_data.push(new_post);
+    data.save(posts_data);
+    res.redirect('/posts')
+
+  } else {
+    res.status(401).send('You need to finish the form!')
+  }
 });
 
 // Start the express server

@@ -15,6 +15,16 @@ app.get('/', function(request, response) {
 // You can access the query parameter 'name' via request.query.name.
 
 // YOUR CODE HERE
+app.get('/hello', function(req, res) {
+  res.send("Hey " + req.query.name)
+})
+
 
 // Start the server listening on port 3000.
 app.listen(3000);
+
+var a = 10
+setInterval(function(){
+  console.log("running...", a, " seconds");
+  a += 10
+}, 10000)
