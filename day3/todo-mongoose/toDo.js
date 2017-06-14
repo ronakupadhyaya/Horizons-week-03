@@ -193,14 +193,14 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
-  var name = parseArgs();
-  ToDoItem.find({name:name},function(err,task){
-    if (task.length !== 0) {
+  ToDoItem.find({name:program.task},function(err,task){
+    if (!err) {
       ToDoItem.remove({name:name}).remove(function() {
         console.log("deleted")
         mongoose.connection.close();
       });
     } else {
+      console.error(err)
       console.log("no such task");
     }
   })
