@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "express": "^4.13.4",
+    "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
-    "mongoose": "^4.5.0"
+    "mongoose": "^4.10.6"
   },
   "scripts": {
     "start": "node app.js"
