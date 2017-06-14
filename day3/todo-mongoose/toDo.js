@@ -43,6 +43,13 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var schema = {
+  name: String,
+  priority: String,
+  completed: Boolean
+};
+
+var toDoItem = mongoose.model('toDoItem', schema);
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -87,6 +94,7 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task <p>', 'Specify taskname');
 // YOUR CODE HERE
 
 // Arguments
