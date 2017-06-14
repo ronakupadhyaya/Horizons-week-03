@@ -149,7 +149,7 @@ module.exports = {
         maxCompany = keys;
         maxAmount = obj[keys];
       }
-    }
+    } 
     return maxCompany;
   }
 }

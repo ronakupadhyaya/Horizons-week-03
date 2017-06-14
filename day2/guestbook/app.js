@@ -6,10 +6,12 @@ var app = express();
 
 // Enable cookie parsing
 var cookieParser = require('cookie-parser');
+
 app.use(cookieParser());
 
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
+//console.log(exphbs);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -19,6 +21,7 @@ var expressValidator = require('express-validator');
 app.use(expressValidator());
 
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -29,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
 var data = require('./data');
-
+console.log("running");
 app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
@@ -45,6 +48,9 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login', {
+    //dont need to render anything. Because in login hbs i dont use any {{}}.
+  });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +70,40 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  //var order = req.query.order;
+  //console.log(data.read());
+  var newData = data.read();
+  //to sort by Author
+
+
+
+  if (req.query.order === "ascending"){
+    newData = data.read().sort(function(a,b){
+      return new Date(a.date) - new Date(b.date);
+    });
+  }
+  if (req.query.order === "descending"){
+    newData = data.read().sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
+  }
+  if (req.query.author){
+    var temp = newData;
+    newData = [];
+    for (var i=0; i<temp.length; i++){
+      if (temp[i]["author"] === req.query.author ){
+        newData.push(temp[i]);
+      }
+    }
+  }
+
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: newData
   });
 });
 
@@ -82,6 +118,13 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username !== undefined){
+    res.render('post_form', {
+    });
+  }
+  else{
+    res.redirect('/login')
+  }
 });
 
 // POST /posts:
@@ -102,6 +145,21 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if (req.body.title === '' || req.body.body === '' ){
+      res.status(400).send("Error 400");
+  }
+  else {
+    var newData = data.read();
+    var newPost = {
+      author : req.cookies.username,
+      date : req.body.date,
+      title : req.body.title,
+      body : req.body.body
+    }
+    newData.push(newPost);
+    data.save(newData);
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server
