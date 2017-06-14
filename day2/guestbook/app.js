@@ -4,6 +4,10 @@ var path = require('path');
 
 var app = express();
 
+//download Bootstrap
+var bootstrap = require('bootstrap');
+
+
 // Enable cookie parsing
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
