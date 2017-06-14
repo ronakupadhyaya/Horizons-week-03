@@ -16,6 +16,9 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
+{{#each posts}}
+  <li>{{this.author}} {{this.title}} {{this.body}} {{this.date}}
+    {{/each}}
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.

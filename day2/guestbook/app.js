@@ -34,6 +34,9 @@ app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
 
+
+
+
 // ---Part 1. Login form---
 
 // GET /login: The login page
@@ -44,7 +47,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -65,6 +68,8 @@ app.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
   res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read()
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
@@ -81,6 +86,17 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
+  if(!req.cookies.username){
+    res.send("Error!")
+
+  }else{
+    res.render('post_form',{
+      posts:data.read()
+
+    })
+
+  }
+
   // YOUR CODE HERE
 });
 
