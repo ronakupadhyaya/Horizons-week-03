@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+expressValidator = require('express-validator')
 var app = express();
 
 // Enable cookie parsing
@@ -11,7 +11,9 @@ app.use(cookieParser());
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
@@ -19,7 +21,9 @@ var expressValidator = require('express-validator');
 app.use(expressValidator());
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Make files in the folder `public` accessible via Express
@@ -30,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.write(data): Write the given data to disk.
 var data = require('./data');
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.send('Your server is working!');
 });
 
@@ -43,14 +47,15 @@ app.get('/', function(req, res) {
 // of the template without .hbs
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
   // YOUR CODE HERE
+  res.render("login.hbs", {});
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 // This endpoint is implemented for you.
-app.post('/login', function(req, res) {
+app.post('/login', function (req, res) {
   res.cookie('username', req.body.username);
   res.redirect('/posts');
 });
@@ -64,10 +69,30 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+
+  var newData = data.read();
+  if (req.query.order === "ascending") {
+    newData.sort(function (a, b) {
+      return new Date(a.date) - new Date(b.date);
+    })
+  }
+
+  if (req.query.order === "descending") {
+    newData.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
+
+  if (req.query.author) {
+    newData = newData.filter(function (num) {
+      return num.author === req.query.author;
+    })
+  }
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: newData,
+    author: req.query.author
   });
 });
 
@@ -80,8 +105,13 @@ app.get('/posts', function (req, res) {
 // the user is not logged in display an error.
 //
 // Hint: check req.cookies.username to see if user is logged in
-app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+app.get('/posts/new', function (req, res) {
+
+  if (req.cookies.username === undefined) {
+    res.send("you're not logged in");
+  } else {
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -100,9 +130,37 @@ app.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
-app.post('/posts', function(req, res) {
+app.post('/posts', function (req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username === undefined) {
+    res.status(401).send("you're not autorized");
+  }
+
+  req.checkBody('title', 'must add title').notEmpty();
+  req.checkBody('body', 'must add body').notEmpty();
+  req.checkBody('date', 'must add date').notEmpty();
+  if (req.validationErrors()) {
+    res.status(400).send("fields are not full");
+  } else {
+    var tmpObj = {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.cookies.username,
+      date: req.body.date,
+    };
+    var arr = data.read();
+    arr.push(tmpObj);
+    data.save(arr);
+
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: data.read()
+    });
+  }
 });
+
+
+
 
 // Start the express server
 var port = '3000'

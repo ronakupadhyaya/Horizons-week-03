@@ -7,14 +7,54 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+  <div class="container-fluid">
 
-<h2>Your username: {{username}}</h2>
+     <div class="row header">
+       <h1 class="col-xs-8">View all posts</h1>
 
+       <p class="col-xs-4 text-right">You are logged in as {{username}}</p>
+
+       <form class="col-xs-12" >
+         <span>Sort by: </span>
+         <a class="btn btn-link" href="/posts?order=ascending{{#if author}}&author={{author}}{{/if}}"> Ascending </a>
+         <a class="btn btn-link"  href="/posts?order=descending{{#if author}}&author={{author}}{{/if}}"> Descending </a>
+       </form>
+
+       <form class="col-xs-12 text-right" action="/posts/new" method="get">
+         <input class="btn btn-primary" type="submit" name="" value="Write a new post...">
+       </form>
+     </div>
+
+<!-- <a href="/posts?order=ascending{{#if author}}&author={{author}}{{/if}}"> ascending</a>
+<a href="/posts?order=descending{{#if author}}&author={{author}}{{/if}}"> descending</a> -->
+
+{{#each posts}}
+<div class="row post">
+  <div class="row post-header">
+    <div class="col-xs-8">
+      <div class="post-title">{{title}}</div>
+      <span class="date-author">Posted by <form class="form-inline" action="/posts?author={{this.author}}">
+        <button class="btn-link" type="submit" name="author" value="{{author}}">{{author}}</button>
+      </form> on {{date}}</span>
+    </div>
+  </div>
+  <div class="row post-content">
+    <p>{{body}}</p>
+  </div>
+</div>
+{{/each}}
+</div>
+
+<!-- {{#each posts}}
+<div>{{this.author}} {{this.title}} {{this.body}} {{this.date}}</div>
+<a href="/posts?author={{this.author}}"> click </a>
+{{/each}} -->
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
@@ -23,6 +63,6 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

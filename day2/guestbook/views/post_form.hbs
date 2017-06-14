@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create new post</title>
+  <title >Create new post</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-  <h1>Create new post</h1>
+  <h1 style="text-align:center">Create new post</h1>
 
   <p>{{error}}</p>
 
 
   <!-- Part 3: Create post  -->
   <!--
-    Add an HTML form here with `method="POST"` and `action="/posts"`.
-    This login form should have input elements for title, body and date and a submit button.
-  -->
-  <!-- YOUR CODE HERE -->
+  Add an HTML form here with `method="POST"` and `action="/posts"`.
+  This login form should have input elements for title, body and date and a submit button.
+-->
+<!-- YOUR CODE HERE -->
 
+<!-- <form class="form-inline" method="POST" action="/posts">
+<input type="text" name="title" />
+<input type="text" name="body" />
+<input type="date" name="date" />
+<input type="submit" value="submit post"/>
+</form> -->
+
+<form class="form col-xs-3 col-xs-offset-3" method="POST" action="/posts" style="width:50%;" data-toggle="validator" role="form" >
+  <div class="form-group  has-feedback">
+
+      <label class="control-label" for="inputSuccess4">Title</label>
+      <input type="text" name="title" class="form-control"  required>
+<div class="help-block">Minimum of 6 characters</div>
+  </div>
+
+  <div class="form-group  has-feedback">
+    <label class="control-label" for="inputSuccess4">body</label>
+    <input type="text" name="body" class="form-control" required>
+  </div>
+
+  <div class="form-group  has-feedback">
+    <label class="control-label" for="inputSuccess4">date</label>
+    <input type="date" name="date" class="form-control" required>
+  </div>
+
+  <div class="form-group has-feedback">
+    <input type="submit" value="submit post" pclass="form-control" class= "btn btn-primary">
+  </div>
+</form>
+
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" ></script>
 </body>
 </html>
