@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var _ = require('underscore')
 var app = express();
 
 // Enable cookie parsing
@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var data = require('./data');
 
 app.get('/', function(req, res) {
+  req.cookies = {};
   res.send('Your server is working!');
 });
 
@@ -44,7 +45,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -55,6 +56,15 @@ app.post('/login', function(req, res) {
   res.redirect('/posts');
 });
 
+app.use(function(req, res, next) {
+  var user = req.cookies.username;
+  if (!user) {
+    res.status(401).send('ERROR: not logged in')
+  }
+  next();
+})
+
+
 // ---Part 2. View Posts---
 
 // GET /posts: View posts page
@@ -64,10 +74,43 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var order = req.query.order;
+  var author = req.query.author;
+  var recover = req.query.recover;
+  var newData = data.read();
+  var newestData = [];
+  var showAll = true;
+
+  if (order === 'flip') {
+    _.sortBy(newData,'date')
+    newestData = newData.reverse();
+  }
+
+  if (author) {
+    newData = newData.forEach(function(post) {
+      if (post.author === author) {
+        newestData.push(post)
+      }
+    })
+    showAll = false;
+  }
+
+  if (recover) {
+    newestData = data.read();
+  }
+
+  if (!author && !(order==='flip') && showAll) {
+    newestData = newData
+  }
+
+  //data.save(newData)
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: newestData,
+    order: order,
+    author: author,
+    showAll: showAll
   });
 });
 
@@ -81,7 +124,10 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('post_form', {
+    author: req.cookies.username,
+    posts: data.read()
+  })
 });
 
 // POST /posts:
@@ -101,7 +147,37 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  //check enough data, send error status if not
+  var date = req.body.date;
+
+  var title = req.body.title;
+  var newText = req.body.body;
+  if (!date || !title || !newText) {
+    res.status(400).send('ERROR: not enough info for form')
+  }
+  //get date in better format
+  // var date = rawDate.split('-');
+  // var day = date.pop();
+  // var month = date.pop();
+  // var year = date.pop();
+  // var newDate = [month, day, year].join('/');
+
+  var newPost = {
+    author: req.cookies.username,
+    //showDate: rawDate,
+    date: date,
+    title: title,
+    body: newText
+  }
+
+  var newData = data.read()
+  newData.push(newPost);
+  data.save(newData);
+
+  res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read()
+  })
 });
 
 // Start the express server

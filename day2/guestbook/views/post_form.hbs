@@ -10,18 +10,54 @@
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
-<body>
-  <h1>Create new post</h1>
 
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    margin-bottom: 0;
+    font-size: 80;
+    align-self: center;
+    border: 3px white dotted;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  a {
+    font-weight: 400;
+    color: rgb(132, 115, 122);
+    font-size: 1.5em;
+    text-decoration: none;
+    margin-bottom: 5px;
+  }
+  .col-xs-12 {
+    flex: 1;
+    padding: 10px;
+  }
+  body {
+  }
+</style>
+
+<body class="elem">
   <p>{{error}}</p>
 
-
-  <!-- Part 3: Create post  -->
-  <!--
-    Add an HTML form here with `method="POST"` and `action="/posts"`.
-    This login form should have input elements for title, body and date and a submit button.
-  -->
-  <!-- YOUR CODE HERE -->
+  <form method="POST" action="/posts">
+    <h1 class="text-center">¡create new post!</h1>
+    <br /><br />
+    <a method="GET" action="/posts" href="/posts">back to posts</a>
+    <!-- Part 3: Create post  -->
+    <div class="col-xs-12 text-center">
+      <input type="text" value="{{title}}" name="title" placeholder="title..." />
+    </div><div class="col-xs-12 text-center">
+      <input type="text" value="{{newText}}" name="body" placeholder="type here..." />
+    </div></div><div class="col-xs-12 text-center">
+      <input type="date" value="{{date}}" name="date" placeholder="mm/dd/yyyy" />
+    </div></div><div class="col-xs-12 text-center">
+      <input type="submit" value="submit."/>
+    </div>
+  </form>
 
 </body>
 </html>

@@ -1,5 +1,34 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<head>
+  <title>to form for 2 days too</title>
+</head>
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    margin-bottom: 0;
+    color: white;
+    font-size: 80;
+  }
+  .col-xs-12 {
+    flex: 1;
+    padding: 10px;
+  }
+  body {
+    background-color: rgb(178, 155, 165);
+  }
+</style>
+
+<form method="post" action="/login">
+  <h1>form.</h1>
+  <br /><br />
+  <div class="col-xs-12 text-center">
+    <input type="text" value="{{username}}" name="username" placeholder="username..." />
+  </div><div class="col-xs-12 text-center">
+    <input type="password" value="{{password}}" name="password" placeholder="password..." />
+  </div></div><div class="col-xs-12 text-center">
+    <input type="submit" value="submit."/>
+  </div>
 </form>
-
-

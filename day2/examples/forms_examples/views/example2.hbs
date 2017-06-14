@@ -1,3 +1,89 @@
+<head>
+  <title>to form for 2 days too</title>
+</head>
+<style>
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    margin-bottom: 0;
+    color: white;
+    font-size: 80;
+  }
+  .col-xs-12 {
+    flex: 1;
+    padding: 10px;
+  }
+  body {
+    background-color: rgb(170, 214, 239);
+  }
+</style>
 <form>
-  <span>YOUR CODE HERE</span>
+  <h1>form.</h1>
+  <br /><br />
+  <div class="col-xs-12 text-center">
+    <input type="text" value="{{username}}" name="username" placeholder="username..." />
+  </div><div class="col-xs-12 text-center">
+    <input type="password" value="{{password}}" name="password" placeholder="password..." />
+  </div><div class="col-xs-12 text-center">
+    <input type="text" value="{{name}}" name="name" placeholder="name..." />
+  </div><div class="col-xs-12 text-center">
+    {{#if checkedMale}}
+      <input type="radio" name="gender" value="male" checked> male<br>
+    {{else}}
+      <input type="radio" name="gender" value="male"> male<br>
+    {{/if}}
+    {{#if checkedFemale}}
+      <input type="radio" name="gender" value="female" checked> female<br>
+    {{else}}
+      <input type="radio" name="gender" value="female"> female<br>
+    {{/if}}
+    {{#if checkedOther}}
+      <input type="radio" name="gender" value="other" checked> other<br>
+    {{else}}
+      <input type="radio" name="gender" value="other"> other<br>
+    {{/if}}
+
+  </div><div class="col-xs-12 text-center">
+    <select>
+      <div class="options">
+        {{#if state}}
+          <option name="state" value="{{state}}"></option>
+        {{else}}
+          <option name="state" value="---"></option>
+        {{/if}}
+        Please select your state</option><option value="Alabama">Alabama</option>
+        <option value="Alaska">Alaska</option><option value="Arizona">Arizona</option>
+        <option value="Arkansas">Arkansas</option><option value="California">California</option>
+        <option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option>
+        <option value="Delaware">Delaware</option><option value="District of Columbia">District of Columbia</option>
+        <option value="Florida">Florida</option><option value="Georgia">Georgia</option>
+        <option value="Guam">Guam</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option>
+        <option value="Illinois">Illinois</option><option value="Indiana">Indiana</option>
+        <option value="Iowa">Iowa</option><option value="Kansas">Kansas</option>
+        <option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option>
+        <option value="Maine">Maine</option><option value="Maryland">Maryland</option>
+        <option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option>
+        <option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option>
+        <option value="Missouri">Missouri</option><option value="Montana">Montana</option>
+        <option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option>
+        <option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option>
+        <option value="New Mexico">New Mexico</option><option value="New York">New York</option>
+        <option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option>
+        <option value="Northern Marianas Islands">Northern Marianas Islands</option><option value="Ohio">Ohio</option>
+        <option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option>
+        <option value="Pennsylvania">Pennsylvania</option><option value="Puerto Rico">Puerto Rico</option>
+        <option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option>
+        <option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option>
+        <option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option>
+        <option value="Virginia">Virginia</option><option value="Virgin Islands">Virgin Islands</option>
+        <option value="Washington">Washington</option><option value="West Virginia">West Virginia</option>
+        <option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+      </div>
+    </select>
+  </div><div class="col-xs-12 text-center">
+    <input type="submit" value="register"/>
+  </div>
 </form>
