@@ -32,6 +32,11 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
+  req.check('firstname', 'first name is required').notEmpty();
+  req.check('lastname', 'last name is required').notEmpty();
+  req.check('password', 'password is required').notEmpty();
+  req.check('password', 'password is required').notEmpty();
+  req.check('repeatpassword', 'password is required').notEmpty(); //sad
   res.render('register');
 });
 

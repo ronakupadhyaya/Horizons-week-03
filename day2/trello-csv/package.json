@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "axios": "^0.16.2",
     "commander": "^2.9.0",
-    "csv": "^1.1.0",
+    "csv": "^1.1.1",
     "trello": "^0.5.1",
     "underscore": "^1.8.3"
   }

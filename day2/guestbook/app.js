@@ -34,6 +34,8 @@ app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
 
+var admins = ["Caroline"];
+
 // ---Part 1. Login form---
 
 // GET /login: The login page
@@ -44,7 +46,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +66,71 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var order = req.query.order;
+  dataCopy = data.read();
+
+
+  var del = req.query.delete;
+  if(del) {
+    dataCopy.forEach(function(entry) {
+      if(entry.title === del || entry.author === del) {
+        entry.del = true;
+      }
+    })
+  }
+
+  data.save(dataCopy);
+
+  dataCopy = dataCopy.filter(function(entry) {
+    if(entry.hasOwnProperty("del")) {
+      return false;
+    } else {
+      return true;
+    }
+  })
+
+  var username = req.cookies.username;
+  var isAdmin = false;
+  if (admins.includes(username)) {
+    isAdmin = true;
+  }
+
+  if (req.query.order === "ascending") {
+    dataCopy.sort(function(entry1, entry2) {
+      var date1 = new Date(entry1.date);
+      var date2 = new Date(entry2.date);
+      return date1 - date2;
+    })
+  } else if (req.query.order === "descending") {
+    dataCopy.sort(function(entry1, entry2) {
+      var date1 = new Date(entry1.date);
+      var date2 = new Date(entry2.date);
+      return date2 - date1;
+    })
+  }
+
+  var allShown = true;
+  var author = req.query.author;
+  if(author) {
+    dataCopy = dataCopy.filter(function(entry) {
+      return entry.author === author;
+    })
+    allShown = false;
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
+    username : username,
     // Pass `posts` to the template from data.read()
+    posts : dataCopy,
     // YOUR CODE HERE
+    admin : isAdmin,
+
+    allShown : allShown,
+
+    author : req.query.author,
+
+    delete : del
   });
 });
 
@@ -81,7 +144,11 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form');
+  } else {
+    throw new Error("username not found");
+  }
 });
 
 // POST /posts:
@@ -101,7 +168,27 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var currData = data.read();
+  if (!req.cookies.username) {
+    throw new Error("username not found");
+  }
+  req.check('title', 'title DNE').notEmpty();
+  req.check('body', 'body DNE').notEmpty();
+  req.check('date', 'date DNE').notEmpty();
+  err = req.validationErrors();
+  if (err) {
+    res.status(400).send("missing input");
+  } else {
+    var newObj = {
+      author : req.cookies.username,
+      date : req.body.date,
+      title : req.body.title,
+      body : req.body.body
+    }
+    currData.push(newObj);
+    data.save(currData);
+    res.redirect("/posts");
+  }
 });
 
 // Start the express server

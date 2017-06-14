@@ -9,8 +9,40 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Updated Content</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea id="new-text" placeholder="new text here..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 <h1>View all posts</h1>
 
 <h2>Your username: {{username}}</h2>
@@ -23,6 +55,37 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#if allShown}}
+  {{#each posts}}
+    <div id="{{this.title}}">
+      <strong>{{this.author}}</strong> {{title}} {{body}} {{date}}
+      <a href="/posts?author={{this.author}}">View posts from this author only</a>
+      <a class="btn btn-default" href="/posts?delete={{title}}">Delete This Post</a>
+      <a class="btn btn-default" href="/posts?delete={{author}}">Delete Posts By This Author</a>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Edit Post
+      </button>
+    </div>
+    <br>
+  {{/each}}
+{{else}}
+  {{#each posts}}
+    <div id="{{this.title}}">
+      <strong>{{this.author}}</strong> {{this.title}} {{this.body}} {{this.date}}
+    </div>
+    <br>
+  {{/each}}
+  <a href="/posts">View posts from all authors</a>
+  <br>
+  <br>
+{{/if}}
+
+<a href="/posts?author={{author}}&order=ascending">Sort posts in ascending order</a>
+<br>
+<a href="/posts?author={{author}}&order=descending">Sort posts in descending order</a>
+
+<br>
+<br>
 
 </body>
 </html>

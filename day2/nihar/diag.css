@@ -1,0 +1,22 @@
+.red {
+  width: 10px;
+  height: 10px;
+  padding: 5px;
+  background-color: red;
+  border-radius: 50%;
+  float: left
+}
+
+#outer {
+  height: 400px;
+  width: 400px;
+}
+
+.blue {
+  width: 10px;
+  height: 10px;
+  padding: 5px;
+  background-color: blue;
+  border-radius: 50%;
+  float: left
+}

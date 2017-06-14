@@ -19,6 +19,7 @@ ensureFileExists();
 //
 // We're going to be modifying data with our commands.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
+// console.log(data);
 
 // This is the NPM module commander, we use it to interpret
 // command line commands, arguments and flags.
@@ -40,7 +41,18 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask);
+
+program.command('toggleCompleted')
+  .description("Toggle Completed")
+  .action(toggleCompleted);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,10 +72,13 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+  .option('-p, --priority <n>', 'specify a priority for our task', parseInt)
+  .option('-c, --completed', 'toggle completeness of task');
+
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -112,24 +127,78 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
-  // YOUR CODE HERE
+  //check if there is a flag id
+  if (process.argv.length === 5) {
+    if (process.argv[3] === "-i" || process.argv[3] === "--id") {
+      var index = parseInt(process.argv[4]) - 1;
+      var currData = data[index];
+      if (currData) {
+        console.log("Task #" + (index + 1) + " Priority " + data[index].priority + ": " + data[index].name);
+      }
+    }
+  } else if (process.argv.length === 3) {
+    for (var i = 0; i < data.length; i++) {
+      var currData = data[i];
+      if (currData) {
+        console.log("Task #" + (i + 1) + " Priority " + data[i].priority + ": " + data[i].name);
+      }
+    }
+  } else if (process.argv.length === 4) {
+    if (process.argv[3] === "-c" || process.argv[3] === "--completed") {
+      for (var i = 0; i < data.length; i++) {
+        var currData = data[i];
+        if (currData && data[i].completed) {
+          console.log("Task #" + (i + 1) + " Priority " + data[i].priority + ": " + data[i].name);
+        }
+      }
+    }
+  } else {
+    throw new Error("invalid arguments");
+  }
 }
 
 // Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  if (process.argv[3] === "-i") {
+    var toDelete = parseInt(process.argv[4]) - 1;
+    if (toDelete + "" === "NaN") {
+      throw new Error("index argument is not a number");
+    }
+    data.splice(toDelete, 1);
+  } else {
+    throw new Error("invalid arguments");
+  }
+}
+
+function toggleCompleted(){
+  //check if there is a flag id
+  if (process.argv.length === 5) {
+    if (process.argv[3] === "-i") {
+      var index = parseInt(process.argv[4]) - 1;
+      var currData = data[index];
+      if (currData) {
+        currData.completed = !currData.completed;
+      }
+    }
+  } else if (process.argv.length === 3) {
+    data.forEach(function(currData) {
+      currData.completed = !currData.completed;
+    })
+  } else {
+    throw new Error("invalid arguments");
+  }
 }
 
 // ---Utility functions---
