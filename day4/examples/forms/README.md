@@ -169,9 +169,9 @@ app.post('/', function(req, res) {
   var errors = req.validationErrors();
   if (errors) {
     res.send('There have been validation errors: ' + errors, 400);
-    return;
+  } else {
+    res.render('index');
   }
-  res.render('index');
 }
 ```
 
