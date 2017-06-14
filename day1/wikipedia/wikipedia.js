@@ -10,15 +10,33 @@ function countLines(fileName) {
   var rl = readline.createInterface({
     input: input
   });
-  var count = 0;
-  rl.on('line', function(line) {
-    // This is called for each line in file
-    count++;
-  });
+  var counter = {};
+  var max = 0;
+  var leader;
+  //rl.on('line', function(line) {
+    /*if(line.indexOf('.mw') === -1){
+      if(line.indexOf('Special:') === -1){
+        var data = line.split(' ');
+        //console.log(data);
+        if(counter.hasOwnProperty(data[1])){
+          counter[data[1]] += parseInt(data[2]);
+        }
+        else{
+          counter[data[1]] = parseInt(data[2]);
+        }
+      }
+    }*/
+
+  //});
   rl.on('close', function() {
-    // This is called when the file is done being read finished
-    console.log('There are %s lines in file %s', count, fileName);
+    var top = new Array(10);
+    console.log(top);
+    /*Object.keys(counter).forEach(function(a){
+      while(){
+
+      }
+    });*/
   });
 }
 
-countLines(__filename);
+countLines('./pagecounts-6th');

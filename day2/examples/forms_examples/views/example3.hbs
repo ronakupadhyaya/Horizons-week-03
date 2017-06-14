@@ -1,5 +1,13 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
-
-
+  <span>
+    <form method="post" action="/login">
+      Email: <input type="email" name="email" value="">
+      Password: <input type="password" name="password" value="">
+      <button type="submit" name="button" >Submit</button>
+      {{#if name}}
+        <h2>Hi + {{name}}</h2>
+      {{/if}}
+      {{#if error}}
+        <h2>ERROR</h2>
+      {{/if}}
+    </form>
+  </span>

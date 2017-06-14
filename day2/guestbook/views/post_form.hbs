@@ -9,8 +9,45 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+  <style media="screen">
+    body{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input{
+      margin-left: 20px;
+      border-radius: 5px;
+    }
+
+    #for{
+      width: 500px;
+      height: 300px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      background: pink;
+      font-family: fantasy;
+      border-radius: 40px;
+    }
+
+    #container{
+      width: 90%;
+      height: 800px;
+      border-radius: 160px;
+      background-color: #5990ea;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
 </head>
 <body>
+  <div id ='container'>
   <h1>Create new post</h1>
 
   <p>{{error}}</p>
@@ -21,7 +58,27 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <!-- YOUR CODE HERE -->
 
+  <form action="/posts" method="post" id="for">
+    <div>
+      <label>Author:</label>
+      <input type="text" name="author" value="{{author}}"><br>
+    </div>
+    <div>
+      <label>Title:</label>
+      <input type="text" name="title" value=""><br>
+    </div>
+    <div>
+      <label>Body:</label>
+      <input type="text" name="body" value=""><br>
+    </div>
+    <div>
+      <label>Date:</label>
+      <input type="date" name="date" value=""><br>
+    </div>
+    <button type="submit" name="button">Submit</button>
+  </form>
+  <!-- YOUR CODE HERE -->
+</div>
 </body>
 </html>

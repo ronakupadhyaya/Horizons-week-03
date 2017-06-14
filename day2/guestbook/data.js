@@ -8,6 +8,7 @@ var file = 'data.json';
 module.exports = {
   read: function() {
     if (!fs.existsSync(file)) {
+
       return [
       {
         title: 'Eggs',

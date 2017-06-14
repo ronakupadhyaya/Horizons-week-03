@@ -39,6 +39,19 @@ program.command('add')
   .description("Create Tasks")
   .action(addTask);
 
+program.command('show')
+  .description("Show all items")
+  .action(showTasks);
+
+program.command('delete')
+  .description("delete item with id")
+  .action(deleteTask);
+
+program.command('toggleCompleted')
+  .description("toggle completed")
+  .action(toggleCompleted);
+
+
 // YOUR CODE HERE for "show" - its action must call "showTasks"
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
 
@@ -60,7 +73,9 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt)
+  .option('-c, --completed', 'shows completed tasks');
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
@@ -112,24 +127,71 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
-  // YOUR CODE HERE
+  var m = 0;
+  var id = false;
+  var showCompleted = false;
+  process.argv.forEach(function(a){
+    if((a === '-i')||(a === '--id')){
+      id = true;
+      console.log("Task #" + process.argv[m+1] + " Priority " + data[process.argv[m+1]-1].priority + ": " + data[process.argv[m+1]-1].name);
+    }else if((a === '-c')||(a ==='--completed')){
+      showCompleted = true;
+    }
+    m++;
+  }, m);
+
+  if(!id){
+    var n = 0;
+    data.forEach(function(a){
+      if(showCompleted){
+        if(a.completed === true){
+          console.log("Task #" + (n+1) + " Priority " + a.priority + ": " + a.name);
+        }
+      }
+      else{
+        console.log("Task #" + (n+1) + " Priority " + a.priority + ": " + a.name);
+      }
+      n++;
+    }, n);
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var m = 0;
+  process.argv.forEach(function(a){
+    if((a === '-i')||(a === 'id')){
+      data.splice(process.argv[m+1]-1, 1);
+    }
+    m++;
+  }, m);
+}
+
+function toggleCompleted(){
+  var m = 0;
+  process.argv.forEach(function(a){
+    if((a === '-i')||(a === 'id')){
+      if(!data[process.argv[m+1]-1].completed){
+        data[process.argv[m+1]-1].completed = true;
+      }
+      else{
+        data[process.argv[m+1]-1].completed = false;
+      }
+    }
+    m++;
+  }, m);
 }
 
 // ---Utility functions---

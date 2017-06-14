@@ -21,8 +21,18 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+<a href="http://localhost:3000/posts?order=ascending">Sort by oldest</a>
+<a href="http://localhost:3000/posts?order=descending">Sort by newest</a>
 
-<!-- YOUR CODE HERE -->
+{{#each posts}}
+<div>
+  <h2>{{this.author}}</h2>
+  <h4>{{this.title}}</h4>
+  <p>{{this.date}}</p>
+  <p>{{this.body}}</p>
+  <a href="http://localhost:3000/posts?author={{this.author}}">Show only posts by this author</a>
+</div>
+{{/each}}
 
 </body>
 </html>
