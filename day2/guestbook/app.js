@@ -1,9 +1,9 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var _=require('underscore')
 var app = express();
-
+var id_num=3;
 // Enable cookie parsing
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +65,27 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var array=data.read();
+  var author=req.query.author;
+  if (author) {
+    array=array.filter(function(item){
+      return item.author===author;
+    })
+  }
+  var temp=_.sortBy(array,function(item){
+    var d=new Date(item.date);
+    return d;
+  })
+
+  var order=req.query.order;
+
+  if(order==='descending')temp=temp.reverse();
+
+  res.render('posts',{
+      username:req.cookies.username,
+      posts:temp,
+      author:author
+  })
 });
 
 // ---Part 3. Create new posts---
@@ -82,7 +99,55 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form')
+  }
+  else{
+    res.send("error");
+  }
 });
+
+
+app.get('/edit',function(req,res){
+  var id=req.query.id;
+  var author=req.query.author;
+//  var data=data.read();
+  if(req.cookies.username===author){
+    res.render('edit',{
+      id:id
+    });
+  }else res.send("you are not author so you cant edit.")
+});
+
+app.post('/editpost',function(req,res){
+  var array=data.read();
+  var obj;
+  array.forEach(function(item,index){
+    if(item.id===parseInt(req.query.id)){
+      obj=item;
+
+      obj.body=req.body.data;
+      array.splice(index,1);
+      array.push(obj);
+      data.save(array);
+    }
+  })
+  res.redirect('/posts');
+})
+
+app.get('/delete',function(req,res){
+  var array=data.read();
+  if(req.query.author===req.cookies.username){
+    array.forEach(function(item,index){
+      if(item.id===parseInt(req.query.id)){
+        array.splice(index,1);
+        data.save(array);
+        res.redirect('/posts');
+      }
+    })
+  }else res.send("you are not author so you cant delete.")
+})
+
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
@@ -102,6 +167,17 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var post={id:id_num,author:req.cookies.username, date:req.body.date, title:req.body.title, body:req.body.body}
+  if(req.cookies.username){
+    var a=data.read();
+    a.push(post);
+    data.save(a);
+    res.redirect('/posts');
+    id_num++;
+  }
+  else{
+    res.send("Error");
+  }
 });
 
 // Start the express server

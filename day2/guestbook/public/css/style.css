@@ -7,3 +7,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post{
+  height:auto;
+  border:black 1px solid;
+  margin: 5px;
+  padding: 5px;
+}

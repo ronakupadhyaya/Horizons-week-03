@@ -21,8 +21,28 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
+<a href="/posts?order=ascending{{#if author}}&author={{author}}{{/if}}"> ascending</a>
+<a href="/posts?order=descending{{#if author}}&author={{author}}{{/if}}"> descending</a>
 <!-- YOUR CODE HERE -->
+  {{#each posts}}
+    <div class="post">
+      <h3>{{title}}</h3>
+      {{author}}--{{body}}--{{date}}
+      <a href="/posts?author={{this.author}}"> click </a>
+      <a href="/edit?id={{this.id}}&author={{this.author}}"> edit</a>
+      <!-- <form class="" action="index.html" method="post">
 
+      </form> -->
+      <a href="/delete?id={{this.id}}&author={{this.author}}"> delete</a>
+      <!-- <a class="delete" data-id="{{this.id}}"> delete</a> -->
+    </div>
+  {{/each}}
+  {{#if author}}
+    <a href="/posts"> View all </a>
+  {{/if}}
+
+    <a href="/posts/new"> New Post </a>
+
+    <script src="https://cdn.rawgit.com/rails/jquery-ujs/master/src/rails.js"></script>
 </body>
 </html>
