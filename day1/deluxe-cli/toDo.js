@@ -36,11 +36,17 @@ var program = require('commander');
 
 // Example. Create the 'add' command.
 program.command('add')
-  .description("Create Tasks")
-  .action(addTask);
+    .description("Create Tasks")
+    .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command("show")
+  .description("Show Tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command("delete")
+  .description("Delete Tasks")
+    .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,10 +66,14 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-c, --completed', 'Show completed')
+
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'priority', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -104,7 +114,9 @@ function addTask() {
 // 'node toDo.js show' or 'node toDo.js show -i 3'
 // This function should output the appropriate TO-Do tasks using console.log().
 // The format of the output should be exactly:
+// ***
 // Task #ID Priority PRIORITY: NAME
+// ***
 //
 // Note:
 // - if there is a flag value for id, the program should only display that task
@@ -112,24 +124,36 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
-  // YOUR CODE HERE
+  var i = 1;
+  if (program.id) {
+    console.log("reaches id")
+    console.log(data[program.id-1])
+  } else {
+    console.log('reached here')
+    data.forEach(function(task) {
+      console.log("Task #",i," Priority ",task.priority,": ",task.name);
+      i++;
+    })
+  }
+
 }
 
 // Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var id = program.id;
+  return data.splice(id-1, 1);
 }
 
 // ---Utility functions---
