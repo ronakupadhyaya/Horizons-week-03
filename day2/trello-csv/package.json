@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "antigravity": "0.0.0",
     "commander": "^2.9.0",
     "csv": "^1.1.0",
+    "csv-stringify": "^1.0.4",
     "trello": "^0.5.1",
     "underscore": "^1.8.3"
   }

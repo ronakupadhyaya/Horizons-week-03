@@ -93,15 +93,11 @@ app.get('/posts*', function (req, res) {
   var finalPost = [];
   var order = req.query.order;
   var author = req.query.author;
-  var link = "?";
   if (order) {
     returnPosts = underscore.sortBy(posts,'date');
     if (order === 'descending') {
       returnPosts = returnPosts.reverse();
     }
-    link+="order="
-    link+=order
-    link+="&"
   } else {
     returnPosts = posts;
   }
@@ -110,13 +106,10 @@ app.get('/posts*', function (req, res) {
       if (peo.author === author) {
         finalPost.push(peo);
       }
-      link+="author=";
-      link+=author
     })
   } else {
     finalPost = returnPosts;
   }
-  console.log(link)
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
