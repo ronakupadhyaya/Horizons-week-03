@@ -13,7 +13,7 @@
 <body>
 <h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+<h2>Your username: {{username}} </h2>
 
 <!-- Part 2: Display posts -->
 
@@ -21,8 +21,21 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
-
+<a href="/posts/new"> <input type="submit" name="newPost" value="new post"></a>
+<a href="/posts?order=ascending"> <input type="submit" name="order" value="sort ascending"></a>
+<a href="/posts?order=descending"> <input type="submit" name="order" value="sort descending"></a>
+<a href="/posts"> <input type="submit" name="seeAll" value="see all"></a>
+<br>
+  {{#each posts}}
+  <div>
+    <b> {{this.title}} </b> <br>
+    {{this.author}} || {{this.date}} <br>
+    {{this.body}} <br>
+    <a href="/posts?author={{this.author}}"> view only posts by this author </a>
+  </div> <br>
+  {{/each}}
 <!-- YOUR CODE HERE -->
+
 
 </body>
 </html>

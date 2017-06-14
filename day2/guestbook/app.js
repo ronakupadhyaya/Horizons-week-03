@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +64,31 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var arr = data.read();
+  if(req.query.author) {
+    arr = arr.filter(function(elt){
+      return elt.author === req.query.author;
+    })
+  }
+  if(req.query.order === 'ascending'){
+    arr.sort(function(a, b){
+      var aDate = new Date(a.date);
+      var bDate = new Date(b.date);
+      return aDate - bDate;
+    })
+  }
+  else if(req.query.order === 'descending'){
+    arr.sort(function(a, b){
+      var aDate = new Date(a.date);
+      var bDate = new Date(b.date);
+      return bDate - aDate;
+    })
+  }
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    order: req.query.order,
+    author: req.query.author,
+    posts: arr
   });
 });
 
@@ -81,7 +102,12 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form')
+  }
+  else{
+    res.status(401).send('401 error. please login and try again')
+  }
 });
 
 // POST /posts:
@@ -101,7 +127,24 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var post = {
+    author: req.cookies.username,
+    date: req.body.date,
+    title: req.body.title,
+    body: req.body.body
+  }
+  if(!post.author){
+    res.status(401).send('you must be logged in to post')
+  }
+  else if(!post.date || !post.title || !post.body){
+    res.status(400).send('please fill out all fields')
+  }
+  else{
+    var arr = data.read();
+    arr.push(post);
+    data.save(arr);
+    res.render('post_form')
+  }
 });
 
 // Start the express server
