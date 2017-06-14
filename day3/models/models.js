@@ -8,6 +8,7 @@ if (! process.env.MONGODB_URI) {
 // First let's set up our MongoDb connection
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
+<<<<<<< HEAD
 
 var Cat = mongoose.model('cat', {name: String, furColor: String}) // YOUR CODE HERE - define the cat model
 
@@ -18,6 +19,10 @@ var feline3 = new Cat({name: 'Empurress', furColor: 'Calico'})
 feline.save();
 feline2.save();
 feline3.save();
+=======
+
+var Cat; // YOUR CODE HERE - define the cat model
+>>>>>>> master
 
 Cat.find(function(error, cats) {
   if (error) {
