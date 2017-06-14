@@ -15,6 +15,10 @@ app.get('/', function(request, response) {
 // You can access the query parameter 'name' via request.query.name.
 
 // YOUR CODE HERE
+app.use('/hello', function(req, res) {
+  // response.send('Express is running!')
+  res.send(`Hello there ${req.query.name}`);
+});
 
 // Start the server listening on port 3000.
 app.listen(3000);
