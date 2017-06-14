@@ -50,9 +50,10 @@ Your login page should look like:
 
 ![](img/login.png)
 
-When you click the `Login` button you should see this:
+When you click the `Login` button you should see this (Don't worry if you don't see the username - you'll implement that in Part 2):
 
 ![](img/login2.png)
+
 
 ### Part 2: View posts
 
@@ -69,12 +70,12 @@ When you click the `Login` button you should see this:
   This login form should have input elements for title, body and date and a
   submit button.
 1. Implement the `POST /posts` endpoint:
-  1. If the user is not logged, respond with `401` status code and display an
+    - If the user is not logged in, respond with `401` status code and display an
     error.
-  1. If any of body, title or date are missing (or empty) respond with a `400`
+    - If any of body, title or date are missing (or empty) respond with a `400`
     status code and display an error.
-  1. If the form contents are valid, create a new post object and store it
-    using `date.save()`.
+    - If the form contents are valid, create a new post object and store it
+    using `data.save()`.
 
 ### Part 4: Sort posts
 
@@ -105,7 +106,7 @@ Make it possible to sort posts by date using a URL parameter.
 1. Make sure it's possible to sort and filter posts simultaneously.
   `/posts?order=ascending&author=Moose` should work.
 
-### Bonus Part: Stylin
+### Bonus Part: Styling
 
 Use [Bootstrap](http://getbootstrap.com/) to style your views (i.e. your pages).
 You can download Bootstrap into `week03/day2/guestbook/public/`. The contents
