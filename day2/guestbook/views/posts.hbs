@@ -24,5 +24,19 @@
 
 <!-- YOUR CODE HERE -->
 
+{{#each posts}}
+  <div>
+    {{this.date}}<br>
+    Title: {{this.title}} by: {{this.author}}
+    <input type="submit" name="view_only" value="View only posts by this author"><br>
+    {{this.body}}<br></br>
+  </div>
+
+{{/each}}
+
+<form action="/posts/new">
+  <input type="submit"  value="Add post">
+</form>
+
 </body>
 </html>

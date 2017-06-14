@@ -3,6 +3,8 @@ var path = require('path');
 var exphbs = require('express-handlebars');
 
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser({extended: true}));
 
 // view engine setup
 app.engine('hbs', exphbs({extname:'hbs'}));
@@ -12,6 +14,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
   res.render('example3');
+});
+
+app.post('/', function(req, res) {
+  req.body
+  res.render('example3', {user:req.body.user});
 });
 
 // start the express app
