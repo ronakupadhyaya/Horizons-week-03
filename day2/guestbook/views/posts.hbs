@@ -21,8 +21,28 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+<span>
+  {{#each posts}}
+    <em> {{this.title}} </em> by {{this.author}} on {{this.date}}: <br>
+    {{this.body}}<br><br>
+  {{/each}}
+  <!--
+  <form method="GET" action="/posts/new">
+    <input type="submit" value="Submit">
+  <form>
+  -->
 
-<!-- YOUR CODE HERE -->
+  {{#if ascending}}
+    <a href="/posts?order=descending">Sort by descending order</a>
+  {{else}}
+    <a href="/posts?order=ascending">Sort by ascending order</a>
+  {{/if}}
+
+  {{#if filtered}}
+    <a href="/posts">Return to all posts</a>
+  {{/if}}
+
+</span>
 
 </body>
 </html>
