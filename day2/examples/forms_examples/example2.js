@@ -11,7 +11,21 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  var bool;
+  if(req.query.gender == "male") {
+    bool = true;
+  } else {
+    bool = false;
+  }
+  res.render('example2', {
+    text: req.query.text,
+    name: req.query.yourName,
+    username:req.query.yourUserName,
+    password: req.query.yourPassword,
+    gender: req.query.gender,
+    bool: bool
+
+  });
 });
 
 // start the express app

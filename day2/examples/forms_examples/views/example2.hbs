@@ -1,3 +1,21 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+  <input type="text" name="yourName" value="{{name}}" placeholder="name"><br />
+  <input type="text" name="yourUserName" value="{{username}}" placeholder="username"><br />
+  <input type="text" name="yourPassword" value="{{password}}" placeholder="password"><br />
+  {{#if bool}}
+  <input type="radio" name="gender" value="male" checked> Male<br>
+  <input type="radio" name="gender" value="female" > Female<br>
+  {{else}}
+  <input type="radio" name="gender" value="male" > Male<br>
+  <input type="radio" name="gender" value="female" checked> Female<br>
+  {{/if}}
+  <select name="yourState" value="{{state}}" placeholder = "State...">
+ <option value="CA">California</option>
+ <option value="NV">Nevada</option>
+ <option value="OR">Oregon</option>
+ <option value="other">other</option>
+</select>
+<input type="submit" value="Change Header"/>
+</span>
 </form>
