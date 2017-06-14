@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Create new post</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Language" content="en">
+    <title>Create new post</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
 
-  <link rel="stylesheet" href="/css/style.css"></link>
-  <link rel="stylesheet" href="/js/script.js"></link>
+    <link rel="stylesheet" href="/css/style.css"></link>
+    <link rel="stylesheet" href="/js/script.js"></link>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-  <h1>Create new post</h1>
+    <h1>Create new post</h1>
 
-  <p>{{error}}</p>
+    <p>{{error}}</p>
 
 
-  <!-- Part 3: Create post  -->
-  <!--
+    <!-- Part 3: Create post  -->
+    <!--
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
-  -->
-  <!-- YOUR CODE HERE -->
+-->
+<!-- <form method='post' action='/posts'>
+    <span>
+        Title: <input type="text" name="title" value=""> <br>
+        Body: <input type="text" name="body" value=""> <br>
+        Date: <input type="text" name="date" value=""> <br>
+    </span>
+    <input type="submit" name="" value="Submit">
+</form> -->
+
+<form class="form-inline" method='post' action='/posts'>
+  <div class="form-group">
+    <label for="exampleInputName2">Title:</label>
+    <input type="text" name="title" class="form-control" id="exampleInputName2" placeholder="Title" required>
+</div> <br> <br>
+  <div class="form-group">
+    <label for="exampleInputName2">Body:</label>
+    <input type="text" name="body" class="form-control" id="exampleInputName2" placeholder="Body" required>
+  </div>  <br> <br>
+  <div class="form-group">
+    <label for="exampleInputName2">Date:</label>
+    <input type="text" name="date" class="form-control" id="exampleInputName2" placeholder="Date" required>
+  </div>  <br> <br>
+  <!-- <button type="submit" class="btn btn-default">Send invitation</button> -->
+  <input type="submit" name="" value="Submit">
+</form>
 
 </body>
 </html>
+
+
+
+
+
+

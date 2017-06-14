@@ -1,0 +1,11 @@
+<ul>
+    {{#each data}}
+        {{#if isMale}}
+            <li>{{this.first_name}} {{this.last_name}}, {{this.email}}</li>
+        {{else if isFemale}}
+            <li>{{this.first_name}} {{this.last_name}}, {{this.email}}</li>
+        {{else}}
+            <li>{{this.first_name}} {{this.last_name}}, {{this.email}}</li>
+        {{/if}}
+    {{/each}}
+</ul>

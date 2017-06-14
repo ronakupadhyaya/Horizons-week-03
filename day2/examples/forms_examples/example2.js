@@ -11,7 +11,7 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  res.render('example2', {Username: req.query.uname, Password: req.query.pword, Name: req.query.name});
 });
 
 // start the express app

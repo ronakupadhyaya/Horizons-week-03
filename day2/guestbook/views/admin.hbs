@@ -9,11 +9,11 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<h1>View all posts</h1>
-
-<h2>Your username: {{username}}</h2>
+<h1>All Hail the Admin</h1>
 
 <!-- Part 2: Display posts -->
 
@@ -23,17 +23,16 @@
 -->
 
 {{#each posts}}
-<div>{{this.author}} <em>{{this.date}}</em>--<b>{{this.title}}</b>: <br>{{this.body}}<br>
-    <form action="/posts/{{this.author}}/">
-        <input type="submit" value='View only posts by this author!'>
+<div>{{this.author}} <em>{{this.date}}</em>--<b>{{this.title}}</b>: <a href="/admin/posts/delete/{{@index}}"><button>delete</button></a> <br>{{this.body}}<br>
+    <form action='/admin/posts/authorDel/{{this.author}}'>
+        <input type="submit" value='Delete all posts by this author'>
     </form>
+    <form action='/admin/posts/authorDel/{{this.author}}'>
+        <input type="submit" value='Edit this post'>
+    </form>
+    <br>
+    <hr color="2px black">
 </div><br>
 {{/each}}
-
-{{#if oneAuthor}}
-<form action="/posts/">
-    <input type="submit" class="crazybtn" value='View all posts again!'>
-</form>
-{{/if}}
-</body>
+</div>
 </html>

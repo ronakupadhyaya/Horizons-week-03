@@ -8,7 +8,13 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// YOUR CODE HERE
+app.get('/:gender', function(req, res) {
+    var word = req.params.gender
+    var isMale = word === 'male'
+    var isFemale = word === 'female'
+    // res.send(data)
+    res.render('template', {isMale: isMale, isFemale:isFemale, arr: data});
+});
 
 app.listen(3000);
 

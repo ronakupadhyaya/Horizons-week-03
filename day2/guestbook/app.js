@@ -30,8 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.write(data): Write the given data to disk.
 var data = require('./data');
 
+var _ = require('underscore')
+
 app.get('/', function(req, res) {
-  res.send('Your server is working!');
+    res.send('Your server is working!');
 });
 
 // ---Part 1. Login form---
@@ -44,32 +46,43 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+    res.render('login', {Username: req.query.username})
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
-  res.cookie('username', req.body.username);
-  res.redirect('/posts');
+    res.cookie('username', req.body.username);
+    if (req.body.username === 'Admin') {
+        res.redirect('/admin/posts')
+    } else {
+        res.redirect('/posts');
+    }
 });
 
-// ---Part 2. View Posts---
-
-// GET /posts: View posts page
-//
-// Render 'posts.hbs` with the correct information.
-//
-// Hint: to get the username, use req.cookies.username
-// Hint: use data.read() to read the post data from data.json
-app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+app.get('/admin/posts/delete/:index', function (req, res) {
+    var arr = data.read()
+    arr.splice(req.params.index, 1)
+    console.log(arr)
+    data.save(arr)
+    res.redirect('/admin/posts')
 });
+
+app.get('/admin/posts/authorDel/:author', function (req, res) {
+    var arr = data.read()
+    arr = _.filter(data.read(), function(obj){ return obj.author !== req.params.author})
+    data.save(arr)
+    res.redirect('/admin/posts')
+});
+
+
+app.get('/admin/posts/', function (req, res) {
+    res.render('admin', { posts: data.read() });
+});
+
+
+
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
@@ -81,27 +94,48 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+    var user = req.cookies.username
+    if (user !== 'undefined') {
+        res.render('post_form', {
+            Title: req.query.title,
+            Body: req.query.body,
+            date: req.query.date
+        })
+    } else {
+        res.status(500).send('You need to be logged in!')
+    }
 });
 
-// POST /posts:
-// This route is called by the form on /posts/new when a new post is being created.
-//
-//
-// Create a new post object with right author, title, body and date.
-// Read author, title, body, date from req.body.
-//
-// Example post object:
-// {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
-//
-// Use express-validator to check that the user is logged in and that title, body
-// and date are all specified.
-// Don't forget to check if there are validation errors at req.validationErrors();
-//
-// Read all posts with data.read(), .push() the new post to the array and
-// write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+    req.check('title', 'Title required.').notEmpty()
+    req.check('body', 'Body required.').notEmpty()
+    req.check('date', 'Date required.').notEmpty()
+    var errors = req.validationErrors()
+    // console.log(errors)
+    if (errors) {
+        res.status(400)
+        res.render('posts', {
+            // Pass `username` to the template from req.cookies.username
+            // Pass `posts` to the template from data.read()
+            username: req.cookies.username,
+            posts: data.read()
+        })
+    }
+
+    var obj = {'author': req.cookies.username,
+    'date': req.body.date,
+    'title': req.body.title,
+    'body': req.body.body}
+    var arr = data.read()
+    arr.push(obj)
+    data.save(arr)
+
+    res.render('posts', {
+        // Pass `username` to the template from req.cookies.username
+        // Pass `posts` to the template from data.read()
+        username: req.cookies.username,
+        posts: data.read()
+    })
 });
 
 // Start the express server
