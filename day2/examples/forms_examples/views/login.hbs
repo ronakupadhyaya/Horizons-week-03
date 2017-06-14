@@ -1,5 +1,9 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method='post'>
+  <span>
+    {{#if name}}
+    <h1>Hello <em>{{name}}</em></h1>
+    {{else}}
+    <h1 style='color:red'>Login Error</h1>
+    {{/if}}
+  </span>
 </form>
-
-

@@ -15,6 +15,14 @@
 
 <h2>Your username: {{username}}</h2>
 
+
+
+<a href="?order=ascending">ascending</a>
+<a href="?order=descending">descending</a></br>
+
+<p>Filter by author</p>
+<a href="?author=moose">Moose</a>
+<a href="?author=darwish">Darwish</a>
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
@@ -23,6 +31,13 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+{{#each posts}}
+<div>
+  <p>{{this.title}}</p></br>
+  <p>{{this.author}}</p></br>
+  <p>{{this.date}}</p></br>
+  <p>{{this.body}}</p></br>
+</div>
+{{/each}}
 </body>
 </html>

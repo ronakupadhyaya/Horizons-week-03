@@ -13,8 +13,9 @@
 <body>
   <h1>Create new post</h1>
 
-  <p>{{error}}</p>
-
+  {{#if error}}
+    <p>Error: {{status}}</p>
+  {{else}}
 
   <!-- Part 3: Create post  -->
   <!--
@@ -22,6 +23,12 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
-
+  <form method="POST" action="/posts">
+    <input type="text" name="title" placeholder=""/></br>
+    <textarea rows="5" cols="80" name="body" placeholder="body" value=""></textarea></br>
+    <input type="date" name="date" placeholder="date" value=""/></br>
+    <input type="submit" value="post" />
+  </form>
+  {{/if}}
 </body>
 </html>
