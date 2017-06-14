@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "assert": "^1.4.1",
+    "message": "0.0.1",
     "mongoose": "^4.5.0"
   },
   "scripts": {

@@ -5,7 +5,8 @@ var exphbs  = require('express-handlebars');
 
 var app = express();
 app.engine('hbs', exphbs({
-  'extname': 'hbs'
+  'extname': 'hbs',
+  defaultLayout:'main.hbs'
 }));
 app.set('view engine', 'hbs');
 
@@ -13,6 +14,9 @@ app.get('/', function(req, res) {
   res.render('index.hbs');
 });
 
+app.get('/second',function(req,res) {
+  res.render('second');
+})
 app.listen(3000, function() {
   console.log('Running on port 3000!');
 });
