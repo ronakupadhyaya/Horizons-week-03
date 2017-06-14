@@ -11,7 +11,9 @@ app.use(cookieParser());
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
@@ -19,7 +21,9 @@ var expressValidator = require('express-validator');
 app.use(expressValidator());
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Make files in the folder `public` accessible via Express
@@ -44,7 +48,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,11 +67,31 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
-app.get('/posts', function (req, res) {
+app.get('/posts/', function(req, res) {
+  console.log(data)
+  var dataArray = data.read();
+  console.log(dataArray)
+  if (req.query.order === "ascending") {
+    dataArray.sort(function(a, b) {
+      var adate = new Date(a.date);
+      var bdate = new Date(b.date);
+      return adate.getTime() - bdate.getTime();
+    });
+  }
+
+  if (req.query.order === "descending") {
+    dataArray.sort(function(a, b) {
+      var adate = new Date(a.date);
+      var bdate = new Date(b.date);
+      return bdate.getTime() - adate.getTime();
+    });
+  }
+  data.save(dataArray);
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: dataArray
   });
 });
 
@@ -81,7 +105,10 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  var isLogin = req.cookies.username ? true : false;
+  res.render('post_form', {
+    isLogin: isLogin
+  });
 });
 
 // POST /posts:
@@ -100,8 +127,38 @@ app.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
+
+function isLogin(username) {
+  if (username) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var dataArray = data.read();
+  if (req.body.body && req.body.title && req.body.date && isLogin(req.cookies.username)) {
+    dataArray.push({
+      body: req.body.body,
+      title: req.body.title,
+      date: req.body.date
+    });
+    data.save(dataArray);
+    res.redirect('/posts')
+  } else if (req.body.body && req.body.title && req.body.date) {
+    res.status(401)
+      .render('post_form', {
+        status: 401,
+        error: 'Unauthroized, Please Login.'
+      });
+  } else {
+    res.status(400)
+      .render('post_form', {
+        status: 400,
+        error: 'Bad Request'
+      });
+  }
 });
 
 // Start the express server

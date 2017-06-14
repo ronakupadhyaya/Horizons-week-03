@@ -21,8 +21,16 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+<a href="/posts?order=ascending">Show in Ascending Order</a>
+<br>
+<a href="/posts?order=descending">Show in Decending Order</a>
+<br>
+<h2>Posts</h2>
+{{#each posts}}
+  <div>{{this.author}} {{this.title}} {{this.body}} {{this.date}}</div>
+  <a href="/posts?author={{this.author}}">View post only by {{this.author}}</a>
+{{/each}}
 
-<!-- YOUR CODE HERE -->
 
 </body>
 </html>
