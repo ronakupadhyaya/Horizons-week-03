@@ -6,6 +6,11 @@
     "jsonfile": "^2.3.1"
   },
   "scripts": {
-    "test": "jasmine-node ."
+    "test": "jasmine-node spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^1.1.3"
   }
 }

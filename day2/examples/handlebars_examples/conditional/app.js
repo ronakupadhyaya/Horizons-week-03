@@ -17,5 +17,4 @@ app.get('/:word', function(req, res) {
   res.render('condition', {word: req.params.word, isEven: isEven});
 });
 
-app.listen(3000);
-
+app.listen(3700);
