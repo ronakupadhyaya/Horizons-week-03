@@ -69,6 +69,8 @@ app.get('/posts', function (req, res) {
   var authorStr = false;
   var orderStr = false;
 
+  // edit if necessary
+
   // sort by ascending or descending order
   if(req.query.order === "ascending"){
       posts.sort(function(a,b){
