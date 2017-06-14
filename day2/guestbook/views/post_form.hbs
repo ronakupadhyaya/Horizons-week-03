@@ -11,9 +11,10 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-  <h1>Create new post</h1>
+  <h1>Create new post!</h1>
 
-  <p>{{error}}</p>
+
+    <p>{{error}}</p>
 
 
   <!-- Part 3: Create post  -->
@@ -21,7 +22,14 @@
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
-  <!-- YOUR CODE HERE -->
+  <form class="new-post-form" action="/posts" method="POST">
+    <div class="new-post-form-wrapper">
+      <input id="titleFld" type="text" name="title" value="{{title}}" placeholder="Title"> <br>
+      <input id="txt-Area" type="textarea" name="body" value="{{body}}" placeholder="Write your post here..."><br>
+      <input id="dateFld" type="date" name="date" value="{{date}}"><br>
+      <input id="login-button" type="submit" name="post" value="Post!"> <br>
+    </div>
+  </form>
 
 </body>
 </html>

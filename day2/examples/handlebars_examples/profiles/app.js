@@ -8,9 +8,39 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// YOUR CODE HERE
+
+app.get('/', function(request, response){
+  response.render('index',
+    {
+      students: data
+    }
+  );
+})
+
+app.get('/male', function(request, response) {
+  var maleStudents = data.filter(function(item) {
+    return item.gender === 'Male'
+  });
+  response.render('index',
+    {
+      students: maleStudents
+    }
+  );
+})
+
+app.get('/female', function(request, response) {
+  var femaleStudents = data.filter(function(item) {
+    return item.gender === 'Female'
+  });
+  response.render('index',
+    {
+      students: femaleStudents
+    }
+  );
+})
+
+
+
+
 
 app.listen(3000);
-
-
-

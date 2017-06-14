@@ -4,7 +4,7 @@ var exphbs = require('express-handlebars');
 
 var app = express();
 
-// view engine setup
+// View engine setup
 app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
