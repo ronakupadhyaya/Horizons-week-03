@@ -115,7 +115,7 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  if(req.cookies.username === null){
+  if(!req.cookies.username){
     res.status(401).send("No user logged in.");
   }
   res.render('post_form');
