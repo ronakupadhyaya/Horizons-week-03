@@ -43,6 +43,11 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var ToDoItem = mongoose.model('ToDoItem', {
+  name: String,
+  priority: String,
+  completed: Boolean
+})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
