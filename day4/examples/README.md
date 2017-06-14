@@ -6,7 +6,7 @@ Today we will learn how to use AJAX in applications built with Express.
 
 ---
 
-## Section TODO: Validation
+## Section 1: Validation
 
 ### [Watch Me: Form validation](https://vimeo.com/221131674)
 
@@ -14,7 +14,7 @@ Today we will learn how to use AJAX in applications built with Express.
 
 ---
 
-## Section TODO: Redirection
+## Section 2: Redirection
 
 ### [Watch Me: Redirection](https://vimeo.com/221382208)
 
@@ -36,7 +36,7 @@ that the up and down buttons work.
 
 ---
 
-## Section TODO: AJAX in Express
+## Section 3: AJAX in Express
 
 ### [Watch Me: AJAX in Express](TODO)
 
@@ -83,4 +83,4 @@ that the up and down buttons work.
 
 ---
 
-## Section TODO: Client Side vs Server Side Rendering
+## Section 4: Client Side vs Server Side Rendering
