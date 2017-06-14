@@ -4,12 +4,6 @@
 
 1. [Videos and Exercises](examples/README.md)
 
-## Inline Exercises
-
-1. [Warmup](warmup/README.md)
-1. [Time machine](time-machine/README.md)
-1. [AJAX Counter](ajax-counter/README.md)
-
 ## Pair Programming Exercises
 
 1. [Horizon Starter: Finish up yesterday](../day3/horizonstarter/README.md)
