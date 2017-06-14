@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +65,32 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var posts = data.read()
+  if(req.query.author){
+    posts = posts.filter(function(post){
+      return post.author === req.query.author
+    })
+  }
+  if(req.query.order === 'ascending') {
+    posts.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date)
+    })
+  }
+  if(req.query.order === 'descending') {
+    posts.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
+  console.log(posts)
   res.render('posts', {
+    username: req.cookies.username,
+    posts: posts,
+    author: req.query.author
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
   });
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +104,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form')
+  } else {
+    console.log("not logged in")
+  }
 });
 
 // POST /posts:
@@ -102,6 +129,30 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  req.checkBody('title', 'Must have title').notEmpty()
+  req.checkBody('text', 'Must have body').notEmpty()
+  req.checkBody('date', 'Must have date').notEmpty()
+  var errors = req.validationErrors()
+  console.log(errors)
+  if (!errors && req.cookies.username) {
+    var newPost = {
+      author: req.cookies.username,
+      title: req.body.title,
+      text: req.body.text,
+      date: req.body.date
+    }
+    var newData = data.read()
+    newData.push(newPost)
+    data.save(newData)
+    res.redirect('/posts')
+  }
+  if (errors) {
+    console.log("test")
+    res.render('post_form', {
+      error: "missing fields!"
+    })
+  }
+
 });
 
 // Start the express server

@@ -3,6 +3,7 @@ var path = require('path');
 var exphbs = require('express-handlebars');
 
 var app = express();
+var accounts = require('./accounts');
 
 // view engine setup
 app.engine('hbs', exphbs({extname:'hbs'}));
@@ -10,8 +11,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
+var bodyParser = require('body-parser')
+app.use(bodyParser({extended: true}))
+
 app.get('/', function(req, res) {
   res.render('example3');
+});
+
+app.post('/login', function(req, res) {
+  for(i in accounts) {
+    if ((accounts[i].email === req.body.email) && (accounts[i].password === req.body.password)) {
+      res.render('example3', {
+        name: accounts[i].name,
+        email: req.body.email,
+        password: req.body.password,
+      });
+    }
+  }
 });
 
 // start the express app
