@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render("login")
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,12 +63,44 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
-app.get('/posts', function (req, res) {
+app.get('/posts/', function (req, res) {
+  var arr = data.read();
+
+  if(req.query.order === "ascending"){
+    arr.sort(function(a, b){
+  
+      var adate = new Date(a.date);
+      var bdate = new Date(b.date);
+      return adate - bdate;
+    })
+  }
+
+  if(req.query.order === "descending"){
+    arr.sort(function(a, b){
+
+      var adate = new Date(a.date);
+      var bdate = new Date(b.date);
+      return bdate - adate;
+    })
+  }
+  if(req.query.author){
+
+    arr = arr.filter(function(item){
+      return item.author === req.query.author;
+    })
+  }
+  
+
   res.render('posts', {
+    username: req.cookies.username,
+    author: req.query.author,
+    order: req.query.order,
+    posts: arr
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
   });
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +114,26 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(!req.cookies.username){
+    res.status(401).render('post_form', {
+      error: "Error: need to log in"
+    });
+  }
+  res.render('post_form')
+});
+
+app.get('/posts/admin', function(req, res) {
+  // YOUR CODE HERE
+  var variable = null;
+  if(req.cookies.username === "Priya" || req.cookies.username === "Tom"){
+    variable = req.cookies.username
+  }
+  else{
+    throw new Error("you can't be here")
+  }
+  res.render('posts', {
+    admin: variable
+  })
 });
 
 // POST /posts:
@@ -102,6 +154,30 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+ 
+  if(!req.cookies.username){
+    res.status(401).render('post_form', {
+      error: "Error: need to log in"
+    });
+  }
+  else if(!req.body.body || !req.body.title || !req.body.date){
+    res.status(400).render('post_form', {
+      error: "Error: need date, login, and title"
+    });
+  }
+  else{
+    var newPostObj = {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.body.author,
+      date: req.body.date
+    };
+    var arr = data.read()
+    arr.push(newPostObj);
+    data.save(arr);
+    
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server

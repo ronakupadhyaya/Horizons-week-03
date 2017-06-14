@@ -17,6 +17,23 @@
 
 <!-- Part 2: Display posts -->
 
+<a href="http://localhost:3000/posts?order=ascending&author={{author}}">Ascending order</a>
+<a href="http://localhost:3000/posts?order=descending&author={{author}}">Descending order</a>
+<a href="http://localhost:3000/posts?order={{order}}">View posts by all authors</a>
+
+{{#each posts}}
+	<div class = "post">
+		<div id = "author">{{author}}</div>
+		<div id = "title">{{title}}</div>
+	 	<div id = "body"> {{body}} </div>
+	 	<div id = "date"> {{date}}</div>
+	 	<a href="http://localhost:3000/posts?author={{author}}">View only posts by {{author}}</a>
+	 	{{#if admin}}
+	 		<div id="edit"
+	</div>
+{{/each}}
+	
+
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.

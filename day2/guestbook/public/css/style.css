@@ -7,3 +7,30 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post{
+	border-style: solid;
+	margin-bottom: 40px;
+}
+
+#author{
+	font-size: 30px;
+	margin-bottom: 5px;
+}
+
+#title{
+	font-size: 20px;
+	
+}
+
+#body{
+	margin-top: 5px;
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+
+#date{
+	font-style: italic;
+	font-size: 10px;
+}
+
