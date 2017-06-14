@@ -13,14 +13,25 @@
 <body>
   <h1>Create new post</h1>
 
-  <p>{{error}}</p>
-
+  {{#if error}}
+  <p>Error: {{status}}</p>
+  {{/if}}
 
   <!-- Part 3: Create post  -->
   <!--
     Add an HTML form here with `method="POST"` and `action="/posts"`.
     This login form should have input elements for title, body and date and a submit button.
   -->
+  <form class="" action="/posts" method="post">
+    <span>
+
+      <input type="text" name="title" value="" placeholder="title">
+      <input type="text" name="body" value="" placeholder="body">
+      <input type="date" name="date" value="" placeholder="date">
+      <input type="submit" name="" value="Post">
+
+    </span>
+  </form>
   <!-- YOUR CODE HERE -->
 
 </body>

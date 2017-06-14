@@ -1,8 +1,13 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
+var data = require('./accounts.json')
 
 var app = express();
+
+var bodyParser = require('body-parser')
+
+app.use(bodyParser({extended: true,}))
 
 // view engine setup
 app.engine('hbs', exphbs({extname:'hbs'}));
@@ -13,6 +18,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
   res.render('example3');
 });
+
+app.post('/login', function(req, res){
+  data.forEach(function(user){
+    if((user.first_name == req.body.name) && (user.password === req.body.password)) {
+    res.render('login', {name: req.body.name,
+                        password: req.body.password,
+                        })
+    }
+  })
+  res.render('login');
+})
+
+
 
 // start the express app
 var port = process.env.PORT || 3000;

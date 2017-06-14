@@ -1,4 +1,4 @@
-var express = require('express');
+ehvar express = require('express');
 var exphbs  = require('express-handlebars');
 var path = require('path');
 
@@ -18,4 +18,3 @@ app.get('/:word', function(req, res) {
 });
 
 app.listen(3000);
-

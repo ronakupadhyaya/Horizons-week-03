@@ -15,8 +15,18 @@
 
 <h2>Your username: {{username}}</h2>
 
-<!-- Part 2: Display posts -->
+<a href="?order=ascending">Ascending</a>
+<a href="?order=descending">Descending</a>
 
+<!-- Part 2: Display posts -->
+{{#each data}}
+<div class="">
+  <h4>{{title}}</h5>
+    <h5>{{author}}</h5>
+    <h6>{{body}}</h6>
+    <h6>{{date}}</h6>
+</div><br>
+{{/each}}
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
