@@ -3,20 +3,27 @@ var express = require('express');
 
 // Let's create a new express app
 var app = express();
+var handlebars=require('express-handlebars');
+app.engine('hbs',handlebars({
+  extname:'.hbs'
+}));
+app.set('view engine','hbs');
 
 // Example route:
 // This creates an Express route at http://localhost:3000
 app.get('/', function(request, response) {
-  response.send('Express is running!')
+  response.render('first')
 });
 
-// Create a route that listens to /hello and takes one query parameter
-// name and responds with 'Hello there NAME!'
-// You can access the query parameter 'name' via request.query.name.
-app.get('/hello',function(req,res){
-  res.send("Hello there "+req.query.name+"!")
+app.get('/:error', function(request, response) {
+  response.render('error',{
+    pageName:request.params.error
+  })
+});
 
-})
+
+
 
 // Start the server listening on port 3000.
 app.listen(3000);
+console.log('sted')

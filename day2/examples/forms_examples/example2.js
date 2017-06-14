@@ -11,12 +11,19 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  
+
+  res.render('example2', {
+    userN: req.query.username,
+    pass:req.query.password,
+    name:req.query.name,
+    gender:req.query.gender,
+  });
 });
 
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log('Express started. Listening on port %s', port);
+console.log('Example2 started. Listening on port %s', port);
 
 module.exports = app;
