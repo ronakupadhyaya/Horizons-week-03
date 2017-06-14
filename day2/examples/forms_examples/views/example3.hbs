@@ -1,5 +1,16 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method = "post">
+  <h1> Login </h1>
+  <div class="">
+   <input type="text" value="{{user}}" name="user" placeholder="user" />
+  </div>
+  <div class="">
+   <input type="text" value="{{password}}" name="password" placeholder="password" />
+  </div>
+  <input type="submit" value="Login"/>
+
+  {{#if valid}}
+  <h1>Hi {{user}}!</h1>
+  {{else}}
+  <h1> <font color = 'red'> Error! </font> </h1>
+  {{/if}}
 </form>
-
-

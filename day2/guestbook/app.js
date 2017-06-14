@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login' );
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,11 +64,54 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+
+
+
 app.get('/posts', function (req, res) {
+  var dataArr = data.read();
+  if (req.query.order === 'ascending'){
+    dataArr.sort(function(a,b){
+      //sort method 1
+      var time1 = a.date.split('/');
+      var time2 = b.date.split('/');
+      if(time1[2]<time2[2]){return -1}
+      else if(time1[2]>time2[2]){return 1}
+      else{
+        if(time1[0]<time2[0]){return -1}
+        else if(time1[0]>time2[0]){return 1}
+        else{
+          if(time1[1]<time2[1]){return -1}
+          else {return 1}}
+      }
+    })
+  }
+
+  else if (req.query.order === 'descending'){
+    dataArr.sort(function(a,b){
+      //sort method 2
+      var time1 = new Date(a.date);
+      var time2 = new Date(b.date);
+      return time2-time1;
+    })
+  }
+
+  if(req.query.author){
+    dataArr = dataArr.filter(function(item){
+      if(item.author === req.query.author){
+        return true;
+      }
+      return false;
+    })
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.body.username,
+    posts:dataArr,
+    author:req.query.author,
+    order:req.query.order
   });
 });
 
@@ -82,6 +126,8 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){res.render('post_form')}
+  else{res.send("Error!")}
 });
 
 // POST /posts:
@@ -102,6 +148,28 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var author = req.cookies.username;
+  var title = req.body.title;
+  var body = req.body.body;
+  var date = req.body.date;
+  if(req.cookies.username){
+    if(title&&body&&date){
+      var newPost = {
+        author:author,
+        title:title,
+        body:body,
+        date:date
+      }
+      dataArr.push(newPost);
+      data.save(dataArr);
+      res.redirect("/posts")
+    }else{
+      res.status(401).send('401 error')
+    }
+  } else {
+    res.status(400).send('400 error')
+  }
+
 });
 
 // Start the express server

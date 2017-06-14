@@ -1,3 +1,43 @@
 <form>
-  <span>YOUR CODE HERE</span>
+
+  <div class="">
+   <input type="text" value="{{username}}" name="username" placeholder="username" />
+  </div>
+  <div class="">
+   <input type="text" value="{{password}}" name="password" placeholder="password" />
+  </div>
+  <div class="">
+    <input type="text" value="{{name}}" name="name" placeholder="name" />
+  </div>
+
+  <div class="radio-input" name = "radioButton">
+    {{#if male}}
+    <input type="radio" name="gender" value="male" checked> Male<br>
+    {{else}}
+    <input type="radio" name="gender" value="male"> Male<br>
+    {{/if}}
+
+    {{#if female}}
+    <input type="radio" name="gender" value="female" checked> Female<br>
+    {{else}}
+    <input type="radio" name="gender" value="female"> Female<br>
+    {{/if}}
+
+    {{#if other}}
+    <input type="radio" name="gender" value="other" checked> Other<br>
+    {{else}}
+    <input type="radio" name="gender" value="other"> Other<br>
+    {{/if}}
+  </div>
+
+  <select name="states">
+    <option name = "CA" value="CA">CA</option>
+    <option name = "TN" value="TN">TN</option>
+    <option name = "MS" value="MS">MS</option>
+    <option name = "NY" value="NY">NY</option>
+  </select>
+
+  <div class="">
+    <input type="submit" value="Register"/>
+  </div>
 </form>

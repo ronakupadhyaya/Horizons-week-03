@@ -9,8 +9,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
+// app.get('/',function(req,res){
+//   res.render('index',
+//   {students:data})
+// })
+
+app.get('/:gender',function(req,res){
+  res.render('index',
+  {students:data,
+   gender:req.params.gender})
+})
 
 app.listen(3000);
-
-
-

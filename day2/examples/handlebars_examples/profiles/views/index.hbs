@@ -1,3 +1,16 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <span>List of Student Info</span>
+  {{#if gender}}
+    {{#each students}}
+    {{#if students.gender === female}}
+    <li>{{first_name}} {{last_name}} {{email}} {{gender}}</li>
+    {{/if}}
+    {{/each}}
+  {{else}}
+  <ul>
+    {{#each students}}
+    <li>{{first_name}} {{last_name}} {{email}} {{gender}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
 </div>

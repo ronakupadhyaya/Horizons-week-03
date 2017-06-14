@@ -23,6 +23,25 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<ul>
+  {{#each posts}}
+  <li><div>{{this.body}}</div>
+      <div>{{this.author}}</div>
+      <div>{{this.date}}</div>
+      <div><a href="/posts?author={{this.author}}">View only posts by this author</a>
+      </div>
+  </li>
+  {{/each}}
+</ul>
+
+<div>
+  <a href="/posts?order=ascending&author={{author}}">Ascending</a>
+  <a href="/posts?order=descending&author={{author}}">Descending</a>
+</div>
+
+<div>
+  <a href="/posts?">View posts by all authors</a>
+</div>
 
 </body>
 </html>

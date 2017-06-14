@@ -1,0 +1,10 @@
+<div>
+  <span>List of Female Student Info</span>
+  <ul>
+    {{#each students}}
+    {{#if this.gender === 'Female'}}
+    <li>{{first_name}} {{last_name}} {{email}} {{gender}}</li>
+    {{/if}}
+    {{/each}}
+  </ul>
+</div>
