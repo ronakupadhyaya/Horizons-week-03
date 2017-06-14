@@ -45,6 +45,8 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login.hbs')
+
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +66,65 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var myData = data.read()
+  var fullData_length = myData.length;
+  var needAllPosts = false;
+  
+
+  if (req.query.order==='ascending'){
+    myData.sort(function(a,b){
+    if(a.date<b.date){
+      return -1;
+    }
+
+    if(a.date>b.date){
+      return 1;
+    }
+
+    if(a.date===b.date){
+      return 0;
+    }
+    })
+  }else if (req.query.order==='descending'){
+    myData.sort(function(a,b){
+    if(a.date<b.date){
+      return 1;
+    }
+
+    if(a.date>b.date){
+      return -1;
+    }
+
+    if(a.date===b.date){
+      return 0;
+    }
+    })
+
+  }
+
+  if (req.query.author){
+    var tempdataArray = []
+    myData.forEach(function(obj){
+      if(obj.author === req.query.author){
+        tempdataArray.push(obj)
+      }
+    })
+    myData= tempdataArray;
+
+  }
+
+  if (myData.length < fullData_length){
+    needAllPosts=true;
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    allPosts: myData,
+    needAllPosts: needAllPosts
+
   });
 });
 
@@ -82,6 +139,13 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username===''){
+    res.send("Error. User not logged in")
+  }else{
+    res.render('post_form.hbs')
+  }
+
+  
 });
 
 // POST /posts:
@@ -102,6 +166,27 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var newDataArray = data.read()
+  if(!req.cookies.username){
+    res.status(401).send("User not logged in");
+  }
+  if (req.param.body==='' || req.cookies.title==='' || req.cookies.date===''){
+    res.status(400).send("Missing field")
+  }
+  else{
+    var post_obj = {
+      title: req.body.title,
+      body : req.body.body,
+      author: req.cookies.username,
+      date: req.body.date
+    }
+    newDataArray.push(post_obj);
+    data.save(newDataArray)
+    console.log(data.read())
+  }
+  
+
+  
 });
 
 // Start the express server

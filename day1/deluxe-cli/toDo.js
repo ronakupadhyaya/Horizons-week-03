@@ -40,7 +40,14 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Delete Task")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +71,8 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program
+  .option('-p, --priority <n>', 'Specify priority of task', parseInt);
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -71,7 +80,7 @@ program
 program.parse(process.argv);
 
 // If no arguments are specified print help.
-if (process.argv.length === 2) {
+if (process.argv.length === 2) { //node toDo.js
   program.help();
 }
 
@@ -123,13 +132,40 @@ function addTask() {
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  var show = '';
+
+  
+  if (program.id){
+    //only display that task id
+    var id = program.id;
+    var priority = data[id-1].priority;
+    var name = data[id-1].name;
+    show = show + "Task #" + id + ' Priority ' + priority + ': ' + name;
+  } else{
+    for (var i = 0; i< data.length; i++){
+      var id = i+1;
+      var priority = data[i].priority;
+      var name = data[i].name;
+      show = show + "Task #" + id + ' Priority ' + priority + ': ' + name;
+      if (i!==data.length-1){
+        show = show + '\n';
+      }
+    }
+  }
+
+  if (show.length!==0){
+    console.log(show);
+  }
+
+  
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var index = program.id -1;
+  data.splice(index,1);
 }
 
 // ---Utility functions---

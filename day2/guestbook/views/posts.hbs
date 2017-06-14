@@ -13,6 +13,7 @@
 <body>
 <h1>View all posts</h1>
 
+
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
@@ -23,6 +24,23 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<div>
+  {{#if needAllPosts}}
+    <a href = "/posts">View all posts </a>
+  {{/if}}
+  <a href = '/posts?order=ascending'> Sort by ascending order</a>
+  <a href = '/posts?order=descending'> Sort by descending order </a>
+</div>
+
+</br>
+
+{{#each allPosts}}
+
+  <div>  <!-- make this pretty later -->
+		{{this.author}} , {{this.title}} , {{this.body}} , {{this.date}}  
+    <a href = "/posts?author={{this.author}}">View only posts by this author </a>
+	</div>
+{{/each}}
 
 </body>
 </html>

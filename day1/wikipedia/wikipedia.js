@@ -1,6 +1,6 @@
 "use strict";
-var _ = require('underscore')
-var fs = require('fs');
+//var _ = require('underscore')
+var fs = require('fs'); //this is the library
 var readline = require('readline');
 
 // Example code for reading a file line by line and counting
@@ -13,6 +13,7 @@ function countLines(fileName) {
   var count = 0;
   rl.on('line', function(line) {
     // This is called for each line in file
+    console.log(line)
     count++;
   });
   rl.on('close', function() {
@@ -21,4 +22,4 @@ function countLines(fileName) {
   });
 }
 
-countLines(__filename);
+countLines('./sample.data');
