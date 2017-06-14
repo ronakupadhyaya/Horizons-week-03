@@ -41,7 +41,7 @@ Our command line To-Do list manager should support the following commands and
 flags:
 
 - `node toDo.js` - Displays helpful information on using the application
-- `node toDo.js add Do the dishes` - Adds a todo list item with text `Do the dishes` with a default priority of 3
+- `node toDo.js add Do the dishes` - Adds a todo list item with text `Do the dishes` with a default priority of 1
 - `node toDo.js add Do the dishes -p 3` - Also adds `Do the dishes` but also sets the priority 3 (default) explicitly using the flag `-p`
 - `node toDo.js show` - Shows all todo list items
 - `node toDo.js show -i 5` - Runs the command show with flag `-i` (id) as 5. Only displays one todo.
@@ -72,7 +72,7 @@ tests to make sure your code works.
 
 1. Open `toDo.js` in Atom.
 1. Implement the `--priority` (or `-p`) flag.
-1. Implement the `show` command along with the `--completed` (or `-c`) flag.
+1. Implement the `show` command.
 1. Implement the `delete` command.
 1. **(Bonus)** Implement the `toggleCompleted` command and add tests in
 `toDo_spec.js` to verify that it works.
