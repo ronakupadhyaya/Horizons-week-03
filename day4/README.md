@@ -1,10 +1,8 @@
 # Week 3 Day 4 Exercises
 
-## Inline Exercises
+## Morning Videos & Individual Exercises
 
-1. [Warmup](warmup/README.md)
-1. [Time machine](time-machine/README.md)
-1. [AJAX Counter](ajax-counter/README.md)
+1. [Videos and Exercises](examples/README.md)
 
 ## Pair Programming Exercises
 
