@@ -1,5 +1,7 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
-
-
+<div>
+  {{#if newdata}}
+  <h1> Hi {{name}}!</h1>
+  {{else}}
+  <h1 style="color:red">Invalid user or pass.</h1>
+  {{/if}}
+</div>

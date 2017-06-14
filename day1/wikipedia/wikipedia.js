@@ -152,7 +152,7 @@ function popSpecLang(fileName, lang) {
 
 
 
-//console.log(popPage('june6.data'));
+//console.log(popPage('june6.data')); //renamed filenames
 //console.log(popLang('june6.data'));
 //console.log(popSpecLang('june6.data', 'en'));
 //console.log(popSpecLang('june6.data', 'es'));
