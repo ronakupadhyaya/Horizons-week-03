@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -54,7 +55,7 @@ app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
   res.redirect('/posts');
 });
-
+//res.send(req.query.order)
 // ---Part 2. View Posts---
 
 // GET /posts: View posts page
@@ -63,13 +64,65 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+//use sort
 app.get('/posts', function (req, res) {
-  res.render('posts', {
+
+  var x = req.query.order;
+  var y = req.query.author;
+
+  if (x){
+    var arr = data.read();
+    console.log(x);
+    console.log(arr);
+    if (x === 'ascending'){
+      var sorted = arr.sort(function(a,b) {
+        var key1 = new Date(a.date);
+        var key2 = new Date(b.date);
+
+        return key1.getTime() - key2.getTime();
+       })
+       data.save(sorted);
+    }
+
+    else if (x === 'descending'){
+      var sorted = arr.sort(function(a,b) {
+        var key1 = new Date(a.date);
+        var key2 = new Date(b.date);
+
+        return key2.getTime() - key1.getTime();
+      })
+       data.save(sorted);
+    }
+  // Turn your strings into dates, and then subtract them
+  // to get a value that is either negative, positive, or zero.
+    }
+    if (y){
+      var final = [];
+      var cur = data.read();
+      cur.forEach(function(item){
+        if (item.author === y){
+          final.push(item);
+        }
+        res.render('posts', {
+          username: req.cookies.username,
+          posts: final
+        })
+      })
+
+
+    }
+    else{
+      res.render('posts', {
+      username: req.cookies.username,
+      posts: data.read()
+    })
+  }
+})
+
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
-  });
-});
+
 
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
@@ -82,6 +135,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form'),{
+      author: req.cookies.username,
+    }
+  }
 });
 
 // POST /posts:
@@ -94,7 +152,7 @@ app.get('/posts/new', function(req, res) {
 // Example post object:
 // {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
 //
-// Use express-validator to check that the user is logged in and that title, body
+// Use to check that the user is logged in and that title, body
 // and date are all specified.
 // Don't forget to check if there are validation errors at req.validationErrors();
 //
@@ -102,6 +160,25 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var arr = data.read();
+  if (!(req.body.auth && req.body.date && req.body.title && req.body.body)){
+    console.log('ok');
+    res.sendStatus(400)
+  }
+  else{
+    var post = {
+      auth: req.body.auth,
+      date: req.body.date,
+      title: req.body.title,
+      body: req.body.body,
+    }
+    arr.push(post);
+    data.save(arr);
+    res.redirect('/posts')
+
+  }
+
+
 });
 
 // Start the express server

@@ -20,9 +20,19 @@
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
+
+
 -->
-
+<a href="http://localhost:3000/posts?order=descending">Descend</a>
+<a href="http://localhost:3000/posts?order=ascending">Ascend</a>
 <!-- YOUR CODE HERE -->
-
+{{#each posts}}
+<div>
+    <h2>{{this.author}}</h2>
+    <p>{{this.title}}</p>
+    <p>{{this.body}}</p>
+    <p>{{this.date}}</p>
+</div>
+{{/each}}
 </body>
 </html>
