@@ -24,5 +24,13 @@
 
 <!-- YOUR CODE HERE -->
 
+{{#each posts}}
+  <div class = "post">
+    {{this.author}} {{this.title}} {{this.body}} {{this.date}}
+    <button class="delete">Delete</button>
+  </div>
+
+{{/each}}
+
 </body>
 </html>

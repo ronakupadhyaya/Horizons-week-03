@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.write(data): Write the given data to disk.
 var data = require('./data');
 
-app.get('/', function(req, res) {
+  app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
 
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -55,6 +56,14 @@ app.post('/login', function(req, res) {
   res.redirect('/posts');
 });
 
+// app.use(function(req, res, next) {
+//   if(req.cookies.username){
+//     next();
+//   } else {
+//     res.status(401).send('UNAUTHORIZED');
+//   }
+// });
+
 // ---Part 2. View Posts---
 
 // GET /posts: View posts page
@@ -64,10 +73,37 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var sort = req.query.order;
+  var arr = data.read();
+  var author = req.query.author;
+
+  if(author){
+    arr = arr.filter(function(x){
+      return x.author === author;
+    })
+  }
+
+  if(sort === "ascending"){
+    arr.sort(function(a,b){
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+    console.info(arr);
+  }
+  else if(sort === 'descending'){
+    arr.sort(function(a,b){
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+    console.info(arr);
+  }
+
+
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: arr
   });
 });
 
@@ -82,6 +118,8 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form');
+
 });
 
 // POST /posts:
@@ -102,7 +140,23 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  console.log(req.body, req.cookies.username);
+  if(!(req.body.title && req.body.body && req.body.date && req.cookies.username)){
+    res.status(400).send('UNAUTHORIZED');
+  }
+  else{
+    var arr = data.read();
+    arr.push({author: req.cookies.username, date: req.body.date, title: req.body.title, body: req.body.body});
+    data.save(arr);
+    res.redirect('/posts');
+
+  }
+
 });
+
+app.delete('/posts', function(req, res){
+  
+})
 
 // Start the express server
 var port = '3000'

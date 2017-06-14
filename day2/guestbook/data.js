@@ -13,13 +13,13 @@ module.exports = {
         title: 'Eggs',
         body: 'Somebody has been eating my eggs! I have to label them.',
         author: 'Darwish',
-        date: '6/13/2016',
+        date: '2016-06-13',
       },
       {
         title: 'First post',
         body: 'This is the first post in the guest book',
         author: 'Moose',
-        date: '1/20/2016',
+        date: '2016-01-20',
       }
       ];
     }
