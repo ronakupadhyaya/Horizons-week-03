@@ -13,7 +13,7 @@ var csvjson = require('csvjson');
 //
 // Note: you need to require('packageName') before the csvjson or fs packages.
 //
-// ex. fileReader('investments1.csv') ->
+// ex. fileReader('investments1.csv ->
 //   [ { id: '1',
 //      investorId: '1',
 //      company: '9',
