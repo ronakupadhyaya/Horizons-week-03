@@ -114,6 +114,9 @@ app.post('/posts', function(req, res) {
   }
 });
 
-app.set('port', port);
-var server = http.createServer(app);
-server.listen(port);
+
+var port = '3000'
+app.listen(port);
+// app.set('port', port);
+// var server = http.createServer(app);
+// server.listen(port);
