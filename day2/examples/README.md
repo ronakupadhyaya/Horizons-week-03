@@ -256,8 +256,8 @@ In this example you are to make a register form. Make sure that when you press s
     - password (password input box)
     - name (text input box)
     - gender: male/female/other (radio buttons)
-    - state (dropdown)
-1. Add logic in `example2.js` to make sure the data in your form will __NOT__ be cleared when you press _Register_.
+    - __BONUS__ state (dropdown)
+1. __BONUS__ Add logic in `example2.js` to make sure the data in your form will __NOT__ be cleared when you press _Register_.
 1. `npm install && node example2.js` to test your app.
 1. Fill in the form (it should look something like the one below once filled) and click register. Make sure the form stays filled.
 
@@ -286,7 +286,7 @@ Now for this example we're going to implement login functionality for our users.
     - email (text input field)
     - password (password input field)
 1. Add functionality for your form to `POST` to `/login` on submit
-1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.js`
+1. In `example3.js` create a `POST` route at `/login` which uses `req.body` to check if the entered email/password fields are in `accounts.json`
     - Given __correct__ credentials render a `h1` tag that says `"Hi [insert-first-name-here]!"` (example below). __NOTE__ that first name can be found in `accounts.json`
     - Given __incorrect__ credentials render a _RED_ error message on your page.
 
