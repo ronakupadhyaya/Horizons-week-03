@@ -9,7 +9,7 @@ var program = require('commander');
 // require the mongoose package
 var mongoose = require('mongoose');
 
-// PART 0: Create an env.sh file that should export the MONGODB_URI
+// PART 0: Create an env.sh file that should export the MONGODB_URI  //done
 
 // connect to your Mongo Database
 mongoose.connect(process.env.MONGODB_URI);
@@ -35,6 +35,7 @@ db.once('open', function() {
 //      completed: Boolean
 //    }
 //
+
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
@@ -43,6 +44,11 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var Card = mongoose.model('Card', {
+  name: String,
+  priority: String,
+  completed: Boolean
+})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
