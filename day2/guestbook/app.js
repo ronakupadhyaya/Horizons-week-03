@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +64,33 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var temp = data.read();
+  var bool = false;
+  if(req.query.order === 'ascending'){
+    temp.sort(function(a,b){
+      var firstdate = new Date(a.date);
+      var seconddate = new Date(b.date);
+      return firstdate > seconddate;
+    })
+  }
+  else if (req.query.order === 'descending') {
+    temp.sort(function(a,b){
+      var firstdate = new Date(a.date);
+      var seconddate = new Date(b.date);
+      return firstdate < seconddate;
+    })
+  }
+  if(req.query.author !== undefined){
+    temp = temp.filter(function(item){
+      return item.author === req.query.author;
+    })
+    bool = true;
+  }
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: temp,
+    order: req.query.order,
+    filteredBool: bool
   });
 });
 
@@ -81,7 +104,12 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  if(req.cookies.username === undefined){
+    res.render('post_form', {error: 'You are not connected', connected: false});
+  } //if the user is not logged in
+  else{
+    res.render('post_form', {error: null, connected: true});
+  }
 });
 
 // POST /posts:
@@ -100,8 +128,26 @@ app.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
+
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if (req.cookies.username === undefined) {
+    res.statusCode(401).send('Not logged in');
+  }
+  else{
+    if(req.body.body === null || req.body.title === null || req.body.date === null){
+      res.statusCode(400).send('Missing data');
+    }
+    else{
+      console.log(data.read());
+      var temp = data.read();
+      temp.push({title: req.body.title, body:req.body.body, author: req.cookies.username, date: req.body.date});
+      data.save(temp);
+      res.render('posts', {
+        username: req.cookies.username,
+        posts: data.read()
+      });
+    }
+  }
 });
 
 // Start the express server

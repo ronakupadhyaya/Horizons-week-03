@@ -1,7 +1,7 @@
 "use strict";
 
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = 'ce8912559b80635d45160985d2ffee71';
+var TRELLO_TOKEN = '3c9cdd4657d9bcda915fcf68cd85e52dd2a9d0af4c3cda72a823112b5e77cc2a';
 
 var fs = require('fs');
 var csv = require('csv');
