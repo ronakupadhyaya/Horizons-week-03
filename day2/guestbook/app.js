@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login', { title: 'Log In' });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,11 +65,29 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var posts = data.read();
+  var loggedin = req.cookies.username;
+  var postsTDisp = posts;
+  if (loggedin){
+    var singleView = false;
+    if(req.query.author){
+      postsTDisp = postsTDisp.filter(function(post){
+        return post.author === req.query.author
+      });
+      singleView = true
+    }
+
+    if (req.query.order==='ascending'){
+      postsTDisp.sort(function(a,b) {return new Date(a.date) - new Date(b.date); })
+    } else {
+      postsTDisp.sort(function(a,b) {return new Date(b.date) - new Date(a.date); })
+    }
+    res.render('posts', {postsTDisp:  postsTDisp, singleView: singleView});
+  }
+
+
+
+
 });
 
 // ---Part 3. Create new posts---
@@ -82,6 +101,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  var loggedin = req.cookies.username;
+  console.log(loggedin)
+  if(loggedin.length){res.render('post_form')}
+
+
 });
 
 // POST /posts:
@@ -101,7 +125,26 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var posts = data.read("/.data");
+var loggedin = req.cookies.username;
+  if(! loggedin.length){
+    res.status(401).send({ error: 'You must be logged in to see this' })
+  }else if (! (req.body.date && req.body.body && req.body.title)){
+      res.status(400).send("Error: What's the point if you don't fill in all the boxes?")
+  }else{var newpost = {
+    author: req.cookies.username,
+    date: req.body.date,
+    title: req.body.title,
+    text: req.body.body}
+posts.push(newpost)
+    data.save(posts)
+
+    res.redirect('/posts')
+  }
+
+
+
+
 });
 
 // Start the express server

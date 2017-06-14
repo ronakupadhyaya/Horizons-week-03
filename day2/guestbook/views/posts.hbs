@@ -16,13 +16,28 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
+{{#if singleView}}
+  <a href="?order={{order}}">View all posts</a>
+{{/if}}
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+{{#each postsTDisp as |post|}}
+<article>
 
-<!-- YOUR CODE HERE -->
+  <h2>{{post.title}}</h2>
+  <p>{{post.body}}</p>
+  <strong>{{post.author}}</strong>
+  {{post.date}}
+  <a href="?order={{order}}&author={{post.author}}">View only posts by this author</a>
+</article>
+<hr />
+{{/each}}
+
+<p><a href="/posts/new">New Post</a></p>
+<p>
+  <a href="?order=ascending&author={{author}}">View all Ascending</a>
+  <a href="?order=descending&author={{author}}">View all Descending</a>
+</p>
+
 
 </body>
 </html>

@@ -40,7 +40,13 @@ program.command('add')
   .action(addTask);
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
+program.command('show')
+  .description("Shows tasks")
+  .action(showTasks);
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('delete')
+  .description("Deletes Tasks")
+  .action(deleteTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -60,7 +66,8 @@ program.command('add')
 // Example: first flag: --id or -i. This one will specify which task commands
 // like 'show' or 'delete' are called on.
 program
-  .option('-i, --id <n>', 'Specify id of task', parseInt);
+  .option('-i, --id <n>', 'Specify id of task', parseInt)
+  .option('-p, --priority <n>', 'Specify task priority level', parseInt);
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
@@ -112,17 +119,27 @@ function addTask() {
 // - the id of a task is its index in 'data' + 1, we count ids up from 1.
 //
 // ex.
-//  data = [{name: "Do Laundry", priority: 3}, 
-//          {name: "Clean dishes", priority: 2}, 
+//  data = [{name: "Do Laundry", priority: 3},
+//          {name: "Clean dishes", priority: 2},
 //          {name:"Call Mark", priority: 1}]
 
 //  node toDo.js show -i 2 -> "Task #2 Priority 2: Clean Dishes"
-//  node toDo.js show -> 
+//  node toDo.js show ->
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  if(program.id){
+    var id = program.id-1;
+    var idk = "Task #"+(program.id)+" Priority "+data[id].priority+ ": "+data[id].name
+    console.log(idk)
+  }else{
+    for (var i=0; i<data.length; i++){
+      var output = "Task #"+(i+1)+" Priority "+data[i].priority+ ": "+data[i].name
+      console.log(output)
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
@@ -130,6 +147,12 @@ function showTasks(){
 // Hint: use splice() here too!
 function deleteTask(){
   // YOUR CODE HERE
+  var id = program.id-1
+  var pid = program.id
+  data.splice(id, 1);
+  var output = "Task #"+(pid)+ ": "+data[id].name + " has been removed."
+  console.log(output)
+
 }
 
 // ---Utility functions---

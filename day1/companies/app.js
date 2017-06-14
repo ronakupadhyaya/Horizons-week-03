@@ -3,6 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
+var _ = require('underscore')
 
 // Write a function that takes the path of a CSV file, reads its contents and
 // returns them as as an array of JavaScript objects.
@@ -31,8 +32,13 @@ var csvjson = require('csvjson');
 //      valueToday: '300000' },
 //      ...
 //    ]
+
 function fileReader(csvFilePath){
   // YOUR CODE HERE
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'})
+  var finaldat = csvjson.toObject(data)
+  return finaldat;
+
 }
 
 // Write a function that takes an array of investment objects and replaces
@@ -48,6 +54,12 @@ function fileReader(csvFilePath){
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
   // YOUR CODE HERE
+  for (var i = 0; i <arr.length; i++){
+    arr[i].originalInvestment = parseInt(arr[i].originalInvestment)
+    arr[i].valueToday = parseInt(arr[i].valueToday)
+  }
+  return arr;
+
 }
 
 module.exports = {
