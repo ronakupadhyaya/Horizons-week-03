@@ -6,6 +6,8 @@ Welcome to the wild world of Node web applications! With node, mongo+mongoose,
 Express and Handlebars, you now have the tools you need to build a
 fully-fledged, fully-functional backend web application.
 
+**⚠️ This is a two day project! Try to complete Parts 1 through 4 on the first day. ⚠️**
+
 ### The goal
 
 Our goal is to write the Horizon Starter app (a clone of Kickstarter) with Node
@@ -45,29 +47,29 @@ to use it.
 1. Create a new database in [mLab](https://mlab.com/home)
 1. Click on the database you've just created, then click on `Users > Add
    database user`, and pick a username and password
-1. Copy the **MongoDb URI** and replace `<dbuser>` `<dbpassword>` with the
-  username and password you just created. It should look like this:
+1. Copy the **MongoDb URI** on mLab and replace `<dbuser>` `<dbpassword>` with the
+  username and password you just created. It should look something like this:
 
     ```
-    mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database
+    mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database
     ```
 
-1. Create new file `week03/day3/horizonstarter/config.js` and use
-   `module.exports` to return an object with a single key `MONGODB_URI`.
-   Set the value of this key to the URI from the previous step. It should
-   look like this:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `env.sh` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
 
-    ```js
-    module.exports = {
-      MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
-    }
+    ```bash
+    export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database"
     ```
+
+1. Run `source env.sh` to import the environment variable from `env.sh`. For an explanation of `source` [click here](https://bash.cyberciti.biz/guide/Source_command). **IMPORTANT**: You must run this command each time you open a new shell. This is because the environmental variables are initialized each time a new shell is opened.
+
+1. Run `npm install` to install all of our project's dependencies.
 
 1. Start your app with `npm start`, if you see this message then you are good to go!
 
     ```
     Success: connected to MongoDb!
     ```
+    Note: If you encounter a warning reguarding `Db.prototype.authenticate` just ignore it for now. It has been documented as a [bug](https://github.com/Automattic/mongoose/issues/5304). Even professional programmers are known to make mistakes!
 
 ## Getting oriented
 
@@ -91,14 +93,14 @@ created document.
   Use `Project.find()` to get all the Projects from MongoDb and render
   them on `index.hbs`.
 
-  Remember you have to do `res.render()` inside the callback for `.find()` like
-  so:
+    Remember you have to do `res.render()` inside the callback for `.find()` like
+    so:
 
-  ```javascript
-  SomeMongoDbModel.find(function(err, array) {
-    res.render('template', {items: array});
-  });
-  ```
+    ```javascript
+    SomeMongoDbModel.find(function(err, array) {
+      res.render('template', {items: array});
+    });
+    ```
 1. Edit `week03/day3/horizonstarter/views/index.hbs` and use [`{{#each}}`](http://handlebarsjs.com/builtin_helpers.html)
   to display all the Projects you get from `.find()`.
 
@@ -128,13 +130,13 @@ created document.
     1. `end`: Date input field
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
     1. Validate form fields using `express-validate`, if there are errors render
-    `new.hbs` with error messages and the form fields filled in.
+      `new.hbs` with error messages and the form fields filled in.
 
-      You can use the `value=""` HTML attribute for this purpose:
+        You can use the `value=""` HTML attribute for this purpose:
 
-      ```html
-      <input type="text" name="title" value="{{project.title}}">
-      ```
+        ```html
+        <input type="text" name="title" value="{{project.title}}">
+        ```
 
     1. If there are no validation errors, create a new `Project` and
     `.save()` it. If `.save()` is successful redirect to `/`.
@@ -170,6 +172,11 @@ that allows us to make contributions.
   1. Percentage of the project goal met
     (use [a Bootstrap progress bar](http://www.w3schools.com/bootstrap/bootstrap_progressbars.asp))
   1. List of all contributions showing who and how much.
+
+
+## Try to complete exercises up to here on Day 1 of this exercise!
+
+---
 
 ### Part 5: Project categories
 

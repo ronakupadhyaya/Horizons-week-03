@@ -170,3 +170,4 @@ function ensureFileExists() {
 
 // This command writes  our tasks to the disk
 writeFile(data);
+ta);
