@@ -11,7 +11,29 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  var male = false;
+  var female = false;
+  var other = false;
+
+  var state = req.query.state || "Please select a state";
+  var stateType = req.query.stateType || "";
+
+  // if (req.query.gender === "Male") {
+  //   male = true;
+  // } else (req.query.gender === "False") {
+  //   female = true;
+  // } else {
+  //   other = true;
+  // }
+
+  res.render('example2', {
+    text: req.query.text,
+    passsword: req.query.password,
+    name: req.query.name,
+    gender: req.query.gender,
+    state: state,
+    stateType: stateType
+  });
 });
 
 // start the express app

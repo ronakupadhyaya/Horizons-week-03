@@ -1,5 +1,12 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
 
-
+{{#if first}}
+  <form action = "/login" method = "post">
+    <input type="text" value="" name="email" placeholder="Email"/><br>
+    <input type="password" value="" name="pass" placeholder="Password"/><br>
+    <input type="submit" value="Login"/>
+  </form>
+{{else if correct}}
+  <h1>Hi {{name}}!</h1>
+{{else}}
+  <font color="FF0000">ERROR ERROR ERROR</font>
+{{/if}}
