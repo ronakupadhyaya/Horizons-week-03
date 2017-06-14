@@ -9,13 +9,15 @@ var program = require('commander');
 // require the mongoose package
 var mongoose = require('mongoose');
 
+// PART 0: Create an env.sh file that should export the MONGODB_URI
+
 // connect to your Mongo Database
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 // check if the connection was successful
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error. did you remember to create a config file? '));
+db.on('error', console.error.bind(console, 'connection error. did you remember to create env.sh?'));
 db.once('open', function() {
   // connected!
 });
@@ -25,6 +27,13 @@ db.once('open', function() {
 // Everything in Mongoose starts with a Schema. Each schema
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
+//
+// TODO: create a schema for the ToDoItemItem. Your schema should look like the following:
+//    {
+//      name: String,
+//      priority: String,
+//      completed: Boolean
+//    }
 //
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
