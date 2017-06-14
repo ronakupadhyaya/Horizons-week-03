@@ -16,7 +16,8 @@ app.get('/', function(req, res) {
 });
 
 // start the express app
-var port = process.env.PORT || 3000;
+//var port = process.env.PORT || 3000;
+var port = 9000
 app.listen(port);
 console.log('Express started. Listening on port %s', port);
 
