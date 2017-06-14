@@ -1,6 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
+var
 
 var app = express();
 
@@ -21,6 +22,9 @@ app.use(expressValidator());
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 // Make files in the folder `public` accessible via Express
 app.use(express.static(path.join(__dirname, 'public')));
@@ -29,7 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // data.read(): Read the latest data stored on disk.
 // data.write(data): Write the given data to disk.
 var data = require('./data');
-
+var order = "ascending";
+var author;
 app.get('/', function(req, res) {
   res.send('Your server is working!');
 });
@@ -44,7 +49,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +69,43 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  if (req.query.order === "ascending") {
+    order = "ascending";
+  } else if (req.query.order === "descending") {
+    order = "descending"
+  }
+  if (order === "ascending") {
+    var arr = data.read();
+    arr.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date)
+    })
+  } else {
+    var arr = data.read();
+    arr.sort(function(a, b) {
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
+  var new_arr = [];
+  if (req.query.author) {
+    if (req.query.author === "show all") {
+      author = "";
+    } else {
+      author = req.query.author;
+    }
+  }
+  if (author) {
+    arr.forEach(function(element) {
+      if (element.author === author)
+        new_arr.push(element)
+    })
+  } else {
+    new_arr = arr;
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: new_arr
   });
 });
 
@@ -81,7 +119,7 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('post_form')
 });
 
 // POST /posts:
@@ -101,7 +139,24 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  console.log(req.cookies)
+  if (!(req.cookies.username)) {
+    res.status(400).send("You are not logged in");
+    return;
+  }
+  req.check("title", "Enter a valid title.").notEmpty();
+  req.check("body", "Enter a valid body.").notEmpty();
+  req.check("date", "Enter a valid date").notEmpty().isDate();
+  var errors = req.validationErrors();
+  if (errors) {
+    console.log(errors)
+    res.status(401).send(errors[0].msg);
+    return;
+  } else {
+    var arr = data.read();
+    arr.push(req.body);
+    data.save(arr);
+  }
 });
 
 // Start the express server

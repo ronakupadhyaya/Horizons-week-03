@@ -12,6 +12,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 app.get('/', function(req, res) {
+  console.log(req.query.text)
   res.render('example1', {text: req.query.text});
 });
 
