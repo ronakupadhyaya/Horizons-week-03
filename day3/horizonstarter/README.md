@@ -54,7 +54,7 @@ to use it.
     mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database
     ```
 
-1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `app.env` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `env.sh` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
 
     ```bash
     export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database"
