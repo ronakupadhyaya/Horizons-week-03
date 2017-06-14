@@ -126,7 +126,7 @@ function showTasks(){
   // YOUR CODE HERE
 }
 
-// Write a function that is called when the command `node toDo.js add delete -i 3`
+// Write a function that is called when the command `node toDo.js delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
