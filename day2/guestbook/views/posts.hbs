@@ -21,8 +21,34 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+{{#each posts}}
+  <div><span> author: {{this.author}} | title: {{this.title}} | body: {{this.body}} | date: {{this.date}} | </span>
+    {{#if filter}}
+      <a href="/posts/">View all posts </a>
+    {{else}}
+      <a href="/posts?author={{this.author}}">View only posts by this author </a>
+    {{/if}}
+  </div>
+{{/each}}
+
+<a class="fake_button" href="?author={{author}}&order=ascending">Ascending</a>
+<a class="fake_button" href="?author={{author}}&order=descending">Descending</a>
 
 <!-- YOUR CODE HERE -->
-
-</body>
-</html>
+<!-- {{#if author}}
+  <form action="?author={{author}}">
+    <h1> hi </h1>
+    <input type="submit" value="ascending" name="order">
+    <input type="submit" value="descending" name="order">
+  </form>
+  </body>
+  </html>
+{{else}}
+  <form action="/posts/">
+    <input type="submit" value="ascending" name="order">
+    <input type="submit" value="descending" name="order">
+  </form>
+  </body>
+  </html>
+{{/if}}
+ -->

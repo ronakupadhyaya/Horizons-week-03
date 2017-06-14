@@ -41,6 +41,17 @@ program.command('add')
 
 // YOUR CODE HERE for "show" - its action must call "showTasks"
 // YOUR CODE HERE for "delete" - its action must call "deleteTask"
+program.command('show')
+  .description("Show Tasks")
+  .action(showTasks);
+
+program.command('delete')
+  .description("Delete Tasks")
+  .action(deleteTask);
+
+program.command('toggleCompleted')
+  .description("Toggle Completed")
+  .action(completeTask);
 
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
@@ -64,6 +75,9 @@ program
 
 // Second one will be '--priority' or '-p', that will specify a priority for our task.
 // YOUR CODE HERE for "--priority" and "-p"
+program.option('-p, --priority <n>', 'Specify priority of task', parseInt);
+
+program.option('-c, --completed', 'Specify completed task');
 
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
@@ -123,13 +137,30 @@ function addTask() {
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   // YOUR CODE HERE
+  var args = process.argv;
+  if (program.id) {
+    console.log("Task #" + args[4] + " Priority " + data[parseInt(program.id) - 1].priority + ": " + data[parseInt(program.id) - 1].name);
+  } else if (program.completed) {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].completed) {
+        var task_num = i + 1;
+        console.log("Task #" + task_num + " Priority " + data[i].priority + ": " + data[i].name);
+      }
+    }
+  } else {
+    for (var i = 0; i < data.length; i++) {
+      var task_num = i + 1;
+      console.log("Task #" + task_num + " Priority " + data[i].priority + ": " + data[i].name);
+    }
+  }
 }
 
 // Write a function that is called when the command `node toDo.js add delete -i 3`
 // is run. Take the id from program.id and delete the element with that index from 'data'.
 // Hint: use splice() here too!
 function deleteTask(){
-  // YOUR CODE HERE
+  var index = process.argv[4] - 1;
+  data.splice(index, 1);
 }
 
 // ---Utility functions---
@@ -142,6 +173,10 @@ function ensureFileExists() {
   if (! fs.existsSync(JSON_FILE)) {
     writeFile([]);
   }
+}
+
+function completeTask() {
+  data[program.id - 1].completed = !data[program.id - 1].completed;
 }
 
 // This command writes  our tasks to the disk

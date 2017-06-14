@@ -22,6 +22,14 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
+  {{#if display}}
+    <form method="POST" action="/posts">
+      <input type="text" name="title" placeholder="title"> <br>
+      <input type="body" name="body" placeholder="post text"> <br>
+      <input type="date" name="date" value=""> <br>
+      <input type="submit" value="Submit">
+    </form>
+  {{/if}}
 
 </body>
 </html>
