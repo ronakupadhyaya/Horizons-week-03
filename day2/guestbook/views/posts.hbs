@@ -24,5 +24,17 @@
 
 <!-- YOUR CODE HERE -->
 
+{{#each posts}}
+  <div class="post">
+    <h1>{{author}}: {{title}}<h1>
+    <h3>{{body}}</h3>
+    <h5>{{date}}</h5>
+  </div>
+{{/each}}
+<p><a href="/posts/new">New Post</a></p>
+<p>
+  <a href="/posts?order=ascending">View all Ascending</a>
+  <a href="/posts?order=descending">View all Descending</a>
+</p>
 </body>
 </html>

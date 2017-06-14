@@ -7,3 +7,10 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post {
+  -webkit-box-shadow: inset 10px -15px 40px -8px rgba(0,0,0,0.54);
+  -moz-box-shadow: inset 10px -15px 40px -8px rgba(0,0,0,0.54);
+  box-shadow: inset 10px -15px 40px -8px rgba(0,0,0,0.54);
+  background: #b1f2b8;
+}
