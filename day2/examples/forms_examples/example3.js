@@ -1,17 +1,44 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
+var data = require('./accounts')
+
 
 var app = express();
-
 // view engine setup
 app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
+var bodyParser = require('body-parser')
+app.use(bodyParser({extended: true}))
+
 app.get('/', function(req, res) {
   res.render('example3');
+});
+
+app.post('/login', function(req, res) {
+  var validAcc = false;
+  var name;
+  data.forEach(function(account){
+    if(req.body.email === account.email && req.body.secret === account.password){
+      validAcc = true;
+      name = account.first_name
+    }
+  })
+
+  if(validAcc){
+    res.render('login', {
+    name: name
+    });
+  }
+  else {
+    res.render('example3', {
+      loginState: "Wrong password"
+    })
+  }
+
 });
 
 // start the express app

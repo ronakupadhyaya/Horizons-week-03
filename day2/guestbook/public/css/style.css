@@ -1,9 +1,18 @@
 /* YOUR CSS RULES GO HERE */
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
 }
 
 a {
   color: #00B7FF;
+}
+
+.post {
+  border: 1px solid;
+  width: 500px;
+}
+
+.border {
+  border: 1px; solid
 }

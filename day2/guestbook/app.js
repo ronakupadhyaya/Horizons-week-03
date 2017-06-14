@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var data = require('./data');
 
 app.get('/', function(req, res) {
-  res.send('Your server is working!');
+  res.render('landing_page');
 });
 
 // ---Part 1. Login form---
@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+   res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,11 +63,31 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
-app.get('/posts', function (req, res) {
+app.get('/posts/', function (req, res) {
+  var order = req.query.order;
+  var author = req.query.author;
+  var postArr =  data.read()
+  var authorSelected = []
+  postArr.forEach(function(post) {
+    if(post.author === author){
+      authorSelected.push(post)
+      data.save(authorSelected)
+    }
+  })
+
+  if(order === 'ascending') {
+    ascend = postArr.reverse()
+    data.save(postArr);
+  }
+  if(order === 'descending') {
+    ascend = postArr.reverse()
+    data.save(postArr);
+  }
+
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read()
   });
 });
 
@@ -81,7 +101,11 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  console.log('yo');
+  if(req.cookies.username === "") {
+    res.status(500).send('You need to log in.')
+  }
+  res.render('post_form');
 });
 
 // POST /posts:
@@ -100,9 +124,34 @@ app.get('/posts/new', function(req, res) {
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
-app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+app.post('/posts/', function(req, res) {
+  if(req.body.title === "" || req.body.body === "" || req.body.author === "" || req.body.date === "") {
+    res.status(400).send('You need to fill out all the parameters')
+  }
+
+  var posts = data.read()
+
+
+    posts.push({
+      title: req.body.title,
+      body: req.body.body,
+      author: req.body.author,
+      date: req.body.date
+    });
+
+
+  data.save(posts)
+
+  res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read()
+  });
+
+
+
 });
+
+
 
 // Start the express server
 var port = '3000'
