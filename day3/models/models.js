@@ -10,7 +10,10 @@ var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
 var Cat = mongoose.model('Cat', {
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   furColor: String
 }) // YOUR CODE HERE - define the cat model
 
@@ -40,6 +43,7 @@ calicoCat.save(function(err){
     console.log('success');
   }
 });
+
 
 
 // Cat.find(function(error, cats) {
