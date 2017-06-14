@@ -9,7 +9,7 @@ var app = express();
 app.engine('hbs', exphbs({
   extname:'hbs',
   // Add main layout here
-  // YOUR CODE HERE
+  defaultLayout:'main.hbs'
 }));
 app.set('view engine', 'hbs');
 
