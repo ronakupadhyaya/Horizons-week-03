@@ -9,8 +9,12 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', 'hbs');
 
+var counter = 0;
 app.get('/', function(req, res) {
-  res.render('index.hbs');
+  counter++;
+  res.render('index.hbs', {
+    counter: counter
+  });
 });
 
 app.listen(3000, function() {
