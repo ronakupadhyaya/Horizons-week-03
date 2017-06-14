@@ -6,8 +6,26 @@ module.exports = {
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
   // Return the amount of the largest investment.
+
+
+
+
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+//MAKE AN ARRAY OF ALL INVESTMENTS
+    var arrayOfInvest = []
+    var highest = 0
+    //PUT EACH INVESTMENT WITHIN THE ARRAY
+    arr.forEach(function(dataGroup) {
+      arrayOfInvest.push(dataGroup.originalInvestment)
+    })
+    //LOOP THROUGH ARRAY AND COMPARE TO HIGHEST
+    for (var i = 0; i<arrayOfInvest.length; i++) {
+      if(arrayOfInvest[i]>highest) {
+        highest = arrayOfInvest[i]
+      }
+    }
+    return highest
+
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,8 +33,23 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
-  },
+    //MAKE AN ARRAY OF ALL INVESTMENTS
+        var arrayOfInvest = []
+        var sumOf = 0
+        //PUT EACH INVESTMENT WITHIN THE ARRAY
+        arr.forEach(function(dataGroup) {
+          arrayOfInvest.push(dataGroup.originalInvestment)
+        })
+        //LOOP THROUGH ARRAY AND ADD
+        for (var i = 0; i<arrayOfInvest.length; i++) {
+            sumOf += arrayOfInvest[i]
+        }
+
+        var average = sumOf/arrayOfInvest.length
+        return average
+
+      },
+
 
   // Find out how much a company got as the original investments. In this case, You
   // will have to iterate over the companies and find all the investments for each
@@ -29,7 +62,24 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+//MAKE AN OBJECT TO STORE THE INVESTMENTS
+    var orgInvest = {}
+//FOR EACH COMPANY
+for (var i = 1; i<11; i++) {
+  //SET A VARIABLE FOR THE TOTAL
+  var totalOrg = 0
+//LOOP THROUGH EACH DATAGROUP
+      arr.forEach(function(dataGroup) {
+      //IF YOU FIND THE COMPANY
+        if(dataGroup.company == i) {
+          //ADD ITS INVESTMENT TO THE TOTAL
+          totalOrg += dataGroup.originalInvestment
+        }
+      })
+      //SET A KEY VALUE PAIR IN THE OBJECT
+        orgInvest[i] = totalOrg
+    }
+return orgInvest
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +93,24 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    //MAKE AN OBJECT TO STORE THE INVESTMENTS
+        var orgInvest = {}
+    //FOR EACH INVESTOR
+    for (var i = 1; i<11; i++) {
+      //SET A VARIABLE FOR THE TOTAL
+      var totalOrg = 0
+    //LOOP THROUGH EACH DATAGROUP
+          arr.forEach(function(dataGroup) {
+          //IF YOU FIND THE IEVESTOR
+            if(dataGroup.investorId == i) {
+              //ADD ITS INVESTMENT TO THE TOTAL
+              totalOrg += dataGroup.originalInvestment
+            }
+          })
+          //SET A KEY VALUE PAIR IN THE OBJECT
+            orgInvest[i] = totalOrg
+        }
+    return orgInvest
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +126,25 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    //MAKE AN OBJECT TO STORE THE INVESTMENTS
+        var currentInvest = {}
+    //FOR EACH INVESTOR
+    for (var i = 1; i<11; i++) {
+      //SET A VARIABLE FOR THE TOTAL
+      var totalCurrent = 0
+    //LOOP THROUGH EACH DATAGROUP
+          arr.forEach(function(dataGroup) {
+          //IF YOU FIND THE INVESTOR
+            if(dataGroup.investorId == i) {
+              //ADD ITS INVESTMENT TO THE TOTAL
+              totalCurrent += dataGroup.valueToday
+            }
+          })
+          //SET A KEY VALUE PAIR IN THE OBJECT
+            currentInvest[i] = totalCurrent
+        }
+    return currentInvest
+
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +155,41 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    //MAKE AN ARRAY TO MAP THE DIFFERENCE
+    var difference = []
+    var original = module.exports.totalOriginalInvestmentsByInvestors(arr)
+    var current = module.exports.totalCurrentValueOfInvestors(arr)
+    highestVal = 0
+    highestID = 0
+//LOOP THOUGH THE KEYS OF CURRENT AND ORIGINAL AND PUSH THE DIFFERENCE INTO A NEW ARRAY
+    for (var i = 1; i<11; i++) {
+      difference.push(current[i]/original[i])
+    }
+//LOOP THROUGH THAT NEW ARRAY AND FIND THE HIGHEST VALUE
+    for (var i = 0; i<10; i++) {
+      if (difference[i]>highestVal) {
+        highestVal = difference[i]
+        highestID = i+1
+        }
+      }
+
+return highestID + ""
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+//GET ARRAY OF ORIGINAL INVESTMENTS
+    var arrayOriginal = module.exports.totalOriginalInvestmentForCompanies(arr)
+    var highestOriginal = 0
+    var highestId = 0
+//FIND HIGHEST AND SAVE
+for (var i = 1; i<11; i++) {
+  if(arrayOriginal[i]>highestOriginal) {
+    highestOriginal = arrayOriginal[i]
+    highestId = i
   }
-
+}
+return highestId + ""
+  }
 }
