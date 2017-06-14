@@ -88,28 +88,28 @@ app.get('/posts', function (req, res) {
   }
   else {
 
-  var para = req.query.author;
-  console.log(para);
-  if(para) {
-  var listFiltered = newList.filter(function(item){
-    console.log(item.author);
-    if(item.author === para) return item;
-  })
+    var para = req.query.author;
+    console.log(para);
+    if(para) {
+      var listFiltered = newList.filter(function(item){
+        console.log(item.author);
+        if(item.author === para) return item;
+      })
   // console.log(newList);
   res.render('posts', {
     username: req.cookies.username, 
     posts: listFiltered
   })
-    
-  }
+  
+}
 else {
-    res.render('posts', {
-      username: req.cookies.username,
-      posts: list
+  res.render('posts', {
+    username: req.cookies.username,
+    posts: list
   });
   
 }
-  }
+}
 });
 
 // ---Part 3. Create new posts---
