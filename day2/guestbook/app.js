@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var _=require('underscore');
 var app = express();
 
 // Enable cookie parsing
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,11 +64,54 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+// app.get('/posts', function (req, res) {
+//   res.render('posts', {
+//     // Pass `username` to the template from req.cookies.username
+//     // Pass `posts` to the template from data.read()
+//     // YOUR CODE HERE
+//     username: req.cookies.username,
+//     posts:data.read()
+//   });
+// });
+
 app.get('/posts', function (req, res) {
+
+  finalData=[];
+
+  function byAuthor(passedData){
+    var authorSort=_.groupBy(passedData, 'author');
+    var authorPosts=authorSort[req.query.author];
+    return authorPosts;
+  }
+
+  function asDes(passedData){
+    var postsInOrder=[];
+    if(req.query.order==='ascending'){
+      //need to either purge data or purge some data and do some sort of utc value
+      //conversion for this to actually work
+      postsInOrder=passedData.reverse();
+    } else if(req.query.order==='descending' || !req.query.order){
+      postsInOrder=passedData;
+    }
+    return postsInOrder;
+  }
+
+  if(req.query.author&&req.query.order){
+    finalData=asDes(byAuthor(data.read()));
+  } else if(req.query.author){
+    finalData=byAuthor(data.read());
+  } else if(req.query.order){
+    finalData=asDes(data.read())
+  } else{
+    finalData=data.read()
+  }
+
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts:finalData,
+    authorq:req.query.author,
+    orderq:req.query.order
+
   });
 });
 
@@ -82,6 +126,14 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form');
+  }
+  else{
+    res.status(401).send("401 error, not logged in")
+  }
+
+
 });
 
 // POST /posts:
@@ -102,6 +154,25 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+
+  if(!req.body.title ||!req.body.body ||!req.body.date){
+    res.status(400).send("400 error, empty field(s)")
+  } else{
+    var post={
+      author: req.cookies.username,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date
+    }
+
+    var array=data.read();
+    array.push(post);
+    data.save(array);
+    console.log(data);
+    res.redirect('/posts');
+
+  }
+
 });
 
 // Start the express server

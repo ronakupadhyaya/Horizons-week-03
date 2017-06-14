@@ -11,9 +11,22 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
+<h1>Posts</h1>
 
 <h2>Your username: {{username}}</h2>
+<!-- <form action="/posts" method="get">
+  <input type="hidden" name="order" value="descending">
+  <button type="submit">Sort descending</button>
+</form> -->
+<a href="/posts?order=descending{{#if authorq}}&author={{authorq}}{{/if}}">Sort descending</a>
+<a href="/posts?order=ascending{{#if authorq}}&author={{authorq}}{{/if}}">Sort ascending</a>
+{{#if authorq}}
+<a href="/posts">View all posts</a>
+{{/if}}
+
+<!-- to straight up make a button do that you couldn't use an html button
+you would have to use a bootstrap class or someting like that -->
+
 
 <!-- Part 2: Display posts -->
 
@@ -24,5 +37,12 @@
 
 <!-- YOUR CODE HERE -->
 
+<ul>
+{{#each posts}}
+  <li> {{this.author}} {{this.date}} {{this.title}} {{this.body}}</li>
+  <a href='/posts?author={{this.author}}{{#if orderq}}&order={{orderq}}{{/if}}'>View posts only by this author</a>
+
+{{/each}}
+</ul>
 </body>
 </html>
