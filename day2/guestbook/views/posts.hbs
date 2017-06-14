@@ -12,9 +12,21 @@
 </head>
 <body>
 <h1>View all posts</h1>
+<a href="../posts?order=ascending">Ascending</a>
+<a href="../posts?order=descending">Descending</a>
+<div>
+{{#if filteredBool}}<a href="../posts?order={{order}}">View posts by all authors</a>{{/if}}
+</div>
 
 <h2>Your username: {{username}}</h2>
-
+<div>
+{{#each posts}}
+<div><h3>{{title}} </br></h3>
+  <i>{{author}}, {{date}}, <a href="../posts?order={{order}}&author={{author}}">View only posts by this author</a></i>
+  <p>{{body}}</p>
+</div>
+{{/each}}
+</div>
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to

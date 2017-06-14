@@ -1,3 +1,4 @@
+var app = require('./app.js');
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -7,7 +8,14 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var max = 1;
+    arr.forEach(function(item){
+      if(item.originalInvestment > max){
+        max = item.originalInvestment;
+      }
+    })
+    return max;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +23,12 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var sum = 0;
+    arr.forEach(function(item){
+      sum += item.originalInvestment;
+    });
+    return (sum/arr.length);
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +42,15 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var returnObject = {};
+    arr.forEach(function(item){
+      if(!returnObject.hasOwnProperty(item.company)){
+        returnObject[item.company] = 0;
+      }
+      returnObject[item.company] += item.originalInvestment;
+    })
+    return returnObject;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +64,15 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var returnObject = {};
+    arr.forEach(function(item){
+      if(!returnObject.hasOwnProperty(item.investorId)){
+        returnObject[item.investorId] = 0;
+      }
+      returnObject[item.investorId] += item.originalInvestment;
+    })
+    return returnObject;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +88,15 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    arr = app.parser(arr);
+    var returnObject = {};
+    arr.forEach(function(item){
+      if(!returnObject.hasOwnProperty(item.investorId)){
+        returnObject[item.investorId] = 0;
+      }
+      returnObject[item.investorId] += item.valueToday;
+    })
+    return returnObject;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +107,38 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var returnObject = {};
+    var originalVal = this.totalOriginalInvestmentsByInvestors(arr);
+    var valueToday = this.totalCurrentValueOfInvestors(arr);
+    for (var key in originalVal){
+      returnObject[key] = valueToday[key]/originalVal[key];
+    }
+    var max = -10000;
+    var maxInvestor;
+    for (var key in returnObject){
+      if(returnObject[key] > max){
+        max = returnObject[key];
+        maxInvestor = key;
+      }
+    }
+    return maxInvestor;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    arr = app.parser(arr);
+    var originalInvestment = this.totalOriginalInvestmentForCompanies(arr);
+    var max = 0;
+    var maxCompany;
+    for(var key in originalInvestment){
+      if(originalInvestment[key] > max){
+        max = originalInvestment[key];
+        maxCompany = key;
+      }
+    }
+    return maxCompany;
   }
 
 }
