@@ -129,7 +129,7 @@ created document.
     1. `start`: Date input field
     1. `end`: Date input field
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
-    1. Validate form fields using `express-validate`, if there are errors render
+    1. Validate form fields using `express-validator`, if there are errors render
       `new.hbs` with error messages and the form fields filled in.
 
         You can use the `value=""` HTML attribute for this purpose:
