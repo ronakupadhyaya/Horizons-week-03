@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
-// data.save(data): Save the given data to disk.
+// data.write(data): Write the given data to disk.
 var data = require('./data');
 
 app.get('/', function(req, res) {
@@ -144,7 +144,7 @@ app.post('/posts', function(req, res) {
     date: date
   }
 
-  if(req.body.username) {
+  if(req.body.username === null) {
     res.status(401).send("user not logged in :((()");
   }
 
