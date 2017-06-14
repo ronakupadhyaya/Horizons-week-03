@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
-// data.write(data): Write the given data to disk.
+// data.save(data): Save the given data to disk.
 var data = require('./data');
 
 
