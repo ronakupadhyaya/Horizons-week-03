@@ -10,7 +10,10 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 app.get('/', function(req, res) {
-  res.render('index.hbs');
+  counter++;
+  res.render('index.hbs'{
+    counter: counter
+  });
 });
 
 app.listen(3000, function() {
