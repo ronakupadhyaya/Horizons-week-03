@@ -44,7 +44,8 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login', {
+  })
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +65,44 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var sortedData = data.read();
+
+  if (req.query.order === 'ascending') {
+    sortedData.sort(function(a, b) {
+      if(new Date(a.date) < new Date(b.date)){
+        return -1;
+      } else if(new Date(a.date) > new Date(b.date)){
+        return 1;
+      } else {
+        return 0;
+      }
+    })
+}
+    if (req.query.order === 'descending') {
+      sortedData.sort(function(a, b) {
+        if(new Date(a.date) < new Date(b.date)){
+          return 1;
+        } else if(new Date(a.date) > new Date(b.date)){
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+  }
+
+
+  if (req.query.author) {
+    var showAuthor = req.query.author;
+    sortedData = sortedData.filter(function(item) {
+      if (item.author) {var lower = item.author.toLowerCase()}
+      return lower === showAuthor;
+    })
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: sortedData,
   });
 });
 
@@ -81,7 +116,12 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+
+  if(!req.cookies.username) {
+    res.status(404).send("Error 404: You're not logged in!");
+  }
+
+  res.render('post_form')
 });
 
 // POST /posts:
@@ -101,7 +141,22 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if(!req.body.title || !req.body.body ||!req.body.date) {
+    res.status(400).send("Error 404: You're missing a field!");
+    return;
+  }
+  console.log('ran post');
+  var posts = data.read();
+  var post_object = {
+    title: req.body.title,
+    author: req.cookies.username,
+    body: req.body.body,
+    date: req.body.date,
+  }
+  console.log(post_object);
+  posts.push(post_object);
+  data.save(posts);
+  res.redirect('/posts');
 });
 
 // Start the express server

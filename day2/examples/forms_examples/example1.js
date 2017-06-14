@@ -12,7 +12,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 app.get('/', function(req, res) {
-  res.render('example1', {text: req.query.text});
+  res.render('example1', {
+    text: req.query.text,
+    insertText: req.query.inputBox,
+  });
 });
 
 // start the express app

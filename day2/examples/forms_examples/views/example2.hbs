@@ -1,3 +1,34 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <h1>This is a Form</h1>
+  Username
+  <input type="text" name="username" value="{{usernametxt}}"><br>
+  Password
+  <input type="password" name="password" value="{{pwdtxt}}"><br>
+  Name
+  <input type="text" name="name" value="{{nametxt}}"><br>
+
+  <h3>Gender</h3>
+    {{#if bool}}
+      <input type="radio" name="gender" value='male' checked>Male<br>
+      <input type="radio" name="gender" value='female'>Female<br>
+    {{else}}
+      <input type="radio" name="gender" value='male'>Male<br>
+      <input type="radio" name="gender" value='female' checked>Female<br>
+    {{/if}}
+
+  <h3>States</h3>
+  <select>
+    {{#each statesArr}}
+    {{#if isState}}
+      <option name="state" value={{theState}} selected="selected">{{theState}}</option>
+    {{else}}
+      <option name="state" value={{this}}>{{this}}</option>
+    {{/if}}
+    {{/each}}
+
+  </select> <br><br>
+
+
+<input type="submit" name="submitbtn" value="Submit">
+
 </form>
