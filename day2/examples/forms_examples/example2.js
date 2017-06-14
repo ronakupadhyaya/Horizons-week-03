@@ -15,6 +15,11 @@ app.get('/', function(req, res) {
 });
 
 // start the express app
+app.get('/register', function(req,res){
+  res.render('example2',{
+    user_val: req.query.username
+  })
+})
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Express started. Listening on port %s', port);

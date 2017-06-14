@@ -21,8 +21,20 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+{{#each posts}}
+  <div>
+    <h3 class = "author">{{this.author}} </h3>
+    <h4 class = "title"> {{this.title}} </h4>
+    <p class = "body"> {{this.body}} </p>
+    <p class = "date">{{this.date}} </p>
+  </div>
+{{/each}}
 
-<!-- YOUR CODE HERE -->
+<p><a href="/posts/new">New Post</a></p>
+<p>
+  <a href="/posts?order=ascending">View all Ascending</a>
+  <a href="/posts?order=descending">View all Descending</a>
+</p>
 
 </body>
 </html>

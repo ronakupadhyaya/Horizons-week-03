@@ -1,3 +1,19 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form action ="/register">
+  <input type='text' name ='username' value='{{user_val}}'>
+  <input type='password' name ='password' value='password'>
+  <input type='text' name ='name' value='name'>
+
+  <input type='radio' name ='gender' value='male'> Male
+  <input type='radio' name ='gender' value='female'> Female
+  <input type='radio' name ='gender' value='other'> Other
+
+  <select>
+    <option name="State" value="CA">California</option>
+    <option name="State" value="NY">New York</option>
+    <option name="State" value="NC">North Carolina</option>
+    <option name="State" value="Sc">South Carolina</option>
+  </select>
+
+  <input type='submit' name='' value='Register'>
+
 </form>
