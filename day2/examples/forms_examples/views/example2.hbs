@@ -1,3 +1,19 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <strong>Username</strong> <input type="text" name = "username" value="{{username}}"> <br>
+  <strong>Password</strong> <input type="password" name = "password" value="{{password}}"> <br>
+  <strong>Name</strong> <input type="text" name = "name" value="{{name}}"> <br><br>
+  <strong>Gender</strong> <br>
+  <input type="radio" name="gender" value="male" {{isMale}}> Male<br>
+  <input type="radio" name="gender" value="female" {{isFemale}}> Female<br>
+  <input type="radio" name="gender" value="other" {{isOther}}> Other<br><br>
+  <select class="selectpicker" name="states">
+    <option value="California">California</option>
+    <option value="Texas">Texas</option>
+    <option value="Mississippi">Mississippi</option>
+    <option value="Florida">Florida</option>
+    <option value="Missouri">Missouri</option>
+    <option value="Other">Some other irrelevant state</option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit"/>
 </form>

@@ -6,9 +6,13 @@ var app = express();
 
 // Example route:
 // This creates an Express route at http://localhost:3000
-app.get('/', function(request, response) {
-  response.send('Express is running!')
+app.get('/', function(req, res) {
+  res.send('Express is running!')
 });
+
+app.get('/hello', function(req, res){
+  res.send('Hello there ' + req.query.name + '!')
+})
 
 // Create a route that listens to /hello and takes one query parameter
 // name and responds with 'Hello there NAME!'

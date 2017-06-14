@@ -12,7 +12,9 @@
 </head>
 <body>
 <h1>View all posts</h1>
-
+  Sort By...
+  <a href="/posts?order=ascending">Ascending</a>
+  <a href="/posts?order=descending">Descending</a>
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
@@ -21,7 +23,17 @@
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
+{{#each posts}}
+  <div class = "bordered">
+    <strong>{{this.author}}</strong><br>
 
+    {{this.title}} <br> <em>{{this.date}}</em> <br>
+    __________________________________________________<br>
+    <br> {{this.body}} <br>
+    <a href="/posts/?author={{this.author}}">Show This Author</a>
+  </div>
+  <br>
+{{/each}}
 <!-- YOUR CODE HERE -->
 
 </body>
