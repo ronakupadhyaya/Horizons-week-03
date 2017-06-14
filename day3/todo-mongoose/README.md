@@ -16,11 +16,8 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
-<<<<<<< HEAD
 1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `env.sh` in `week03/day3/todo-mongoose` and put the `MONGODB_URI` from the previous step there:
-=======
-1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `app.env` in `week03/day3/todo-mongoose` and put the `MONGODB_URI` from the previous step there:
->>>>>>> master
+
 
     ```bash
     export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/example"
@@ -30,6 +27,7 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 
 ### `env.sh` - IMPORTANT DISCLAIMER
+<<<<<<< HEAD
 
 We've put `env.sh` into the `.gitignore` file so you may notice that Git doesn't prompt you to
 commit changes `env.sh`. We've excluded `env.sh` from Git because you shouldn't put your database
@@ -39,6 +37,12 @@ commit changes `env.sh`. We've excluded `env.sh` from Git because you shouldn't 
 We've put `app.env` into the `.gitignore` file so you may notice that Git doesn't prompt you to
 commit changes `app.env`. We've excluded `app.env` from Git because you shouldn't put your database
 
+=======
+
+We've put `env.sh` into the `.gitignore` file so you may notice that Git doesn't prompt you to
+commit changes `env.sh`. We've excluded `env.sh` from Git because you shouldn't put your database
+username and password on GitHub, where other people can see it!
+>>>>>>> master
 
 ## Exercises
 Open `/week03/day3/todo-mongoose/toDo.js` and look for all of the `TODO` tags and implement missing functionality where it says `// YOUR CODE HERE`. **NOTE:** be sure to do `npm install` before you begin.
