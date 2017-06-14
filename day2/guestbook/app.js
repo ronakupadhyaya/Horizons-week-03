@@ -65,12 +65,40 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var copy = data.read();
+  if (req.query.order === 'ascending') {
+    copy.sort(function(a, b) {
+      if (new Date(a.date) > new Date(b.date)) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    })
+  }
+  if (req.query.order === 'descending') {
+    copy.sort(function(a, b) {
+      if (new Date(a.date) < new Date(b.date)) {
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    })
+  }
+
+  if (req.query.author) {
+    copy = copy.filter(function(post) {
+      return post.author === req.query.author;
+    })
+  }
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
     username: req.cookies.username,
-    posts: data.read()
+    posts: copy
   });
 });
 
@@ -111,7 +139,15 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
-  
+  var posts = data.read();
+  posts.push({
+    author: req.cookies.username,
+    date: req.body.date,
+    title: req.body.title,
+    body: req.body.body
+  });
+  data.save(posts);
+  res.redirect('/posts')
 });
 
 // Start the express server

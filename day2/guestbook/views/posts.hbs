@@ -12,6 +12,16 @@
 </head>
 <body>
 <h1>View all posts</h1>
+<div>
+  <a href="/posts/new">New post</a>
+</div>
+<div>
+  <a href="/posts">View all posts</a>
+</div>
+<div>
+  <a href="/posts?order=ascending">Order ascending</a>
+  <a href="/posts?order=descending">Order descending</a>
+</div>
 
 <h2>Your username: {{username}}</h2>
 
@@ -24,8 +34,12 @@
 
 <!-- YOUR CODE HERE -->
 {{#each posts}}
-  <div>{{this.author}} on {{this.date}}:</div>
+  <div><b>{{this.author}} on {{this.date}}:</b></div>
   <div><b>{{this.title}}</b>: {{this.body}}</div>
+  <div>
+    <a href="/posts?author={{this.author}}">View only posts by this author</a>
+  </div>
+  <br></br>
 {{/each}}
 </body>
 </html>
