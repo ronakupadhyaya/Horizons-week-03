@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -63,11 +64,18 @@ app.post('/login', function(req, res) {
 //
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
+
+// app.get('/posts', function (req, res) {
+//   res.render('posts', {
+//     username: req.cookies.username,
+//     posts: data.read()
+//   });
+// });
+
 app.get('/posts', function (req, res) {
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: data.read()
   });
 });
 
@@ -82,11 +90,23 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+    res.render('post_form', {
+      title: req.body.title,
+      author: req.cookies.username,
+      date: req.body.date,
+      body: req.body.body
+    });
+  } else {
+    res.render('post_form', {
+      error: "Error: user is not logged in"
+    });
+  }
+
 });
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
-//
 //
 // Create a new post object with right author, title, body and date.
 // Read author, title, body, date from req.body.
@@ -101,7 +121,24 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var newPost = {};
+  newPost["author"] = req.cookies.username;
+  newPost["date"] = req.body.date;
+  newPost["title"] = req.body.title;
+  newPost["body"] = req.body.body;
+  var errors = req.validationErrors();
+  var postArray = data.read();
+  if (req.cookies.username) {
+    if (!errors) {
+      postArray.push(newPost);
+      res.render('posts', {
+        username: req.cookies.username,
+        posts: postArray
+      })
+    }
+  }
+
+
 });
 
 // Start the express server

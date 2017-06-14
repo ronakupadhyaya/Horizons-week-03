@@ -1,5 +1,8 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post" action="/login">
+  <legend>Log-in form</legend>
+  <input style="display: block" type="text" name="email" value="{{email}}" placeholder="name@sample.com">
+  <input style="display: block" type="password" name="password" value="{{password}}" placeholder="Password">
+  <button type="submit" name="button" style="display: block">Log in</button>
 </form>
 
-
+<h1>Hi {{firstname}}</h1>

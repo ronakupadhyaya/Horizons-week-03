@@ -12,11 +12,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 app.get('/', function(req, res) {
-  res.render('example1', {text: req.query.text});
+  res.render('example1', {
+    text: req.query.text,
+    
+  });
 });
+
+
 
 // start the express app
 var port = process.env.PORT || 3000;
+
+// For just one run (from the unix shell prompt):
+// $ PORT=1234 node app.js
+// More permanently:
+// $ export PORT=1234
+// $ node app.js
+
 app.listen(port);
 console.log('Express started. Listening on port %s', port);
 

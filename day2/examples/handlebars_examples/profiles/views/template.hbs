@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Looping in handlebars</title>
+  </head>
+  <body>
+    <ul>
+      {{#each students}}
+        <li><span>First name: {{this.first_name}},</span>
+          <span>Last name: {{this.last_name}},</span>
+          <span>email: {{this.email}}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </body>
+</html>
