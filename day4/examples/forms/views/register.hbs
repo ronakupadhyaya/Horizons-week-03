@@ -12,28 +12,24 @@
 <body>
   <div class="container">
     <h1>Register SVP</h1>
-    <form class="" action="index.html" method="post">
-      <span class="">
-        <input type="text" name="first-name" value="" placeholder="First Name">
-        <input type="text" name="middle-name" value="" placeholder="Middle Name">
-        <input type="text" name="last-name" value="" placeholder="Last Name"> <br>
-        <input type="date" name="date-of-birth" value=""><br>
-        <input type="password" name="password" value="" placeholder="Password">
-        <input type="password" name="rep-password" value="" placeholder="Repeat Password"><br>
-        <input type="radio" name="gender" value="male" checked> Male
-        <input type="radio" name="gender" value="female"> Female
-        <input type="radio" name="gender" value="other"> Other<br>
-        <input type="checkbox" name="newsletter" value="">Subscribe to Newsletter<br>
-        <input type="textarea" name="bio" value="" placeholder="Biography">
-
-
-
-      </span>
-    </form>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" name="fname" value="" placeholder="First Name">
+        <input type="text" name="mname" value="" placeholder="Middle Name">
+        <input type="text" name="lname" value="" placeholder="Last Name"> <br>
+        <input type="date" name="dofbirth" value=""><br>
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="password" name="reppassword" value="" placeholder="Repeat Password"><br>
+        <input type="radio" name="gender" value="male" > Male
+        <input type="radio" name="gender" value="female"> Female
+        <input type="radio" name="gender" value="other"> Other<br>
+        <input type="checkbox" name="newsletter" value="yes">Subscribe to Newsletter<br>
+        <input type="textarea" name="bio" value="" placeholder="Biography">
         <input type="submit">
       </form>
     </div>

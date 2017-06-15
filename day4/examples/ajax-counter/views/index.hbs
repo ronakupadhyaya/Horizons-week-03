@@ -14,8 +14,38 @@
     </form>
 
     <script src="/jquery.js"></script>
+
+
     <script>
-      // YOUR CODE HERE
+    $('#up').on('click' function(req, res){
+      event.preventDefault();
+      $.ajax({
+        url: "/up",
+        method: "post",
+        // data: {
+        //   count: count
+        // },
+        success: function(res){
+          console.log('success! count: ' + res.body.count);
+          $(#count).text(res.body.count);
+        }
+      })
+    })
+
+    $('#down').on('click' function(req, res){
+      event.preventDefault();
+      $.ajax({
+        url: "/down",
+        method: "post",
+        // data: {
+        //   count: count
+        // },
+        success: function(res){
+          console.log('success! count: ' + res.body.count);
+          $(#count).text(res.body.count);
+        }
+      })
+    })
     </script>
   </body>
 </html>

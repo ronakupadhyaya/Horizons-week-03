@@ -45,20 +45,30 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
 
-  req.check('first-name', 'Please input first name').notEmpty();
-  req.check('middle-name', 'Only initial needed').optional().isLength({max: 1,});
-  req.check('first-name', 'Please input last name').notEmpty();
-  req.check('date', "Invalid Birthday").
+  req.check('fname', 'Please input first name').notEmpty();
+  req.check('mname', 'Only initial needed').optional().isLength({min:0, max: 1,});
+  req.check('lname', 'Please input last name').notEmpty();
+  req.check('dofbirth', "Invalid Birthday").notEmpty();
   req.check('password', "Please input password").notEmpty();
-  req.check('rep-password', "Please input same password").notEmpty().contains();
+  req.check('reppassword', "Please input same password").notEmpty().contains(req.body.password);
   var errors = req.validationErrors();
+
   if (errors) {
     res.render('register', {errors: errors});
   } else {
-    // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
+    var newsletter = 'nope'
+    console.log(req.body.newsletter);
+    if (req.body.newsletter){
+      newsletter = 'yeee buddy'
+    }
+    var name = req.body.fname + " " + req.body.mname + " " + req.body.lname;
     res.render('profile',{
-      
+        name: name,
+        bday: req.body.dofbirth,
+        gender: req.body.gender,
+        newsletter: newsletter,
+        bio: req.body.bio,
+
     });
   }
 });
