@@ -7,18 +7,116 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .row {
+      margin-top: 10px;
+    }
+    .container{
+      background-color: white;
+      margin-left: 2.666667%;
+      width: 93.666667%;
+      padding: 3%;
+    }
+    .row{
+      margin-left: 6%;
+    }
+    .input-container *{
+      border-radius: 3px;
+      border-width: 1px;
+      width: 90%;
+    }
+    .bio{
+      height: 45px;
+    }
+
   </style>
+
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    <!-- <h1>Put your registration form here</h1> -->
+    <form class = "form-inline" action="/register" method="post">
+
+        <div class="row">
+            <div class = "input-container">
+              <!-- <label for = "first">First Name</label> -->
+              <input id = "first" type="text" placeholder="First Name" name="firstName" >
+            </div>
+        </div>
+        <div class="row">
+          <div class = "input-container">
+            <input type="text" placeholder="Middle Initial" name="middleInitial">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class = "input-container">
+            <input type="text" placeholder="Last Name" name="lastName" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class = "input-container">
+            <input type="date" name="dob" value="">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class = "input-container">
+            <input type="text" placeholder="Password" name="password" >
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class = "input-container">
+            <input type="text" placeholder="Repeat Password" name="repeat_password" >
+          </div>
+        </div>
+
+        <div class="row">
+
+            <input type="radio" name="gender" value="male"> Male<br>
+            <input type="radio" name="gender" value="female"> Female<br>
+            <input type="radio" name="gender" value="other"> Other <br>
+
+        </div>
+
+        <div class="row">
+
+            <input type="checkbox" name="newsletter"> Sign Up for Newsletter <br>
+
+        </div>
+
+        <div class="row">
+          <div class = "input-container">
+            <input class = "bio" type="textarea" name="bio" placeholder="Bio">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class = "input-container">
+            <input type="submit">
+          </div>
+        </div>
+
+
       </form>
-    </div>
+    <!-- </div> -->
+
+  </div>
+
+  <br>
+  <br>
+
+  <div class = "col-xs-12">
+    <strong>Errors:</strong>
+
+    <ul>
+      {{#each errors}}
+        <li>{{this.msg}}</li>
+      {{/each}}
+    </ul>
+
   </div>
 </body>
 </html>
