@@ -1,3 +1,55 @@
+/*index.hbs*/
 body {
   padding: 10px;
+  background-color: rgb(219, 225, 255);
+}
+
+.projects-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#project-title {
+
+}
+
+.project-feed {
+   background-color: rgb(254, 252, 255);
+   padding-left: 25px;
+   padding-right: 25px;
+   padding-top: 1px;
+   margin: 20px;
+   border-radius: 10px;
+}
+
+#desc {
+  border-radius: 3px;
+  padding: 6px;
+  margin: 3px;
+}
+
+/*new.hbs*/
+.project-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(254, 252, 255);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+/*project.hbs*/
+.project-single {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(254, 252, 255);
+  padding-left: 25px;
+  padding-right: 25px;
+  margin: 20px;
+  border-radius: 20px;
 }
