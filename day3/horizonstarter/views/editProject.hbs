@@ -3,19 +3,13 @@
     Title: <input type="text" name="title" value="{{project.title}}"/>
     Goal: <input type="number" name="goal" value="{{project.goal}}"/>
     Description: <textarea type="text" name="description">{{project.description}}</textarea>
-    Start: <input type="date" name="startDate" value="{{project.start}}"/>
-    End: <input type="date" name="endDate" value="{{project.end}}"/>
+    Start: <input type="date" name="startDate" value="{{start}}"/>
+    End: <input type="date" name="endDate" value="{{end}}"/>
     Category:
     <select name="category" value="{{project.category}}">
-      <option>Famous Muppet Frogs</option>
-      <option>Current Black Presidents</option>
-      <option>The Pen Is Mightier</option>
-      <option>Famous Mothers</option>
-      <option>Drummers Named Ringo</option>
-      <option>1-Letter Words</option>
-      <option>Months That Start With "Feb"</option>
-      <option>How Many Fingers Am I Holding Up</option>
-      <option>Potent Potables</option>
+      {{#each categories}}
+      <option{{#if selected}} selected{{/if}}>{{name}}</option>
+      {{/each}}
     </select>
     <input type="submit">
   </form>

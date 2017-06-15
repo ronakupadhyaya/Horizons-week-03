@@ -5,6 +5,16 @@
 {{#each projects}}
 <li><a href="/project/{{id}}">{{title}}</a></li>
 {{/each}}
+<div class='indexLink'>
 <a href="/new">Create new Project</a>
+<a href="/?sort=start&sortDirection=ascending">Sort ascendingly according to start date</a>
+<a href="/?sort=end&sortDirection=ascending">Sort ascendingly according to end date</a>
+<a href="/?sort=goal&sortDirection=ascending">Sort ascendingly according to goal</a>
+<a href="/?sort=contribution&sortDirection=ascending">Sort ascendingly according to contribution</a>
+</div>
+<div class='indexLink'>
+  <a href="/?filter=fully">View fully funded projects</a>
+  <a href="/?filter=unfully">View projects that are not fully funded</a>
+</div>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

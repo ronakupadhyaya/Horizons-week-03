@@ -1,10 +1,19 @@
 <h2>Create project</h2>
+  <div>
+    <strong>
+      <ul>
+        {{#each errors}}
+        <li>{{msg}}</li>
+        {{/each}}
+      </ul>
+    </strong>
+  </div>
   <form class= "newInput" action="/new" method="POST">
     Title: <input type="text" name="title" value="{{project.title}}"/>
     Goal: <input type="text" name="goal" value="{{project.goal}}"/>
     Description: <textarea name="description" value="{{project.description}}"></textarea>
-    Start: <input type="date" name="startDate" value="{{project.startDate}}"/>
-    End: <input type="date" name="endDate" value="{{project.endDate}}"/>
+    Start: <input type="date" name="startDate" value="{{project.start}}"/>
+    End: <input type="date" name="endDate" value="{{project.end}}"/>
     Category:
     <select name="category" value="{{project.category}}">
       <option>Famous Muppet Frogs</option>
