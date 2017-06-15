@@ -1,14 +1,44 @@
-<h2>Create project</h2>
+
 
 <!-- Part 2: Create project -->
+<div class="container">
+<h2>Create project</h2>
 <form method="POST" action="/new">
-    title: <input type="text" name="title" value="{{project.title}}" ></input><br>
-    goal: <input type="text" name="goal" value="{{project.goal}}" ></input><br>
-    description: <textarea type="textarea" name="description" value="{{project.description}}" ></textarea><br>
-    start: <input type="Date" name="start" value="{{project.start}}" ></input><br>
-    end <input type="Date" name="end" value="{{project.end}}" ></input><br>
-    <input type="submit" name="" value="Submit" ></input>
-</form>
+  <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label" >Title:</label>
+      <div class="col-8">
+        <input class="form-control" type="text" name="title" value="{{project.title}}">
+      </div>
 
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label" >Goal:</label>
+      <div class="col-6">
+      <input class="form-control" type="text" name="goal" value="{{project.goal}}">
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label" >Description:</label>
+      <div class="col-6">
+      <textarea class="form-control" type="textarea" name="description" value="{{project.description}}"></textarea>
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label" >Start:</label>
+      <div class="col-6">
+      <input class="form-control" type="Date" name="start" value="{{project.start}}" >
+    </div>
+    </div>
+    <div class="form-group row">
+      <label for="example-text-input" class="col-2 col-form-label" >End:</label>
+      <div class="col-6">
+      <input class="form-control" type="Date" name="end" value="{{project.end}}" >
+    </div>
+    </div>
+    <div class="form-group row">
+    <input type="submit" name="" value="Submit" class ="btn btn-default">
+  </div>
+</form>
+</div>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
