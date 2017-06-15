@@ -1,3 +1,8 @@
 body {
   padding: 10px;
 }
+
+.proj-title{
+  font-size: 3.0vw;
+  margin: 5px;
+}

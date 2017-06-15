@@ -1,9 +1,57 @@
-<h1>View Project</h1>
-
+<h1>{{project.title}}</h1>
+<a href="/project/{{project._id}}/edit">Edit Project</a>
 <!-- Part 3: View a single project -->
+
+<p>Category: {{project.category}}</p>
+<p>Goal: {{project.goal}}</p>
+<p>Description: {{project.description}}</p>
+<p>Start: {{project.start}}</p>
+<p>End: {{project.end}}</p>
+<p>Total Number of Contributions: {{project.contributions.length}}</p>
+<p>Total Contribution Amount: ${{contribAmount}}</p>
+{{#if maxProgress}}
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}"
+    aria-valuemin="0" aria-valuemax="100" style="width:100%">
+    Progress:{{progress}}%
+    </div>
+  </div>
+{{else}}
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+    Progress:{{progress}}%
+    </div>
+  </div>
+{{/if}}
+
+
+
+<div>Contributions:
+    <ol>
+      {{#each project.contributions}}
+      <li>{{this.name}} {{this.amount}}</li>
+      {{/each}}
+    </ol>
+</div>
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
+<h4>Make a Contribution:</h4>
+<form method="post">
+  Name <input type="text" name="name">
+  Amount <input type="text" name="amount">
+  <input type="submit" value="Submit"/>
+</form>
 
+<a href="/">Back to all projects</a>
+
+{{#if errors}}
+<ul>
+  {{#each errors}}
+    <li style="color: red">{{this.msg}} </li>
+  {{/each}}
+</ul>
+{{/if}}
 <!-- YOUR CODE HERE -->
