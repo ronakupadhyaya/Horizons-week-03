@@ -1,9 +1,44 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
+<div>
+
+
+  Title: {{proj.title}}<br>
+  Goal:{{proj.goal}}<br>
+  Description:{{proj.description}}<br>
+  Start:{{proj.start}}<br>
+  End: {{proj.end}}<br>
+
+
+</div>
+
+
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
-<!-- YOUR CODE HERE -->
+<h2> Contribute </h2>
+<form method="POST">
+  Name: <input type="text" name="name" value=""><br>
+  Amount: <input type="text" name="amount" value=""><br>
+  <input type="submit" name="submit" value="Donate"><br>
+
+</form>
+
+<span>Total amount of Contribution:{{totC}}</span><br>
+
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow={{perc}}
+  aria-valuemin="0" aria-valuemax="100" style="width:{{perc}}%">
+    <span class="sr-only">{{perc}} Complete</span>
+  </div>
+</div>
+
+<div>
+  {{#each contr}}
+  <span> Name: {{this.name}}, Amount: {{this.amount}} </span><br>
+  {{/each}}
+</div>

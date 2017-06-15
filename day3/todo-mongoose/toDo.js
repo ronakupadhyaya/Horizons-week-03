@@ -42,7 +42,11 @@ db.once('open', function() {
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
-// YOUR CODE HERE
+   var ToDoItem= mongoose.model('ToDoItem',{
+        name: String,
+        priority: String,
+        completed: Boolean
+      })
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -58,14 +62,14 @@ db.once('open', function() {
 // THE CODE.
 
 program.command('add')
-.description("Create Tasks")
-.action(addTask);
+  .description("Create Tasks")
+  .action(addTask);
 program.command('show')
-.description("Show Tasks")
-.action(showTasks);
+  .description("Show Tasks")
+  .action(showTasks);
 program.command('delete')
-.description("Delete Tasks")
-.action(deleteTask);
+  .description("Delete Tasks")
+  .action(deleteTask);
 
 // Flags
 // We will need two flags on our program. These will take values and convert them
@@ -87,15 +91,18 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
-// YOUR CODE HERE
+.option('-t, --taskName <t>', 'Task')
+
 
 // Arguments
+// console.log(process.argv)
 // These lines are part of the 'Commander' module. They tell it to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
 if (process.argv.length === 2) {
   program.help();
 }
+
 
 // All the arguments that are not specified as flags are stored on an array called program.args
 // Calling our program with unkown args like 'node program.js No One'  means nothing
@@ -126,7 +133,7 @@ function addTask(){
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
-  // YOUR CODE HERE
+  var task = new ToDoItem({name:name, priority:priority, completed:false});
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -134,6 +141,15 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err, savedTask){
+    if(err){
+      console.log("EErrrrrrrrrrr")
+        mongoose.connection.close();
+    }else{
+      console.log(savedTask)
+      mongoose.connection.close();
+    }
+  });
 }
 
 // PART 3: Show tasks
@@ -157,7 +173,36 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
-}
+  var tasksName=program.taskName;
+  //  console.log("taskName",tasksName)
+
+  if(tasksName){
+    ToDoItem.find({name:tasksName}, function(err,task){
+
+      if(err){console.log("errror")}else{
+        if(!task){
+
+        mongoose.connection.close();
+      }else{
+        task.forEach(function(taskie){
+          console.log("Task: " + taskie.name+", Priority: "+ taskie.priority+", Completed: "+taskie.completed);
+        })
+      mongoose.connection.close();
+    }
+      }
+    })
+
+  }else{
+    ToDoItem.find(function(err,tasks){
+      if(err){console.log('Error')}else{
+        tasks.forEach(function(task){
+          console.log("Task: " + task.name+", Priority: "+ task.priority+", Completed: "+task.completed);
+        })
+      }
+      mongoose.connection.close();
+    })
+  }
+ }
 
 // PART 4: Delete tasks
 
@@ -166,6 +211,18 @@ function showTasks() {
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
+  if(program.taskName){
+    ToDoItem.remove({name:program.taskName},function(err){
+      if(err){
+        console.log("errrr removing");
+        mongoose.connection.close();
 
-  // YOUR CODE HERE
+    }else{
+        console.log("removed",program.taskName);
+        mongoose.connection.close();
+      }
+    })
+  }
+
+
 }
