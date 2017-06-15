@@ -1,7 +1,21 @@
-<h1>View projects</h1>
+<h1 class="page-title text-center">View projects</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+{{#each projects}}
+<div class="row">
+
+    <a class="project-link" href="/project/{{_id}}">
+      <div class="project-listing">
+        {{title}}
+      </div>
+    </a>
+
+</div>
+
+
+{{/each}}
 
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<div class="new-project">
+  <a class="btn btn-default pull-right" href="/new">Add new project</a>
+</div>

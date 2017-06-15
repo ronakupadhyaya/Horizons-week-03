@@ -1,7 +1,59 @@
 <h1>View Project</h1>
 
-<!-- Part 3: View a single project -->
+<a class="btn btn-default" href="/">< Go back</a>
+<hr>
 
+<!-- Part 3: View a single project -->
+<div class="project-panel">
+  <h3 class="project-name">{{project.title}}</h3>
+
+  <div class="project-goal">${{totalContributions}} of ${{project.goal}} reached!</div>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+    aria-valuenow="{{totalContributions}}" aria-valuemin="0" aria-valuemax="{{project.goal}}"
+    style="width:{{percentReached}}%">
+    {{percentReached}}% reached!
+    </div>
+  </div>
+
+  <div class="project-description">
+    {{#if project.description}}
+      {{project.description}}
+    {{else}}
+      No description provided.
+    {{/if}}
+  </div>
+
+  <div class="project-footer">
+    <div><h4>Start date:</h4> {{project.start}}</div>
+    <div><h4>End date:</h4> {{project.end}}</div>
+  </div>
+</div>
+
+<div class="contributions">
+  <ul>
+    {{#each project.contributions}}
+      <li>{{name}}: ${{amount}}</li>
+    {{/each}}
+  </ul>
+
+</div>
+
+<hr>
+
+<form class="" action="/project/{{project._id}}" method="post">
+  <h3>Contribute to this project</h3>
+  <div class="col-xs-4">
+    <input class="form-control" type="text" name="name" placeholder="Name"value="{{name}}">
+  </div>
+  <div class="col-xs-1 text-right">
+    <h4>$</h4>
+  </div>
+  <div class="col-xs-3">
+    <input class="form-control" type="Number" name="amount" placeholder="Contribution amount" value="{{amount}}">
+  </div>
+  <input class="btn btn-default" type="submit" value="Contribute!">
+</form>
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->

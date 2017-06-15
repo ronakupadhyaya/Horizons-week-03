@@ -1,5 +1,25 @@
-<h2>Create project</h2>
+<h1  class="page-title text-center">Create project</h1>
 
+<a class="btn btn-default" href="/">< Go back</a>
+<hr>
 <!-- Part 2: Create project -->
+{{#if errors}}
+  {{#each errors}}
+    <div class="text-warning">
+      {{msg}}
+    </div>
+  {{/each}}
+{{/if}}
+
+<form class="" action="/new" method="post">
+  <input class="form-control" type="text" name="title" placeholder="Project Title" value="{{title}}">
+  <input class="form-control" type="text" name="goal" placeholder="Project Goal" value="{{goal}}">
+  <textarea class="form-control" name="description" rows="8" cols="80" placeholder="Project Description">{{description}}</textarea>
+  <label class="control-label" for="start">Start date: </label>
+  <input class="form-control" type="Date" name="start" value="{{start}}">
+  <label class="control-label" for="start">End date: </label>
+  <input class="form-control" type="Date" name="end" value="{{end}}">
+  <input class="btn btn-primary" type="submit" value="Submit">
+</form>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

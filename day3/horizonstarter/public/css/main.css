@@ -1,3 +1,45 @@
 body {
   padding: 10px;
+  /*background-color: #ffe4e0;*/
+  background-color: #ffeeee;
+}
+.nav-header {
+  display: flex;
+  justify-content: center;
+}
+#full-logo {
+  height: 20px;
+  margin: 20px;
+}
+h1 {
+  font-variant: small-caps;
+  font-weight: bolder;
+}
+
+.project-listing {
+  border: 2px solid #666;
+  background-color: #ffc4bf;
+
+  padding: 10px;
+  margin: 2px;
+  border-radius: 10px;
+}
+
+.project-link {
+  color: #666;
+  font-weight: 600;
+}
+.project-listing:hover {
+  border: 2px solid black;
+  background-color: #faa;
+}
+.project-link:hover {
+  color: black;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.project-goal {
+  font-size: 1.2em;
+  font-weight: 700;
 }
