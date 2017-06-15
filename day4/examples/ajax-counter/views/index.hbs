@@ -6,16 +6,28 @@
   </head>
   <body>
     <h1>Count: <span id="count">{{count}}</span></h1>
-    <form action="/up" method="post">
       <input id="up" type="submit" value="Up">
-    </form>
-    <form action="/down" method="post">
       <input id="down" type="submit" value="Down">
-    </form>
 
     <script src="/jquery.js"></script>
     <script>
-      // YOUR CODE HERE
+      var curr = $("#count").text();
+      $("#down").on("click", function(e) {
+        $.ajax("/down", {
+          method: "POST",
+          success: function() {
+            $("#count").text(--curr);
+          }
+        });
+      });
+      $("#up").on("click", function(e) {
+        $.ajax("/up", {
+          method: "POST",
+          success: function() {
+            $("#count").text(++curr);
+          }
+        });
+      });
     </script>
   </body>
 </html>
