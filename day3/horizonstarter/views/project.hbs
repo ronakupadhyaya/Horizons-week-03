@@ -1,9 +1,32 @@
 <h1>View Project</h1>
-
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
-
+<h2>{{this.title}}{{this.goal}}{{this.description}}{{this.start}}{{this.end}}</h2>
 <!-- Part 4: Contribute to a project -->
+
+
+
+<form action="/project/{{this._id}}" method="post">
+  <input type="text" name="name" placeholder="name" value="">
+  <input type="number" name="amount" placeholder = "amount (number)" value="">
+  <input type="submit" name="submit" value="">
+</form>
+
+
+
+<h1>TOTAL CONTRIBUTIONS: {{this.totalContributions}}</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{this.goalMet}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{this.goalMet}}%">
+    <span class="sr-only">{{this.goalMet}}% Complete</span>
+  </div>
+</div>
+
+{{#each this.contributions}}
+{{this.name}}
+{{this.amount}}
+{{/each}}
 
 <!-- YOUR CODE HERE -->
