@@ -3,3 +3,44 @@
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
+<!--
+title: text input field
+goal: text input field
+description: Textarea field
+start: Date input field
+end: Date input field -->
+<form class="" action="/new" method="post">
+  <div class="">
+    Title: <input type="text" name="title" value="{{title}}" placeholder="title" required>
+  </div>
+  <div class="">
+    Goal: <input type="number" name="goal" value="{{goal}}" placeholder="goal" required>
+  </div>
+  <div class="">
+    <div>
+      Description:
+    </div>
+    <textarea name="description" rows="8" cols="80" value="{{description}}" placeholder="description"></textarea>
+  </div>
+  <div class="">
+    <div class="">
+      Start Date:
+    </div>
+    <input type="Date" name="start" value="{{start}}" required>
+  </div>
+  <div class="">
+    <div class="">
+      End Date:
+    </div>
+    <input type="Date" name="end" value="{{end}}" required>
+  </div>
+  <div class="">
+    <input type="submit" name="submit" value="submit">
+  </div>
+
+  <ul>
+    {{#each error}}
+    <li> {{this.msg}}</li>
+    {{/each}}
+  </ul>
+</form>

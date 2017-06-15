@@ -1,9 +1,67 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
+<div class="">
+  <div class="title">
+    <h3>Title</h3>
+    {{project.title}}
+  </div>
+  <div class="goal">
+    <h3>Goal</h3>
+    {{project.goal}}
+  </div>
+  <div class="description">
+    <h3>Description</h3>
+    {{project.description}}
+  </div>
+  <div class="start">
+    <h3>Start Date</h3>
+    {{project.start}}
+  </div>
+  <div class="end">
+    <h3>End Date</h3>
+    {{project.end}}
+  </div>
+</div>
 
-<!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
+<form class="contribution" action="/project/{{projectid}}" method="post">
+   <h2>Contribution Form</h2>
+   <div class="">
+     Name: <input type="text" name="name" value="" required>
+   </div>
+   <div class="">
+     Amount: <input type="text" name="amount" value="" required>
+   </div>
+   <div class="submit">
+     <input type="submit" name="submit_contribution" value="Submit Contribution">
+   </div>
+</form>
 
-<!-- YOUR CODE HERE -->
+<!-- progress bar -->
+<div class="">
+  <h3>Progress</h3>
+  total contribution: {{totalAmount}}
+</div>
+<div class="progress">
+  <div class="progress-bar" role="progressbar"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+  </div>
+</div>
+<div>
+  {{percentage}}% Completed
+</div>
+
+<!-- contributors -->
+<div class="">
+  <h3>Contributors</h3>
+  <ul>
+    {{#each contribution}}
+    <li>
+     <div>name:{{this.name}}</div>
+     <div>amount:{{this.amount}}</div>
+    </li>
+    {{/each}}
+  </ul>
+</div>
