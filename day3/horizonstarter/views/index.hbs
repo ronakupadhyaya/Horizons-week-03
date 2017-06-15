@@ -1,31 +1,84 @@
 <h1>All Projects</h1>
-<p><a href="/?sort=start">Sort by Start Date</a></p>
+<!-- <p><a href="/?sort=start">Sort by Start Date</a></p>
 <p><a href="/?sort=end">Sort by End Date</a></p>
 <p><a href="/?sort=goal">Sort by Goal</a></p>
 <p><a href="/?sort=contributions">Sort by Contributions</a></p>
-<p><a href="/">ASC</a> <a href="/">ASC</a></p>
-<div class="row">
+<p><a href="/">ASC</a> <a href="/">ASC</a></p> -->
+<!-- <div class="row"> -->
+<!-- <div class="container"> -->
+
+<form action="/">
+
+    <select name="sort">
+        {{#if sortval}}
+          <option value="" selected disabled>{{sortval}}</option>
+          {{else}}
+          <option value="" selected disabled>Sort by</option>
+        {{/if}}
+        <option value="Start Date">Start Date</option>
+        <option value="End Date">End Date</option>
+        <option value="Goal">Goal</option>
+        <option value="Contributions">Contributions</option>
+    </select>
+    <select name="sortDirection">
+      {{#if sortdir}}
+        <option value="" selected disabled>{{sortdir}}</option>
+      {{/if}}
+      <option value="Ascending">Ascending</option>
+      <option value="Descending">Descending</option>
+    </select>
+    <select name="funding">
+      {{#if fundfilter}}
+        <option value="" selected disabled>{{fundfilter}}</option>
+        {{else}}
+        <option value="" selected disabled>Filter by Funding</option>
+      {{/if}}
+
+      <option value="Any Funding">Any funding</option>
+      <option value="Full Funding">Fully Funded</option>
+      <option value="Incomplete Funding">Incompelte Funding</option>
+    </select>
+
+    <input class="btn btn-default" type="submit" value="Sort Results">
+</form>
+
+<form action="/">
+  <
+
+<ul class = "list">
+
+
 {{#each projects}}
-  <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4">
-    <div class="thumbnail">
+<!-- <div class="col-full col-sm-12-24 col-lg-8-24"> -->
+<!-- <div class="col-full col-xs-6 col-sm-3 col-md-4 col-lg-8"> -->
+<li class = "list-item">
+  <!-- <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"> -->
+    <!-- <div class="thumbnail"> -->
+    <div class="list-content">
+
+
       <!-- <img src="..." alt="..."> -->
-      <h3 class = "proj-title">{{this.title}}</h3>
+      <div class="proj-title">
+        <p>{{this.title}}</p>
+      </div>
       <div class="caption">
         <!-- <p>{{this.description}}</p> -->
-        <p class = "dates">Start:{{this.start}}</p>
-        <p class = "dates">End:{{this.end}}</p>
-        <p class="goals">Goal: ${{this.goal}}</p>
+        <div class ="info dates">Start:<p class="fieldval">{{this.start}}</p></div>
+        <div class = "info dates">End:  <p class="fieldval">{{this.end}}</p></div>
+        <div class="info goals">Goal: <p class="fieldval">${{this.goal}}</p></div>
         {{#if contributions}}
-          <p class="contributions">Contributions: {{contributions.length}}</p>
+          <div class="info contributions">Contributions: <p class="fieldval">{{contributions.length}}</p></div>
         {{else}}
-          <p class="contributions">Contributions: 0</p>
+          <div class="info contributions">Contributions: <p class="fieldval">0</p></div>
         {{/if}}
-        <p><a href="/project/{{_id}}" class="btn btn-primary" role="button">See details</a></p>
       </div>
+        <div class="details"><a href="/project/{{_id}}" class="details btn btn-primary" role="button">See details</a></div>
     </div>
-  </div>
+  </li>
 {{/each}}
-</div>
+
+</ul>
+<!-- </div> -->
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
