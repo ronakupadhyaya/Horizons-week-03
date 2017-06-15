@@ -1,7 +1,15 @@
 <h1>View projects</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+{{#each items}}
+  <div class="">
+    <h2>{{this.title}}</h2>
+    <h4>Goal: {{goal}}</h4>
+    <h4>Started: {{start}}</h4>
+    <h4>By: {{end}}</h4>
+    <p>{{description}}</p>
+  </div>
+{{/each}}
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
