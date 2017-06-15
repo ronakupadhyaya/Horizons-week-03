@@ -41,12 +41,13 @@
 <div>
 <form class='contribute-form' method='POST' action='{{id}}'>
   <h3>Contribute to this project</h2>
-  Name <input type="text" name="name" value="" placeholder="Name"></br>
-  Amount <input type="text" name="amount" value="" placeholder="USD Amount"></br>
-  <input class='button' type="submit" name="" value="Contribute">
+  Name <input id='name' type="text" name="name" value="" placeholder="Name"></br>
+  Amount <input id='amount' type="text" name="amount" value="" placeholder="USD Amount"></br>
+  <button class='button' id='send-contribution'>Add Contribution</button>
 </form>
 </div>
 
 <a href='/'>Take me back!</a>
 
 <!-- YOUR CODE HERE -->
+<script src='/js/constributions.js'></script>

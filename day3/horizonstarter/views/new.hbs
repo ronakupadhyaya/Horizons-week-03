@@ -1,13 +1,33 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+{{#each errors}}
+  <div class='alert alert-warning'>
+    <strong>{{this.msg}}</strong>
+  </div>
+{{/each}}
+
+
 <div class='new-project'>
 <form class="new-form" method='POST' action='/new'>
-  Title <input type="text" name="title" value="" placeholder="Tile"></br>
-  Goal <input type="text" name="goal" value="" placeholder="Project goal"></br>
-  Description <input type="textarea" name="description" rows="5" value="" placeholder="Description"></br>
-  Start date <input type="date" name="start" value=""></br>
-  End date <input type="date" name="end" value=""></br>
+  Title <input type="text" name="title" value={{#if data.title}}{{data.title}}{{else}}''{{/if}} placeholder="Title"></br>
+  <label for="sel1">Select category:</label>
+  <select class="form-control" name="category" id="sel1">
+    <option></option>
+    <option>Famous Muppet Frogs</option>
+    <option>Current Black Presidents</option>
+    <option>The Pen Is Mightier</option>
+    <option>Famous Mothers</option>
+    <option>Drummers Named Ringo</option>
+    <option>1-Letter Words</option>
+    <option>Months That Start With "Feb"</option>
+    <option>How Many Fingers Am I Holding Up</option>
+    <option>Potent Potables</option>
+  </select>
+  Goal <input type="text" name="goal" value={{#if data.goal}}{{data.goal}}{{else}}''{{/if}} placeholder="Project goal"></br>
+  Description <input type="textarea" name="description" rows="5" value={{#if data.description}}{{data.description}}{{else}}''{{/if}} placeholder="Description"></br>
+  Start date <input id='date' type="date" name="start" value=""></br>
+  End date <input id='date' type="date" name="end" value=""></br>
   <input class='button' type="submit" name="submit" value="Submit">
 </form>
 </div>

@@ -13,6 +13,16 @@
   <div class="container">
     <div class="row">
       <h1>Put your user profile here</h1>
+      <ul>
+        <li>First Name: {{data.firstName}}</li>
+        <li>MI: {{data.middleInit}}</li>
+        <li>Last Name: {{data.lastName}}</li>
+        <li>DOB: {{data.dob}}</li>
+        <li>Password: {{data.password}}</li>
+        <li>Gender: {{#if data.male}}Male{{/if}}{{#if data.female}}Female{{/if}}</li>
+        <li>Newsletter? {{#if data.yes}}Yes{{/if}}{{#if data.no}}No{{/if}}</li>
+        <li>Biography: {{data.bio}}</li>
+      </ul>
     </div>
   </div>
 </body>

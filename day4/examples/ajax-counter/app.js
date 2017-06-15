@@ -30,13 +30,19 @@ app.get('/', function(req, res) {
 // ---Task 1---
 // POST /up: Create JSON endpoint that increases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
-
+app.post('/up', function(req, res){
+  count++;
+  res.json(count);
+});
 // YOUR CODE HERE
 
 // ---Task 2---
 // POST /down: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
-
+app.post('/down', function(req, res){
+  count--;
+  res.json(count);
+});
 // YOUR CODE HERE
 
 app.listen(3000, function() {

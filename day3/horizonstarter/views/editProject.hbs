@@ -1,0 +1,28 @@
+<h2>Edit project</h2>
+
+<!-- Part 2: Create project -->
+<div class='new-project'>
+<form class="new-form" method='POST' action='/projects/{{id}}/edit'>
+  Title <input type="text" name="title" value="{{found.title}}" placeholder="Tile"></br>
+  <label for="sel1">Select category:</label>
+  <select class="form-control" name="category" value="{{found.category}}" id="sel1">
+    <option>Famous Muppet Frogs</option> <!--use selected to choose a preselect-->
+    <option>Current Black Presidents</option>
+    <option>The Pen Is Mightier</option>
+    <option>Famous Mothers</option>
+    <option>Drummers Named Ringo</option>
+    <option>1-Letter Words</option>
+    <option>Months That Start With "Feb"</option>
+    <option>How Many Fingers Am I Holding Up</option>
+    <option>Potent Potables</option>
+  </select>
+  Goal <input type="text" name="goal" value="{{found.goal}}" placeholder="Project goal"></br>
+  Description <input type="textarea" name="description" rows="5" value="{{found.description}}" placeholder="Description"></br>
+  Start date <input type="date" name="start" value="{{found.start}}"></br>
+  End date <input type="date" name="end" value="{{found.end}}"></br>
+  <input class='button' type="submit" name="submit" value="Submit">
+</form>
+</div>
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->
+<a href='/'>Take me back!</a>

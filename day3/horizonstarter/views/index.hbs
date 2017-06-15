@@ -1,20 +1,54 @@
-<h1>Horizons Starter</h1>
-<h4>Changing the world, one line of code at a time.</h4>
+<div class='header'>
+  <div>
+    <img src='http://dvxsubg6y852m.cloudfront.net/assets/horizons_school-038102015ee4cf13d03b58741e26b86488837d89f4a2db8b6343d0977510955b.png'>
+  </div>
+  <div>
+    <h1>Horizons Starter</h1>
+    <h4>Changing the world, one line of code at a time.</h4>
+  </div>
+</div>
+
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<form id="sort-form" method='GET' action='/'>
+Sort by:
+<select class="form-control" name="sort" id="sel2">
+  <option value="">[--Option--]</option>
+  <option value="start">Start Date</option>
+  <option value="end">End date</option>
+  <option value="goal">Goal</option>
+  <option value="total">Total contributions</option>
+</select>
+Order:
+<select class="form-control" name="sortOrder" id="sel3">
+  <option value="">[--Option--]</option>
+  <option value="ascending">Ascending</option>
+  <option value="descending">Descending</option>
+</select>
+<input class='btn' type="submit" name="" value="Sort!"></br>
+</form>
+
+<a href='/'>View all projects</a> |
+<a href='/complete'>View completed projects</a> |
+<a href='/incomplete'>View incomplete projects</a>
+
+<!-- <a href='http://localhost:3000/?sort=true'>Sort!</a> -->
+
 {{#each items}}
 <div class='project-body'>
+<h4>Category: {{this.category}}</h4>
 <h3>{{this.title}}</h3>
 <div class='project-details'>
   <ul>
-    <li>Goal: ${{this.goal}}</li>
-    <li>Description: {{this.description}}</li>
-    <li>Start: {{this.start}}</li>
-    <li>End: {{this.end}}</li>
+    <li><div style='font-weight: bold'>Goal:</div> ${{this.goal}}</li>
+    <li><div style='font-weight: bold'>Description:</div> {{this.description}}</li>
+    <li><div style='font-weight: bold'>Start:</div> {{this.start}}</li>
+    <li><div style='font-weight: bold'>End:</div> {{this.end}}</li>
   </ul>
 </div>
-<a href="/project/{{this._id}}">View this project</a>
+<a href="/project/{{this._id}}">View this project</a></br>
+<a href="/projects/{{this._id}}/edit">Edit this project</a>
 </div>
 {{/each}}
 <!-- Part 2: Create new project -->
