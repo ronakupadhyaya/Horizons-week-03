@@ -3,5 +3,16 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+  {{#each projectsArr}}
+    Title: {{this.title}} <br>
+    Goal:  {{this.goal}} <br>
+    Description: {{this.description}} <br>
+    Start:  {{this.start}} <br>
+    End: {{this.end}} <br>
+    Contributions so far: {{this.contributions}}
+    ___________________________________________________________________________<br>
+  {{/each}}
+
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href= "/new">Create New Project</a>
