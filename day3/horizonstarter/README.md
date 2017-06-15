@@ -1,12 +1,14 @@
 # Pair Programming Exercise: Horizon Starter
 
+
+***MOVE ON TO [ajax](https://github.com/horizons-school-of-technology/week03/blob/master/day4/horizonstarter-ajax/README.md) if you've completed part 4***
 ## Introduction
 
 Welcome to the wild world of Node web applications! With node, mongo+mongoose,
 Express and Handlebars, you now have the tools you need to build a
 fully-fledged, fully-functional backend web application.
 
-**⚠️ This is a two day project! Try to complete Parts 1 through 4 on the first day. ⚠️**
+**⚠️ This is a two day project! Try to complete Parts 1 through 4 on the first day . ⚠️**
 
 ### The goal
 
@@ -177,6 +179,8 @@ that allows us to make contributions.
 ## Try to complete exercises up to here on Day 1 of this exercise!
 
 ---
+
+***Move On To [ajax](https://github.com/horizons-school-of-technology/week03/blob/master/day4/horizonstarter-ajax/README.md)***
 
 ### Part 5: Project categories
 
