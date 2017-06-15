@@ -1,5 +1,40 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+{{#each errors}}
+<div class="alert alert-danger">
+  <strong> "{{msg}}" </strong>
+</div>
+{{/each}}
+
+<div class="container pull-left" style="width: 50%">
+<form method="post" action="/new">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" name="title" value="{{title}}">
+  </div>
+  <div class="form-group">
+    <label>Goal</label>
+    <input type="text" class="form-control" name="goal" value="{{goal}}">
+  </div>
+  <div class="form-group">
+    <div class="row">
+    <label>Description</label>
+    </div>
+    <textarea class="row" name="description" value="{{description}}"></textarea>
+
+  </div>
+  <div class="form-group">
+    <label>Start Date</label>
+    <input class="form-control" type="date" name="start" value="{{start}}">
+  </div>
+  <div class="form-group">
+    <label>End Date</label>
+    <input class="form-control" type="date" name="end" value="{{end}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Create Project</button>
+</form>
+</div>
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

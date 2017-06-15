@@ -2,7 +2,27 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<ul>
 
+{{#each items}}
+<li>
+  <div class="card">
+  <div class="card-header">
+    Title: {{title}}
+  </div>
+  <div class="card-block">
+    <p class="card-text"> Description: {{description}}</p>
+    <p class="card-text"> <em> Goal: {{goal}} </em> </p>
+  </div>
+  <div class="card-footer">
+    <p> Start date: {{start}} </p>
+    <p> End date: {{end}} </p>
+  </div>
+</div>
+</li>
+{{/each}}
+
+</ul>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
