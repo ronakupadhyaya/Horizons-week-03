@@ -54,14 +54,14 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // var projects;
-  Project.find(function(error,projects){
-    if(error){
-      console.log("projects not found");
-    }else{
-      var projects = projects;
-      // res.render('index', {projects: projects})
-    }
-  });
+  // Project.find(function(error,projects){
+  //   if(error){
+  //     console.log("projects not found");
+  //   }else{
+  //     var projects = projects;
+  //     // res.render('index', {projects: projects})
+  //   }
+  // });
 
   if(req.query.sort){
     if(req.query.sort ==='contributions'){
@@ -86,14 +86,14 @@ router.get('/', function(req, res) {
   }
 
   }else{
-    res.render('index', {projects: projects})
-    // Project.find(function(error,projects){
-    //   if(error){
-    //     console.log("projects not found");
-    //   }else{
-    //     res.render('index', {projects: projects})
-    //   }
-    // });
+    // res.render('index', {projects: projects})
+    Project.find(function(error,projects){
+      if(error){
+        console.log("projects not found");
+      }else{
+        res.render('index', {projects: projects})
+      }
+    });
 
   }
 
