@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+
+  <style>
+    body { background-color: #2ECC71; padding-top: 2em;}
+  </style>
+</head>
+<body>
+  <div class="container">
+  <form action="/register" method="post">
+    <div class="form-group row">
+      <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="firstName" id="inputFirstName" placeholder="First Name" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputMiddle" class="col-sm-2 col-form-label">Middle Initial</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputMiddle" placeholder="Middle Initial">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputDOB" class="col-sm-2 col-form-label">DOB</label>
+      <div class="col-sm-10">
+        <input type="date" class="form-control" name="inputDOB" id="inputDOB" placeholder="mm/dd/yyyy">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="password" id="inputPassword" placeholder="Password" required>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputRepeatPassword" class="col-sm-2 col-form-label">Repeat Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="repeatPassword" id="inputRepeatPassword" placeholder="Repeat Password" required>
+      </div>
+    </div>
+    <fieldset class="form-group row" name="gender" required>
+      <legend class="col-form-legend col-sm-2">Gender</legend>
+      <div class="col-sm-10" >
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+              Male
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+              Female
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+            Prefer not to say
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group row">
+      <label class="col-sm-2">Sign Up for newsletter</label>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" name="signUp" required>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputBiography" class="col-sm-2 col-form-label">Biography</label>
+      <div class="col-sm-10">
+        <input type="textarea" class="form-control" id="inputBiography" placeholder="Biography">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="offset-sm-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </div>
+  </form>
+</div>
+{{#each errors}}
+  <li> {{msg}} </li>
+{{/each}}
+<!-- <div><strong>Errors:</strong>{{errors}}</div>
+    <div class="row">
+      <form action="/register" method="post">
+        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="submit">
+      </form>
+    </div> -->
+  </div>
+</body>
+</html>

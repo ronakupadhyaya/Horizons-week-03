@@ -8,29 +8,27 @@ Mongoose is a `Node.js` library that translates data in the Mongo database to Ja
 
 1. Beside the **MongoDB Deployments** tab press the **Create New** button. Select **Amazon Web Services** as the Cloud Provider, and then **Single-node > *FREE* Sandbox Plan** under Plan. Don't forget to name the database. When you're all done, press `Create new MongoDB deployment`.
 
-  ![newDeployment](./images/newDeploy.png)
+    ![newDeployment](./images/newDeploy.png)
 
 1. Under the **Users** tab you should create a new user. This will make it easier for you to access your database using the MongoDB URI provided at the top of the page.
 
-  ![new user](./images/addUser.png)
+    ![new user](./images/addUser.png)
 
 1. Copy the **MongoDB URI** located inside the box at the top of the screen. It should be under the text that says: `To connect using a driver via the standard MongoDB URI (what's this?)`. You will need this for later when you connect to the database using mongoose.
 
-1. Create new file `week03/day3/todo-mongoose/config.js` and use
-   `module.exports` to return an object with a single key `MONGODB\_URI`.
-   Set the value of this key to the URI from the previous step. It should
-   look like this:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `env.sh` in `week03/day3/todo-mongoose` and put the `MONGODB_URI` from the previous step there:
 
-  ```
-  module.exports = {
-    MONGODB_URI: 'mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/moose-new-database'
-  }
-  ```
+    ```bash
+    export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/example"
+    ```
 
-### `config.js` - IMPORTANT DISCLAIMER
+1. Run `source env.sh` to import the environment variable from `env.sh`. For an explanation of `source` [click here](https://bash.cyberciti.biz/guide/Source_command). **IMPORTANT**: You must run this command each time you open a new shell. This is because the environmental variables are initialized each time a new shell is opened.
 
-We've put `config.js` into the `.gitignore` file so you may notice that Git doesn't prompt you to
-commit changes `config.js`. We've excluded `config.js` from Git because you shouldn't put your database
+
+### `env.sh` - IMPORTANT DISCLAIMER
+
+We've put `env.sh` into the `.gitignore` file so you may notice that Git doesn't prompt you to
+commit changes `env.sh`. We've excluded `env.sh` from Git because you shouldn't put your database
 username and password on GitHub, where other people can see it!
 
 ## Exercises
