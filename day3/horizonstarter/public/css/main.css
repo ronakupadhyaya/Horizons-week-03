@@ -1,3 +1,22 @@
 body {
   padding: 10px;
 }
+
+.project {
+  box-shadow: 0 4px 8px 1px rgba(0,0,0,0.25);
+  transition: 0.3s;
+  border-radius: 5px;
+  margin: 10px 0px;
+  padding: 20px;
+  display: inline-block;
+}
+
+.project:hover {
+  box-shadow: 0 15px 25px 3px rgba(0,0,0,0.4);
+}
+
+
+
+.progress {
+  background-color: grey
+}
