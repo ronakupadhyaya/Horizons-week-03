@@ -1,7 +1,14 @@
-<h1>View projects</h1>
+<h1>~All Projects~</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
-
+<span>
+  {{#each array}}
+  <div class="project">
+    <h3><a href="/project/{{this._id}}">{{this.title}}</a></h3> from {{this.start}} to {{this.end}} <br>
+    <strong>Goal: ${{this.goal}}</strong><br>
+    <p>{{this.description}}</p><br>
+  </div>
+  {{/each}}
+</span>
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<a href="/new">Create new project</a>
