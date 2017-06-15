@@ -10,3 +10,8 @@ body {
 .dates {
   font-size: 1.5vw;
 }
+
+.alert {
+  margin-bottom: 2px;
+  padding: 10px;
+}

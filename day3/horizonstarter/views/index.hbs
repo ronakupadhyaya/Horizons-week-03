@@ -13,7 +13,12 @@
         <!-- <p>{{this.description}}</p> -->
         <p class = "dates">Start:{{this.start}}</p>
         <p class = "dates">End:{{this.end}}</p>
-        <p class="goals">Goal: {{this.goal}}</p>
+        <p class="goals">Goal: ${{this.goal}}</p>
+        {{#if contributions}}
+          <p class="contributions">Contributions: {{contributions.length}}</p>
+        {{else}}
+          <p class="contributions">Contributions: 0</p>
+        {{/if}}
         <p><a href="/project/{{_id}}" class="btn btn-primary" role="button">See details</a></p>
       </div>
     </div>

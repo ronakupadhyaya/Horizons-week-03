@@ -53,6 +53,15 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
+  // var projects;
+  Project.find(function(error,projects){
+    if(error){
+      console.log("projects not found");
+    }else{
+      var projects = projects;
+      // res.render('index', {projects: projects})
+    }
+  });
 
   if(req.query.sort){
     if(req.query.sort ==='contributions'){
@@ -60,7 +69,11 @@ router.get('/', function(req, res) {
         if(error){
           console.log("projects not found");
         }else{
-          var sortedprojs = _.sortBy(projects,'contributions.amount')
+          var sortedprojs = _.sortBy(projects,function(project){
+            if(project.contributions){ return project.contributions.length; }
+            return 0;
+          })
+          // console.log(sortedprojs);
           res.render('index', {projects: sortedprojs})
         }
       });
@@ -68,22 +81,19 @@ router.get('/', function(req, res) {
       var sortObject = {};
       sortObject[req.query.sort] = 1;
       Project.find().sort(sortObject).exec(function(err, array) {
-      // YOUR CODE HERE
-        // console.log(array);
         res.render('index', {projects: array})
       });
   }
 
   }else{
-
-    Project.find(function(error,projects){
-      if(error){
-        console.log("projects not found");
-      }else{
-
-        res.render('index', {projects: projects})
-      }
-    });
+    res.render('index', {projects: projects})
+    // Project.find(function(error,projects){
+    //   if(error){
+    //     console.log("projects not found");
+    //   }else{
+    //     res.render('index', {projects: projects})
+    //   }
+    // });
 
   }
 

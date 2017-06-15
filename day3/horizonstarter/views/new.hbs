@@ -1,32 +1,71 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
-<form method="post" action="/new" >
-  Title <input type="text" name="title" value="{{title}}">
-  Goal <input type="text" name="goal" value="{{goal}}">
-  Description <input type="Textarea" name="description" value="{{description}}">
-  Start <input type="Date" name="start" value="{{start}}">
-  End <input type="Date" name="end" value="{{end}}">
+<form class="well form-horizontal" method="post" action="/new" id="contact_form" >
   <div class="form-group">
-    <!-- <label for="sel1">Category:</label> -->
-    <select name="category" class="form-control" id="sel1">
-      <option value="" selected disabled>Select Category</option>
-      {{#each categories}}
-        <option value="{{this}}" name="category">{{this}}</option>
-      {{/each}}
-    </select>
+    <!-- <div class="col-xs-5"> -->
+      {{#if errors}}
+      <!-- <ul> -->
+          {{#each errors}}
+            <div class="alert alert-danger">{{this.msg}} </div>
+          {{/each}}
+      <!-- </ul> -->
+      {{/if}}
+    <!-- </div> -->
   </div>
-  <input type="submit" value="Submit"/>
+  <div class="form-group">
+    <label for="title" class="col-xs-2 col-xs-offset-2 control-label">Title</label>
+    <div class="col-xs-5">
+      <input type="text" class="form-control" name="title" value="{{title}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="goal" class="col-xs-2 col-xs-offset-2 control-label">Goal</label>
+    <div class="col-xs-5">
+      <input type="text" class="form-control" name="goal" value="{{goal}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Description" class="col-xs-2 col-xs-offset-2 control-label">Description</label>
+    <div class="col-xs-5">
+      <textarea type="text" class="form-control" rows="5"name="description" value="{{description}}"> </textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="start" class="col-xs-2 col-xs-offset-2 control-label">Start</label>
+    <div class="col-xs-5">
+      <input type="Date" class="form-control" name="start" value="{{start}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="end" class="col-xs-2 col-xs-offset-2 control-label">End</label>
+    <div class="col-xs-5">
+      <input type="Date" class="form-control" name="end" value="{{end}}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="category" class="col-xs-2 col-xs-offset-2 control-label">Project Category</label>
+    <div class="col-xs-5">
+      <select name="category" class="form-control" id="sel1">
+        <option value="" selected disabled>Select Category</option>
+        {{#each categories}}
+          <option value="{{this}}" name="category">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+  <input type="submit" value="Submit"/> <input type="Submit" value="Cancel" id="cancel"/>
 
 </form>
 
-{{#if errors}}
-<ul>
-  {{#each errors}}
-    <li style="color: red">{{this.msg}} </li>
-  {{/each}}
-</ul>
-{{/if}}
+<script src="/jquery.js"></script>
+<script>
+    $("#cancel").on('click',function(resp){
+      $.ajax({
+        url: "/"
+      })
+    })
+</script>
 
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
