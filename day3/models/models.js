@@ -4,24 +4,15 @@ if (! process.env.MONGODB_URI) {
   console.error('MONGODB_URI missing, make sure you run "source env.sh"');
   process.exit(1);
 }
-<<<<<<< HEAD
 // First let's set up our MongoDb connection
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
-=======
-
-// First let's set up our MongoDb connection
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
-
-var Cat; // YOUR CODE HERE - define the cat model
->>>>>>> master
 
 //creates collection on mLAb with this string. "Cat" at the end.
 var Cat = mongoose.model("Cat", {
   name: {
     type: String,
-    required: true
+    required: true // name is required to put into database.
   },
   furColor: String
 })
