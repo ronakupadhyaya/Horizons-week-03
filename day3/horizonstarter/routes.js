@@ -23,11 +23,25 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, projects) {
-    res.render("index", {
-      projects: projects
-    });
-  });
+
+  if (req.query.sort) {
+    var sortObj = {};
+    sortObj[req.query.sort] = req.query.sortDirection === "descending" ? -1 : 1;
+
+    Project.find({})
+           .sort(sortObj)
+           .exec(function(err, projects) {
+              res.render("index", {
+                projects: projects
+              });
+            });
+  } else {
+    Project.find(function(err, projects) {
+              res.render("index", {
+                projects: projects
+              });
+            });
+  }
 });
 
 // Part 2: Create project
@@ -44,7 +58,6 @@ router.post('/new', function(req, res) {
   req.checkBody('goal', 'Goal must be a valid number').isInt();
   req.checkBody('start', 'Start date is required').notEmpty();
   req.checkBody('end', 'End date is required').notEmpty();
-  console.log(req.validationErrors());
   if (req.validationErrors()) {
     res.render("new", {
       errors: req.validationErrors(),
@@ -114,6 +127,63 @@ router.post('/project/:projectid', function(req, res) {
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get("/project/:projectid/edit", function(req, res) {
+  Project.findById(req.params.projectid, function(err, proj) {
+    res.render("editProject", {
+      project: proj
+    });
+  });
+});
 // Create the POST /project/:projectid/edit endpoint
+router.post("/project/:projectid/edit", function(req, res) {
+  req.checkBody('title', 'Title is required').notEmpty();
+  req.checkBody('goal', 'Goal is required').notEmpty()
+  req.checkBody('goal', 'Goal must be a valid number').isInt();
+  req.checkBody('start', 'Start date is required').notEmpty();
+  req.checkBody('end', 'End date is required').notEmpty();
+  if (req.validationErrors()) {
+    res.render("editProject", {
+      errors: req.validationErrors(),
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end
+    });
+  } else {
+    Project.findByIdAndUpdate(req.params.projectid, {
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end,
+      category: req.body.category
+    }, function(err, proj) {
+      res.redirect("/project/" + req.params.projectid);
+    });
+  }
+});
+
+router.post("/api/project/:projectid/contribution", function(req, res) {
+  Project.findById(req.params.projectid, function(err, proj) {
+    if (!err) {
+      var new_contribution = {
+        name: req.body.name,
+        amount: req.body.amount
+      };
+      proj.contributions.push(new_contribution);
+      proj.save(function(err, proj) {
+        if (!err) {
+          res.json(new_contribution);
+        } else {
+          console.log("Error connecting to server...", err);
+        }
+      });
+
+    } else {
+      console.log("Error connecting to server...", err);
+    }
+  });
+});
 
 module.exports = router;

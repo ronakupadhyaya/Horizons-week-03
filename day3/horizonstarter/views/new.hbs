@@ -1,8 +1,9 @@
-<h1  class="page-title text-center">Create project</h1>
-
 <a class="btn btn-default" href="/">< Go back</a>
 <hr>
 <!-- Part 2: Create project -->
+<h2 class="page-title text-center">Create a new kickstarter</h1>
+
+
 {{#if errors}}
   {{#each errors}}
     <div class="text-warning">
@@ -12,14 +13,38 @@
 {{/if}}
 
 <form class="" action="/new" method="post">
-  <input class="form-control" type="text" name="title" placeholder="Project Title" value="{{title}}">
-  <input class="form-control" type="text" name="goal" placeholder="Project Goal" value="{{goal}}">
-  <textarea class="form-control" name="description" rows="8" cols="80" placeholder="Project Description">{{description}}</textarea>
-  <label class="control-label" for="start">Start date: </label>
-  <input class="form-control" type="Date" name="start" value="{{start}}">
-  <label class="control-label" for="start">End date: </label>
-  <input class="form-control" type="Date" name="end" value="{{end}}">
+
+  <div class="form-group">
+    <input class="form-control" type="text" name="title" placeholder="Project Title" value="{{title}}">
+    <input class="form-control" type="number" name="goal" placeholder="Project Goal" value="{{goal}}">
+    <textarea class="form-control" name="description" rows="8" cols="80" placeholder="Project Description">{{description}}</textarea>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-xs-6">
+      <label class="control-label" for="start">Start date: </label>
+      <input class="form-control" type="Date" name="start" value="{{start}}">
+    </div>
+    <div class="col-xs-6">
+      <label class="control-label" for="start">End date: </label>
+      <input class="form-control" type="Date" name="end" value="{{end}}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Select category</label>
+    <select class="form-control" name="category">
+      <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+      <option value="Current Black Presidents">Current Black Presidents</option>
+      <option value="The Pen is Mightier">The Pen is Mightier</option>
+      <option value="Famous Mothers">Famous Mothers</option>
+      <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+      <option value="1-Letter Words">1-Letter Words</option>
+      <option value='Months That Start With "Feb"'>Months That Start With "Feb"</option>
+      <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+      <option value="Potent Potables">Potent Potables</option>
+    </select>
+  </div>
+
   <input class="btn btn-primary" type="submit" value="Submit">
 </form>
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
