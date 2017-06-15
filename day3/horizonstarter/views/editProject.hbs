@@ -1,7 +1,8 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
-<form method="POST" action="/new">
+
+<form method="POST" action="/project/{{project._id}}/edit">
   title
 <br>
   <input type="text" name="title" value="{{title}}">
@@ -18,7 +19,7 @@
   End
   <input type="date" name="end" value="{{date2}}">
 
-  <select name="category">
+  <select name="category" value={{category}}>
     <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
