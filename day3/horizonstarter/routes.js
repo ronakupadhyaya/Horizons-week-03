@@ -23,31 +23,93 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
+  console.log(process.env.MONGODB_URI)
+  Project.find(function(err, arr) {
+    res.render('index', {items: arr})
+  });
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  // YOUR CODE HERE
+  console.log('reached new!');
+  res.render('new')
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  // YOUR CODE HERE
+  console.log('reaches post new!');
+
+  var proj = {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  }
+
+  var project = new Project(proj)
+  project.save(function(err) {
+    if (err) {
+      console.log('reaches error');
+      res.render('new', {
+        missedField: true
+      })
+    } else  {
+      console.log('reaches redirect');
+      res.redirect('/')
+    }
+  })
 });
 
 // Part 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  console.log('REACHES HERE');
+  var id=req.params.projectid;
+  var proj = Project.findById(id, function(err, project) {
+    console.log("***project to find***"+project);
+    var sum = 0;
+    //(item.contributions).forEach(function(e){sum += parseInt(e["amount"]);})
+    project.contributions.forEach(function(ctb) {
+      sum += parseInt(ctb.amount)
+    });
+    var percentage = sum/proj.goal;
+    res.render('project', {
+      project: project,
+      total: sum,
+      percentage: percentage
+    });
+  });
 });
-
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  var id=req.params.projectid;
+  var person = req.body.name;
+  var amt = req.body.amount;
+  var contrib = {name: person, amt: amt}
+
+  Project.findById(req.params.projectid, function(err, item){
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(req.body.name, req.body.amount);
+      item.contributions.push(contrib);
+      var sum = 0;
+      (item.contributions).forEach(function(e){sum += parseInt(e["amount"]);});
+      item.save();
+      var percentage = sum/item.goal*100;
+      res.render('project', {project: item, total: sum, percentage: percentage});
+    }
+  })
+
+  // res.render('project/'+id, {
+  //   project: project
+  // })
+
 });
 
 // Part 6: Edit project

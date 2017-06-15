@@ -7,7 +7,8 @@ var Cat = mongoose.model('cat', {
   name: {
     type: String,
     required: true
-  }, furColor: String})
+  },
+  furColor: String})
 // //declare & intialize cats
 // var cat1 = new Cat({name: 'Crookshanks', furColor: 'Tabby'})
 // var cat2 = new Cat({name: 'Mr. Bigglesworth', furColor: 'White'})
@@ -57,20 +58,20 @@ var Cat = mongoose.model('cat', {
 //
 // });
 
-// // alternate find cat:
+// alternate find cat:
 // Cat.find({
 //   name: 'Crookshanks'
 // }, function(err, cats) {
 //   console.log('cats', cats);
 // })
-
+//
 // // alternate2 find cat:
 // Cat.findOne({
 //   name: 'Ian'
 // }, function(err, cats) {
 //   console.log('cats', cats);
 // })
-
+//
 // //find cats
 // Cat.find(function(error, cats) {
 //   if (error) {

@@ -1,7 +1,60 @@
-<h1>View projects</h1>
-
+<h1 class="text-center">projects</h1>
+<div class="footer">
+  <a id="new-project" href='/new'>create new project</a>
+</div>
+<br />
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<div class="all-projects">
+  {{#each items}}
+    <div class="project text-center">
+      <div class="name">
+        <a href="/project/{{this._id}}">{{this.title}}</a>
+        <h4>Goal: ${{this.goal}}</h4>
+      </div>
+      <div class="dates">
+        <h6>from {{this.start}}</h6>
+        <h6>to {{this.end}}</h6>
+      </div>
+      <h5>{{this.description}}
+    </div>
+  {{/each}}
+</div>
 
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+
+
+<style>
+  h1 {
+    margin-bottom: 20px;
+  }
+  .all-projects, .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .project {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%
+  }
+  .project div, .project h5 {
+    flex: 1;
+  }
+  h3, h4, h6 {
+    margin-top: 1%;
+  }
+  h6 {
+    margin-bottom: 1%;
+    font-size: 10px;
+    font-style: italic;
+  }
+  .name a{
+    font-size: 24px;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+  }
+</style>

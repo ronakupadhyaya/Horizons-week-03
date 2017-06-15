@@ -1,9 +1,69 @@
-<h1>View Project</h1>
-
 <!-- Part 3: View a single project -->
+<div id="project">
+  <h1 id="title" class="text-center">this project</h1>
+  <div id="footer">
+    <a id="back-projects" class="text-center" href='/'>back to projects</a>
+  </div>
+  <div id="body" class="project text-center">
+    <div class="name">
+      <h3>{{project.title}}</h3>
+      <h4>Goal: ${{project.goal}}</h4>
+    </div>
+    <div class="dates">
+      <h6>from {{project.start}}</h6>
+      <h6>to {{project.end}}</h6>
+    </div>
+    <h5>{{project.description}}
+  </div>
+  <br /> <br />
 
-<!-- YOUR CODE HERE -->
+  <div id="status">
+    <h4>Current status: ${{total}}</h4>
+  </div>
+  <form id="create-form" method="POST" action="/project/{{project._id}}">
+    <h4 class="text-center"> contribute to this project:  </h4>
+    <div class="col-xs-12 text-center">
+      <input type="text" value="{{name}}" name="name" placeholder="Name...">
+    </div><div class="col-xs-12 text-center">
+      <input type="text" value="{{amount}}" name="amount" placeholder="Amount...">
+    </div>
+    </div><div class="col-xs-12 text-center">
+      <input type="submit" class="btn btn-default" value="contribute" name="submit" id="contribute">
+    </div>
+  </form>
+</div>
 
+<style>
+  #project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #title, #footer, #body, #status, #form {
+    flex: 1;
+  }
+  #back-projects {
+    align-self: center;
+  }
+  #footer {
+    display: flex;
+    justify-content: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    color: teal;
+  }
+  form h3, form div {
+    flex; 1;
+    padding-top: 2%;
+  }
+  #contribute {
+    background-color: teal;
+    color: white;
+  }
+</style>
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->

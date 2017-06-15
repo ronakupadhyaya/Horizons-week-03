@@ -1,5 +1,71 @@
-<h2>Create project</h2>
-
+<h2 class="text-center">create project</h2>
+<br />
 <!-- Part 2: Create project -->
+{{#if missedField}}
+  <div id="error" class="text-center"> * missed required fields - try again</div>
+  <br />
+{{else}}
+{{/if}}
+<form id="create-form" method="POST" action="/new">
+  <div class="col-xs-12 text-center">
+    <input type="text" value="{{title}}" name="title" placeholder="title...">
+  </div><div class="col-xs-12 text-center">
+    <input type="text" value="{{goal}}" name="goal" placeholder="goal...">
+    <!-- <div class="input-group text-center">
+      <span class="input-group-addon">$</span>
+    </div> -->
+  </div><div class="col-xs-12 text-center">
+    <textarea value="{{description}}" name="description" placeholder="description..." rows="3">
+    </textarea>
+  </div><div class="col-xs-12 text-center">
+    <input type="date" value="{{start}}" name="start" placeholder="start date">
+  </div><div class="col-xs-12 text-center">
+    <input type="date" value="{{end}}" name="end" placeholder="end date">
+  </div>
+  </div><div class="col-xs-12 text-center">
+    <input type="submit" class="btn btn-primary" value="submit" name="submit">
+  </div>
+
+</form>
+<div class="footer">
+  <a id="new-project" href='/'>back to projects</a>
+</div>
+
+<style>
+  #error {
+    color: red;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  form div {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  form button {
+    flex: 1;
+    width: 70px;
+    height: 35px;
+
+  }
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+</style>
+<!--
+Title: text input field
+goal: text input field
+description: Textarea field
+start: Date input field
+end: Date input field -->
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
