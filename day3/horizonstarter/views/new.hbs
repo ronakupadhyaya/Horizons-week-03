@@ -1,4 +1,22 @@
-<h2>Create project</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h2>Create project</h2>
+    <form method='post' action='/new'>
+      <input type='text' name='title' placeholder="title.." value={{newTitle}}>
+      <input type='text' name='goal' placeholder="goal.." value={{newGoal}}>
+      <input type='Textarea' rows='4' cols='50' name='description' placeholder="description.." value={{newDescription}} >
+      <input type='Date' name='start' placeholder="start.." value={{newStart}} >
+      <input type='Date' name='end' placeholder="end.." value={{newEnd}} >
+      <input type='submit' name='submit' action='/new'>
+
+    </form>
+  </body>
+</html>
 
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
