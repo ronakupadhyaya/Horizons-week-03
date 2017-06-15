@@ -22,7 +22,13 @@ var Project = mongoose.model('Project', {
   end: {
     type: Date,
     required: true
-  }
+  },
+  contributions: [
+    {
+      name: String,
+      amount: Number
+    }
+  ]
   // YOUR CODE HERE
 });
 

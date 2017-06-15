@@ -49,7 +49,7 @@ router.post('/new', function(req, res) {
   req.checkBody('end', 'Please enter an end date').isDate();
   var errors = req.validationErrors();
   if (errors){
-    console.log('fff')
+    console.log(errors)
   } else {
     //no errros, create new project
     console.log('ffffdsdf')
@@ -80,17 +80,16 @@ router.post('/new', function(req, res) {
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
 
-  Project.findById(req.params.projectid, function(err, project){
+  Project.findById(req.params.projectid, function(err, prj){
     if (err) {
-
+      console.log(err);
     } else {
-      req.checkBody('title', 'Please enter a title').notEmpty();
-      req.checkBody('goal', 'Please enter a goal').notEmpty().isInt();
-      req.checkBody('description', 'Please enter a description').notEmpty();
-      req.checkBody('start', 'Please enter a start date').isDate();
-      req.checkBody('end', 'Please enter an end date').isDate();
-      var errors = req.validationErrors();
-      
+      // req.checkBody('title', 'Please enter a title').notEmpty();
+      // req.checkBody('goal', 'Please enter a goal').notEmpty().isInt();
+      // req.checkBody('description', 'Please enter a description').notEmpty();
+      // req.checkBody('start', 'Please enter a start date').isDate();
+      // req.checkBody('end', 'Please enter an end date').isDate();
+      // var errors = req.validationErrors();
       // if(errors){
       //   console.log("Error", errors)
       // } else {
@@ -102,7 +101,9 @@ router.get('/project/:projectid', function(req, res) {
       //     end: req.body.end
       //   });
 
-        res.render('project', {project: project} );
+        res.render('project', {
+          project: prj,
+        });
       // }
     }
   })
@@ -112,6 +113,35 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+var postId = req.params.projectid;
+  Project.findById(postId, function(err, project){
+    if (err) {
+      console.log('FFF');
+    } else {
+      req.checkBody('contributorName', 'Please enter a name for contributor').notEmpty();
+      req.checkBody('contributedAmount', 'Please enter an amount $$$').notEmpty().isInt();
+      var errors = req.validationErrors();
+      if (errors) {
+        console.log('123');
+      } else {
+        var proj = {
+          contributorName: req.body.contributorName,
+          contributedAmount: req.body.contributedAmount
+        };
+        project.contributions.push(proj);
+        project.save(function(err){
+          if (err) {
+            console.log('err');
+          } else {
+            res.redirect('/project/' + req.params.projectid);
+          }
+        })
+      }
+    }
+  })
+
+
+
 });
 
 // Part 6: Edit project

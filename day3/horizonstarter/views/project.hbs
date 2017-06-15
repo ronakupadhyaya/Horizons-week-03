@@ -5,24 +5,30 @@
     <title></title>
   </head>
   <body>
-    <h1>View Project</h1>
+    <h1>View Single Project</h1>
+    <!-- Part 3: View a single project -->
 
+    <!-- YOUR CODE HERE -->
     {{#each project}}
-      <li> {{title}} </li>
-      <li> {{goal}} </li>
-      <li> {{description}} </li>
-      <li> {{start}} </li>
-      <li> {{end}} </li>
+    <p>------------------------------------------------------------------------------------------------------------</p>
+    <p> Name of Project: {{title}} </p>
+    <p> Estimated Amount: {{goal}} </p>
+    <p> Description of Project: {{description}} </p>
+    <p> Start Date: {{start}} </p>
+    <p> End Date: {{end}} </p>
+    <p> Contributions Amount: {{contributions}} </p>
     {{/each}}
 
 
+    <!-- Part 4: Contribute to a project -->
+
+    <!-- YOUR CODE HERE -->
+    <h1>You're Making Contributions!</h1>
+    <form method="post">
+      <input type='text' name='contributorName' placeholder="name-of-contributor.." value={{newContributorName}}>
+      <input type='number' name='contributedAmount' placeholder="$$.." value={{newAmount}}>
+      <input type='submit' name='submit'>
+    </form>
+
   </body>
 </html>
-
-<!-- Part 3: View a single project -->
-
-<!-- YOUR CODE HERE -->
-
-<!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->

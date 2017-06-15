@@ -11,12 +11,14 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
     {{#each projects}}
-      <li> {{title}} </li>
-      <li> {{goal}} </li>
-      <li> {{description}} </li>
-      <li> {{start}} </li>
-      <li> {{end}} </li>
-
+    <p>------------------------------------------------------------------------------------------------------------</p>
+    <p> Name of Project: {{title}} </p>
+    <p> Estimated Amount: {{goal}} </p>
+    <p> Description of Project: {{description}} </p>
+    <p> Start Date: {{start}} </p>
+    <p> End Date: {{end}} </p>
+    <p> Secret Contributor: {{contributorName}} </p>
+    <p> Secret Contributor contributed: {{contributedAmount}} </p>
     {{/each}}
 
 
