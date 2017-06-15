@@ -91,15 +91,15 @@ router.post('/project/:projectid', function(req, res) {
     if (error) {
       res.send(error);
     } else {
-      console.log(req.body.name, req.body.amount)
+      //console.log(req.body.name, req.body.amount)
       if (req.body.name !== " " && !isNaN(req.body.amount)) {
         var newObj = {name: req.body.name, amount: parseInt(req.body.amount)};
-        console.log(project.contributions);
+        //console.log(project.contributions);
         var c = project.contributions || [];
         c.push(newObj); //project.contributions.push(newObj)
         project.contributions = c;
         project.save({contributions: project.contributions}, function(error, savedObject) {
-          console.log(savedObject);
+          //console.log(savedObject);
           res.redirect('/project/'+id)
         })
       }
