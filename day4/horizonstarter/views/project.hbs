@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="col-xs-5">
+    <h1>View Project</h1>
+  </div>
+  <div class="col-xs-7">
+    <img src="{{image}}" style="height: 30%; width: 30%">
+  </div>
+</div>
+<!-- Part 3: View a single project -->
+<h3> Title: {{title}} </h3> <a href="/project/{{_id}}/edit"><button class="btn btn-default">Edit</button></a>
+<p> Goal: {{goal}} </p>
+<p> Description: {{description}} </p>
+<p> Start: {{start}}</p>
+<p> End: {{end}}</p>
+<p> Category: {{category}}</p>
+
+<!-- YOUR CODE HERE -->
+
+<!-- Part 4: Contribute to a project -->
+
+<!-- YOUR CODE HERE -->
+<h4> Progress: </h4>
+<p>Total Contributions: {{total}}</p>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    <span class="sr-only">{{percent}}% Complete</span>
+  </div>
+</div>
+<h5> Make a Contribution: </h5>
+<form method="POST">
+  <input type="text" name="contributorName" placeholder="name" value="{{contributorName}}">
+  <input type="number" min="0" name="amount" placeholder="0" value="{{amount}}"> <br>
+  <input type="submit" value="Make a Contribution">
+</form>
+
+
+<h6> Contributions </h6>
+{{#each contributions}}
+  <li> Name: {{name}}, Amount: {{amount}}</li>
+{{/each}}
+
+<a href="/"><button type="button" name="button">Back to Projects</button></a>

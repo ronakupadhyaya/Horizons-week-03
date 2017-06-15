@@ -1,0 +1,48 @@
+<h1>View projects</h1>
+
+<!-- Part 1: View all projects -->
+<!-- YOUR CODE HERE -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 btn-group">
+      {{#each items}}
+      <div class="">
+        <a class="btn-block btn-group-vertical" href="/project/{{_id}}" >
+
+            <button class = "btn btn-success" type="submit" name="button"> {{#if image}} <img src="{{image}}" style="width: 20%; height: 20%;"> {{/if}}{{title}}</button> </a>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="">
+      <a href="http://localhost:3000/new">Create new project</a>
+    </div>
+  </div>
+  <form method="get" action="/">
+    <select name="sort">
+      <option></option>
+      <option>start</option>
+      <option>end</option>
+      <option>goal</option>
+      <option>Total Contributions</option>
+    </select> 
+    <select name="sortDirection">
+      <option></option>
+      <option>Ascending</option>
+      <option>Descending</option>
+    </select>
+    <select name="funded">
+      <option></option>
+      <option>Funded</option>
+      <option>In Progress</option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
+  <a href="/"> <input class="black-text" type="submit" value="By Creation"></a>
+</div>
+
+
+<!-- Part 2: Create new project -->
+<!-- YOUR CODE HERE -->

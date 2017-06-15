@@ -1,0 +1,24 @@
+<h2>Create project</h2>
+
+<!-- Part 2: Create project -->
+<div class="container">
+  <form method="POST" action="/new">
+    <input class= "form-control" type="text" name="title" placeholder="title" value="{{this.title}}"> <br>
+    <input class= "form-control" type="text" name="goal" placeholder="goal" value="{{this.goal}}"> <br>
+    <textarea class= "form-control" name="description" placeholder="description"></textarea> <br>
+    <input class= "form-control" type="date" name="start" value="{{this.start}}"> <br>
+    <input class= "form-control" type="date" name="end" value="{{this.end}}"> <br>
+    <div class="form-group">
+      <select name="category" class="form-control">
+        {{#each enum}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <input class="form-control" type="url" name="image" value="{{this.image}}"> <br>
+    <input class= "form-control" type="submit" value="Submit">
+  </form>
+</div>
+
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->

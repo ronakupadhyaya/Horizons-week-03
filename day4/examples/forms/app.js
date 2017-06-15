@@ -45,13 +45,35 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('middleInitial', 'Middle Initial must only contain one letter').isLength({
+    min: 0,
+    max: 1
+  });
+  if (req.body.dateOfBirth) {
+    req.check('dateOfBirth', 'Date of Birth Must be in the past').isBefore((new Date()).toString());
+  }
+  req.check('repeatPassword', 'Password fields must match').equals(req.body.password);
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+  var myObj = {};
+  myObj['firstName'] = req.body.firstName;
+  myObj['middleInitial'] = req.body.middleInitial;
+  myObj['lastName'] = req.body.lastName;
+  myObj['dateOfBirth'] = req.body.dateOfBirth;
+  myObj['password'] = req.body.password;
+  myObj['repeatPassword'] = req.body.repeatPassword;
+  myObj['gender'] = req.body.gender
+  myObj['bio'] = req.body.bio;
   if (errors) {
-    res.render('register', {errors: errors});
+    var myErrors = {};
+    for (var i = 0; i < errors.length; i++) {
+      myErrors[errors[i].param] = errors[i].msg;
+    }
+    myObj.errors = myErrors;
+    res.render('register', myObj);
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', myObj);
   }
 });
 
