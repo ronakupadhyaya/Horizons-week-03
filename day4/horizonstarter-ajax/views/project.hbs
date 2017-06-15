@@ -8,7 +8,7 @@
   <li> Goal: {{project.goal}} </li>
   <li> startDate: {{start}} </li>
   <li> endDate: {{end}} </li>
-  <li> Number of Contributions: {{contriNum}}</li>
+  <li> Number of Contributions: <span id='contriNum'>{{contriNum}}</span></li>
   <li> Category: {{category}}</li>
   <li>
     <div class="progress">
@@ -21,12 +21,13 @@
 </ul>
 <!-- Part 4: Contribute to a project -->
 <form class='newInput'>
-  name:<input id='name' type="text" name="name"/>
-  amount:<input id='amount' type="number" name="amount"/>
+  name:<input id='name' name='name' type="text"/>
+  amount:<input id='amount' name='amount' type="number"/>
   <button id="send-contribution" value="{{id}}">Add Contribution</button>
 </form>
 <form action='/project/{{id}}/edit'>
   <input type="submit" value="Edit"/>
 </form>
+<script src="/jquery.js"></script>
 <script src="/js/contributions.js"></script>
 <!-- YOUR CODE HERE -->

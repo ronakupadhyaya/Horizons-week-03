@@ -1,32 +1,33 @@
 $("#send-contribution").on('click',function(event) {
-  console.log("con");
   event.preventDefault();
+  var self = $(this);
+  sendContribution(self);
+});
 
-  sendContribution();
-})
-
-function sendContribution() {
+function sendContribution(self) {
   $.ajax({
     method:'post',
-    url:'/api/project/'+$(this).val() +'/contribution',
+    url:'/api/project/'+ self.val() +'/contribution',
     data: {
-      name: $(this).siblings('#name').val(),
-      amount: $(this).siblings('#amount').val()
+      name: self.siblings('#name').val(),
+      amount: self.siblings('#amount').val()
     },
-    success:function() {
+    success:function(res) {
+      var newest = parseInt($('#contriNum').text()) + parseInt(self.siblings('#amount').val());
+      self.siblings('#name').val("");
+      self.siblings('#amount').val("")
+      $('#contriNum').text(newest)
       showFlashMessage("Thanks for your contribution! You rock!",'success')
     },
-    error: function() {
-      showFlashMessage("An error occurred", 'danger');
+    error: function(err,res) {
+      showFlashMessage(err.responseJSON[0].msg, 'danger');
     }
   })
-}
+};
 
 function showFlashMessage(msg,type) {
   var flashMeg = $(`<div class="alert alert-${type}">
                     ${msg}
                     </div>`);
-  console.log(flashMeg)
   $('h1').after(flashMeg)
-  console.log($('h1'))
-}
+};

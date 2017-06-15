@@ -143,11 +143,11 @@ router.get('/project/:projectid', function(req, res) {
     if (err) {
       res.send(err);
     } else {
-      var percentage = found.contributions.length/found.goal*100;
       var contriNum = 0;
       found.contributions.forEach(function(contri) {
         contriNum += parseInt(contri.amount);
       })
+      var percentage = contriNum/found.goal*100;
       res.render('project', {
         project: found,
         start: strftime('%B %d, %Y', found.start),
@@ -163,25 +163,25 @@ router.get('/project/:projectid', function(req, res) {
 
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
-// router.post('/project/:projectid', function(req, res) {
-//   // YOUR CODE HERE
-//   var id = req.params.projectid;
-//   Project.findById(id,function(err,found) {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       if (req.body.name !== "" && !isNaN(req.body.amount)) {
-//         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
-//         var c = found.contributions || [];
-//         c.push(newObj)
-//         found.contributions = c;
-//         found.update({contributions:found.contributions},function(err,savedObject) {
-//           res.redirect('/project/'+id)
-//         })
-//       }
-//     }
-//   })
-// });
+router.post('/project/:projectid', function(req, res) {
+  // YOUR CODE HERE
+  var id = req.params.projectid;
+  Project.findById(id,function(err,found) {
+    if (err) {
+      res.send(err);
+    } else {
+      if (req.body.name !== "" && !isNaN(req.body.amount)) {
+        var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
+        var c = found.contributions || [];
+        c.push(newObj)
+        found.contributions = c;
+        found.update({contributions:found.contributions},function(err,savedObject) {
+          res.redirect('/project/'+id)
+        })
+      }
+    }
+  })
+});
 
 router.get('/project/:projectid/edit',function(req,res) {
   var editId = req.params.projectid;
@@ -245,6 +245,11 @@ router.post('/api/project/:projectId/contribution',function(req,res) {
     if (err){
       res.status(400);
     } else {
+      req.check('amount','The amount must be positive').isInt({min:1})
+      var errors = req.validationErrors();
+      if (errors) {
+        res.status(400).json(errors);
+      }
       if (req.body.name !== "" && !isNaN(req.body.amount)) {
         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
         var c = proj.contributions || [];
