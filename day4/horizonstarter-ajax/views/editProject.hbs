@@ -1,0 +1,15 @@
+<h2>Edit project</h2>
+  <form class= "newInput" action="/project/:projectid/edit" method="POST">
+    Title: <input type="text" name="title" value="{{project.title}}"/>
+    Goal: <input type="number" name="goal" value="{{project.goal}}"/>
+    Description: <textarea type="text" name="description">{{project.description}}</textarea>
+    Start: <input type="date" name="startDate" value="{{start}}"/>
+    End: <input type="date" name="endDate" value="{{end}}"/>
+    Category:
+    <select name="category" value="{{project.category}}">
+      {{#each categories}}
+      <option{{#if selected}} selected{{/if}}>{{name}}</option>
+      {{/each}}
+    </select>
+    <input type="submit">
+  </form>

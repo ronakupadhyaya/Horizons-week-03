@@ -1,0 +1,26 @@
+body {
+  padding: 10px;
+}
+
+.newInput *{
+  display:block;
+  width:50%;
+  padding:10px;
+  margin:10px;
+}
+
+.project{
+  border:2px solid green;
+}
+
+.project *{
+  padding:7px;
+}
+
+.indexLink *{
+  display:block;
+  border:2px solid orange;
+  padding:5px;
+  width:25%;
+  margin:5px;
+}
