@@ -226,7 +226,8 @@ router.get('/project/:projectid/edit',function(req,res){
           start: newStartDate,
           end: newEndDate,
           contributions: project.contributions,
-          category: project.category
+          category: project.category,
+          id:project._id
         })
       }else if (project.contributions){
         res.render('editProject',{
@@ -235,7 +236,8 @@ router.get('/project/:projectid/edit',function(req,res){
           start: newStartDate,
           end: newEndDate,
           contributions: project.contributions,
-          category: project.category
+          category: project.category,
+          id:project._id
         })
       }else if (project.description){
         res.render('editProject',{
@@ -244,7 +246,8 @@ router.get('/project/:projectid/edit',function(req,res){
           description: project.description,
           start: newStartDate,
           end: newEndDate,
-          category: project.category
+          category: project.category,
+          id:project._id
         })
       }
     else{
@@ -253,11 +256,48 @@ router.get('/project/:projectid/edit',function(req,res){
         goal: project.goal,
         start: newStartDate,
         end: newEndDate,
-        category: project.category
+        category: project.category,
+        id:project._id
       })
      }
     }
   })
+})
+
+router.post('/project/:projectid/edit',function(req,res){
+  req.checkBody('title','You need an title').notEmpty();
+  req.checkBody('goal','You need a goal').notEmpty();
+  req.checkBody('start','You need a start date').notEmpty();
+  req.checkBody('end','You need a end date').notEmpty();
+  req.checkBody('category','You need a end date').notEmpty();
+  var result = req.validationErrors();
+  if (result){
+    res.status(400).render('/project/'+req.params.projectid+'/edit',{
+      error:'Title, body, category, start date and/or end date cannot be blank!',
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end
+    })
+  }else{
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    contributions: req.body.contributions
+
+  },{new:true}, function(err,project) {
+      if (err){
+        console.log('Oops, something happened!');
+        res.redirect('/')
+      }else{
+        res.redirect('/')
+      }
+    })
+  }
 })
 
 module.exports = router;
