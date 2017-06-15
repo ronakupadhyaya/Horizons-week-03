@@ -7,15 +7,25 @@
   <body>
     <h1>Count: <span id="count">{{count}}</span></h1>
     <form action="/up" method="post">
-      <input id="up" type="submit" value="Up">
+      <input id="up" type="submit" value="up">
     </form>
     <form action="/down" method="post">
-      <input id="down" type="submit" value="Down">
+      <input id="down" type="submit" value="down">
     </form>
 
     <script src="/jquery.js"></script>
     <script>
-      // YOUR CODE HERE
+      $('#down, #up').on('click',function(event) {
+        event.preventDefault();
+        var count = $('#count').text();
+        $.ajax({
+          method:'post',
+          url:'/' + $(this).val(),
+          success:function(res) {
+            $('#count').text(res.count);
+          }
+        })
+      })
     </script>
   </body>
 </html>
