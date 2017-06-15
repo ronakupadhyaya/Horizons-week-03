@@ -1,9 +1,43 @@
-<h1>View Project</h1>
+<h1>View Project</h1> 
+<h2><strong>Total Contributions: $ </strong>{{total}}</h2>
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar"
+         style="width: {{percent}}%;min-width: 2em;">
+      {{percent}}%
+    </div>
+</div>
 
 <!-- Part 3: View a single project -->
 
+<div style="border: 5px dotted blue">
+	<div>Project ID: {{id}}</div>
+	<div>Category: {{Project.category}}</div>
+	<div>Title: {{Project.title}}</div>
+	<div>Goal: {{Project.goal}}</div>
+	<div>Description: {{Project.description}}</div>
+	<div>Start Date: {{Project.start}}</div>
+	<div>End Date: {{Project.end}}</div>
+</div>
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+
+<form method="POST" style="border: 5px solid black">
+	<div><label>Name: <input type="text" name="name"></label></div>
+	<div><label>Amount($): <input type="number" name="amount"></label></div>
+	<div><input type="submit" name="submit"></div>
+</form>
+
+<h3>Contribution List:</h3>
+
+<ul>
+	{{#each contributions}}
+	<li> 
+		<div><Strong>Name:</strong> {{name}}</div>
+		<div><strong>Amount: $</strong> {{amount}}</div>
+	</li>
+	{{/each}}
+</ul>

@@ -18,11 +18,10 @@
           <div class="panel-body">
             <!--       start form -->
             <form class="form-horizontal" action="/register" method="post">
-              {{#if errors}}
               {{#each errors}}
               <div class="alert alert-danger">{{msg}}</div>
               {{/each}}
-              {{/if}}
+
 
               <fieldset>
 
@@ -36,7 +35,7 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
 
-                      <input  name="firstName" placeholder="First Name" class="form-control"  type="text">
+                      <input  name="firstName" placeholder="First Name" class="form-control"  type="text" value={{firstName}}>
                     </div>
                   </div>
                 </div>
@@ -48,7 +47,7 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
 
-                      <input  name="initial" placeholder="Middle Initial" class="form-control"  type="text">
+                      <input  name="initial" placeholder="Middle Initial" class="form-control"  type="text" value={{initial}}>
                     </div>
                   </div>
                 </div>
@@ -60,7 +59,7 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
 
-                      <input name="lastName" placeholder="Last Name" class="form-control"  type="text">
+                      <input name="lastName" placeholder="Last Name" class="form-control"  type="text" value={{lastName}}>
                     </div>
                   </div>
                 </div>
@@ -71,8 +70,8 @@
                   <label class="col-md-4 control-label">DOB Month</label>
                   <div class="col-md-4 selectContainer">
                     <div class="input-group">
-                      <select name="dobMonth" class="form-control selectpicker" type="date">
-                        <option value=" " >1</option>
+                      <select name="dobMonth" class="form-control selectpicker" type="date" value={{dobMonth}}>
+                        <option value=" " >Month</option>
                         <option>1</option>
                         <option>2</option>
                         <option >3</option>
@@ -96,8 +95,8 @@
                   <label class="col-md-4 control-label">DOB Day</label>
                   <div class="col-md-4 selectContainer">
                     <div class="input-group">
-                      <select name="dobDay" class="form-control selectpicker" type="date">
-                        <option value=" " >1</option>
+                      <select name="dobDay" class="form-control selectpicker" type="date" value={{dobDay}}>
+                        <option value=" " >Day</option>
                         <option>1</option>
                         <option>2</option>
                         <option >3</option>
@@ -140,8 +139,8 @@
                   <label class="col-md-4 control-label">DOB Year</label>
                   <div class="col-md-4 selectContainer">
                     <div class="input-group">
-                      <select name="dobYear" class="form-control selectpicker" type="date" >
-                        <option value=" " >2016</option>
+                      <select name="dobYear" class="form-control selectpicker" type="date" value={{dobYear}} >
+                        <option value=" " >Year</option>
                         <option>1990</option>
                         <option>1991</option>
                         <option>1992</option>
@@ -181,7 +180,7 @@
                   <label class="col-md-4 control-label">Password</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                      <input name="password" placeholder="Password" class="form-control" type="password">
+                      <input name="password" placeholder="Password" class="form-control" type="password" value={{password}}>
                     </div>
                   </div>
                 </div>
@@ -192,7 +191,7 @@
                   <label class="col-md-4 control-label">Repeat Password</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                      <input name="passwordRepeat" placeholder="Repeat Password" class="form-control" type="password">
+                      <input name="passwordRepeat" placeholder="Repeat Password" class="form-control" type="password" value={{passwordRepeat}}>
                     </div>
                   </div>
                 </div>
@@ -237,7 +236,7 @@
                   <label class="col-md-4 control-label">Biography</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                      <input  name="bio" placeholder="Biography" class="form-control"  type="text">
+                      <input  name="bio" placeholder="Biography" class="form-control"  type="text" value={{bio}}>
                     </div>
                   </div>
                 </div>

@@ -35,7 +35,7 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
-<<<<<<< HEAD:day2/forms/app.js
+// <<<<<<< HEAD:day2/forms/app.js
 // ---Part 1: Validation---
 // Write a function that takes a request object and does validation on it using
 // express-validator.
@@ -55,8 +55,8 @@ function validate(req) {
 }
 
 // ---Part 2: Render errors and profile---
-=======
->>>>>>> master:day4/examples/forms/app.js
+// =======
+// >>>>>>> master:day4/examples/forms/app.js
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
@@ -66,14 +66,30 @@ function validate(req) {
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  console.log(req.body);
+  validate(req);
+  // Get errors from express-validator
+  var errors = req.validationErrors();
   if (errors) {
-    res.render('register', {errors: errors});
+    console.log(errors);
+    res.render('register', {
+      errors: errors,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      initial: req.body.initial,
+      dobDay: req.body.dobDay,
+      dobMonth: req.body.dobMonth,
+      dobYear: req.body.dobYear,
+      password: req.body.password,
+      passwordRepeat: req.body.passwordRepeat,
+      gender: req.body.gender,
+      hosting: req.body.hosting,
+      bio: req.body.bio
+    });
   } else {
-    // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    // Include the data of the profile to be rendered with this template
+    res.render('profile', req.body);
   }
 });
 

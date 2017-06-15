@@ -3,5 +3,26 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+<ul>
+	{{#each title}}
+	<li> 
+		<div><Strong>Title:</strong> {{title}}</div>
+		<div><strong>Goal:</strong> {{goal}}</div>
+		<div><strong>Description:</strong> {{description}}</div>
+		<div><strong>Duration:</strong> {{start}} to {{end}}</div>
+	</li>
+	{{/each}}
+</ul>
+
+<a href="/new">Create new project</a>
+
+
+<a href="?sortDirection=ascending&sort?start">Ascending Start</a>
+<a href="?sortDirection=ascending&sort?end">Ascending End</a>
+<a href="?sortDirection=ascending&sort?goal">Ascending Goal</a>
+
+<a href="?sortDirection=descending&sort?start">Descending Start</a>
+<a href="?sortDirection=descending&sort?end">Descending End</a>
+<a href="?sortDirection=descending&sort?goal">Descending Goal</a>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

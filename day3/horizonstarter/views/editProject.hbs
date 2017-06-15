@@ -1,10 +1,11 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
 <!-- Part 2: Create project -->
 
-<form method="POST" action="/new">
+<form method="POST" action="/project/{{projectid}}/edit">
 	<div>
-	<input type="text" name="title" placeholder="Title" value="{{project.title}}">
+	<div> <labelvalue="{{projectid}}">project id</label></div>
+	<input type="text" name="title" placeholder="Title" value="{{title}}">
 	</div>
 	<div>
 	<input type="text" name="goal" placeholder="Goal" value="{{goal}}">
@@ -12,8 +13,8 @@
 
 	<div class="form-group">
         <label for="category">Category</label>
-        <select id="category" name="category" class="form-control">
-       <option>Famous Muppet Frogs</option>
+        <select id="category" name="category" class="form-control" value="{{category}}">
+      <option>Famous Muppet Frogs</option>
       <option>Current Black Presidents</option>
       <option>The Pen Is Mightier</option>
       <option>Famous Mothers</option>
@@ -22,7 +23,6 @@
       <option>Months That Start With "Feb"</option>
       <option>How Many Fingers Am I Holding Up</option>
       <option>Potent Potables</option>
-     
     </div>
 
 
@@ -41,5 +41,4 @@
 
 	
 </form>
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
+
