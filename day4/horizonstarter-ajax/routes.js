@@ -163,25 +163,25 @@ router.get('/project/:projectid', function(req, res) {
 
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
-router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectid;
-  Project.findById(id,function(err,found) {
-    if (err) {
-      res.send(err);
-    } else {
-      if (req.body.name !== "" && !isNaN(req.body.amount)) {
-        var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
-        var c = found.contributions || [];
-        c.push(newObj)
-        found.contributions = c;
-        found.update({contributions:found.contributions},function(err,savedObject) {
-          res.redirect('/project/'+id)
-        })
-      }
-    }
-  })
-});
+// router.post('/project/:projectid', function(req, res) {
+//   // YOUR CODE HERE
+//   var id = req.params.projectid;
+//   Project.findById(id,function(err,found) {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       if (req.body.name !== "" && !isNaN(req.body.amount)) {
+//         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
+//         var c = found.contributions || [];
+//         c.push(newObj)
+//         found.contributions = c;
+//         found.update({contributions:found.contributions},function(err,savedObject) {
+//           res.redirect('/project/'+id)
+//         })
+//       }
+//     }
+//   })
+// });
 
 router.get('/project/:projectid/edit',function(req,res) {
   var editId = req.params.projectid;
@@ -238,8 +238,24 @@ router.post('/project/:projectid/edit',function(req,res) {
       }
     });
 });
-// Part 6: Edit project
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
+
+router.post('/api/project/:projectId/contribution',function(req,res) {
+  var id = req.params.projectId;
+  Project.findById(id,function(err,proj) {
+    if (err){
+      res.status(400);
+    } else {
+      if (req.body.name !== "" && !isNaN(req.body.amount)) {
+        var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
+        var c = proj.contributions || [];
+        c.push(newObj)
+        proj.contributions = c;
+        proj.update({contributions:proj.contributions},function(err,savedObject) {
+          res.json(newObj);
+        });
+      }
+    }
+  });
+});
 
 module.exports = router;
