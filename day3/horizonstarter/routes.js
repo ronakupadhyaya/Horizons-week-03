@@ -151,18 +151,18 @@ router.post('/project/:projectid', function(req, res) {
       req.checkBody('amount','Invalid contribution amount').notEmpty().isInt();
       var errors = req.validationErrors();
 
+      var totalamount = 0;
+      project.contributions = project.contributions || [];
+      project.contributions.forEach(function(con){
+        totalamount+=parseFloat(con.amount);
+      })
 
       if(errors){
-        var totalamount = 0;
-        project.contributions = project.contributions || [];
-        project.contributions.forEach(function(con){
-          totalamount+=parseFloat(con.amount);
-        })
         var progress = (totalamount / project.goal) * 100;
         progress = Number((progress).toFixed(2));
         var maxProgress = false;
         if(progress>=100){ maxProgress=true; }
-        console.log("found validation errors i ncontribution form");
+        // console.log("found validation errors i ncontribution form");
         res.render('project',{
           errors: errors,
           project: project,
@@ -172,13 +172,10 @@ router.post('/project/:projectid', function(req, res) {
         })
 
       }else{
-      // if(!errors){
-        // errors =[]
-        console.log("noerrors");
+
         var contrib = {name: req.body.name, amount: req.body.amount};
-        project.contributions = project.contributions || [];
-        console.log("contributions ", project.contributions);
         project.contributions.push(contrib);
+        // console.log("proj contributions", project.contributions);
         totalamount+=parseFloat(contrib.amount);
         var progress = (totalamount / project.goal) * 100;
         progress = Number((progress).toFixed(2));
@@ -186,6 +183,8 @@ router.post('/project/:projectid', function(req, res) {
         if(progress>=100){
           maxProgress=true;
         }
+
+        // console.log(project.contributions);
 
         project.save(function(error){
           if (error) {
