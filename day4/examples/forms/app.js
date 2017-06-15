@@ -22,6 +22,15 @@ app.use(bodyParser.json());
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(expressValidator({
+ customValidators: {
+    isPastDate: function(date) {
+        return date.valueOf()<Date.now();
+    }
+
+ }
+}));
+
 // ROUTES
 app.get('/', function(req, res){
   res.redirect('/register');
@@ -45,13 +54,35 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  console.log(req.body);
+  req.checkBody('firstName', 'first name invalid').notEmpty();
+
+  req.checkBody('initial','must be single letter').isLength({min:1, max:1});
+
+  req.checkBody('lastName', 'last name invalid').notEmpty();
+  req.checkBody('dob','must be date in the past').isPastDate();
+  req.checkBody('password', 'must enter password').notEmpty();
+  req.checkBody('repeatpassword', 'must match password').notEmpty().equals(req.body.password);
+  req.checkBody('gender', 'must select gender').notEmpty();
+
+  var errors = req.validationErrors();
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile',{
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      gender: req.body.gender,
+      bio: req.body.bio,
+      password: req.body.password
+
+
+
+    });
   }
 });
 

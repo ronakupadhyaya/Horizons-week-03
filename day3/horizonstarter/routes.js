@@ -5,12 +5,13 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
-var expressValidator = require('express-validator');
-router.use(expressValidator());
-
+var _ = require('underscore');
 var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
+var expressValidator = require('express-validator');
+router.use(expressValidator());
+
 
 var validationSchema = {
   'title': {
@@ -52,13 +53,40 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(error,projects){
-    if(error){
-      console.log("projects not found");
+
+  if(req.query.sort){
+    if(req.query.sort ==='contributions'){
+      Project.find(function(error,projects){
+        if(error){
+          console.log("projects not found");
+        }else{
+          var sortedprojs = _.sortBy(projects,'contributions.amount')
+          res.render('index', {projects: sortedprojs})
+        }
+      });
     }else{
-      res.render('index', {projects: projects})
-    }
-  });
+      var sortObject = {};
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+      // YOUR CODE HERE
+        // console.log(array);
+        res.render('index', {projects: array})
+      });
+  }
+
+  }else{
+
+    Project.find(function(error,projects){
+      if(error){
+        console.log("projects not found");
+      }else{
+
+        res.render('index', {projects: projects})
+      }
+    });
+
+  }
+
 });
 
 // Part 2: Create project
@@ -270,5 +298,7 @@ router.post('/project/:projectid/edit', function(req, res) {
 
 
 // Create the POST /project/:projectid/edit endpoint
+
+
 
 module.exports = router;

@@ -12,12 +12,52 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div>
+      {{#if errors}}
+      <strong>Errors:</strong>
+      <ul>
+        {{#each errors}}
+          <li>{{this.msg}} </li>
+        {{/each}}
+      </ul>
+      {{/if}}</div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
+      </div>
+
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="Middle Initial" name="inital">
+      </div>
+        <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+      </div>
+        <div class="form-group">
+        <input type="date"  class="form-control" name="dob">
+      </div>
+        <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+      </div>
+        <div class="form-group">
+        <input type="password" class="form-control" placeholder="Repeat Password" name="repeatpassword" required>
+      </div>
+        <div class="form-group">
+            <input type="radio" name="gender" value="Male"> Male<br>
+            <input type="radio" name="gender" value="Female"> Female <br>
+            <input type="radio" name="gender" value="Other" checked> Other <br>
+          </div>
+            <div class="form-group">
+        <div class="checkbox">
+          <label><input type="checkbox" value="">Sign-up for newsletter</label>
+        </div>
+      </div>
+        <div class="form-group">
+        <input type="textarea"  class="form-control" placeholder="Biography" name="bio">
+      </div>
         <input type="submit">
       </form>
+
     </div>
   </div>
 </body>

@@ -34,20 +34,17 @@ db.once('open', function() {
 //      priority: String,
 //      completed: Boolean
 //    }
-//
-// A model is a class with which we construct documents.
-// Now using mongoose.model turn your schema into a model in Mongo.
-//
-// TODO: create a model (called ToDoItem) with a "name" property that
-//    is a String, a "priority" property that is a String, and a
-//    "completed" property that is a Boolean.
-
-// YOUR CODE HERE
-var ToDoItem = mongoose.model('ToDoItem', {
+var Schema = mongoose.Schema;
+var ToDoItemSchema = new Schema({
   name: String,
   priority: String,
   completed: Boolean
-})
+});
+
+//
+// A model is a class with which we construct documents.
+// Now using mongoose.model turn your schema into a model in Mongo.
+var ToDoItem = mongoose.model('ToDoItem', ToDoItemSchema);
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -92,7 +89,8 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
-// YOUR CODE HERE
+program
+.option('-t, --task <n>', 'Specify task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -130,6 +128,7 @@ function addTask(){
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
+  var task = new ToDoItem({name: name, priority: priority, completed: false});
 
   // YOUR CODE HERE
 
@@ -139,6 +138,14 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err){
+    if(err){
+      console.log('could not save', err);
+    }else{
+      console.log('saved task');
+    }
+    mongoose.connection.close();
+  })
 }
 
 // PART 3: Show tasks
@@ -160,17 +167,77 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
+  // console.log(program.args);
+  var taskList =[];
+  if(program.task){
+    ToDoItem.find({name: program.task}, function(error, tasks) {
+      if (error) {
+        console.log("Can't find tasks", error);
+      } else {
+        tasks.forEach(function(task){
+          console.log("Task: "+task.name+", Priority: "+task.priority+", Completed: "+
+          task.completed);
+        })
+      }
+    });
 
+  } else{
+    ToDoItem.find(function(error, tasks){
+      if (error) {
+        console.log("Can't find tasks", error);
+      } else{
+        tasks.forEach(function(task){
+          console.log("Task: "+task.name+", Priority: "+task.priority+", Completed: "+
+          task.completed);
+        })
+      }
+    })
+  }
   // YOUR CODE HERE
 }
 
 // PART 4: Delete tasks
+
 
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
+  // var name = program.task;
+  // ToDoItem.find(function(error, tasks){
+  //   if (error) {
+  //     console.log("Task does not exist", error);
+  //   } else{
+  //     tasks.forEach(function(task){
+  //       console.log("Task: "+task.name+", Priority: "+task.priority+", Completed: "+
+  //       task.completed);
+  //     })
+  //   }
+  // })
+  if(program.task){
+    // ToDoItem.find(function(error, tasks){
+    //   if (error) {
+    //     console.log("Task does not exist", error);
+    //   } else{
+    //     // tasks.forEach(function(task){
+    //     //   console.log("Task: "+task.name+", Priority: "+task.priority+", Completed: "+
+    //     //   task.completed);
+    //     // })
+    //   }
+    // })
+
+
+    ToDoItem.remove({name: program.task}, function(err){
+      if(err){
+        console.log("failed to remove ");
+      } else{
+        console.log("remove sucessful?");
+      }
+    });
+  } else{
+    console.log("item doesnt exist- cannot remove item");
+  }
 
   // YOUR CODE HERE
 }
