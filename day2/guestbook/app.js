@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // We use this module to store and retrieve data.
 // data.read(): Read the latest data stored on disk.
-// data.save(data): Save the given data to disk.
+// data.write(data): Write the given data to disk.
 var data = require('./data');
 
 app.get('/', function(req, res) {
@@ -143,9 +143,9 @@ app.post('/posts', function(req, res) {
     res.status(400).send('Incorrect input fields!');
   } else {
     var obj = {author: req.cookies.username, date: req.body.date, title: req.body.title, body: req.body.body}
-    var newArr = data.read().push(obj);
+    data.read().push(obj);
     //newArr.push(obj);
-    data.save(newArr);
+    data.save(data.read());
     res.redirect('/posts');
   }
 });

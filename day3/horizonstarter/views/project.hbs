@@ -1,8 +1,37 @@
 <h1>View Project</h1>
-
+<hr>
 <!-- Part 3: View a single project -->
+<div>
+  <p><b>Title:</b> {{project.title}}</p>
+  <p><b>Goal:</b> {{project.goal}}</p>
+  <p><b>Description:</b> {{project.description}}</p>
+  <p><b>Start:</b> {{project.start}}</p>
+  <p><b>End:</b> {{project.end}}</p>
+  <p><b>Contributors:</b></p>
+  <ul>
+    {{#each contributors}}
+      <li>Contributor: {{name}} | Amount: {{amount}}</li>
+    {{/each}}
+  </ul>
+  <p><b>Total Contributions:</b> {{total}}</p>
+  <div class = "container col-xs-6 col-xs-offset-3">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{width}}%">{{percent}}%</div>
+    </div>
+  </div>
+  <br><hr>
+</div>
 
-<!-- YOUR CODE HERE -->
+<form action = "/project/{{project._id}}" method = "post">
+  <input type="name" value="" name="name" placeholder="Name"/>
+  <br><br>
+  <input type="number" value="" name="contribution" placeholder="0"/>
+  <br><br>
+  <input type="submit" value="Submit"/>
+</form>
+
+<hr>
+<a href="/">Back</a>
 
 <!-- Part 4: Contribute to a project -->
 

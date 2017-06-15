@@ -2,9 +2,15 @@
 
 // Routes, with inline controllers for each route.
 var express = require('express');
+var app = express();
+var expressValidator = require('express-validator');
+var bodyParser = require('body-parser');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -23,31 +29,65 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
+  Project.find(function(error, projects) {
+    res.render('index', {projects:projects});
+  })
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  // YOUR CODE HERE
+  res.render('new');
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  // YOUR CODE HERE
+  if (req.validationErrors()) {
+    res.render('new')
+  } else {
+    var newProject = new Project({title: req.body.title, goal: req.body.goal, description: req.body.textarea, start: req.body.start, end: req.body.end});
+    newProject.save(function(error,project) {
+      if (error) {
+        console.log("you messed up");
+      } else {
+        res.redirect('/');
+      }
+    });
+  }
 });
 
 // Part 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  Project.findById(req.params.projectid, function(error, project) {
+    if (error) {
+      console.log("No single project could be found.")
+    } else {
+      var projectTotal = 0;
+      project.contributions.forEach(function(ele) {
+        projectTotal += ele.amount;
+      })
+      var projectPercent = parseInt(projectTotal/project.goal*100, 10);
+      var projectWidth = projectPercent > 100 ? 100 : projectPercent;
+      res.render('project', {project: project, total: projectTotal, width: projectWidth, contributors: project.contributions, percent: projectPercent});
+    }
+  })
 });
 
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
+  var contribution = {name: req.body.name, amount: req.body.contribution};
+  Project.findById(req.params.projectid, function(error, project) {
+    if (error) {
+      console.log("No single project could be found.")
+    } else {
+      project.contributions.push(contribution);
+      project.save();
+      res.redirect('/project/' + req.params.projectid);
+    }
+  })
 });
 
 // Part 6: Edit project

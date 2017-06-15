@@ -1,5 +1,31 @@
 <h2>Create project</h2>
 
+{{#if errors}}
+  <form action = "/new" method = "post">
+    <input type="text" value="{{project.title}}" name="title" placeholder="Title"/>
+    <input type="number" value="{{project.goal}}" name="goal" placeholder="Goal"/>
+    <textarea rows="4" cols = "50" value="{{project.textarea}}" name="textarea" placeholder="Description"></textarea>
+    <input type="date" value="{{project.start}}" name="start"/>
+    <input type="date" value="{{project.end}}" name="end"/>
+    <input type="submit" value="Login"/>
+  </form>
+{{else}}
+  <form action = "/new" method = "post">
+    <input type="text" value="" name="title" placeholder="Title"/>
+    <br>
+    <input type="number" value="" name="goal" placeholder="Goal"/>
+    <br>
+    <textarea rows="4" cols = "50" value="" name="textarea" placeholder="Description"></textarea>
+    <br>
+    <input type="date" value="" name="start"/>
+    <br>
+    <input type="date" value="" name="end"/>
+    <br>
+    <input type="submit" value="Submit"/>
+  </form>
+{{/if}}
 <!-- Part 2: Create project -->
+
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
