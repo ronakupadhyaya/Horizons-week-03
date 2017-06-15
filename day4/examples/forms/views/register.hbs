@@ -10,15 +10,79 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-color:white; padding:20px; border-radius:10px">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <form method="post" action="/register">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control"placeholder="First Name" id="firstName"name="firstName"></input>
+      </div>
+
+        <div class="form-group">
+          <label for="middleInitial">Middle Initial</label>
+        <input type="text" class="form-control"placeholder="Middle Initial" id="middleInitial"name="middleInitial"></input>
+      </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+        <input type="text" class="form-control"placeholder="Last Name" id="lastName"name="lastName"></input>
+      </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Date Of Birt</label>
+        <input type="date" class="form-control"placeholder="Date Of Birth" id="dateOfBirth"name="dateOfBirth"></input>
+      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+        <input type="password" class="form-control"placeholder="Password" id="password"name="password"></input>
+      </div>
+        <div class="form-group">
+          <label for="repeatPassword">Repeat Password</label>
+        <input type="password" class="form-control"placeholder="Repeat Password" id="repeatPassword"name="repeatPassword"></input>
+      </div>
+        <label>Gender</label>
+      <div class="radio">
+      <label>
+        <input type="radio" name="gender" id="male" value="male" checked>
+        Male
+      </label>
+      </div>
+      <div class="radio">
+      <label>
+        <input type="radio" name="gender" id="female" value="female">
+        Female
+      </label>
+      </div>
+      <div class="radio">
+      <label>
+        <input type="radio" name="gender" id="other" value="other" disabled>
+        Other
+      </label>
+      </div>
+        <div class="form-group">
+          <label for="newsletter">Sign-up for newsletter</label>
+        <input type="checkbox" class="form-control"placeholder="Sign-up for newsletter" id="newsletter"name="newsletter"></input>
+      </div>
+        <div class="form-group">
+          <label for="bio">Bio</label>
+        <textarea class="form-control" rows="3"placeholder="Bio" id="bio"name="bio"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    </form>
+
+
+    <div><strong>Errors:</strong>
+      {{#each errors}}
+      {{this.msg}}
+      {{/each}}
+
+    </div>
+    <!-- <div class="row">
       <form action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>
         <input type="submit">
       </form>
-    </div>
+    </div> -->
   </div>
 </body>
 </html>
