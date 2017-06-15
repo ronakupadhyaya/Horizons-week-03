@@ -2,6 +2,12 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+<ul>
+  {{#each item}}
+    <li>{{this.title}} {{this.goal}} {{this.description}} {{this.start}} {{this.end}}</li>
+    <a href="/project/{{this._id}}">View this project details</a>
+  {{/each}}
+</ul>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href="/new">Create new project</a>

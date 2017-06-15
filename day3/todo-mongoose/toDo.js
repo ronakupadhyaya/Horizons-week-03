@@ -42,7 +42,17 @@ db.once('open', function() {
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
-// YOUR CODE HERE
+var ToDoItemItem = mongoose.model('todoitemitem', {
+  name: String,
+  priority: String,
+  completed: Boolean
+});
+
+var ToDoItem = new ToDoItemItem({
+  name: "Go to bed",
+  priority: "Urgent",
+  completed: false
+});
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -58,14 +68,14 @@ db.once('open', function() {
 // THE CODE.
 
 program.command('add')
-.description("Create Tasks")
-.action(addTask);
+  .description("Create Tasks")
+  .action(addTask);
 program.command('show')
-.description("Show Tasks")
-.action(showTasks);
+  .description("Show Tasks")
+  .action(showTasks);
 program.command('delete')
-.description("Delete Tasks")
-.action(deleteTask);
+  .description("Delete Tasks")
+  .action(deleteTask);
 
 // Flags
 // We will need two flags on our program. These will take values and convert them
@@ -86,8 +96,9 @@ program.command('delete')
 // TODO: add flags for "-t and --task" (do not use parseInt as the
 //    task name should be kept a string)
 program
-.option('-p, --priority <p>', 'Specify priority for task', parseInt)
-// YOUR CODE HERE
+  .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+program
+  .option('-t, --task <p>', 'Specify task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -106,8 +117,8 @@ if (process.argv.length === 2) {
 
 // The function parseArgs eliminates the last element on the array and joins
 // it in a string so: ['No', 'One', {}] -> ['No', 'One'] -> "No One"
-function parseArgs () {
-  var args = program.args.splice(0, (program.args.length-1));
+function parseArgs() {
+  var args = program.args.splice(0, (program.args.length - 1));
   return args.join(" ");
 }
 
@@ -119,14 +130,18 @@ function parseArgs () {
 // for the tast from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
-function addTask(){
+function addTask() {
   var priority = program.priority || 1;
   var name = parseArgs();
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
-  // YOUR CODE HERE
+  var task = new ToDoItemItem({
+    name: name,
+    priority: priority,
+    completed: false
+  });
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -134,6 +149,15 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function(err) {
+    if (err) {
+      console.log("Could not save", err);
+    } else {
+      console.log("Success");
+    }
+  });
+
+  mongoose.connection.close();
 }
 
 // PART 3: Show tasks
@@ -157,15 +181,35 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if (program.task) {
+    ToDoItemItem.find({
+      name: program.task
+    }, function(err, todoitems) {
+      console.log('todoitemitems', todoitems);
+    });
+  } else {
+    ToDoItemItem.find(function(error, todoitems) {
+      if (error) {
+        console.log("Can't find ToDoItems", error);
+      } else {
+        console.log('todoitemitems', todoitems);
+      }
+    });
+  }
 }
 
 // PART 4: Delete tasks
 
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
-function deleteTask(){
+function deleteTask() {
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
-  // YOUR CODE HERE
+  if (program.task) {
+    ToDoItemItem.remove({
+      name: program.task
+    }, function(err, todoitems) {
+      console.log('todoitemitems', todoitems);
+    });
+  }
 }
