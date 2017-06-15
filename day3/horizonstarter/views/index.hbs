@@ -1,7 +1,17 @@
-<h1>View projects</h1>
+<h1>All projects</h1>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<div class="project-container">
+  {{#each items}}
+  <a href="http://localhost:3000/project/{{_id}}">
+    <div class="project">
+      <div class="title-header">{{title}}</div><br></a>
+      <div><b>Description</b><br>{{description}}<br>
+          <b>Goal: $</b>${{goal}}<br>
+          <b>Start Date: </b>{{start}}<br>
+          <b>End Date: </b>{{end}}</div>
+    </div>
+  {{/each}}
+  <a href="http://localhost:3000/new"><button class="btn" type="button" name="button">Create new project</button></a>
+</div>

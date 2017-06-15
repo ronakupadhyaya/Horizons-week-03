@@ -136,7 +136,7 @@ function addTask() {
 //            "Task #1 Priority 3: Do Laundry
 //             Task #2 Priority 2: Clean Dishes
 //             Task #3 Priority 1: Call Mark"
-function showTasks(){
+function showTasks(){ 
   // YOUR CODE HERE
   if(program.id) {
     console.log(`Task #${program.id} Priority ${data[program.id - 1].priority}: ${data[program.id - 1].name}`);

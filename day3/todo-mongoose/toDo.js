@@ -8,6 +8,7 @@ var program = require('commander');
 
 // require the mongoose package
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 // PART 0: Create an env.sh file that should export the MONGODB_URI
 
@@ -28,7 +29,7 @@ db.once('open', function() {
 // maps to a MongoDB collection and defines the shape of
 // the documents within that collection.
 //
-// TODO: create a schema for the ToDoItemItem. Your schema should look like the following:
+// create a schema for the ToDoItemItem. Your schema should look like the following:
 //    {
 //      name: String,
 //      priority: String,
@@ -38,11 +39,13 @@ db.once('open', function() {
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
-// TODO: create a model (called ToDoItem) with a "name" property that
+// create a model (called ToDoItem) with a "name" property that
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var itemSchema = new Schema({name: String, priority: String, completed: Boolean});
+var ToDoItemItem = mongoose.model('ToDoItemItem', itemSchema);
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -83,10 +86,11 @@ program.command('delete')
 // will be parsed with parseInt. Here we can specify the number of the episode that
 // we want to watch.
 
-// TODO: add flags for "-t and --task" (do not use parseInt as the
+//  add flags for "-t and --task" (do not use parseInt as the
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
+.option('-t, --task <t>', 'List a task name');
 // YOUR CODE HERE
 
 // Arguments
@@ -116,24 +120,27 @@ function parseArgs () {
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
 // It should get the name of the task by calling parseArgs() and the priority
-// for the tast from program.priority.
+// for the task from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
 
-  // TODO: create new instance of your toDo model (call it task) and
+  //  create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
-
-  // TODO: Use mongoose's save function to save task (the new instance of
+  var task = new ToDoItemItem({name: name, priority: priority, completed: false});
+  // T Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  task.save(function() { 
+    mongoose.connection.close();
+  });
 }
 
 // PART 3: Show tasks
@@ -152,11 +159,38 @@ function addTask(){
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
 function showTasks() {
+  // console.info('test')
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if (program.task) {
+    // var name = program.parseArgs();
+    var name = program.task;
+    ToDoItemItem.find({name: name},function(error, itemsArr) {
+      if (error) {
+        console.log("Did not find item", error);
+      } else {
+        itemsArr.forEach(function(item) {
+          console.log(`Task: ${item.name}, Priority: ${item.priority}, Completed: ${item.completed}`);
+        })
+      }
+      mongoose.connection.close();
+    })
+  } else {
+    ToDoItemItem.find(function(error, itemsArr) {
+      if (error) {
+        console.log("Did not find any items", error);
+      } else {
+        itemsArr.forEach(function(item) {
+          console.log(`Task: ${item.name}, Priority: ${item.priority}, Completed: ${item.completed}`);
+
+        })
+      }
+      mongoose.connection.close();
+    })
+  }
 }
 
 // PART 4: Delete tasks
@@ -164,8 +198,11 @@ function showTasks() {
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
-  // TODO: If program.task exists you should use mongoose's .remove function
+  // If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  ToDoItemItem.remove({name: program.task}, function() {
+    mongoose.connection.close();
+  });
 }

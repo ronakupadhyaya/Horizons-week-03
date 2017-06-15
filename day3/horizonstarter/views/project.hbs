@@ -1,9 +1,40 @@
-<h1>View Project</h1>
+<h1>{{project.title}}</h1>
 
 <!-- Part 3: View a single project -->
+<div class="view-post">
+  <p>
+    <b>Goal:</b> {{project.goal}} <br>
+    <b>Description:</b> {{project.description}} <br>
+    <b>Start:</b> {{project.start}} <br>
+    <b>End:</b> {{project.end}} <br>
+  </p>
+  <!-- YOUR CODE HERE -->
 
-<!-- YOUR CODE HERE -->
+  <!-- Part 4: Contribute to a project -->
+  <h2>make a contribution</h2>
+  <div class="form-container">
+    <form class="view-post-form" action="/project/{{project._id}}" method="post">
+      <input type="text" name="name" placeholder="name">
+      <input type="text" name="amount" placeholder="amount">
+      <input type="submit" name="submit" value="submit">
+    </form>
+  </div>
 
-<!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+  <h2>contributions made</h2>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%;background-color:rgba(37,203,104,1)">
+      <span style="color: black">{{percentage}}% Complete</span>
+    </div>
+  </div>
+  <div class="contributions">
+    {{#each project.contributions}}
+    <div class="cont">
+      <p><b>Name:</b> {{name}} <br>
+      <b>Amount:</b> ${{amount}}</p>
+    </div>
+    {{/each}}
+  </div>
+  <div class="bottom_btn">
+    <a href="http://localhost:3000/"><button class="btn" type="button" name="button">Return to all posts</button></a>
+  </div>
+</div>

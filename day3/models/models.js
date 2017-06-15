@@ -3,7 +3,7 @@
 if (! process.env.MONGODB_URI) {
   console.error('MONGODB_URI missing, make sure you run "source env.sh"');
   process.exit(1);
-}
+} 
 
 // First let's set up our MongoDb connection
 var mongoose = require('mongoose');

@@ -1,5 +1,26 @@
 <h2>Create project</h2>
 
+{{#if errors}}
+  {{#each errorArr}}
+    {{> "warning" msg=msg}}
+  {{/each}}
+{{/if}}
 <!-- Part 2: Create project -->
+<div class="create-form">
+  <form action="/new" method="post">
+    <input class="title" type="text" name="title" placeholder="title" value="{{title}}"><br>
+    <input class="goal" type="text" name="goal" placeholder="goal" value="{{goal}}"><br>
+    <textarea name="description" placeholder="description..." value="{{description}}"></textarea><br>
+    <input class="start" type="date" name="start" value="{{start}}"><br>
+    <input class="end" type="date" name="end" value="{{end}}"><br>
+    <button class="btn" type="submit button" name="submit_project">add project</button>
+  </form>
+  <form class="create-form" action="/" method="get">
+    <button class="btn" type="submit button" name="go_back">go back</button>
+  </form>
+</div>
+
+
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
