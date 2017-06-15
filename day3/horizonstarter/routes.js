@@ -70,7 +70,6 @@ router.post('/new', function(req, res) {
       category:req.body.category
     });
   newProject.save(function(err) {
-    console.log(err)
     if(err) {
       res.render('new',{
         project:newProject
@@ -90,7 +89,6 @@ router.get('/project/:projectid', function(req, res) {
     if (err) {
       res.send(err);
     } else {
-      console.log(found)
       var percentage = found.contributions.length/found.goal*100;
       var contriNum = 0;
       found.contributions.forEach(function(contri) {
@@ -117,17 +115,12 @@ router.post('/project/:projectid', function(req, res) {
     if (err) {
       res.send(err);
     } else {
-      console.log(req.body.name,req.body.amount)
       if (req.body.name !== "" && !isNaN(req.body.amount)) {
         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
-        console.log(found.contributions)
         var c = found.contributions || [];
         c.push(newObj)
-        //found.contributions.push(newObj);
         found.contributions = c;
-        console.log(found.contributions)
         found.update({contributions:found.contributions},function(err,savedObject) {
-          console.log(savedObject)
           res.redirect('/project/'+id)
         })
       }
@@ -135,6 +128,36 @@ router.post('/project/:projectid', function(req, res) {
   })
 });
 
+var editId;
+router.get('/project/:projectid/edit',function(req,res) {
+  editId = req.params.projectid;
+  Project.findById(editId,function(err,found) {
+    if (err){
+      res.send(err);
+    } else {
+      res.render('editProject',{
+        project:found
+      });
+    }
+  })
+})
+
+router.post('/project/:projectid/edit',function(req,res) {
+  Project.findByIdAndUpdate(editId,{
+      title:req.body.title,
+      goal:req.body.goal,
+      description:req.body.description,
+      start:req.body.startDate,
+      end:req.body.endDate,
+      category:req.body.category
+    }, function(err) {
+      if (err){
+        res.send(err);
+      } else {
+        res.redirect('/')
+      }
+    });
+});
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
