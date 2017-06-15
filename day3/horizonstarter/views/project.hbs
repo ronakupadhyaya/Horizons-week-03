@@ -3,7 +3,22 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div><h3>Title: {{found.title}}</h3>
+  <p>Goal: {{found.goal}}</p>
+  <p>Description: {{found.description}}</p>
+  <p>Start date: {{found.start}}</p>
+  <p>End date: {{found.end}}</p>
+  <p> <em>Total contributions:</em> {{contributions}}
+
+</div>
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<form method="POST" action="/project/{{id}}">
+  <div class="form-group container">
+    Name: <input type="text" class="form-control" name="nameContrib" value="{{nameContrib}}">
+    Amount: <input type="number" class="form-control" name="amountContrib" value="" placeholder="should be a number">
+    <input type="submit" value="Contribute!" class="btn btn-default">
+  </div>
+</form>
