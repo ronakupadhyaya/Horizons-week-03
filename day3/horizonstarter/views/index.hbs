@@ -2,6 +2,9 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each projects}}
+<li><a href="/project/{{id}}">{{title}}</a></li>
+{{/each}}
+<a href="/new">Create new Project</a>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
