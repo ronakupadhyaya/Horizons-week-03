@@ -7,14 +7,28 @@
   <body>
     <h2>Create project</h2>
     <form method='post' action='/new'>
-      <input type='text' name='title' placeholder="title.." value={{newTitle}}>
-      <input type='text' name='goal' placeholder="goal.." value={{newGoal}}>
-      <input type='Textarea' rows='4' cols='50' name='description' placeholder="description.." value={{newDescription}} >
-      <input type='Date' name='start' placeholder="start.." value={{newStart}} >
-      <input type='Date' name='end' placeholder="end.." value={{newEnd}} >
+      <input type='text' name='title' placeholder="title.." value={{title}}>
+      <input type='text' name='goal' placeholder="goal.." value={{goal}}>
+      <input type='Textarea' rows='4' cols='50' name='description' placeholder="description.." value={{description}} >
+      <input type='Date' name='start' placeholder="start.." value={{start}} >
+      <input type='Date' name='end' placeholder="end.." value={{end}} >
       <input type='submit' name='submit'>
 
     </form>
+
+    <select>
+      <div class='drop-down-group'>
+        <option value="Frogs">Famous Muppet Frogs</option>
+        <option value="Presidents" selected="selected">Current Black Presidents</option>
+        <option value="Pen">The Pen Is Mightier</option>
+        <option value="Mom">Famous Mothers</option>
+        <option value="Mom">Drummers Named Ringo</option>
+        <option value="Mom">Months That Start with "Feb"</option>
+        <option value="Mom">How Many Fingers Am I Holding Up</option>
+        <option value="Mom">Poten Potables</option>
+      </div>
+    </select>
+
   </body>
 </html>
 

@@ -28,8 +28,22 @@ var Project = mongoose.model('Project', {
       name: String,
       amount: Number
     }
-  ]
-  // YOUR CODE HERE
+  ],
+  category: {
+    type: String,
+    required: true,
+    enum: [
+      'Famous Muppet Frogs',
+      'Current Black Presidents',
+      'The Pen Is Mightier',
+      'Famous Mothers',
+      'Drummers Named Ringo',
+      '1-Letter Words',
+      'Months That Start with "Feb" ',
+      'How Many Fingers Am I Holding Up',
+      'Poten Potables'
+    ]
+  }
 });
 
 module.exports = {

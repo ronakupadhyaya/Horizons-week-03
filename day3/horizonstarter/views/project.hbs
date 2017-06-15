@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -11,14 +12,25 @@
     <!-- YOUR CODE HERE -->
     {{#each project}}
     <p>------------------------------------------------------------------------------------------------------------</p>
-    <p> Name of Project: {{title}} </p>
-    <p> Estimated Amount: {{goal}} </p>
-    <p> Description of Project: {{description}} </p>
-    <p> Start Date: {{start}} </p>
-    <p> End Date: {{end}} </p>
-    <p> Contributions Amount: {{contributions}} </p>
+
+    <p> Name of Project: {{this.title}} </p>
+    <p> Estimated Amount: {{this.goal}} </p>
+    <p> Description of Project: {{this.description}} </p>
+    <p> Start Date: {{this.start}} </p>
+    <p> End Date: {{this.end}} </p>
+    <p> Contributions Amount: {{#each contributions}}<li>{{amount}}</li>{{/each}} </p>
+    <p> Contributor's Name: {{#each contributions}}<li>{{name}}</li>{{/each}} </p>
+
     {{/each}}
 
+    <!--Progress Bar-->
+    <div class="container">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{this.total}}" aria-valuemin="0" aria-valuemax='{{this.goal}}' style="width:{{percent}}%">
+          <span class="sr-only">70% Complete</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Part 4: Contribute to a project -->
 

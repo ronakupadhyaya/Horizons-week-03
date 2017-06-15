@@ -12,13 +12,13 @@
 <!-- YOUR CODE HERE -->
     {{#each projects}}
     <p>------------------------------------------------------------------------------------------------------------</p>
-    <p> Name of Project: {{title}} </p>
+    <p> Name of Project: {{this.title}} </p>
     <p> Estimated Amount: {{goal}} </p>
     <p> Description of Project: {{description}} </p>
     <p> Start Date: {{start}} </p>
     <p> End Date: {{end}} </p>
-    <p> Secret Contributor: {{contributorName}} </p>
-    <p> Secret Contributor contributed: {{contributedAmount}} </p>
+    <!-- <p> Secret Contributor: {{contributorName}} </p> -->
+    <!-- <p> Secret Contributor contributed: {{contributedAmount}} </p> -->
     {{/each}}
 
 

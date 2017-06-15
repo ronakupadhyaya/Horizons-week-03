@@ -28,6 +28,15 @@ app.get('/', function(req, res){
 
 // Implement POST /up route
 // YOUR CODE HERE
+app.post('/up', function(req, res){
+  count+=1;
+  res.redirect('/')
+});
+
+app.post('/down', function(req, res){
+  count-=1;
+  res.redirect('/')
+});
 
 // Implement POST /down route
 // YOUR CODE HERE

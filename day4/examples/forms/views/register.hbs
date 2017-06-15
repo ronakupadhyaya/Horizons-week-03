@@ -12,11 +12,84 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <!-- <div><strong>Errors:</strong>{{errors}}</div> -->
+    <ul>
+      {{#each errors}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul>
+
+
+
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <div class='control-group'>
+          <!--FirstName-->
+          <label class='control-label' for='firstName'>First Name </labe>
+          <input type="text" placeholder="First Name" name="firstName" required>
+        </div>
+
+        <div class='control-group'>
+          <!--Middle Initial-->
+          <label class='control-label' for='middleInitial'>Middle Initial </labe>
+            <input type="text" placeholder="Middle Initial" name="middleInitial">
+        </div>
+
+        <div class='control-group'>
+          <!--Last Name-->
+          <label class='control-label' for='lastName'>Last Name </labe>
+            <input type="text" placeholder="Last Name" name="lastName" required>
+        </div>
+
+        <div class='control-group'>
+          <!--birth date-->
+          <label class='control-label' for='birthDate'>Birth Date </labe>
+            <input type="date" placeholder="Date of Birth" name="birthDate" required>
+        </div>
+
+        <div class='control-group'>
+          <!--password -->
+          <label class='control-label' for='password'>Password </labe>
+            <input type="text" placeholder="Password" name="password">
+        </div>
+
+        <div class='control-group'>
+          <!--password repeat-->
+          <label class='control-label' for='passwordRepeat'>Repeat Password </labe>
+            <input type="text" placeholder="Repeat Password" name="passwordRepeat" required>
+        </div>
+
+        <div class='control-group'>
+          <!--gender male -->
+          <label class='control-label' for='gender'>Gender </labe>
+        </div>
+
+        <div class='control-group'>
+          <!--prefer not to say  -->
+          <input type="radio" name="gender" value="male" id='Male' required>
+          <label>Male</label>
+          <input type="radio" name="gender" value="female"id='Female' required>
+          <label>Female</label>
+          <input type="radio" name="gender" value="na" id='Male' required>
+          <label>Prefer not to say</label>
+        </div>
+
+        <div class='control-group'>
+          <!--newsletter-->
+          <label class='control-label' for='newsLetter'> Newsletter </labe>
+            <input type="checkbox" placeholder="Sign-up for newsletter" name=" " required>
+        </div>
+
+        <div class='control-group'>
+          <!--Bio-->
+          <label class='control-label' for='bioInfo'> Bio </labe>
+            <input type="textarea" placeholder="Bio" name="bioInfo">
+        </div>
+
+        <div class='control-group'>
+          <!--button-->
+          <input type="submit" name='submit'>
+        </div>
       </form>
     </div>
   </div>

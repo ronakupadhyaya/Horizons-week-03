@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h2>Create project</h2>
+    <form method='post' action='/project/{{project.id}}/edit'>
+      <input type='text' name='title' placeholder="title.." value={{project.title}}>
+      <input type='text' name='goal' placeholder="goal.." value={{project.goal}}>
+      <input type='Textarea' rows='4' cols='50' name='description' placeholder="description.." value={{project.description}} >
+      <input type='Date' name='start' placeholder="start.." value={{start}} >
+      <input type='Date' name='end' placeholder="end.." value={{end}} >
+      <input type='submit' name='submit'>
+
+    </form>
+
+    <select class='category-picker' name='category' value={{category}}>
+      <div class='drop-down-group'>
+        <option value="Frogs" selected="selected">Famous Muppet Frogs</option>
+        <option value="Presidents" selected="selected">Current Black Presidents</option>
+        <option value="Pen" selected="selected">The Pen Is Mightier</option>
+        <option value="Mom" selected="selected">Famous Mothers</option>
+        <option value="Mom" selected="selected">Drummers Named Ringo</option>
+        <option value="Mom" selected="selected">Months That Start with "Feb"</option>
+        <option value="Mom" selected="selected">How Many Fingers Am I Holding Up</option>
+        <option value="Mom" selected="selected">Poten Potables</option>
+      </div>
+    </select>
+
+  </body>
+</html>

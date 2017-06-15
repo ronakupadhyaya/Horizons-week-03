@@ -45,13 +45,32 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.checkBody('firstName', 'first name must not be empty').notEmpty();
+  req.checkBody('middleInitial', 'Middle Initial can only have one letter').isLength({min:1, max:1});
+  req.checkBody('lastName', 'last name must not be empty').notEmpty();
+  req.checkBody('birthDate', 'Must be a date in the past').isDate().isBefore();
+  req.checkBody('password', 'passtword cannot be empty').notEmpty();
+  req.checkBody('passwordRepeat', 'password cannot be empty and must match').notEmpty().equals(req.body.password);
+
+  var errors= req.validationErrors();
+  console.log('You have the following errors: ', errors);
+
+
+  // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile',{
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      birthDate: req.body.birthDate,
+      password: req.body.password,
+      gender: req.body.gender,
+      bioInfo: req.body.bioInfo
+    });
   }
 });
 

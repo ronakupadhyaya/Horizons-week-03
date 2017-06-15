@@ -113,39 +113,93 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
-var postId = req.params.projectid;
-  Project.findById(postId, function(err, project){
-    if (err) {
-      console.log('FFF');
-    } else {
-      req.checkBody('contributorName', 'Please enter a name for contributor').notEmpty();
-      req.checkBody('contributedAmount', 'Please enter an amount $$$').notEmpty().isInt();
-      var errors = req.validationErrors();
-      if (errors) {
-        console.log('123');
-      } else {
-        var proj = {
-          contributorName: req.body.contributorName,
-          contributedAmount: req.body.contributedAmount
-        };
-        project.contributions.push(proj);
-        project.save(function(err){
-          if (err) {
-            console.log('err');
-          } else {
-            res.redirect('/project/' + req.params.projectid);
-          }
-        })
-      }
-    }
-  })
+  req.checkBody('contributorName', 'Please enter a name for contributor').notEmpty();
+  req.checkBody('contributedAmount', 'Please enter an amount $$$').notEmpty().isInt();
+  var errs = req.validationErrors();
+  var postId = req.params.projectid;
+  if (errs) {
+    res.send(err);
+  } else {
+    Project.findById(postId, function(err, project){
+          var proj = {
+            name: req.body.contributorName,
+            amount: req.body.contributedAmount
+          };
+          project.contributions.push(proj);
+          // var currentAmount = proj['amount']; // 250
+          // var goal = req.body.goal; // 2500
+          // var percentageBar = goal - currentAmount; // 2250
+          // percentageBar = percentageBar /
 
 
+          project.save(function(err){
+            if (err) {
+              res.send(err);
+            } else {
+              var sum = 0;
+              project.contributions.forEach(function(i){
+                if(i.amount) {
+                  sum += parseInt(i.amount);
+                }
+                // console.log(sum);
+              })
+              var percent = ( sum / (parseInt(project.goal)) ) * 100
+              console.log(project.goal);
+              // res.render('project', {sum: sum, percentageBar: percentageBar})
+              res.render('project',{
+                total: sum,
+                project: project,
+                percent: percent
+              });
+              // res.redirect('/project/' + postId);
+            }
+          })
+    })
+  }
 
 });
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+  var postId = req.params.projectid;
+  Project.findById(postId, function(err, project){
+  //
+    if (err){
+      res.send(err);
+    } else {
+      console.log(project);
+      res.render('editProject', {
+        project: project,
+
+      })
+      // title: req.body.title,
+      // goal: req.body.goal,
+      // description: req.body.description,
+      // start: req.body.start,
+      // end: req.body.end,
+      // category: req.body.category
+    }
+})
+})
+
+router.post('/project/:projectid/edit', function(req,res){
+  var postId = req.params.projectid;
+  Project.findByIdAndUpdate(postId,{
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+  }, function(err) {
+    if (err){
+      res.send(err);
+    } else {
+      res.redirect('/project/' + postId);
+    }
+  });
+});
 // Create the POST /project/:projectid/edit endpoint
 
 module.exports = router;
