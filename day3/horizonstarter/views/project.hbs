@@ -3,7 +3,30 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div class="project">
+	{{project.title}}
+	{{project.goal}}
+	{{project.description}}
+	{{project.contributions}}
+	{{project.start}}
+	{{project.end}}
+
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+
+<form method='post'>
+  <div class="form-group">
+    <label for="title_field">Name*</label>
+    <input type="string" name ="contributionsName" class="form-control" id="name_field" placeholder="Name">
+
+  </div>
+  <div class="form-group">
+    <label for="goal_field">Contribution*</label>
+    <input type="number" name="contributionsAmount" class="form-control" id="amount_field" placeholder="Amount">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+ </form>
+</div

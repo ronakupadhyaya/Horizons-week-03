@@ -2,6 +2,15 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<h1>{{title}}</h1>
+{{#each projects}}
+  <div class="project">
+    <h2>Title: {{title}}</h2>
+    <h3>Description: {{description}}</h3>
+  </div>
+{{/each}}
+
+
 
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<a href = "/new"> Create a new project </a>

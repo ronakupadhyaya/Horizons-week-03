@@ -44,7 +44,7 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
-var todoItems = mongoose.model('ToDoItem', {
+var todoItems = mongoose.model('ToDo', {
   name: String,
   priority: String,
   completed: Boolean
@@ -127,14 +127,18 @@ function parseArgs () {
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask(){
-  var priority = program.priority || 1;
-  var name = parseArgs();
+  var priority = program.priority || '1';
+  var name = parseArgs() || '';
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
-  var task = new toDoItems({name: name, priority: priority, completed: false})
+  var myTask = new todoItems({
+    name: name, 
+    priority: priority, 
+    completed: false})
+
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -142,15 +146,15 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
-  task.save(function(err) {
+  myTask.save(function(err) {
     if (err) {
         console.log("Could not save", err)
     } else {
         console.log("Success")
     }
-    mongoose.connection.close();
+    
   })
-
+  mongoose.connection.close();
   
 }
 
@@ -175,29 +179,39 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
-  var task_name = parseArgs();
-  var myTask;
+  var task_name = program.task;
+  var myTask = {name: task_name}
+  //console.log(task_name)
 
+
+  //if there's a flag, only display task with specified name
   if (program.task){
-    data.forEach(function(obj){
-      if(obj['name']===task_name){
-        myTask = obj;
+    todoItems.find(myTask, function(error, task) {
+
+      if(task.length!==0){
+        if (error) {
+          console.log("Can't find task: ", error);
+        } else {
+          console.log('Task: ' + task[0].name + ', Priority: ' + task[0].priority + ', Completed: ' + task[0].completed);
+        }
       }
     })
-    toDoItems.find(myTask, function(error, task) {
-          if (error) {
-            console.log("Can't find task: ", error);
-          } else {
-            console.log('Task: ' + task.name + ', Priority: ' + task.priority + ' Completed: ' + task.completed);
-          }
+  }else{
+
+    todoItems.find(function(error, task) {
+      if (error) {
+        console.log("Can't find task: ", error);
+      } else {
+        //console.log(task)
+        task.forEach(function(taskObj){
+          console.log('Task: ' + taskObj.name + ', Priority: ' + taskObj.priority + ', Completed: ' + taskObj.completed);
         })
-
-  } else{
-    toDoItems.find()
-
-
-  };
-
+        
+      }
+    })
+  }
+  
+  mongoose.connection.close()
 
 }
 
@@ -210,4 +224,15 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  var task_name = program.task || ''
+
+  if (task_name!=''){
+    todoItems.remove({name: task_name}, function(error) {
+      if (error) {
+        console.log("Can't find task: ", error);
+      }
+  })
+
+  mongoose.connection.close();
+  }
 }
