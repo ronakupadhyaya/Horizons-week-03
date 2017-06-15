@@ -1,4 +1,4 @@
-<h2 style="text-align:center;">Create New Project</h2>
+<h2 style="text-align:center;">Edit Project</h2>
 
 <!-- Part 2: Create project -->
 <p>{{error}}</p>
@@ -6,37 +6,37 @@
   <div class="form-group">
     <label for="title" class="col-sm-5 control-label">Title: </label>
     <div class="col-sm-6">
-      <input type="text" name="title" value="{{project.title}}">
+      <input type="text" name="title" value="{{title}}">
     </div>
   </div>
   <div class="form-group">
     <label for="goal" class="col-sm-5 control-label">Goal: </label>
     <div class="col-sm-6">
-      <input type="number" name="goal" value="{{project.goal}}">
+      <input type="number" name="goal" value="{{goal}}">
     </div>
   </div>
   <div class="form-group">
     <label for="description" class="col-sm-5 control-label">Description: </label>
     <div class="col-sm-6">
-      <textarea name="comment" form="new_proj" value="{{project.description}}"></textarea>
+      <textarea name="comment" form="new_proj" value="{{description}}"></textarea>
     </div>
   </div>
   <div class="form-group">
     <label for="start" class="col-sm-5 control-label">Start: </label>
     <div class="col-sm-6">
-      <input type="date" name="start" value="{{project.start}}">
+      <input type="date" name="start" value="{{start}}">
     </div>
   </div>
   <div class="form-group">
     <label for="end" class="col-sm-5 control-label">End: </label>
     <div class="col-sm-6">
-      <input type="date" name="end" value="{{project.end}}">
+      <input type="date" name="end" value="{{end}}">
     </div>
   </div>
   <div class="form-group">
     <label for="category" class="col-sm-5 control-label">Category: </label>
     <div class="col-sm-6">
-      <input list="category" name="category" value={{project.category}}>
+      <input list="category" name="category" value="{{category}}">
         <datalist id="category">
           <option value='Famous Muppet Frogs'>
           <option value='Current Black Presidents'>

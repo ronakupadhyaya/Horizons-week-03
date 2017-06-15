@@ -1,9 +1,79 @@
-<h1>View Project</h1>
+
 
 <!-- Part 3: View a single project -->
+<h1 style="text-align:center;">{{title}}</h1>
+<div class="project-container">
 
-<!-- YOUR CODE HERE -->
+  <!-- <div style="font-size:large; font-weight:bold;">
+    {{title}}
+  </div> -->
+  <div style="font-size:x-large;">
+    Fundraising Goal: ${{goal}}
+  </div>
+  <div style="font-size:xx-small; font-style:italic;">
+    Start Date:{{start}}
+  </div>
+  <div style="font-size:xx-small; font-style:italic;">
+    End Date: {{end}}
+  </div>
 
-<!-- Part 4: Contribute to a project -->
+  <div>
+
+
+  </div>
+  <div>
+    {{description}}
+  </div>
+  <div>
+    {{category}}
+  </div>
+</div>
+
+<div style= "text-align:center;">
+  <p style="font-weight:bold;">Current Total:</p> <p>${{total}}</p>
+  <!-- <p style="font-weight:bold;">Goal:</p> <p>${{goal}}</p> -->
+</div>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{total}}"
+  aria-valuemin="0" aria-valuemax="{{goal}}" style="width:{{bar}}%">
+  </div>
+</div>
+<p style="font-size:large; text-align:center;">Contributors:</p>
+<div class="cont-container">
+
+    {{#each contributions}}
+      <div class="cont-obj">
+        <div style="font-size:medium;">
+          {{name}}
+        </div>
+        <div>
+          ${{amount}}
+        </div>
+      </div>
+    {{/each}}
+
+</div>
+
+
+<div class="form-container">
+  <h2>Contribute To This Project!</h2>
+  <form method="post" class="form-horizontal" id="form">
+    <div class="form-group">
+      <label for="name" class="control-label">Name: </label>
+      <div>
+        <input type="text" name="name" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="amount" class="control-label">Amount: </label>
+      <div>
+        <input type="text" name="amount" value="">
+      </div>
+    </div>
+    <div >
+      <input type="submit" name="Submit" value="Submit">
+    </div>
+  </form>
+</div>
 
 <!-- YOUR CODE HERE -->

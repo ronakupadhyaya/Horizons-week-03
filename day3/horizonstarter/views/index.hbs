@@ -1,8 +1,19 @@
-<h1>View projects</h1>
+<h1 style="text-align:center;">View projects</h1>
+<div class="project-container">
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+    {{#each items}}
+
+      <div class="project">
+        <a style="color:white" href="/project/{{_id}}">{{title}}<a>
+      </div>
+
+    {{/each}}
+
+
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<a style="text-align: center;" href="/new">Create a new project</a>
+</div>
