@@ -11,13 +11,63 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h1>Registration Form</h1>
+    <div><strong>Errors:</strong></div>
+    <ul>
+      {{#each errors}}
+      <li>{{this.msg}}</li>
+      {{/each}}
+    </ul>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+
+        <div class="names">
+          <div class="">
+            First Name: (required) <input type="text" value="{{firstName}}" placeholder="First Name" name="firstName" required>
+          </div>
+          <div class="">
+            Middle Initial: <input type="text" value="{{middleInitial}}" placeholder="Middle Initial" name="middleInitial">
+          </div>
+          <div class="">
+            Last Name: (required) <input value="{{lastName}}" type="text" placeholder="Last Name" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="dates">
+          DOB:
+          <input type="date" name="birthDate">
+        </div>
+
+        <div class="passwords">
+          <div class="">
+          Password: (required)
+          <input type="text" value="{{password1}}" placeholder="password" name="password1" required>
+          </div>
+          <div>
+            Repeat Password: (required)
+            <input type="text" value="{{password2}}"  placeholder="repeat password" name="password2" required>
+          </div>
+        </div>
+
+        <div class="genders">
+          <input type="radio" name="gender" value="Male">Male<br>
+          <input type="radio" name="gender" value="Female">Female<br>
+          <input type="radio" name="gender"  value="Rather not say">Rather not say
+        </div>
+
+        <div class="">
+          Sign-up for Newsletter (required)
+          <input type="checkbox" name="signup">
+        </div>
+        <div>
+          Bio <br>
+          <textarea name="bio" rows="8" cols="80"></textarea>
+        </div>
+        <div>
+          <input type="submit">
+        </div>
       </form>
+
     </div>
   </div>
 </body>

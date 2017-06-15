@@ -10,14 +10,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// Enable form validation with express validator.
-var expressValidator = require('express-validator');
-app.use(expressValidator());
-
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Enable form validation with express validator.
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -45,13 +45,39 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName','First name shouldn\'t be empty').notEmpty().withMessage('please key in firstname');
+  req.check('middleInitial','Middle initial cannot be more than 1 letter').optional({ checkFalsy: true }).len(1).isAlpha();
+  req.check('lastName','Last name shouldn\'t be empty').notEmpty();
+  req.check('birthDate','BOD must be in the past').optional({ checkFalsy: true }).isBefore();
+  req.check('password1','password cannot be empty').notEmpty();
+  req.check('password2','password must match').matches(req.body.password1)
+  req.check('gender','select gender').notEmpty();
+  req.check('signup','sign up for Newsletter!').notEmpty();
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {errors: errors,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      middleInitial: req.body.middleInitial,
+      password1: req.body.password1,
+      password2: req.body.password2
+      });
+      console.log(errors)
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    // console.log(req.body.birthDate);
+    res.render('profile',{
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      middleInitial: req.body.middleInitial,
+      birthDate: req.body.birthDate,
+      gender: req.body.gender,
+      bio: req.body.bio,
+      password1:req.body.password1
+    });
+    // console.log("SUCCESS!");
   }
 });
 

@@ -16,6 +16,36 @@
     <script src="/jquery.js"></script>
     <script>
       // YOUR CODE HERE
+      $('#up').on('click',function(event){
+        event.preventDefault();
+        var count = parseInt($('#count').text())+1;
+        console.log(count, 'up')
+        $.ajax({
+          url: '/up',
+          method:'post',
+          data: {
+            count: count
+          },
+          success:function(res){
+            $('#count').text(count);
+          }
+        })
+      })
+      $('#down').on('click',function(event){
+        event.preventDefault();
+        var count = parseInt($('#count').text())-1;
+        console.log(count,'down')
+        $.ajax({
+          url: '/down',
+          method:'post',
+          data: {
+            count: count
+          },
+          success:function(res){
+            $('#count').text(count);
+          }
+        })
+      })
     </script>
   </body>
 </html>
