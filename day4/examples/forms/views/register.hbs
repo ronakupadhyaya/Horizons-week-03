@@ -11,11 +11,32 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
     <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        First Name  <input type="text" placeholder="First Name" name="firstName" required>
+        <br><br>
+        Middle Name <input type="text" placeholder="Middle Name" name="middleName" ><br><br>
+        Last Name   <input type="text" placeholder="Last Name" name="lastName" required><br><br>
+        DOB   <input type="Date" name="dob"> <br><br>
+        Password <input type="password" placeholder="Password" name="passWord" required><br><br>
+        Repeat Password <input type="password" placeholder="Password" name="passWord" required><br><br>
+        Gender<label class="checkbox-inline" required>
+          <input type="checkbox" id="inlineCheckbox1" value="option1"> Male
+        </label><br>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="inlineCheckbox2" value="option2"> Female
+        </label><br>
+        <label class="checkbox-inline">
+          <input type="checkbox" id="inlineCheckbox3" value="option3"> Prefer not to say
+        </label><br><br>
+        Sign Up for newsletter <label class="checkbox-inline" required>
+          <input type="checkbox" id="signup" value="signup">
+        </label> <br><br>
+        Biography
+        <input type="text" placeholder="Biography" name="biography">
+
+
         <input type="submit">
       </form>
     </div>
