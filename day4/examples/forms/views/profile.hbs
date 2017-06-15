@@ -10,9 +10,12 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <h1>Put your user profile here</h1>
+  <div class="well container">
+    <div class="row text-center">
+      <h1>{{firstName}} {{#if middleInitial}}{{middleInitial}}. {{/if}}{{lastName}}</h1>
+    </div>
+    <div class="bio">
+      <p>{{#if bio}}{{bio}}{{else}}No bio provided.{{/if}}</p>
     </div>
   </div>
 </body>

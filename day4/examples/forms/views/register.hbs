@@ -7,16 +7,86 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    h1 { margin: 5px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+  <div class="well container">
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <div class="col-xs-10 col-xs-offset-1 text-center">
+        <h1>Register</h1>
+      </div>
+    </div>
+
+    {{#if errors}}
+    <div class="row">
+      <strong class="col-xs-2 col-xs-offset-1">Errors</strong>
+      <div class="col-xs-8">
+        {{#each errors}}
+          <div class="error-msg warning">
+            {{msg}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+<hr>
+    <div class="row">
+      <form class="col-xs-10 col-xs-offset-1" action="/register" method="post">
+
+        <div class="row form-group">
+          <label class="col-xs-2" for="firstName">Name</label>
+          <div class="col-xs-4">
+            <input class="form-control" type="text" placeholder="First Name" name="firstName" required>
+          </div>
+          <div class="col-xs-2">
+            <input class="form-control" type="text" placeholder="M." name="middleInitial">
+          </div>
+          <div class="col-xs-4">
+            <input class="form-control" type="text" placeholder="Last Name" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-xs-2" for="dob">Date of Birth</label>
+          <div class="col-xs-10">
+            <input class="form-control" type="date" placeholder="Date of Birth" name="dob">
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-xs-2" for="password">Password</label>
+          <div class="col-xs-10">
+            <input class="form-control" type="password" placeholder="Password" name="password" required>
+            <input class="form-control" type="password" placeholder="Repeat Password" name="password2" required>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <label class="col-xs-2" for="gender">Gender</label>
+          <div class="col-xs-10">
+            <div class="radio">
+              <label><input type="radio" name="gender" required>Male</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="gender" required>Female</label>
+            </div>
+            <div class="radio">
+              <label><input type="radio" name="gender" required>Rather not say</label>
+            </div>
+          </div>
+
+        </div>
+
+        <label><input type="checkbox" name="subscribe" checked> Subscribe to newsletter</label>
+
+        <div class="row form-group">
+          <label for="bio">Bio</label>
+          <textarea class="form-control" placeholder="Enter a short description of yourself" name="bio" rows="8" cols="80"></textarea>
+        </div>
+
+        <input class="btn btn-primary pull-right" type="submit">
       </form>
     </div>
   </div>
