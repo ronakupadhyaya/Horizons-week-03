@@ -4,6 +4,15 @@
 
 <!-- YOUR CODE HERE -->
 
+<div>{{Project.title}}</div>
+<div>{{Project.goal}}</div>
+<div>{{Project.start}}</div>
+<div>{{Project.end}}</div>
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<form method="POST">
+  name: <input type="text" name="name" value="{{name}}" placeholder="name"/>
+  amount: <input type="number" name="amount" value="{{amount}}" placeholder="amount"/>
+  <input type="submit" value="Contribute to project"/>
+</form>
