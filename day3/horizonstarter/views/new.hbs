@@ -1,5 +1,56 @@
 <h2>Create project</h2>
 
+<!-- <div class="form-group {{titleEmpty}}">
+        <label class="control-label" for="title"> Title </label>
+        <input value="{{title}}"type="text" class="form-control" name="title" placeholder="Title" id="title">
+        {{#if titleEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <div class="form-group {{bodyEmpty}}">
+        <label class="control-label" for="body"> Body </label>
+        <textarea form="myForm" type="text" class="form-control" name="body" placeholder="Write here..." id="body">{{body}}</textarea>
+        {{#if bodyEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <div class="form-group {{dateEmpty}}">
+        <label class="control-label" for="date"> Date </label>
+        <input value="{{date}}"type="date" class="form-control" name="date" id="date">
+        {{#if dateEmpty}}
+        <span class="control-label"> This field is required </span>
+        {{/if}}
+    </div>
+
+    <button type="submit" class="btn btn-default"> Submit </button> -->
+
+
 <!-- Part 2: Create project -->
+<form class="col-xs-offset-5" id="myForm" method="post" action="/new">
+   <div class="form-group">
+     <label class="control-label" for="title"> Title </label>
+     <input type="text" name="title" placeholder="Title" value="{{title}}">
+   </div>
+   <div class="form-group">
+    <label class="control-label" for="goal"> Goal </label>
+    <input type="text" name="goal" placeholder="Goal" value="{{goal}}">
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="description"> Description </label>
+    <textarea rows="4" cols="50" name="description" placeholder="Tell us about your project!" form="myForm">{{description}}</textarea>
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="start"> Start </label>
+    <input type="date" name="start" value="{{start}}">
+  </div>
+  <div class="form-group">
+    <label class="control-label" for="end"> End </label>
+    <input type="date" name="end" value="{{end}}">
+  </div>
+   <input type="submit" class="btn btn-default">
+ </form>
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
