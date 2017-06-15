@@ -12,12 +12,77 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+
+    {{#if errors}}
+    <div class="row bg-danger text-warning">
+      <div class="bg-danger text-warning">
+        {{#each errors}}
+          <p> {{this.msg}}</p>
+        {{/each}}
+      </div>
+    </div class="row">
+    {{/if}}
+
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form method="post" action="/register" id="myForm">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" class="form-control" name="first-name" placeholder="First Name">
+        </div>
+        <div class="form-group">
+          <label for="middle-initial">Middle Initial</label>
+          <input type="text" class="form-control" name="middle-initial" placeholder="Middle Initial">
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" class="form-control" name="last-name" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" name="dob" placeholder="Date of Birth">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="repeat-password">Password</label>
+          <input type="password" class="form-control" name="repeat-password" placeholder="Repeat Password">
+        </div>
+        <div class="form-group">
+          <label for="gender"> Gender </label>
+          <div class="radio">
+            <label>
+              <input type="radio" name="gender" value="male">
+              Male
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" value="female">
+                Female
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="gender" value="none">
+                  Prefer not to say
+                </div>
+          </div>
+          <div class="form-group">
+            <label for="newsletter"> Want to... </label>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="newsletter" value="yes"> Sign Up for newsletter ?
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bio"> Biography </label>
+            <textarea rows="4" cols="50" name="bio" placeholder="Tell us about your bio" form="myForm"></textarea>
+          </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
       </form>
+
     </div>
   </div>
 </body>
