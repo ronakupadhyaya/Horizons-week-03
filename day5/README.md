@@ -114,7 +114,9 @@ Create the following routes for user functionality:
 - `POST /api/users/login`
 - `POST /api/users/logout` (🔒)
 
-**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation.
+**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
+
+> TIP: We are storing our password as plaintext. Do refer to part 2 bonus if you want to implement a secure user authentication system. #bestpractices
 
 ### Create Routes for Posts
 Create the following routes to allow posting/commenting/liking:
@@ -126,12 +128,26 @@ Create the following routes to allow posting/commenting/liking:
 - `POST /api/posts/comments/:post_id ` (🔒)
 - `GET /api/posts/likes/:post_id ` (🔒)
 
-**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation.
+**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
 
 ### Bonus
 1. Add edit and delete functionality for user posts. Only the post owner can edit or delete his or her own posts.
    - `PUT /api/posts/:post_id` (🔒)
    - `DELETE /api/posts/:post_id` (🔒)
+1. Previously we are storing the password as plain text. This is not a good practice. Let's use the node module `bcrypt` ([https://github.com/kelektiv/node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js)) to hash the user's password before saving a new user to the database in `/api/users/register`. You will also need to change how the login method (`/api/users/login`) verifies the credentials. The document for a user should now look like this:
+
+	```javascript
+	{
+		"_id" : ObjectId("588be6f0c09e860011b5a60f"),
+		"fname" : "Darwish",
+		"lname" : "Gani",
+		"email" : "prepwork-enquiries@joinhorizons.com",
+		"password" : "$2a$08$pyOMWJDSa.MMxXO8ZwFEFueh2LnuU8tgqTbcuqm.zTEVgl8OGDh",
+		"__v" : 0
+	}
+	```
+
+	> TIP: After implementing this, it would be recommended to delete old documents which do not have the hashed password.
 1. Reimplement the entire login system and tokenization using [passport](https://github.com/jaredhanson/passport) and [passport-jwt](https://github.com/themikenicholson/passport-jwt). Reading up about how JSON Web Tokens (JWT) work will help a lot!
 1. Push your code onto [Heroku](https://www.heroku.com/). You will get a link like the following: `https://my-project.herokuapp.com`. Share the URL with your friends! [Hint: [https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction). Use it wisely.]
 1. [Double Bonus] Design & implement backend functionality for Facebook reactions.
