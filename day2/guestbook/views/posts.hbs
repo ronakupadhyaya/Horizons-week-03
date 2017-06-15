@@ -11,28 +11,34 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+<div class="forum-title-container">
+  <a href="/posts/new">Create New Post</a>
+  <h2 class = "header">Username: {{username}}</h2>
+</div>
 
-<!-- Part 2: Display posts -->
+<div class="sername-container">
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+</div>
 
-<!-- YOUR CODE HERE -->
+<h1 class = "header">ALL POSTS</h1>
 
 {{#each posts}}
-  <div class = "post">
-    {{this.author}} {{this.title}} {{this.body}} {{this.date}}
+  <div class="post-container">
+    <u>{{this.title}} - </u>
+    <b>{{this.author}}:</b>
     <a href="/posts?author={{author}}">by this author</a>
-    <a href="/edit?author={{author}}&id={{id}}">by this author</a>
-
+    <br>
+    {{this.body}}
+    <br>
+    {{this.date}}
+    <br>
+    <br>
   </div>
-
 {{/each}}
+
+
+
 
 </body>
 </html>

@@ -9,11 +9,16 @@
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+
+ <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 </head>
 <body>
-  <h1>Create new post</h1>
 
-  <p>{{error}}</p>
+
+
 
 
   <!-- Part 3: Create post  -->
@@ -22,12 +27,18 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
-  <form action="/posts" method="POST">
-    <input type="text" name="title" value="lplplpl">
-    <input type="text" name="body" value="">
-    <input type="date" name="date" value="">
-    <input type="submit" name="" value="Submit">
-  </form>
+  <div class="form-container col-xs-offset-4 col-xs-4">
+    <h1 class = 'header'>CREATE POST</h1>
+    <form action="/posts" method="POST" class = "" id= "new-post-form">
+      <input type="text" class = "input" name="title" value="" placeholder="Title">
+      <input type="text" class = "input" name="body" value="" placeholder="Post body">
+      <input type="date" class = "input" name="date" value="">
+      <input type="submit" class="input" name="" value="Submit">
+    </form>
+
+    <p>{{error}}</p>
+  </div>
+
 
 </body>
 </html>
