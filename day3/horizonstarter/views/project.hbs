@@ -1,9 +1,59 @@
-<h1>View Project</h1>
+
+<div class="header">
+  <h1 id="view-projects-header"><strong>{{project.title}}</strong></h1>
+</div>
 
 <!-- Part 3: View a single project -->
+<div class="inner-proj">
+      <div class="project dropdown">
+        <button data-toggle="dropdown" type="button" class="title-button dropdown-toggle"><h3>View Project</h3><span class="caret"></span></button>
+
+        <ul id="{{project.title}}" class="dropdown-menu dropmenu">
+          <li><p><strong>Description</strong>: {{project.description}}</p></li>
+          <li><p><strong>Id</strong>: {{project.id}}</p></li>
+          <li><p><strong>Goal</strong>: {{project.goal}}</p></li>
+          <li><p><strong>Category</strong>: {{project.category}}</p></li>
+          <li><p><strong>Contributions</strong>:
+          {{#each project.contributions}}
+            <p>Name: {{this.name}} Amount:{{this.amount}}</p>
+          {{/each}}</p></li>
+          {{#if project.url}}<li><img src="{{this.url}}"></li>{{/if}}
+        </ul>
+      </div>
+</div>
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
+<form method="POST" action="/project/{{project._id}}" class="row">
+  <div class="form-group col-xs-12">
+    <label for="title">Name</label>
+    <div>
+      <input class="form-control" type="text" name="name" value="{{name}}">
+    </div>
+  </div>
+  <div class="form-group col-xs-12">
+    <label for="goal" class="col-2 col-form-label">Amount</label>
+    <div class="col-10">
+      <input class="form-control" type="number" name="amount" value="{{amount}}">
+    </div>
+  </div>
+  <div class="form-group col-xs-2">
+    <div class="col-10">
+      <input class="form-control" name="Submit" type="submit" id="submit">
+    </div>
+  </div>
+</form>
 
 <!-- YOUR CODE HERE -->
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{totContr}}"
+  aria-valuemin="0" aria-valuemax="{{project.goal}}" style="width:{{percent}}%">
+  </div>
+  <span> {{totContr}} / {{project.goal}} Complete!</span>
+</div>
+<ul>
+{{#each project.contributions}}
+  <li> Name: {{this.name}} Contribution: {{this.amount}} </li>
+{{/each}}
+</ul>

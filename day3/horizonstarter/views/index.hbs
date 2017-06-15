@@ -1,7 +1,38 @@
-<h1>View projects</h1>
+<div class="outer">
+  <div class="header">
+    <h1 id="view-projects-header"><strong>View projects</strong></h1>
+  </div>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<div class="inner">
+      {{#each items}}
+      <div class="project dropdown">
+        <button data-toggle="dropdown" type="button" class="title-button dropdown-toggle"><h3>{{this.title}}</h3><span class="caret"></span></button>
+
+        <ul id="{{this.title}}" class="dropdown-menu dropmenu">
+          <li><p><strong>Description</strong>: {{this.description}}</p></li>
+          <li><p><strong>Id</strong>: {{this.id}}</p></li>
+          <li><p><strong>Goal</strong>: {{this.goal}}</p></li>
+          <li><p><strong>Category</strong>: {{this.category}}</p></li>
+          <li><p><strong>Contributions</strong>:
+          {{#each this.contributions}}
+            <p>Name: {{this.name}} Amount:{{this.amount}}</p>
+          {{/each}}</p></li>
+          {{#if this.url}}<li><img src="{{this.url}}"></li>{{/if}}
+        </ul>
+      </div>
+      {{/each}}
+</div>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<div class="links">
+    <a class="btn btn-default" href="/new">Create a new project</a>
+    <a class="btn btn-default" href="/start">Sort by start date</a>
+    <a class="btn btn-default" href="/end">Sort by end date</a>
+    <a class="btn btn-default" href="/goal">Sort by project goal</a>
+    <a class="btn btn-default" href="/filterByFunding">filter By Funding</a>
+    <a class="btn btn-default" href="/filterByNotFunded">filter By Not Funded</a>
+</div>
+</div>

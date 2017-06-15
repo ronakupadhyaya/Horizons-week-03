@@ -12,7 +12,10 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h3><strong>Errors:</strong></h3>
+    {{#each errors}}
+    <div> {{this}} </div>
+    {{/each}}
     <br>
     <div class="row">
       <form action="/register" method="post">

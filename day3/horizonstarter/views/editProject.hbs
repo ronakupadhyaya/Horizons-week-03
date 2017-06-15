@@ -1,43 +1,40 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-{{#each errors}}
-  <div> {{this}} </div>
-{{/each}}
 <!-- Part 2: Create project -->
-<form method="POST" action="/new" class="row">
+<form method="POST" action="/project/{{project._id}}/edit" class="row">
   <div class="form-group col-xs-12">
     <label for="title">Title</label>
     <div>
-      <input class="form-control" type="text" name="title" value="{{title}}">
+      <input class="form-control" type="text" name="title" value="{{project.title}}">
     </div>
   </div>
   <div class="form-group col-xs-12">
     <label for="goal" class="col-2 col-form-label">Goal</label>
     <div class="col-10">
-      <input class="form-control" type="number" name="goal" value="{{goal}}">
+      <input class="form-control" type="number" name="goal" value="{{project.goal}}">
     </div>
   </div>
   <div class="form-group col-xs-12">
     <label for="description" class="col-2 col-form-label">Description</label>
     <div class="col-10">
-      <input class="form-control" type="textarea" name="description" value="{{description}}">
+      <input class="form-control" type="textarea" name="description" value="{{project.description}}">
     </div>
   </div>
   <div class="form-group col-xs-12">
     <label for="start" class="col-2 col-form-label">Start</label>
     <div class="col-10">
-      <input class="form-control" type="date" name="start" value="{{start}}">
+      <input class="form-control" type="date" name="start" value="{{startDate}}">
     </div>
   </div>
   <div class="form-group col-xs-12">
     <label for="end" class="col-2 col-form-label">End</label>
     <div class="col-10">
-      <input class="form-control" type="date" name="end" value="{{end}}">
+      <input class="form-control" type="date" name="end" value="{{endDate}}">
     </div>
   </div>
   <div class="form-group col-xs-12">
     <label for="sel1">Select list:</label>
-    <select class="form-control select-picker" id="sel1" name="category">
+    <select class="form-control select-picker" id="sel1" name="category" value="{{project.category}}">
       <option>Famous Muppet Frogs</option>
       <option>Current Black Presidents</option>
       <option>The Pen Is Mightier</option>
@@ -49,18 +46,9 @@
       <option>Potent Potables</option>
     </select>
   </div>
-  <div class="form-group col-xs-12">
-    <label for="pic" class="col-2 col-form-label">Include a Picture url!</label>
-    <div class="col-10">
-      <input class="form-control" type="text" name="pic" value="{{pic}}">
-    </div>
-  </div>
   <div class="form-group col-xs-2">
     <div class="col-10">
       <input class="form-control" name="Submit" type="submit" id="submit">
     </div>
   </div>
 </form>
-
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

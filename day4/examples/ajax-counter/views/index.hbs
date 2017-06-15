@@ -6,16 +6,50 @@
   </head>
   <body>
     <h1>Count: <span id="count">{{count}}</span></h1>
-    <form action="/up" method="post">
-      <input id="up" type="submit" value="Up">
+    <form>
+      <input id="up" type="submit" value="Up" class="up">
     </form>
-    <form action="/down" method="post">
+    <form>
       <input id="down" type="submit" value="Down">
     </form>
 
-    <script src="/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
+      $("h1").val("hi");
       // YOUR CODE HERE
+      $("#up").on("click", function(event) {
+        event.preventDefault();
+        var count = parseInt($("#count").text());
+        console.log(count);
+        $.ajax({
+          url: "/up",
+          method: "POST",
+          data: {count: count},
+          success: function(res) {
+            count = count + 1;
+            $("#count").text(count);
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        })
+      })
+      $("#down").on("click", function(event) {
+        event.preventDefault();
+        var count = parseInt($("#count").text());
+        console.log(count);
+        $.ajax({
+          url: "/down",
+          method: "POST",
+          data: {count: count},
+          success: function(res) {
+            $("#count").text(count - 1);
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        })
+      })
     </script>
   </body>
 </html>
