@@ -22,7 +22,7 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
 **Server rendered app**: Horizon Starter
 
-1. user: Visits `localhost:3000/projects`
+1. user: Visits `localhost:3000/`
 1. server: matches route on `routes.js`
 1. server: loads data for `projects` from `mongoose`
 1. server: gets template + fills in data for projects to create an HTML file. **Rendering HTML**
@@ -30,7 +30,7 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
 **Hybrid app**: Today's approach!
 
-1. user: Visits `localhost:3000/projects`
+1. user: Visits `localhost:3000/`
 1. server: matches route on `routes.js`
 1. server: loads data for `projects` from `mongoose`
 1. server: gets template + fills in data for projects to create an `html` file  **Rendering HTML**
@@ -60,7 +60,7 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
         ```
         {
-        	"name": "RandomInvestor",
+            "name": "RandomInvestor",
             "amount": 1000
         }
         ```
@@ -103,19 +103,19 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
     **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser, click on any project. Fill in the form and add a contribution! You should get a green message if there were no errors. You will **not**  be able to see the new contribution on your page right away. But if you refresh the page,  the new contribution will appear.
 
-1.    Use jQuery to update the page after adding a contribution. Up to this point, you have to refresh the page you add a contribution.  This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
+1.    Use jQuery to update the page after adding a contribution. Up to this point, you have to refresh the page when you add a new contribution.  This is because the AJAX request is POSTing and saving the contribution to the database, but it is not rendering to the page, yet.
 
-1. Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
+         - Define a new `renderNewContribution(newContribution)` function. It takes the`newContribution` object, which contains all the data for the newly created contribution. Create the html to show the contribution and put it in a variable called `contributionHTML`. `$.append()` `contributionHTML` to the list of contributions.
 
-1. Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);`
+         - Update the AJAX success handler from the previous step to call `renderNewContribution(newContribution);`
 
 1. Validate contributions are greater than 0.
 
     You should be familiar by now to server-side validations. If someone contributes a value less than 0, the server should return an error.
 
-    1. Modify the route we created on step one to validate the request.  It should validate for non-numeric and negative values.
+    1. Modify the `/api/project/:projectId/contribution` route to validate the request. It should validate contribution amounts for non-numeric and negative values.
     1. If there is an error, respond with  `res.status(400).json(err);` note that `err` is an object you get from the validator. It contains data for that error! Send the error to the client.
-        1. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error occurred", 'danger');`, with "An error occurred", send the appropriate message that you got from the server.
+    1. Modify the `sendContribution` function on `contributions.js`. On the error callback, instead of calling `showFlashMessage("An error occurred", 'danger');`, with "An error occurred", send the appropriate message that you got from the server.
 
 ## Part 2: Ajax filter projects
 
@@ -123,17 +123,17 @@ In this exercise, we are going to implement project filtering in `index.hbs` via
 
 **1. Defining the route**
 
-1. Create a new endpoint route in `horizonstarter/routes.js` to `GET /api/project`
+1. Create a new endpoint route in `horizonstarter/routes.js` to `GET /api/projects`
 
-2. This route is similar to the `GET /project` you did yesterday. The only difference is that instead of rendering, it returns all the posts as JSON with `res.json(posts)`. You should:
+2. This route is similar to the `GET /` you created yesterday. The only difference is that instead of rendering, it returns all the posts as JSON with `res.json(posts)`. You should:
 
-    1. Define the route. `GET /api/project`
+    1. Define the route. `GET /api/projects`
     1. Query the database to get all the projects.
     1. Get the `funded` param from the URL by doing `req.query.funded`. Our API can be called in 3 different ways:
-        - To get only funded projects `GET /api/project?funded=true`  
-        - To get only non-fully funded projects `GET /api/project?funded=false`
-        - To get all projects `GET /api/project`
-    1. Filter the array of projects you get back according to funded param. To do this, iterate over `projects`. To see if a project is fully funded, go over the contributions, adding them up to check if they are greater or equal to the required amount.
+        - To get only funded projects `GET /api/projects?funded=true`  
+        - To get only non-fully funded projects `GET /api/projects?funded=false`
+        - To get all projects `GET /api/projects`
+    1. Filter the array of projects you get back according to funded param. To do this, iterate over `projects`. To see if a project is fully funded, go over the contributions to check if they are greater or equal to the required amount.
     1. Send the filtered results back as json  `res.json()`
 
     **Testing**:
@@ -142,13 +142,13 @@ In this exercise, we are going to implement project filtering in `index.hbs` via
 
     Start your server and open Postman perform the following requests:
 
-    1. `GET localhost:3000/api/project`. You should get all the projects back.
-    1. `GET localhost:3000/api/project?funded=true`. You should only get funded projects.
-    1. `GET localhost:3000/api/project?funded=false` You should only get unfunded projects.
+    1. `GET localhost:3000/api/projects`. You should get all the projects back.
+    1. `GET localhost:3000/api/projects?funded=true`. You should only get funded projects.
+    1. `GET localhost:3000/api/projects?funded=false` You should only get unfunded projects.
 
 **2. Making the request**
 
-This is similar to yesterday's filter projects by funded or not funded. The difference is that, instead of adding links to pages by linking to `localhost:3000/api/project?funded=false`, we are making buttons with event listeners. You can reuse the buttons you made yesterday or make new buttons for our events that will filter the projects, without refreshing the page. If you want to make it look better, make it a dropdown, with an event listener for when someone selects an option.
+This is similar to filtering projects by funded or not funded. The difference is that, instead of adding links to pages by linking to `localhost:3000/api/projects?funded=false`, we are making buttons with event listeners. You can reuse the buttons you made yesterday or make new buttons for our events that will filter the projects, without refreshing the page. If you want to make it look better, make it a dropdown, with an event listener for when someone selects an option.
 
 1. Add 3 buttons/dropdown to your `index.hbs` template. They should be: "Funded", "Not completely funded" and "show all".
 
@@ -158,11 +158,11 @@ This is similar to yesterday's filter projects by funded or not funded. The diff
 
 1. Open  `public/js/index.js` file and add `click` event listeners for the 3 buttons/dropdown we just created. When each button is clicked:
 
-    1. Make an AJAX request to `GET /api/project`. Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/project?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
+    1. Make an AJAX request to `GET /api/projects`. Remember to send the correct params. For example: If the "funded" button was clicked, perform the following request `GET localhost:3000/api/projects?funded=true` . `console.log` your posts on the success callback of the AJAX request to make sure you are getting the correct posts.
 
 **Testing**: To test this request:
 
-1. Add a `console.log(req.query)` to `GET /api/project`
+1. Add a `console.log(req.query)` to `GET /api/projects`
 1. Visit `localhost:3000`  and check your terminal (i.e. node console). It should print a blank object.
 1. Visit `localhost:3000` click on the "Funded" button and check your terminal (i.e. node console). It should print an object containing  `funded: true`
 1. Visit `localhost:3000` click on the "Not Funded" button and check terminal (i.e. node console).  It should print an object containing  `funded: false`
@@ -171,9 +171,9 @@ This is similar to yesterday's filter projects by funded or not funded. The diff
 
 You are going to use jQuery to update the page after filtering results.
 
-1. If the AJAX request to `GET /api/project`  was successful, clear the projects div and turn each project into HTML and append them to the projects div.
+1. If the AJAX request to `GET /api/projects`  was successful, clear the projects div and turn each project into HTML and append them to the projects div.
 
-1. If the AJAX request `GET /api/project`  failed, display an error banner using bootstrap.  
+1. If the AJAX request `GET /api/projects`  failed, display an error banner using bootstrap.  
 
 **Testing**: to check your code works up to this point, visit `localhost:3000` on your browser. On the homepage click on all three buttons, they should filter the projects accordingly.
 
@@ -183,32 +183,32 @@ On this last exercise, we are going to implement project sorting. We want to sor
 
 **1. Defining the route**
 
-The `GET localhost:3000/api/project` route is already defined on the last step.
+The `GET localhost:3000/api/projects` route is already defined on the last step.
 
 1. Modify it to get 2 new parameters:
 
     1. `sort` that could take in the values "percentageFunded", "amountFunded" or not be present.
 
-    1. `sortDirection` that could take in the values "ascending", "descending" and no value, to which we will assume no sorting is required.
+    1. `sortDirection` that could take in the values "ascending", "descending" and no value, to which we will assume to sort in "ascending" order.
 
-        * This means our URL can now take in up to 3 optional arguments. The most basic request would look like this `localhost:3000/api/project`. But we should be able to query these:
-            * `localhost:3000/api/project?funded=true`
-            * `localhost:3000/api/project?funded=true&sort=amountFunded` which should default to ascending order.
-            * `localhost:3000/api/project?funded=false&sort=amountFunded&sortDirection=descending`
+        * This means our URL can now take in up to 3 optional arguments. The most basic request would look like this `localhost:3000/api/projects`. But we should be able to query these:
+            * `localhost:3000/api/projects?funded=true`
+            * `localhost:3000/api/projects?funded=true&sort=amountFunded` which should default to ascending order.
+            * `localhost:3000/api/projects?funded=false&sort=amountFunded&sortDirection=descending`
             * And all other possible combinations of these params. Note that `sortDirection` should only be applied when `sort` is present. Otherwise there is no field to `sort`.
 
 1. To be able to handle this, you need to add a new step in your route logic. In **Part 2** we filtered posts based on being "Fully funded" or "Not Fully Funded". Now, you have to add new functionality to change the ordering of projects:
     1. You need to sort projects **after** you have filtered them, but **before** sending them back
     1. Only sort your projects if there is a `sort` parameter.
-    1. If there is a `sort` parameter and no `order` , user ascending (i.e. increasing) sort.
+    1. If there is a `sort` parameter and no `sortDirection` , default to ascending sort.
 
 1.   Send back the data of the filtered & sorted posts back by doing `res.json(posts)`
 
 **Testing**: Start your server and open Postman perform the following requests:
 
-  1. `GET localhost:3000/api/project`. You should get all the projects back.
-  2. `GET localhost:3000/api/project?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
-  3. `GET localhost:3000/api/project?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
+  1. `GET localhost:3000/api/projects`. You should get all the projects back.
+  2. `GET localhost:3000/api/projects?funded=true&sort=amountFunded`. You should only get funded projects, sorted by how funded they are, ascending.
+  3. `GET localhost:3000/api/projects?funded=false&sort=percentageFunded&order=descending` You should only get unfunded projects, sorted by their percentage of funding, descending.
 
 **2. Making the request**
 
