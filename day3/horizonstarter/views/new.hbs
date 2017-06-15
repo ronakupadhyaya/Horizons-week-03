@@ -1,5 +1,14 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+<form action="/new" method="post">
+  Project Title: <input type="text" name="title" value="{{title}}" placeholder="short title here"><br>
+  Goal: $<input type="text" name="goal" value=""><br>
+  Description: <textarea name="description" rows="5" cols="80" placeholder="let donators know what their money is going towards">{{description}}</textarea><br>
+  Start Date: <input type="date" name="start" value="{{start}}">
+  End Date: <input type="date" name="end" value="{{end}}"><br>
+  <input type="submit" name="" value="Submit">
+
+</form>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

@@ -2,6 +2,25 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<div class="container">
+  {{#each projects}}
+    <a href="/project/{{this._id}}">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+
+          <h2>{{this.title}}</h1>
+          <h4><em>Goal:</em> ${{this.goal}}</h4>
+          <p>{{this.description}}</p>
+          <p><span>Start Date: {{this.start}}</span> <span>End Date: {{this.end}}</span></p>
+        </div>
+      </div>
+
+
+    </a>
+  {{/each}}
+</div>
+
+<a href="/new">Create new project</a>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

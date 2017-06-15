@@ -1,9 +1,56 @@
-<h1>View Project</h1>
+<h1>View Project: id# {{id}}</h1>
 
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+{{#if project.title}}
+
+  <div class="container">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <h2>{{project.title}}</h1>
+          <h4><em>Goal:</em> ${{project.goal}} &nbsp <em>Raised so far: ${{amountTotal}}</em></h4>
+          <div class="progress">
+            <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{percent}}%">
+              Donation Goal {{percent}}% Complete
+            </div>
+          </div>
+          <p>{{project.description}}</p>
+          <p><span>Start Date: {{project.start}}</span> <span>End Date: {{project.end}}</span></p>
+        </div>
+      </div>
+  </div>
+
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+  <h3>Make a contribution</h3>
+  <form action="/project/{{id}}" method="post">
+    Name: <input type="text" name="name" value=""><br>
+    Amount: $<input type="text" name="amount" value="">
+    <input type="submit" name="" value="Donate Now">
+  </form>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <legend>Donations</legend>
+        <div class="container">
+          {{#each project.contributions}}
+          <div class="row">
+            <div class="col-xs-12">
+              <span>{{this.name}}: &nbsp</span> <span><em>${{this.amount}}</em></span>
+
+            </div>
+          </div>
+          {{/each}}
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+{{/if}}
