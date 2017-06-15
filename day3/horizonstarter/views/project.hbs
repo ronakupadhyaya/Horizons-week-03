@@ -3,7 +3,20 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div>title: {{project.title}}</div>
+<div>goal: {{project.goal}}</div>
+<div>description: {{project.description}}</div>
+<div>start: {{project.start}}</div>
+<div>end: {{project.end}}</div>
 
 <!-- Part 4: Contribute to a project -->
+<form method="POST" action="/project/:projectid">
+    <input type="text" name="name" placeholder="name">
+    <input type="text" name="amount" placeholder="amount">
+    <input type="submit" name="submit" value="contribute">
+</form>
 
 <!-- YOUR CODE HERE -->
+<div> 
+    {{totalContributions}}
+</div>
