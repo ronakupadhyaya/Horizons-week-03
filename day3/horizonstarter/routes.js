@@ -64,7 +64,6 @@ router.get('/', function(req, res) {
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  // YOUR CODE HERE
   var categories = Project.schema.path('category').enumValues;
   res.render('new',{
     categories: categories
