@@ -1,9 +1,14 @@
-<h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
+<h2 class="text-center">{{project.title}}</h2>
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<form method="POST" action={{url}}>
+  <span>Name: </span><br><input name="name" type="text" placeholder="name" value=""/><br>
+  <span>Amount: </span><br><input name="amount" type="number"placeholder="$" value=""/><br>
+  <input type="submit" />
+</form>

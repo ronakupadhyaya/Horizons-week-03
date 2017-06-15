@@ -3,3 +3,12 @@
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
+<form method="POST" action="/new">
+  <h1 style="color: red;">{{error}}</h1><br>
+  <span>Title: </span><br><input name="title" type="text" placeholder="title" value=""/><br>
+  <span>Goal: </span><br><input name="goal" type="number"placeholder="goal" value=""/><br>
+  <span>Description: </span><br><textarea name="desc" type="text" placeholder="description" value=""></textarea><br>
+  <span>Start Date: </span><br><input name="start" type="date" value=""/><br>
+  <span>End Date: </span><br><input name="end" type="date" value=""/>
+  <input type="submit" />
+</form>
