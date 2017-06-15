@@ -1,9 +1,26 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
+<h2>Title: {{project.title}}</h2>
+<p>Goal: {{project.goal}}</p>
+<p>Description: {{project.description}}</p>
+<p>Start: {{project.start}}</p>
+<p>End: {{project.end}}</p>
+<p>Total amount of contributions: </p>
+<p>Percentage of goal met:</p>
+<p>Contributions:</p>
+<a href="/">View all projects</a>
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<h2>Make a contribution</h2>
+<form method="post" action="/project/{{project.id}}">
+  <input class="form-control" type="text" name="name" value="" placeholder="name">
+  <input class="form-control" type="number" name="amount" value="" placeholder="amount">
+  <input class="form-control" type="submit" value="Contribute">
+</form>
+
+{{errors}}
+{{success}}

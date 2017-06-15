@@ -3,3 +3,14 @@
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
+{{#each errors}}
+  <h3>{{msg}}</h3>
+{{/each}}
+<form method="post" action="/new">
+  <input class="form-control" type="text" name="title" value="{{project.title}}" placeholder="title">
+  <input class=" form-control" type="text" name="goal" value="{{project.goal}}" placeholder="goal">
+  <textarea class="form-control" name="description" rows="4" value="{{project.description}}" placeholder="description"></textarea>
+  <input class="form-control" type="date" name="start" value="{{project.start}}">
+  <input class="form-control" type="date" name="end" value="{{project.end}}">
+  <input class="form-control" type="submit" value="Create Project">
+</form>

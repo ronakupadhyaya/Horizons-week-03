@@ -163,6 +163,18 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if (program.task) {
+    var name = program.task
+    Todoitem.findOne({name: name}, function(error, task) {
+      console.log("Task: " + task.name + ", Priority: " + task.priority + ", Completed: " + task.completed)
+    })
+  } else {
+    Todoitem.find(function(error, tasks) {
+      tasks.forEach(function(task) {
+        console.log("Task: " + task.name + ", Priority: " + task.priority + ", Completed: " + task.completed)
+      })
+    })
+  }
 }
 
 // PART 4: Delete tasks
@@ -172,6 +184,11 @@ function showTasks() {
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
+  if (program.task) {
+    var name = program.task
+    Todoitem.remove({name: name}, function(err, task) {
+      console.log("removed")
+    })
+  }
   // YOUR CODE HERE
 }
