@@ -24,30 +24,105 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
+  Project.find(function(err, array) {
+
+    res.render('index', {
+      items: array
+    });
+
+  });
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('new');
+
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
   // YOUR CODE HERE
+  // console.log(req.body.title);
+  // res.send('/');
+  var project = new Project({
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  });
+
+  project.save(function(error) {
+    if (error) {
+      console.log(error);
+      throw new Error('there is an error');
+    } else {
+      res.redirect('/');
+    }
+  });
+
 });
 
 // Part 3: View single project
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  var id = req.params.projectid;
+  Project.findById(id, function(error, found) { // found is an object
+    if (error) {
+      console.log(error);
+      // throw new Error('there is an error');
+    } else {
+      // console.log(found);
+      var total = 0;
+      found.contributions.forEach(function(item) {
+        total += parseInt(item.amount);
+      })
+      // console.log(sumAmount);
+
+      res.render('project', {
+        title: found.title,
+        goal: found.goal,
+        description: found.description,
+        start: found.start,
+        end: found.end,
+        contributions: found.contributions,
+        totalAmount: total,
+        percentage: Math.floor((total / found.goal) * 100)
+      })
+    }
+  })
 });
 
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
+  var id = req.params.projectid;
+  Project.findById(id, function(error, found) { // found is an object
+    if (error) {
+      console.log(error);
+      // throw new Error('there is an error');
+    } else {
+      // console.log(found);
+      var newObject = {
+        name: req.body.name,
+        amount: req.body.amount
+      }
+      found.contributions.push(newObject);
+      found.save(function(error) {
+        if (error) {
+          console.log(error);
+          throw new Error('there is an error');
+        } else {
+          res.redirect('/');
+        }
+      });
+    }
+  })
 });
 
 // Part 6: Edit project

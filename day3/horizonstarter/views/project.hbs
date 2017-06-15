@@ -1,5 +1,34 @@
 <h1>View Project</h1>
 
+<form method="POST">
+    <ul>
+      <li> title: {{title}}</li>
+      <li> goal: {{goal}}</li>
+      <li> description: {{description}}</li>
+      <li> start: {{start}}</li>
+      <li> end: {{end}}</li>
+      <li> total amount: {{totalAmount}}</li>
+      <li> progress:
+        <div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{totalAmount}}"
+  aria-valuemin="0" aria-valuemax="{{goal}}" style="width:40%">
+    {{percentage}}% Complete (success)
+  </div>
+</div>
+      </li>
+      <li> contributions: {{# each contributions}}
+        <ul>
+          <li>name: {{this.name}},  amount: {{this.amount}}</li>
+
+        </ul>
+        {{/each}}
+      </li>
+
+      <li>name: <input type="text" name="name" value="" ></input><br></li>
+      <li>amount: <input type="text" name="amount" value="" ></input><br></li>
+      <li><input type="submit" name="" value="Submit" ></input></li>
+    </ul>
+</form>
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
