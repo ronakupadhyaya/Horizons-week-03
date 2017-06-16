@@ -203,6 +203,7 @@ router.post('/api/posts/', function(req,res){
               if(userobj){
                 console.log("user was found");
                 var datenow = new Date();
+                //TODO modify poster to be {name: user first and last, id: userid}
                 var newpost = new Post({
                   poster: userobj,
                   content: content,
@@ -240,7 +241,43 @@ router.post('/api/posts/', function(req,res){
 
 
 router.get('/api/posts/comments/:post_id', function(req,res){
+  var token = req.query.token;
+  var postid = req.params.post_id;
+  // var comment = req.body.content;
+  console.log(postid, req.query.post_id);
+  req.check('token','token not passed in request').notEmpty();
+  req.check('post_id','postid not passed in request').notEmpty();
+  var errors = req.validationErrors();
+  if(errors){
+      console.log("errors token or postidnot found");
+      res.status(400).send("failed to supply token, or postid")
+  }else{
+    Token.findOne({"token": token}, function(error,tokenobj){
+      if(error){
+        res.status(400).send("error finding token..?");
+      }else{
+        if(tokenobj){
+          //token has been found now make sure there is a post with postid
+          Post.findById(postid, function(error, post){
+            if(error){ res.status(400).send("error finding post..?"); }
+            else{
+              if(post){
+                var currentcomments = post.comments;
+                res.status(200).send(currentcomments);
 
+
+              }else{
+                res.status(401).send("postid not found")
+              }
+            }
+          })
+        }else{
+          res.status(401).send("token not found");
+        }
+
+      }
+    })
+  }
 })
 
 router.post('/api/posts/comments/:post_id', function(req,res){
@@ -249,8 +286,8 @@ router.post('/api/posts/comments/:post_id', function(req,res){
   var comment = req.body.content;
   console.log(postid, req.query.post_id);
   req.check('token','token not passed in request').notEmpty();
-  req.check('post','token not passed in request').notEmpty();
-  req.check('token','token not passed in request').notEmpty();
+  req.check('post_id','postid not passed in request').notEmpty();
+  req.check('content','comment not provided').notEmpty();
   var errors = req.validationErrors();
   if(errors){
       console.log("errors token or postidnot found");
@@ -291,7 +328,78 @@ router.post('/api/posts/comments/:post_id', function(req,res){
 })
 
 router.get('/api/posts/likes/:post_id', function(req,res){
+  var token = req.query.token;
+  var postid = req.params.post_id;
+  // var comment = req.body.content;
+  console.log(postid, req.query.post_id);
+  req.check('token','token not passed in request').notEmpty();
+  req.check('post_id','postid not passed in request').notEmpty();
+  var errors = req.validationErrors();
+  if(errors){
+      console.log("errors token or postidnot found");
+      res.status(400).send("failed to supply token, or postid")
+  }else{
+    Token.findOne({"token": token}, function(error,tokenobj){
+      if(error){
+        res.status(400).send("error finding token..?");
+      }else{
+        if(tokenobj){
+          var userId = tokenobj.userId;
+          //token has been found now make sure there is a post with postid
+          Post.findById(postid, function(error, post){
+            if(error){ res.status(400).send("error finding post..?"); }
+            else{
+              if(post){
+                var likes = post.likes;
+                var foundUserlike = false;
+                likes.forEach(function(likeobj){
+                  if(likeobj.id === userId){
+                    console.log("user has already liked post, going to remove it");
+                    foundUserlike = true;
+                  }
+                });
+                if(foundUserlike){
+                  var filteredlikes = _.filter(likes, function(like){
+                    return like.id!==userId;
+                  })
+                  post.likes = filteredlikes;
+                  post.save(function(error){
+                    if(error){
+                      res.send("error saving new post with likes")
+                    }
+                    console.log("successfuly unliked post");
+                    res.status(200).send(post);
+                  })
+                }else{
+                  User.findById(userId, function(error,user){
+                    if(error){
+                      res.send("error finding user to like the post")
+                    }else{
+                      var name = user.fname+" "+user.lname;
+                      likes.push({name:name, id: userId});
+                      post.likes = likes;
+                      post.save(function(error){
+                        if(error){
+                          res.send("error saving new post with likes")
+                        }
+                        console.log("successfully liked post");
+                        res.status(200).send(post);
+                      })
+                    }
+                  })
+                }
+              }else{
+                res.status(401).send("postid not found")
+              }
+            }
+          })
+        }else{
+          res.status(401).send("token not found");
+        }
 
+      }
+    })
+  }
 })
 
 
