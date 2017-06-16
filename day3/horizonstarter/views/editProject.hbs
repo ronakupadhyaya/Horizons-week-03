@@ -1,13 +1,13 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
-<form method ="POST" action="/new">
+<form method ="POST" action="/project/{{project._id}}/edit">
   title: <input type="text" name="title" value="{{project.title}}"> <br>
   goal: <input type="number" name="goal" value = "{{project.goal}}"> <br>
   description: <textarea name = "description" value = "{{project.description}}"> </textarea><br>
-  start: <input type="date" name = "start" value = "{{project.start}}"> <br>
-  end: <input type="date" name = "end" value = "{{project.end}}"> <br>
-  category: <select name = "category" >
+  start: <input type="date" name = "start" value = "{{start}}"> <br>
+  end: <input type="date" name = "end" value = "{{end}}"> <br>
+  category: <select name = "category" value = "{{project.category}}">
     <option> Famous Muppet Frogs </option>
     <option> Current Black Presidents </option>
     <option> The Pen Is Mightier </option>

@@ -16,6 +16,17 @@
     <script src="/jquery.js"></script>
     <script>
       // YOUR CODE HERE
+      $('#up, #down').on('click', function(event){
+        event.preventDefault();  //make the button not working
+        var count = $("#count").val();
+        $.ajax({
+          method: 'post',
+          url: '/' + $(this).val(),  //either up or down
+          success: function(res){
+            $('#count').text(res.count);
+          }
+        })
+      })
     </script>
   </body>
 </html>

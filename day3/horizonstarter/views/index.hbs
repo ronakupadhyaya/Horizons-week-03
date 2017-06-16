@@ -3,10 +3,24 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 {{#each items}}
-  <li> {{this.title}} </li>
+  <p>
+  title: {{this.title}}  <br>
+  ID: {{this.id}} <br>
+  contributions: {{this.contributions}} <br>
+  goal: {{this.goal}} <br>
+</p>
 {{/each}}
 
 <a href='/new'>Create new project </a>
+<br> <br>
+
+<a href='/?sort=start&sortDirection=ascending'> Sort by start </a> <br>
+<a href='/?sort=end&sortDirection=ascending'> Sort by end </a> <br>
+<a href='/?sort=goal&sortDirection=ascending'> Sort by goal </a> <br>
+<a href='/?sort=contributions&sortDirection=ascending'> Sort by contributions </a> <br>
+<br>
+<a href='/?sort=funded'> Sort by funded projects</a> <br>
+<a href='/?sort=unfunded'> Sort by unfunded projects</a> <br>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

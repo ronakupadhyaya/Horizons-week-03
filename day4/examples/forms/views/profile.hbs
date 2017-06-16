@@ -13,6 +13,11 @@
   <div class="container">
     <div class="row">
       <h1>Put your user profile here</h1>
+      {{#each personInfos}}
+      {{firstName}} {{middleName}} {{lastName}} <br>
+      {{dob}} {{gender}} {{signUp}} {{biography}}<br>
+      {{/each}}
+
     </div>
   </div>
 </body>

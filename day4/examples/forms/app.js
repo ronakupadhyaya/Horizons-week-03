@@ -12,12 +12,12 @@ app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
-app.use(expressValidator());
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res){
   res.redirect('/register');
 });
+var personInfos = [];
 
 // GET /register route
 // This is the endpoint that the user loads to register.
@@ -33,6 +34,12 @@ app.get('/', function(req, res){
 // the server.
 app.get('/register', function(req, res){
   res.render('register');
+});
+
+app.get('/profile', function(req, res){
+  res.render('profile', {
+    personInfos: personInfos
+  });
 });
 
 // POST /register
@@ -45,13 +52,36 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName', 'username must be specified').notEmpty();
+  req.check('middleName', 'middle name has to be a single letter').isLength({min:1, max:1});
+  req.check('lastName', 'last name has be specified').notEmpty();
+  req.check('dob', 'date has to be in the past').isBefore();
+  req.check('passWord', 'password has be specified').notEmpty();
+  req.check('repeatPassWord', 'password has to be same').equals(req.body.passWord) //check match?
+  req.check('gender', 'choose gender').notEmpty();
+  req.check('signUp', 'check signup').notEmpty();
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+  //console.log(errors);
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    var personInfo = {
+    firstName:req.body.firstName,
+    middleName:req.body.middleName,
+    lastName: req.body.lastName,
+    dob:req.body.dob,
+    gender: req.body.gender,
+    signUp: req.body.signUp,
+    biography: req.body.biography
+    };
+    personInfos.push(personInfo);
+    // res.render('profile', {
+    //   personInfos: personInfos
+    // });
+    res.redirect('/profile');
   }
 });
 

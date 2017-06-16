@@ -11,7 +11,13 @@
 </head>
 <body>
   <div class="container">
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:
+      <ul>
+    {{#each errors}}
+    <li>  {{this.msg}} </li>
+    {{/each}}
+  </ul>
+    </strong></div>
     <div class="row">
       <form action="/register" method="post">
         First Name  <input type="text" placeholder="First Name" name="firstName" required>
@@ -20,21 +26,21 @@
         Last Name   <input type="text" placeholder="Last Name" name="lastName" required><br><br>
         DOB   <input type="Date" name="dob"> <br><br>
         Password <input type="password" placeholder="Password" name="passWord" required><br><br>
-        Repeat Password <input type="password" placeholder="Password" name="passWord" required><br><br>
-        Gender<label class="checkbox-inline" required>
-          <input type="checkbox" id="inlineCheckbox1" value="option1"> Male
+        Repeat Password <input type="password" placeholder="Password" name="repeatPassWord" required><br><br>
+        Gender<label required>
+          <input type="radio" id="inlineCheckbox1" name = 'gender' value="male"> Male
         </label><br>
-        <label class="checkbox-inline">
-          <input type="checkbox" id="inlineCheckbox2" value="option2"> Female
+        <label >
+          <input type="radio" id="inlineCheckbox2" name = 'gender' value="female"> Female
         </label><br>
-        <label class="checkbox-inline">
-          <input type="checkbox" id="inlineCheckbox3" value="option3"> Prefer not to say
+        <label >
+          <input type="radio" id="inlineCheckbox3" name = 'gender' value="noAnswer"> Prefer not to say
         </label><br><br>
-        Sign Up for newsletter <label class="checkbox-inline" required>
-          <input type="checkbox" id="signup" value="signup">
+        Sign Up for newsletter <label class="checkbox-inline" name = 'signUp' required>
+          <input type="checkbox" id="signup" value="signup"name = 'signUp'>
         </label> <br><br>
         Biography
-        <input type="text" placeholder="Biography" name="biography">
+        <textarea type="text" placeholder="Biography" name="biography"></textarea>
 
 
         <input type="submit">

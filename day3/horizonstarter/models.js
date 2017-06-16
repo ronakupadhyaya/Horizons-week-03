@@ -16,7 +16,6 @@ var Project = mongoose.model('Project', {
   description: {
     type: String
   },
-
   start: {
     type: Date,
     required: true
@@ -34,7 +33,13 @@ var Project = mongoose.model('Project', {
       type: Number,
       required: true
     }
-  }]
+  }],
+  category: {
+    type: String,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+  'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"',
+'How Many Fingers Am I Holding Up', 'Potent Potables']
+  }
 });
 
 module.exports = {

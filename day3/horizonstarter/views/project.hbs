@@ -6,10 +6,12 @@ goal: {{project.goal}}  <br>
 description: {{project.description}}  <br>
 start: {{project.start}}  <br>
 end: {{project.end}}  <br>
-contributions:
+<div id = 'contributions'> contributions:
 {{#each project.contributions}}
   {{this.name}} : {{this.amount}}
-{{/each}}
+{{/each}}</div>
+<br>
+category: {{project.category}}
 <br>
 
 
@@ -17,13 +19,17 @@ contributions:
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
-<form method ="POST" action="/project/{{project._id}}">
-Name: <input type="text" name = "name"> <br>
-Amount: <input type="text" name = "amount"> <br>
-<input type = "submit" value = "SUBMIT">
+<form method ="POST" action="/project/{{project._id}}" id="form">
+Name: <input id = "nameText" type="text" name = "name"> <br>
+Amount: <input id="amountText"type="text" name = "amount"> <br>
+<button id="send-contribution" data-project-id = "{{project._id}}">Add Contribution</button>
 
 </form>
 total contributions: {{sum}}
+<!-- <ul id = "contribution">
+  <li> {{this}} </li>
+</ul> -->
+
 
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="70"
@@ -32,5 +38,7 @@ total contributions: {{sum}}
   </div>
 </div>
 
+
+<script src="/js/contributions.js"></script>
 
 <!-- YOUR CODE HERE -->
