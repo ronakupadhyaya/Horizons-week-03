@@ -15,7 +15,7 @@ app.set('view engine', '.hbs');
 // Example route:
 // This creates an Express route at http://localhost:3000
 app.get('/', function(request, response) {
-  response.render('template')
+  response.render('')
 });
 
 app.get('/hello', function(request, response){

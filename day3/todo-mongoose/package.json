@@ -9,5 +9,8 @@
   "scripts": {
     "test": "jasmine-node .",
     "start": "node toDo.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
