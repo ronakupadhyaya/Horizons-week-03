@@ -3,5 +3,5 @@
 // Database configuration
 
 module.exports = {
-  'url' : 'mongodb://localhost/horizonstarter'
+  'url' : process.env.MONGODB_URI
 };
