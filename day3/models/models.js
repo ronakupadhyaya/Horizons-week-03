@@ -9,8 +9,38 @@ if (! process.env.MONGODB_URI) {
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
+var Cat=mongoose.model('Cat', {
+  name:String,
+  furColor: String
+}) // YOUR CODE HERE - define the cat model
 
+var one = new Cat({name:'isOne', furColor:'tangerine'});
+var two = new Cat({name:'isTwo', furColor:'black'});
+var three = new Cat({name:'isThree', furColor:'white'});
+// one.save(function(err){
+//   if(err){
+//     console.log('couldnt save', err);
+//   }
+//   else{
+//     console.log('success');
+//   }
+// })
+// two.save(function(err){
+//   if(err){
+//     console.log('couldnt save', err);
+//   }
+//   else{
+//     console.log('success');
+//   }
+// })
+// three.save(function(err){
+//   if(err){
+//     console.log('couldnt save', err);
+//   }
+//   else{
+//     console.log('success');
+//   }
+// })
 Cat.find(function(error, cats) {
   if (error) {
     console.log("Can't find cats", error);

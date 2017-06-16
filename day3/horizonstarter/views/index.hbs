@@ -1,8 +1,11 @@
 <h1>View projects</h1>
-
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
-
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<button>Sort by start</button><br>
+<a href="/?sort=start">sort start</a>
+<button>Sort by end</button><br>
+<a href="/?sort=end">sort end</a>
+<button>Sort by goal</button><br>
+<a href="/?sort=contributions">sort contributions</a>
+{{#each items}}
+{{this}}<br><br>
+{{/each}}
 <a href="/new">Create a new project</a>

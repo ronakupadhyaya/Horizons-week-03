@@ -1,0 +1,24 @@
+<h2>Edit project</h2>
+
+<!-- Part 5: Edit project -->
+
+<form method="POST" action="/project/{{id}}/edit">
+  <input type="text" name="title" value="{{project.title}}">title
+  <input type="text" name="goal" value="{{project.goal}}">goal
+  <input type="textarea" name="description" value="{{project.description}}">description
+  <input type="date" name="start" value="2017-08-08">start
+  <input type="date" name="end" value="{{project.end}}">
+  <input list="cate">Category
+  <datalist id="cate">
+  <option value="Famous Muppet Frogs">
+  <option value="Current Black Presidents">
+  <option value="The Pen Is Mightier">
+  <option value="Famous Mothers">
+  <option value="Drummers Named Ringo">
+  <option value="1-Letter Words">
+  <option value='Months That Start With "Feb"'>
+  <option value="How Many Fingers Am I Holding Up">
+  <option value="Potent Potables">
+  </datalist>
+  <input type="submit" >
+</form>

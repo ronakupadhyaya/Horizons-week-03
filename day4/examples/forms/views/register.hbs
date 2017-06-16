@@ -6,17 +6,63 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>{{#each errors}}
+      <li>{{msg}}</li>
+      {{/each}}
+    </div>
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form method="POST" action="/register">
+        <div class="form-group">
+          <label for="inputFirstname">First Name</label>
+          <input required type="text" class="form-control" name="fname1" value="{{firstname}}" placeholder="Enter First Name">
+        </div>
+        <div class="form-group">
+          <label for="inputMiddle">Middle initial</label>
+          <input type="text" class="form-control" name="mname1" value="{{middlename}}" placeholder="Middle initial">
+        </div>
+        <div class="form-group">
+          <label for="inputLastname">Last name</label>
+          <input required type="text" class="form-control" value="{{lastname}}" name="lname1" placeholder="Last name">
+        </div>
+        <div class="form-group">
+          <label for="inputDOB">Date of Birth</label>
+          <input type="Date" class="form-control" value="{{dob}}" name="dob1">
+        </div>
+        <div class="form-group">
+          <label for="inputpassword">Password</label>
+          <input required type="password" value="{{password}}" class="form-control" name="password1" placeholder="password">
+        </div>
+        <div class="form-group">
+          <label for="inputrpassword">Repeat Password</label>
+          <input required type="password" value="{{rpassword}}" class="form-control" name="rpassword1" placeholder="password">
+        </div>
+        <div class="form-group">
+          <label for="inputgender">Gender</label>
+          <div class="radio">
+            <label><input type="radio" name="optradio" value="male">Male</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="optradio" value="female">Female</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="optradio" value="Rather not say">Rather not say</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputnews">Sign-up for newsletter</label>
+          <label  class="checkbox-inline"><input type="checkbox" name="check" value="yes">Y</label>
+        </div>
+        <div class="form-group">
+          <label for="inputbio">Bio</label>
+          <textarea  type="textarea" class="form-control" value="{{biography}}" name="bio"  placeholder="Introduce yourself!"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
