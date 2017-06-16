@@ -142,8 +142,8 @@ To add tokenization functionality follow these recommended steps:
 ##### Login
 
 1. In the `POST /api/users/login` endpoint, add logic to create a unique token for the user currently logging in.
-  	- A token contains user information so that a username does not have to be passed through every time a request is made.
-  	- We suggest making your `token` field in your Token object `username + new Date()` to guarantee uniqueness.
+  	- A token contains user information so that an email does not have to be passed through every time a request is made.
+  	- We suggest making your `token` field in your Token object `email + new Date()` to guarantee uniqueness.
   	- Set the `userId` field on the Token object to the `_id` of the user that is currently logging in.
 1. Save this `token` to your mongo database.
 
