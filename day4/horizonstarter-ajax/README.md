@@ -48,11 +48,15 @@ Yesterday's project horizon starter was a server-side rendered app. Today, we ar
 
     1. When posting to our new route, search the database for the project with the correct `projectId`. Return an error if no such project is found.
 
-    1. Once you have the project:
+    1. Once you have the project (Feel free to copy & **modify** your code from your `POST /project/:projectid`):
 
+        Just like the `POST /project/:projectid` route from yesterday:
         - Build a contribution object from 2 elements on the request body: `name` and `amount`
         - Push the object to the project's contribution array: `project.contributions`
-        - `.save()` the `project`, if save is successful respond using `res.json()` with the contribution object
+        - `.save()` the `project`
+        
+        **Unlike the `POST /project/:projectid` route from yesterday: **
+        - **If save is successful respond using `res.json()` with the contribution object**
 
         **Testing**:
 
@@ -126,7 +130,7 @@ In this exercise, we are going to implement project filtering in `index.hbs` via
 1. Create a new endpoint route in `horizonstarter/routes.js` to `GET /api/projects`
 
 2. This route is similar to the `GET /` you created yesterday. The only difference is that instead of rendering, it returns all the posts as JSON with `res.json(posts)`. You should:
-
+    Just like yesterdays `GET /` route:
     1. Define the route. `GET /api/projects`
     1. Query the database to get all the projects.
     1. Get the `funded` param from the URL by doing `req.query.funded`. Our API can be called in 3 different ways:
@@ -134,7 +138,8 @@ In this exercise, we are going to implement project filtering in `index.hbs` via
         - To get only non-fully funded projects `GET /api/projects?funded=false`
         - To get all projects `GET /api/projects`
     1. Filter the array of projects you get back according to funded param. To do this, iterate over `projects`. To see if a project is fully funded, go over the contributions to check if they are greater or equal to the required amount.
-    1. Send the filtered results back as json  `res.json()`
+    **Unlike the previous route**
+    **1. Send the filtered results back as json  `res.json()`**
 
     **Testing**:
 
