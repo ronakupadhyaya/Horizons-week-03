@@ -1,0 +1,44 @@
+<div class="container">
+  <div>
+    {{#if errors}}
+    <strong>Errors:</strong>
+    <ul>
+      {{#each errors}}
+        <li>{{this.msg}} </li>
+      {{/each}}
+    </ul>
+    {{/if}}</div>
+
+  <div class="row">
+    <form action="/api/users/register" method="post">
+      <div class="form-group">
+      <input type="text" class="form-control" placeholder="First Name" name="fname" required>
+    </div>
+
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last Name" name="lname" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" required>
+      </div>
+      <!-- <div class="form-group">
+        <input type="password" class="form-control" placeholder="Repeat Password" name="repeatpassword" required>
+      </div> -->
+      <div class="form-group">
+          <input type="radio" name="gender" value="Male"> Male<br>
+          <input type="radio" name="gender" value="Female"> Female <br>
+          <input type="radio" name="gender" value="Other" checked> Other <br>
+        </div>
+
+
+      <input type="submit">
+    </form>
+
+  </div>
+</div>
