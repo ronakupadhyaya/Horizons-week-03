@@ -1,26 +1,21 @@
 "use strict";
 
 // Express setup
-var fs = require('fs');
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var path = require('path');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-var validator = require('express-validator');
+var fs          = require('fs'),
+    express     = require('express'),
+    exphbs      = require('express-handlebars'),
+    path        = require('path'),
+    logger      = require('morgan'),
+    bodyParser  = require('body-parser'),
+    validator   = require('express-validator'),
+    env         = require("node-env-file"),
+    mongoose    = require('mongoose');
+
+env("var.env");
 
 // Initialize Express
 var app = express();
 
-// mongoose configuration
-var mongoose = require('mongoose');
-
-if (! fs.existsSync('./env.sh')) {
-  throw new Error('env.sh file is missing');
-}
-if (! process.env.MONGODB_URI) {
-  throw new Error("MONGODB_URI is not in the environmental variables. Try running 'source env.sh'");
-}
 mongoose.connection.on('connected', function() {
   console.log('Success: connected to MongoDb!');
 });
@@ -30,9 +25,29 @@ mongoose.connection.on('error', function() {
 });
 mongoose.connect(process.env.MONGODB_URI);
 
+// var hbs = exphbs.create({
+//     // Specify helpers which are only registered on this instance.
+
+// });
+
 // Handlabars setup
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  helpers: {
+        niceDate: function (uglyDate) { 
+          return uglyDate.toDateString(); },
+        setDate: function(uglyDate) {
+          return uglyDate.toISOString().substr(0, 10);
+        }
+    },
+  defaultLayout: 'main', 
+  extname: '.hbs'}));
 app.set('view engine', '.hbs');
+
+//Create a custom function helper to check the status.
+// exphbs.registerHelper( "niceDate", function ( uglyDate ){
+//     console.log("inside helper:)", uglyDate)
+//     return uglyDate.toDateString();
+// });
 
 app.use(logger('dev'));
 

@@ -3,12 +3,19 @@
 // Project model
 var mongoose = require('mongoose');
 
-var Project = mongoose.model('Project', {
-  title: {
+var projectSchema = new mongoose.Schema({
+  title: String,
+  goal: Number,
+  description: String,
+  start: Date,
+  end: Date, 
+  contributions: Array,
+  category: {
     type: String,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', "The Pen Is Mightier"]
   }
-  // YOUR CODE HERE
-});
+})
+var Project = mongoose.model('Project', projectSchema);
 
 module.exports = {
   Project: Project

@@ -1,3 +1,55 @@
 body {
   padding: 10px;
 }
+
+
+.jumbotron a, .jumbotron a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+
+.jumbotron {
+  background-color: #00ff95;
+}
+
+.btn-primary {
+  background-color: #20cf9f;
+}
+
+.btn-primary:hover, .btn-primary:active, 
+.btn-primary:focus, .btn-primary:visited {
+  background-color: #1fb78d;
+}
+
+.project {
+  border: 1px solid #1fb78d;
+  border-radius: 4px;
+  margin:0 0 20px 0;
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.project-title {
+  background-color: #20cf9f;
+  padding: 4px;
+}
+
+.project-title a, 
+.project-title a:hover,
+.project-goal h2
+ {
+  margin: 2px;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.project-body {
+  padding:15px;
+}
+
+
+
+
+
+

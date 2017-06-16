@@ -1,7 +1,45 @@
-<h1>View projects</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-9 col-md-8 col-lg-8">
+    <div>
+      <h2>Recent Projects</h2>
+      
+    </div>
+  
+  
+  
+  {{#each projects}}
+    <div class="project">
+      <div class="project-title">
+        <a href="/project/{{this._id}}">{{title}}</a>
+        <div class="pull-right project-goal">
+          <h2>Goal:  {{goal}}</h2>
+        </div>
+      </div>
+      <div class="project-body">
+        Start: {{niceDate start}}<br/>
+        End: {{niceDate end}}<br/>
+        
+        Description:
+        <div class="well">{{description}}</div>
+      </div>
+      
+    </div>
+    
+  {{/each}}
+</div>
+<div class="col-sm-3 col-md-4 col-lg-4">
+  <h2>Top Contributions</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #20cf9f; color: white;">
+      <h3 class="panel-title">Panel title</h3>
+    </div>
+    <div class="panel-body">
+      Panel content
+    </div>
+  </div>
+</div>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+  </div>
+</div>
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->

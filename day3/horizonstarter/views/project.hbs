@@ -1,9 +1,77 @@
-<h1>View Project</h1>
+<div class="container-fluid">
 
-<!-- Part 3: View a single project -->
+  <div class="row">
+    <div class="col-sm-7 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color: #20cf9f; color: white;">
+          <h3 class="panel-title">{{project.title}} 
+          <div class="pull-right"><a href="/project/{{project._id}}/edit">Edit</a></div></h3>
+         
+        </div>
+        <div class="panel-body">
+          {{#if project.category}}
+            <p>Category: {{project.category}}</p>
+          {{/if}}
+          <p>Start Date: {{niceDate project.start}}</p>
+          <p>End Date: {{niceDate project.end}}</p>
+          
+          {{project.description}}
 
-<!-- YOUR CODE HERE -->
+          <h3>Goal: {{project.goal}}</h3>
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%">
+              <span class="sr-only">40% Complete (success)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color: #20cf9f; color: white;">
+          <h3 class="panel-title">Contribute to {{project.title}}</h3>
+        </div>
+        <div class="panel-body">
+          <form action="/project/{{project._id}}" method="POST" role="form">
 
-<!-- Part 4: Contribute to a project -->
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Your name">
+            </div>
 
-<!-- YOUR CODE HERE -->
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="text" class="form-control" name="amount" placeholder="Your contribution">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="background-color: #20cf9f; color: white;">
+          <h3 class="panel-title">Contributions</h3>
+        </div>
+        <div class="panel-body">
+          {{#each project.contributions}}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{this.name}}</h3>
+              </div>
+              <div class="panel-body">
+                Amount Contributed: {{this.amount}}
+              </div>
+            </div>
+
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
