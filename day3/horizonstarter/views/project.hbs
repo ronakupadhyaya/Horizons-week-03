@@ -1,13 +1,16 @@
-
-
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="/js/contributions.js"></script>
 <!-- Part 3: View a single project -->
 <h1 style="text-align:center;">{{title}}</h1>
 <div class="project-container">
-
   <!-- <div style="font-size:large; font-weight:bold;">
     {{title}}
   </div> -->
-  <div style="font-size:x-large;">
+
+  <div class="goal" style="font-size:x-large;">
     Fundraising Goal: ${{goal}}
   </div>
   <div style="font-size:xx-small; font-style:italic;">
@@ -61,19 +64,21 @@
     <div class="form-group">
       <label for="name" class="control-label">Name: </label>
       <div>
-        <input type="text" name="name" value="">
+        <input type="text" name="name" id="name_input" value="">
       </div>
     </div>
     <div class="form-group">
       <label for="amount" class="control-label">Amount: </label>
       <div>
-        <input type="text" name="amount" value="">
+        <input type="number" name="amount" id="amount_input" value="">
       </div>
     </div>
     <div >
-      <input type="submit" name="Submit" value="Submit">
+
+      <!-- <input type="submit" name="Submit" value="Submit"> -->
     </div>
   </form>
+  <button id="send-contribution">Add Contribution</button>
 </div>
 
 <!-- YOUR CODE HERE -->

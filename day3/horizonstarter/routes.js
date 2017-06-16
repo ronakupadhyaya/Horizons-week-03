@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+var expressValidator = require('express-validator');
+router.use(expressValidator());
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -23,10 +25,59 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res){
-  Project.find(function(err, array){
-    console.log(array);
-    res.render('index', {items: array});
-  });
+  if (req.query.sort) {
+    if(req.query.sort === 'total'){
+      Project.find(function(err, array){
+        var arr = array;
+        arr.forEach(function(item){
+          var total = 0;
+          item.contributions.forEach(function(inner){
+            total = total + inner.amount;
+          })
+          item.total = total;
+        })
+        arr.sort(function(a, b) {
+          // console.log(a.total);
+          // console.log(b.total);
+          return a.total - b.total;
+        });
+        res.render('index', {items: arr});
+      })
+    }else{
+      var sortObject = {};
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+        res.render('index', {items: array});
+      });
+    }
+  }else if (req.query.filter){
+    Project.find(function(err, array){
+      var arr = array;
+      arr.forEach(function(item){
+        var total = 0;
+        item.contributions.forEach(function(inner){
+          total = total + inner.amount;
+        })
+        item.total = total;
+      })
+      if(req.query.filter === 'fully'){
+        var fullArr = arr.filter(function(item){
+          return item.goal === item.total || item.goal < item.total
+        })
+        res.render('index', {items: fullArr});
+      }else if (req.query.filter === 'partial'){
+        var partialArr = arr.filter(function(item){
+          return item.goal > item.total
+        })
+        res.render('index', {items: partialArr});
+      }
+
+  })
+}  else{
+    Project.find(function(err, array){
+      res.render('index', {items: array});
+    });
+  }
 });
 
 // Part 2: Create project
@@ -53,6 +104,7 @@ router.post('/new', function(req, res) {
       error:'Title, body, category, start date and/or end date cannot be blank!'
     })
   }else if (!result){
+    console.log(req.body.description);
     if (req.body.description){
       var project = new Project({
         title: req.body.title,
@@ -60,7 +112,8 @@ router.post('/new', function(req, res) {
         description: req.body.description,
         category: req.body.category,
         start: req.body.start,
-        end: req.body.end
+        end: req.body.end,
+        contributions: []
       });
     }
     else{
@@ -69,7 +122,8 @@ router.post('/new', function(req, res) {
         goal: req.body.goal,
         category: req.body.category,
         start: req.body.start,
-        end: req.body.end
+        end: req.body.end,
+        contributions: []
       });
     }
     project.save(function(err){
@@ -244,6 +298,7 @@ router.get('/project/:projectid/edit',function(req,res){
           title: project.title,
           goal: project.goal,
           description: project.description,
+          contributions: project.contributions,
           start: newStartDate,
           end: newEndDate,
           category: project.category,
@@ -251,7 +306,7 @@ router.get('/project/:projectid/edit',function(req,res){
         })
       }
     else{
-      res.render('project',{
+      res.render('editProject',{
         title: project.title,
         goal: project.goal,
         start: newStartDate,
@@ -281,22 +336,122 @@ router.post('/project/:projectid/edit',function(req,res){
       end: req.body.end
     })
   }else{
-  Project.findByIdAndUpdate(req.params.projectid, {
-    title: req.body.title,
-    goal: req.body.goal,
-    description: req.body.description,
-    start: req.body.start,
-    end: req.body.end,
-    contributions: req.body.contributions
+    var cont;
+    console.log(req.body.description);
+    console.log(req.body);
+  Project.findById(req.params.projectid, function(err,project){
+    if (err){
+      console.log("THERE WAS AN ERROR: " + err);
+    }else{
+      console.log(project.contributions);
+      cont = project.contributions
+      Project.findByIdAndUpdate(req.params.projectid, {
+        title: req.body.title,
+        goal: req.body.goal,
+        description: req.body.description,
+        start: req.body.start,
+        end: req.body.end,
+        contributions: cont
 
-  },{new:true}, function(err,project) {
-      if (err){
-        console.log('Oops, something happened!');
-        res.redirect('/')
-      }else{
-        res.redirect('/')
+      },{new:true}, function(err,project) {
+          if (err){
+            console.log('Oops, something happened!');
+            res.redirect('/')
+          }else{
+            res.redirect('/project/'+req.params.projectid)
+          }
+        })
       }
     })
+  }
+})
+router.use(expressValidator({
+ customValidators: {
+    isTrue: function(value){
+      return value;
+    },
+    isPositive: function(value) {
+      return value.amount > 0;
+    }
+ }
+}));
+router.post('/api/project/:projectid/contributions', function(req,res){
+  var projectid = req.params.projectid;
+  req.checkBody('newContribution','You need an title').isPositive();
+  var errors = req.validationErrors();
+  if (errors){
+    res.status(400).json(err);
+  }else{
+    Project.findById(projectid, function(err,project){
+      if (err){
+        console.log("THERE WAS AN ERROR: " + err);
+      }else{
+        var obj = {
+          name: req.body.name,
+          amount: req.body.amount
+        }
+        console.log(req.body);
+        console.log(req.body.name);
+        console.log(req.body.amount);
+        project.contributions.push(obj);
+        project.save(function(err){
+          if(err){
+            console.log('could not save', err);
+
+          }else{
+            console.log('success');
+            res.json(obj);
+            //mongoose.connection.close();
+          }
+        });
+      }
+    })
+  }
+})
+
+router.get('/api/projects',function(req,res){
+  console.log(req.query.funded);
+  if (req.query.funded == true){
+    console.log('true');
+    Project.find(function(err, array){
+      var arr = array;
+      arr.forEach(function(item){
+        var total = 0;
+        item.contributions.forEach(function(inner){
+          total = total + inner.amount;
+        })
+        item.total = total;
+      })
+    })
+
+    var fullArr = arr.filter(function(item){
+      return item.goal === item.total || item.goal < item.total
+    })
+    res.json(fullArr);
+
+  }else if (req.query.funded == false){
+    console.log('false');
+    Project.find(function(err, array){
+      var arr = array;
+      arr.forEach(function(item){
+        var total = 0;
+        item.contributions.forEach(function(inner){
+          total = total + inner.amount;
+        })
+        console.log(total);
+        item.total = total;
+      })
+    })
+    var partialArr = arr.filter(function(item){
+      return item.goal > item.total
+    })
+    res.json(partialArr);
+  }
+
+  else{
+    Project.find(function(err, array){
+      res.json(array);
+    });
   }
 })
 

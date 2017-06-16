@@ -10,14 +10,91 @@
   </style>
 </head>
 <body>
+  <ul>
+  {{#each errors}}
+    <li>{{msg}}</li>
+  {{/each}}
+  </ul>
+
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h1 style="text-align:center;">Put your registration form here</h1>
+
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+      <form class="form-horizontal" method="post" action="/register">
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="firstName">First Name:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="firstName" placeholder="First Name" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="middle">Middle Initial:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="middle" placeholder="MI">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="lastName">Last Name:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="lastName" placeholder="Last Name" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="dob">Date of Birth:</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" name="dob" >
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="pwd">Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="pwd" placeholder="Enter password" required="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="rpwd">Repeat Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="rpwd" placeholder="Repeat password" required="true">
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label class="control-label col-sm-2" for="gender">Gender:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="gender">
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="gender">Gender:</label>
+            <div class="radio">
+              <label><input type="radio" name="optradio">Male</label>
+            </div>
+            <div class="radio col-sm-offset-1">
+              <label><input type="radio" name="optradio">Female</label>
+            </div>
+            <div class="radio col-sm-offset-1">
+              <label><input type="radio" name="optradio">Rather Not Specify</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-1" for="bio">Bio:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" rows="5" name = "bio" id="bio"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+
+
+              <label class="control-label col-sm-offset-1"><input type="checkbox" name="check" id='check'> Sign up for newsletter?</label>
+
+
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+</form>
     </div>
   </div>
 </body>

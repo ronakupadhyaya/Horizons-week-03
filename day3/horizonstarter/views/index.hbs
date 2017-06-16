@@ -15,6 +15,22 @@
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+Sort By:
+    <select name="sort" onChange="window.document.location.href=this.options[this.selectedIndex].value;" value="GO">
+      <option value="">Select...</option>
+      <option value="/">View All Projects</option>
+      <option value="/?sort=start">Start Date</option>
+      <option value="/?sort=end">End Date</option>
+      <option value="/?sort=goal">Goal Funds</option>
+      <option value="/?sort=total">Total Funds</option>
+    </select>
+Filter By:
+    <select name="sort" onChange="window.document.location.href=this.options[this.selectedIndex].value;" value="GO">
+      <option value="">Select...</option>
+      <option value="/">View All Projects</option>
+      <option value="/?filter=fully">Fully Funded Projects</option>
+      <option value="/?filter=partial">Projects That Need Your Help!</option>
+    </select>
 
 <a style="text-align: center;" href="/new">Create a new project</a>
 </div>
