@@ -1,19 +1,26 @@
+
+
+
 <div class="projects-container">
   <h1>~View Project~</h1>
 
   <!-- Part 3: View a single project -->
+  <div class="contribution-message"></div>
 
   <div class="project-single">
-    <h3>{{project.title}}</h3> from {{project.start}} to {{project.end}} <br>
+    <h3 id="{{project._id}}">{{project.title}}</h3> from {{project.start}} to {{project.end}} <br>
     <strong>Goal: ${{project.goal}}</strong><br>
+    <h7>{{project.category}}<h7><br>
     <p>"{{project.description}}"</p><br><br>
   </div>
+  <button class-"btn btn-default btn-sm"><a href="/project/{{project._id}}/edit">Edit project</a></button><br>
+
 
 
 
 <!-- Part 4: Contribute to a project -->
 
-<h3>Total contributions: ${{project.totalContributions}} of ${{project.goal}}</h3>
+<h3 id="totalContributions">Total contributions: $<span id="contribution"> {{project.totalContributions}} </span> of $ {{project.goal}}</h3>
 </div>
 <div class="progress">
   <div class="progress-bar" role="progressbar"
@@ -23,19 +30,17 @@
 </div>
 
 
-
 <!-- YOUR CODE HERE -->
 <div>
   <form method="POST" action="/project/{{project._id}}">
     <h4>Make a contribution to this project:</h3>
-    Name: <input type=text name="name" value=""><br><br>
-    Amount: <input type="Number" name="amount" value=""><br><br>
-    <input type="submit" value="Submit"><br><br><br>
+    Name: <input type=text name="name" id="name" value=""><br><br>
+    Amount: <input type="Number" name="amount" id="amount" value=""><br><br>
+     <button id="send-contribution">Add Contribution</button><br><br>
   </form>
 </div>
 
-
-<span>
+<span id="list-of-contributions">
   <h4>Previous contributions:</h3>
   {{#each project.contributions}}
   <div class="contribution">
@@ -46,4 +51,6 @@
 </span><br><br><br>
 
 
-<a href="/">View more projects<a>
+<button class="btn btn-default btn-sm"><a href="/">View more projects</a></button>
+
+<script src="/js/contributions.js"></script>

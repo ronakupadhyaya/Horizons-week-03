@@ -14,6 +14,54 @@
     <div class="row">
       <h1>Put your user profile here</h1>
     </div>
+
+    <div class="row">
+      <form action="/register" method="post">
+
+        <div class="form-group row">
+          <label for="text-input" class="col-2 col-form-label">First name:</label>
+          <div class="col-10" type="text" name="firstName">{{user.firstName}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="text-input" class="col-2 col-form-label">Middle initial:</label>
+          <div class="col-10" type="text" name="middleInitial">{{user.middleInitial}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="text-input" class="col-2 col-form-label">Last name:</label>
+          <div class="col-10" type="text" name="lastName">{{user.lastName}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="date-input" class="col-2 col-form-label">Date of birth:</label>
+          <div class="col-10" type="date" name="DOB">{{user.DOB}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="password-input" class="col-2 col-form-label">Password:</label>
+          <div class="col-10" type="password" name="password">{{user.password}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="gender-input" class="col-2 col-form-label">Gender:</label>
+          <div class="col-10" type="text" name="gender">{{user.gender}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="gender-input" class="col-2 col-form-label">Signed up for newsletter:</label>
+          <div class="col-10" type="text" name="newsletter">{{user.newsletter}}</div>
+        </div>
+        <div class="form-group row">
+          <label for="bio-input" class="col-2 col-form-label">Biography:</label>
+          <div class="col-10" type="text" name="bio">{{user.bio}}</div>
+        </div>
+
+
+
+
+
+
+      </form>
+    </div>
+
+
+
+
   </div>
 </body>
 </html>

@@ -1,0 +1,28 @@
+<div class='projects-container'>
+
+  <h2>Edit project</h2>
+
+
+  <form method="POST" action="/project/{{project._id}}/edit">
+    <span>
+      <div class="project-new">
+        <div>
+          Title: <input type=text name="title" value="{{project.title}}"><br><br>
+          Goal: <input type=Number name="goal" value="{{project.goal}}"><br><br>
+          Description: <textarea type="text" name="description" value="{{project.description}}">{{project.description}}</textarea><br><br>
+          Start date: <input type="Date" name="start" value="{{project.start}}"><br><br>
+          End date: <input type="Date" name="end" value="{{project.end}}"><br><br>
+
+          <select name="category">
+            {{#each categories}}
+                <option value="{{this.name}}" {{#if this.selected}} selected {{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+        </div>
+        <input type="submit" value="Submit">
+      </div>
+    </span>
+  </form>
+  <button class="btn btn-default btn-sm"><a href="/project/{{project._id}}">Cancel and go back to project</a></button>
+</div>

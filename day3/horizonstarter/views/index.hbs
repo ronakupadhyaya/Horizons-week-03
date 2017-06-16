@@ -8,14 +8,23 @@
     {{#each array}}
     <div class="project">
       <div class="project-feed">
-        <h3><a href="/project/{{this._id}}">{{this.title}}</a></h3> from {{this.start}} to {{this.end}} <br>
-        <strong>Goal: ${{this.goal}}</strong><br>
-        <p id="desc">"{{this.description}}"</p><br>
+        <h3><a href="/project/{{this._id}}">{{title}}</a></h3> from {{start}} to {{end}} <br>
+        <strong>Goal: </strong>${{goal}}  //  <strong>Total Contributions: </strong>${{totalContributions}}  //  <strong>Category: </strong>{{category}}<br>
+        <p id="desc">"{{description}}"</p><br>
       </div>
     </div>
     {{/each}}
   </span>
 
 <!-- Part 2: Create new project -->
-  <a href="/new">Create new project</a>
+<div class="button-box">
+  <button class="btn btn-default btn-sm"><a href="/?sort=goal&sortDirection=-1">Sort by goal</a></button>
+  <button class="btn btn-default btn-sm"><a href="/?sort=start&sortDirection=-1">Sort by starting date</a></button>
+  <button class="btn btn-default btn-sm"><a href="/?sort=goal&sortDirection=-1">Sort by ending date</a></button>
+  <button class="btn btn-default btn-sm"><a href="/?sort=totalContributions&sortDirection=-1">Sort by total contributions</a></button>
+
+</div><br>
+
+
+<button class="btn btn-default btn-sm"><a href="/new">Create new project</a></button>
 </div>
