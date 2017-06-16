@@ -6,14 +6,11 @@
   <div>Description: {{project.description}}</div>
 <div>  Start date {{project.start}}</div>
 <div>  End date {{project.end}}</div>
+<div>Category {{project.category}}</div>
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
-<form method="POST" action="/project/{{project._id}}">
-  <div><input type="text" name="name" value="" placeholder="name"></div>
-  <div><input type="text" name="amount" value="" placeholder="amount"></div>
-  <div><input type="submit" value="contribute"></div>
-</form>
+
 
 <div>
   Total contribution amount: {{sum}}
@@ -22,6 +19,12 @@
 <div class="progress">
     <div class="progress-bar" role="progressbar" style="width:{{percent}}%"></div>
   </div>
+  <div id='contribution'>
   {{#each arr}}
-  <div>name: {{this.name}} amount: {{this.amount}}</div>
-  {{/each}}
+  <div>Name: {{this.name}} , Amount: {{this.amount}}</div>
+  {{/each}}</div>
+  <form method="POST" action="/project/{{project._id}}" id='form'>
+    <div><input type="text" id='contributionName' name="name" value="" placeholder="name"></div>
+    <div><input type="text" id='contributionAmount' name="amount" value="" placeholder="amount"></div>
+  </form>
+<div><button id="send-contribution" data-project-id="{{project._id}}">Add Contribution</button></div>

@@ -3,7 +3,18 @@
 <!-- Part 1: View all projects -->
 {{#each projects}}
 <div>{{this}}</div>
+
+<!-- <div>Contribution:{{this.start}}</div> -->
+
 {{/each}}
+
+<div>
+<a href='/?sort=start'><input type="button" value="Sort by start"></a>
+<a href='/?sort=end'><input type="button" value="Sort by end"></a>
+<a href='/?sort=goal'><input type="button" value="Sort by goal"></a>
+<a href='/?sort=contributions'><input type="button" value="Sort by contributions"></a>
+<a href='/?sort=fund'><input type="button" value="View fully funded"></a></div>
+<a href='/?sort=notfund'><input type="button" value="View not fully funded"></a></div>
 
 <!-- Part 2: Create new project -->
 <a href="/new">Create new project</a>

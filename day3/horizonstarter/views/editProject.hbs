@@ -1,25 +1,20 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-<!-- Part 2: Create project -->
-<form method="POST" action="/new">
+<!-- Part 2: edit project -->
+<form method="POST" action=" /project/{{project._id}}/edit">
   <div><input type="text" name="title" value="{{project.title}}" placeholder="title"></div>
   <div><input type="text" name="goal" value="{{project.goal}}" placeholder="goal"></div>
   <div><input type="textarea" name="description" value="{{project.description}}" placeholder="description"></div>
-  <div><input type="date" name="start" value="{{project.start}}"></div>
-  <div><input type="date" name="end" value="{{project.end}}"></div>
+  <div><input type="date" name="start" value="{{start}}"></div>
+  <div><input type="date" name="end" value="{{end}}"></div>
 
-
-
-  <!-- how to create dropdown? how to get the value user picked? -->
-  <!-- use for each category add a dropdown -->
   <select name='category' class="custom-select">
     <option selected>Category</option>
     {{#each category}}
-    <option value="{{name}}" {{#if selected}} selected {{/if}}>{{name}}</option>
+    <option value="{{this.name}}" {{#if this.selected}} selected {{/if}}>{{this.name}}</option>
     {{/each}}
   </select>
-
-<div><input type="submit" value="submit">
+<div><input type="submit" value="submit"></div>
 
     {{err}}
 </form>
