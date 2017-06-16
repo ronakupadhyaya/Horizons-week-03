@@ -1,31 +1,33 @@
-<h1>View Project</h1>
-
-<!-- Part 3: View a single project -->
-
-<strong>{{title}}</strong><br>
-<strong>${{goal}}</strong> <br>
-<strong>{{description}}</strong><br>
-<strong>{{start}}</strong><br>
-<strong>{{end}}</strong><br>
-
-<!-- Part 4: Contribute to a project -->
+<style>
+  a {
+    width: 25%;
+  }
+</style>
+<div style='display:inline-block'>
+  <a class='btn btn-info' href="/project/{{id}}/edit" style="float:right;">Edit Project</a>
+  <a class='btn btn-info' href="/" style="float:left;">Home</a>
+</div>
+<h1>{{title}}</h1><br>
+<strong>{{category}}</strong><br>
+<h4>{{description}}</h4><br>
+<strong>Started: </strong>{{start}}<br>
+<strong>Ending: </strong>{{end}}<br>
+<strong>Goal: ${{goal}}</strong> <br>
 
 <h3>Contributions</h3>
 
 <form method="post" action="/project/{{id}}">
-    <input type="text" name="name" value="" placeholder="Name">
-    <input type="number" name="amount" value="" placeholder="Amount">
-    <input type="submit" name="" value="Donate">
+  <input type="text" name="name" value="" placeholder="Name">
+  <input type="number" name="amount" value="" placeholder="Amount">
+  <input class="btn btn-basic" type="submit" value="Donate">
 </form>
 
 <strong>{{number}} Contributions made</strong>
 <div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
-  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
     {{percent}}%
   </div>
 </div>
 
 {{#each contribution}}
-<strong>{{name}}: ${{amount}}</strong><br>
-{{/each}}
+<strong>{{name}}: ${{amount}}</strong><br> {{/each}}

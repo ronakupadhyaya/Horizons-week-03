@@ -1,9 +1,42 @@
 <h1>View projects</h1>
 
-<!-- Part 1: View all projects -->
-{{#each items}}
-<h2>{{title}}</h2>
-{{/each}}
-<a href="/new">Create a new project</a>
+<form action="/">
+    <div>
+        <input id="start" type="radio" name='sort' value="start">Start
+        <input id="end" type="radio" name='sort' value="end">End
+        <input id="goal" type="radio" name='sort' value="goal">Goal
+    </div>
+    <div>
+        <input id="1" type="radio" name='sortDirection' value="1">Ascending
+        <input id="-1" type="radio" name='sortDirection' value="-1">Descending
+    </div>
+    <div>
+        <input id="finished" type="radio" name="filter" value="finished">Funded
+        <input id="ongoing" type="radio" name="filter" value="ongoing">Ongoing
+        <input type="radio" name="filter" value="">All
+    </div>
+    <br>
+    <input class="btn btn-basic" type="submit" value="Apply">
+</form>
+<br>
+<div>
+    {{#each items}}
+    <h4>{{title}}</h4>
+    <a class='btn btn-info' href="/project/{{id}}" style="width:25%;">Project Page</a>{{/each}}
+    <br>
+    <br><a href="/new" class="btn btn-primary">Create a new project</a>
+</div>
 
-<!-- Part 2: Create new project -->
+<script>
+    var elem = document.getElementById("{{sort}}");
+    elem.checked = "checked"
+    var elem = document.getElementById("{{sortDirection}}");
+    elem.checked = "checked"
+    var elem = document.getElementById("{{filter}}");
+    elem.checked = "checked"
+</script>
+
+<style>
+    div {
+    }
+</style>

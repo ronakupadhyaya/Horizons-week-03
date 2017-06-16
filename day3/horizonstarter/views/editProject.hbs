@@ -1,0 +1,27 @@
+<h2>Edit project</h2>
+
+<style>
+    form {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<form method="post" action="/project/{{id}}/edit">
+    Title <input type="text" name="title" value="{{title}}" placeholder="Title">
+    Category <select name="category" id="category">
+        {{#each category}}
+        <option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+        {{/each}}
+    </select>
+    Description <textarea placeholder="Description" name="description" rows="1" cols="40">{{description}}</textarea>
+    Goal <input type="number" name="goal" value="{{goal}}" placeholder="Goal">
+    Start Date <input type="Date" name="start" value="{{start}}" placeholder="Start date">
+    End Date <input type="Date" name="end" value="{{end}}" placeholder="End date">
+    <br>
+    <input type="submit" name="" value="Submit">
+</form>
+{{#each error}}
+<p>{{msg}}</p>
+{{/each}}

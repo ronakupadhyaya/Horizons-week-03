@@ -8,7 +8,7 @@ var Project = mongoose.model('Project', {
     type: String,
     required: true,
   },
-  goal:{
+  goal: {
     type: Number,
     required: true
   },
@@ -23,6 +23,13 @@ var Project = mongoose.model('Project', {
   },
   contribution: Array,
   raised: Number,
+  category: {
+    type: String,
+    required: true,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+      'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"',
+      'How Many Fingers Am I Holding Up', 'Potent Potables'],
+  }
 });
 
 module.exports = {
