@@ -1,0 +1,38 @@
+<h2>Create project</h2>
+
+<!-- Part 2: Create project -->
+
+<form method="POST" action="/project/{{project._id}}/edit">
+  title
+<br>
+  <input type="text" name="title" value="{{title}}">
+<br>
+  Goal
+  <input type="text" name="goal" value="{{goal}}">
+<br>
+  Description
+  <textarea rows="4" cols="20" name="description"> {{description}} </textarea>
+<br>
+  Start
+  <input type="date" name="start" value="{{date}}">
+<br>
+  End
+  <input type="date" name="end" value="{{date2}}">
+
+  <select name="category" value={{category}}>
+    <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+    <option value="Current Black Presidents">Current Black Presidents</option>
+    <option value="Current Black Presidents">Current Black Presidents</option>
+    <option value="The Pen Is Mightier">The Pen Is Mightier</option>
+    <option value="Famous Mothers">Famous Mothers</option>
+    <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+    <option value="Current Black Presidents">Current Black Presidents</option>
+    <option value="1-Letter Words">1-Letter Words</option>
+    <option value='Months That Start With "feb"'>Months That Start With "Feb"</option>
+    <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+    <option value="Potent Potables">Potent Potables</option>
+  </select>
+  <input type="submit">
+</form>
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->

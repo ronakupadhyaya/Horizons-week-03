@@ -12,12 +12,59 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <div><strong>Errors:</strong><ul>
+    {{#each errors}}
+    <li>{{this.msg}}<li>
+    {{/each}}
+    </ul></div>
+    <div class="row col-xs-6 col-xs-offset-2" style="background-color:white" >
+
       <form action="/register" method="post">
+        <div class="form-group">
+          <label for="firstName">first name:</label>
+          <input type="text" class="form-control" name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="middleI">Middle initial:</label>
+          <input type="text" class="form-control" name="middleI" >
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last name:</label>
+          <input type="text" class="form-control" name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="DOB">Date of Birth</label>
+          <input type="date" class="form-control" name="dOB" >
+        </div>
+
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" name="pwd" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pwdRepeat">Reapt password:</label>
+          <input type="password" class="form-control" name="pwdRepeat" required>
+        </div>
+
+        <div class="checkbox">
+          <label><input type="checkbox" name="news" required> sign up for news letter</label>
+        </div>
+
+        <input type="radio" name="gender" value="male" checked> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Other <br>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+
+      <!-- <form action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>
         <input type="submit">
-      </form>
+      </form> -->
     </div>
   </div>
 </body>

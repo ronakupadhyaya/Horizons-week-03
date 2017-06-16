@@ -1,0 +1,42 @@
+<h1>View projects</h1>
+<a href="http://localhost:3000/?sort=start{{#if dir}}&sortDirection={{dir}}{{/if}}"> start</a>
+<a href="http://localhost:3000/?sort=end{{#if dir}}&sortDirection={{dir}}{{/if}}"> end</a>
+<a href="http://localhost:3000/?sort=goal{{#if dir}}&sortDirection={{dir}}{{/if}}"> goal</a>
+
+<a href="http://localhost:3000/{{#if sort}}?sort={{sort}}&sortDirection=asc{{/if}}"> ascending</a>
+<a href="http://localhost:3000/{{#if sort}}?sort={{sort}}&sortDirection=dec{{/if}}"> descending</a>
+
+<a href="http://localhost:3000/?sort=totalcontribution{{#if dir}}&sortDirection={{dir}}{{/if}}"> total-contribution</a>
+
+
+<a href="/funded/funded=true"> fully funded</a>
+<a href="/funded/funded=false"> not fully founded</a>
+<div id="projectList">
+{{#each items}}
+<div>
+<span>Title: </span>
+<span>{{this.title}}</span>
+<div>
+<a href="http://localhost:3000/project/{{this.id}}">go to project</a>
+</div>
+</div>
+{{/each}}
+</div>
+<!-- Part 1: View all projects -->
+<!-- YOUR CODE HERE -->
+
+<!-- Part 2: Create new project -->
+<!-- YOUR CODE HERE -->
+<a href="http://localhost:3000/new">Create new project</a>
+
+
+<button class="btn btn-primary" id="funded" data-id="funded">Funded ajax</button>
+<button class="btn btn-primary" id="not-funded" data-id="notFunded">Not completely funded ajax</button>
+
+
+
+<a class="btn btn-default" href="">show all</a>
+
+
+
+<script src="/js/projects.js"></script>

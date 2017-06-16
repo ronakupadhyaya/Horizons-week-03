@@ -7,12 +7,16 @@ var path = require('path');
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Serve static files
@@ -21,12 +25,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // We use a variable to keep count
 var count = 0;
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.render('index.hbs', {
     count: count
   });
 });
 
+app.post("/up", function (req, res) {
+  count += 1;
+  res.json({
+    count: count
+  });
+});
 // ---Task 1---
 // POST /up: Create JSON endpoint that increases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
@@ -38,7 +48,13 @@ app.get('/', function(req, res) {
 // and returns a JSON response indicating the new value of `count`.
 
 // YOUR CODE HERE
+app.post("/down", function (req, res) {
+  count -= 1;
+  res.json({
+    count: count
+  });
+});
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   console.log("Example app listening on port 3000!");
 });
