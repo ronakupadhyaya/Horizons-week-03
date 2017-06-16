@@ -1,28 +1,31 @@
+<div class="container-fluid card card-outline-primary p-3 px-5 mt-4" style="width:50%">
 <h1>View projects</h1>
+<div class="pull-right">
+<a class='text-muted card m-1 p-1' style="width:35%" method='post' href='/?total=1'> <small> Sort by total contributions </small></a>
+<a class='text-muted card m-1 p-1' style="width:35%" method='post' href='/?full=a'> <small> Filter: Fully funded projects</small></a>
+<a class='text-muted card m-1 p-1' style="width:35%" method='post' href='/?full=b'> <small> Filter: Partially funded projects </small></a>
+</div>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-<ul>
 
 {{#each items}}
-<li>
-  <div class="card">
-  <div class="card-header">
-    Title: {{title}}
+  <div class="card card-outline-success my-3">
+  <div class="card-header card-success card-inverse">
+    <strong>Title: {{title}}</strong>
   </div>
   <div class="card-block">
     <p class="card-text"> Description: {{description}}</p>
     <p class="card-text"> <em> Goal: {{goal}} </em> </p>
   </div>
   <div class="card-footer">
+    <small class="text-muted">
     <p> Start date: {{start}} </p>
     <p> End date: {{end}} </p>
+  </small>
   </div>
-</div>
-</li>
+  </div>
 {{/each}}
 
-</ul>
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<a style="width:40% ml-3" type="button" class="btn btn-primary" href="/new">Create a new project</a>
+</div>

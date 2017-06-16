@@ -2,8 +2,8 @@
 
 <!-- Part 3: View a single project -->
 <!-- YOUR CODE HERE -->
-<div class="container-fluid" style="width: 50%">
-  <h1>View Project</h1>
+<div class="container-fluid mt-4 mb-5" style="width:50%">
+  <h1 class="mb-3">View Project</h1>
 <div class="card">
 <div class="card-header">
   Title: {{title}}
@@ -12,6 +12,7 @@
   <p class="card-text"> Description: {{description}}</p>
   <p class="card-text"> <em> Goal: {{goal}} </em> </p>
   <p class="card-text"> <em> Total: {{total}} </em> </p>
+  <p class="card-text"> <em> Category: {{category}} </em> </p>
 </div>
 <div class="card-block">
   <div class="progress">
@@ -23,13 +24,13 @@
 </div>
 <div class="card-block">
   <legend> Contributors: </legend>
-  <ul>
+  <div class="list-group">
     {{#each conArr}}
-      <li>
-        <em> Name: {{this.name}}, Amount: {{this.amount}} </em>
+      <li class="list-group-item list-group-item-info">
+        <strong> {{this.name}} &nbspgave&nbsp ${{this.amount}}!</strong>
       </li>
       {{/each}}
-  </ul>
+  </div>
 </div>
 <div class="card-footer">
   <p> Start date: {{start}} </p>
@@ -40,8 +41,8 @@
 
 <!-- Part 4: Contribute to a project -->
 <!-- YOUR CODE HERE -->
+<div class="container-fluid" style="width:50%">
 <h2> Contribute to this project here! </h2>
-<div class="container pull-left" style="width: 30%">
 <form method="post" action="/project/{{project_id}}">
   <div class="form-group">
     <label>Name</label>

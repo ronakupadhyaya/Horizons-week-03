@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+var _ = require('underscore');
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -24,11 +25,93 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err,arr){
-    res.render('index',{
-      items:arr
+  if(req.query.full){
+    if(req.query.full==="a"){
+      Project.find(function(err,arr){
+        var filteredArr = _.filter(arr,function(item){
+          var total = 0
+          item.contributions.forEach(function(money){
+            total += parseInt(money.amount)
+          })
+          return total >= item.goal})
+        res.render('index',{
+          items:filteredArr
+        })
+      })
+    }
+    else if(req.query.full==="b"){
+      Project.find(function(err,arr){
+        var filteredArr = _.filter(arr,function(item){
+          var total = 0
+          item.contributions.forEach(function(money){
+            total += parseInt(money.amount)
+          })
+          return total < item.goal})
+        res.render('index',{
+          items:filteredArr
+        })
+      })
+    }
+  }
+  else{
+  if(req.query.total){
+    Project.find(function(err,arr){
+      var sortedArr = _.sortBy(arr,function(item){
+        var total = 0
+        item.contributions.forEach(function(money){
+          total += parseInt(money.amount)
+        })
+        return total})
+      res.render('index',{
+        items:sortedArr
+      })
     })
-  })
+  }
+  else{
+  var sortDirection = req.query.sortDirection
+  if(req.query.sort && sortDirection){
+    if(sortDirection=== "1" || sortDirection=== "ascending"){
+      var sortObject = {};
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, arr) {
+        // YOUR CODE HERE
+        res.render('index',{
+          items: arr
+        })
+      });
+    }
+    else if(sortDirection=== "-1" || sortDirection=== "decending"){
+      var sortObject = {};
+      sortObject[req.query.sort] = -1;
+      Project.find().sort(sortObject).exec(function(err, arr) {
+        // YOUR CODE HERE
+        res.render('index',{
+          items: arr
+        })
+      });
+    }
+  }
+  else{
+    if (req.query.sort) {
+      var sortObject = {};
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, arr) {
+        // YOUR CODE HERE
+        res.render('index',{
+          items: arr
+        })
+      });
+    }
+    else{
+      Project.find(function(err,arr){
+        res.render('index',{
+          items:arr
+        })
+      })
+    }
+  }
+}
+}
 });
 
 // Part 2: Create project
@@ -45,8 +128,9 @@ router.post('/new', function(req, res) {
   req.check('title','title cannot be empty').notEmpty();
   req.check('goal','goal must be int').notEmpty().isInt();
   req.check('description','description cannot be empty').notEmpty();
-  req.check('start','start cannot be empty').notEmpty();
-  req.check('end','end cannot be empty').notEmpty();
+  req.check('start','start date cannot be empty').notEmpty();
+  req.check('end','end date cannot be empty').notEmpty();
+  req.check('category','category cannot be empty').notEmpty();
   var eArr = req.validationErrors()
   if(eArr){
     res.render('new',{
@@ -58,13 +142,12 @@ router.post('/new', function(req, res) {
       goal: parseInt(req.body.goal),
       description: req.body.description,
       start: req.body.start,
-      end: req.body.end
+      end: req.body.end,
+      category: req.body.category
     });
     p.save(function(err){
       if(err){
-        res.render('new',{
-          errors: eArr
-        })
+        res.send(err);
       }
       else{
         res.redirect('/')
@@ -97,7 +180,8 @@ router.get('/project/:projectid', function(req, res) {
         total: total,
         project_id: req.params.projectid,
         progress: progress,
-        conArr: p.contributions
+        conArr: p.contributions,
+        category: p.category
       })
     }
   })
@@ -126,5 +210,60 @@ router.post('/project/:projectid', function(req, res) {
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+
+router.get('/project/:projectid/edit',function(req,res){
+  Project.findById(req.params.projectid,function(err,p){
+    if(err){
+      res.send(err);
+    }
+    else{
+      var total = 0
+      p.contributions.forEach(function(item){
+        total += parseInt(item.amount)
+      })
+      var start = new Date(p.start).toISOString().substring(0,10);
+      var end = new Date(p.end).toISOString().substring(0,10);
+      res.render('editProject',{
+        title:p.title,
+        goal: p.goal,
+        description: p.description,
+        start: start,
+        end: end,
+        total: total,
+        project_id: req.params.projectid,
+        conArr: p.contributions,
+        category: p.category
+      })
+    }
+  })
+});
+
+
+router.post('/project/:projectid/edit',function(req,res){
+  Project.findById(req.params.projectid, function(err,p){
+    if(err){
+      res.send(err)
+    }
+    else{
+      Project.findByIdAndUpdate(req.params.projectid,{
+        title: req.body.title,
+        goal: req.body.goal,
+        description: req.body.description,
+        start: req.body.start,
+        end: req.body.end,
+        conArr: req.body.contributions,
+        category: req.body.category
+      },function(err){
+        if(err){
+          res.send(err)
+        }
+        else{
+          res.redirect('/project/'+req.params.projectid)
+        }
+      }
+    )
+    }
+  })
+})
 
 module.exports = router;
