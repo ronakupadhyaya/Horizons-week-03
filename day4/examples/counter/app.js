@@ -29,6 +29,16 @@ app.get('/', function(req, res){
 // Implement POST /up route
 // YOUR CODE HERE
 
+app.post('/up', function(req, res) {
+  count++;
+  res.redirect('/');
+});
+
+app.post('/down', function(req, res) {
+  count--;
+  res.redirect('/');
+});
+
 // Implement POST /down route
 // YOUR CODE HERE
 

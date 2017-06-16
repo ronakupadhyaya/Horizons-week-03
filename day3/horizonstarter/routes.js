@@ -6,6 +6,12 @@ var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
 var validator = require('express-validator');
+var enumArr = ["Famous Muppet Frogs", "Current Black Presidents", "The Pen is Mightier",
+"Famous Mothers", "Drummers Named Ringo", "1-Letter Words",
+"Months That Start With 'Feb'", "How Many Fingers Am I Holding Up",
+"Potent Potables"];
+
+router.use(validator());
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -24,17 +30,53 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
-  Project.find(function(err, projectArr) {
-    res.render("index", {items:projectArr});
-  })
+  if(req.query.filter) {
+    var filter = req.query.filter;
+    if(filter === "fully") {
+      Project.find(function(err, projectArr) {
+        projectArr = projectArr.filter(function(project) {
+          if (project.total / project.goal >= 1) {
+            return project;
+          }
+        })
+        res.render('index', {items: projectArr});
+      });
+    } else if (filter === "notfully") {
+      Project.find(function(err, projectArr) {
+        projectArr = projectArr.filter(function(project) {
+          if (project.total / project.goal < 1) {
+            return project;
+          }
+        })
+        res.render('index', {items: projectArr});
+      });
+    }
+  }
+  if (req.query.sort) {
+    var sortObject = {};
+    if (parseInt(req.query.sortDirection) === -1) {
+      sortObject[req.query.sort] = -1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+        res.render("index", {items: array, selected: req.query.sort});
+      });
+    } else {
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+        res.render("index", {items: array, selected: req.query.sort});
+      });
+    }
+  } else {
+    Project.find(function(err, projectArr) {
+      res.render("index", {items:projectArr});
+    });
+  }
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
   // YOUR CODE HERE
-  res.render("new");
+  res.render("new", {enumArr: enumArr});
 });
 
 // Part 2: Create project
@@ -66,7 +108,8 @@ router.post('/new', function(req, res) {
       goal: goal || "Goal required!",
       description: description,
       errors: true,
-      errorArr: errorArr
+      errorArr: errorArr,
+      enumArr: enumArr
     });
   } else {
     var newProject = new Project({
@@ -75,7 +118,8 @@ router.post('/new', function(req, res) {
       description: description,
       start: new Date(start),
       end: new Date(end),
-      total: 0
+      total: 0,
+      category: req.body.categories
     });
     newProject.save(function(error) {
       if(!error) {
@@ -96,7 +140,6 @@ router.get('/project/:projectid', function(req, res) {
     if (err) {
       console.log("error with findId")
     } else {
-      var contributionArr = foundProject.contributions;
       var percentage = Math.round(foundProject.total / foundProject.goal * 100);
       res.render("project", {project: foundProject, percentage: percentage});
     }
@@ -136,4 +179,72 @@ router.post('/project/:projectid', function(req, res) {
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 
-module.exports = router;
+router.get('/project/:projectid/edit', function(req, res) {
+  var projectid = req.params.projectid;
+  Project.findById(projectid, function(error, foundProject) {
+    if(error) {
+      console.log("error, get/edit");
+    } else {
+      var start = foundProject.start.toISOString().substring(0, 10);
+      var end = foundProject.end.toISOString().substring(0, 10);
+      var index = enumArr.indexOf(foundProject.category);
+      var copyEnum = enumArr;
+      copyEnum = copyEnum.slice(index, index+1);
+      res.render('editProject', {project: foundProject, enumArr: copyEnum,
+        start:start, end: end, selected: foundProject.category});
+      }
+    })
+  });
+
+  router.post('/project/:projectid/edit', function(req, res) {
+    var projectid = req.params.projectid;
+    Project.findByIdAndUpdate(projectid, {
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end,
+      category: req.body.categories
+    }, function(err, foundProject) {
+      console.log("found", foundProject);
+      if(err) {
+        console.log("error updating project")
+      } else {
+        res.redirect(`/project/${projectid}`);
+      }
+    });
+  });
+
+  router.post("/api/project/:projectid/contribution", function(req, res) {
+    var projectid = req.params.projectid;
+    Project.findById(projectid, function(error, foundProject) {
+      if (error) {
+        console.log("Project not found")
+      } else {
+        var contributionObj = {name: req.body.name, amount: parseFloat(req.body.amount)};
+        req.checkBody({
+          'amount': {
+            isFloat: {
+              options: [{min: 0.01}]
+            },
+            errorMessage: "Invalid amount"
+          }
+        });
+        var err = req.validationErrors();
+        if(err) {
+          res.status(400).json(err);
+        } else {
+          foundProject.contributions.push(contributionObj);
+          foundProject.save(function(error) {
+            if (error) {
+              console.log("error saving contribution")
+            } else {
+              res.json(contributionObj);
+            }
+          })
+        }
+      }
+    })
+  })
+
+  module.exports = router;

@@ -1,4 +1,4 @@
-<h1>{{project.title}}</h1>
+<h1 id="{{project._id}}">{{project.title}}</h1>
 
 <!-- Part 3: View a single project -->
 <div class="view-post">
@@ -7,20 +7,22 @@
     <b>Description:</b> {{project.description}} <br>
     <b>Start:</b> {{project.start}} <br>
     <b>End:</b> {{project.end}} <br>
+    <b>Category:</b> {{project.category}}<br>
   </p>
   <!-- YOUR CODE HERE -->
 
   <!-- Part 4: Contribute to a project -->
   <h2>make a contribution</h2>
   <div class="form-container">
-    <form class="view-post-form" action="/project/{{project._id}}" method="post">
-      <input type="text" name="name" placeholder="name">
-      <input type="text" name="amount" placeholder="amount">
-      <input type="submit" name="submit" value="submit">
+    <form class="view-post-form">
+      <input id ="name" type="text" name="name" placeholder="name">
+      <input id="amount" type="text" name="amount" placeholder="amount">
+      <button id="send-contribution">add contribution</button>
     </form>
   </div>
 
   <h2>contributions made</h2>
+  <h2>Total so far: ${{project.total}}</h2>
   <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%;background-color:rgba(37,203,104,1)">
       <span style="color: black">{{percentage}}% Complete</span>
@@ -35,6 +37,8 @@
     {{/each}}
   </div>
   <div class="bottom_btn">
+    <a href="http://localhost:3000/project/{{project._id}}/edit"><button class="btn" type="button" name="button">Edit project</button></a>
     <a href="http://localhost:3000/"><button class="btn" type="button" name="button">Return to all posts</button></a>
   </div>
 </div>
+<script src="/js/contributions.js"></script>

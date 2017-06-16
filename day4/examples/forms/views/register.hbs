@@ -4,21 +4,98 @@
   <title>Registration</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body {
+      background-color: #2ECC71;
+      padding-top: 2em;
+    }
+    .container {
+      background-color: white;
+      border-radius: 5px;
+      padding: 5px;ß
+    }
+    .alert {
+      margin: 1px;
+    }
+
   </style>
 </head>
 <body>
+  <h1>Register here</h1>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+      {{#each errors}}
+      <div class="alert alert-danger">
+        <li>{{msg}}</li>
+      </div>
+      {{/each}}
+
+    <form action="/register" method="post">
+      <div class="form-group">
+        <label>First Name</label>
+        <input class="form-control" type="text" placeholder="First Name" name="fname" value="{{fname}}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Middle Initial</label>
+        <input class="form-control" type="text" name="minit" value="{{minit}}" placeholder="Middle Initial">
+      </div>
+
+      <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input class="form-control" type="text" name="lname" value="{{lname}}" placeholder="Last Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">DOB</label>
+        <input class="form-control" type="date" name="dob" value="{{dob}}">
+      </div>
+
+      <div class="form-group">
+        <label for="pwd">Password</label>
+        <input class="form-control" type="password" name="pwd" value="{{pwd}}" placeholder="Password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <input class="form-control" type="password" name="confirm" value="" placeholder="Confirm Password" required>
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" name="gender" value="Male" required>
+            Male
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" name="gender" value="Female">
+            Female
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" name="gender" value="Rather not say">
+            Rather not say
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-check">
+          <label for="sign_up">Sign up for newsletter</label>
+          <input type="checkbox" name="sign_up" value="checked">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="bio">Biography</label>
+        <textarea class="form-control" name="bio" s="8" cols="80"></textarea>
+      </div>
+
+      <input class="btn btn-info" type="submit">
+    </form>
   </div>
 </body>
 </html>

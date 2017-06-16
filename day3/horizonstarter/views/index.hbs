@@ -1,4 +1,18 @@
-<h1>All projects</h1>
+<div class="page-header">
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" value="{{selected}}" id="select">Sort By: {{selected}}</button>
+    <!-- <span class="caret"></span></button> -->
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost:3000/?sort=start">Start date</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost:3000/?sort=end">End date</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost:3000/?sort=goal">Goal</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost:3000/?sort=total">Total Raised</a></li>
+    </ul>
+    <button class="btn btn-default" type="button" name="button" id="caret-btn"><span id="caret-icon" class="caret caret-reversed"></span></button>
+  </div>
+  <h1>All projects</h1>
+</div>
+
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
@@ -8,10 +22,12 @@
     <div class="project">
       <div class="title-header">{{title}}</div><br></a>
       <div><b>Description</b><br>{{description}}<br>
-          <b>Goal: $</b>${{goal}}<br>
+          <b>Goal: </b>${{goal}}<br>
+          <b>Total: </b>${{total}}<br>
           <b>Start Date: </b>{{start}}<br>
           <b>End Date: </b>{{end}}</div>
     </div>
   {{/each}}
   <a href="http://localhost:3000/new"><button class="btn" type="button" name="button">Create new project</button></a>
 </div>
+<script src="/js/mainpage.js"></script>
