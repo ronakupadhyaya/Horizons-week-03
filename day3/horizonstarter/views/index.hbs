@@ -2,11 +2,34 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<button><a href="http://localhost:3000/?sort=start&sortDirection=1">Sort by ascending date</a></button><br>
+<button><a href="http://localhost:3000/?sort=start&sortDirection=-1">Sort by descending date</button></a>
+<button><a href="http://localhost:3000/?sort=totalContributions&sortDirection=-1">Sort by contributions</button></a>
+<button><a href="http://localhost:3000/?sort=funded">Filter by funded</button></a>
+
+
+{{#if sortFunded}}
+<p>funded</p>
+{{#each fundedProjects}}
+  <li><a href="/project/{{this._id}}">{{this.title}}</a></li>
+{{/each}}
+
+{{#each notFundedProjects}}
+<p>not funded</p>
+  <li><a href="/project/{{this._id}}">{{this.title}}</a></li>
+{{/each}}
+{{/if}}
+
+{{#unless sortFunded}}
 <ul>
   {{#each projects}}
-  <li>{{this.title}}</this>
+  <li><a href="/project/{{this._id}}">{{this.title}}</a></li>
     {{/each}}
 </ul>
+{{/unless}}
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+
+<form method="get" action="/new">
+  <input type="submit" value="Create a new project!"></input>
+</form>

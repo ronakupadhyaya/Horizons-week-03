@@ -1,0 +1,33 @@
+<h2>Edit</h2>
+
+<!-- Part 2: Create project -->
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->
+
+
+<form method="POST" action={{URL}}>
+  <h1 style="color: red;">{{error}}</h1><br>
+
+  <span>Title: </span><br><input name="title" type="text" placeholder="Title" value="{{project.title}}" /><br>
+  <span>Goal: </span><br><input name="goal" type="number"placeholder="goal" value="{{project.goal}}"/><br>
+  <span>Description: </span><br><textarea name="desc" type="text" placeholder="description" value="{{project.description}}">{{project.description}}</textarea><br>
+  <span>Start Date:</span><br><input name="start" type="date" value="{{start}}"/><br>
+  <span>End Date: </span><br><input name="end" type="date" value="{{end}}"/><br><br>
+  <!-- this is a drop down menu -->
+
+  <select name="category">
+  <option value={{project.category}}>{{project.category}}</option>
+  <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+  <option value="Current Black Presidents">Current Black Presidents</option>
+  <option value="The Pen Is Mightier">The Pen Is Mightier</option>
+  <option value="Famous Mothers">Famous Mothers</option>
+  <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+  <option value="1-Letter Words">1-Letter Words</option>
+  <option value="Months That Start With Feb">Months That Start With Feb</option>
+  <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+  <option value="Poten Potables">Poten Potables</option>
+  </select><br><br>
+
+
+  <input type="submit" />
+</form>

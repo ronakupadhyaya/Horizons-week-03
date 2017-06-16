@@ -7,8 +7,11 @@
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<h3 class="text-center">Category: {{project.category}}<h3>
+
 <form method="POST" action={{url}}>
   <span>Name: </span><br><input name="name" type="text" placeholder="name" value=""/><br>
-  <span>Amount: </span><br><input name="amount" type="number"placeholder="$" value=""/><br>
+  <span>Amount: </span><br><input name="amount" type="number"placeholder="$" value="0"/><br>
+
   <input type="submit" />
 </form>

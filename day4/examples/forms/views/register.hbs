@@ -6,19 +6,37 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <div><strong>Errors:</strong>
+      {{#each errors}}
+      {{this.msg}}<br>
+      {{/each}}</div>
+    <div>
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+        <input class="form-control" type="text" placeholder="First Name" name="firstName" ><br>
+        <input class="form-control" type="text" placeholder="Middle Initial" name="middleInitial" ><br>
+        <input class="form-control" type="text" placeholder="Last Name" name="lastName" ><br>
+        <input class="form-control" type="date" placeholder="Date of Birth" name="DOB" ><br>
+        <input class="form-control" type="password" placeholder="Password" name="password" ><br>
+        <input class="form-control" type="password" placeholder="Repeat password" name="repeatPassword" ><br>
+        
+        <input type="radio" name="gender" value="male" > Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Other<br>
+      <label>
+        <input name="newsletter" type="checkbox" aria-label="Checkbox for following text input">
+        Sign up for a newsletter!
+      </label><br>
+      <textarea class="form-control" type="text" placeholder="Biography" name="bio"></textarea><br>
+      <input type="submit">
+
+    </form>
   </div>
+</div>
 </body>
 </html>
