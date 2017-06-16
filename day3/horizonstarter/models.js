@@ -8,7 +8,7 @@
 // Project model
 var mongoose = require('mongoose');
 
-var options = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables'];
+var options = ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen is Mightier', 'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With Feb', 'How Many Fingers Am I Holding Up', 'Potent Potables'];
 
 var Project = mongoose.model('Project', {
   title: {
@@ -32,8 +32,8 @@ var Project = mongoose.model('Project', {
     name: String,
     amount: Number
   }],
-  totalAmount: Number,
-  percentage: Number,
+  //totalAmount: Number,
+  //percentage: Number,
   category: {
     type: String,
     required: true,

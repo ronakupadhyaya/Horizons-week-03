@@ -1,8 +1,13 @@
 <h1>View Project</h1>
 
+<div id="success-warning">
+
+</div>
+
 <!-- Part 3: View a single project -->
-<div class="single-project">
+<div id="single-project" project-id="{{project.id}}">
   <h2>{{project.title}}</h2>
+  <p> Category: {{project.category}} </p>
   <p> Goal: {{project.goal}} </p>
   <p> Description: {{project.description}} </p>
   <p> Start Date: {{project.start}} </p>
@@ -12,29 +17,41 @@
 
     <div class="contribution-board">
       <h4> Contributions </h4>
-      <h3> Total Money Raised: {{project.totalAmount}} </h3>
+      <h3> Total Money Raised: {{totalAmount}} </h3>
 
       <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{project.percentage}}%">
+        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
           <span class="sr-only">70% Complete</span>
         </div>
       </div>
 
-    {{#each project.contributions}}
+      <div id="contributers">
+        {{#each project.contributions}}
 
-      <div>
-        <p> Contributor: {{this.name}} , Amount: {{this.amount}} </p>
+        <div>
+          <p> Contributor: {{this.name}} , Amount: {{this.amount}} </p>
+        </div>
+
+        {{/each}}
+
       </div>
-
-      {{/each}}
 
     <div class="contribution-board">
   {{/if}}
+
+
 </div>
 
 <!-- Part 4: Contribute to a project -->
-<form method="POST" action="/project/{{project._id}}">
-  <input type="text" placeholder="Name" name="name">
-  <input type="text" placeholder="Amount" name="amount">
-  <input type="submit">
+
+<form method="post" action="/project/{{project.id}}">
+  <input id="name" type="text" placeholder="Name" name="name">
+  <input id="amount" type="text" placeholder="Amount" name="amount">
+  <!-- <input type="submit"> -->
+  <button class="btn btn-default" id="temp">Add Contribution</button>
 </form>
+
+
+  <a href="/project/{{project.id}}/edit"> Edit this project </a>
+
+<script src="/js/contribution.js"></script>
