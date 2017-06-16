@@ -1,3 +1,56 @@
-body {
-  padding: 10px;
+.body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  background-color: ##f3fafb;
+}
+
+.card{
+  border: 1px  #afafae;
+  border-radius: 10px;
+  background-color: #d2f7ff;
+  color:#3b2d26;
+  opacity: 0.78;
+  padding: 8px 8px 8px 8px;
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+
+  float: left;
+  /*margin: 5px 0px 5px 0px;*/
+
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.header{
+  background-color: #bacde1;
+  color: #3b2d26;
+  padding: 10px 10px 10px 50px;
+  justify-content: center;
+  margin: 0% 0% 2% 0%;
+  opacity: 0.75;
+  font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  position: relative;
+
+}
+
+.viewbutton {
+    height: 25px;
+    length: 40px;
+
+
+}
+
+.btn {
+  color: #fff;
+  background-color: #a9d6df;
 }

@@ -1,21 +1,44 @@
-<h1>View projects</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
-<ul>
-  {{#each items}}
-    <div class = "container eachPost"><h3>{{this.title}}</h3></p>
-    <p> Goal: {{this.goal}}</p>
-    <p> Description: {{this.description}}</p>
-    <p> Start Date: {{this.start}}</p>
-    <p> End Date: {{this.end}}</p>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body class="body">
 
-      <a href="/project/{{this._id}}">View </a>
+    <h1 class = "header" >VIEW PROJECTS</h1>
 
-</div>
-    </br>
-  {{/each}}
+    <!-- Part 1: View all projects -->
+    <!-- YOUR CODE HERE -->
 
-</ul>
-<!-- Part 2: Create new project -->
-<a href='http://localhost:3000/new?'>Create new project</a>
+      {{#each items}}
+      <div class="card" >
+        <div class="card-block" >
+          <h4 class="card-title">{{this.title}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">${{this.goal}}</h6>
+          <p class="card-text"><br>Description: {{this.description}}</br> <br> Starts: {{this.start}}</br>
+          <br>Ends: {{this.end}}</br></p>
+          <a href="/project/{{this._id}}" class="card-link">View more</a>
+          <a href="/project/{{this._id}}/edit" class="card-link">Edit Project</a>
+        </div>
+      </div>
+
+
+
+      {{/each}}
+
+
+    <!-- Part 2: Create new project -->
+    <a href='http://localhost:3000/new?'>Create new project</a>
+
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+  </body>
+</html>
