@@ -4,7 +4,7 @@ Last week, we built the [frontend](https://github.com/horizons-school-of-technol
 
 We hoped you enjoyed that!
 
-Today, we'll be building the backend API server of our version of Facebook using Mongo and Express.
+Today, we'll be building the backend API server of our version of Facebook using MongoDB (through `mongoose`) and `express`.
 
 These instructions are very minimal in nature and should only be used **as a guide** to creating your Facebook newsfeed (they should not be followed religiously as the final app should be your own creation).
 
@@ -25,11 +25,9 @@ For this exercise, *you do not need to implement versioning*. This means that yo
 ## 🚨 Testing 🚨
 
 Test your code early and often to make sure it works as you write it.
-In this exercise it will be up to you to break down tasks in order to attempt
-them in bite sized chunks.
+In this exercise, it will be up to you to break down tasks in order to attempt them in bite sized chunks.
 
-Once you have express running, use Postman to make requests to your API endpoints and verify that they
-return the correct results.
+Once you have express running, use Postman to make requests to your API endpoints and verify that they return the correct results.
 
 ## Instructions
 
@@ -37,7 +35,7 @@ return the correct results.
 
 1. Go to `week03/day5/fb-backend`
 1. Edit `week03/day5/fb-backend/app.js`
-1. `npm install` nessary packages.
+1. `npm install --save` necessary packages such as `express`, `mongoose`, etc.
 1. Install nodemon: `npm install -g nodemon` (if you haven't already done so)
 
     On a Mac, if you get an error you might need to run `sudo npm install -g
@@ -46,7 +44,7 @@ return the correct results.
 
 ---
 
-### Part 2. MongoDb
+### Part 2. MongoDB
 
 ##### Option 1 (Recommended): Use your existing mlab account
 
@@ -62,7 +60,7 @@ return the correct results.
 1. Create an `env.sh` file
 
     ```bash
-    export MONGODB_URI=YOUR MONGO URI HERE
+    export MONGODB_URI="YOUR MONGO URI HERE"
     ```
 1. Edit `app.js` and connect to MongoDB
 
@@ -125,9 +123,9 @@ Create the following routes for user functionality:
 
 #### Setup Express
 
-1. `npm install` the Express package
+1. `npm install --save` the Express package (if you haven't already done so)
 1. Require express in `app.js`
-1. Set up `body-parser`
+1. Set up `body-parser`. (Remember to install it too!)
 1. Make express `listen` on port 3000
 
 ##### Registration
@@ -154,7 +152,7 @@ To add tokenization functionality follow these recommended steps:
 1. In the `POST /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
 
 ##### Using the token
-1. For all routes requiring authentication (marked by 🔒) we advise looking up the user based on the `userId` field on the received token.
+1. For all routes requiring authentication (marked by 🔒), we advise looking up the `token` received and retrieve the user through the `userId` field.
 
 ---
 
