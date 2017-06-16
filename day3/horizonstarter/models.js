@@ -25,6 +25,14 @@ var Project = mongoose.model('Project', {
   },
   contributions:{
     type: [{name: String, amount: Number}]
+  },
+  total: Number,
+  category: {
+    type: String,
+    required: true,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+            'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months that Start with "Feb"',
+            'How Many Fingers Am I Holding Up', 'Potent Potables']
   }
   // YOUR CODE HERE
 });

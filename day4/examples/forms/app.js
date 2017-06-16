@@ -45,13 +45,34 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+
+  req.check('fName', 'First name is required').notEmpty();
+  req.check('mInit', 'Middle initial is required, must be single letter').isLength({
+    max:4
+  });
+  req.check('lName', 'Last name is required').notEmpty();
+  req.check('birthDate', 'Date of birth must be in the past').isBefore();
+  req.check('pw', 'Password is required').notEmpty();
+  req.check('rePw', 'Field must not be empty').notEmpty();
+  req.check('rePw', 'Passwords must match').equals(req.body.pw);
+  req.check('gender', 'Must select gender').notEmpty();
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+
   if (errors) {
+    console.log(errors);
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    var fullName = `${req.body.fName} ${req.body.mInit}. ${req.body.lName}`;
+    var bio = req.body.bio || 'No bio yet.';
+    res.render('profile', {
+      name: fullName,
+      birthDate: req.body.birthDate,
+      gender: req.body.gender,
+      bio: bio
+    });
   }
 });
 

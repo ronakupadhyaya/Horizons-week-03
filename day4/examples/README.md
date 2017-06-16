@@ -36,9 +36,21 @@ that the up and down buttons work.
 
 ---
 
+<<<<<<< HEAD
 ## Section 3: AJAX in Express
 
 ### [Watch Me: AJAX in Express](#)
+=======
+## Section 3: Server JavaScript vs Browser JavaScript
+
+### [Watch Me: Server JavaScript vs Browser JavaScript](https://vimeo.com/221696598)
+
+---
+
+## Section 4: AJAX in Express
+
+### [Watch Me: AJAX in Express](https://vimeo.com/221702422)
+>>>>>>> master
 
 1. Edit `week03/day4/examples/ajax-counter/app.js`
     1. Create a `POST /up` route. When this route is called, increase the global
@@ -80,9 +92,12 @@ that the up and down buttons work.
     ![AJAX exercise result](https://cl.ly/1a1l2U3V3i0N/Screen%20Recording%202017-06-13%20at%2012.07%20AM.gif)
 
     </p></details>
+<<<<<<< HEAD
 
 ---
 
 ## Section 4: Client Side vs Server Side Rendering
 
 ### [Watch Me: AJAX in Express](#)
+=======
+>>>>>>> master

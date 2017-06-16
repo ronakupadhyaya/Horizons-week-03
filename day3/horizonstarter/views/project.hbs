@@ -7,6 +7,8 @@
   Description: {{project.description}} <br>
   Start: {{project.start}} <br>
   End: {{project.end}} <br>
+  Category: {{project.category}} <br>
+  <a href="http://localhost:3000/project/{{project._id}}/edit/">Edit</a> <br>
 </p>
 <!-- YOUR CODE HERE -->
 
@@ -21,7 +23,7 @@
 <!-- YOUR CODE HERE -->
 <h2>Contributions Made to this Project</h2>
 
-Total Contributions: {{total}}
+Total Contributions: {{project.total}}
 <div class="progress">
   <div class="progress-bar" role="progressbar"
   aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">

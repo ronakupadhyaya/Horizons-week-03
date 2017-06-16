@@ -25,9 +25,51 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, projectArr) {
-    res.render('index', {items:projectArr});
-  });
+
+  if(req.query.filter) {
+    var filter = req.query.filter;
+
+    if (filter === "fully"){
+      Project.find(function(err, projectArr){
+        projectArr = projectArr.filter(function(item){
+          return ((item.total / item.goal) >= 1);
+        });
+        res.render('index', {items: projectArr})
+      });
+    }
+    else if (filter === "notfully"){
+      Project.find(function(err, projectArr){
+        projectArr = projectArr.filter(function(item){
+          return ((item.total / item.goal) < 1);
+        });
+        res.render('index', {items:projectArr})
+      })
+    }
+
+
+  }
+  if (req.query.sort) {
+    var sortObject = {};
+    if(parseInt(req.query.sortDirection) === -1) {
+      sortObject[req.query.sort] = -1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+    // YOUR CODE HERE
+        res.render('index', {items:array});
+      });
+    }
+    else{
+      sortObject[req.query.sort] = 1;
+      Project.find().sort(sortObject).exec(function(err, array) {
+    // YOUR CODE HERE
+        res.render('index', {items:array});
+      });
+    }
+  }
+  else{
+    Project.find(function(err, projectArr) {
+      res.render('index', {items:projectArr});
+    });
+  }
 });
 
 // Part 2: Create project
@@ -63,7 +105,9 @@ router.post('/new', function(req, res) {
       goal: goal,
       description: description,
       start: new Date(start),
-      end: new Date(end)
+      end: new Date(end),
+      category: req.body.category,
+      total: 0
     });
 
     newProject.save(function(error){
@@ -86,20 +130,14 @@ router.get('/project/:projectid', function(req, res) {
       console.log("There was an error finding the ID. Please try again")
     }
     else{
-      var total = 0;
 
       var contributionArr = foundProject.contributions;
 
-      contributionArr.forEach(function(item) {
-        total += item.amount;
-      });
-
-      var percentage = total / foundProject.goal * 100;
+      var percentage = Math.round(foundProject.total / foundProject.goal * 100);
 
       res.render('project', {
         project: foundProject,
-        percentage: percentage,
-        total: total
+        percentage: percentage
       });
     }
   })
@@ -117,27 +155,28 @@ router.post('/project/:projectid', function(req, res) {
     }
     else{
       foundProject.contributions.push({name: req.body.name, amount: parseFloat(req.body.amount)});
+
       foundProject.save(function(error){
         if (error) {
           console.log("error making contribution");
         }
         else{
-          var total = 0;
+          console.log(foundProject.total);
+          foundProject.total += parseFloat(req.body.amount);
 
-          var contributionArr = foundProject.contributions;
+          var percentage = Math.round(foundProject.total / foundProject.goal * 100);
 
-          contributionArr.forEach(function(item) {
-            total += item.amount;
-          });
-
-          var percentage = total / foundProject.goal * 100;
-
-          res.render('project', {
-            project: foundProject,
-            percentage: percentage,
-            total: total
-          });
-
+          foundProject.save(function(error){
+            if(error) {
+              console.log("there was an error");
+            }
+            else{
+              res.render('project', {
+                project: foundProject,
+                percentage: percentage,
+              });
+            }
+          })
         }
       });
     }
@@ -146,6 +185,73 @@ router.post('/project/:projectid', function(req, res) {
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
+  router.get('/project/:projectid/edit', function(req, res){
 
+    var projectid = req.params.projectid;
+
+    Project.findById(projectid, function(err, foundProject){
+
+      if(err) {
+        console.log('error');
+      }
+      else{
+
+        res.render('editProject', {
+          project: foundProject
+        });
+      }
+    });
+  });
+// Create the POST /project/:projectid/edit endpoint
+  router.post('/project/:projectid/edit', function(req, res){
+
+    var projectid = req.params.projectid;
+
+    Project.findByIdAndUpdate(projectid,
+    {
+        title: req.body.title,
+        goal: req.body.goal,
+        description: req.body.description,
+        start: req.body.start,
+        end: req.body.end,
+        category: req.body.category
+    },
+
+    function(error, foundProject){
+
+      if(error){
+        console.log("error updating, try again");
+      }
+      else{
+        // res.render('project', {
+        //   project: foundProject,
+        // });
+        res.redirect(`/project/${projectid}`);
+      }
+    });
+
+  });
+
+  router.post("/api/project/:projectId/contribution", function(req, res {
+    var projectid = req.params.projectId;
+
+    Project.findbyId(projectId, function(error, foundProject) {
+      if (error) {
+        console.log("There was an error finding project");
+      }
+      else{
+        var contributionObj = {name: req.body.name, amount: parseFloat(req.body.amount)};
+        foundProject.contributions.push(contributionObj);
+        foundProject.save(function(error) {
+          if(error) {
+            console.log("Contribution error.", error)
+          }
+          else{
+            res.json(contributionObj);
+          }
+        });
+      }
+    })
+  });
+  
 module.exports = router;

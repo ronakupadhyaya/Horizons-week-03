@@ -12,6 +12,8 @@ var Schema = mongoose.Schema;
 
 // PART 0: Create an env.sh file that should export the MONGODB_URI
 
+// PART 0: Create an env.sh file that should export the MONGODB_URI
+
 // connect to your Mongo Database
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
