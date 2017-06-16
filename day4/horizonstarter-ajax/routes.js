@@ -44,7 +44,6 @@ router.get('/', function(req, res) {
 router.get('/new', function(req, res) {
   // YOUR CODE HERE
   res.render('new');
-});
 
 // Part 2: Create project
 // Implement the POST /new endpoint
