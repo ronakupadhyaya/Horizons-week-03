@@ -1,3 +1,12 @@
 body {
   padding: 10px;
 }
+
+.project {
+	width: 70%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.progress {
+}

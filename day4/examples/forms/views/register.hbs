@@ -12,10 +12,28 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div>
+    <h3> <strong>Errors:</strong> </h3>
+    {{# each errors}}
+      <p>{{msg}}</p>
+    {{/each}}  
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" placeholder="First Name" name="firstName" value="{{form.firstName}}">
+        <input type="text" placeholder="Middle Initial" name="middleInitial" value="{{form.middleInitial}}" >
+        <input type="text" placeholder="Last Name" name="lastName" value="{{form.lastName}}">
+        <input type="date" placeholder="Date of Birth" name="dateOfBirth" value="{{form.dateOfBirth}}" >
+        <input type="password" placeholder="Password" name="password" value="{{form.password}}" >
+        <input type="password" placeholder="Repeat Password" name="repeatPassword" value="{{form.repeatPassword}}" >
+        <input type="radio" name="gender" value="male" {{#if male}} checked {{/if}}> Male</br>
+        <input type="radio" name="gender" value="female" {{#if female}} checked {{/if}} > Female</br>
+        <input type="radio" name="gender" value="ratherNotSay" {{#if ratherNotSay}} checked {{/if}}> Rather not say</br>
+        <p></p>
+        <p> Would you like to receive our newsletter? </p>
+        <input type="checkbox" name="newsletter" value="yesReceive" {{#if newsletter}} checked {{/if}}> Yes, I'd like to receive the newsletter.<br>
+        <p>Bio</p>
+        <input type="textarea" placeholder="Tell us about yourself" name="Bio" value={{form.bio}}>
         <input type="submit">
       </form>
     </div>

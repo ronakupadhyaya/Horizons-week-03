@@ -2,6 +2,30 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each projects}}
+	<h2>{{title}}</h2>
+	<a href="/project/{{id}}">View project</a>
+{{/each}}
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href="/new"> Create new project </a>
+
+<h2>Sort the projects:</h2>
+
+<h5>Which criteria?</h5>
+<a href="?sort=start&direction={{direction}}">Start date</a>
+<a href="?sort=end&direction={{direction}}">End date</a>
+<a href="?sort=goal&direction={{direction}}">Goal</a>
+<a href="?sort=totalContributions&direction={{direction}}">Total contributions</a>
+<p></p>
+<a href="?funded=yes">View projects that are fully-funded</a>
+<a href="?funded=no">View projects that are <em>NOT</em> fully funded</a>
+
+<h5>Ascending or descending order?</h5>
+<a href="?sort={{sortingItem}}&direction=asc">Ascending</a>
+<a href="?sort={{sortingItem}}&direction=desc">Descending</a>
+
+
+
+
