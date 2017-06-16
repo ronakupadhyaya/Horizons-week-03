@@ -44,14 +44,36 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('dob', 'youre not from the future, stop lying').isBefore();
+  req.check('middleInitial', 'middle INITIAL! one character pls').isLength({max:1});
+  req.check('password', 'passwords must match').equals(req.body.repeatPassword);
+  req.check('gender', 'look i get that gender is a social construct but pls just fill this out').notEmpty();
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {
+      errors: errors,
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      gender: req.body.gender,
+      password: req.body.password,
+      newsletter: req.body.yes,
+      bio: req.body.bio
+    });
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile',{
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      dob: req.body.dob,
+      gender: req.body.gender,
+      password: req.body.password,
+      newsletter: req.body.yes,
+      bio: req.body.bio
+    });
   }
 });
 

@@ -1,5 +1,27 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+<form method="POST" action="/new">
+  <div class='new'>
+    <input type="text" name="title" value="{{project.title}}"> title <br>
+    <input type="text" name="goal" value="{{project.goal}}"> goal <br>
+    <input type="textarea" name="description" value="{{project.description}}"> description <br>
+    <input type="date" name="start" value="{{project.start}}"> start <br>
+    <input type="date" name="end" value="{{project.end}}"> end <br>
+    category: <br>
+    <select name='category'>
+      <option name="category" value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+      <option name="category" value="Current Black President">Current Black President</option>
+      <option name="category" value="The Pen Is Mightier">The Pen Is Mightier</option>
+      <option name="category" value="Drummers Named Ringo">Drummers Named Ringo</option>
+      <option name="category" value="1-Letter Words">1-Letter Words</option>
+      <option name="category" value='Months That Start With "Feb"'>Months That Start With "Feb"</option>
+      <option name="category" value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+      <option name="category" value="Potent Potables">Potent Potables</option>
+    </select><br><br>
+    <input type="submit" name="Submit">
+  </div>
+</form>
+{{error}}
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

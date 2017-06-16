@@ -1,7 +1,12 @@
 <h1>View projects</h1>
-
+<a href="/?sort=start"> sort-start </a>
+<a href="/?sort=end"> sort-end </a> <br><br>
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each items}}
+project: <a href="/project/{{this._id}}"> {{this.title}}</a><br>
+description: {{this.description}}<br><br>
+{{/each}}<br>
 <!-- Part 2: Create new project -->
+<a href="/new"> create new project </a>
 <!-- YOUR CODE HERE -->

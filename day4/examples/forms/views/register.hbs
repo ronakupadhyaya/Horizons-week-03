@@ -11,12 +11,32 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+      {{#each errors}}
+      {{msg}} <br>
+      {{/each}}
+    </div> <br>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <input type="text" name="firstName" value="{{lastName}}" placeholder='first name' required>
+        <input type="text" name="middleInitial" value="{{middleInitial}}" placeholder='middle initial'>
+        <input type="text" name="lastName" value="{{lastName}}" placeholder='last name'required> <br><br>
+        Date of Birth <br>
+        <input type="date" name="dob" value="{{dob}}"> <br><br>
+        password <br>
+        <input type="password" name="password" value="{{password}}" required> <br>
+        repeat password <br>
+        <input type="password" name="repeatPassword" value='' required> <br><br>
+        Sign up for our newsletter! <br>
+          <input type="checkbox" name="yes" value="signed up"> <label for="yes"> aight </label> <br>
+        Gender <br>
+          <input type="radio" name="gender" value="male"> Male<br>
+          <input type="radio" name="gender" value="female"> Female <br>
+          <input type="radio" name="gender" value="other"> Rather not say <br><br>
+        Bio! <br>
+          <textarea type="textarea" name="bio" value="{{bio}}" placeholder="help us get to know you ;)"></textarea> <br><br>
+          <input type="submit">
+
       </form>
     </div>
   </div>

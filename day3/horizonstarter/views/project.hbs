@@ -1,9 +1,38 @@
-<h1>View Project</h1>
+<h1>{{title}}</h1><br>
 
 <!-- Part 3: View a single project -->
+<div class="singleproject">
+  Title: {{title}} <br>
+  Goal: {{goal}} <br>
+  Start: {{start}} <br>
+  End: {{end}} <br>
+  Category: {{category}} <br>
+  Description: {{description}} <br>
+  Donated: {{donated}} <br>
+</div>
 
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
-<!-- YOUR CODE HERE -->
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    {{percent}}%
+  </div>
+</div>
+<a href="/"> view all projects </a><br><br>
+<div class="contributions">
+  Contribute:
+  <form method="POST">
+    <input type="text" name="name" value="{{name}}"> name <br>
+    <input type="text" name="amount" value="{{amount}}"> amount <br>
+    <input type="submit" name="Submit"> <br>
+  </form><br><br>
+  contributors :heart: <br>
+  {{#each contributions}}
+  {{this.name}}, ${{this.amount}} <br>
+  {{/each}}
+</div>
+
+<br><a href="/"> view all projects </a>

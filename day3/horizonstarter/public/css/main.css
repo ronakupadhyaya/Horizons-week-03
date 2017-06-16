@@ -1,3 +1,12 @@
 body {
   padding: 10px;
+  /*display: flex;*/
+}
+
+.new {
+  border: 3px solid black;
+  border-radius: 3px;
+  background-color: #facade;
+  padding: 15px,
+
 }
