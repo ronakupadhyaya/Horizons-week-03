@@ -1,5 +1,19 @@
 {
   "scripts": {
     "start": "node app.js"
+  },
+  "name": "fb-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-validator": "^3.2.0",
+    "mongoose": "^4.10.6",
+    "strftime": "^0.10.0",
+    "underscore": "^1.8.3"
   }
 }
