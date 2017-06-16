@@ -1,8 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create new post</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Language" content="en">
+
+  <link rel="stylesheet" href="/css/style.css"></link>
+  <link rel="stylesheet" href="/js/script.js"></link>
+</head>
+<body>
 <h1>View projects</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<ul>
+  {{#each intprojects}}
+  <li>{{this.title}}</li>
+  {{/each}}
+</ul>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
+
+
+</body>
+</html>

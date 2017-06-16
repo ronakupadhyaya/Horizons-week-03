@@ -45,13 +45,40 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  app.use(expressValidator({
+ customValidators: {
+    isPast: function(value) {
+      var inputDate = new Date(value)
+      var todaysDate = new Date();
+      console.log(inputDate > todaysDate)
+      return (inputDate.setHours(0,0,0,0) < todaysDate.setHours(0,0,0,0))
+    }
+ }
+}));
+  req.checkBody("fName", "Please Enter a first name").notEmpty();
+  req.checkBody("lName", "Please Enter a last name").notEmpty();
+  req.checkBody("mInitial", "Initials are just one letter").isLength({
+    min:0, max: 1
+  });
+  req.checkBody("inputPassword3", "Please Enter a password").notEmpty();
+  req.check("DOB", "Birthday must be a time in the past; literally you could be born yesterday for all I care").isBefore();
+  req.checkBody("repPass", "Repeat your password").notEmpty();
+  req.assert('repPass', 'Passwords must match').equals(req.body.inputPassword3);
+  req.checkBody("chkBox", "You have to let us bother you (newsletter)").notEmpty();
+
+  var errors = req.validationErrors();
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {fName: req.body.fName,
+                          lName: req.body.lName,
+                          mInitial: req.body.mInitial,
+                          DdOB: req.body.DOB,
+                          gender: req.body.gender,
+                          bio: req.body.bio
+                         });
   }
 });
 

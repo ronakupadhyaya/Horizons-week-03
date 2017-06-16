@@ -1,9 +1,32 @@
-<h1>View Project</h1>
+<h2>View Project</h2>
 
 <!-- Part 3: View a single project -->
 
-<!-- YOUR CODE HERE -->
+<h1> Title: {{title}} </h1>
+<h2> Goal: ${{goal}} </h2>
+<h2> Category: {{category}} </h2>
+<h2> Start Date: {{start}} </h2>
+<h2> End Date: {{end}} </h2>
+<h2> Total Contributions: {{totalCont}} </h2>
+<h3> Description: <p>{{description}}</p> </h3>
 
 <!-- Part 4: Contribute to a project -->
+<form method="POST">
+           <p><input type="text" name="name" placeholder="Contributor Name" /></p>
+           <p><input type="text" name="amount" placeholder="Donation amount"/></p>
+           <input type="submit" value="Submit" />
+ </form>
+<h2> Contributors</h2>
+ <ul>
+   {{#each contributors}}
+   <li>{{this.name}}: ${{this.amount}}</li>
+   {{/each}}
+ </ul>
 
+ <div class="progress">
+  <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+   aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    {{percent}}% Complete (success)
+  </div>
+</div>
 <!-- YOUR CODE HERE -->
