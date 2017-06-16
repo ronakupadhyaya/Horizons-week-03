@@ -60,6 +60,7 @@ router.post('/new', function(req, res) {
       description: req.body.description,
       start: req.body.start,
       end: req.body.end
+
     });
 
     proj.save(function(error){
@@ -201,7 +202,39 @@ router.post('/project/:projectid/edit', function(req,res){
   });
 });
 // Create the POST /project/:projectid/edit endpoint
+/*
+Build a contribution object from 2 elements on the request body: name and amount
+Push the object to the project's contribution array: project.contributions
+.save() the project
+*/
 router.post('/api/project/:projectId/contribution', function(req,res){
-  
+  console.log('4');
+  var postId = req.params.projectid;
+  req.checkBody('contributorName', 'Please enter a name for contributor').notEmpty();
+  req.checkBody('contributedAmount', 'Please enter an amount $$$').notEmpty().isInt();
+  var errs = req.validationErrors();
+  Project.findById(postId, function(err, project){
+    if(err){
+      res.send(err);
+      console.log('ff')
+    } else {
+      if(errs) {
+        console.log('3')
+        res.status(400).json(errs);
+      } else {
+        var proj = {
+          name: req.body.contributorName,
+          amount: req.body.contributedAmount
+        };
+        project.contributions.push(proj);
+        project.save({
+          contributedAmount: proj.contributions
+        }, function(err, pro){
+          res.json(proj)
+        })
+      }
+
+    }
+  })
 })
 module.exports = router;

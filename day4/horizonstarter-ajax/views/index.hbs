@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>View projects</h1>
+
+
+<!-- Part 1: View all projects -->
+<!-- YOUR CODE HERE -->
+    {{#each projects}}
+    <p>------------------------------------------------------------------------------------------------------------</p>
+    <p> Name of Project: {{this.title}} </p>
+    <p> Estimated Amount: {{goal}} </p>
+    <p> Description of Project: {{description}} </p>
+    <p> Start Date: {{start}} </p>
+    <p> End Date: {{end}} </p>
+    <!-- <p> Secret Contributor: {{contributorName}} </p> -->
+    <!-- <p> Secret Contributor contributed: {{contributedAmount}} </p> -->
+    {{/each}}
+
+
+<!-- Part 2: Create new project -->
+<!-- YOUR CODE HERE -->
+<a href="/new">Create new project</a>
+</body>
+</html>
