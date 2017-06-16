@@ -3,7 +3,45 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
-
+<div class="project_container">
+  <div class="project" id={{task.title}}>
+    {{task.title}} <br>
+    {{task.category}} <br>
+    {{task.description}}<br>
+    Goal: {{task.goal}} <br>
+    Contributions so far: {{sum}} <br>
+    {{task.start}} - {{task.end}} <br>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{sum}}"
+      aria-valuemin="0" aria-valuemax="{{task.goal}}" style="width:{{percentage}}%">
+    </div>
+  </div>
+  <br>
+  Thank you:
+  <ul>
+    {{#each task.contributions}}
+    <li>{{name}}  for ${{amount}}</li>
+    {{/each}}
+  </ul>
+  <br>
+</div>
+</div>
 <!-- Part 4: Contribute to a project -->
+<h3>Contribute to this project!</h3>
+<div class="donation_form">
 
+  <form class="donation" method="post">
+    <div class="form-group">
+      <label for="name" class="control-label"> Name: </label>
+      <input type="text" name="name" value="">
+    </div>
+    <div class="form-group">
+      <label for="amount" class="control-label"> Amount: </label>
+      <input type="text" name="amount" value=""> <br>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-default" value="Submit">
+    </div>
+  </form>
+</div>
 <!-- YOUR CODE HERE -->

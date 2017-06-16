@@ -1,48 +1,47 @@
-<h2 class="container">Create project</h2>
-
-<!-- Part 2: Create project -->
+<h2 class="container">Edit Project</h2>
 <div class="container">
 
   <form id="new_project_form" action="/new" method="post">
     <div class="form-group">
       <label for="title" class="control-label"> Title: </label>
-      <input type="text" name="title" value=""> <br>
+      <input type="text" name="title" value="{{project.title}}"> <br>
       <div class="error">
         {{error_object.title}}
       </div>
     </div>
     <div class="form-group">
       <label for="goal" class="control-label"> Goal: </label>
-       <input type="text" name="goal" value=""> <br>
+       <input type="text" name="goal" value="{{project.goal}}"> <br>
        <div class="error">
          {{error_object.goal}}
        </div>
     </div>
     <div class="form-group">
       <label for="description" class="control-label"> Description: </label>
-      <textarea name="description" rows="5" cols="80" form="new_project_form"></textarea> <br>
+      <textarea name="description" rows="5" cols="80" form="new_project_form" value="{{project.description}}"></textarea> <br>
       <div class="error">
         {{error_object.description}}
       </div>
     </div>
     <div class="form-group">
       <label for="start" class="control-label"> Start: </label>
-      <input type="date" name="start" value="">
+      <input type="date" name="start" value="{{start_date}}">
       <div class="error">
         {{error_object.start}}
       </div>
     </div>
     <div class="form-group">
       <label for="end" class="control-label"> End: </label>
-      <input type="date" name="end" value="">
+      <input type="date" name="end" value="{{end_date}}">
       <div class="error col-m-offset-4">
         {{error_object.end}}
       </div>
     </div>
     <div class="form-group">
       <label for="category" class="control-label"> Category: </label>
-      <select name="category">
+      <select selected="selected" name="category" value = "{{project.category}}">
         {{#each categories}}
+
         <option value='{{this}}'> {{this}}</option>
         {{/each}}
       </select>
@@ -51,7 +50,13 @@
     <div class="form-group">
       <input type="submit" class="btn btn-default" value="Submit">
     </div>
+    <input type="hidden" name="" id="defaultCat" value="{{project.category}}">
   </form>
 </div>
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+  var category = $('#defaultCat').val()
+  $('select option[value="'+category+'"]').attr("selected",true);
+
+</script>

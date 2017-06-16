@@ -2,6 +2,31 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+<div class="project_container">
+  {{#each task_array}}
+  <div class="project" id={{this.title}}>
+    <h4>{{this.title}}</h6>
+    {{this.description}}<br>
+    {{this.category}}<br>
+    Goal: {{goal}}<br>
+    {{start}} - {{end}}
+    <br>
+    <br>
+  </div>
+  {{/each}}
+</div>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a class='new_project col-xs-offset-5 btn btn-default' href="/new"> Create a new project</a>
+<br>
+
+<div class='row'>
+<form name="sort">
+  <button type="submit" name="sort" value="title" >sort by name</button>
+  <button type="submit" name="sort" value="start" >sort by start date</button>
+  <button type="submit" name="sort" value="end" >sort by end date</button>
+  <button type="submit" name="sort" value="totalContributions" >sort by contributions</button>
+  <button type="submit" name="sort" value="funded" >sort by funded</button>
+  <input type="checkbox" name="sortDirection">Descending
+</form>
+</div>

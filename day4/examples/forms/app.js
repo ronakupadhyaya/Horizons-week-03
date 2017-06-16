@@ -44,14 +44,34 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check("firstName","enter a first name").notEmpty();
+  req.check("middleInitial","enter a first name").isLength({min:0, max:1});
+  req.check("lastName","enter a last name").notEmpty();
+  req.check("date","enter a DOB ").isBefore();
+  req.check("password","enter a password").notEmpty();
+  req.check("password2","passwords do not match").matches(req.body.password);
+  req.check("gender","enter a first name").notEmpty();
+  req.check("newsLetter","subscribe to the newsletter ").notEmpty();
+
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
-    res.render('profile');
+    var profileObject = {
+      firstName:req.body.firstName,
+      middleInitial:req.body.middleInitial,
+      lastName:req.body.lastName,
+      date:req.body.date,
+      password:req.body.password,
+      gender:req.body.gender,
+      newsLetter:req.body.newsLetter,
+      bio:req.body.bio
+    }
+    res.render('profile',{
+      profileObject:profileObject
+    });
   }
 });
 
