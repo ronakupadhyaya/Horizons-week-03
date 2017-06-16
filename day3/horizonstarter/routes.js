@@ -53,50 +53,69 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // var projects;
-  // Project.find(function(error,projects){
-  //   if(error){
-  //     console.log("projects not found");
-  //   }else{
-  //     var projects = projects;
-  //     // res.render('index', {projects: projects})
-  //   }
-  // });
 
-  if(req.query.sort){
-    if(req.query.sort ==='contributions'){
-      Project.find(function(error,projects){
-        if(error){
-          console.log("projects not found");
-        }else{
-          var sortedprojs = _.sortBy(projects,function(project){
-            if(project.contributions){ return project.contributions.length; }
+
+  Project.find(function(error,projects){
+    if(error){
+      console.log("projects not found");
+    }else{
+      //var sortedprojs = projects;
+      if(req.query.funding){
+        if(req.query.funding==="Fully Funded"){
+          // console.log("filter by full funding");
+          projects = _.filter(projects, function(project){
+            if(project.contributions){
+              return project.goal <= _.reduce(_.pluck(project.contributions, 'amount'), function(a,b){return a+b});
+            } else {
+               return project.goal <= 0
+             }
+          })
+
+          // console.log("fully funded filtering", sortedprojs);
+        } else if(req.query.funding === "Incomplete Funding"){
+            projects = _.filter(projects, function(project){
+              if(project.contributions){
+                return project.goal> _.reduce(_.pluck(project.contributions, 'amount'), function(a,b){return a+b});
+              } else { return project.goal > 0}
+            })
+          // console.log("NOT fully funded filtering", sortedprojs);
+        }
+      }
+
+      if(req.query.sort){
+        if(req.query.sort ==='Contributions'){
+          projects = _.sortBy(projects,function(project){
+            if(project.contributions){
+              return project.contributions.length;
+            }
             return 0;
           })
-          // console.log(sortedprojs);
-          res.render('index', {projects: sortedprojs})
+          if(req.query.sortDirection ==='Descending'){
+            projects = projects.reverse();
+          }
+
+      // res.render('index', {projects: projects})
+        } else {
+          var sortObject = {};
+          if(req.query.sortDirection ==='Descending'){
+            sortObject[req.query.sort.toLowerCase()] = -1;
+          }else {
+            sortObject[req.query.sort.toLowerCase()] = 1;
+          }
+              // Project.find().sort(sortObject).exec(function(err, array) {
+              //   res.render('index', {projects: array, sortval: req.query.sort, sortdir: req.query.sortDirection})
+              // });
+              console.log(sortObject)
+          Project.find().sort(sortObject).exec(function(err, array) {
+            console.log(array.map((x) => x.goal))
+            res.render('index', {projects: array, sortval: req.query.sort, sortdir: req.query.sortDirection, fundfilter: req.query.funding})
+          });
         }
-      });
-    }else{
-      var sortObject = {};
-      sortObject[req.query.sort] = 1;
-      Project.find().sort(sortObject).exec(function(err, array) {
-        res.render('index', {projects: array})
-      });
-  }
-
-  }else{
-    // res.render('index', {projects: projects})
-    Project.find(function(error,projects){
-      if(error){
-        console.log("projects not found");
-      }else{
-        res.render('index', {projects: projects})
+      }else{ //no sorting
+        res.render('index', {projects: projects, fundfilter: req.query.funding})
       }
-    });
-
-  }
-
+    }
+  });
 });
 
 // Part 2: Create project
@@ -108,7 +127,7 @@ router.get('/new', function(req, res) {
   });
 });
 
-// Part 2: Create project
+// Part 2:projectject
 // Implement the POST /new endpoint
 
 
