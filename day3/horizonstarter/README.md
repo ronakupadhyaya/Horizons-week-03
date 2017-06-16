@@ -216,12 +216,12 @@ that allows us to make contributions.
 1. Create a new view in `views` called `editProject.hbs`, add form fields
   to represent all the `Project` properties. You can copy `new.hbs`
   to start with!
-1. Create a new endpoint in `routes.js` `GET /projects/:projectid/edit`
+1. Create a new endpoint in `routes.js` `GET /project/:projectid/edit`
   that gets the given `Project` from MongoDb using `.findById()` and
   renders `editProject.hbs` with the `Project` object. When the project
   edit page loads, it should have all the properties of the project
   being edited pre-filled into form fields.
-1. Create a new endpoint in `routes.js` `POST /projects/:projectid/edit`.
+1. Create a new endpoint in `routes.js` `POST /project/:projectid/edit`.
   The HTML form in `editProject.hbs` should `POST` data to this endpoint
   (using `action` and `method`).
 
