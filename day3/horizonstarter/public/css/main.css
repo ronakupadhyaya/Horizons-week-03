@@ -1,3 +1,108 @@
+/*index.hbs*/
 body {
   padding: 10px;
+  background-color: #dbe1ff;
+}
+
+.projects-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#project-title {
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+.project-feed {
+   background-color: rgb(254, 252, 255);
+   padding-left: 25px;
+   padding-right: 25px;
+   padding-top: 1px;
+   margin: 20px;
+   border-radius: 25px;
+}
+
+#desc {
+  border-radius: 3px;
+  padding: 6px;
+  margin: 3px;
+}
+
+/*new.hbs*/
+.project-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(254, 252, 255);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+/*project.hbs*/
+.project-single {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgb(254, 252, 255);
+  padding-left: 25px;
+  padding-right: 25px;
+  margin: 20px;
+  border-radius: 20px;
+}
+
+#create {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#cancel {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#view {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#edit {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#cancel2 {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#progress {
+  border-radius: 80px;
+}
+
+#but1 {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#but2 {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
+}
+
+#but3 {
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 16px;
 }

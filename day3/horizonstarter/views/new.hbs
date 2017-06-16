@@ -1,17 +1,27 @@
-<h2>Create project</h2>
+<div class='projects-container'>
 
-<!-- Part 2: Create project -->
+<h1 id="project-title"><em>Horizons Starter</em></h1><br>
+<h2><em>~Create Project~</em></h2>
+  <form method="POST" action="/new">
+    <span>
+      <div class="project-new">
+        <div>
+          Title: <input type=text name="title"><br><br>
+          Goal: <input type=Number name="goal"><br><br>
+          Description: <textarea type="text" name="description"></textarea><br><br>
+          Start date: <input type="Date" name="start"><br><br>
+          End date: <input type="Date" name="end"><br><br>
 
-<form method="POST" action="/new">
-  <span>
-    Title: <input type=text name="titleTextBox" value="{{project.title}}"><br><br>
-    Goal: <input type=Number name="goalTextBox" value="{{project.goal}}"><br><br>
-    Description: <textarea type="text" name="descTextBox" value="{{project.description}}"></textarea><br><br>
-    Start date: <input type="Date" name="startDateTextBox" value="{{project.start}}"><br><br>
-    End date: <input type="Date" name="endDateTextBox" value="{{project.end}}"><br><br>
-    <input type="submit" value="Submit">
-  </span>
-</form>
+          <select name="category">
+            {{#each enum}}
+                <option value="{{this}}">{{this}}</Option>
+            {{/each}}
+          </select><br><br>
 
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
+        </div>
+        <input type="submit" value="Submit">
+      </div>
+    </span>
+  </form>
+  <button class="btn btn-default btn-sm" id="cancel"><a href="/">Cancel</a></button>
+</div>

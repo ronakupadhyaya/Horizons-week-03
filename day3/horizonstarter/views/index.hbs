@@ -1,14 +1,24 @@
-<h1>~All Projects~</h1>
 
-<!-- Part 1: View all projects -->
-<span>
-  {{#each array}}
-  <div class="project">
-    <h3><a href="/project/{{this._id}}">{{this.title}}</a></h3> from {{this.start}} to {{this.end}} <br>
-    <strong>Goal: ${{this.goal}}</strong><br>
-    <p>{{this.description}}</p><br>
+<div class="projects-container">
+  <h1 id="project-title"><em>Horizons Starter</em></h1><br>
+  <h2><em>~All Projects~</em></h2>
+  <div class="button-box">
+    <button class="btn btn-default btn-sm" id="but1"><a href="/?sort=goal&sortDirection=-1">Sort by goal</a></button>
+    <button class="btn btn-default btn-sm" id="but2"><a href="/?sort=start&sortDirection=-1">Sort by starting date</a></button>
+    <button class="btn btn-default btn-sm" id="but3"><a href="/?sort=goal&sortDirection=-1">Sort by ending date</a></button>
   </div>
-  {{/each}}
-</span>
-<!-- Part 2: Create new project -->
-<a href="/new">Create new project</a>
+  <span>
+    {{#each array}}
+    <div class="project">
+      <div class="project-feed">
+        <h3><a href="/project/{{this._id}}">{{this.title}}</a></h3> from {{this.start}} to {{this.end}} <br>
+        <h6>Category: {{this.category}}</h6>
+        <strong>Goal: ${{this.goal}}</strong>
+        <p id="desc">Description: {{this.description}}</p><br>
+      </div>
+    </div>
+    {{/each}}
+  </span>
+
+  <button class="btn btn-default" id="create"><a href="/new">Create new project</a></button>
+</div>

@@ -1,45 +1,52 @@
-<h1>~View Project~</h1>
+<div class="projects-container">
+  <h1>~Horizons Starter~</h1>
 
-<!-- Part 3: View a single project -->
+  <!-- Part 3: View a single project -->
 
-<div class="project">
-  <h3>{{project.title}}</h3> from {{project.start}} to {{project.end}} <br>
-  <strong>Goal: ${{project.goal}}</strong><br>
-  <p>{{project.description}}</p><br><br>
+  <div class="project-single">
+    <h3 id="{{project._id}}">{{project.title}}</h3> from {{project.start}} to {{project.end}} <br>
+    <strong>Goal: ${{project.goal}}</strong>
+    <h7>Category: {{project.category}}<h7>
+    <p>Description: "{{project.description}}"</p><br><br>
+  </div>
+  <button class="btn btn-default btn-sm" id="view"><a href="/">View more projects</a></button>
+
+
+
+
+<!-- Part 4: Contribute to a project -->
+
+<h3 id="totalContributions">Total contributions: $<span id="contribution"> {{project.totalContributions}} </span> of $ {{project.goal}}</h3>
 </div>
-
-<h3>Contributions</h3>
 <div class="progress">
   <div class="progress-bar" role="progressbar"
-  aria-valuemin="0" aria-valuemax="100" style="width: {{project.totalContributions}}%">
+  aria-valuemin="0" aria-valuemax="100" style="width: {{project.goalPercent}}%">
     <span class="sr-only">Complete</span>
   </div>
 </div>
-<!-- Part 4: Contribute to a project -->
+
 
 <!-- YOUR CODE HERE -->
 <div>
   <form method="POST" action="/project/{{project._id}}">
     <h4>Make a contribution to this project:</h3>
-    Name: <input type=text name="nameTB" value=""><br><br>
-    Amount: <input type="Number" name="amtTB" value=""><br><br>
-    <input type="submit" value="Submit"><br><br><br>
+    Name: <input type=text name="name" id="name" value=""><br><br>
+    Amount: <input type="Number" name="amount" id="amount" value=""><br><br>
+     <button id="send-contribution">Add Contribution</button><br><br>
   </form>
 </div>
 
-<div class="total-amt">
-  <h4>Total amount of contributions: ${{project.totalContributions}}</h3>
-</div>
-
-<span>
+<span id="contributors">
   <h4>Previous contributions:</h3>
   {{#each project.contributions}}
   <div class="contribution">
     Name: {{this.name}}<br>
-    Amount: ${{this.amount}}<br>
+    Amount: ${{this.amount}}<br><br>
   </div>
   {{/each}}
-</span><br><br><br>
+</span><br>
 
 
-<a href="/">View more projects<a>
+<button class-"btn btn-defaul btn-sm" id="edit"><a href="/project/{{project._id}}/edit">Edit project</a></button>
+
+<script src="/js/contribution.js"></script>

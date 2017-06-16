@@ -17,7 +17,6 @@ var Project = mongoose.model('Project', {
     type: Date,
     required: true
   },
-
   end: {
     type: Date,
     required: true
@@ -27,6 +26,13 @@ var Project = mongoose.model('Project', {
     amount: Number
   }],
   totalContributions: Number,
+  goalPercent: Number,
+  category: {
+    type: String,
+    required: true,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen is Mightier', 'Famous Mothers', 'Drummer Named Ringo',
+    '1-Letter Words', 'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables']
+  }
 
 });
 

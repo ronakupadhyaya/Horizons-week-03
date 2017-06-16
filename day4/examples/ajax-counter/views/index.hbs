@@ -5,7 +5,7 @@
     <title>AJAX Counter</title>
   </head>
   <body>
-    <h1>Count: <span id="count">{{count}}</span></h1>
+    <h1>How many Ls did I take: <span id="count">{{count}}</span></h1>
     <form action="/up" method="post">
       <input id="up" type="submit" value="Up">
     </form>
@@ -16,6 +16,26 @@
     <script src="/jquery.js"></script>
     <script>
       // YOUR CODE HERE
+      $('#up').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+          url: '/up',
+          method: 'POST',
+          success: function(res){
+            $('#count').text(res.count);
+          }
+        });
+      });
+      $('#down').on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+          url: '/down',
+          method: 'POST',
+          success: function(res){
+            $('#count').text(res.count);
+          }
+        });
+      });
     </script>
   </body>
 </html>
