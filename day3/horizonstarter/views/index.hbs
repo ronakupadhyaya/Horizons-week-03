@@ -2,17 +2,27 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<h2>HELLO</h2>
 
-  {{#each projectsArr}}
-    Title: {{this.title}} <br>
-    Goal:  {{this.goal}} <br>
-    Description: {{this.description}} <br>
-    Start:  {{this.start}} <br>
-    End: {{this.end}} <br>
-    Contributions so far: {{this.contributions}}
-    ___________________________________________________________________________<br>
-  {{/each}}
+{{#each projectsArr}}
+<div class="projects">
+  Title: {{this.title}}<br>
+  Goal: {{this.goal}}<br>
+  Description: {{this.description}}<br>
+  Start: {{this.start}}<br>
+  End: {{this.end}}<br>
+  Category: {{this.category}}<br>
+  View Only This Project: {{this.projectId}}<br>
+</div>
+  <br>
+{{/each}}<br>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href= "/new">Create New Project</a>
+<a href="/new">Create a new project</a>
+Start:
+<a href="/?sort=start&sortDirection=ascending">Sort Ascending</a>
+<a href="/?sort=start&sortDirection=descending">Sort Descending</a>
+End:
+<a href="/?sort=end&sortDirection=ascending">Sort Ascending</a>
+<a href="/?sort=end&sortDirection=descending">Sort Descending</a>

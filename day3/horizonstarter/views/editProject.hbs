@@ -1,0 +1,20 @@
+<h2>Edit project</h2>
+
+<!-- Part 2: Create project -->
+<form class="form" method="post">
+  Title: <br><input type="text" name="title" value="{{proj.title}}"><br>
+  Goal: <br><input type="number" name="goal" value="{{proj.goal}}"><br>
+  Description: <br><textarea name="description" rows="8" cols="80" >{{proj.description}}</textarea><br>
+  Start: <br><input type="date" name="start" value="{{realStart}}"><br>
+  End: <br><input type="date" name="end" value="{{realEnd}}"><br>
+  Project: <br>
+  <select name="category">
+{{#each enumVals}}
+  <option name="val" value="{{this}}">{{this}}</option>
+{{/each}}
+  </select>
+  <br>
+  <br><input type="submit" name="button" value="Submit">
+</form>
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->

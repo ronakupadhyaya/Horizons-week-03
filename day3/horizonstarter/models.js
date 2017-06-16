@@ -10,7 +10,7 @@ var Project = mongoose.model('Project', {
   },
   // YOUR CODE HERE
   goal: {
-    type: String,
+    type: Number,
     required: true
   },
   description: {
@@ -26,15 +26,16 @@ var Project = mongoose.model('Project', {
     required: true
   },
   contributions: [{
-      name: {
-        type: String,
-        required: true
-      },
-      amount: {
-        type: Number,
-        required: true
-      }
-  }]
+    name: String,
+    amount: Number
+  }],
+  category: {
+    type: String,
+    required: true,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+          'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"',
+          'How Many Fingers Am I Holding Up', 'Potent Potables']
+  }
 });
 
 module.exports = {

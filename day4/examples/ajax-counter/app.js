@@ -33,6 +33,20 @@ app.get('/', function(req, res) {
 
 // YOUR CODE HERE
 
+app.post('/count', function(req, res){
+  count.push(req.body.count);
+  res.redirect('/')
+})
+
+app.post('/ajaxCount', function(req, res){
+  count.push(req.body.count);
+  res.json({count: count})
+})
+
+
+
+
+
 // ---Task 2---
 // POST /down: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.

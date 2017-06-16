@@ -1,14 +1,20 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
-<form class="" method="post">
-  Title: <br><input type="text" name="title" placeholder="Enter Title"><br>
-  Goal: <br><input type="text" name="goal" placeholder="Enter Goal"><br>
-  Description: <br><textarea type="text" name="description" placeholder="Enter Description"></textarea><br>
-  Start: <br><input type="Date" name="start" placeholder="Start Date"><br>
-  End: <br><input type="Date" name="end" placeholder="End Date"><br>
-  <br><input type="submit" name="btn submit" value="Submit">
+<form class="form" method="post">
+  Title: <br><input type="text" name="title" value="{{project.title}}"><br>
+  Goal: <br><input type="number" name="goal" value="{{project.goal}}"><br>
+  Description: <br><textarea name="description" rows="8" cols="80" value="{{project.description}}"></textarea><br>
+  Start: <br><input type="date" name="start" value="{{project.start}}"><br>
+  End: <br><input type="date" name="end" value="{{project.end}}"><br>
+  Project: <br>
+  <select name="category">
+{{#each enumVals}}
+  <option name="val" value="{{this}}">{{this}}</option>
+{{/each}}
+  </select>
+  <br>
+  <br><input type="submit" name="button" value="Submit">
 </form>
-
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

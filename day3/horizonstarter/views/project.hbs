@@ -1,20 +1,36 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
+  Title: {{this.title}}<br>
+  Goal: {{this.goal}}<br>
+  Description: {{this.description}}<br>
+  Start: {{this.start}}<br>
+  End: {{this.end}}<br>
+  Total Contributions: {{this.total}}<br>
+  Contributors:<br>
+  Category: {{this.category}}
+  {{#each contributions}}
+  <div>
+    Name: {{this.name}}
+    Amount: {{this.amount}}
+  </div>
+  {{/each}}
+  <br>
+  <br>
+  <div class="progress">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{this.percentage}}%">
+      {{this.percentage}}% Complete
+    </div>
+  </div>
+----------------------------------------------------------------------------------------------------<br>
 <!-- YOUR CODE HERE -->
-Title: {{this.title}} <br>
-Goal:  {{this.goal}} <br>
-Description: {{this.description}} <br>
-Start:  {{this.start}} <br>
-End: {{this.end}} <br>
 
 <!-- Part 4: Contribute to a project -->
+<form class="post" method="post">
+  Name: <br><input type="text" name="name" value="{{project.name}}"><br>
+  Amount: <br><input type="number" name="amount" value="{{project.amount}}"><br>
+  <br><input type="submit" name="button" value="Contribute">
+</form>
 
 <!-- YOUR CODE HERE -->
-<br><br><strong>Contributions: </strong><br><br>
-<form class="" method="post">
-  Name: <br><input type="text" name="name" placeholder="Enter Name"><br>
-  Amount: <br><input type="number" name="amount" placeholder="Enter Contribution"><br>
-  <br><input type="submit" name="btn submit" value="Contribute">
-</form>

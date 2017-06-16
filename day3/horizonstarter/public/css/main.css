@@ -1,3 +1,47 @@
 body {
   padding: 10px;
 }
+.projects {
+    box-sizing: border-box;
+    width: 500px;
+    padding: 0.5em;
+    margin: 5px 5px;
+    border-radius: 15px;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: rainbow;
+    animation-duration: 60s;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+}
+
+
+
+@keyframes rainbow {
+  0% {
+    background-color: red;
+  }
+  14% {
+    background-color: orange;
+  }
+  28% {
+    background-color: yellow;
+  }
+  42% {
+    background-color: green;
+  }
+  56% {
+    background-color: blue;
+  }
+  70% {
+    background-color: indigo;
+  }
+  84% {
+    background-color: violet;
+  }
+  100% {
+    background-color: red;
+  }
+}
