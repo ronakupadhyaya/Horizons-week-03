@@ -32,7 +32,8 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  res.render('register');
+  res.render('register', {
+  });
 });
 
 // POST /register
@@ -45,13 +46,35 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName', 'First name is required').notEmpty();
+  req.check('middleInitial', 'Middle initial must be one letter').isLength({max: 1});
+  req.check('lastName', 'Last name is required').notEmpty();
+  req.check('DOB', 'Date must be in the past').isBefore();
+  req.check('password', 'Password is required').notEmpty();
+  req.check('repPassword', 'Passwords must match').equals(req.body.password);
+  var errors = req.validationErrors();
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {
+      errors: errors,
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      DOB: req.body.DOB,
+      password: req.body.password,
+      repPassword: req.body.repPassword
+    });
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      DOB: req.body.DOB,
+      gender: req.body.gender,
+      bio: req.body.bio
+    });
   }
 });
 

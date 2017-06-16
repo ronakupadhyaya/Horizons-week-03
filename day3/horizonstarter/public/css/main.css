@@ -1,3 +1,46 @@
 body {
   padding: 10px;
+  background-color: #FBFBFA;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.projectUI {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.project {
+  border: black 1px solid;
+  border-radius: 5px;
+  margin: 5px;
+  width: 30%;
+  background-color: #2BDE73;
+}
+
+.projText {
+  padding: 5px;
+  color: #FBFBFA;
+}
+
+.links {
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.innerLinks {
+  border: black 1px solid;
+  border-radius: 5px;
+  background-color: #2BDE73;
+}
+
+.linkText {
+  padding: 5px;
+  color: white;
 }

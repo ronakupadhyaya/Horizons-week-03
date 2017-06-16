@@ -1,11 +1,55 @@
-<h1>View projects</h1>
+<head>
+  <link rel='stylesheet' href='/css/main.css'>
+</head>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
-<h2>HELLO</h2>
-{{#each projectsArr}}
-  Title: {{this.title}}
-{{/each}}
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<body>
+  <div class="logo">
+    <div>
+      <h1>Horizon Starter</h1>
+    </div>
+  </div>
+
+  <div class="projectUI">
+    <!-- Part 1: View all projects -->
+    <!-- YOUR CODE HERE -->
+    {{#each projectsArr}}
+    <div class="project">
+        <div class="projText" href>
+          <h2>{{this.title}}</h2><br>
+          <strong>Goal:</strong> {{this.goal}}<br>
+          <strong>Description:</strong> {{this.description}}<br>
+          <strong>Start:</strong> {{this.start}}<br>
+          <strong>End:</strong> {{this.end}}<br>
+          <strong>Category:</strong> {{this.category}}<br>
+        </div>
+      </a>
+    </div>
+    {{/each}}<br>
+    <!-- Part 2: Create new project -->
+    <!-- YOUR CODE HERE -->
+  </div>
+  <div class="links">
+    <div class="innerLinks">
+      <div class="linkText">
+        <div>
+          <a href="/new">Create a new project</a>
+        </div>
+        <div class="start">
+          Start:
+          <a href="/?sort=start&sortDirection=ascending">Ascending</a>
+          <a href="/?sort=start&sortDirection=descending">Descending</a>
+        </div>
+        <div class="end">
+          End:
+          <a href="/?sort=end&sortDirection=ascending">Ascending</a>
+          <a href="/?sort=end&sortDirection=descending">Descending</a>
+        </div>
+        <div class="goal">
+          Goal:
+          <a href="/?sort=goal&sortDirection=ascending">Ascending</a>
+          <a href="/?sort=goal&sortDirection=descending">Descending</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
