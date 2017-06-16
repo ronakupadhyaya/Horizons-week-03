@@ -7,6 +7,36 @@ var Project = require('./models').Project;
 var strftime = require('strftime');
 var _ = require('underscore');
 
+router.post('/api/project/:projectId/contribution',function(req,res){
+  Project.findById(req.params.projectId,function(err,p){
+    if(err){
+      res.send(err);
+    }
+    else {
+      var contriObj = {name: req.body.name, amount: req.body.amount};
+      p.contributions.push(contriObj);
+      p.save(function(err){
+        if(err){
+          res.send(err)
+        }
+        else{
+          res.json(contriObj);
+        }
+      })
+    }
+  })
+})
+
+
+
+
+
+
+
+
+// PART II SEPARATION -----------------------------------------------
+
+
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
   var project = new Project({
