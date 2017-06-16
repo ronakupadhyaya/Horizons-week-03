@@ -1,4 +1,5 @@
-<h1>{{project.title}}</h1>
+
+<h1 id="projectheader">{{project.title}}</h1>
 <a href="/project/{{project._id}}/edit">Edit Project</a>
 <!-- Part 3: View a single project -->
 
@@ -40,9 +41,10 @@
 <!-- Part 4: Contribute to a project -->
 <h4>Make a Contribution:</h4>
 <form method="post">
-  Name <input type="text" name="name">
-  Amount <input type="text" name="amount">
-  <input type="submit" value="Submit"/>
+  Name <input type="text" name="name" id="contribnamefield">
+  Amount <input type="text" name="amount" id="contribamountfield">
+  <!-- <input type="submit" value="Submit"/> -->
+  <button id="send-contribution">Add Contribution</button>
 </form>
 
 <a href="/">Back to all projects</a>
@@ -55,3 +57,7 @@
 </ul>
 {{/if}}
 <!-- YOUR CODE HERE -->
+
+<!-- <script src="../../../lib/jquery.js"></script>
+<script src="../../../lib/jquery-ui.js"></script>
+<script src="/js/contributions.js"></script> -->

@@ -329,5 +329,31 @@ router.post('/project/:projectid/edit', function(req, res) {
 // Create the POST /project/:projectid/edit endpoint
 
 
+router.post('/api/project/:projectId/contribution', function(req,res){
+  Project.findById(req.params.projectId,function(error,project){
+    if(error){
+      console.log("error finding project by id ");
+      res.status(500).json(error);
+    }else{
+      console.log("project is", project);
+      var contributionObj = {name: req.body.name, amount: req.body.amount};
+      project.contributions = project.contributions || [];
+      project.contributions.push(contributionObj);
+      console.log("contribution obect",contributionObj)
+      console.log("project contribtuons after push", project.contributions);;
+      project.save(function(error){
+        if (error) {
+          console.log("error on save");
+          res.status(500).json(error);
+        } else {
+          console.log("saved");
+          res.json(contributionObj);
+        }
+      })
+    }
+})
+})
+
+
 
 module.exports = router;
