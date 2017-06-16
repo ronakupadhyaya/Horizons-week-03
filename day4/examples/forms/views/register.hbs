@@ -12,11 +12,86 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+      <ul>
+        {{#each errors}}
+          <li style="color: red">{{msg}}</li>
+        {{/each}}
+      </ul>
+    </div>
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form action="/register" method="post" class="well form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">First Name</label>
+          <div class="col-sm-6 input-group">
+            <input type="username" class="form-control" name="firstName" value="{{firstName}}" placeholder="First Name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Middle Initial</label>
+          <div class="col-sm-6 input-group">
+            <input type="text" class="form-control" name="middle" value="{{middle}}" placeholder="Middle Initial">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Last Name</label>
+          <div class="col-sm-6 input-group">
+            <input type="text" class="form-control" name="lastName" value="{{lastName}}" placeholder="Last Name">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">DOB</label>
+          <div class="col-sm-6 input-group">
+            <input type="date" class="form-control" name="dob" value="{{dob}}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Password</label>
+          <div class="col-sm-6 input-group">
+            <input type="password" class="form-control" name="password" value="{{password}}" placeholder="Password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Repeat Password</label>
+          <div class="col-sm-6 input-group">
+            <input type="password" class="form-control" name="password2" value="{{password2}}" placeholder="Repeat Password">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Gender</label>
+          <div class="col-sm-6 input-group">
+            <input type="radio" name="gender" value="Male"> Male<br>
+            <input type="radio" name="gender" value="Female"> Female<br>
+            <input type="radio" name="gender" value="Other"> Prefer not to say
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Sign up for newslette</label>
+          <div class="col-sm-6 input-group checkbox">
+            <label><input type="checkbox" value=""></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-2 control-label col-sm-offset-1">Repeat Password</label>
+          <div class="col-sm-6 input-group">
+            <textarea class="form-control" name="biography" value="{{biography}}" placeholder="Biography" row="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-8">
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+
       </form>
     </div>
   </div>

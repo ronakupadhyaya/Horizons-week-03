@@ -92,7 +92,8 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
-
+program
+.option('-t, --task <value>', 'Specify task')
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
 // other arguments that are sent to our program with no specific name.
@@ -131,6 +132,7 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var newTask = new ToDoItem({name: name, priority: priority, completed: false});
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -138,6 +140,15 @@ function addTask(){
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+  newTask.save(function(err) {
+    if (err) {
+      console.log('Error occurred');
+    }
+    else {
+      console.log('Saved new task');
+    }
+    mongoose.connection.close();
+  })
 }
 
 // PART 3: Show tasks
@@ -161,6 +172,31 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
+  if (program.task) {
+    ToDoItem.find({name: program.task}, function(err, tasks) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        tasks.forEach(function(task) {
+          console.log("Task: " + task.name + ', Priority: ' + task.priority + ', Completed: ' + task.completed);
+        })
+      }
+    })
+  }
+  else {
+    ToDoItem.find(function(err, tasks) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        tasks.forEach(function(task) {
+          console.log("Task: " + task.name + ', Priority: ' + task.priority + ', Completed: ' + task.completed);
+        })
+      }
+    })
+  }
+  mongoose.connection.close();
 }
 
 // PART 4: Delete tasks
@@ -172,4 +208,20 @@ function deleteTask(){
   //    on the model to remove the task with {name: program.task}
 
   // YOUR CODE HERE
+  if (program.task) {
+    ToDoItem.remove({name: program.task}, function(err) {
+      if (err) {
+        console.log(err);
+      }
+      mongoose.connection.close();
+    })
+  }
+  else {
+    ToDoItem.remove(function(err) {
+      if (err) {
+        console.log(err);
+      }
+      mongoose.connection.close();
+    })
+  }
 }

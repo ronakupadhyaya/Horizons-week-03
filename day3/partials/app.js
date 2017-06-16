@@ -13,14 +13,11 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
-<<<<<<< HEAD
+
     res.render('index');
 });
 app.get('/second', function (req, res) {
     res.render('second');
-=======
-  res.render('index');
-});
 
 app.get('/second', function (req, res) {
   res.render('second');

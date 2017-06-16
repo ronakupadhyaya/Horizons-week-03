@@ -1,9 +1,77 @@
-<h1>View Project</h1>
+<style media="screen">
+  .progress {
+    width: 40%;
+  }
+  .info {
+    background-color: #ffadb8;
+    width: 80%;
+  }
+  .bar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .all {
+    display: flex;
+    justify-content: center;
+  }
+
+</style>
+<div class="container">
+
+<h1 id="{{project.id}}" class="header col-sm-offset-1 col-md-offset-1">View Project</h1>
 
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div class="well horizontal col-sm-8 col-sm-offset-1 info">
+  <h1 class="col-sm-offset-1 col-md-offset-1">Project: {{project.title}}</h1>
+  <p class="col-sm-offset-1 col-md-offset-1">Goal: {{project.goal}}</p>
+  <p class="col-sm-offset-1 col-md-offset-1">Description: {{project.description}}</p>
+  <p class="col-sm-offset-1 col-md-offset-1">Start date: {{start}}</p>
+  <p class="col-sm-offset-1 col-md-offset-1">End date: {{end}}</p>
+  <p class="col-sm-offset-1 col-md-offset-1">Category: {{project.category.name}}</p>
+
+  <form action="" method="post">
+    <div class="form-group">
+      <label type="text" class="col-sm-2 control-label col-sm-offset-2">Name</label>
+      <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
+        <input id="contributor" type="text" class="form-control" name="name" value="{{project.name}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label type="text" class="col-sm-2 control-label col-sm-offset-2">Amount</label>
+      <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
+        <input id="amount" type="text" class="form-control" name="amount" value="{{project.amount}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-12 text-center">
+        <button id="send-contribution" class="btn btn-info">Add contribution</button>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+
+<div class="container">
+  <h4 class="col-sm-4 col-sm-offset-1">Total contributions: {{total}}</h4>
+  <div class="progress bar">
+    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{percent}}"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+      {{percent}}% Complete
+    </div>
+  </div>
+</div>
+
+<div class="all">
+    {{#each contributions}}
+      <div class="col-sm-4 col-sm-offset-6"><strong>Contributor</strong>: {{name}}  <strong>Amount</strong>: ${{amount}}</div>
+    {{/each}}
+</div>

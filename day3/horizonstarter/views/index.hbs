@@ -1,7 +1,40 @@
-<h1>View projects</h1>
+<div class="container">
 
+  <h2 class="col-sm-offset-1 col-md-offset-1">View projects</h2>
+  <label type="text" class="control-label col-sm-offset-1">Sort</label>
+  <a href="/?sort=goal&sortDirection=ascending">Sort by goal low to high</a>
+  <a href="/?sort=goal&sortDirection=descending">Sort by goal high to low</a>
+  <a href="/?sort=funded">Show fully funded projects only</a>
+  <a href="/?sort=totalContributions">Sort by contributions</a>
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+  <!-- YOUR CODE HERE -->
+  {{#each projects}}
+    <div class="well horizontal proj col-sm-8 col-sm-offset-1">
+
+      <h2 class="col-sm-offset-2 col-md-offset-2"><label>Project</label>: {{title}}</h2>
+      <p class="col-sm-offset-2 col-md-offset-2" id="goal"><label>Goal</label>: ${{goal}}</p>
+      <p class="col-sm-offset-2 col-md-offset-2" id="desc"><label>Project description</label>: {{description}}</p>
+
+    </div>
+  {{/each}}
+  <button type="submit" class="btn btn-primary col-sm-offset-9">Create a new project</button>
+</div>
+
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+
+
+<style media="screen">
+  #goal {
+    font-style: italic;
+  }
+  .proj {
+    background-color: #ffadb8;
+    width: 80%;
+  }
+  a {
+    margin-left: 10px;
+    margin-right: 10px
+  }
+</style>

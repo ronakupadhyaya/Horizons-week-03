@@ -1,7 +1,7 @@
 <div class="container">
 
 
-  <h2 class="col-sm-offset-1 col-md-offset-1">Create project</h2>
+  <h2 class="col-sm-offset-1 col-md-offset-1">Edit project</h2>
 
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
@@ -11,7 +11,7 @@
       <strong>Warning!</strong> {{msg}}
     </div>
   {{/each}}
-<form action="/new" method="post" class="well form-horizontal col-sm-8 col-sm-offset-1 new-proj">
+<form method="post" class="well form-horizontal col-sm-8 col-sm-offset-1 new-proj">
   <div class="form-group">
     <label type="text" class="col-sm-2 control-label col-sm-offset-2">Title</label>
     <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
@@ -29,43 +29,49 @@
   <div class="form-group">
     <label type="text" class="col-sm-2 control-label col-sm-offset-2">Description</label>
     <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
-      <textarea rows="4" type="text" class="form-control" name="description" value="{{project.description}}"></textarea>
+      <textarea rows="4" type="text" class="form-control" name="description">{{project.description}}</textarea>
     </div>
   </div>
 
   <div class="form-group">
     <label type="text" class="col-sm-2 control-label col-sm-offset-2">Start date</label>
     <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
-      <input type="date" class="form-control" name="start" value="{{project.start}}">
+      <input type="date" class="form-control" name="start" value={{start}}>
     </div>
   </div>
 
   <div class="form-group">
     <label type="text" class="col-sm-2 control-label col-sm-offset-2">End date</label>
     <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6 input-group">
-      <input type="date" class="form-control" name="end" value="{{project.end}}">
+      <input type="date" class="form-control" name="end" value={{end}}>
     </div>
   </div>
 
   <div class="form-group">
     <label type="text" class="col-sm-2 control-label col-sm-offset-2">Project Category</label>
     <select class="col-xs-3 col-sm-4 col-md-5 col-lg-6" name="category">
-      <option>Famous Muppet Frogs</option>
-      <option>Current Black Presidents</option>
-      <option>The Pen Is Mightier</option>
-      <option>Famous Mothers</option>
-      <option>Drummers Named Ringo</option>
-      <option>1-Letter Words</option>
-      <option>Months That Start With "Feb"</option>
-      <option>How Many Fingers Am I Holding Up</option>
-      <option>Potent Potables</option>
+      <option {{#if isCategory1}}selected{{/if}}>Famous Muppet Frogs</option>
+      <option {{#if isCategory2}}selected{{/if}}>Current Black Presidents</option>
+      <option {{#if isCategory3}}selected{{/if}}>The Pen Is Mightier</option>
+      <option {{#if isCategory4}}selected{{/if}}>Famous Mothers</option>
+      <option {{#if isCategory5}}selected{{/if}}>Drummers Named Ringo</option>
+      <option {{#if isCategory6}}selected{{/if}}>1-Letter Words</option>
+      <option {{#if isCategory7}}selected{{/if}}>Months That Start With "Feb"</option>
+      <option {{#if isCategory8}}selected{{/if}}>How Many Fingers Am I Holding Up</option>
+      <option {{#if isCategory9}}selected{{/if}}>Potent Potables</option>
     </select>
   </div>
 
   <div class="form-group">
-    <div class="col-sm-12 text-center">
-      <button type="submit" class="btn btn-primary">Create a new post</button>
+    <div class="col-sm-4 col-sm-offset-4">
+      <button type="submit" class="btn btn-primary">Make changes</button>
     </div>
+    <div class="col-sm-4">
+      <a href="/project/{{project._id}}"button type="submit" class="btn btn-default">Cancel</a>
+    </div>
+  </div>
+  <div class="form-group">
+
   </div>
 </form>
 </div>

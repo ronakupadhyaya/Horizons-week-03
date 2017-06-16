@@ -11,7 +11,6 @@ mongoose.connect(process.env.MONGODB_URI);
 
 var Cat = mongoose.model('Cat', {name: String, furColor: String});
 
-
 var cat2 = new Cat({name: 'Munchkin', furColor: 'brown'});
 cat2.save(function(err) {
 	if (err) {
