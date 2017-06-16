@@ -4,6 +4,81 @@
 
 <!-- YOUR CODE HERE -->
 
+<span id="total_contribution_bar" class="label" style="color: black">${{total_contribution}} out of ${{goal}}</span>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{completion}}%">
+    <span>{{completion}}% Complete</span>
+  </div>
+</div>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		{{project}}
+	</div>
+</div>
+
+<span class="label" style="color: black;">Contributors</span>
+<ul class="list-group" id="list_contributors">
+{{#each project.contributions}}
+	<li class="list-group-item">{{this.name}} ${{this.amount}}</li>
+{{/each}}
+</ul>
+
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<form action="/project/{{project._id}}/contribution" method="POST" role="form" class="form-horizontal">
+	<legend>Make a contribution</legend>
+
+	<div class="form-group">
+		 <label for="" class="control-label col-xs-2 col-sm-2 col-md-2 col-lg-2">Name</label>
+		<div class="col-xs-8 col-sm-6 col-md-4 col-lg-2">
+			<input type="text" class="form-control" id="name" name="name">
+		</div>
+	</div>
+
+	<div class="form-group">
+		 <label for="" class="control-label col-xs-2 col-sm-2 col-md-2 col-lg-2">Amount</label>
+		<div class="col-xs-8 col-sm-6 col-md-4 col-lg-2">
+			<input type="text" class="form-control" id="amount" name="amount">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<input id="send_contribution" type="submit" class="btn btn-primary col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+	</div>
+
+	<p id="temp" style="color: white;">{{project._id}}</p>
+
+</form>
+
+
+
+<script>
+	console.log("HELLO", this);
+	$("#send_contribution").on("click", function(event) {
+		event.preventDefault();
+		$.ajax({
+      url: "/project/" + $("#temp").text() + "/contribution",
+      method: "post",
+      data: {
+      	params: {
+      		projectid: $("#temp").text(),
+      	},
+      	body: {
+      		name: $("#name").val(),
+      		amount: $("#amount").val()
+      	},
+      },
+      success: function(res) {
+        console.log(res, res.project, res.project.contributions);
+        var newContribution = res.project.contributions[res.project.contributions.length - 1];
+        console.log(newContribution);
+        $("#list_contributors").append($(`
+        	<li class="list-group-item">${newContribution.name} $${newContribution.amount}</li>
+        `))
+      }
+    })
+	})
+</script>

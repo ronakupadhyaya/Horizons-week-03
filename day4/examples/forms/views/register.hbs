@@ -10,15 +10,95 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="display: flex; align-items: center; flex-direction: column;">
+
     <h1>Put your registration form here</h1>
     <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+    {{#each errors}}
+      {{this}}
+    {{/each}}
+
+    <div style="height: 1em"></div>
+
+    <form action="" method="POST" role="form" class="form-horizontal" style="background-color: white; width: 50%">
+
+      <div style="height: 1em"></div>
+    
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">First Name</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="text" class="form-control" id="" placeholder="Input field" name="first">
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Middle Name</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="text" class="form-control" id="" placeholder="Input field" name="middle">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Last Name</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="text" class="form-control" id="" placeholder="Input field" name="last">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">DOB</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="date" class="form-control" id="" placeholder="Input field" name="dob">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Password</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="text" class="form-control" id="" placeholder="Input field" name="password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Repeat Password</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <input type="text" class="form-control" id="" placeholder="Input field" name="repeat_password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Gender</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          {{!-- <input type="text" class="form-control" id="" placeholder="Input field" name="gender"> --}}
+          <label class="radio-inline"><input type="radio" name="gender" value="male">Male</label>
+          <label class="radio-inline"><input type="radio" name="gender" value="female">Female</label>
+          <label class="radio-inline"><input type="radio" name="gender" value="na">Rather not say</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Sign-up for newsletter</label>
+        <div class="checkbox col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <label>
+            <input type="checkbox" name="signed_up">
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3">Biography</label>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <textarea type="text", class="form-control" name="biography"></textarea>
+        </div>
+      </div>
+      
+      <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" style="margin-left: 0.3em;">Submit</button>
+      </div>
+
+      <div style="height: 1em"></div>
+
+    </form>
   </div>
 </body>
 </html>

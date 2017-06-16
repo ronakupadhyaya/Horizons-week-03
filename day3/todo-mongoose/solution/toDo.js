@@ -192,12 +192,13 @@ function deleteTask(){
   // YOUR CODE HERE
   if(program.task){
     ToDoItem.remove({ name: program.task }, function (err) {
-      if (err) return console.error(err);
-      console.log("Deleted task with name: " + program.task);
-      mongoose.connection.close();
+      if (err) {
+        return console.error(err)
+      } else {
+        console.log("Deleted task with name: " + program.task);
+      }
     });
   } else {
     console.log("No task specified");
-    mongoose.connection.close();
   }
 }

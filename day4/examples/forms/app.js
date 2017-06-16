@@ -12,7 +12,16 @@ app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
-app.use(expressValidator());
+app.use(expressValidator({
+  customValidators: {
+    matches: function(value1, value2) {
+      return value1===value2;
+    },
+    isPast: function(date) {
+        return (new Date(date)).getTime() < Date.now();
+    },
+ }
+}));
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
@@ -45,7 +54,24 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check("first", "first name must be present").notEmpty();
+  // req.check("middle", "middle can only be 1 letter long").isLength({max: 1});
+  // req.check("last", "last name must be present").notEmpty();
+  // req.check("dob", "must be date in past").isPast();
+  req.check("password", "must not be empty").notEmpty();
+  if (req.body.password) {
+    req.check("repeat_password", "must not be empty and match previous").matches(req.body.password);
+  }
+  console.log(req.body.gender);
+  req.check()
+  req.check()
+  req.check()
+  req.check()
+  req.check()
+  req.check()
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+  console.log(errors);
   if (errors) {
     res.render('register', {errors: errors});
   } else {
