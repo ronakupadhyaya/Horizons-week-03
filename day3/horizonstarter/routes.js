@@ -25,10 +25,63 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  // YOUR CODE HERE
-  Project.find(function(err, projects) {
-    res.render('index', {items: projects})
-  })
+  if (req.query.sort) {
+    var sortObject = {};
+    sortObject[req.query.sort] = req.query.sortDirection;
+    Project.find().sort(sortObject).exec(function(err, array) {
+      res.render('index', {items: array})
+    });
+  } else if (req.query.totalcontributions) {
+      Project.find(function(error, projects) {
+        var sortedArray = projects.sort(function(a,b) {
+          var totalA = 0
+          var totalB = 0
+          a.contributions.forEach(function(i) {
+            return totalA += i.amount
+          })
+          b.contributions.forEach(function(i) {
+            return totalB += i.amount
+          })
+          return totalA - totalB
+        })
+
+        res.render('index', {items: sortedArray})
+      })
+  } else if (req.query.funded) {
+    Project.find(function(error, projects) {
+      var fundedProjects = []
+      projects.forEach(function(project) {
+        var total = 0
+        project.contributions.forEach(function(i) {
+          return total += i.amount
+        })
+        if (total >= project.goal) {
+          fundedProjects.push(project)
+          return fundedProjects
+        }
+      })
+      res.render('index', {items: fundedProjects})
+    })
+  } else if (req.query.notFunded) {
+    Project.find(function(error, projects) {
+      var unFundedProjects = []
+      projects.forEach(function(project) {
+        var total = 0
+        project.contributions.forEach(function(i) {
+          return total += i.amount
+        })
+        if (total < project.goal) {
+          unFundedProjects.push(project)
+          return unFundedProjects
+        }
+      })
+      res.render('index', {items: unFundedProjects})
+    })
+  } else {
+    Project.find(function(err, projects) {
+      res.render('index', {items: projects})
+    })
+  }
 });
 
 // Part 2: Create project
@@ -47,6 +100,7 @@ router.post('/new', function(req, res) {
   req.checkBody('goal', 'Must be number').isInt()
   req.checkBody('start', 'Must have start').notEmpty()
   req.checkBody('end', 'Must have end').notEmpty()
+  req.check('category', 'Must have category').notEmpty()
   var errors = req.validationErrors()
   if (errors) {
     res.render('new', {
@@ -59,7 +113,8 @@ router.post('/new', function(req, res) {
       goal: req.body.goal,
       description: req.body.description,
       start: req.body.start,
-      end: req.body.end
+      end: req.body.end,
+      category: req.body.category
     })
     project.save(function (err) {
       if (err) {
@@ -82,8 +137,15 @@ router.get('/project/:projectid', function(req, res) {
     if (error) {
       res.render('index')
     } else {
+      var total = 0
+      project.contributions.forEach(function(val){
+          total += val.amount;
+        })
+      var progress = (total/project.goal)*100
       res.render('project', {
-        project: project
+        project: project,
+        total: total,
+        progress: progress
       })
     }
   })
@@ -116,9 +178,16 @@ router.post('/project/:projectid', function(req, res) {
               project: project
             })
           } else {
+            var total = 0
+            project.contributions.forEach(function(val){
+                total += val.amount;
+              })
+            var progress = (total/project.goal)*100
             res.render('project', {
               project: project,
-              success: "successfully contributed"
+              success: "successfully contributed",
+              total: total,
+              progress: progress
             })
           }
         })
@@ -129,6 +198,25 @@ router.post('/project/:projectid', function(req, res) {
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res) {
+  var project = Project.findById(req.params.projectid, function(error, project) {
+    var startDate = project.start.toISOString().substring(0,10)
+    var endDate = project.end.toISOString().substring(0,10)
+    res.render('editProject', {
+      project: project,
+      startDate: startDate,
+      endDate: endDate
+    })
+  })
+})
 // Create the POST /project/:projectid/edit endpoint
+router.post('/project/:projectid/edit', function(req, res) {
+  var project = Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title
+  }, function(err, project) {
+    res.redirect('/project/' + req.params.projectid)
+    console.log(err)
+  })
+})
 
 module.exports = router;

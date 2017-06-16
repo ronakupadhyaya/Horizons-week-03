@@ -6,9 +6,17 @@
 <p>Description: {{project.description}}</p>
 <p>Start: {{project.start}}</p>
 <p>End: {{project.end}}</p>
-<p>Total amount of contributions: </p>
+<p>Category: {{project.category}}</p>
+<p>Total amount of contributions: {{total}}</p>
 <p>Percentage of goal met:</p>
-<p>Contributions:</p>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{progress}}%">
+    {{progress}} %
+  </div>
+</div>
+<p>Contributions: {{#each project.contributions}}<div>{{name}} {{amount}}</div>{{/each}}</p>
+<a href="/project/{{project._id}}/edit">Edit project</a>
 <a href="/">View all projects</a>
 <!-- YOUR CODE HERE -->
 

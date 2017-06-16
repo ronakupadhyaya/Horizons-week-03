@@ -12,11 +12,29 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>{{#each errors}}{{msg}}{{/each}}</div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <input class="form-control" type="text" placeholder="First Name" name="firstName" required>
+        <input class="form-control" type="text" placeholder="Middle Initial" name="middleInitial">
+        <input class="form-control" type="text" placeholder="Lst Name" name="lastName" required>
+        <input class="form-control" type="date" placeholder="Date of birth" name="dateOfBirth">
+        <input class="form-control" type="password" placeholder="Password" name="password" required>
+        <input class="form-control" type="password" placeholder="Repeat Password" name="repeatPassword" required>
+        <div class="radio">
+          <label><input type="radio" name="gender" value="male" checked>Male</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="gender" value="female">Female</label>
+        </div>
+        <div class="radio">
+          <label><input type="radio" name="gender" value="other">Other</label>
+        </div>
+        <textarea class="form-control" placeholder="Bio" rows="3" name="bio"></textarea>
+        <div class="checkbox">
+          <label><input type="checkbox" name="newsletter" value="yes">Newsletter</label>
+        </div>
+        <input class="form-control" type="submit" value="Register" class="btn btn-primary">
       </form>
     </div>
   </div>
