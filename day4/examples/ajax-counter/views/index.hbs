@@ -26,8 +26,7 @@
           method: "POST",
           data: {count: count},
           success: function(res) {
-            count = count + 1;
-            $("#count").text(count);
+            $("#count").text(res.count);
           },
           error: function(err) {
             console.log(err);
@@ -43,7 +42,7 @@
           method: "POST",
           data: {count: count},
           success: function(res) {
-            $("#count").text(count - 1);
+            $("#count").text(res.count);
           },
           error: function(err) {
             console.log(err);

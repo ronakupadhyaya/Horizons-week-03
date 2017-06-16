@@ -28,11 +28,22 @@
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <div class="links">
+  <div class="input-group">
+    <input type="text" id="txt" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" id="go">Go!</button>
+    </span>
+  </div><!-- /input-group -->
     <a class="btn btn-default" href="/new">Create a new project</a>
     <a class="btn btn-default" href="/start">Sort by start date</a>
     <a class="btn btn-default" href="/end">Sort by end date</a>
     <a class="btn btn-default" href="/goal">Sort by project goal</a>
-    <a class="btn btn-default" href="/filterByFunding">filter By Funding</a>
-    <a class="btn btn-default" href="/filterByNotFunded">filter By Not Funded</a>
+    <a class="btn btn-default" id="funded" href="/filterByFunding">Funded</a>
+    <a class="btn btn-default" id="not-funded" href="/filterByNotFunded">Not Funded</a>
+    <a class="btn btn-default" id="show-all" href="/">Show All</a>
+    <a class="btn btn-default" id="amt-asc">Sort by Amount Funded (ascending)</a>
+    <a class="btn btn-default" id="amt-des">Sort by Amount Funded (descending)</a>
+    <a class="btn btn-default" id="per-asc">Sort by Percentage Funded (ascending)</a>
+    <a class="btn btn-default" id="per-des">Sort by Percentage Funded (descending)</a>
 </div>
 </div>

@@ -8,7 +8,91 @@ var strftime = require('strftime');
 var validator = require('express-validator');
 
 var app = express();
-app.use(validator());
+// app.use(validator());
+
+app.use(validator({
+ customValidators: {
+    gte: function(param, num) {
+        return param >= num;
+    }
+ }
+}));
+
+router.get('/api/projects', function(req, res) {
+  // YOUR CODE HERE
+  var funded = req.query.funded;
+  var sort = req.query.sort;
+  var sortDirection = req.query.sortDirection;
+  Project.find(function(err, array) {
+    if (err) {
+      console.log(err);
+    } else {
+      if(funded + "" !== "undefined") {
+        array = array.filter(function(item) {
+          var contr = item.contributions;
+          var sum = 0;
+          contr.forEach(function(elem) {
+            sum += parseInt(elem.amount);
+          })
+          if(funded === "true") {
+            return sum >= parseInt(item.goal);
+          } else {
+            return sum < parseInt(item.goal);
+          }
+        });
+      }
+      if (sort === "percentageFunded") {
+        array.sort(function(elem1, elem2) {
+          var contr1 = elem1.contributions;
+          var sum1 = 0;
+          contr1.forEach(function(element) {
+            if (element.amount) {
+              sum1 += parseInt(element.amount);
+            }
+          })
+          var percent1 = sum1 / elem1.goal * 100;
+          var contr2 = elem2.contributions;
+          var sum2 = 0;
+          contr2.forEach(function(element) {
+            if (element.amount) {
+              sum2 += parseInt(element.amount);
+            }
+          })
+          var percent2 = sum2 / elem2.goal * 100;
+          if (sortDirection === "descending") {
+            return percent2 - percent1;
+          } else {
+            return percent1 - percent2;
+          }
+        })
+      }
+      if (sort === "amountFunded") {
+        array.sort(function(elem1, elem2) {
+          var contr1 = elem1.contributions;
+          var sum1 = 0;
+          contr1.forEach(function(element) {
+            if (element.amount) {
+              sum1 += parseInt(element.amount);
+            }
+          })
+          var contr2 = elem2.contributions;
+          var sum2 = 0;
+          contr2.forEach(function(element) {
+            if (element.amount) {
+              sum2 += parseInt(element.amount);
+            }
+          })
+          if (sortDirection === "descending") {
+            return sum2 - sum1;
+          } else {
+            return sum1 - sum2;
+          }
+        })
+      }
+      res.json({array : array});
+    }
+  })
+});
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -260,6 +344,38 @@ router.get('/:sort/:sortDirection?', function(req, res) {
     }
   })
 });
+
+router.post('/api/project/:projectid/contributions', function(req, res) {
+  // YOUR CODE HERE
+  console.log("1");
+  var id = req.params.projectid;
+  Project.findById(id, function(err, project) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(project.contributions);
+      var contr = project.contributions;
+      req.checkBody("amount", "amount must be > 0").isInt().gte(0);
+      var err = req.validationErrors();
+      if (err) {
+        res.status(400).json(err);
+      }
+      contr.push({
+        name : req.body.name,
+        amount : req.body.amount
+      })
+      project.save(function(err) {
+        if (err) {
+        } else {
+          console.log(contr[contr.length - 1]);
+          res.json(contr[contr.length - 1]);
+        }
+      });
+    }
+  })
+});
+
+
 
 
 module.exports = router;

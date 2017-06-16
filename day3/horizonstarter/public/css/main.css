@@ -17,6 +17,7 @@ img {
 .outer {
   display: flex;
   flex-flow: wrap;
+  justify-content: center;
 }
 
 .title-button {
@@ -50,16 +51,19 @@ img {
   font-weight: bold;
 }
 
+
 .links {
   width: 1200px;
   display: flex;
   margin: 20px;
   margin-top: 40px;
   justify-content: space-around;
+  flex-flow: wrap;
 }
 
 .links a {
   border: 1px solid black;
+  margin: 10px 10px 10px 10px;
 }
 
 .proj-title {
@@ -69,4 +73,9 @@ img {
 .inner-proj {
   display: flex;
   justify-content: center;
+}
+
+
+.title-button {
+  padding: 15px;
 }
