@@ -7,6 +7,7 @@
 <h5>Goal:{{project.goal}}</h5>
 <h5>Start Date:{{project.start}}</h5>
 <h5>End Date:{{project.end}}</h5>
+<h5>Category:{{project.category}}</h5>
 <h4>{{project.description}}</h4>
 
 <!-- Part 4: Contribute to a project -->
@@ -17,6 +18,17 @@
     <input type="submit" value="Submit">
   </span>
 </form>
+{{#each errors}}
+  <h5>{{msg}}</h5>
+{{/each}}
+
+<h5>Total Contributions: {{totalCon}}</h5>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{completion}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{completion}}%">
+    <span class="sr-only">{{completion}}% Complete</span>
+  </div>
+</div>
 
 <h3>Contribution</h3>
 {{#each project.contributions}}
@@ -24,8 +36,9 @@
 <h4>{{amount}}</h4><br>
 {{/each}}
 
-{{#each errors}}
-  <h5>{{msg}}</h5>
-{{/each}}
+
+
+
+
 
 <!-- YOUR CODE HERE -->

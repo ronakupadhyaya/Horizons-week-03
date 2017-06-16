@@ -15,7 +15,44 @@
 
     <script src="/jquery.js"></script>
     <script>
-      // YOUR CODE HERE
+    // YOUR CODE HERE
+    $('#up').on('click', function(event){
+      event.preventDefault();
+
+      var updatedCounter = $('#count').text();
+      var num = parseInt(updatedCounter);
+      num++;
+      $.ajax({
+        url: '/up',
+        method:'post',
+        data:{
+          count: num
+        },
+        success: function(res){
+          console.log('success', num, res);
+          $('#count').html(num);
+        }
+      });
+    })
+
+    $('#down').on('click', function(event){
+      event.preventDefault();
+
+      var updatedCounter = $('#count').text();
+      var num = parseInt(updatedCounter);
+      num--;
+      $.ajax({
+        url: '/down',
+        method:'post',
+        data:{
+          count: num
+        },
+        success: function(res){
+          console.log('success', num, res);
+          $('#count').html(num);
+        }
+      });
+    })
     </script>
   </body>
 </html>

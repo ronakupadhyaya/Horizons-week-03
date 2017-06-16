@@ -6,19 +6,23 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+          <input type="text" placeholder="First Name" name="firstName" required>
+          <input type="text" placeholder="Middle Initial" name="middleInitial" required>
+          <input type="text" placeholder="Last Name" name="lastName" required>
+          <input type="submit">
+    </form>
   </div>
+
+  <div><strong>Errors:</strong>{{errors}}</div>
+
+</div>
 </body>
 </html>
