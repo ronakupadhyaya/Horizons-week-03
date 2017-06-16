@@ -6,10 +6,39 @@
   {{project.description}}
   {{project.start}}
   {{project.end}}
+  {{project.category}}
 
+
+  {{#each project.contributions}}
+    {{this.contributorName}} -> {{contributionAmount}} <br>
+
+  {{/each}}
+
+<h1> project total:  {{project.total}} </h1>
 
 
 <!-- Part 4: Contribute to a project -->
-  
+<form action="/project/{{projectId}}"  method="post">
+  <input type="text" name="contributionName" value="">
+  <input type="text" name="contributionAmount" value="">
+
+  <button type="submit" name="button"></button>
+</form>
+<br>
+<br>
+
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow={"70"}
+  aria-valuemin="0" aria-valuemax="100" style="width:{{complete}}%">
+    <span class="sr-only">{{complete}}: Complete</span>
+  </div>
+</div>
+<h1>{{complete}}: Complete</h1>
+
+
+
+
+
 
 <!-- YOUR CODE HERE -->

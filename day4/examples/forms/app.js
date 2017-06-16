@@ -32,6 +32,7 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
+
   res.render('register');
 });
 
@@ -44,10 +45,25 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  // YOUR CODE HERE - Add expreess-validator validation rules here
+  req.check('firstName', 'firstName is a required field').notEmpty();
+  req.check('middleInitial', 'firstName is a required field').isLength({
+    min: 1,
+    max: 1
+  });
+  req.check('lastName', 'firstName is a required field').notEmpty();
+  req.check('birthDate', 'firstName is a required field').isBefore();
+  req.check('password', 'firstName is a required field').notEmpty();
+  req.check('confirm_password', 'firstName is a required field').notEmpty();
+  req.check('gender', 'firstName is a required field').notEmpty();
+  // gender is not specified. May need to refer to the 3 options
+  req.check('checkBox', 'firstName is a required field').notEmpty();
+  // checkbox is also not an id. fix later
+
+  var errors = req.validationErrors();
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {
+      errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE

@@ -1,13 +1,13 @@
 <h2>Create project</h2>
 <!-- Part 2: Create project -->
-<form class="form" action="/new" method="post">
-  <input type="text" name="title" value="title">
-  <input type="text" name="goal" value="goal">
-  <textarea name="description" rows="8" cols="80"></textarea>
-  <input type="date" name="start" value="start">
-  <input type="date" name="end" value="end">
+<form class="form" action="/project/projectid/edit" method="post">
+  <input type="text" name="title" value="{{editProject.title}}">
+  <input type="text" name="goal" value="{{editProject.goal}}">
+  <textarea name="description" rows="8" cols="80" value = "{{editProject.description}}"></textarea>
+  <input type="date" name="start" value="{{editProject.start}}">
+  <input type="date" name="end" value="{{editProject.end}}">
   <button type="submit" name="form-submit-button"> Submit </button>
-  <select name="categories" type="dropdown">
+  <select name="categories" type="dropdown" value = "{{editProject.category}}">
     <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
     <option value="The Pen is Mightier">The Pen is Mightier</option>
@@ -19,5 +19,3 @@
     <option value="Potent Potables">Potent Potables</option>
   </select>
 </form>
-
-<!-- Part 5: Project categories -->

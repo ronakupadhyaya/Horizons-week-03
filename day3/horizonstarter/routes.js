@@ -7,18 +7,18 @@ var Project = require('./models').Project;
 var strftime = require('strftime');
 
 // Example endpoint
-router.get('/create-test-project', function(req, res) {
-  var project = new Project({
-    title: 'I am a test project'
-  });
-  project.save(function(err) {
-    if (err) {
-      res.status(500).json(err);
-    } else {
-      res.send('Success: created a Project object in MongoDb');
-    }
-  });
-});
+// router.get('/create-test-project', function(req, res) {
+//   var project = new Project({
+//     title: 'I am a test project'
+//   });
+//   project.save(function(err) {
+//     if (err) {
+//       res.status(500).json(err);
+//     } else {
+//       res.send('Success: created a Project object in MongoDb');
+//     }
+//   });
+// });
 
 // Part 1: View all projects
 // Implement the GET / endpoint.
@@ -43,7 +43,9 @@ router.post('/new', function(req, res) {
     goal: req.body.goal,
     description: req.body.description,
     start: req.body.start,
-    end: req.body.end
+    end: req.body.end,
+    total: req.body.total,
+    category: req.body.categories
   })
   newPost.save(function(err) {
     if (err) {
@@ -65,9 +67,11 @@ router.post('/new', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   var storedId = req.params.projectid
-  Project.findById(storedId, function(err, project){
+  console.log(storedId);
+  Project.findById(storedId, function(err, result){
     res.render('project', {
-      project:project
+      project:result,
+      projectId: storedId
     });
   });
 });
@@ -75,11 +79,70 @@ router.get('/project/:projectid', function(req, res) {
 // Part 4: Contribute to a project
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
+  console.log(req);
+var projectId = req.params.projectid;
+  Project.findById(projectId, function(err, project){
+    if(err){
+      console.log("shoot");
+    } else {
+      var projObj = {
+      contributorName: req.body.contributionName,
+      contributionAmount: req.body.contributionAmount
+      }
+    }
+    project.contributions.push(projObj);
+    project.total = parseInt(project.total) || 0;
+    project.total += parseInt(req.body.contributionAmount);
+    var complete = project.total / project.goal *100;
+    console.log(complete);
+    project.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("project", {
+          project: project,
+          projectId: projectId,
+          complete: complete
+        })
+      }
+  });
+
 
 });
+});
+
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+  var storedId = req.params.projectid
+  Project.findById(storedId, function(err, project){
+    res.render('edit', {
+      project:project,
+      projectId: storedId
+    });
+  });
+
+
+
+})
+
+
+  //
+  // Project.findByIdAndUpdate(req.params.projectid, editProject, function(err, editProject) {
+  //   if(err){
+  //     console.log(err);
+  //   } else{
+  //     res.render("edit", {
+  //       editProject: editProject
+  //     })
+  //   }
+  // });
+
+
+
+
+
 
 module.exports = router;
