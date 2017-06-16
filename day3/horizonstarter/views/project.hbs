@@ -31,17 +31,27 @@
 </div>
 
 <p>
-  {{project.title}} {{project.goal}} {{project.description}} {{project.start}} {{project.end}}
+  Title: {{project.title}}<br>
+  Category: {{project.category}}<br>
+  Goal: {{project.goal}}<br>
+  Description: {{project.description}}<br>
+  Start: {{project.start}}<br>
+  End: {{project.end}}
 </p>
 {{#each project.contributions}}
 <h3>{{this.contributor}} has contributed ${{this.amount}} to your project.</h3>
 {{/each}}
 <p>Total: {{total}} Percent of Goal: {{percentOfGoal}}</p>
+
+<p>{{project.category}}</p>
+
+<a href="/project/{{project._id}}/edit">Edit</a>
+
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
-<form class="" method="post">
-  Name: <input type="text" name="contributor" value="Jeremy">
-  Amount: <input type="number" name="amount" value="20000">
-  <input type="submit" name="" value="Contribute">
+<form class="" action="/project/{{project._id}}/contribution" method="post">
+  Name: <input id="contributor" type="text" name="contributor" value="Jeremy">
+  Amount: <input id="amount" type="number" name="amount" value="20000">
+  <input type="submit" id="send-contribution" name="" value="Contribute">
 </form>

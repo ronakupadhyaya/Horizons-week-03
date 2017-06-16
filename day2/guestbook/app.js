@@ -68,33 +68,32 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts/', function(req, res) {
-  console.log(data)
-  var dataArray = data.read();
-  console.log(dataArray)
-  if (req.query.order === "ascending") {
-    dataArray.sort(function(a, b) {
-      var adate = new Date(a.date);
-      var bdate = new Date(b.date);
-      return adate.getTime() - bdate.getTime();
-    });
+  if (req.query.sort) {
+    var sortObject = {};
+    sortObject[req.query.sort] = 1;
+    Project.find()
+      .sort(sortObject)
+      .exec(function(err, array) {
+        if (req.query.sort === "ascending") {
+          array.sort(function(a, b) {
+            var aStart = new Date(a.start);
+            var bStart = new Date(b.start);
+            return aStart.getTime() - bStart.getTime();
+          });
+        }
+        if (req.query.sort === "descending") {
+          array.sort(function(a, b) {
+            var aStart = new Date(a.start);
+            var bStart = new Date(b.start);
+            return bStart.getTime() - aStart.getTime();
+          });
+        }
+        res.render('index', {
+          items: arr
+        });
+      });
   }
-
-  if (req.query.order === "descending") {
-    dataArray.sort(function(a, b) {
-      var adate = new Date(a.date);
-      var bdate = new Date(b.date);
-      return bdate.getTime() - adate.getTime();
-    });
-  }
-  data.save(dataArray);
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    username: req.cookies.username,
-    posts: dataArray
-  });
 });
-
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
 //

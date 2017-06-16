@@ -6,8 +6,22 @@
   {{#each item}}
     <li>{{this.title}} {{this.goal}} {{this.description}} {{this.start}} {{this.end}}</li>
     <a href="/project/{{this._id}}">View this project details</a>
+    <a href="/project/{{this._id}}/edit">Edit</a>
   {{/each}}
 </ul>
+
+<a href="/?sort=goal&sortDirection=ascending">goal: Show in Ascending Order</a>
+<br>
+<a href="/?sort=goal&sortDirection=descending">goal: Show in Descending Order</a>
+<br>
+<a href="/?sort=start&sortDirection=ascending">start date: Show in Ascending Order</a>
+<br>
+<a href="/?sort=start&sortDirection=descending">start date: Show in Ascending Order</a>
+<br>
+<a href="/?sort=end&sortDirection=ascending">end state: Show in Ascending Order</a>
+<br>
+<a href="/?sort=end&sortDirection=descending">end date: Show in Ascending Order</a>
+<br>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create new project</a>

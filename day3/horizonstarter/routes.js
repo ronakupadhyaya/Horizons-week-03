@@ -32,45 +32,85 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, array) {
-    res.render('index', {
-      item: array
+  if (req.query.sort) {
+    var sortObject = {};
+    var sortDirection = req.query.sortDirection;
+    sortObject[req.query.sort] = sortDirection;
+    Project.find()
+      .sort(sortObject)
+      .exec(function(err, array) {
+        if (err) {
+          console.log("error", err);
+        } else {
+          console.log("success");
+          res.render('index', {
+            item: array,
+          });
+        }
+      });
+  } else {
+    Project.find(function(err, array) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        res.render('index', {
+          item: array
+        });
+      }
     });
-  });
+  }
 });
 
 // Part 2: Create project
 // Implement the GET /new endpoint
 router.get('/new', function(req, res) {
-  res.render('new', {
+  res.render('new');
 
-  });
 });
 
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
-  if (req.body.title && req.body.goal && req.body.start && req.body.end) {
+  req.check('title', 'Title is required')
+    .notEmpty();
+  req.check('category', 'Category')
+    .notEmpty();
+  req.check('goal', 'Goal is required')
+    .notEmpty();
+  req.check('start', 'Start date is required')
+    .notEmpty();
+  req.check('end', 'End date is required')
+    .notEmpty();
+
+  var error = req.validationErrors();
+
+  if (error) {
+    res.render('new', {
+      title: req.body.title,
+      category: req.body.category,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end,
+      error: error
+    });
+  } else {
     var newProj = new Project({
       title: req.body.title,
       goal: req.body.goal,
       start: req.body.start,
-      end: req.body.end
+      end: req.body.end,
+      category: req.body.category,
+      description: req.body.description
     });
     newProj.save(function(err) {
       if (err) {
         console.log("Could not save", err);
       } else {
         console.log("Success");
+        res.redirect('/')
       }
-      res.redirect('/')
     });
-  } else {
-    res.status(400)
-      .render('post_form', {
-        status: 400,
-        error: 'Title, Goal, Start and End are required'
-      });
   }
 });
 
@@ -143,5 +183,62 @@ router.post('/project/:projectid', function(req, res) {
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+
+router.get('/project/:projectid/edit', function(req, res) {
+  var projectId = req.params.projectid;
+  Project.findById(projectId, function(err, project) {
+    var start = project.start.toISOString()
+      .split("T")[0];
+    var end = project.end.toISOString()
+      .split("T")[0];
+    // console.log(date);
+    res.render('editProject', {
+      project: project,
+      start: start,
+      end: end
+    });
+  });
+});
+
+router.post('/project/:projectid/edit', function(req, res) {
+  var projectId = req.params.projectid;
+  Project.findByIdAndUpdate(projectId, {
+    title: req.body.title,
+    goal: req.body.goal,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category,
+    description: req.body.description
+  }, function(err) {
+    if (err) {
+      console.log("Could not edit", err);
+    } else {
+      console.log("success");
+      res.redirect('/project/' + projectId);
+    }
+  });
+});
+
+
+router.post('/api/project/:projectId/contribution', function(req, res) {
+  var projectId = req.params.projectId;
+  Project.findById(projectId, function(err, project) {
+    project.contributions.push({
+      contributor: req.body.contributor,
+      amount: req.body.amount
+    });
+    project.save(function(err) {
+      if (err) {
+        console.log("Could not save", err);
+      } else {
+        console.log("Success");
+        res.json({
+          contributor: req.body.contributor,
+          amount: req.body.amount
+        });
+      }
+    });
+  });
+});
 
 module.exports = router;
