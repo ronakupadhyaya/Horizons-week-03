@@ -48,7 +48,8 @@ app.post('/register', function(req, res){
   req.check('firstName','First name shouldn\'t be empty').notEmpty().withMessage('please key in firstname');
   req.check('middleInitial','Middle initial cannot be more than 1 letter').optional({ checkFalsy: true }).len(1).isAlpha();
   req.check('lastName','Last name shouldn\'t be empty').notEmpty();
-  req.check('birthDate','BOD must be in the past').optional({ checkFalsy: true }).isBefore();
+  req.check('birthDate','User must be born before Jan 1,2010').optional({ checkFalsy: true }).isBefore('2010-1-1'); 
+  //use string to specify year in this format '2014-06-15'
   req.check('password1','password cannot be empty').notEmpty();
   req.check('password2','password must match').matches(req.body.password1)
   req.check('gender','select gender').notEmpty();

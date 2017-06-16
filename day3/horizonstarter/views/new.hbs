@@ -13,6 +13,25 @@ end: Date input field -->
   <div class="">
     Title: <input type="text" name="title" value="{{title}}" placeholder="title" required>
   </div>
+  <div class="categories">
+    Project Category:
+    <!-- <input list="browsers"> -->
+    <!-- the list attribute of input must refer to the id of datalist -->
+    <!-- <datalist id="browsers"> -->
+     <select name="category">
+       <!-- this will assume the value of one of the option -->
+      <option selected value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+      <option value="Current Black Presidents">Current Black Presidents</option>
+      <option value="The Pen Is Mightier">The Pen Is Mightier</option>
+      <option value="Famous Mothers">Famous Mothers</option>
+      <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+      <option value="1-Letter Words">1-Letter Words</option>
+      <option value="Months That Start With "Feb"">Months That Start With "Feb"</option>
+      <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+      <option value="Potent Potables">Potent Potables</option>
+     </select>
+    <!-- </datalist> -->
+  <!-- </div> -->
   <div class="">
     Goal: <input type="number" name="goal" value="{{goal}}" placeholder="goal" required>
   </div>

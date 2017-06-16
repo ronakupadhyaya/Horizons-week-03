@@ -18,31 +18,25 @@
       // YOUR CODE HERE
       $('#up').on('click',function(event){
         event.preventDefault();
-        var count = parseInt($('#count').text())+1;
-        console.log(count, 'up')
         $.ajax({
           url: '/up',
           method:'post',
-          data: {
-            count: count
-          },
           success:function(res){
-            $('#count').text(count);
+            $('#count').text(res.count); //res.count is the json object
           }
         })
       })
       $('#down').on('click',function(event){
         event.preventDefault();
-        var count = parseInt($('#count').text())-1;
-        console.log(count,'down')
         $.ajax({
           url: '/down',
           method:'post',
-          data: {
-            count: count
-          },
+          // data: {
+          //   count: count
+          // },
+//no need to send the data to the ajax request there's already object in the server
           success:function(res){
-            $('#count').text(count);
+            $('#count').text(res.count);
           }
         })
       })
