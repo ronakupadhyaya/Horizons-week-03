@@ -24,9 +24,57 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, array){
-    res.render('index.hbs', {items: array});
-  });
+  var filter = req.query.sort;
+  var sortDir = req.query.sortDirection;
+  var direction = 1;
+  if (sortDir === 'descending') {
+    direction = -1;
+  }
+
+  if (filter){
+    if (filter === 'goal') {
+      Project.find().sort({goal: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'start') {
+      Project.find().sort({start: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'end') {
+      Project.find().sort({end: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'totalContribution') {
+      Project.find().sort({total: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'fullyfunded') {
+      Project.find({funded: true}).sort({percent: direction}).exec(function(err, array){
+
+      });
+    }
+  } else {
+    Project.find(function(err, array){
+      res.render('index.hbs', {items: array});
+    });
+  }
+
 });
 
 // Part 2: Create project
@@ -40,22 +88,33 @@ router.get('/new', function(req, res) {
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
   // YOUR CODE HERE
-  if(!req.checkBody('title').notEmpty() || !req.checkBody('goal').notEmpty() || !req.checkBody('start').notEmpty() || !req.checkBody('end').notEmpty()){
+  req.check('title', 'Missing title').notEmpty();
+  req.check('goal', 'Invalid goal').notEmpty().isNumeric();
+  req.check('start', 'Invalid date entry').isBefore();
+  req.check('end', 'Invalid end date').isAfter(req.body.start);
+  req.check('category2', 'Please select a category').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors){
     res.render('new', {
       projtitle: req.body.title,
       projgoal: req.body.goal,
       projdescription: req.body.description,
       projstart: req.body.start,
-      projend: req.body.end
+      projend: req.body.end,
     });
-    res.status(402).send('Invalid field entry')
+    console.log('Missing something!', errors);
+    // console.log(req.body.category2);
   } else {
     var newProj = new Project({
       title: req.body.title,
       goal: req.body.goal,
       description: req.body.description,
       start: req.body.start,
-      end: req.body.end
+      end: req.body.end,
+      category: req.body.category2,
+      total: 0,
+      funded: false
     });
     newProj.save(function(err){
       if(err){
@@ -67,7 +126,6 @@ router.post('/new', function(req, res) {
     // console.log(newProj);
     res.redirect('/');
   }
-
 });
 
 // Part 3: View single project
@@ -78,8 +136,10 @@ router.get('/project/:projectid', function(req, res) {
   Project.findById(id, function(err, found){
     res.render('project.hbs', {
       found: found,
-      contributions: found.contributions.length,
+      manyContribs: found.contributions.length,
       id: id,
+      projPercent: found.percent,
+      total: found.total
     });
   });
 });
@@ -90,28 +150,43 @@ router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
   var project = req.params.projectid;
   Project.findById(project, function(err, found){
-    if (found.length === 0){
+    var tot = found.total || 0;
+    console.log(tot);
+    var contrib = {name: req.body.nameContrib, amount: req.body.amountContrib};
+    found.contributions.push(contrib);
+    for (var i = 0; i < found.contributions.length; i++) {
+      tot += +(found.contributions[i].amount);
+    };
+    if (tot === 0){
       res.render('project.hbs', {
         found: found,
-        id: project
+        id: project,
+        total: found.total,
+        projPercent: found.percent
       });
+      console.log('No contributions made');
     } else {
-      var totals = 0;
-      for (var i = 0; i < found.contributions.length; i++) {
-        totals += parseFloat(found.contributions[i].amount);
-      };
-      var projectGoal = found.goal;
-      var projPercent = (totals/projectGoal)*100;
-      var contrib = {name: req.body.nameContrib, amount: req.body.amountContrib}
-      found.contributions.push(contrib)
-      found.save(function(err, project){
+
+      var projectGoal = parseFloat(found.goal);
+      var projPercent = parseInt((tot/projectGoal)*100);
+      found.total = tot;
+      found.percent = projPercent;
+      if (projPercent >= 100){
+        found.funded = true;
+      }
+
+      found.save(function(err){
         if(err){
-          console.log("nope");
+          console.log("nope", err);
         } else {
           res.render('project.hbs',{
             found: found,
-            projPercent: projPercent
-          })
+            projPercent: found.percent,
+            total: found.total,
+            manyContribs: found.contributions.length,
+            contributions: found.contributions,
+            id: project
+          });
         }
       });
     }
@@ -130,6 +205,39 @@ router.post('/project/:projectid', function(req, res) {
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+  var thisProj = req.params.projectid;
+  Project.findById(thisProj, function(err, projproj){
+    if (err){
+      console.log(`Couldn't find the project with this ID`);
+    } else {
+      res.render('editProject.hbs', {
+        project: projproj,
+        projID: thisProj
+      });
+    }
+  });
+});
+
 // Create the POST /project/:projectid/edit endpoint
+
+router.post('/project/:projectid/edit', function(req, res){
+  var thisProj = req.params.projectid;
+  Project.findByIdAndUpdate(thisProj, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.categoryz
+  }, function(error){
+    if (error){
+      console.log("error: " + error);
+    } else {
+      res.redirect(`/project/${thisProj}`);
+    }
+  });
+
+});
 
 module.exports = router;

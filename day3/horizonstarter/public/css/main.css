@@ -1,9 +1,40 @@
 body {
   padding: 10px;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
 }
 
-.eachPost{
-  border: 1px solid black;
-  border-radius: 3px;
-  margin: 5px;
+
+
+/*.panel-heading{
+  border-color: #3e872a;
+}
+.panel-footer{
+  border-color: #3e872a;
+}*/
+
+a {
+  color: #3e872a;
+}
+
+a:visited {
+  color: #1f610d;
+}
+
+.btn-group{
+  margin: 10px;
+}
+
+.projectBox{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.project{
+  margin: 20px;
+  border-color: #3e872a;
+
 }

@@ -1,17 +1,35 @@
 <h1>View projects</h1>
-
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
-
-{{#each items}}
-<div class="container eachPost">
-  <h3>Title: {{this.title}}</h3>
-  <p>Goal: {{this.goal}}</p>
-  <p>Description: {{this.description}}</p>
-  <p>Start date: {{this.start}}</p>
-  <p>End date: {{this.end}}</p>
+<div class="">
+  <label for="sort-group">Sort by:</label>
+  <div class="btn-group" id="sort-group">
+    <a type="button" name="button" value="Start" href="/?sort=start" class="btn btn-default">Start</a>
+    <a type="button" name="button" value="End" href="/?sort=end" class="btn btn-default">End</a>
+    <a type="button" name="button" value="Goal" href="/?sort=goal" class="btn btn-default">Goal</a>
+    <a type="button" name="button" value="Goal" href="/?sort=totalContribution" class="btn btn-default">Total Contribution</a>
+  </div>
 </div>
-{{/each}}
+
+<div class="projectBox">
+  {{#each items}}
+  <div class="panel panel-default project">
+    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+    <div class="panel-heading">{{this.title}}</div>
+    <div class="panel-body">
+      <p class="mb-2 text-muted">{{this.category}}</p>
+        <p><strong>Goal: </strong>{{this.goal}}</p>
+        <p><strong>Description: </strong>{{this.description}}</p>
+        <p><strong>Start: </strong>{{this.start}}</p>
+        <p><strong>End: </strong>{{this.end}}</p>
+        <p><strong>Goal: </strong>{{this.goal}}</p>
+        <a href="/project/{{this.id}}" class="btn btn-default">Contribute!</a>
+    </div>
+    <div class="panel-footer">Total contributions: ${{this.total}}</div>
+  </div>
+  {{/each}}
+</div>
+
+
+
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

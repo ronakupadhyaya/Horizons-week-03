@@ -1,24 +1,42 @@
-<h1>View Project</h1>
+<h1>Project</h1>
 
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
-<div><h3>Title: {{found.title}}</h3>
-  <p>Goal: {{found.goal}}</p>
+<div class="container row"><h3>{{found.title}}</h3>
+  <p>Project category: {{found.category}}</p>
+  <p>Goal: ${{found.goal}}</p>
   <p>Description: {{found.description}}</p>
   <p>Start date: {{found.start}}</p>
   <p>End date: {{found.end}}</p>
-  <p> <em>Total contributions:</em> {{contributions}}
+  <p> <em>Total contributions:</em> {{manyContribs}}</p>
+  <p>${{total}}
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuenow="{{projPercent}}" aria-valuemax="100" style="width:{{projPercent}}%">
+        {{projPercent}}% Complete!
+      </div>
+    </div>
+    <form method="POST" action="/project/{{id}}" class="row">
+      <div class="form-group col-xs-8">
+        Name: <input type="text" class="form-control" name="nameContrib" value="{{nameContrib}}">
+        Amount: <input type="number" class="form-control" name="amountContrib" value="" placeholder="should be a number">
+        <input type="submit" value="Contribute!" class="btn btn-default">
+      </div>
+    </form>
 
-</div>
-
-<!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
-<form method="POST" action="/project/{{id}}">
-  <div class="form-group container">
-    Name: <input type="text" class="form-control" name="nameContrib" value="{{nameContrib}}">
-    Amount: <input type="number" class="form-control" name="amountContrib" value="" placeholder="should be a number">
-    <input type="submit" value="Contribute!" class="btn btn-default">
   </div>
-</form>
+
+  <!-- Part 4: Contribute to a project -->
+
+  <div>
+    <ul>
+      {{#each contributions}}
+      <li>Contributor: {{this.name}}, amount: {{this.amount}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <!-- YOUR CODE HERE -->
+
+
+  <a type="button" name="button" value="back" href="/" class="btn btn-default">Back to list!</a>

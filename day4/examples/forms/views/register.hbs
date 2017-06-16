@@ -6,17 +6,76 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <div><strong>Errors:</strong>
+      <ul>
+        {{#each errors}}
+        <li>error: {{this.msg}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="container" style="background-color: white; border-radius: 5px; padding: 10px">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="First Name" name="firstName">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Middle initial" name="middleInitial">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Last Name" name="lastName">
+        </div>
+        <div class="form-group">
+          <input type="date" class="form-control" name="dob" value="">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Password" name="password">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" placeholder="Repeat Password" name="passAgain">
+        </div>
+        <div class="form-group">
+          <fieldset class="form-group" id="genderCheck">
+            <legend>Gender</legend>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input radio" name="optionsRadios" id="male" value="option1" checked>
+                Male
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input radio" name="optionsRadios" id="female" value="option2">
+                Female
+              </label>
+            </div>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input radio" name="optionsRadios" id="ratherNot" value="option3">
+                I'd rather not say
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox"> Sign-up for the newsletter!
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea rows="3" name="bio"></textarea>
+        </div>
         <input type="submit">
+
       </form>
     </div>
   </div>

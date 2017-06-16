@@ -6,14 +6,20 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>Profile page</h1>
+      <h3> About {{profile.first}} {{profile.middle}}. {{profile.last}}</h3>
+      <tr><td>First name: </td><td>{{profile.first}}</td></tr>
+      <tr><td>Middle initial: </td><td>{{profile.middle}}</td></tr>
+      <tr><td>Last name: </td><td>{{profile.last}}</td></tr>
+      <tr><td>Date of birth: </td><td>{{profile.birth}}</td></tr>
+      <tr><td>Gender: </td><td>{{gender}}</td></tr>
+      </div>
     </div>
-  </div>
 </body>
 </html>
