@@ -2,9 +2,13 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-{{#each projects}}
-  {{this}}
-{{/each}}
+<ul>
+  {{#each projects}}
+    <li><a href="/project/{{this._id}}">{{this}}</a></li>
+  {{/each}}
+</ul>
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+
+
+<a href="/?funded=yes">VIEW FULLY FUNDED PROJECTS</a>
+<a href="/?funded=no">VIEW NON FULLY FUNDED PROJECTS</a>

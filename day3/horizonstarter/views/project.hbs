@@ -1,16 +1,26 @@
+
+<script src="/js/contributions.js"></script>
+
 <h1>View Project</h1>
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
-<h2>{{this.title}}{{this.goal}}{{this.description}}{{this.start}}{{this.end}}</h2>
+<ul>
+  <li>{{this.title}}</li>
+  <li>{{this.goal}}</li>
+  <li>{{this.description}}</li>
+  <li>{{this.start}}</li>
+  <li>{{this.end}}</li>
+  <li>{{this.category}}</li>
+</ul>
 <!-- Part 4: Contribute to a project -->
 
 
 
 <form action="/project/{{this._id}}" method="post">
-  <input type="text" name="name" placeholder="name" value="">
-  <input type="number" name="amount" placeholder = "amount (number)" value="">
-  <input type="submit" name="submit" value="">
+  <input id="name-contribution"type="text" name="name" placeholder="name" value="">
+  <input id="amount-contribution"type="number" name="amount" placeholder = "amount (number)" value="">
+  <input id="send-contribution" name="submit" value="Add Contribution"></input>
 </form>
 
 

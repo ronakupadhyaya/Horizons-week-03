@@ -7,6 +7,7 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
+var _ = require('underscore');
 
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
@@ -26,9 +27,79 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, projects){
-    res.render('index', {projects: projects})
-  })
+  var happened = false;
+
+  if(req.query.funded === 'yes'){
+    Project.find(function(err,projects){
+      var projectSorted = _.filter(projects, function(project){
+        if(project.totalContributions/project.goal >= 1){
+          return project;
+        }
+      })
+      console.log(projectSorted);
+      happened = true;
+      res.render('index',{projects: projectSorted});
+
+    })
+  }else if(req.query.funded === 'no'){
+    Project.find(function(err,projects){
+      var projectSorted = _.filter(projects, function(project){
+        if(project.totalContributions/project.goal < 1){
+          return project;
+        }
+      })
+      console.log(projectSorted);
+      happened = true;
+      res.render('index',{projects: projectSorted});
+
+    })
+  }
+
+  else if(req.query.sort === "totalContributions"){
+    if(req.query.sortDirection === 'descending'){
+      Project.find(function(err,projects){
+          var projectSorted = _.sortBy(projects,'totalContributions');
+          console.log(projectSorted.reverse());
+          happened = true;
+          res.render('index',{projects: projectSorted})
+      })
+    }else{
+      Project.find(function(err,projects){
+          var projectSorted = _.sortBy(projects,'totalContributions');
+          console.log(projectSorted);
+          happened = true;
+          res.render('index',{projects: projectSorted})
+      })
+    }
+    //to isostring
+  }
+
+  else if(req.query.sortDirection === "descending"){
+
+      var sortOrder = {}
+      sortOrder[req.query.sort] = 1
+      Project.find().sort(sortOrder).exec(function(err, projects){
+        happened = true;
+        res.render('index', {projects: projects})
+      })
+
+
+  }else if(req.query.sort){
+      var sortOrder = {}
+      sortOrder[req.query.sort] = -1
+      Project.find().sort(sortOrder).exec(function(err, projects){
+        happened = true;
+        res.render('index', {projects: projects})
+      })
+  }else{
+
+    Project.find(function(err,projects){
+      res.render('index', {projects: projects})
+    })
+
+
+  }
+
 });
 
 // Part 2: Create project
@@ -54,7 +125,7 @@ router.post('/new', function(req, res) {
   var description= req.body.description;
   var start= req.body.start;
   var end= req.body.end;
-
+  var category= req.body.category;
 
   var post={
     title: title,
@@ -62,6 +133,7 @@ router.post('/new', function(req, res) {
     description: description,
     start: start,
     end: end,
+    category: category
   }
   var project = new Project(post);
 
@@ -176,5 +248,82 @@ router.post('/project/:projectid', function(req, res) {
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+
+  Project.findById(req.params.projectid, function(err,project){
+    //console.log(project)
+    res.render('editProject', {project: project});
+  })
+
+});
+
+router.post('/project/:projectid/edit', function(req,res){
+  console.log(req.body);
+
+  Project.findByIdAndUpdate(req.params.projectid, {
+      title: req.body.title,
+      goal: req.body.goal,
+      description: req.body.description,
+      start: req.body.start,
+      end: req.body.end,
+      category: req.body.category
+    }, function(err) {
+      if(err){
+        console.log(err);
+      }else{
+        console.log('success');
+        res.redirect('/project/'+req.params.projectid);
+      }
+    });
+
+})
+
+router.post('/api/project/:projectId/contribution', function(req, res){
+  console.log(req.params.projectid);
+  Project.findById(req.params.projectid, function(err, project){
+
+    var name = req.body.name;
+    var amount =  req.body.amount;
+
+
+    var post={
+      name: name,
+      amount: amount,
+    }
+
+
+    if(err){
+      console.log("error"+err);
+     }
+    else{
+      console.log("success"+project);
+      project.contributions.push(post);
+      var sum = 0;
+      for(var i = 0; i < project.contributions.length; i++){
+        sum+= parseInt(project.contributions[i].amount);
+      }
+      project.totalContributions = sum;
+      project.goalMet=(project.totalContributions/project.goal)*100;
+      project.save(function(err, savedProject){
+        //that function is a callback function
+
+        //project['err'] = err;
+        if(err){
+          console.log(err);
+          res.render()
+        }
+        else{
+          console.log("success");
+          res.redirect('/project/'+savedProject._id);
+          //_id is a mongo thing but you wouldn't do that above, just here
+        }
+        //mongoose.connection.close();
+      });
+    }
+  });
+
+});
+
+
 
 module.exports = router;
