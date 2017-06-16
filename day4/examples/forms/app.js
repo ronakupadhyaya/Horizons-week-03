@@ -19,6 +19,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+var validator = require('express-validator');
+app.use(validator());
+
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,20 +41,30 @@ app.get('/register', function(req, res){
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
-//
+app.get('/test', function(req, res) {
+  res.render('profile', {test: "hello"});
+})
 // 1. Update register.hbs to display error messages in a readable way.
 // 2. Pass in all the submitted user information (from req) when rendering profile.hbs
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName', 'First name is required').notEmpty();
+  req.check('middleName', 'Middle initial is required').len(1,1);
+  req.check('lastName', 'Last name is required').notEmpty();
+  req.check('dob', 'Date of birth is required').isBefore();
+  req.check('password', 'Password is required').notEmpty();
+  req.check('repeatPassword', 'Password is required and must match previous entry').notEmpty().equals(req.body.password);
+  req.check('gender', 'You must either select a gender or select that you prefer not to say')
+  req.check('newsletter', 'You must sign up for the newsletter')
+  req.check('biography', 'Biography is required')
+  var errors = req.validationErrors();
+  console.log(errors); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
+
   } else {
-    // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {profile: req.body});
   }
 });
 
