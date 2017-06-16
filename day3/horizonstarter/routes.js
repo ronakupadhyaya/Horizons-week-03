@@ -150,6 +150,11 @@ router.get('/', function(req, res) {
 
 // Part 2: Create project
 // Implement the POST /new endpoint
+router.get('/new', function(req,res) {
+  res.render('new');
+});
+
+
 router.post('/new', function(req, res) {
   // Validating create project inputs
   req.checkBody('title', 'Fill in the title').notEmpty();
@@ -172,8 +177,8 @@ router.post('/new', function(req, res) {
       title: req.body.title,
       goal: req.body.goal,
       description: req.body.description,
-      start: req.body.start.toGMTString(),
-      end: req.body.end.toGMTString(),
+      start: req.body.start,
+      end: req.body.end,
       contributions: [],
       category: req.body.category,
       imageURL: req.body.imageURL
@@ -187,7 +192,6 @@ router.post('/new', function(req, res) {
       }
     });
   }
-
 });
 
 // Part 3: View single project
@@ -288,9 +292,8 @@ router.post('/project/:projectid/edit', function(req, res) {
   
 });
 
-//http://localhost:3000/api/project/5942fe6fa1473586eec1f3df/contribution
+// AJAX call for submitting and updating contributions
 router.post('/api/project/:projectId/contribution', function(req,res) {
-  console.log('aa');
   Project.findById(req.params.projectId, function(err, project) {
     if (err) {
       console.log("Error trying to contribute: cannot find project by id");
@@ -313,7 +316,233 @@ router.post('/api/project/:projectId/contribution', function(req,res) {
   })
 })
 
+// AJAX call for filtering projects and re-appending them
+router.get('/api/projects', function(req,res) {;
+  Project.find(function(err, projects) {
+    var results = projects;
+    if (err) {
+      console.log(err);
+    }
+    console.log(req.query);
+    // Sorting projects
+    if(req.query.sort === 'start') {
+      if (req.query.sortDirection === 'ascending') {
+        results.sort(function(p1, p2) {
+          if (p1.start > p2.start) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+      else {
+        results.sort(function(p1, p2) {
+          if (p1.start < p2.start) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+    }
+    else if (req.query.sort === 'end') {
+      if (req.query.sortDirection === 'ascending') {
+        results.sort(function(p1, p2) {
+          if (p1.end > p2.end) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+      else {
+        results.sort(function(p1, p2) {
+          if (p1.end < p2.end) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+    }
+    else if (req.query.sort === 'goal') {
+      if (req.query.sortDirection === 'ascending') {
+        results.sort(function(p1, p2) {
+          if (p1.goal > p2.goal) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+      else {
+        results.sort(function(p1, p2) {
+          if (p1.goal < p2.goal) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+    }
+    else if (req.query.sort === 'contribution') {
+      if (req.query.sortDirection === 'ascending') {
+        results.sort(function(p1, p2) {
+          var total1 = 0;
+          var total2 = 0;
+          p1.contributions.forEach(function(contr) {
+            total1 += contr.amount;
+          });
+          p2.contributions.forEach(function(contr) {
+            total2 += contr.amount;
+          });
+          if (total1 > total2) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+      else {
+        results.sort(function(p1, p2) {
+          var total1 = 0;
+          var total2 = 0;
+          p1.contributions.forEach(function(contr) {
+            total1 += contr.amount;
+          });
+          p2.contributions.forEach(function(contr) {
+            total2 += contr.amount;
+          });
+          if (total1 < total2) 
+            return 1;
+          else 
+            return -1;
+        });
+      }
+    }
+    // Filtering projects
+    if (req.query.funded === 'true') {
+      results = projects.filter(function(project) {
+        var total = 0;
+        project.contributions.forEach(function(contr) {
+          total += contr.amount;
+        });
+        return (total > project.goal)
+      });
+    }
+    else if (req.query.funded === 'false') {
+      results = projects.filter(function(project) {
+        var total = 0;
+        project.contributions.forEach(function(contr) {
+          total += contr.amount;
+        });
+        return (total < project.goal)
+      });
+    }
+    else {
+      results = projects;
+    }
+    if (err) {
+      console.log(err);
+    }
 
+    res.json(results);
+  });
+});
+
+// // AJAX call for sorting projects and re-appending them
+// router.get('/api/projects', function(req,res) {
+//   Project.find(function(err, projects) {
+//     var results = projects;
+//     console.log("hereeee");
+//     console.log("ANYTHING" + projects);
+//     if (err) {
+//       console.log(err);
+//     }
+//     if(req.query.sort === 'start') {
+//       if (req.query.sortDirection === 'ascending') {
+//         results.sort(function(p1, p2) {
+//           if (p1.start > p2.start) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//       else {
+//         results.sort(function(p1, p2) {
+//           if (p1.start < p2.start) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//     }
+//     else if (req.query.sort === 'end') {
+//       if (req.query.sortDirection === 'ascending') {
+//         results.sort(function(p1, p2) {
+//           if (p1.end > p2.end) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//       else {
+//         results.sort(function(p1, p2) {
+//           if (p1.end < p2.end) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//     }
+//     else if (req.query.sort === 'goal') {
+//       if (req.query.sortDirection === 'ascending') {
+//         results.sort(function(p1, p2) {
+//           if (p1.goal > p2.goal) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//       else {
+//         results.sort(function(p1, p2) {
+//           if (p1.goal < p2.goal) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//     }
+//     else if (req.query.sort === 'contribution') {
+//       if (req.query.sortDirection === 'ascending') {
+//         results.sort(function(p1, p2) {
+//           var total1 = 0;
+//           var total2 = 0;
+//           p1.contributions.forEach(function(contr) {
+//             total1 += contr.amount;
+//           });
+//           p2.contributions.forEach(function(contr) {
+//             total2 += contr.amount;
+//           });
+//           if (total1 > total2) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//       else {
+//         results.sort(function(p1, p2) {
+//           var total1 = 0;
+//           var total2 = 0;
+//           p1.contributions.forEach(function(contr) {
+//             total1 += contr.amount;
+//           });
+//           p2.contributions.forEach(function(contr) {
+//             total2 += contr.amount;
+//           });
+//           if (total1 < total2) 
+//             return 1;
+//           else 
+//             return -1;
+//         });
+//       }
+//     }
+//     res.json(results);
+//   });
+// });
 
 module.exports = router;
 

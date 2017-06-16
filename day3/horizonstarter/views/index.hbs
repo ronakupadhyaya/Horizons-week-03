@@ -7,50 +7,50 @@
 	
 	<div class="row">
 	<div class="sort-box">
-		<p><strong>Sort By:</strong></p>
-		<form>
-			<select name="sort dropdown">
+		<form action="/api/projects" id="select-form">
+			<p><strong>Sort By:</strong></p>
+			<select name="sort dropdown" id="sort-select">
 				<option value="start">Start Date</option>
 				<option value="end">End Date</option>
 				<option value="goal">Goal</option>
 				<option value="contribution">Total Contributions</option>
 			</select>
-			<select name="sortDirection">
+			<select name="sortDirection" id="sort-select-direction">
 				<option value="ascending">Ascending</option>
 				<option value="descending">Descending</option>
 			</select>
-			<input class="btn btn-default" type="submit" value="Sort">
-		</form>
-		<p><strong>Filter:</strong></p>
-		<form>
-			<select name="filter">
-				<option value="fully">Met Contribution Goal</option>
-				<option value="not-fully">Have Not Met Goal</option>
-				<option value="all">All Projects</option>
+			<p><strong>Filter:</strong></p>
+			<select name="funded" id="funded-select">
+				<option>All projects</option>
+				<option value="true">Fully funded</option>
+				<option value="false">Not fully funded</option>
 			</select>
+			<p></p>
 			<input class="btn btn-default" type="submit" value="Sort">
 		</form>
 	</div>
 	<hr></hr>
-
-	{{#each projects}}
-	<div class="all-projects-box-outer col-sm-6 col-md-4">
-		<div class="all-projects-box-inner">
-			<img src={{this.imageURL}} class="all-projects-image">
-			<div class="projects-info">
-				<h3>{{this.title}}</h3>
-				<h4>Goal: ${{this.goal}}</h4>
-				<p>Description: {{this.description}}</p>
-				<p>Start Date: {{this.start}}</p>
-				<p>End Date: {{this.end}}</p>
-				<p>Category: {{this.category}}</p>
+	
+	<div id="all-projects-wrapper">
+		{{#each projects}}
+		<div class="all-projects-box-outer col-sm-6 col-md-4">
+			<div class="all-projects-box-inner">
+				<img src={{this.imageURL}} class="all-projects-image">
+				<div class="projects-info">
+					<h3>{{this.title}}</h3>
+					<h4>Goal: ${{this.goal}}</h4>
+					<p>Description: {{this.description}}</p>
+					<p>Start Date: {{this.start}}</p>
+					<p>End Date: {{this.end}}</p>
+					<p>Category: {{this.category}}</p>
+				</div>
+				<a type="button" href="/project/{{this._id}}">
+					<div class="view-button">View Project</div>
+				</a>
 			</div>
-			<a type="button" href="/project/{{this._id}}">
-				<div class="view-button">View Project</div>
-			</a>
 		</div>
-	</div>
-	{{/each}}
+		{{/each}}
+		</div>
 	</div>
 
 	<!-- Part 2: Create new project -->

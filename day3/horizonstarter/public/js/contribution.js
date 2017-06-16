@@ -1,6 +1,5 @@
 $('#contributionForm').on('submit', function(event) {
 	event.preventDefault(); 
-	console.log("SENDING");
 	var project_id = $(this).attr('data-project-id');
 	// postAjax(
 	// 	`/api/project/${project_id}/contribution`, 
@@ -23,7 +22,7 @@ $('#contributionForm').on('submit', function(event) {
 		}
 	});
 });
-
+// Makes a default AJAX post request as a function, good for alots of post requests
 // function postAjax(URL, form, successFn, errorFn) {
 // 	var defaultErrFn = function(err){
 // 		console.log("Error: AJAX call to send contribution failed", err)
