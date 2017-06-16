@@ -1,0 +1,25 @@
+<h2>Edit Project</h2>
+
+<!-- Part 2: Create project -->
+<div class="container">
+  <form method="POST">
+    <input class= "form-control" type="text" name="title" placeholder="title" value="{{found.title}}"> <br>
+    <input class= "form-control" type="text" name="goal" placeholder="goal" value="{{found.goal}}"> <br>
+    <textarea class= "form-control" name="description" placeholder="description">{{found.description}}</textarea> <br>
+    <label> Start: {{found.start}} </label> <br>
+    <input class= "form-control" type="date" name="start" value="{{startValue}}"> <br>
+     <label> End: {{found.end}} </label> <br>
+    <input class= "form-control" type="date" name="end" value="{{endValue}}"> <br>
+    <label> Category: {{found.category}} </label> <br>
+    <div class="form-group">
+      <select name="category" class="form-control">
+        {{#each enum}}
+          <option>{{this}}</option>
+          }
+        {{/each}}
+      </select>
+    </div>
+    <input class="form-control" type="url" name="image" value="{{found.image}}"> <br>
+    <input class= "form-control" type="submit" value="Submit">
+  </form>
+</div>
