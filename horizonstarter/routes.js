@@ -280,5 +280,101 @@ router.post('/project/:projectid/edit', function(req,res){
 
 
 
+//PART 1 FROM AJAX
+router.post('/api/project/:projectid/contribution', function(req,res){
+
+  Project.findById(req.params.projectid, function(err, project){
+    if(err){
+      console.log(err);
+      return err;
+    }else{
+
+      var name = req.body.name;
+      var amount = req.body.amount;
+
+      var contribution = {
+        name: name,
+        amount: amount
+      }
+
+      console.log(contribution);
+
+      project.contributions.push(contribution);
+
+      //save it back to database
+      project.save(function(err, savedProject){
+        if(err){
+          console.log(err);
+        }else{
+          //console.log(savedProject);
+          res.json(savedProject);
+        }
+      })
+
+      //console.log(project);
+
+    }
+
+
+
+
+
+
+  })
+
+
+
+
+  // Project.findById(req.params.projectid, function(err,project){
+  //   if(err){
+  //     return err;
+  //   }else{
+  //
+  //     var name = req.body.name;
+  //     var amount =  req.body.amount;
+  //
+  //     var post={
+  //       name: name,
+  //       amount: amount,
+  //     }
+  //
+  //       console.log("success"+project);
+  //       project.contributions.push(post);
+  //       var sum = 0;
+  //       for(var i = 0; i < project.contributions.length; i++){
+  //         sum += parseInt(project.contributions[i].amount);
+  //       }
+  //
+  //       console.log(sum);
+  //       project.totalContributions = sum;
+  //
+  //       project.goalMet=(project.totalContributions/project.goal)*100;
+  //       project.save(function(err, savedProject){
+  //         //that function is a callback function
+  //
+  //         //project['err'] = err;
+  //         if(err){
+  //           console.log(err);
+  //           res.render()
+  //         }
+  //         else{
+  //           console.log("success");
+  //           res.json(savedProject)
+  //           //_id is a mongo thing but you wouldn't do that above, just here
+  //         }
+  //         //mongoose.connection.close();
+  //       });
+  //
+  //   }
+  // })
+
+})
+
+
+
+
+
+
+
 
 module.exports = router;

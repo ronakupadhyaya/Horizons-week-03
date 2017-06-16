@@ -1,4 +1,6 @@
 <h1>View Project</h1>
+
+<script src="/js/contributions.js"></script>
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
@@ -14,10 +16,12 @@
 
 
 
-<form action="/project/{{this._id}}" method="post">
-  <input type="text" name="name" placeholder="name" value="">
-  <input type="number" name="amount" placeholder = "amount (number)" value="">
-  <input type="submit" name="submit" value="Submit"></input>
+<!-- <form action="/project/{{this._id}}" method="post"> -->
+<form>
+  <input id = "contributor" type="text" name="name" placeholder="name" value="">
+  <input id = "contribution-amount" type="number" name="amount" placeholder = "amount (number)" value="">
+  <!-- <input type="submit" name="submit" value="Submit"></input> -->
+  <button id="send-contribution" >Submit</button>
 </form>
 
 
@@ -35,5 +39,3 @@
 {{this.name}}
 {{this.amount}}
 {{/each}}
-
-<!-- YOUR CODE HERE -->
