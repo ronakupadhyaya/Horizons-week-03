@@ -4,31 +4,31 @@
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
 <style>
-    body { background-color: blue; padding-top: 2em;}
+    body { background-color: indigo; padding-top: 2em;}
 </style>
 <body>
 <div class="container">
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
-        <h2>Create project</h2>
+        <h2>edit project</h2>
   <!--   panel body -->
        <div class="panel panel-default">
          <div class="panel-body">
           <form class="form-horizontal" action="/new" method="post">
-            <input type='text' name="title" placeholder="title">
-            <input type='text' value='' name='goal' placeholder='goal'/>
+            <input type='text' value='{{project.title}}' name="title" placeholder="title">
+            <input type='text' value='{{project.goal}}' name='goal' placeholder='goal'/>
             <div>
               <label class="col-sm-3 control-label">Description</label>
-              <textarea type='text' value='' name='description' rows="4" cols="58" placeholder='description'>
+              <textarea type='text' value='{{project.description}}' name='description' rows="4" cols="58" placeholder='description'>
               </textarea>
             </div>
             <div>
               <label class="col-sm-3 control-label">Start</label>
-              <input type='date' val="YYYY-MM-DD" name="start" id="date"/>
+              <input type='date' val="{{project.start}}" name="start" id="date"/>
             </div>
             <div>
               <label class="col-sm-3 control-label">End</label>
-              <input type='date' val="YYYY-MM-DD" name="end" id="date"/>
+              <input type='date' name="end" val="{{project.end}}" id="date"/>
             </div>
             <select class="selectpicker" name='category'>
                   <option>Famous Muppet Frogs</option>

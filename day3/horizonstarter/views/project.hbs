@@ -1,9 +1,55 @@
-<h1>View Project</h1>
+<style>
+    body { background-color: green; padding-top: 2em;}
+</style>
+<body>
+<h1 class='text-center'>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
+<div class="container">
+  <div class="col-sm-8">
+    <h1>{{project.title}}</h1>
+    <h2>{{project.goal}}</h2>
+    <h3>{{project.description}}</h3>
+    <h4>{{project.start}}</h4>
+    <h5>{{project.end}}</h5>
+    <h6>{{project.category}}</h7>
+  </div>
+</div>
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h2>Contribute</h2>
+  <!--   panel body -->
+       <div class="panel panel-default">
+         <div class="panel-body">
+          <form class="form-horizontal" method="post" action="/project/{{project._id}}">
+            <input type='text' name="name" placeholder="Name">
+            <input type='text' value='' name='amount' placeholder='amount'/>
+            <div class="text-right">
+              <a href="http://localhost:3000/"><button type="submit" class="btn btn-primary">Contribute</button></a>
+            </div>
+          </form>
+        </div>
+       </div>
+     </div>
+   </div>
+</div>
+  <h1>{{sum}}</h1>
+  <div class="progress">
+  <div class="progress-bar" role="progressbar" style="width:{{percent}}%">
+     <span class="sr-only">{{percent}}%</span>
+   </div>
+ </div>
+  <ul>
+    {{#each project.contributions}}
+    <li>
+      {{this.amount}} from {{this.name}}
+    </li>
+    {{/each}}
+  </ul>
+</div>

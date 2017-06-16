@@ -12,10 +12,28 @@
     <form action="/down" method="post">
       <input id="down" type="submit" value="Down">
     </form>
-
     <script src="/jquery.js"></script>
     <script>
-      // YOUR CODE HERE
+      $("#up").on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+          url: "/up",
+        method: 'post',
+        success: function(res){
+          $('#count').text(res.count);
+        }
+      })
+      })
+      $("#down").on('click', function(event){
+        event.preventDefault();
+        $.ajax({
+          url: "/down",
+          method: 'post',
+        success: function(res){
+          $('#count').text(res.count);
+        }
+      })
+      })
     </script>
   </body>
 </html>
