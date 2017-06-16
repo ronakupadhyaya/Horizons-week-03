@@ -45,13 +45,24 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName','Fill in firstname').notEmpty();
+  req.check('midName','midName Must be single letter').isLength({min:0,max:1});
+  req.check('lastName','Fill in lastname').notEmpty();
+  req.check('dob','should be past').notEmpty();
+  req.check('pword','fill please').notEmpty();
+  req.check('rpword','not matching password').equals(req.body.pword);
+  var errors=req.validationErrors();
+  console.log(errors);
+
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile',{
+      
+    });
   }
 });
 

@@ -12,11 +12,27 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+
+        {{#each errors}}
+          {{msg}}...
+        {{/each}}
+      
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <input type="text" placeholder="First Name" name="firstName" required></br></br>
+        <input type="text" placeholder="Middle Name" name="midName"></br></br>
+        <input type="text" placeholder="Last Name" name="lastName" required></br></br>
+        <input type="Date" placeholder="DOB" name="dob"></br></br>
+        <input type="password" placeholder="Password" name="pword" required></br></br>
+        <input type="password" placeholder="Repeat Password" name="rpword" required></br></br>
+        Male <input type="radio" placeholder="Male" name="gender" required></br></br>
+        Female <input type="radio" placeholder="FeMale" name="gender" required></br></br>
+        Wont say<input type="radio" placeholder="Wont say" name="gender" required></br></br>
+        Newsletter<input type="checkbox" placeholder="Sign-up for newsletter" name="signed" required></br></br>
+        <input type="textarea" placeholder="Bio" name="bio"></br></br>
+        <input type="submit"></br></br>
       </form>
     </div>
   </div>

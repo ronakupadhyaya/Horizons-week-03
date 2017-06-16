@@ -2,11 +2,34 @@
 
 // Project model
 var mongoose = require('mongoose');
+const CATEGORIES = ["Famous Muppet Frogs", "Current Black Presidents","The Pen Is Mightier",
+"Famous Mothers","Drummers Named Ringo","1-Letter Words",`Months That Start With "Feb"`,
+"How Many Fingers Am I Holding Up","Potent Potables"];
 
 var Project = mongoose.model('Project', {
   title: {
     type: String,
-  }
+    required:true
+  },
+  goal:Number,
+  description:String,
+  start:{
+    type:Date,
+    required:true
+  },
+  end:{
+    type:Date,
+    required:true
+  },
+  contributions:{
+    type:Array
+  },
+  category:{
+    type:String,
+    enum:CATEGORIES
+  },
+  totalContributions:Number
+
   // YOUR CODE HERE
 });
 

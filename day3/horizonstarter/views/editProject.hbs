@@ -1,0 +1,20 @@
+<form class="" action="/projects/{{pro._id}}/edit" method="post">
+  Title: <input type="text" name="title" value="{{pro.title}}"> </br>
+  Goal: <input type="text" name="goal" value="{{pro.goal}}"> </br>
+  Description: <input type="text" name="description" value="{{pro.description}}"> </br>
+  Start: <input type="Date" name="start" value="{{pro.start}}"> </br>
+  End: <input type="Date" name="end" value="{{pro.end}}"> </br>
+  Category:
+  <select name="category" value="{{pro.category}}">
+    <option >Famous Muppet Frogs</option>
+    <option >Current Black Presidents</option>
+    <option >The Pen Is Mightier</option>
+    <option >Famous Mothers</option>
+    <option >Drummers Named Ringo</option>
+    <option >1-Letter Words</option>
+    <option >Months That Start With "Feb"</option>
+    <option >How Many Fingers Am I Holding Up</option>
+    <option >Potent Potables</option>
+  </select>
+  <input type="submit" name="" value="Submit">
+</form>

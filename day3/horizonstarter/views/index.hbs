@@ -3,6 +3,67 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+Sort By:
+<a href="/?sort=start">Start</a>
+<a href="/?sort=end">End</a>
+<a href="/?sort=goal">Goal</a>
+<a href="/?sort=totalcontributions">Total Contributions</a>
+</br>
+<a href="/?sortDirection=ascending{{#if sort}}&sort={{sort}}{{/if}}">Ascending</a>
+<a href="/?sortDirection=descending{{#if sort}}&sort={{sort}}{{/if}}">Descending</a>
+
+</br>
+</br>
+<div class="projectlist">
+{{#each pro}}
+  Title:{{title}}</br>
+  Goal:{{goal}}</br>
+  Start:{{start}}</br>
+  End:{{end}}</br>
+  Category:{{category}}</br>
+  <a href='/project/{{this._id}}'>View</a>
+<br>
+</br>
+{{/each}}
+</div>
+</br>
+</br>
+
+<a href="/new">Create new project</a>
+</br>
+</br>
+</br>
+
+<form>
+  <select name="fundValue" id="fundValue" >
+    <option >Normal</option>
+    <option >Funded</option>
+    <option >Not Funded</option>
+  </select>
+</br></br>
+  <select name="sortValue" id="sortValue">
+    <option>Normal</option>
+    <option >Amount Funded</option>
+    <option >Percentage Funded</option>
+  </select>
+</br></br>
+  <select name="order" id="order">
+    <option >Ascending</option>
+    <option >Descending</option>
+  </select>
+</br></br>
+  <button type="submit" id="main-button">Submit</button>
+</form>
+
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<!-- <button type="submit" id="funded-true">View fully funded projects</button>
+</br>
+</br>
+<button type="submit" id="funded-false">View projects that need funding</button>
+</br>
+</br>
+<button type="submit" id="all">Show All</button>
+</br>
+</br>-->
+<script src="/js/projects.js"></script>
