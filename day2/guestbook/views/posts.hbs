@@ -6,9 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 </head>
 <body>
 <h1>View all posts</h1>
@@ -23,6 +31,33 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+<div>
+  <div>
+    {{author}}
+    {{#if ../linkData}}
+      <a href="/posts">View posts by all authors</a>
+    {{else}}
+      <a href="/posts?author={{author}}">View posts by only this author</a>
+    {{/if}}
+    {{#if ../admin}}
+      <a href="/posts/edit?author={{author}}&date={{date}}">Edit this post </a>
+      <a href="/posts/delete?author={{author}}&date={{date}}">Delete this post</a>
+    {{/if}}
+  </div>
+  <div>
+    {{date}}
+  </div>
+  <div>
+    {{title}}
+   </div>
+   <div>
+     {{body}}
+   </div>
+ </div>
+ <div>
+ </div>
+{{/each}}
 
 </body>
 </html>

@@ -2,6 +2,7 @@
 var express = require('express');
 var path = require('path');
 
+
 var app = express();
 
 // Enable cookie parsing
@@ -44,7 +45,7 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +65,35 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var link = false;
+  var admin = req.cookies.username === "admin" || req.cookies.username === "Admin";
+  function ascendingComparator(a, b) {
+    return new Date(a.date) - new Date(b.date);
+  }
+  function descendingComparator(a, b) {
+    return new Date(b.date) - new Date(a.date);
+  }
+  var dataSort = data.read();
+  if(req.query.order){
+    if (req.query.order === 'ascending'){
+      dataSort.sort(ascendingComparator);
+    }else if (req.query.order === 'descending'){
+
+      dataSort.sort(descendingComparator);
+    }
+  }
+  if(req.query.author){
+    link = true;
+    dataSort = dataSort.filter(function(item){
+      return item.author === req.query.author
+    })
+  }
+  console.log(link);
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username:req.cookies.username,
+    posts:dataSort,
+    linkData:link,
+    admin:admin
   });
 });
 
@@ -81,9 +107,33 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+    if (req.cookies.username){
+      res.render('post_form')
+    }else{
+      res.render('post_form',{
+        error: 'Not logged in'
+      })
+    }
 });
 
+app.get('/posts/edit',function(req,res){
+  var author = req.params.author;
+  var date = req.query.date;
+  res.redirect()
+})
+
+app.get('/posts/delete', function(req,res) {
+  var author = req.query.author;
+  var date = req.query.date;
+  var dataArr=data.read();
+  console.log(author);
+  dataArr = dataArr.filter(function(item){
+    return item.author !== author && item.date !== date
+  })
+  data.save(dataArr);
+  res.redirect('/posts');
+
+})
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.
 //
@@ -101,7 +151,30 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+    req.checkBody('title','You need a title').notEmpty();
+    req.checkBody('body','You need a body').notEmpty();
+    req.checkBody('date','You need a date').notEmpty();
+    var result = req.validationErrors();
+    if (result){
+      res.status(400).render('post_form',{
+        error:'Title, body, and/or date cannot be blank!'
+      })
+    }else if(!req.cookies.username){
+      res.status(401).render('post_form',{
+        error: 'You must be logged in'
+      })
+    }else if(!result){
+    obj = {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.cookies.username,
+      date: req.body.date
+    }
+    var dataArr = data.read();
+    dataArr.push(obj)
+    data.save(dataArr)
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server
