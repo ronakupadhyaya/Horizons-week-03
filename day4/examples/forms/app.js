@@ -7,7 +7,9 @@ var path = require('path');
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exphbs({extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  extname: '.hbs'
+}));
 app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
@@ -16,14 +18,16 @@ app.use(expressValidator());
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
   res.redirect('/register');
 });
 
@@ -31,7 +35,7 @@ app.get('/', function(req, res){
 // This is the endpoint that the user loads to register.
 // It contains an HTML form that should be posted back to
 // the server.
-app.get('/register', function(req, res){
+app.get('/register', function(req, res) {
   res.render('register');
 });
 
@@ -43,15 +47,46 @@ app.get('/register', function(req, res){
 // 2. Pass in all the submitted user information (from req) when rendering profile.hbs
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
-app.post('/register', function(req, res){
+app.post('/register', function(req, res) {
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName', 'First Name is required, you bitch!')
+    .notEmpty();
+  req.check('middleName', "Middle Name is required, seriously you're stupid AF!")
+    .notEmpty();
+  req.check('surname', 'Surname is required, idiot!')
+    .notEmpty();
+  req.check('dob', "Did you really thing you wouldn't need a date?")
+    .isDate();
+  req.check('password', "You didn't enter the a password shit-bag")
+    .notEmpty();
+  req.check('rPassword', "Your passwords do not fucking match!")
+    .equals(req.body.password);
+  req.check('rPassword', "Your passwords do not fucking match!")
+    .equals(req.body.password);
+
+
+  var errors = req.validationErrors();
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {
+      errors: errors
+    });
   } else {
     // Include the data of the profile to be rendered with this template
+    var user = {
+      firstName: req.body.firstName,
+      middleName: req.body.middleName,
+      surname: req.body.surname,
+      dob: req.body.dob,
+      password: req.body.password,
+      gender: req.body.firstName,
+      newsLetter: req.body.firstName,
+      biography: req.body.biography
+
+    }
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+      form: user
+    });
   }
 });
 

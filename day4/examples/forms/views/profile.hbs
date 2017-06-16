@@ -10,10 +10,27 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>PProful</h1>
     </div>
-  </div>
+  </div> -->
+
+  <div class="card" style="width: 30rem; display: block; border: 1px solid black; border-radius: 5px; padding: 15px; margin: 10px; background-color: #8cc7a1 " >
+    <img class="card-img-top" src="https://lonelyplanetimages.imgix.net/a/g/hi/t/9cf024dfd5c0bcb2b17f4785340145ea-san-francisco.jpg?sharp=10&vib=20&w=1200" alt="Card image cap" style="height: 180px; width: 100%; display: block;">
+    <div class="card-block">
+      <h4 class="card-title">Welcome, {{form.firstName}} {{form.middleName}} {{form.surname}}</h4>
+      <p class="card-text">{{form.biography}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Date of Birth: {{form.dob}}</li>
+      <li class="list-group-item">Password: {{form.password}}</li>
+      <li class="list-group-item">Gender: {{form.gender}}</li>
+    </ul>
+    <div class="card-block">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+</div>
 </body>
 </html>
