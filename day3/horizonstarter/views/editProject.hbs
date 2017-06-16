@@ -1,0 +1,19 @@
+<h2>Edit Project </h2>
+<form action="/project/{{_id}}/edit" method= "Post">
+  <strong>Title</strong><input type="text" name="title" value = "{{title}}" placeholder="title" </input>
+  <strong>Goal</strong><input type="text" name= "goal" value = "{{goal}}" placeholder="goal" </input>
+  <strong>Description</strong><input type="textarea" name= "description" value = "{{description}}" placeholder="description" </input>
+  <strong>Start Date</strong><input type="date" name= "start" value = "{{start}}" placeholder="start date" </input>
+  <strong>End Date</strong><input type="date" name= "end" value = "{{end}}" placeholder="end date" </input>
+  <strong>Category</strong>
+  <select name="category" placeholder="category">
+    {{#each list_of_categories}}
+      {{#if selected}}
+        <option selected>{{name}}</option>
+      {{else}}
+        <option>{{name}}</option>
+      {{/if}}
+    {{/each}}
+    </select>
+  <input type="submit" class= "btn btn default" name="submit" value="Edit Project!">
+</form>

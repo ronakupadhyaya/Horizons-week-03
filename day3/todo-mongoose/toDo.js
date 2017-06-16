@@ -29,6 +29,14 @@ db.once('open', function() {
 // the documents within that collection.
 //
 // TODO: create a schema for the ToDoItemItem. Your schema should look like the following:
+
+var Schema = mongoose.Schema
+var toDo = new Schema ({
+  name: String,
+  priority: String,
+  completed: Boolean
+})
+
 //    {
 //      name: String,
 //      priority: String,
@@ -42,7 +50,11 @@ db.once('open', function() {
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
 
-// YOUR CODE HERE
+var toDoItem = mongoose.model('toDo', {
+  name: String,
+  priority: String,
+  completed: Boolean
+})
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -88,6 +100,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <t>', 'Specify task name')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -126,14 +139,25 @@ function addTask(){
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
-  // YOUR CODE HERE
+  var task = new toDoItem ({
+    name: name,
+    priority: priority,
+    completed: false
+  })
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
-  // YOUR CODE HERE
+  task.save(function(error){
+    if(error){
+      console.log ('Oh no!', error)
+    }
+    else {
+      mongoose.connection.close();
+    }
+  })
 }
 
 // PART 3: Show tasks
@@ -156,16 +180,61 @@ function showTasks() {
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
-  // YOUR CODE HERE
-}
+  if(program.task === undefined ){
+    toDoItem.find(function(err, task) {
+      if (err) {
+        console.log("Can't find tasks", err);
+      } else {
+        if(task === undefined){
+          console.log("")
+        }
+        else{
+          task.forEach(function(x){
+            console.log(`Task: ${x.name}, Priority: ${x.priority}, Completed: ${x.completed}`);
+            })
+          }
+        }
+        mongoose.connection.close();
+      });
+    }
+    else {
+      toDoItem.find({name: program.task },function(err, task) {
+        if (err) {
+          console.log("Can't find tasks", err);
+        } else {
+          task.forEach(function(x){
+            console.log(`Task: ${x.name}, Priority: ${x.priority}, Completed: ${x.completed}`);
+            })
+          };
+            mongoose.connection.close();
+        })
+      }
+    }
 
-// PART 4: Delete tasks
+      // PART 4: Delete tasks
 
-// Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
-// is run. Take the name from program.task and delete that element from the database.
-function deleteTask(){
-  // TODO: If program.task exists you should use mongoose's .remove function
-  //    on the model to remove the task with {name: program.task}
+      // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
+      // is run. Take the name from program.task and delete that element from the database.
+      function deleteTask(){
+        // TODO: If program.task exists you should use mongoose's .remove function
+        //    on the model to remove the task with {name: program.task}
+        if(!(program.task === undefined)){
+          toDoItem.remove({name: program.task },function(err, task) {
+            if (err) {
+              console.log("Can't remove", err);
+            } else {
+              console.log('Removed', program.task);
+            }
+            mongoose.connection.close();
+          });
+        }
 
-  // YOUR CODE HERE
-}
+        // task.save(function(error){
+        //   if(error){
+        //     console.log ('Oh no!', error)
+        //   }
+        //   else {
+        //     mongoose.connection.close();
+        //   }
+        // })
+      }

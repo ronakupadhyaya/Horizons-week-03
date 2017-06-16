@@ -7,12 +7,23 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container { background-color: white;}
+    #form { background-color: white; }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>{{firstname}}'s Profile Page</h1>
+      <strong> First Name </strong> {{firstname}}</br>
+      <strong> Middle Initial </strong> {{midin}} </br>
+      <strong> Last Name </strong> {{lastname}} </br>
+      <strong> Date of Birth </strong> {{dob}}</br>
+      <strong> Password </strong> {{password}}</br>
+      <strong> Gender </strong>{{gender}}</br>
+      <strong> Sign up for newsletter </strong>{{newsletter}}</br>
+      <strong> Biography </strong> {{biography}}</br>
+    </form>
     </div>
   </div>
 </body>

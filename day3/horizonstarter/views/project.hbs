@@ -1,9 +1,33 @@
-<h1>View Project</h1>
+<h1><a href="/">View All Projects</a></h1>
 
 <!-- Part 3: View a single project -->
-
-<!-- YOUR CODE HERE -->
+<div>
+  <h3><u><strong>{{title}}</strong></u></h3>
+  <h3> Goal: <span >{{goal}}</span> </h3>
+  <p><strong>Category: </strong>{{category}}</p>
+  <i><strong>Start Date: </strong>{{start}}, <strong>End Date: </strong>{{end}} </i>
+  <p><strong>Description:</strong> {{description}}</p>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+    "{{percentage}}"
+  </div>
+</div>
+</div>
 
 <!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+<h3> Make a Contribution!!</h3>
+<form action="/project/{{id}}" method= "Post">
+  <input type="text" name="name" value = "{{name}}" placeholder="your name" </input>
+  <input type="number" name= "amount" value = "{{amount}}" placeholder="your contribution" </input>
+  <input type="submit" name="submit" value="Fundraise!" >
+</form>
+<p>
+<h4>TOTAL CONTRIBUTIONS = {{sum}} </h4>
+<h4>All Contributions </h4>
+<h5><u>Names: Total Contribution </u></h5>
+  <div>
+    {{#each contributions}}
+    <p><span id="contributionName">{{name}}: </span> <span> {{amount}} </span></p>
+    {{/each}}
+  </div>

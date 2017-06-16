@@ -1,7 +1,42 @@
-<h1>View projects</h1>
+<h1> All Projects</h1>
+
+<h2>
+<a href="../new">
+  <button class= "btn btn primary">Create a New Project</button></a>
+</h2>
+<div><h3>Sort Parameter</h3>
+<a href="/?sort=goal">
+  <button class= "btn btn primary">Sort by Goal</button></a>
+
+<a href="/?sort=totalcontributions">
+  <button class= "btn btn primary">Sort by Total Contributions</button></a>
+
+<a href="/?sort=start">
+  <button class= "btn btn primary">Sort by Start Date</button></a>
+
+<a href="/?sort=end">
+  <button class= "btn btn primary">Sort by End Date</button></a>
+</div>
+
+<h3>Sort Direction</h3>
+<a href="/?sortdirection=ascending&sort={{sort}}">
+  <button class= "btn btn primary">Sort Ascending</button></a>
+
+<a href="/?sortdirection=descending&sort={{sort}}">
+  <button class= "btn btn primary">Sort Descending</button></a>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<div>
+{{#each items}}
+  <div>
+    <a href="/project/{{this._id}}"><h3><u><strong>{{title}}</strong></u></h3></a>
+    <h3> Goal: {{goal}} </h3>
+    <i>Start: {{start}}, End: {{end}} </i>
+    <p>{{description}}</p>
+  </div>
+{{/each}}
+</div>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

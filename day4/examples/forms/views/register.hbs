@@ -7,17 +7,59 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    #form { background-color: white; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h1>Registration Form</h1>
+    <div><strong></strong>
+      {{#each errors}}
+        <div class= "alert alert-danger">{{msg}}</div>
+      {{/each}}
+    </div>
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    <div class="col-sm-10" id="form">
+      <form action="/register" method="post" class= "form-inline">
+        <div class="form-group">
+        <strong>First Name </strong>
+        <input type="text" class="form-control" placeholder="First Name" value="{{firstname}}" name="firstname" required></br>
+
+        <strong>Middle Initial </strong>
+        <input type="text" class="form-control" placeholder="Middle Initial" value="{{midin}}" name="middleinitial"></br>
+
+        <strong>Last Name </strong>
+        <input type="text" class="form-control" placeholder="Last Name" value="{{lastname}}" name="lastname" required></br>
+
+        <strong>Date of Birth </strong>
+        <input type="Date" class="form-control" placeholder="mm/dd/yyyy" value="{{DOB}}" name="dob"></br>
+
+        <strong>Password </strong>
+        <input type="password" class="form-control" placeholder="Password" value="{{password}}" name="password" required></br>
+
+        <strong>Re-enter Password</strong>
+        <input type="password" class="form-control" placeholder="Repeat Password" value="{{reppassword}}" name="reppassword" required> </br>
+
+        <strong>Male </strong>
+        <input type="radio"  class="form-control"value="male" name="gender" ></br>
+
+        <strong>Female </strong>
+        <input type="radio" class="form-control" value="female" name="gender"> </br>
+
+        <strong>Prefer not to say </strong>
+        <input type="radio" class="form-control" value="other" name="gender" > </br>
+
+        <strong>Sign up for newsletter </strong>
+        <input type="checkbox" class="form-control" name="newsletter" value={{newsletter}}required></br>
+
+        <strong>Biography </strong>
+        <input type="textarea" class="form-control" placeholder="Tell us about yourself!" value="{{biography}}" name="biography"></br>
+
+        <strong>Register </strong>
+        <input type="submit" class="form-control" class= "btn btn default" value= "Register">
       </form>
+      </div>
+    </div>
     </div>
   </div>
 </body>
