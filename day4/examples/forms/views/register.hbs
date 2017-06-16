@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Registration</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body {
+      background-color: #2ECC71;
+      padding-top: 2em;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong></div>
+    <ul>
+    {{#each errors}}
+    <li>{{msg}}</li>
+    {{/each}}
+    </ul>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" placeholder="First Name" name="firstName" required><br>
+        <input type="text" placeholder="Middle Initial" name="middleInitial"><br>
+        <input type="text" placeholder="Last Name" name="lastName" required><br>
+        <input type="date" name="dateOfBirth"><br>
+        <input type="password" placeholder="Enter Password" name="password" required><br>
+        <input type="password" placeholder="Re-enter Password" name="password2" required><br>
+
+        <label class="custom-control custom-radio">
+          <input id="radio1" name="radio" type="radio" class="custom-control-input" value="male">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">male</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input id="radio2" name="radio" type="radio" class="custom-control-input" value="female">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">female</span>
+        </label>
+        <label class="custom-control custom-radio">
+          <input id="radio3" name="radio" type="radio" class="custom-control-input" value="rather not say">
+          <span class="custom-control-indicator"></span>
+          <span class="custom-control-description">rather not say</span>
+        </label>
+        <br>
+        <input type="checkbox" name="newsLetter" value="yes" required><br>
+        <input type="textarea" placeholder="Enter Bio (optional)" name="bio"><br>
         <input type="submit">
       </form>
     </div>
   </div>
 </body>
+
 </html>
