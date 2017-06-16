@@ -1,5 +1,33 @@
 <h1>View Project</h1>
 
+ <!-- Part 3: View a single project -->
+ <div>
+   <h1> {{project.title}} </h1>
+   <h2>Amount Goal: {{project.goal}} </h2>
+   <h2>About: {{project.description}} </h2>
+   <h2> Total contribution: ${{total}}</h2>
+     <div class="progress">
+       <div class="progress-bar" role="progressbar" style="width: {{progress}}%">
+       </div>
+     </div>
+
+   <h2>Start Date: {{project.start}} </h2>
+   <h2>End Date: {{project.end}} </h2>
+   <h2>Category: {{project.category}}</h2>
+   <h2>Contributions: </h2>
+     {{#each project.contribution}}
+       <div class="well">
+         <h3>{{name}} contributed ${{amount}} </h3>
+       </div>
+     {{/each}}
+ </div>
+ <!-- <h1>{{progress}} </h1> -->
+ <form method="POST" action ="/projects/{{project._id}}">
+   Name: <input type ="text" name="name" value="{{project.name}}"><br>
+   Amount: <input type ="text" name="amount" value="{{project.amount}}"><br>
+   <input type="submit" value="submit">
+ </form>
+
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->

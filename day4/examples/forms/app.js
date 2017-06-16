@@ -46,6 +46,7 @@ app.get('/register', function(req, res){
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
   req.check('firstName', 'First Name is required').notEmpty();
+  req.check('middle', 'Middle Name must be an initial').notEmpty();
   req.check('lastName', 'Last Name is required').notEmpty();
   req.check('password', 'A password is required').notEmpty();
   req.check('repeatPassword', 'Must repeat password').notEmpty();
@@ -59,9 +60,15 @@ app.post('/register', function(req, res){
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile', {
-      profile: req.body
-    });
+    var form = {
+      firstName: req.body.firstName,
+      middleName: req.body.middle,
+      lastName: req.body.lastName,
+      inputDOB: req.body.inputDOB,
+      password: req.body.password,
+      signUp: req.body.signUp,
+      biography: req.body.biography
+    }
   }
 });
 

@@ -1,10 +1,16 @@
-<h1>{{title}}</h1>
-{{#each projects}}
-  <div class="well">
-    <h2>Title: {{title}}</h2>
-    <h3>Description: {{description}}</h3>
-      <a href="/project/{{id}}">View project</a>
-  </div>
-{{/each}}
++<ul>
+ +  {{#each items}}
+ +    <div class = "container eachPost"><h3>{{this.title}}</h3></p>
+ +    <p> Goal: {{this.goal}}</p>
+ +    <p> Description: {{this.description}}</p>
+ +    <p> Start Date: {{this.start}}</p>
+ +    <p> End Date: {{this.end}}</p>
 
-<a href="/new">Create a new project</a>
+ +      <a href="/project/{{this._id}}">View </a>
+ +
+ +</div>
+ +    </br>
+ +  {{/each}}
+ +
+ +</ul>
+ +<a href='http://localhost:3000/new?'>Create new project</a>

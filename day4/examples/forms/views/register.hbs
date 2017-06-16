@@ -10,8 +10,13 @@
   </style>
 </head>
 <body>
+  {{#each errors}}
+    <li> {{msg}} </li>
+  {{/each}}
+
+
   <div class="container">
-  <form action="/register" method="post">
+  <form action="/register" method="post" id={{registerForm}}>
     <div class="form-group row">
       <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
       <div class="col-sm-10">
@@ -21,7 +26,7 @@
     <div class="form-group row">
       <label for="inputMiddle" class="col-sm-2 col-form-label">Middle Initial</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputMiddle" placeholder="Middle Initial">
+        <input type="text" class="form-control" name="middle" id="inputMiddle" placeholder="Middle Initial">
       </div>
     </div>
     <div class="form-group row">
@@ -53,20 +58,20 @@
       <div class="col-sm-10" >
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+            <input class="form-check-input" type="radio" name="male" id="gridRadios1" value="option1" checked>
               Male
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+            <input class="form-check-input" type="radio" name="female" id="gridRadios2" value="option2">
               Female
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
-            Prefer not to say
+            <input class="form-check-input" type="radio" name="ambiguous" id="gridRadios3" value="option3">
+            Still figuring it out/Unsure/Why the fuck do you care!
           </label>
         </div>
       </div>
@@ -84,7 +89,7 @@
     <div class="form-group row">
       <label for="inputBiography" class="col-sm-2 col-form-label">Biography</label>
       <div class="col-sm-10">
-        <input type="textarea" class="form-control" id="inputBiography" placeholder="Biography">
+        <input type="textarea" class="form-control" name="biography" id="inputBiography" placeholder="Biography">
       </div>
     </div>
     <div class="form-group row">
@@ -94,9 +99,7 @@
     </div>
   </form>
 </div>
-{{#each errors}}
-  <li> {{msg}} </li>
-{{/each}}
+
 <!-- <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
       <form action="/register" method="post">
