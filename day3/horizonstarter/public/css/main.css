@@ -1,3 +1,29 @@
 body {
   padding: 10px;
+  background-color: skyblue;
+}
+
+.jumbotron {
+  padding: 15px;
+  margin: 50px;
+  height: 350px;
+}
+
+.jumbotron2 {
+  padding: 15px;
+  margin: 50px;
+  height: 100%;
+}
+
+#logo {
+  width: 100%
+}
+
+#footer {
+}
+
+.active {
+  background-color: #337ab7;
+  color: white;
+  width: 200px
 }

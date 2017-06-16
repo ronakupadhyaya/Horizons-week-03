@@ -4,12 +4,20 @@
 var mongoose = require('mongoose');
 
 var Project = mongoose.model('Project', {
-  title: {
-    type: String,
-  }
-  // YOUR CODE HERE
+  title: String,
+  goal: Number,
+  description: String,
+  start: Date,
+  end: Date,
+  contributions: [{
+    name: String,
+    amount: Number
+  }],
+  category: String
+
 });
 
 module.exports = {
   Project: Project
+  //MAKING A PROJECT FILE AVAILABLE
 }

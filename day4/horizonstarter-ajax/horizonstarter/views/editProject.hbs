@@ -1,0 +1,24 @@
+<h1>Edit Project</h1>
+
+<form method="POST" action = "/project/{{id}}/edit">
+<input type="text" name="title" value="{{item.title}}" placeholder="title">
+<input type="number" name="goal" value="{{item.goal}}" placeholder="goal">
+<input type="text" name="description" value="{{item.description}}" >
+<input type="date" name="start" value="{{start}}">
+<input type="date" name="end" value="{{end}}">
+
+<div class="form-group">
+  <label>Category</label>
+  <select name="category" class="form-control" id="category" placeholder="hello">
+    {{#each categoryOptions}}
+      <option value="{{name}}" {{#if checked}}selected{{/if}}>{{name}}</option>
+    {{/each}}
+  </select>
+</div>
+
+
+
+<input type="submit" name="" value="Save">
+
+<h3><a href="/">Back to Main</a></h3>
+</form>

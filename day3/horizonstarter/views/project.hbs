@@ -1,8 +1,57 @@
 <h1>View Project</h1>
 
+<ul class="nav nav-pills">
+  <div class="dropdown show">
+    <a class="btn btn-secondary dropdown-toggle active" href="https://example.com" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Sort
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" href="/sort?sort=title">Title</a>
+      <a class="dropdown-item" href="/sort?sort=goal&amp;sortDirection=decending">Goal</a>
+      <a class="dropdown-item" href="/sort?sort=category">Category</a>
+    </div>
+    </div>
+  </div>
+</ul>
+
+<div class="text-center" id="logo">
+  <img src="././css/Kapital.png">
+</div>
 <!-- Part 3: View a single project -->
 
-<!-- YOUR CODE HERE -->
+<div class="jumbotron2">
+<h3>{{item.title}}</h3>
+<p><strong>Goal:</strong> ${{item.goal}}</p>
+<p><strong>Category:</strong> {{category}}</p>
+<p><strong>Description:</strong> {{item.description}}</p>
+<p>{{start}} to {{end}}</p>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    <span class="sr-only">70% Complete</span>
+  </div>
+</div>
+<h4>Total Contributions: ${{total}}</h4>
+
+{{#each contributors}}
+<p>{{this.name}} contributed: ${{this.amount}}</p>
+{{/each}}
+
+
+
+<form method="POST" action = "/project/{{item._id}}">
+<input type="text" name="name" value="" placeholder="name">
+<input type="number" name="amount" value="" placeholder="contribution">
+<input type="submit" name="" value="Contribute!">
+
+<h3><a href="/">Back to Main</a></h3>
+<p><a href="/project/{{item._id}}/edit">Edit</a></p>
+
+</form>
+
+
+</div>
 
 <!-- Part 4: Contribute to a project -->
 

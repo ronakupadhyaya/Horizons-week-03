@@ -31,13 +31,19 @@ app.get('/', function(req, res) {
 // POST /up: Create JSON endpoint that increases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
 
-// YOUR CODE HERE
+app.post('/ajaxUp', function(req,res) {
+  count++;
+  res.json({number: count})
+});
 
 // ---Task 2---
 // POST /down: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
 
-// YOUR CODE HERE
+app.post('/ajaxDown', function(req,res) {
+  count--;
+  res.json({number: count})
+});
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
