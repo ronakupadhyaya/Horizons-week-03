@@ -54,7 +54,7 @@ to use it.
     mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database
     ```
 
-1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `app.env` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
+1. Now we are going to store this URI as an environmental variable using a shell script. Create a new file `env.sh` in `week03/day3/horizonstarter` and put the `MONGODB_URI` from the previous step there:
 
     ```bash
     export MONGODB_URI="mongodb://moose:peanutbutterandjelly@ds055555.mlab.com:55555/horizonstarter-database"
@@ -129,7 +129,7 @@ created document.
     1. `start`: Date input field
     1. `end`: Date input field
 1. Implement the `POST /new` endpoint in `week03/day3/horizonstarter/routes.js`.
-    1. Validate form fields using `express-validate`, if there are errors render
+    1. Validate form fields using `express-validator`, if there are errors render
       `new.hbs` with error messages and the form fields filled in.
 
         You can use the `value=""` HTML attribute for this purpose:
@@ -216,12 +216,12 @@ that allows us to make contributions.
 1. Create a new view in `views` called `editProject.hbs`, add form fields
   to represent all the `Project` properties. You can copy `new.hbs`
   to start with!
-1. Create a new endpoint in `routes.js` `GET /projects/:projectid/edit`
+1. Create a new endpoint in `routes.js` `GET /project/:projectid/edit`
   that gets the given `Project` from MongoDb using `.findById()` and
   renders `editProject.hbs` with the `Project` object. When the project
   edit page loads, it should have all the properties of the project
   being edited pre-filled into form fields.
-1. Create a new endpoint in `routes.js` `POST /projects/:projectid/edit`.
+1. Create a new endpoint in `routes.js` `POST /project/:projectid/edit`.
   The HTML form in `editProject.hbs` should `POST` data to this endpoint
   (using `action` and `method`).
 
