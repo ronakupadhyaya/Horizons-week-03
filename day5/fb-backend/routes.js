@@ -244,7 +244,50 @@ router.get('/api/posts/comments/:post_id', function(req,res){
 })
 
 router.post('/api/posts/comments/:post_id', function(req,res){
+  var token = req.query.token;
+  var postid = req.params.post_id;
+  var comment = req.body.content;
+  console.log(postid, req.query.post_id);
+  req.check('token','token not passed in request').notEmpty();
+  req.check('post','token not passed in request').notEmpty();
+  req.check('token','token not passed in request').notEmpty();
+  var errors = req.validationErrors();
+  if(errors){
+      console.log("errors token or postidnot found");
+      res.status(400).send("failed to supply token, or postid")
+  }else{
+    Token.findOne({"token": token}, function(error,tokenobj){
+      if(error){
+        res.status(400).send("error finding token..?");
+      }else{
+        if(tokenobj){
+          //token has been found now make sure there is a post with postid
+          Post.findById(postid, function(error, post){
+            if(error){ res.status(400).send("error finding post..?"); }
+            else{
+              if(post){
+                var currentcomments = post.comments;
+                currentcomments.push(comment);
+                post.save(function(error,post){
+                  if(error){
+                    console.log("error saving post with updated comments");
+                    res.status(500).send(error);
+                  }
+                  res.status(200).send(post);
+                })
 
+              }else{
+                res.status(401).send("postid not found")
+              }
+            }
+          })
+        }else{
+          res.status(401).send("token not found");
+        }
+
+      }
+    })
+  }
 })
 
 router.get('/api/posts/likes/:post_id', function(req,res){
