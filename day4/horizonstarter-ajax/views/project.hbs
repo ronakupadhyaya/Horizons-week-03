@@ -3,7 +3,7 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
-<ul class="project">
+<ul class="project" id="{{project._id}}">
   <li> Title: {{project.title}}</li>
   <li> Goal: {{project.goal}} </li>
   <li> startDate: {{start}} </li>
@@ -20,14 +20,12 @@
   </li>
 </ul>
 <!-- Part 4: Contribute to a project -->
-<form class='newInput'>
-  name:<input id='name' name='name' type="text"/>
-  amount:<input id='amount' name='amount' type="number"/>
-  <button id="send-contribution" value="{{id}}">Add Contribution</button>
+<form id="contributionForm" class='newInput' data-project-id="{{project._id}}">
+  name:<input name='name' type="text"/>
+  amount:<input name='amount' type="number"/>
+  <button type="submit">Add Contribution</button>
 </form>
-<form action='/project/{{id}}/edit'>
+<form action='/project/{{project._id}}/edit'>
   <input type="submit" value="Edit"/>
 </form>
-<script src="/jquery.js"></script>
-<script src="/js/contributions.js"></script>
 <!-- YOUR CODE HERE -->

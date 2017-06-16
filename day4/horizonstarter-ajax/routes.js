@@ -41,6 +41,11 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/new', function(req, res) {
+  // YOUR CODE HERE
+  res.render('new');
+});
+
 // Part 2: Create project
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
@@ -87,43 +92,43 @@ router.get('/project/:projectid', function(req, res) {
     } else {
       var contriNum = 0;
       found.contributions.forEach(function(contri) {
-        contriNum += parseInt(contri.amount);
+        contriNum += +(contri.amount);
       })
       var percentage = contriNum/found.goal*100;
+      // res.json(found)
       res.render('project', {
         project: found,
         start: strftime('%B %d, %Y', found.start),
         end: strftime('%B %d, %Y', found.end),
         category:found.category,
         percentage: percentage,
-        contriNum:contriNum,
-        id:id
+        contriNum:contriNum
       });
     }
   });
 });
 
 // Part 4: Contribute to a project
-// Implement the GET /project/:projectid endpoint
-router.post('/project/:projectid', function(req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectid;
-  Project.findById(id,function(err,found) {
-    if (err) {
-      res.send(err);
-    } else {
-      if (req.body.name !== "" && !isNaN(req.body.amount)) {
-        var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
-        var c = found.contributions || [];
-        c.push(newObj)
-        found.contributions = c;
-        found.update({contributions:found.contributions},function(err,savedObject) {
-          res.redirect('/project/'+id)
-        })
-      }
-    }
-  })
-});
+// // Implement the GET /project/:projectid endpoint
+// router.post('/project/:projectid', function(req, res) {
+//   // YOUR CODE HERE
+//   var id = req.params.projectid;
+//   Project.findById(id,function(err,found) {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       if (req.body.name !== "" && !isNaN(req.body.amount)) {
+//         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
+//         var c = found.contributions || [];
+//         c.push(newObj)
+//         found.contributions = c;
+//         found.update({contributions:found.contributions},function(err,savedObject) {
+//           res.json(savedObject)
+//         })
+//       }
+//     }
+//   })
+// });
 
 router.get('/project/:projectid/edit',function(req,res) {
   var editId = req.params.projectid;
@@ -181,16 +186,28 @@ router.post('/project/:projectid/edit',function(req,res) {
     });
 });
 
-router.post('/api/project/:projectId/contribution',function(req,res) {
+router.get('/api/project/:projectId',function(req,res) {
   var id = req.params.projectId;
   Project.findById(id,function(err,proj) {
     if (err){
       res.status(400);
     } else {
+      res.json(proj);
+    }
+  });
+});
+
+router.post('/api/project/:projectId/contribution',function(req,res) {
+  var id = req.params.projectId;
+  Project.findById(id,function(err,proj) {
+    if (err){
+      res.status(400).json({error: 'cannot find project'});
+    } else {
       req.check('amount','The amount must be positive').isInt({min:1})
       var errors = req.validationErrors();
       if (errors) {
         res.status(400).json(errors);
+        return;
       }
       if (req.body.name !== "" && !isNaN(req.body.amount)) {
         var newObj = {name:req.body.name,amount: parseInt(req.body.amount)};
@@ -198,7 +215,7 @@ router.post('/api/project/:projectId/contribution',function(req,res) {
         c.push(newObj)
         proj.contributions = c;
         proj.update({contributions:proj.contributions},function(err,savedObject) {
-          res.json(newObj);
+          res.json(proj);
         });
       }
     }
