@@ -1,5 +1,6 @@
 <h1>View Project</h1>
 <hr>
+<div class = "notification"></div>
 <!-- Part 3: View a single project -->
 <div>
   <p><b>Title:</b> {{project.title}}</p>
@@ -7,8 +8,9 @@
   <p><b>Description:</b> {{project.description}}</p>
   <p><b>Start:</b> {{project.start}}</p>
   <p><b>End:</b> {{project.end}}</p>
+  <p><b>Project Type:</b> {{project.category}}</p>
   <p><b>Contributors:</b></p>
-  <ul>
+  <ul id="contribution-list">
     {{#each contributors}}
       <li>Contributor: {{name}} | Amount: {{amount}}</li>
     {{/each}}
@@ -22,12 +24,12 @@
   <br><hr>
 </div>
 
-<form action = "/project/{{project._id}}" method = "post">
-  <input type="name" value="" name="name" placeholder="Name"/>
+<form>
+  <input type="name" value="" id="name" name="name" placeholder="Name"/>
   <br><br>
-  <input type="number" value="" name="contribution" placeholder="0"/>
+  <input type="number" value="" id="contribution" name="contribution" placeholder="0"/>
   <br><br>
-  <input type="submit" value="Submit"/>
+  <button id="send-contribution">Add Contribution</button>
 </form>
 
 <hr>

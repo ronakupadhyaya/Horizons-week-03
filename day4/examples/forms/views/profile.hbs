@@ -7,12 +7,18 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container {background-color: white; padding: 2em 5em;border-radius: 2%; margin-top: 3em; margin-bottom: 3em}
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>User Profile: {{data.firstName}} {{data.midName}}. {{data.lastName}}</h1>
+      <label class="col-xs-2 col-form-label">DOB: {{data.DOB}}</label>
+      <label class="col-xs-2 col-form-label">Password: {{data.pass}}</label>
+      <label class="col-xs-2 col-form-label">Gender: {{data.gridRadios}}</label>
+      <label class="col-xs-2 col-form-label">Newsletter: {{data.newsletter}}</label>
+      <label class="col-xs-2 col-form-label">Biography: {{data.biography}}</label>
     </div>
   </div>
 </body>

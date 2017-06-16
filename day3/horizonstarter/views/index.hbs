@@ -1,5 +1,24 @@
 <h1>View projects</h1>
 <hr>
+<div>
+  <a href="?sort=start">Sort by Start Date</a>
+</div
+<div>
+  <a href="?sort=end">Sort by End Date</a>
+</div>
+<div>
+  <a href="?sort=goal">Sort by Goal Amount</a>
+</div>
+<div>
+  <a href="?sort=contributions">Sort by Contribution Amount</a>
+</div>
+<div>
+  <a href="?sort=fullyfunded">View Fully Funded Projects</a>
+</div>
+<div>
+  <a href="?sort=notfullyfunded">View Not Fully Funded Projects</a>
+</div>
+<hr>
 <!-- Part 1: View all projects -->
 {{#each projects}}
   <div>
@@ -7,6 +26,7 @@
   </div>
 {{/each}}
 <hr>
+<a href="/new">Create a New Project</a>
 
 
 <!-- Part 2: Create new project -->
