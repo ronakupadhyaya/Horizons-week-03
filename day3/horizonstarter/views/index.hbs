@@ -1,7 +1,45 @@
-<h1>View projects</h1>
+	<div id="main">
+		<h1 id="logo">Horizonstarter</h1>
+		<h2>Current Projects</h2>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+		<style>
+		body {
+			background-color: #c1f7b9;
+		}
+		#logo {
+			margin: 10px;
+			color: green;
+			flex: 1;
+		}
+		#main {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.jumbotron {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 60%;
+			height: 280px
+			background-color: blue;
+		}
+		button {
+			margin-bottom: 20px;
+		}
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+		</style>
+<body>
+		<!-- Part 1: View all projects -->
+		{{#each items}}
+		<div class="jumbotron">
+			<h1>{{this.title}}</h1>
+			<p>{{this.description}}</p>
+			<p><a class="btn btn-default btn-lg" href="/project/{{this.id}}" role="button">Learn more</a></p>
+		</div>
+		{{/each}}
+
+		<!-- Part 2: Create new project -->
+		<button type="button" class="btn btn-success" id="new" href="http://localhost:3000/new">Create new project</button>
+	</div>
+</body>

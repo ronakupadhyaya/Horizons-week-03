@@ -1,0 +1,56 @@
+<h2>Edit project</h2>
+
+<!-- Part 2: Create project -->
+<style>
+	form {
+		padding: 10px
+	}
+	div {
+		padding: 10px
+	}
+	.error {
+		color: red;
+		text-decoration: underline;
+	}
+</style>
+
+<form method = "post" action = "/new">
+
+	Title:
+	<div> {{#if error1}} <div class = "error"> Missing field </div> {{/if}}
+		<input type="text" name="title" value="{{project.title}}"></input></div>
+
+	Goal:
+	<div> {{#if error2}} <div class = "error"> Missing field </div> {{/if}}
+		<input type="text" name="goal" value="{{project.goal}}"></input></div>
+
+	Description:
+	<div> {{#if error3}} <div class = "error"> Missing field </div> {{/if}}
+		<input type="text" name="description" value="{{project.description}}"></input></div>
+
+	Start Date:
+	<div> {{#if error4}} <div class = "error"> Missing field </div> {{/if}}
+		<input type="date" name="start" value="{{project.start}}"></input></div>
+
+	End Date:
+	<div> {{#if error5}} <div class = "error"> Missing field </div> {{/if}}
+		<input type="date" name="end" value="{{project.end}}"></input></div>
+
+	Category:
+	<div>
+		<select class="selectpicker" name="category">
+			<option>{{project.category}}</option>
+	  		<option>Famous Muppet Frogs</option>
+	  		<option>Current Black Presidents</option>
+	  		<option>The Pen Is Mightier</option>
+	  		<option>Drummers Named Ringo</option>
+	  		<option>1-Letter Words</option>
+	  		<option>Months That Start With "Feb"</option>
+	  		<option>How Many Fingers Am I Holding Up</option>
+	  		<option>Potent Potables</option>
+		</select>
+	</div>
+
+	<input type="submit" value="Edit Project"></input>
+
+</form>

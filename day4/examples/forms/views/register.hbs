@@ -7,17 +7,49 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    input { margin: 3px;}
+    #submit { margin-top: 10px; background-color: black; color: white;}
+    #bio {margin-top: 7px}
+    #gender {margin-top: 10px}
+    #newsletter {margin-top: 10px}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    <form action="/register" method="post" class="col-md-5">
+        First Name
+        <input class="form-control" type="text" placeholder="First Name" name="firstName">
+        Middle Initial
+        <input class="form-control" type="text" placeholder="Middle Initial" name="middleInitial">
+        Last Name
+        <input class="form-control" type="text" placeholder="Last Name" name="lastName">
+        Date Of Birth
+        <input class="form-control" type="date" name="dateOfBirth">
+        Password
+        <input class="form-control" type="password" placeholder="Password" name="password">
+        Repeat Password
+        <input class="form-control" type="password" placeholder="Repeat Password" name="repeatPassword">
+        <div id="gender"> Gender:
+          <div> <input type="radio" placeholder="Gender" name="gender" value="Male"> Male </div>
+          <div> <input type="radio" placeholder="Gender" name="gender" value="Female"> Female </div>
+          <div> <input type="radio" placeholder="Gender" name="gender" value="Rather Not Say" checked> Rather Not Say </div>
+        </div>
+        <div id="newsletter">
+          Sign up for newsletter?
+          <input type="checkbox" name="signUpForNewsletter" value="Yes" required>
+        </div>
+        <div id="bio">
+          Bio
+        </div>
+        <input class="form-control" type="textarea" placeholder="Bio" name="bio"> 
+        <input id="submit" class="form-control" type="submit">
       </form>
+
+    <div><strong>Errors:</strong>{{#each errors}} <div> {{param}} {{msg}} </div> {{/each}}</div>
+
+    <div class="row">
+      
     </div>
   </div>
 </body>
