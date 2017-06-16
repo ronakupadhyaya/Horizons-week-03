@@ -3,24 +3,9 @@
 <!-- Part 2: Create project -->
 <div class="container">
 
-<h2>Create project</h2>
-<div>
-  <!-- <script>
-    console.log({{errors}});
-  </script>  -->
-  {{#each errors}}
+<h2>Edit project</h2>
 
-  <div class="alert alert-danger">
-    <strong>{{msg}}</strong>
-    <!--  msg is the key in error ?  -->
-</div>
-
-  {{/each}}
-</div>
-
-
-
-<form method="POST" action="/new">
+<form method="POST" action="/project/{{id}}/edit">
   <div class="form-group row">
       <label for="example-text-input" class="col-2 col-form-label" >Title:</label>
       <div class="col-8">
@@ -42,16 +27,19 @@
     </div>
     <div class="form-group row">
         <label for="exampleSelect1" >Category</label>
-        <select class="form-control" name="category" value="{{category}}">
-          <option> Famous Muppet Frogs</option>
+        <select class="form-control" name="category" id="exampleSelect1">
+          <!-- <option> Famous Muppet Frogs</option>
           <option> Current Black Presidents</option>
           <option> The Pen Is Mightier</option>
           <option> Famous Mothers</option>
           <option> Drummers Named Ringo</option>
-          <option> 1-Letter Words</option>
+          <option selected> 1-Letter Words</option>
           <option> Months That Start With "Feb"</option>
           <option> How Many Fingers Am I Holding Up</option>
-          <option> Potent Potables</option>
+          <option> Potent Potables</option> -->
+          {{#each categories}}
+            <option value="{{this.name}}" {{#if this.selected}} selected{{/if}}>{{name}}</option>
+          {{/each}}
         </select>
       </div>
 
@@ -68,7 +56,7 @@
     </div>
     </div>
     <div class="form-group row">
-    <input type="submit" name="" value="Submit" class ="btn btn-default">
+    <input type="submit" name="" value="confirm editing" class ="btn btn-default">
   </div>
 </form>
 </div>

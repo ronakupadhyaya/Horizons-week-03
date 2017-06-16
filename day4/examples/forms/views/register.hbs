@@ -9,14 +9,82 @@
     body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+  <div class="container col-md-8">
+    <h1>Registration Form</h1>
+    <strong>Errors:</strong>
+    <div>
+      <!-- <script>
+        console.log({{errors}});
+      </script>  -->
+      {{#each errors}}
+
+      <div class="alert alert-danger">
+        <strong>{{msg}}</strong>
+        <!--  msg is the key in error ?  -->
+    </div>
+
+      {{/each}}
+    </div>
+  <div class="">
+  <form action="/register" method="post">
+  <div class="form-group">
+    <label for="First Name">First Name</label>
+    <input type="text" class="form-control" name="firstName" value="{{firstName}}" placeholder="First Name">
+  </div>
+  <div class="form-group">
+    <label for="middlename">Middle Initial</label>
+    <input type="text" class="form-control" name="middleName"value="{{middleName}}" placeholder="Middle Name">
+  </div>
+  <div class="form-group">
+    <label for="lastname">Last Name</label>
+    <input type="text" class="form-control" name="lastName" value="{{lastName}}"placeholder="Last Name">
+  </div>
+  <div class="form-group">
+    <label for="DOB">DOB</label>
+    <input type="Date" class="form-control" name="dob" value="{{dob}}" placeholder="DOB">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="repeatpassword">Repeat Password</label>
+    <input type="password" class="form-control" name="repeatPassword" placeholder="Repeat Password">
+  </div>
+  <fieldset class="form-group">
+    <legend>Gender</legend>
+    <div class="form-check">
+      <label class ="form-check-label" >
+        <input type="radio" class="form-check-input" name="option"  value="Male" checked>
+        Male
+      </label>
+    </div>
+    <div class="form-check">
+      <label class ="form-check-label" >
+        <input type="radio" class="form-check-input" name="option"  value="Female">
+        Female
+      </label>
+    </div>
+    <div class="form-check">
+      <label class ="form-check-label" >
+        <input type="radio" class="form-check-input" name="option"  value="Prefer not to say">
+        Prefer not to say
+      </label>
+    </div>
+  </fieldset>
+  <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="check">
+        Sign Up for newsletter
+      </label>
+    </div>
+    <div class="form-group">
+    <label for="exampleTextarea">Biography</label>
+    <textarea class="form-control" id="exampleTextarea" name="bio" value="{{bio}}" rows="3"></textarea>
+    </div>
+    <button type="register" class="btn btn-primary">Register</button>
       </form>
     </div>
   </div>

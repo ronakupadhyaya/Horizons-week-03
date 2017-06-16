@@ -4,8 +4,61 @@
 <!-- YOUR CODE HERE -->
 
 {{#each items}}
-  <li>{{this}}</li>
+<div class="rgorm-group">
+<div class="gorm-group">
+  <label class="col-form-label" >Id:</label>
+  <a href="/project/{{this.id}}" class="col-form-label" >{{this.id}}</a>
+</div>
+  <div class="gorm-group ">
+    <label class="col-form-label" >Title:</label>
+    <label class="col-form-label" >{{this.title}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-form-label" >Goal:</label>
+    <label class="col-form-label" >{{this.goal}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-form-label" >Description:</label>
+    <label class="col-form-label" >{{this.description}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-form-label" >Category:</label>
+    <label class="col-form-label" >{{this.category}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-form-label" >Start:</label>
+    <label class="col-form-label" >{{this.start}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-form-label" >End:</label>
+    <label class="col-form-label" >{{this.end}}</label>
+  </div>
+  <div class="gorm-group">
+    <label class="col-2 col-form-label" >Contributions:</label>
+    {{# each this.contributions}}
+    <ul>
+      <li>contributor: {{this.name}}</li>
+      <li>amount:{{this.amount}}</li>
+    </ul>
+    {{/each}}
+  </div>
+  </div>
+
+
 {{/each}}
+
+<div class="form-group row">
+<a  class="btn btn-primary" href="/?sort=start"> sort by start </a>
+<a  class="btn btn-primary" href="/?sort=end">  sort by end </a>
+<a  class="btn btn-primary" href="/?sort=goal"> sort by goal </a>
+<a  class="btn btn-primary" href="/?sort=contributions"> sort by contributions </a>
+<a  class="btn btn-primary" href="/?view=full"> fully funded projects </a>
+<a  class="btn btn-primary" href="/?view=notfull"> not fully funded projects </a>
+  <!-- <input method="get" action="/new " type="submit" name="" value="fully funded projects" class ="btn btn-default">
+  <input method="get" action="/new " type="submit" name="" value="not fully funded projects" class ="btn btn-default"> -->
+</div>
+<!-- not working -->
+
 
 
 
