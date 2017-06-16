@@ -45,13 +45,61 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.checkBody('firstName', 'First name field required').notEmpty();
+  req.checkBody('middle', 'Middle initial can only be one character').isLength({
+    max: 1
+  });
+  req.checkBody('lastName', 'Last name field required').notEmpty();
+  req.checkBody('dob','DOB field required').notEmpty()
+  req.checkBody('dob','DOB must be in the future').isBefore();
+  req.checkBody('password', 'Password field required').notEmpty();
+  req.checkBody('repeatPassword', 'Password field required').notEmpty();
+  req.checkBody('repeatPassword', 'Passwords must match ').matches(req.body.password);
+  //req.checkBody('gender', 'Gender field required').notEmpty();
+
+
+
+
+
+
+
+
+
+  var errors = req.validationErrors();
+  console.log(errors);// YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
-    res.render('register', {errors: errors});
+    var errStr = [];
+    errors.forEach(function(elem) {
+      errStr = errStr + elem.msg + "! "
+    })
+    res.render('register', {
+      errors: errStr,
+      first: req.body.firstName,
+      middle: req.body.middle,
+      last: req.body.lastName,
+      dob: req.body.dob,
+      password: req.body.password,
+      repeat: req.body.repeatPassword,
+      gender: req.body.gender,
+      biography: req.body.bio
+    });
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    var newslet = false;
+    if (req.body.newsletter) {
+      newslet = true;
+    }
+    res.render('profile', {
+      first: req.body.firstName,
+      middle: req.body.middle,
+      last: req.body.lastName,
+      dob: req.body.dob,
+      password: req.body.password,
+      gender: req.body.gender,
+      signup: newslet,
+      biography: req.body.bio
+    });
   }
 });
 

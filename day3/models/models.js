@@ -9,7 +9,17 @@ if (! process.env.MONGODB_URI) {
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
+var Cat = mongoose.model("Cat", {
+  name: String,
+  furColor: String
+}); // YOUR CODE HERE - define the cat model
+
+var cat1 = new Cat({name: "Crookshanks", furColor: 'Black'});
+var cat2 = new Cat({name:"Mr. Biggle", furColor: 'White'});
+var cat3 = new Cat({name:'Empuress', furColor: 'Calico'});
+cat1.save();
+cat2.save();
+cat3.save();
 
 Cat.find(function(error, cats) {
   if (error) {

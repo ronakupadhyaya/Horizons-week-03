@@ -1,16 +1,12 @@
-<h2>Create project</h2>
-
-<!-- Part 2: Create project -->
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
+<h2>Edit project</h2>
 {{#if error}}
 <p class = 'errMsg'>{{errormessage}}</p>
 {{/if}}
-<form method = "POST" action='/new' class="form">
+<form method = "POST" action="/project/{{project_id}}/edit" class="form">
   <input type="text" name="title" value="{{title}}" placeholder='title'><br>
   <input type="number" name="goal" value="{{goal}}" placeholder="goal"><br>
-  <textarea rows="4" cols="50" name='description' value="{{description}}"placeholder="description"></textarea><br>
-  <input type="date" name="start" value="{{start}}"><br>
+  <textarea rows="4" cols="50" name='description' value="{{description}}"placeholder="description">{{description}}</textarea><br>
+  <input type="date" name="start" value="{{start}}"></input><br>
   <input type="date" name="end" value="{{end}}"><br>
   Categories:
   <select name='category'>
@@ -19,7 +15,7 @@
   <option name="pen">The Pen Is Mightier</option>
   <option name="mothers">Famous Mothers</option>
   <option name="drummers">Drummers Named Ringo</option>
-  <option name="word">1-Letter Words</option>
+  <option name="word">1-Letter Word</option>
   <option name="feb">Months That Start With "Feb"</option>
   <option name="fingers">How Many Fingers Am I Holding Up</option>
   <option name="potables">Potent Potables</option>

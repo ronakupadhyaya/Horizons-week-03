@@ -11,12 +11,25 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h1>Registration form</h1>
+    {{#if errors}}
+    <div class="alert alert-danger">
+  <strong>Errors:</strong>{{errors}}
+    </div>
+    {{/if}}
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        First Name <input type="text" value="{{first}}" placeholder="first name" name="firstName"> <br>
+        Middle Initial <input type="text" value="{{middle}}" placeholder="middle initial"name="middle"> <br>
+        Last Name <input type="text" value="{{last}}" placeholder="last name" name="lastName"> <br>
+        DOB <input type="date" name="dob" value="{{dob}}" name = 'dob'> <br>
+        Password <input type="password" name="password" value="{{password}}" placeholder="password"> <br>
+        Repeat Password <input type="password" name="repeatPassword" value="{{repeat}}" placeholder="repeat password"><br>
+        Gender <input type="radio" name="gender" value="{{gender}}"> Male
+        <input type="radio" name="gender" value="{{gender}}"> Female <br>
+        Sign Up for newsletter <input type="checkbox" name="newsletter" value="Yes"> <br>
+        Biography <input type="textarea" name="bio" value="{{biography}}" placeholder="biography"> <br>
+        <input type="submit" value="Register">
       </form>
     </div>
   </div>

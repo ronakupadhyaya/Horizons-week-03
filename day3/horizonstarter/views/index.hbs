@@ -2,7 +2,18 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each items}}
+  <ul>
+    {{this.title}}
+  </ul>
+{{/each}}
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+<a href="/new">Create a new project</a> </br>
+sort by:
+<a href="?sort=start" class="btn btn-default">Start Date</a>
+<a href="?sort=end" class="btn btn-default">End Date</a>
+<a href="?sort=goal" class="btn btn-default">Goal</a>
+<a href="?sort=total" class="btn btn-default">Total Contributions</a>
+<a href="?sort=full" class="btn btn-default">Fully Funded</a>
+<a href="?sort=not" class="btn btn-default">Not Fully Funded</a>

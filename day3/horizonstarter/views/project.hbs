@@ -1,4 +1,31 @@
-<h1>View Project</h1>
+<h1>Title: {{title}}</h1>
+Category: {{category}} <br>
+Goal: {{goal}} <br>
+Description: {{description}} <br>
+Start Date: {{start}} <br>
+End Date: {{end}} <br><br>
+Contributions total: {{count}}<br>
+Goal percentage met: {{percentage}}
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{count}}"
+  aria-valuemin="0" aria-valuemax="{{goal}}" style="width:{{percentage}}%">
+    <span class="sr-only"></span>
+  </div>
+</div><br>
+List of contributers:<br>
+{{#each contribArr}}
+  <ul>
+    {{this}}
+  </ul>
+{{/each}}
+
+<br>
+<form class="contribute" action="" method="POST">
+  Contribute here: <br>
+  <input type="text" name="name" value="" placeholder='name'><br>
+  <input type="number" name="amount" value="" placeholder='amount'><br>
+  <input type="submit" name="submit" value="submit">
+</form>
 
 <!-- Part 3: View a single project -->
 
