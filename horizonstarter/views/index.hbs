@@ -1,0 +1,14 @@
+<h1>View projects</h1>
+
+<!-- Part 1: View all projects -->
+<!-- YOUR CODE HERE -->
+<ul>
+  {{#each projects}}
+    <li><a href="/project/{{this._id}}">{{this}}</a></li>
+  {{/each}}
+</ul>
+
+
+
+<a href="/?funded=yes">VIEW FULLY FUNDED PROJECTS</a>
+<a href="/?funded=no">VIEW NON FULLY FUNDED PROJECTS</a>
