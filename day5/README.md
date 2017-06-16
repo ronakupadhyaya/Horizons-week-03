@@ -115,7 +115,7 @@ Create the following routes for user functionality:
 
 - `POST /api/users/register`
 - `POST /api/users/login`
-- `POST /api/users/logout` (🔒)
+- `GET /api/users/logout` (🔒)
 
 **Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
 
@@ -149,7 +149,7 @@ To add tokenization functionality follow these recommended steps:
 
 ##### Logout
 
-1. In the `POST /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
+1. In the `GET /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
 
 ##### Using the token
 1. For all routes requiring authentication (marked by 🔒), we advise looking up the `token` received and retrieve the user through the `userId` field.
