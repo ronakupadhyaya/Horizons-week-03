@@ -1,0 +1,38 @@
+<h1>View Project</h1>
+
+<!-- Part 3: View a single project -->
+<ul>
+  <li>Title: {{project.title}}</li>
+  <li>Goal: {{project.goal}}</li>
+  <li>Description: {{project.description}}</li>
+  <li>Start Date: {{project.start}}</li>
+  <li>End: {{project.end}}</li>
+  <li>Contributions: {{sum}}</li>
+  <li>Percentage of goal met: {{percentage}}%</li>
+  <ul id="contributors-list">List of contributions:
+    {{#each contributions}}
+      <li>{{this.name}} contributed ${{this.amount}}</li>
+    {{/each}}
+  </ul>
+  <li>Category: {{this.category}}</li>
+</ul>
+
+<!-- YOUR CODE HERE -->
+
+<!-- Part 4: Contribute to a project -->
+{{#if errors}}
+  <ul>
+    {{#each errors}}
+      <li>{{this.msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+<h1>Contribute: </h1>
+<form id="contributionForm" data-project-id="{{project._id}}">
+  <input type="text" name="name" value="" placeholder="Enter name here"><br><br>
+  <input type="text" name="amount" value="" placeholder="Enter amount here"><br><br>
+  <button type="submit">Add Contribution</button>
+</form>
+
+<!-- YOUR CODE HERE -->

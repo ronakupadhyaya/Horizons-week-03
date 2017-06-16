@@ -2,11 +2,23 @@
 
 // Express setup
 var fs = require('fs');
+
+//creates express object
 var express = require('express');
+
+//creates handlebars object
 var exphbs  = require('express-handlebars');
+
+//creates path object for navigating file paths
 var path = require('path');
+
+//automatically generates HTTP logs
 var logger = require('morgan');
+
+//body parser object
 var bodyParser = require('body-parser');
+
+//creates validator object
 var validator = require('express-validator');
 
 // Initialize Express
@@ -15,9 +27,11 @@ var app = express();
 // mongoose configuration
 var mongoose = require('mongoose');
 
+//if the environment variable file is not found, throw error
 if (! fs.existsSync('./env.sh')) {
   throw new Error('env.sh file is missing');
 }
+
 if (! process.env.MONGODB_URI) {
   throw new Error("MONGODB_URI is not in the environmental variables. Try running 'source env.sh'");
 }
@@ -31,9 +45,15 @@ mongoose.connection.on('error', function() {
 mongoose.connect(process.env.MONGODB_URI);
 
 // Handlabars setup
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs'
+}));
+
+//renders hbs files when res.render is called
 app.set('view engine', '.hbs');
 
+//use logger HTTP
 app.use(logger('dev'));
 
 // Parse req.body contents

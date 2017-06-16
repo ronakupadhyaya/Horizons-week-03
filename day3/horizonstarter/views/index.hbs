@@ -3,12 +3,59 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 <ul>
-{{#each items}}
-  <li>{{this.title}}</li>
-{{/each}}
+  {{#each items}}
+  <li>
+    <a href='/project/{{this._id}}'>{{this.title}}</a>
+  </li>
+  {{/each}}
 </ul>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 
 <a href="http://localhost:3000/new">Create a new project.</a>
+<br>
+
+<form action="/sort" method="POST">
+  <div>
+    <label>Sort By:</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="start">Start
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="end">End
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="goal">Goal
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="contributions">Total Contributions
+      </label>
+    </div>
+  </div>
+
+  <div>
+    <label>Sort Direction:</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sortDirection" value="ascending">Ascending
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sortDirection" value="descending">Descending
+      </label>
+    </div>
+  </div>
+  <input type="checkbox" name="status">Filter by funding
+
+  <input type="submit" value="Sort" />
+
+</form>

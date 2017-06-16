@@ -1,0 +1,127 @@
+
+
+<!-- Part 1: View all projects -->
+<!-- YOUR CODE HERE -->
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Horizons Starter</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+  <div class="row">
+
+  </div>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="panel panel-default">
+          <div class="panel-body">
+            <h1 class="text-center">Active Projects</h1>
+            <ul class="list-group" id="activeProjects">
+              {{#each items}}
+
+              <li class="list-group-item">
+
+                <a href='/project/{{this._id}}'>{{this.title}}</a>
+              </li>
+              {{/each}}
+            </ul>
+            <a href="http://localhost:3000/new" style="text-align: center" class="btn btn-primary btn-lg active" role="button" aria-pressed="false">Create a new project.</a>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- Part 2: Create new project -->
+<!-- YOUR CODE HERE -->
+
+
+<br>
+
+<div class="displayButtons">
+  <div class="input-btn-group" id="sortTypeButtons" data-toggle="buttons">
+    <label class="btn btn-primary active">
+    <input type="radio" name="sort" value="start" autocomplete="off">Start
+  </label>
+    <label class="btn btn-primary">
+    <input type="radio" name="sort" value="end" autocomplete="off">End
+  </label>
+    <label class="btn btn-primary">
+    <input type="radio" name="sort" value="goal" autocomplete="off">Goal
+  </label>
+    <label class="btn btn-primary">
+    <input type="radio" name="sort" value="contributions" autocomplete="off">Total Contributions
+  </label>
+  </div>
+
+  <br>
+
+  <div class="input-btn-group" id="sortDirectionButtons" data-toggle="buttons">
+    <label class="btn btn-primary active">
+    <input type="radio" name="direction" value="start" autocomplete="off" checked>Ascending
+  </label>
+    <label class="btn btn-primary">
+    <input type="radio" name="direction" value="end" autocomplete="off">Descending
+  </label>
+  </div>
+</div>
+
+{{!--
+<form action="/sort" method="POST">
+  <div>
+    <label>Sort By:</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="start">Start
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="end">End
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="goal">Goal
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sort" value="contributions">Total Contributions
+      </label>
+    </div>
+  </div>
+
+  <div>
+    <label>Sort Direction:</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sortDirection" value="ascending">Ascending
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" name="sortDirection" value="descending">Descending
+      </label>
+    </div>
+  </div>
+  <input type="checkbox" name="status">Filter by funding<br>
+
+  <input type="submit" value="Sort" /> --}}
+
+</form>

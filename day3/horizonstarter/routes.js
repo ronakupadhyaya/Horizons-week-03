@@ -20,13 +20,92 @@ router.get('/create-test-project', function(req, res) {
   });
 });
 
+function edit(arr){
+  var temp =[];
+  for(var i=0; i<arr.length; i++){
+    temp[i] = arr[i].toObject();
+  }
+
+  //console.log(temp.length)
+  for(var i = 0; i<temp.length; i++){
+    var x = temp[i].contributions;
+    var sum = 0;
+    for(var j=0; j<x.length;j++){
+      sum += x[j].amount;
+    }
+    //console.log(sum);
+    temp[i]["total"] = sum;
+    //console.log(temp[i]);
+  }
+
+  return temp;
+}
+
+function check(obj){
+  return obj.total >= obj.goal;
+}
+
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, array){
-    res.render('index', {items: array});
-  });
+
+  if (req.query.sort && req.query.sort !== 'contributions') {
+    var sortObject = {};
+    if(req.query.sortDirection === 'descending'){
+      sortObject[req.query.sort] = -1;
+    }
+    else {
+      sortObject[req.query.sort] = 1;
+    }
+    Project.find().sort(sortObject).exec(function(err, array) {
+      // YOUR CODE HERE
+      console.log(Boolean(req.query.status));
+      if(Boolean(req.query.status)){
+        var temp = edit(array);
+        temp = temp.filter(check);
+        console.log(temp);
+        res.render('index', {items: temp});
+      }
+      else{
+        res.render('index', {items: array});
+      }
+    });
+  }
+  else if(req.query.sort && req.query.sort === 'contributions'){
+    Project.find(function(err, array) {
+
+      var temp = edit(array);
+      //console.log(temp);
+      if(req.query.sortDirection === 'descending'){
+        temp.sort(function(a,b){
+          return b.total - a.total;
+        });
+      }
+      else{
+        temp.sort(function(a,b){
+          return a.total - b.total;
+        });
+      }
+      //console.log(temp);
+      if(Boolean(req.query.status)){
+        temp = temp.filter(check);
+        console.log(temp);
+      }
+      res.render('index', {items: temp});
+    });
+  }
+  else {
+    Project.find(function(err, array){
+      res.render('index', {items: array});
+    });
+  }
+});
+
+router.post('/sort', function(req, res){
+  console.log(req.body);
+  res.redirect(`/?sort=${req.body.sort}&sortDirection=${req.body.sortDirection}&status=${Boolean(req.body.status)}`)
+
 });
 
 // Part 2: Create project
@@ -181,11 +260,12 @@ router.post('/project/:projectid/edit', function(req, res){
 
 
 
-  p.save(function(err){if(err){res.status(500).json(err);}
+    p.save(function(err){if(err){res.status(500).json(err);}
     res.redirect('/project/'+req.params.projectid)
   });
 
 });
 })
+
 
 module.exports = router;

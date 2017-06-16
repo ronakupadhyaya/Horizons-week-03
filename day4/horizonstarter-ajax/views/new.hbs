@@ -1,0 +1,29 @@
+<h2>Create project</h2>
+
+{{#if errors}}
+  <ul>
+    {{#each errors}}
+      <li>{{this.msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+<form method="POST" action="/new">
+  <input type="text" name="title" value="{{project.title}}" placeholder="Enter title here"><br><br>
+  <input type="text" name="goal" value="{{project.goal}}" placeholder="Enter goal here"><br><br>
+  <textarea name="description" value = "{{project.description}}" placeholder="Enter description here"></textarea><br><br>
+  <input type="date" name="start" value="{{project.start}}" placeholder="Enter start date here"><br><br>
+  <input type="date" name="end" value="{{project.end}}" placeholder="Enter end date here"><br><br>
+  <select name="category">
+      <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+      <option value="Current Black Presidents">Current Black Presidents</option>
+      <option value="The Pen Is Mightier">The Pen Is Mightier</option>
+      <option value="Famous Mothers">Famous Mothers</option>
+      <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+      <option value="1-Letter Words">1-Letter Words</option>
+      <option value="Months That Start With 'Feb'">Months That Start With "Feb"</option>
+      <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+      <option value="Potent Potables">Potent Potables</option>
+  </select><br><br>
+  <input type="submit" value="Submit" />
+</form>

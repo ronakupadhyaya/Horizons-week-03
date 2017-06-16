@@ -7,15 +7,59 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .input-group {padding: 5px 5px}
+    placeholder {text-align: center;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">First Name</span>
+      <input type="text" class="form-control" placeholder="Full Name">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Middle Initial</span>
+      <input type="text" class="form-control" placeholder="Middle Initial">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Last Name</span>
+      <input type="text" class="form-control" placeholder="Full Name">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Date of Birth</span>
+      <input type="date" class="form-control" placeholder="Full Name">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Password</span>
+      <input type="password" class="form-control" placeholder="Full Name">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Repeat Password</span>
+      <input type="password" class="form-control" placeholder="Full Name">
+    </div>
+
+    <form>
+        <label class="radio-inline">
+          <input type="radio" name="optradio">Male
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="optradio">Female
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="optradio">Prefer not to say
+        </label>
+      </form>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Sign up for Newsletter</span>
+      <input type="checkbox" class="form-control" placeholder="Full Name">
+    </div>
+    <div class="input-group input-group-md">
+      <span class="input-group-addon">Bio</span>
+      <input type="text" class="form-control" placeholder="Full Name">
+    </div><br>
+
     <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
         <input type="submit">
       </form>
     </div>
