@@ -11,12 +11,57 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <h1>Registration</h1>
+    <div><strong>
+        {{#each errors}}
+          <div class="alert alert-danger">
+            <strong>Error!</strong> {{msg}}
+          </div>
+        {{/each}}
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        <div class = "form-group">
+          <label for "fn">First name: </label>
+          <input type="text" class = "form-control" name="firstName"  value = "{{profile.firstName}}"id= "fn" required>
+        </div>
+        <div class = "form-group">
+          <label for "mi">Middle Initial: </label>
+          <input type="text" class = "form-control" id="mi" value = "{{profile.middleInitial}}" name="middleInitial">
+        </div>
+        <div class = "form-group">
+          <label for "ln">Last name: </label>
+          <input type="text" class = "form-control" name="lastName" value = "{{profile.lastName}}" id = "ln" required>
+        </div>
+        <div class = 'form-group'>
+          <label for "db">Date of Birth: </label>
+          <input type="date" class = "form-control" name="dob" value = "{{profile.dob}}" id "db">
+      </div>
+      <div class = "form-group">
+        <label for "pwd">Password: </label>
+        <input type="password"  class="form-control" name="password" value = "{{profile.password}}" id = "pwd" required>
+      </div>
+      <div class = "form-group">
+        <label for "pwd2">Repeat Password: </label>
+        <input type="password"class="form-control" name="repeatPassword" id = "pwd2" required>
+      </div>
+      <div class = "form-group">
+      <label>Gender:
+        <label class="radio-inline"><input type="radio" name="gender" value = "Male">Male</label>
+        <label class="radio-inline"><input type="radio" name="gender" value = "Female">Female</label>
+        <label class="radio-inline"><input type="radio" name="gender" value = "Rather not day">Rather not say</label>
+    </label>
+  </div>
+  <div class = "form-group">
+    <label>Sign me up for the newsletter.
+      <label class="checkbox-inline"><input type="checkbox" name= "newsletter" value="yes">Yes</label>
+      <label class="checkbox-inline"><input type="checkbox" name = "newsletter" value="no">No</label>
+    </label>
+    </div>
+    <div class = 'form-group'>
+      <label for "bio">Bio: </label>
+      <input type="textarea" class = "form-control" name="bio" value = "{{profile.bio}}" id= "bio">
+    </div>
+    <input type="submit" class= "btn-default">
       </form>
     </div>
   </div>

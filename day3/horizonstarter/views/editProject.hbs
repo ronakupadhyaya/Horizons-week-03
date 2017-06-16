@@ -3,16 +3,15 @@
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
-<form class = "form-group" method="POST" action="/new">
+<form class = "form-group" method="POST" action="/project/{{myProject._id}}/edit">
   <div class = "form-group">
     <label for "title">Project Title: </label>
-    <input type='text' class = "form-control" name="title" id= "title" value="{{project.title}}" placeholder="Title"/>
+    <input type='text' class = "form-control" name="title" id= "title" value="{{myProject.title}}"/>
   </div>
   <div class = "form-group">
   <label> Select a category: </label>
-  <select name="theRealCategory"class="form-control form-control-lg">
-    <option value = "" name = "category">Select a category</option>
-    <option value = "Famous Muppet Frogs" name = "category">Famous Muppet Frogs</option>
+  <select name="theRealCategory" class="form-control form-control-lg">
+    <option value = "" name = "category">{{myProject.category}}</option>
     <option value = "Famous Muppet Frogs" name = "category">Famous Muppet Frogs</option>
     <option value = 'Current Black Presidents' name = "category" >Current Black Presidents</option>
     <option value = 'The Pen Is Mightier' name = "category">The Pen Is Mightier</option>
@@ -26,19 +25,19 @@
 </div>
   <div class = "form-group">
     <label for "goal">Goal: </label>
-    <input type='text' id= "goal" class = "form-control" name="goal" value="{{project.goal}}" placeholder= "Goal"/>
+    <input type='text' class = "form-control" name="goal" id= "goal" value="{{myProject.goal}}"/>
   </div>
   <div class = "form-group">
-    <label for "desciption">Description: </label>
-    <textarea rows="4" id = "description" class = "form-control" cols="50" name = "description" value="{{project.description}}" placeholder="Description"></textarea>
+    <label >Description: </label>
+    <textarea rows="4" class = "form-control" cols="50" name = "description" value="">{{myProject.description}}</textarea>
   </div>
   <div class = "form-group">
     <label>Start Date: </label>
-    <input type='date'class = "form-control" name="start" id="date" value="{{project.end}}"placeholder="start date"/>
+    <input type='date'class = "form-control" name="start" id="date" value="{{myProject.start.getUTCYear()}}-{{myProject.start.getUTCMonth()}}-{{myProject.start.getUTCDate()}}"/>
   </div>
   <div class = "form-group">
     <label>End Date: </label>
-    <input type='date' class = "form-control" name="end" id="date" value="{{project.title}}" placeholder="end date"/>
+    <input type='date' class = "form-control" name="end" id="date" value="{{myProject.end}}"/>
   </div>
     <input type="submit" class = "form-control" name="" value="Submit">
   </form>

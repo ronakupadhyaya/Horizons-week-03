@@ -5,12 +5,37 @@
     <title>Counter</title>
   </head>
   <body>
-    <h1>Count: {{count}}</h1>
-    <form action="/up" method="post">
+    <h1>Count: <span id= "count">{{count}} </span> </h1>
+    <form action="/up" method="post" id= "up">
       <input type="submit" value="Up">
     </form>
-    <form action="/down" method="post">
+    <form id = "down" action="/down" method="post">
       <input type="submit" value="Down">
     </form>
   </body>
 </html>
+
+<script src='/jquery.js'></script>
+<script>
+$("#up").on("click", function(event){
+  event.preventDefault();
+  $.ajax({
+    url: "/down",
+    method: "post",
+    success: function(res){
+      $("#count").text(res.count)
+    }
+  });
+});
+
+$("#down").on("click", function(event){
+  event.preventDefault();
+  $.ajax({
+    url: "/up",
+    method: "post",
+    success: function(res){
+      $("#count").text(res.count)
+    }
+  });
+});
+</script>

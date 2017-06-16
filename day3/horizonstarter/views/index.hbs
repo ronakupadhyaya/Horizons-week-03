@@ -2,7 +2,34 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each items}}
+<div class = "jumbotron">
+  <div>
+    <label> Project title: </label>
+    <h4 id= "title">{{this.title}}</h4>
+  </div>
+  <div>
+  <label> Goal: </label>
+  <div>{{this.goal}}</div>
+</div>
+  <div>
+    <label> Description: </label>
+    <p>{{this.description}}</p>
+  </div>
+  <div>
+    <label> Start date: </label>
+    <date>{{this.start}}</date>
+  </div>
+  <div>
+    <label> End date: </label>
+    <date>{{this.end}}</date>
+  </div>
+  <div> {{contributions}}</div>
+  <div> {{_id}}</div>
+  <div> {{this.category}}</div>
+</div>
+</div>
+{{/each}}
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>
