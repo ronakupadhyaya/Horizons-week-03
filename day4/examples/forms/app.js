@@ -32,7 +32,7 @@ app.get('/', function(req, res){
 // It contains an HTML form that should be posted back to
 // the server.
 app.get('/register', function(req, res){
-  res.render('register');
+  res.render('register'); 
 });
 
 // POST /register
@@ -45,21 +45,22 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  req.check('firstName', 'Please enter first name!').notEmpty();
-  req.check('middleInitial', 'Please enter middle initial!').isLength({
+  /*req.checkBody('firstName', 'Please enter first name!').notEmpty();
+  req.checkBody('middleInitial', 'Please enter middle initial!').isLength({
     max: 1
   });
-  req.check('lastName', 'Please enter last name!').notEmpty();
-  req.check('dateOfBirth', 'Please enter date of birth!').isBefore(req.body.dateOfBirth, new Date());
-  req.check('password', 'Please enter password!').notEmpty();
-  req.check('repeatPassword', 'Please reenter password!').notEmpty();
-  req.check('repeatPassword', 'Please reenter password!').equals(req.body.password);
-  req.check('gender', 'Please mark gender!').notEmpty();
-  req.check('newsletter', 'Sign up for newsletter!').notEmpty();
+  req.checkBody('lastName', 'Please enter last name!').notEmpty();
+  */
+  req.checkBody('dateOfBirth', 'Please enter date of birth!').isBefore();
+  /*req.checkBody('password', 'Please enter password!').notEmpty();
+  req.checkBody('repeatPassword', 'Please reenter password!').notEmpty();
+  req.checkBody('repeatPassword', 'Please reenter password!').equals(req.body.password);
+  req.checkBody('gender', 'Please mark gender!').notEmpty();
+  req.checkBody('newsletter', 'Sign up for newsletter!').notEmpty();
+  */
 
-  var errors = req.validateErrors(); // YOUR CODE HERE - Get errors from express-validator here
-
-  
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+  console.log(errors);
   if (errors) {
     res.render('register', {errors: errors});
   } else {

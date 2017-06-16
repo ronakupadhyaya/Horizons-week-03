@@ -22,12 +22,36 @@ router.get('/create-test-project', function(req, res) {
 
 // Part 1: View all projects
 // Implement the GET / endpoint.
-router.get('/', function(req, res) {
-  Project.find(function(err, projects) {
-    res.render('index', {
-      projects: projects
+router.get('/', function (req, res) {
+  if (req.query.sort) {
+    var sortObject = {};
+    sortObject[req.query.sort] = 1;
+    if (req.query.sortDirection === 'descending') {
+      sortObject[req.query.sort] = -1;
+    }
+    Project.find().sort(sortObject).exec(function (err, projects) {
+      if (err) {
+        console.log("ERROR: " + err);
+      }
+      else {
+        res.render('index', {
+          projects: projects
+        });
+      }
     });
-  })
+  }
+  else {
+    Project.find(function(err, projects) {
+      if (err) {
+        console.log("ERROR: " + err);
+      }
+      else {
+        res.render('index', {
+          projects: projects
+        });
+      }
+    })
+  }
 });
 
 // Part 2: Create project
@@ -46,8 +70,10 @@ router.post('/new', function(req, res) {
     goal: req.body.goal,
     description: req.body.description,
     start: req.body.start,
-    end: req.body.end
+    end: req.body.end,
+    category: req.body.category
   });
+  console.log("CATEGORY: " + newProj.category)
   newProj.save(function(err, project) {
     if(err) {
       res.redirect('/');
@@ -62,20 +88,24 @@ router.post('/new', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
-  var id = req.params.projectid;
+  var id = req.params.projectid; 
   Project.findById(id, function(err, proj) {
     var sum;
     if (!proj.contributions) {
       sum = 0;
     }
     else {
-      sum = proj.contributions.reduce(function(a, b) {
-              return parseInt(a.amount) + parseInt(b.amount);
-            });
+      sum = 0;
+      proj.contributions.forEach(function(element) {
+        sum += parseInt(element.amount);
+      });
     }
     res.render('project', {
       project: proj,
-      totalContributions: sum
+      id: id,
+      totalContributions: sum,
+      percent: sum / proj.goal * 100,
+      contributions: proj.contributions
     })
   });
 });
@@ -85,17 +115,14 @@ router.get('/project/:projectid', function(req, res) {
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
   var id = req.params.projectid;
-  console.log("THE ID IS:" + req.params.projectid);
-  /*Project.findById(id, function(err, proj) {
+  Project.findById(id, function(err, proj) {
     if (err) {
-      console.log(err)
+      console.log(err);
     }
-    console.log(proj);
-    proj[0].contributions.push({
+    proj.contributions.push({
       name: req.body.name,
       amount: req.body.amount
     });
-    console.log("FIRST CHECK:", proj.contributions);
     proj.save(function (err) {
       if (err) {
         res.redirect('/');
@@ -104,13 +131,59 @@ router.post('/project/:projectid', function(req, res) {
         res.redirect('/');
       }
     });
-    console.log("SECOND CHECK", proj.contributions);
   });
-  */
 });
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res) {
+  var id = req.params.projectid;
+  console.log(id);
+  Project.findById(id, function(err, proj) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(proj);
+    res.render('editProject', {
+      project: proj,
+      start: (proj.start.getMonth() + 1).toString + (proj.start.getDay()).toString + (proj.start.getFullYear()).toString,
+      id: id,
+    });
+  })
+})
 // Create the POST /project/:projectid/edit endpoint
+router.post('/project/:projectid/edit', function (req, res) {
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+  }, function (err) {
+    console.log(err);
+    res.redirect('/project/' + req.params.projectid);
+    });
+})
 
+router.post('/api/project/:projectid/contribution', function(req, res) {
+  var id = req.params.projectid;
+  Project.findById(id, function(err, proj) {
+    if (err) {
+      return new Error("FUCK!!!");
+    }
+    proj.contributions.push({
+      name: req.body.name,
+      amount: req.body.amount
+    });
+    proj.save(function (err) {
+      if (err) {
+        res.redirect('/');
+      }
+      else {
+        res.json();
+      }
+    });
+  });
+})
 module.exports = router;

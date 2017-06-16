@@ -31,7 +31,7 @@
       </div>
       <div class="form-group">
         <label for="dateOfBirth">DOB</label>
-        <input type="text" name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="mm/dd/yyyy">
+        <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="mm/dd/yyyy">
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -79,7 +79,12 @@
         <button type="submit" class="btn" style="background-color:orange">Submit</button>
       </div>
     </form>
-    <div style="color: white"><strong>Errors:</strong>{{errors}}</div>
+    <div style="color: white">
+      <strong>Errors:</strong>
+      {{#each errors}}
+        {{this.msg}}
+      {{/each}}
+    </div>
     <div class="row">
       <form action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>

@@ -8,9 +8,10 @@
 <div>description: {{project.description}}</div>
 <div>start: {{project.start}}</div>
 <div>end: {{project.end}}</div>
+<div>category: {{project.category}}</div>
 
 <!-- Part 4: Contribute to a project -->
-<form method="POST" action="/project/:projectid">
+<form method="POST" action="/project/{{id}}">
     <input type="text" name="name" placeholder="name">
     <input type="text" name="amount" placeholder="amount">
     <input type="submit" name="submit" value="contribute">
@@ -18,5 +19,23 @@
 
 <!-- YOUR CODE HERE -->
 <div> 
-    {{totalContributions}}
+    total contributions: {{totalContributions}}
 </div>
+<div>
+    percent of goal:
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+            {{percent}}%
+        </div>
+    </div>
+</div>
+<div>
+    CONTRIBUTORS:
+    <div>
+        {{#each contributions}}
+            <div>name: {{this.name}}</div>
+            <div>amount: {{this.amount}}</div>
+        {{/each}}
+    </div>
+</div>
+
