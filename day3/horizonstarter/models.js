@@ -10,18 +10,18 @@ var Project = mongoose.model('Project', {
     required: true
   },
   goal : {
-    type: String,
+    type: Number,
     required: true
   },
   description : {
     type: String,
   },
   start : {
-    type: String,
+    type: Date,
     required: true
   },
   end : {
-    type: String,
+    type: Date,
     required: true
   },
   contributions : {

@@ -8,11 +8,35 @@ var strftime = require('strftime');
 
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, array) {
+  var sortObject = {};
+  var sortType = req.query.sort || 'start'
+  var sortDirection = req.query.sortDirection || "ascending"
+  var fundedBool = req.query.funded
+
+  if(sortType==='totalContribution') {
+    Project.find(function(err, array){
+      if(err)console.log(err);
+      sortByTotalContribution(array, sortDirection);
+      render(array)
+    });
+  } else {
+    sortObject[sortType] = sortDirection==='descending' ? -1 : 1;
+    Project.find().sort(sortObject).exec(function(err, array) {
+      if(err)console.log(err);
+      render(array)
+    });
+  }
+  function render(array) {
+    if(fundedBool) {
+      fundedBool = JSON.parse(req.query.funded);
+      applyFundingFilter(array, fundedBool)
+    }
     res.render('index', {
-      projects: array
+      projects: array,
+      sort_direction: sortDirection,
+      sort_type: sortType
     })
-  })
+  }
 });
 
 // Implement the GET /new endpoint
@@ -57,9 +81,7 @@ router.post('/new', function(req, res) {
     })
     project.save(function(err) {
       console.log("Saved project: ", project.title);
-      if (err) {
-        console.log("Error saving project");
-      }
+      if (err) console.log("Error saving project", err);
       res.redirect('..')
     })
   }
@@ -69,7 +91,9 @@ router.post('/new', function(req, res) {
 router.get('/project/:projectid', function(req, res) {
   Project.findById(req.params.projectid, function(err, found) {
     res.render('project', {
-      project: found
+      project: found,
+      totalContribution: totalContribution(found),
+      percentage: 100*totalContribution(found)/found.goal
     })
   })
 })
@@ -77,14 +101,10 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   Project.findById(req.params.projectid, function(err, found) {
-    if (err) {
-      console.error(err);
-    }
-    found.contributions.push({name:req.body.name,amount:req.body.amount})
+    if (err) console.error(err);
+    found.contributions.push({name:req.body.name,amount:parseInt(req.body.amount)})
     found.save(function(err) {
-      if (err) {
-        console.log(err);
-      }
+      if (err) console.log(err);
       res.redirect('#')
     })
   })
@@ -109,9 +129,54 @@ router.get('/project/:projectid/edit', function(req, res) {
 })
 
 // Create the POST /project/:projectid/edit endpoint
-router.post('project/:projectid/edit', function(req, res) {
-  
+router.post('/project/:projectid/edit', function(req, res) {
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+  }, function(err) {
+    if (err) console.log(err);
+  })
 })
+
+// Utility funcitons
+
+// Calculate total contribution to a project
+function totalContribution(project) {
+  var total = 0
+  project.contributions.forEach(function(donation){
+    total += donation.amount
+  })
+  return total
+}
+// Sort an array of projections by the sum of the contributions
+function sortByTotalContribution(arr, direction) {
+  arr.sort(function(a,b) {
+    return totalContribution(a) + totalContribution(b)
+  })
+  if (direction==="descending") {
+    arr.reverse()
+  }
+}
+// Apply a funding filter
+// fundedBool is true for filtering out un-funded projects
+function applyFundingFilter(array, fundedBool) {
+  var length = array.length
+  var index = 0
+  for (index; index < length; ){
+    var project = array[index]
+    if (totalContribution(project)>=project.goal && !fundedBool ||
+        totalContribution(project)<=project.goal && fundedBool) {
+      array.splice(index,1)
+      length--
+    } else {
+      index++
+    }
+  }
+}
 
 
 module.exports = router;

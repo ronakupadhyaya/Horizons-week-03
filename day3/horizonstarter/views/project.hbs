@@ -1,11 +1,12 @@
 <h1>View Project</h1>
+<button onclick="window.history.back()">Go Back</button>
 
 <!-- Part 3: View a single project -->
 <hr>
 <div class="single-project">
   Title : {{project.title}}
   <br>
-  Goal: {{project.goal}}
+  Goal: ${{project.goal}}
   <br>
   Description: {{project.description}}
   <br>
@@ -15,20 +16,23 @@
   <br>
   Category: {{project.category}}
 </div>
+<button onclick="window.location.href = window.location+'/edit'">Edit</button>
+
 
 <hr>
-<div>Contributions!</div>
 <div class="progress">
   <div class="progress-bar progress-bar-striped active" role="progressbar"
-  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-    40%
+  aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+    {{percentage}}%
   </div>
 </div>
+
+<p>Total Donations are ${{totalContribution}} out of ${{project.goal}}</p>
 
 <div class="contributions">
   {{#each project.contributions}}
     <ul>
-      <li>{{this.name}}: {{this.amount}}</li>
+      <li>{{this.name}}: ${{this.amount}}</li>
     </ul>
   {{/each}}
 </div>

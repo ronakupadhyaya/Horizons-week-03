@@ -1,13 +1,61 @@
 <h1>View projects</h1>
-
+<hr>
 <!-- Part 1: View all projects -->
-{{#each projects}}
-  <div class="project">
-    <p>{{this.title}}</p>
-  </div>
-{{/each}}
+<div class="projects">
+  {{#each projects}}
+    <div class="project" id="{{this.id}}">
+      <h2>{{this.title}}</h2>
+      <h6>{{this.start}}</h6>
+      <p>{{this.description}}</p>
+    </div>
+  {{/each}}
+</div>
+
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<hr>
 
 <a href="/new">Create New Project</a>
+<hr>
+<div class="view-options">
+  <button type="button" name="Sort By Goal">
+    <a href="/?sort=goal&amp;sortDirection={{sort_direction}}">Sort by Goal</a>
+  </button>
+  <button type="button" name="Sort By Start">
+    <a href="/?sort=start&amp;sortDirection={{sort_direction}}">Sort by Start Date</a>
+  </button>
+  <button type="button" name="Sort By End">
+    <a href="/?sort=end&amp;sortDirection={{sort_direction}}">Sort by End Date</a>
+  </button>
+  <button type="button" name="Sort By Total Contribution">
+    <a href="/?sort=totalContribution&amp;sortDirection={{sort_direction}}">Sort by Contribution</a>
+  </button>
+</div>
+<hr>
+<div class="sort-options">
+  <button type="button" name="Sort Ascending">
+    <a href="/?sort={{sort_type}}&amp;sortDirection=ascending">Sort Ascending</a>
+  </button>
+  <button type="button" name="Sort Descending">
+    <a href="/?sort={{sort_type}}&amp;sortDirection=descending">Sort Descending</a>
+  </button>
+</div>
+<hr>
+<div class="funding-options">
+  <button type="button" name="Show Only Funded">
+    <a href="#">Show Only Funded</a>
+  </button>
+  <button type="button" name="Show Only Unfunded">
+    <a href="#">Show Only Unfunded</a>
+  </button>
+  <button type="button" name="Show All">
+    <a href="#">Show All</a>
+  </button>
+</div>
+<hr>
+<div class="clear-all-filter">
+  <button type="button" name="Clear Filter">
+  <a href="#">Clear filters</a>
+</button>
+</div>
