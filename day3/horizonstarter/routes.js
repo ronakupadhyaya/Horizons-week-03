@@ -51,19 +51,21 @@ router.post('/new', function(req, res) {
     goal:req.body.goal,
     description:req.body.description,
     start:req.body.start,
-    end:req.body.end
+    end:req.body.end,
+    category:req.body.category
 
   })
 
   project.save(function(err,saved){
-    if(err){console.log(err)
+    if(err){
       res.render('new',{
       Eror:err,
       title:req.body.title,
       goal:req.body.goal,
       description:req.body.description,
       start:req.body.start,
-      end:req.body.end
+      end:req.body.end,
+      category:req.body.category
     })}else{
       res.redirect('/');
     }
@@ -92,6 +94,7 @@ router.post('/project/:projectid', function(req, res) {
   var amant=req.body.amount;
   var id=req.params.projectid;
 
+
   Project.findById(id,function(err,proj){
     if(err){ console.log(err)}else{
 
@@ -107,6 +110,7 @@ router.post('/project/:projectid', function(req, res) {
         var percentage= totalCont*100/proj.goal;
 
         var contr=proj.contributions;
+        console.log('pppp',percentage)
         res.render('project',{
           perc:percentage,
           contr:contr,
@@ -120,7 +124,102 @@ router.post('/project/:projectid', function(req, res) {
 });
 
 // Part 6: Edit project
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+  var id=req.params.projectid;
+  Project.findById(id,function(err, proj){
+    var st=new Date(proj.start);
+    var nd=new Date(proj.end);
+   console.log("rrrrrr",req.params.projectid)
+    if(err){console.log('error')}else{
+      res.render('editProject',{
+        title:proj.title,
+        goal:proj.goal,
+        description:proj.description,
+        start:st.toISOString().substring(0,10),
+        end:nd.toISOString().substring(0,10),
+        category:proj.category,
+        projectid:id
+      });
+    }
+
+  });
+
+
+
+});
+
+router.post('/project/:projectid/edit', function(req, res){
+
+  Project.findByIdAndUpdate(req.params.projectid,{
+    title:req.body.title,
+    goal:req.body.goal,
+    description:req.body.description,
+    start:req.body.start,
+    end:req.body.end,
+    category:req.body.category
+  },function(err){
+    if(err){
+      console.log(err);
+      res.render('editProject',{
+        title:req.body.title,
+        goal:req.body.goal,
+        description:req.body.description,
+        start:req.body.start,
+        end:req.body.end,
+        category:req.body.category,
+        projectid:req.params.projectid
+      });
+
+  }else{
+
+      res.redirect('/');
+
+    }
+  })
+
+});
+// router.get('/:sort',function(req,res){
+//   if (req.query.sort) {
+//   var sortObject = {};
+//   sortObject[req.query.sort] = 1;
+//   Project.find().sort(sortObject).exec(function(err, array) {
+//     // YOUR CODE HERE
+//   });
+// }
+// })
+
+
+router.post('/api/project/:projectid/contribution', function(req, res) {
+  var id=req.params.projectid;
+
+  Project.findById(id,function(err,proj){
+    if(err){ console.log(err)}else{
+
+      proj.contributions.push(req.body.contrib);
+      proj.save(function(err,update){if(err){
+
+      }else{
+        var totalCont=0;
+        proj.contributions.forEach( function(con){
+          totalCont+=con.amount;
+        })
+        var percentage= totalCont*100/proj.goal;
+
+        var contr=proj.contributions;
+
+
+
+        res.json(contr);
+        // res.render('project',{
+        //   perc:percentage,
+        //   contr:contr,
+        //   totC:totalCont,
+        //
+        // })
+      }
+      })
+    }
+  });
+});
 
 module.exports = router;

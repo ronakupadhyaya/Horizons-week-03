@@ -9,10 +9,10 @@
   Description:{{proj.description}}<br>
   Start:{{proj.start}}<br>
   End: {{proj.end}}<br>
+  Category:{{proj.category}}<br>
 
 
 </div>
-
 
 
 <!-- YOUR CODE HERE -->
@@ -21,9 +21,9 @@
 
 <h2> Contribute </h2>
 <form method="POST">
-  Name: <input type="text" name="name" value=""><br>
-  Amount: <input type="text" name="amount" value=""><br>
-  <input type="submit" name="submit" value="Donate"><br>
+  Name: <input id="nm" type="text" name="name" value=""><br>
+  Amount: <input id="mt" type="text" name="amount" value=""><br>
+  <button id="sc">Add Contribution</button><br>
 
 </form>
 
@@ -33,7 +33,7 @@
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow={{perc}}
   aria-valuemin="0" aria-valuemax="100" style="width:{{perc}}%">
-    <span class="sr-only">{{perc}} Complete</span>
+  {{perc}}% Complete
   </div>
 </div>
 
@@ -42,3 +42,65 @@
   <span> Name: {{this.name}}, Amount: {{this.amount}} </span><br>
   {{/each}}
 </div>
+
+<script type="text/javascript">
+
+
+$( document ).ready(function() {
+$('#sc').on('click',function(event){
+  event.preventDefault();
+  sendContribution();
+});
+
+sendContribution= function(){
+
+  var newContribution = {
+    name: $('#nm').val(),
+    amount:$('#mt').val()
+};
+
+
+
+  $.ajax({
+    url:'/api/project/{{proj._id}}/contribution',
+    method:'post',
+    data:{contrib:
+      newContribution},
+    success:function(res){
+      var totalCont=0;
+      console.log(res)
+      res.forEach( function(con){
+        totalCont+=con.amount;
+      })
+      var percentage= totalCont*100/{{proj.goal}};
+      console.log("ppperr",percentage);
+
+      $('.progress-bar').css("width",percentage+"%");
+
+      //$('body').append('<h1>yash</h1>')
+    },
+    failure:function(err){
+      console.log(err)
+    }
+  })
+
+};
+
+showFlashMessage=function(yy){
+
+};
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

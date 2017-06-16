@@ -7,10 +7,41 @@
   <body>
     <h1>Count: {{count}}</h1>
     <form action="/up" method="post">
-      <input type="submit" value="Up">
+      <input id="up" type="submit" value="Up">
     </form>
-    <form action="/down" method="post">
-      <input type="submit" value="Down">
+    <form  action="/down" method="post">
+      <input id="down"type="submit" value="Down">
     </form>
+
+    <script>
+    $('#up').on('click',function(event){
+      event.preventdefault();
+      $.ajax({
+        url:'/up',
+        method:'post',
+        data:{
+          count:count
+        },
+        success:function(res){
+          $('h1').text(count);
+        }
+      })
+    })
+
+    $('#down').on('click',function(event){
+      event.preventdefault();
+      $.ajax({
+        url:'/down',
+        method:'post',
+        data:{
+          count:count
+        },
+        success:function(res){
+          $('h1').text(count);
+        }
+      })
+    })
+
+    </script>
   </body>
 </html>
