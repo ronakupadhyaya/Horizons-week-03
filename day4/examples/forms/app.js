@@ -44,16 +44,46 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.checkBody('firstName', 'You need to enter your first name').notEmpty();
+  req.checkBody('lastName', 'You need to enter your last name').notEmpty();
+  req.checkBody('password', 'You need to enter a password').notEmpty();
+  req.checkBody('doB', 'Must be a date in the past').isInPast(req.body.doB);
+  req.checkBody('passwordConf', 'Make sure you confirm the same password!').notEmpty().isEqual(req.body.password, req.body.passwordConf);
+  req.checkBody('gender', 'Please specify your gender').notEmpty();
+  req.checkBody('newsletter', 'Sign up for the newsletter').notEmpty();
+  var gender = req.body.gender;
+  console.log(gender)
+
+  var profile = {
+    firstName: req.body.firstName,
+    middleInitial: req.body.middleInitial,
+    lastName: req.body.lastName,
+    doB: req.body.doB,
+    password: req.body.password,
+    gender: gender,
+    newsletter: req.body.newsletter,
+    bio: req.body.bio
+  }
+
+  var errors = req.validationErrors();
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', {errors: errors, profile: profile});
   } else {
     // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', profile);
   }
 });
+
+app.use(expressValidator({
+ customValidators: {
+    isEqual: function(value1, value2) {
+        return value1===value2;
+    },
+    isInPast: function(date){
+      return date.valueOf() < Date.now();
+    }
+ }
+}));
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");

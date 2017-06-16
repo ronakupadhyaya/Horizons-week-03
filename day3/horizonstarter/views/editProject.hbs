@@ -1,22 +1,21 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-<!-- Part 2: Create project -->
 {{#each errors}}
   {{this.msg}}
 {{/each}}
-<form action="/new" method="post">
+<form action="/project/{{project._id}}/edit" method="post">
   <label for="title"> Title </label>
   <input type="text" name="title" value="{{project.title}}">
   <label for="goal">Goal</label>
   <input type="text" name="goal" value="{{project.goal}}">
   <label for="description"> Description </label>
-  <textArea rows="4" cols="50" name="description"></textArea>
+  <textArea rows="4" cols="50" name="description">{{project.description}}</textArea>
   <label for="start"> Start Date </label>
   <input type="date" name="start" value="{{project.start}}">
   <label for="end"> End Date </label>
   <input type="date" name="end" value="{{project.end}}">
   <label for="category"> Category </label>
-  <input list="category" name="category" value="{{project.category}}">
+  <input list="category" name="category" placeholder="{{project.category}}">
   <datalist id="category">
     <option value="Famous Muppet Frogs">
     <option value="Current Black Presidents">
@@ -24,9 +23,9 @@
     <option value="Famous Mothers">
     <option value="Drummers Named Ringo">
     <option value="1-Letter Words">
-    <option value="Months That Start With "Feb"">
+    <option value="Months That Start With 'Feb'">
     <option value="How Many Fingers Am I Holding Up">
     <option value="Potent Potables">
   </datalist>
-  <input type="submit" class="button" value"Submit">
+  <input type="submit" class="button" value="Save Edits">
 </form>

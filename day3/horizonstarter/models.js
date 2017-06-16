@@ -6,8 +6,33 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project', {
   title: {
     type: String,
-  }
-  // YOUR CODE HERE
+    required: true
+  },
+  goal: {
+    type: Number,
+    required: true
+  },
+  description: String,
+  start: {
+    type: Date,
+    required: true
+  },
+  end: {
+    type: Date,
+    required: true
+  },
+  contributions: [{
+    name: String,
+    amount: Number
+  }],
+  category: {
+    type: String,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+            'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words',
+            'Months That Start With "Feb"', 'How Many Fingers Am I Holding Up', 'Potent Potables'],
+    required: true
+  },
+  totalContributions: Number
 });
 
 module.exports = {

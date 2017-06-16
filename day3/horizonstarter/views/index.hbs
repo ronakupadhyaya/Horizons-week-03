@@ -1,8 +1,51 @@
-<h1>View projects</h1>
+<body>
+  <div id="new-project">
+    <a href="/new">Create a new project</a><br>
+    <a href="/?filter=fullyFunded">View fully funded projects</a><br>
+    <a href="/?filter=partiallyFunded">View partially funded projects</a>
+  </div>
+  {{#each projects}}
+    <div class="col-xs-offset-0 col-xs-3">
+      <h3>
+        {{this.title}}
+      </h3>
+      {{this.description}}
+      <br>
+      Start Date: {{this.start}}
+      <br>
+      End Date: {{this.end}}
+      <br>
+      Goal: {{this.goal}}
+      <br>
+      Total: {{this.totalContributions}}
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+      <a href="/project/{{this._id}}"> View </a>
+      <a href="/project/{{this._id}}/edit"> Edit </a>
+    </div>
+  {{/each}}
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
-<a href="/new">Create a new project</a>
+  <div class="dropdown col-xs-offset-4 col-xs-6">
+    <button class="btn btn-default dropdown-toggle" type="button" id="sort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort Criteria
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="sort">
+      <li><a href="/?sort=start">Start Date</a></li>
+      <li><a href="/?sort=end">End Date</a></li>
+      <li><a href="/?sort=goal">Goal Amount</a></li>
+      <li><a href="/?sort=totalContribution">Total Contribution</a></li>
+    </ul>
+  </div>
+
+  <div class="dropdown col-xs-offset-4 col-xs-6">
+    <button class="btn btn-default dropdown-toggle" type="button" id="direction" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort Direction
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="direction">
+      <li><a href="/?sortDirection=ascending">Ascending</a></li>
+      <li><a href="/?sortDirection=descending">Descending</a></li>
+    </ul>
+  </div>
+
+</body>

@@ -1,3 +1,29 @@
 body {
   padding: 10px;
 }
+
+<style>
+  .project-card{
+    margin: 55px;
+    background-color: rgba(43, 222, 115, 0);
+    font-size: 15px;
+  }
+
+  header{
+    background-color: rgb(43, 222, 115);
+    height: 70px;
+    margin: -10px;
+    color: white;
+    font-family: arial;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+  }
+
+  #new-project{
+    background-color: rgb(230, 235, 246);
+    width: 140px;
+    border-radius: 4px;
+  }
+
+</style>
