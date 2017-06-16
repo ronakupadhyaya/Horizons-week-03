@@ -34,69 +34,11 @@ router.get('/create-test-project', function(req, res) {
 //sort=end&sortDirection=ascending
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  if (!req.query.sort && !req.query.filter) {
-    Project.find(function(err,task) {
-      res.render('index',{
-        projects: task
-      });
+  Project.find(function(err,task) {
+    res.render('index',{
+      projects: task
     });
-  } else if (req.query.sort){
-    if (req.query.sortDirection) {
-      var sortObject = {};
-      sortObject[req.query.sort] = req.query.sortDirection;
-      if (req.query.sort === 'contribution') {
-        var allObj = [];
-        Project.find(function(err,obj) {
-          allObj = obj;
-          var sortedObj = underscore.sortBy(allObj,function(proj){
-            var totalCon = 0;
-            proj.contributions.forEach(function(obj) {
-              totalCon+=obj.amount;
-            });
-            return totalCon;
-          });
-          if (req.query.sortDirection === 'descending') {
-            sortedObj = sortedObj.reverse();
-          }
-          res.render('index',{
-            projects:sortedObj
-          });
-        });
-      } else {
-        Project.find({}).sort(sortObject).exec(function(err, array) {
-          res.render('index',{
-            projects: array
-          });
-        });
-      }
-    }
-  } else if (req.query.filter) {
-    var allObj = [];
-    Project.find(function(err,obj) {
-      allObj = obj;
-      var afterFilt = underscore.filter(allObj,function(proj) {
-        var totalCon = 0;
-        proj.contributions.forEach(function(obj) {
-          totalCon+=obj.amount;
-        });
-        if (req.query.filter === 'fully') {
-          return totalCon/proj.goal >= 1;
-        } else {
-          return totalCon/proj.goal < 1;
-        }
-      })
-      res.render('index', {
-        projects: afterFilt
-      })
-    })
-  }
-});
-
-// Part 2: Create project
-// Implement the GET /new endpoint
-router.get('/new', function(req, res) {
-  // YOUR CODE HERE
-  res.render('new');
+  });
 });
 
 // Part 2: Create project
@@ -260,6 +202,62 @@ router.post('/api/project/:projectId/contribution',function(req,res) {
         });
       }
     }
+  });
+});
+
+router.get('/api/projects',function(req,res) {
+  console.log(req.query)
+  var funded = req.query.funded;
+  var sort = req.query.sort;
+  var sortDirection = req.query.sortDirection;
+  console.log(req.query.funded,req.query.sort,req.query.sortDirection)
+  var allObj = [];
+  Project.find(function(err,obj) {
+    allObj = obj;
+    var afterFilt = underscore.filter(allObj,function(proj) {
+      var totalCon = 0;
+      proj.contributions.forEach(function(obj) {
+        totalCon+=obj.amount;
+      });
+      if (funded === 'true') {
+        return totalCon/proj.goal >= 1;
+      } else if (funded === 'false') {
+        return totalCon/proj.goal < 1;
+      } else if (funded === undefined) {
+        return true;
+      }
+    })
+    if (req.query.sort){
+      var sortDirection = req.query.sortDirection;
+      var afterSort = [];
+      if (req.query.sort === "amountFunded") {
+        var afterSort = underscore.sortBy(afterFilt,function(proj){
+          var totalCon = 0;
+          proj.contributions.forEach(function(obj) {
+            totalCon+=obj.amount;
+          });
+          return totalCon;
+        });
+        console.log("amountFunded")
+      } else if (req.query.sort === "percentageFunded"){
+        var afterSort = underscore.sortBy(afterFilt,function(proj){
+          var totalCon = 0;
+          proj.contributions.forEach(function(obj) {
+            totalCon+=obj.amount;
+          });
+          return totalCon/proj.goal;
+        });
+        console.log("percentageFunded")
+      } else {
+        res.json({error:error})
+      }
+      if (req.query.sortDirection === 'descending') {
+        afterSort = afterSort.reverse();
+      }
+    } else {
+      afterSort = afterFilt;
+    }
+    res.json({projects:afterSort});
   });
 });
 
