@@ -22,20 +22,31 @@ For this exercise, *you do not need to implement versioning*. This means that yo
 
 > Tip of the day: Indent your code! #bestpractices 😄
 
-## Guidelines
+## 🚨 Testing 🚨
 
-### Setup project
-1. `npm init` in a **new** folder to create a project
+Test your code early and often to make sure it works as you write it.
+In this exercise it will be up to you to break down tasks in order to attempt
+them in bite sized chunks.
+
+Once you have express running, use Postman to make requests to your API endpoints and verify that they
+return the correct results.
+
+## Instructions
+
+### Part 1. Setup project
+
+1. Go to `week03/day5/fb-backend`
+1. Edit `week03/day5/fb-backend/app.js`
+1. `npm install` nessary packages.
 1. Install nodemon: `npm install -g nodemon` (if you haven't already done so)
-1. Next, add a start script in your `package.json` so that you can run nodemon by doing `npm start`:
 
-	```
-	"start": "nodemon app.js"
-	```
-1. Create a new `app.js` file and this is where you will write your code
-1. You will need to `npm install` dependencies as you come across them
+    On a Mac, if you get an error you might need to run `sudo npm install -g
+    nodemon`
+1. Start your application by running `nodemon`
 
-### Create Mongo database
+---
+
+### Part 2. MongoDb
 
 ##### Option 1 (Recommended): Use your existing mlab account
 
@@ -46,68 +57,62 @@ For this exercise, *you do not need to implement versioning*. This means that yo
 ##### Option 2 (Advanced): If you already have mongodb installed on your machine, feel free to use that!
 
 
-### Connect using mongoose
-- Make a connection to your database and test that you are able to connect, read, and write.
+#### Connect Mongoose
 
-### Create models
+1. Create an `env.sh` file
+
+    ```bash
+    export MONGODB_URI=YOUR MONGO URI HERE
+    ```
+1. Edit `app.js` and connect to MongoDB
+
+    ```javascript
+    mongoose.connect(process.env.MONGODB_URI);
+    ```
+
+#### Create models
 
 > TIP: Remember to use singular form of words when creating models. e.g. `mongoose.model('SINGULAR', mySchema)`
 
-- We will create three different files:
-	- `token.js`: mongoose model definition for tokens. Here's the schema for the mongoose model `token`:
+Edit `app.js` and add some models.
 
-	  ```javascript
-	  {
-	      userId: String,
-	      token: String,
-	      createdAt: Date
-	  }
-	  ```
-	- `user.js`: mongoose model definition for users. Here's the schema for the mongoose model `user`:
+- Create a mongoose model for `token` with the following schema:
 
+    ```javascript
+    {
+        userId: String,
+        token: String,
+        createdAt: Date
+    }
+    ```
 
-	  ```javascript
-	  {
-	      fname: String,
-	      lname: String,
-	      email: String,
-	      password: String
-	  }
-	  ```
-	- `post.js`: mongoose model definition for posts. Here's the schema for the mongoose model `post`:
+- Create a mongoose model for `user` with the following schema:
 
+    ```javascript
+    {
+        fname: String,
+        lname: String,
+        email: String,
+        password: String
+    }
+    ```
 
-	  ```javascript
-	  {
-	      poster: Object,
-	      content: String,
-	      likes: Array,
-	      comments: Array,
-	      createdAt: Date
-	  }
-	  ```
-- Place the three files in a folder called `/models` in your node project
-- Remember to require these files correctly in order for you to access these model definitions
+- Create a mongoose model for `post` with the following schema:
 
-### Tokenization (Implement this after you are done with /api/users/register)
-You will use tokens to authenticate users. Recall `/week02/day5` where we received a unique token from the `POST /api/users/login` route and stored it in `localStorage` on the browser. Once the token was stored, we included it in every request that required authentication (annotated by the 🔒 symbol).
+    ```javascript
+    {
+        poster: Object,
+        content: String,
+        likes: Array,
+        comments: Array,
+        createdAt: Date
+    }
+    ```
 
-To add tokenization functionality follow these recommended steps:
+---
 
-##### Login
-1. In the `POST /api/users/login` callback function, add logic to create a unique token for the user currently logging in.
-  	- A token contains user information so that a username does not have to be passed through every time a request is made.
-  	- We suggest making your `token` field in your Token object `username + new Date()` to guarantee uniqueness.
-  	- Set the `userId` field on the Token object to the `_id` of the user that is currently logging in.
-1. Save this `token` to your mongo database.
+### Part 3. Users
 
-##### Logout
-1. In the `POST /api/users/logout` callback function you should search for the given token and remove it from the database to prevent further use of this particular token.
-
-##### Using the token
-1. For all routes requiring authentication (marked by 🔒) we advise looking up the user based on the `userId` field on the received token.
-
-### Create Routes for User
 Create the following routes for user functionality:
 
 - `POST /api/users/register`
@@ -118,7 +123,45 @@ Create the following routes for user functionality:
 
 > TIP: We are storing our password as plaintext. Do refer to part 2 bonus if you want to implement a secure user authentication system. #bestpractices
 
-### Create Routes for Posts
+#### Setup Express
+
+1. `npm install` the Express package
+1. Require express in `app.js`
+1. Set up `body-parser`
+1. Make express `listen` on port 3000
+
+##### Registration
+
+1. In the `POST /api/users/register` endpoint, add logic to create a new user
+   and save it to MongoDB.
+
+#### Tokenization
+
+You will use tokens to authenticate users. Recall `/week02/day5` where we received a unique token from the `POST /api/users/login` route and stored it in `localStorage` on the browser. Once the token was stored, we included it in every request that required authentication (annotated by the 🔒 symbol).
+
+To add tokenization functionality follow these recommended steps:
+
+##### Login
+
+1. In the `POST /api/users/login` endpoint, add logic to create a unique token for the user currently logging in.
+  	- A token contains user information so that a username does not have to be passed through every time a request is made.
+  	- We suggest making your `token` field in your Token object `username + new Date()` to guarantee uniqueness.
+  	- Set the `userId` field on the Token object to the `_id` of the user that is currently logging in.
+1. Save this `token` to your mongo database.
+
+##### Logout
+
+1. In the `POST /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
+
+##### Using the token
+1. For all routes requiring authentication (marked by 🔒) we advise looking up the user based on the `userId` field on the received token.
+
+---
+
+### Part 4. Posts
+
+#### Create Routes for Posts
+
 Create the following routes to allow posting/commenting/liking:
 
 - `GET /api/posts/` (🔒)
@@ -130,10 +173,15 @@ Create the following routes to allow posting/commenting/liking:
 
 **Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
 
-### Bonus
+---
+
+### Part 5. Bonus
+
 1. Add edit and delete functionality for user posts. Only the post owner can edit or delete his or her own posts.
+
    - `PUT /api/posts/:post_id` (🔒)
    - `DELETE /api/posts/:post_id` (🔒)
+
 1. Previously we are storing the password as plain text. This is not a good practice. Let's use the node module `bcrypt` ([https://github.com/kelektiv/node.bcrypt.js](https://github.com/kelektiv/node.bcrypt.js)) to hash the user's password before saving a new user to the database in `/api/users/register`. You will also need to change how the login method (`/api/users/login`) verifies the credentials. The document for a user should now look like this:
 
 	```javascript
@@ -152,8 +200,9 @@ Create the following routes to allow posting/commenting/liking:
 1. Push your code onto [Heroku](https://www.heroku.com/). You will get a link like the following: `https://my-project.herokuapp.com`. Share the URL with your friends! [Hint: [https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction). Use it wisely.]
 1. [Double Bonus] Design & implement backend functionality for Facebook reactions.
 
-## Code Reviews
+---
 
-So, how can we do better? Any best practices?
+### Part 6. Get your code reviewed
 
-Well, if you've completed everything (excluding the bonuses), feel free to grab a TA for code reviews! 😄🎉
+If you complete everything (excluding the bonuses), feel free to grab a TA and ask for
+feedback on your code quality and project structure! 😄🎉
