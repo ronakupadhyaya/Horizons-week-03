@@ -10,14 +10,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// Enable form validation with express validator.
-var expressValidator = require('express-validator');
-app.use(expressValidator());
-
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Enable form validation with express validator.
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -45,13 +45,28 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('name', 'Your first name is required').notEmpty();
+  req.check('middleInit', 'Your middle initial is too long').isLength({max:1});
+  req.check('lastName', 'Your last name is required').notEmpty();
+  if (req.body.dob) {
+    req.check('dob', 'You can\'t have been born in the future').isBefore();
+  }
+  req.check('password', 'Password is required').notEmpty();
+
+  req.check('repPassword', 'Passwords must match').equals(req.body.password);
+
+  req.check('gender', 'Gender is required').notEmpty();
+  req.check('signUp', 'Sign up is required').notEmpty();
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+      profile: req.body
+    });
   }
 });
 

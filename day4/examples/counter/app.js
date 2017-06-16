@@ -29,6 +29,13 @@ app.get('/', function(req, res){
 // Implement POST /up route
 // YOUR CODE HERE
 
+app.post('/up', function(req, res){
+  count++;
+})
+
+app.post('/down', function(req,res){
+  count--;
+})
 // Implement POST /down route
 // YOUR CODE HERE
 

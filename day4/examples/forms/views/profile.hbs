@@ -7,12 +7,63 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .registration {
+      background-color: #fff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>Your profile information</h1>
+      <div class="container registration">
+        <legend>Fill each field</legend>
+        <div class="row">
+          <form class="form-group" method="post">
+            <div class="col-xs-3 col-xs-offset-1">
+              <label for="name">First Name(*)</label>
+              {{profile.name}}
+            </div>
+            <div class="col-xs-1">
+              <label for="middleInit"> MI </label>
+              {{profile.middleInit}}
+            </div>
+            <div class="col-xs-3">
+              <label for="lastName"> Last Name(*)</label>
+              {{profile.lastName}}
+            </div>
+            <div class="col-xs-3">
+              <label for="dob">Date of Birth</label>
+              {{profile.dob}}
+
+            </div>
+            <div class="col-xs-10 col-xs-offset-1">
+              <label for="password">Password(*)</label>
+              {{profile.password}}
+
+            </div>
+
+            <div class="col-xs-5 col-xs-offset-1">
+
+                <label for="gender">Gender(*)</label>
+                {{profile.gender}}
+
+            </div>
+            <div class="col-xs-5">
+              <label for="signUp">Signed up for our Newletter!</label>
+
+            </div>
+            <div class="col-xs-10 col-xs-offset-1">
+              <label for="bio">Biography</label>
+              {{profile.bio}}
+            </div>
+
+          </form>
+
+
+
+        </div>
+      </div>
     </div>
   </div>
 </body>

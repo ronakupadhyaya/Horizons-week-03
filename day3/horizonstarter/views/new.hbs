@@ -1,14 +1,36 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
-<form action="/new" method="post">
-  Project Title: <input type="text" name="title" value="{{title}}" placeholder="short title here"><br>
-  Goal: $<input type="text" name="goal" value=""><br>
-  Description: <textarea name="description" rows="5" cols="80" placeholder="let donators know what their money is going towards">{{description}}</textarea><br>
-  Start Date: <input type="date" name="start" value="{{start}}">
-  End Date: <input type="date" name="end" value="{{end}}"><br>
-  <input type="submit" name="" value="Submit">
+<form action="/new" method="post" class='form-group'>
+  {{#each error}}
+    <div class="alert alert-danger">
+      <strong>{{this.msg}}</strong>
+    </div>
+  {{/each}}
+  Project Title: <input type="text" class='form-control' name="title" value="{{title}}" placeholder="short title here"><br>
+  Category: <select class="form-control" id='categories' name="category">
+    <option value="">[category]</option>
+    <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+    <option value="Current Black Presidents">Current Black Presidents</option>
+    <option value="The Pen Is Mightier">The Pen Is Mightier</option>
+    <option value="Famous Mothers">Famous Mothers</option>
+    <option value="Drummers Named Ringo">Drummers Named Ringo</option>
+    <option value="1-Letter Words" >1-Letter Words</option>
+    <option value='Months That Start With "Feb"'>Months That Start With "Feb"</option>
+    <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+    <option value="Potent Potables">Potent Potables</option>
+  </select><br>
+  Goal: $<input type="number" class='form-control' name="goal" value="{{goal}}"><br>
+  Description: <textarea name="description" class='form-control' rows="5" cols="80" placeholder="let donators know what their money is going towards">{{description}}</textarea><br>
+  Start Date: <input type="date" class='form-control' name="start" value="{{start}}">
+  End Date: <input type="date" class='form-control' name="end" value="{{end}}"><br>
+
+  <input type="submit" class='btn btn-primary' name="" value="Submit">
 
 </form>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
+<script src="/js/jquery.min.js"></script>
+<script>
+  $('#categories').val("{{category}}");
+</script>
