@@ -1,9 +1,62 @@
-<h1>View Project</h1>
+<section class="single-project-view">
+<h1>{{project.title}}</h1>
+<a type="button" href="/">
+	<div class="back-button link-button">Back to Projects</div>
+</a>
+<a type="button" href="/project/{{project._id}}/edit">
+	<div class="edit-button">Edit Project</div>
+</a>
+<hr></hr>
 
 <!-- Part 3: View a single project -->
+<img src={{project.imageURL}} class="single-project-image">
+<h4>Goal: {{project.goal}}</h4>
+<p>Description: {{project.description}}</p>
+<p>Start Date: {{project.start}}</p>
+<p>End Date: {{project.end}}</p>
+<p>Category: {{project.category}}</p>
 
-<!-- YOUR CODE HERE -->
+<hr></hr>
+<h3>Contributions</h3>
+<ul id="contributions-list">
+{{#each contributions}}
+<li>{{this.name}}: ${{this.amount}}</li>
+{{/each}}
+</ul>
+<p>Total Amount Raised: ${{total}}</p>
+
+  {{#if complete}}
+  <h3>Goal completed</h3>
+	<div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="100"
+	  aria-valuemin="0" aria-valuemax="100" style="width:100%">
+	    100%
+	  </div>
+	</div>
+  {{else}}
+  <h3>Progress: {{percentage}}%</h3>
+   <div class="progress">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="40"
+	  aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%"></div>
+	</div>
+  {{/if}}
 
 <!-- Part 4: Contribute to a project -->
+<hr></hr>
+<h3>Contribute to {{project.title}}</h3>
 
-<!-- YOUR CODE HERE -->
+<form id="contributionForm" data-project-id="{{project._id}}">
+	<div class="form-group">
+		<label for="name">Name:</label>
+		<input type="text" class="form-control" name="name">
+	</div>
+	<div class="form-group">
+		<label for="amount">Amount in Dollars:</label>
+		<input type="text" class="form-control" name="amount">
+	</div>
+	<button type="submit" class="btn btn-default">Contribute</button>
+</form>
+
+
+</section>
+

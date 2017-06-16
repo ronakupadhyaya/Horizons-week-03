@@ -1,3 +1,108 @@
 body {
-  padding: 10px;
+	margin: 0;
+  	font-family: Helvetica, sans-serif;
 }
+a:link {
+    text-decoration: none;
+}
+.all-projects-view {
+	padding: 0;
+}
+
+.all-projects-view h1 {
+	font-weight: bold;
+	color: #2BDE73;
+	padding: 10px 50px;
+	margin-bottom: 20px;
+}
+
+.row {
+	margin: 0 20px;
+}
+
+.all-projects-box-outer {
+	padding: 10px 30px;	
+}
+
+.all-projects-box-inner {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.all-projects-box-inner h3 {
+	text-align: center;
+}
+
+.projects-info {
+	padding: 10px 30px 10px 30px;
+}
+
+.view-button {
+	border-top: 1px solid #ddd;
+	padding: 20px 30px;
+	text-align: center;
+}
+.create-project-button {
+	background-color: #2BDE73;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 20px 30px;
+	justify-content: center;
+	margin-top: 20px;
+	text-align: center;
+	text-decoration: none;
+	transition: 0.2s;
+}
+
+.create-project-button:hover {
+	background-color: #05AF3C;
+}
+
+.single-project-view {
+	margin: 30px 25px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 25px;
+}
+.single-project-view h1 {
+	display: inline-block;
+}
+
+.create-project-page {
+	margin: 30px 5%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 50px;
+}
+
+.single-project-image {
+	float: left;
+	max-width:50%;
+	width: auto;
+	height: auto;
+	margin-right: 40px;
+}
+
+.all-projects-image {
+	float: left;
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+}
+
+.back-button, .edit-button, .cancel-button {
+	display: inline-block;
+	padding: 10px;
+	margin: 20px 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	float: right;
+}
+.create-project-page h2 {
+	display: inline-block;
+}
+
+.all-projects-view select {
+	display: inline-block;
+	height: 35px;
+	margin-bottom: 10px;
+}
+

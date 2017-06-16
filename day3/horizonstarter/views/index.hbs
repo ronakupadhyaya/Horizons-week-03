@@ -1,7 +1,59 @@
-<h1>View projects</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<section class="all-projects-view container-fluid">
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+	<h1>View projects</h1>
+	<hr></hr>
+	
+	<div class="row">
+	<div class="sort-box">
+		<p><strong>Sort By:</strong></p>
+		<form>
+			<select name="sort dropdown">
+				<option value="start">Start Date</option>
+				<option value="end">End Date</option>
+				<option value="goal">Goal</option>
+				<option value="contribution">Total Contributions</option>
+			</select>
+			<select name="sortDirection">
+				<option value="ascending">Ascending</option>
+				<option value="descending">Descending</option>
+			</select>
+			<input class="btn btn-default" type="submit" value="Sort">
+		</form>
+		<p><strong>Filter:</strong></p>
+		<form>
+			<select name="filter">
+				<option value="fully">Met Contribution Goal</option>
+				<option value="not-fully">Have Not Met Goal</option>
+				<option value="all">All Projects</option>
+			</select>
+			<input class="btn btn-default" type="submit" value="Sort">
+		</form>
+	</div>
+	<hr></hr>
+
+	{{#each projects}}
+	<div class="all-projects-box-outer col-sm-6 col-md-4">
+		<div class="all-projects-box-inner">
+			<img src={{this.imageURL}} class="all-projects-image">
+			<div class="projects-info">
+				<h3>{{this.title}}</h3>
+				<h4>Goal: ${{this.goal}}</h4>
+				<p>Description: {{this.description}}</p>
+				<p>Start Date: {{this.start}}</p>
+				<p>End Date: {{this.end}}</p>
+				<p>Category: {{this.category}}</p>
+			</div>
+			<a type="button" href="/project/{{this._id}}">
+				<div class="view-button">View Project</div>
+			</a>
+		</div>
+	</div>
+	{{/each}}
+	</div>
+
+	<!-- Part 2: Create new project -->
+	<a href="/new"><div class="create-project-button">Create New Project</div></a>
+	
+</section>

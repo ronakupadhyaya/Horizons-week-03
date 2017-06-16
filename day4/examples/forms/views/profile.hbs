@@ -7,12 +7,24 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .outer {
+      background-color: white;
+      border-radius: 5px;
+      padding: 50px 70px;
+      margin: 40px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container outer">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>Your Profile</h1>
+      <p><strong>First Name: </strong>{{firstName}}</p>
+      <p><strong>Middle Initial: </strong>{{middleInitial}}</p>
+      <p><strong>Date of Birth: </strong>{{dateOfBirth}}</p>
+      <p><strong>Password: </strong>{{password}}</p>
+      <p><strong>Gender: </strong>{{gender}}</p>
+      <p><strong>Bio: </strong>{{bio}}</p>
     </div>
   </div>
 </body>

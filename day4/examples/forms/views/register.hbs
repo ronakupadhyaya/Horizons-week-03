@@ -7,18 +7,93 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .outer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    h1 {
+      color: white;
+    }
+    form {
+      background-color: white;
+      border-radius: 5px;
+      padding: 50px 70px;
+      margin: 40px;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+  <div class="container outer">
+    <h1>Sign-up Form</h1>
+      <div class="errors">
+        <h2>Fix the following errors:</h2>
+        <ul>
+          {{#each errors}}
+            <li>{{this.msg}}</li>
+          {{/each}}
+        </ul>
+      </div>
+
+      <form class="form-horizontal" method="post">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" class="form-control" name="firstName">
+        </div>
+        <div class="form-group">
+          <label for="middleInitial">Middle Initial:</label>
+          <input type="text" class="form-control" name="middleInitial">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" class="form-control" name="lastName">
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth:</label>
+          <input type="date" class="form-control" name="dateOfBirth">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" name="password">
+        </div>
+        <div class="form-group">
+          <label for="password">Repeat Password:</label>
+          <input type="password" class="form-control" name="passwordRepeat">
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="genderRadios" id="female" value="female" checked>Female
+          </label>
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="genderRadios" id="male" value="male">Male
+          </label>
+        </div>
+        <div class="radio-inline">
+          <label>
+            <input type="radio" name="genderRadios" id="rather" value="rather">Rather not say
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input name="newsletter" type="checkbox">
+          <strong>Sign up for newsletter</strong></label>
+        </div>
+        <div class="form-group">
+          <label for="bio">Bio:</label>
+          <input type="password" class="form-control" name="bio">
+        </div>
+        <button type="submit" class="btn btn-default">Register</button>
+      </form>
+<!--     <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
       <form action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>
         <input type="submit">
       </form>
-    </div>
+    </div> -->
   </div>
 </body>
 </html>

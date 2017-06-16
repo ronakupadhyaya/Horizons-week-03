@@ -1,6 +1,9 @@
 
 <section class="create-project-page">
-	<h2>Create project</h2>
+	<h2>Edit project</h2>
+	<a type="button" href="/project/{{project._id}}">
+		<div class="cancel-button">Cancel Changes</div>
+	</a>
 	<hr></hr>
 	{{#if errors}}
 	<h4>Fix the following errors before submitting</h4>
@@ -13,31 +16,31 @@
 	<form class="form" method="post">
 		<div class="form-group">
 			<label for="title">Title:</label>
-			<input type="text" class="form-control" name="title">
+			<input type="text" class="form-control" name="title" value="{{project.title}}">
 		</div>
 		<div class="form-group">
 			<label for="goal">Goal:</label>
-			<input type="text" class="form-control" name="goal">
+			<input type="text" class="form-control" name="goal" value="{{project.goal}}">
 		</div>
 		<div class="form-group">
 			<label for="description">Description:</label>
-			<textarea type="text" class="form-control" name="description"></textarea>
+			<textarea type="text" class="form-control" name="description" value="{{project.description}}">{{project.description}}</textarea>
 		</div>
 		<div class="form-group">
 			<label for="start">Start Date:</label>
-			<input type="date" class="form-control" name="start">
+			<input type="date" class="form-control" name="start" value="{{start}}">
 		</div>
 		<div class="form-group">
 			<label for="end">End Date:</label>
-			<input type="date" class="form-control" name="end">
+			<input type="date" class="form-control" name="end" value="{{start}}">
 		</div>
 		<p><strong>Category:</strong></p>
-		<select  data-style="btn-info" name="category">
+		<select  data-style="btn-info" name="category" value="{{project.category}}">
 			<option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
 			<option value="Current Black Presidents">Current Black Presidents</option>
 			<option value="The Pen is Mighter">The Pen is Mighter</option>
 			<option value="Famous Mothers">Famous Mothers</option>
-			<option value="Drummers Named Ringo">Drummers Named Ringo</option>
+			<option value="Dummers Named Ringo">Drummers Named Ringo</option>
 			<option value="1-Letter Words">1-Letter Words</option>
 			<option value="Months That Start With Feb">Months That Start With "Feb"</option>
 			<option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
@@ -45,7 +48,7 @@
 		</select>
 		<div class="form-group">
 			<label for="imageURL">Image URL:</label>
-			<input type="url" class="form-control" name="imageURL">
+			<input type="url" class="form-control" name="imageURL" value="{{project.imageURL}}">
 		</div>
 		<button type="submit" class="btn btn-default">Register</button>
 	</form>

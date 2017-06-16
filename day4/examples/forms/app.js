@@ -38,7 +38,43 @@ app.get('/register', function(req, res){
 // POST /register
 // This is the endpoint that the user hits when they submit
 // the registration form.
-//
+app.post('/register', function(req, res) {
+
+  req.checkBody('firstName', 'First name is required').notEmpty();
+  req.checkBody('lastName', 'Last name is required').notEmpty();
+  req.checkBody('middleInitial', 'Middle initial must be one character').isLength({
+    min: 1,
+    max: 1
+  });
+  req.checkBody('password', 'Must include password').notEmpty();
+  req.checkBody('password', 'Must having matching passwords').equals(req.body.passwordRepeat);
+  // req.check('dateOfBirth', 'Birthday not valid').isBefore()
+  
+  var gender;
+  if (req.body.genderRadios === 'female') gender = 'female';
+  else if (req.body.genderRadios === 'male') gender = 'male'
+  else gender = 'rather not say'
+
+  console.log(gender);
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.render('register', {
+      errors: errors
+    });
+  }
+  else {
+    res.render('profile', {
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      dateOfBirth: req.body.dateOfBirth,
+      password: req.body.password,
+      gender: gender,
+      bio: req.body.bio
+    })
+  }
+});
 // 1. Update register.hbs to display error messages in a readable way.
 // 2. Pass in all the submitted user information (from req) when rendering profile.hbs
 // 3. Update profile.hbs to display all the submitted user profile fields. This
