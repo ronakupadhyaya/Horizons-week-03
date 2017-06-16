@@ -12,7 +12,15 @@ app.set('view engine', '.hbs');
 
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
-app.use(expressValidator());
+app.use(expressValidator({
+  customValidators: {
+    isPast: function(value) {
+      var today = Date.now();
+      var dob = Date.parse(value);
+      return today > dob;
+    }
+  }
+}));
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
@@ -44,14 +52,32 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.checkBody('firstName', 'Please include a first name.').notEmpty();
+  req.checkBody('midInit', 'Only one letter.').isLength({max: 1});
+  req.checkBody('password', 'Password is too short!').isLength({min: 4});
+  req.checkBody('lastName', 'Please include a last name.').notEmpty();
+  req.checkBody('dob', 'Please include a date of birth.').notEmpty();
+  req.checkBody('dob', 'Date not in past.').isPast();
+  req.checkBody('gender', 'Please include a gender.').notEmpty();
+  req.checkBody('newsletter', 'Please signup!').notEmpty();
+  req.checkBody('password2','Passwords do not match.').equals(req.body.password)
+
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
-    res.render('profile');
+    console.log(req.body.firstName);
+    res.render('profile', {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      midInit: req.body.midInit,
+      password: req.body.password,
+      dob: req.body.dob,
+      gender: req.body.gender,
+      biography: req.body.biography,
+    });
   }
 });
 

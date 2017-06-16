@@ -1,9 +1,35 @@
-<h1>View Project</h1>
+<h3>View Project</h3>
+<hr>
 
 <!-- Part 3: View a single project -->
+<h1>{{title}}</h1>
+<p><strong>Goal: </strong>${{goal}}</p>
+<p><strong>Category: </strong>{{category}}</p>
+<p><strong>Description: </strong>{{description}}</p>
+<p><strong>Start Date: </strong>{{start}}</p>
+<p><strong>End Date: </strong>{{end}}</p>
+<hr>
+<h3>Contributions</h3>
+<div class="progress">
+  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    {{percent}}% Complete
+  </div>
+</div>
+<p><strong>Total Contributions: </strong> ${{totalContributions}}</h4>
+{{#each contributions}}
+  <p><strong>Name:</strong> {{name}} <strong>Amount:</strong> ${{amount}}</p>
+{{/each}}
 
-<!-- YOUR CODE HERE -->
-
+<hr>
 <!-- Part 4: Contribute to a project -->
-
+<h2>Contribute</h2>
+<form class="contribute" action="/project/{{projectID}}" method="post">
+  <h3>Name</h3>
+  <input id="contribution-name" type="text" name="name" value="" placeholder="Name"> <br>
+  <h3>Amount</h3>
+  <input id="contribution-amount" type="number" name="amount" value="" placeholder="$00.00">
+  <input id="send-contribution" type="" name="submit_con" value="Contribute!">
+</form>
 <!-- YOUR CODE HERE -->
+<script src="/js/contributions.js"></script>

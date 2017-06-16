@@ -1,8 +1,56 @@
 <h1>View projects</h1>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<h3>Sort By</h3>
 
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Start
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?sort=start&sortDirection=ascending">Ascending</a></li>
+    <li><a href="/?sort=start&sortDirection=descending">Descending</a></li>
+  </ul>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">End
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?sort=end&sortDirection=ascending">Ascending</a></li>
+    <li><a href="/?sort=end&sortDirection=descending">Descending</a></li>
+  </ul>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Goal
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?sort=goal&sortDirection=ascending">Ascending</a></li>
+    <li><a href="/?sort=goal&sortDirection=descending">Descending</a></li>
+  </ul>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Total Contributions
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?sort=totalcontributions&sortDirection=ascending">Ascending</a></li>
+    <li><a href="/?sort=totalcontributions&sortDirection=descending">Descending</a></li>
+  </ul>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by Funding
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?filter=full">Fully funded</a></li>
+    <li><a href="/?filter=notfull">Not fully funded</a></li>
+  </ul>
+</div>
+
+<br> <br>
+<!-- Part 1: View all projects -->
+{{#each projects}}
+<h4>{{title}}</h4>
+{{/each}}
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
 <a href="/new">Create a new project</a>

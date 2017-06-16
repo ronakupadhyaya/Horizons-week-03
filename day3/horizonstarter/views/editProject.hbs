@@ -1,0 +1,29 @@
+<h2>Create project</h2>
+
+<!-- Part 2: Create project -->
+<!-- Part 5: Project categories -->
+
+
+<form class="edit" action="/project/{{projectID}}/edit" method="post">
+  <h3>Title</h3>
+  <input type="text" name="title" value="{{title}}" placeholder="Title"><br>
+  <h3>Goal</h3>
+  <input type="text" name="goal" value="{{goal}}" placeholder="Goal"><br> <br>
+  <textarea name="description" rows="8" cols="80" placeholder="Enter description here...">{{description}}</textarea><br>
+  <h3>Start</h3>
+  <input type="date" name="start" value="{{start}}"> <br>
+  <h3>End</h3>
+  <input type="date" name="end" value="{{end}}"> <br>
+  <h3>Category</h3>
+  <select id="category" name="category">
+  {{#each enum}}
+    {{#if selected}}
+      <option value="{{name}}" {{selected}}>{{name}}</option>
+    {{else}}
+      <option value="{{name}}">{{name}}</option>
+    {{/if}}
+  {{/each}}
+  </select>
+<br><br>
+<input type="submit" name="submit" value="Post">
+</form>

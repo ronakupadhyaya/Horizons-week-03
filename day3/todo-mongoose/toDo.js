@@ -33,16 +33,15 @@ db.once('open', function() {
 //      name: String,
 //      priority: String,
 //      completed: Boolean
+var schema = new mongoose.Schema({name: String, priority: String, completed: Boolean});
 //    }
-//
 // A model is a class with which we construct documents.
 // Now using mongoose.model turn your schema into a model in Mongo.
 //
 // TODO: create a model (called ToDoItem) with a "name" property that
 //    is a String, a "priority" property that is a String, and a
 //    "completed" property that is a Boolean.
-
-// YOUR CODE HERE
+var toDo = mongoose.model('ToDo_List', schema)
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -87,7 +86,9 @@ program.command('delete')
 //    task name should be kept a string)
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
-// YOUR CODE HERE
+
+program
+.option('-t, --task <t>', 'Specify priority for task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -125,15 +126,22 @@ function addTask(){
 
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
-
-  // YOUR CODE HERE
+  var task = new toDo({name: name, priority: priority, completed: false})
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
-  // YOUR CODE HERE
+  task.save(function(err) {
+    if (err) {
+      return console.log('Error in saving!')
+    } else {
+      console.log("saved!", task);
+      // console.log(program.args);
+    }
+    mongoose.connection.close();
+  })
 }
 
 // PART 3: Show tasks
@@ -145,7 +153,7 @@ function addTask(){
 // Bad Command Syntax (without quotes): node toDo.js show -t Do Laundry
 
 // if there is a flag value for name, the program should only display the task with the specified name
-// it there is no flag task, the program should return all tasks.
+// if there is no flag task, the program should return all tasks.
 // data = [{name: "Do Laundry"}, {name: "Clean dishes"}, {name:"Call mark"}]
 // Here,  'node toDo.js show -t "Clean dishes"' will show "Task: Clean dishes, Priority: 1, Completed: false"
 // use console.log to write to the command line.
@@ -155,8 +163,30 @@ function showTasks() {
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
-
-  // YOUR CODE HERE
+  var name = program.task;
+  if (name) {
+    toDo.find({name: name}, function(err, task) {
+      if (err) {
+        console.log("Error: can't find name!");
+      } else {
+        task.forEach(function(item) {
+          console.log("Task:", item.name, "Priority:", item.priority, "Completed:", item.completed);
+        })
+        mongoose.connection.close();
+      }
+    })
+  } else {
+    toDo.find(function(err, task) {
+      if (err) {
+        console.log("Error: can't display all!");
+      } else {
+        task.forEach(function(item) {
+          console.log("Task:", item.name, "Priority:", item.priority, "Completed:", item.completed);
+        })
+        mongoose.connection.close();
+      }
+    })
+  }
 }
 
 // PART 4: Delete tasks
@@ -166,6 +196,17 @@ function showTasks() {
 function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
-  // YOUR CODE HERE
+  var name = program.task;
+  if (name) {
+    toDo.remove({name: name}, function(err) {
+      if (err) {
+        console.log("Error: can't display all!");
+      } else {
+        console.log("Successfully removed");
+      }
+    })
+  } else {
+    console.log("Error: did not specify task!");
+  }
+  mongoose.connection.close();
 }
