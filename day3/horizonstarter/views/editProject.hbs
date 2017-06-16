@@ -1,31 +1,10 @@
-<h2>Create project</h2>
-
-<!-- Part 2: Create project -->
-<!-- <form class="" action="/new" method="post">
-  <input type="text" name="title" value="{{project.title}}" placeholder="Title">
-  <input type="text" name="goal" value="{{project.goal}}" placeholder="Goal">
-  <textarea name="description" value="{{project.description}}" placeholder="Description"></textarea>
-  <input type="date" name="start" value="{{project.start}}">
-  <input type="date" name="end" value="{{project.end}}">
-  <button type="submit">Submit</button>
-</form> -->
-<form class="" action="/new" method="post">
+<form class="" action="/" method="post">
   <div class="form-group">
     <label class="col-md-4 control-label">Title: </label>
     <input class="form-control col-md-4" type="text" name="title" value="{{title}}" placeholder="Title">
   </div>
   <div class="form-group">
-    <label for="category">Category</label>
-    <select id="category" name="category" class="form-control">
-    {{#each categories}}
-      {{#if selected}}
-          <option selected>{{val}}</option>
-      {{else}}
-          <option>{{val}}</option>
-      {{/if}}
-    {{/each}}
-    </select>
-    <!-- <div class="dropdown">
+    <div class="dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Category<span class="caret"></span></button>
         <ul class="dropdown-menu">
           <li><a href="#">Famous Muppet Frogs</a></li>
@@ -38,14 +17,11 @@
           <li><a href="#">How Many Fingers Am I Holding Up</a></li>
           <li><a href="#">Potent Potables</a></li>
         </ul>
-    </div> -->
+    </div>
   </div>
   <div class="form-group">
     <label class="col-md-4 control-label">Goal: </label>
-    <div class="input-group">
-      <div class="input-group-addon">$</div>
-      <input class="form-control" type="text" name="goal" value="{{goal}}" placeholder="Goal">
-    </div>
+    <input class="form-control" type="text" name="goal" value="{{goal}}" placeholder="Goal">
   </div>
   <div class="form-group">
     <label class="col-md-4 control-label">Description:</label>
@@ -64,5 +40,3 @@
   </div>
 
 </form>
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

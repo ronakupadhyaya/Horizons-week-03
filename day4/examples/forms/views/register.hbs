@@ -11,14 +11,88 @@
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    <legend style="text-align: center;">Registration</legend>
+    <!-- <h1>Put your registration form here</h1> -->
+      <form class="well form-horizontal" action="/register" method="post">
+        <fieldset>
+          {{#if errors}}
+            <div>
+              <div class="alert alert-danger">
+                <strong>Error: </strong>
+              </div>
+              {{#each errors}}
+              <div class="alert alert-danger">
+                <strong>{{this.msg}}</strong>
+              </div>
+              {{/each}}
+            </div>
+          {{/if}}
+          <div class="form-group">
+            <label class="col-md-4 control-label">First name: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control col-md-4" type="text" name="firstname" value="{{firstname}}" placeholder="First Name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Middle Initial: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="text" name="middleinitial" value="{{middleinitial}}" placeholder="Middle Initial">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Last Name: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="text" name="lastname" value="{{lastname}}" placeholder="Last Name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">DOB: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="date" name="dob" value="{{dob}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Password: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="password" name="password" value="{{password}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Repeat password: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="password" name="rpassword" value="{{rpassword}}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Gender: </label>
+            <div class="col-md-4 inputGroupContainer">
+              <div class="radio">
+                <label><input class="form-control" type="radio" name="gender" value="male" />Male</label>
+              </div>
+              <div class="radio">
+                <label><input class="form-control" type="radio" name="gender" value="female" />Female</label>
+              </div>
+              <div class="radio">
+                <label><input class="form-control" type="radio" name="gender" value="rathernotsay" />Rather not say</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Sign up for newsletter </label>
+            <div class="col-md-4 inputGroupContainer">
+              <input class="form-control" type="checkbox" name="signup" value="signup">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Biography </label>
+            <div class="col-md-4 inputGroupContainer">
+              <textarea class="form-control" name="bio" value="{{bio}}">{{bio}}</textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="float: right">Register</button>
+        </fieldset>
       </form>
-    </div>
+    <!-- </div> -->
   </div>
 </body>
 </html>

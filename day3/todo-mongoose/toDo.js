@@ -44,7 +44,7 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
-var Card = mongoose.model('Card', {
+var toDo = mongoose.model('toDo', {
   name: String,
   priority: String,
   completed: Boolean
@@ -94,6 +94,7 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+.option('-t, --task <t>', 'Specify task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -112,7 +113,7 @@ if (process.argv.length === 2) {
 
 // The function parseArgs eliminates the last element on the array and joins
 // it in a string so: ['No', 'One', {}] -> ['No', 'One'] -> "No One"
-function parseArgs () {
+function parseArgs () {    //Name of the tasks
   var args = program.args.splice(0, (program.args.length-1));
   return args.join(" ");
 }
@@ -122,24 +123,35 @@ function parseArgs () {
 // Example: This is a function that is called to create a new task.
 // Calling `node toDo.js add Do the dishes -p 3` must call our function addTask.
 // It should get the name of the task by calling parseArgs() and the priority
-// for the tast from program.priority.
+// for the task from program.priority.
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask(){
   var priority = program.priority || 1;
   var name = parseArgs();
-
   // TODO: create new instance of your toDo model (call it task) and
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
-
+  var task = new toDo({
+    name: name,
+    priority: priority,
+    completed: false
+  })
+  task.save(function(err) {
+    if (err) {
+      console.log('something went wrong', err);
+    } else {
+      mongoose.connection.close();
+    }
+  });
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
   //    you should close the mongoose connection to the database at the end
   //    using "mongoose.connection.close();"
 
   // YOUR CODE HERE
+
 }
 
 // PART 3: Show tasks
@@ -158,11 +170,42 @@ function addTask(){
 // Tasks must be logged in the following way:
 //    Task: [task.name], Priority: [task.priority], Completed: [task.completed]
 function showTasks() {
+  console.log('1', program.task)
+  // var name = parseArgs();
+  // console.log('2', name);
   // Hint: Use the .find function on your model to get the tasks
   //    .find({name: "Do Laundry"}, function(err, task) { // do things } ) - only finds ToDoItems where name is "Do Laundry"
   //    .find(function (err, task) { // do things } ) - finds all tasks
+  if (!program.task) {
+    toDo.find(function(err, toDos) {
+      if (err) {
+        console.log('something went wrong', err);
+      } else {
+        console.log('this task is', toDos);
+      }
+      mongoose.connection.close();
+    })
+  } else {
+    toDo.find({name: program.task}, function(err, oneTask) {
+      if (err) {
+        console.log('something went wrong', err);
+      } else if (!oneTask) {
+        console.log('Task is not found');
+      } else {
+        // var res = {
+        //     Task: oneTask.name,
+        //     Priority: oneTask.priority,
+        //     Completed: oneTask.completed
+        // }
+        // console.log('this task is', res);
+        console.log('this task is', oneTask);
+      }
+      mongoose.connection.close();
+    })
+  }
 
   // YOUR CODE HERE
+
 }
 
 // PART 4: Delete tasks
@@ -170,8 +213,22 @@ function showTasks() {
 // Write a function that is called when the command `node toDo.js delete -t "Do Laundry"`
 // is run. Take the name from program.task and delete that element from the database.
 function deleteTask(){
+
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
-
+  // if (name) {
+  //
+  // }
   // YOUR CODE HERE
+  if(program.task) {
+    toDo.remove({name: program.task}, function(err) {
+      if(err){
+        console.log('something went wrong', err);
+      }
+    })
+    mongoose.connection.close();
+  } else {
+    console.log("No task specified");
+    mongoose.connection.close();
+  }
 }

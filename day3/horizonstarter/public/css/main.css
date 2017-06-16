@@ -1,3 +1,28 @@
 body {
   padding: 10px;
 }
+
+.formEl {
+  margin: 5px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  width: 40%;
+}
+
+.project-list {
+  margin: 20px;
+}
+
+.progress {
+  clear: both;
+}
+
+.progress-group {
+  width: 60%;
+}

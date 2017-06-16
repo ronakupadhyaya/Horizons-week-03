@@ -2,6 +2,22 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each items}}
+  <div class="container project-list">
+      <form class="well form-horizontal">
+        <fieldset>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Title: </label>
+            <div class="col-md-10">{{this.title}}</div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Project ID: </label>
+            <div class="col-md-10">{{this._id}}</div>
+          </div>
+        </fieldset>
+      </form>
+  </div>
+{{/each}}
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->

@@ -1,9 +1,99 @@
+
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
 <!-- YOUR CODE HERE -->
+<!-- <div>Title: {{title}}</div>
+<div>Goal: {{goal}}</div>
+<div>Description: {{description}}</div>
+<div>Start: {{start}}</div>
+<div>End: {{end}}</div> -->
+<div class="project">
+  <div class="container">
+    <form class="well form-horizontal">
+      <fieldset>
+        <legend style="text-align: center;">Project {{id}}</legend>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Title: </label>
+            <div class="col-md-4">{{title}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Description: </label>
+            <div class="col-md-4">{{description}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Goal: </label>
+            <div class="col-md-4">{{goal}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Start: </label>
+            <div class="col-md-4">{{start}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">End: </label>
+            <div class="col-md-4">{{end}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Category: </label>
+            <div class="col-md-4">{{category}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <!-- Part 4: Contribute to a project -->
+  <!-- YOUR CODE HERE -->
 
-<!-- Part 4: Contribute to a project -->
+  <div class="container">
+    <form class="well form-horizontal" action="/project/{{id}}" method="post">
+      <fieldset>
+        <legend style="text-align: center;">Contributions to a project</legend>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Name: </label>
+          <div class="col-md-10 inputGroupContainer">
+            <input class="form-control col-md-4" type="text" name="name" value="{{name}}" placeholder="Person making the contribution">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Amount: </label>
+          <div class="col-md-10 inputGroupContainer">
+            <input class="form-control" type="number" name="amount" value="{{amount}}" placeholder="Size of contribution">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="float: right">Contribute now!</button>
+      </fieldset>
+    </form>
+  </div>
 
-<!-- YOUR CODE HERE -->
+  <div class="progress-group col-md-offset-3">
+    <div class="summary">
+      <h3>Total contributions made by user: {{totalByUser}}</h3>
+      <h3>Total contributions received by project: {{totalContributions}}</h3>
+    </div>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{percentGoalReached}}"
+      aria-valuemin="0" aria-valuemax="100" style="width:{{percentGoalReached}}%">
+      {{percentGoalReached}}% Complete (success)
+      </div>
+    </div>
+    <div class="contributions">
+      <ul>
+        {{#each contributions}}
+        <li>{{this.name}}, donated {{this.amount}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+
+</div>

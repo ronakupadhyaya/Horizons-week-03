@@ -11,9 +11,67 @@
 </head>
 <body>
   <div class="container">
-    <div class="row">
+    <!-- <div class="row">
       <h1>Put your user profile here</h1>
-    </div>
+      <div>First name: {{firstname}}</div>
+      <div>Midde initial: {{middleinitial}}</div>
+      <div>Last name: {{lastname}}</div>
+      <div>DOB: {{dateOfBirth}}</div>
+      <div>Gender: {{password}}</div>
+    </div> -->
+    <legend style="text-align: center;">User profile</legend>
+    <form class="well form-horizontal">
+      <fieldset>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">First name: </label>
+            <div class="col-md-4">{{firstname}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Middle Initial: </label>
+            <div class="col-md-4">{{middleinitial}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Last Name: </label>
+            <div class="col-md-4">{{lastname}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">DOB: </label>
+            <div class="col-md-4">{{dob}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Password: </label>
+            <div class="col-md-4">{{password}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Gender: </label>
+            <div class="col-md-4">{{gender}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Sign up for newsletter </label>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Biography </label>
+            <div class="col-md-4">{{bio}}</div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
   </div>
 </body>
 </html>
