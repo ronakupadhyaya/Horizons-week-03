@@ -3,7 +3,39 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<h2>Title: {{title}}</h2>
+<h2>Goal: {{goal}}</h2>
+<h2>Category: {{category}}</h2>
+<h2>Description: {{description}}</h2>
+<h2>Start: {{start}}</h2>
+<h2>End: {{end}}</h2>
+
+<form method="post" action="/project/{{projId}}">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Enter your name here...">
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input type="number" class="form-control" name="amount" placeholder="Enter donation amount here...">
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
 
 <!-- Part 4: Contribute to a project -->
-
+<div method="get" action="/project/{{projId}}">
+  <h2>Total Contributions: {{tot}}</h2>
+  <h2>Percentage of the project goal met:</h2>
+  <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}">
+    {{percent}}
+  </div> </div>
+  <div>
+    {{#each contributions}}
+      <li>{{name}}: ${{amount}}</li>
+    {{/each}}
+ </div>
+</div>
 <!-- YOUR CODE HERE -->

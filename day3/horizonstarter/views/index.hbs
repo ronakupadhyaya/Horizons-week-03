@@ -2,6 +2,25 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each projects}}
+ <li>Title: {{title}} , Start: {{start}} , End: {{end}}</li>
+{{/each}}
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href = "/new">Create New Project</a>
+<form>
+  <div class="form-group">
+    <select name="sortDirection" class="selectpicker" title="Choose one of the following...">
+      <option value="1">Acending Sort</option>
+      <option value="-1">Descending Sort</option>
+    </select>
+    <select name="category" class="selectpicker" title="Choose one of the following...">
+      <option value="1">Sort by Start Date</option>
+      <option value="2">Sort by End Date</option>
+      <option value="3">Sort by goal</option>
+      <option value="4">Sort by total contribution</option>
+    </select>
+  </div>
+  <input class="submit" type="submit" name="sort" value="sort">
+</form>

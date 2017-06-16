@@ -45,15 +45,35 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+
+
+// YOUR CODE HERE - Get errors from express-validator here
+  req.check("firstName","First name shouldn't be empty").notEmpty()
+  req.check('middleInitial','Middle initial should be more than one letter').islength({
+    min:1
+  })
+  req.check('lastName',"Last name shouldn't be empty").notEmpty()
+  req.check("password','Password shouldn't be empty").notEmpty()
+  req.check('passwordRepeat',"Password Repeat should match with password").equals(password)
+
+  var errors = req.validationErrors();
+
   if (errors) {
-    res.render('register', {errors: errors});
-  } else {
+    res.render('register',
+    { errors: errors,
+      firstName: req.body.firstName,
+      middleInitial: req.body.middleInitial,
+      lastName: req.body.lastName,
+      dob: req.body.dob, //this is the name from .hbs right?
+      password: req.body.password,
+      gender: req.body.gender, //how does this work?
+      biography: req.body.biography}
+      else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
-  }
-});
+    res.render('profile')};
+};
+};
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");

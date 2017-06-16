@@ -10,15 +10,74 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
+  <div class="container" style='background-color: white'>
+    <h1>Registration Form</h1>
     <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    {{#each errors}}
+    <li>{{msg}}</li>
+    {{/each}}
+
+    <div>
+      <form class = "col-xs-offset-1">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" placeholder="First Name" required>
+        </div>
+        <div class="form-group">
+          <label for="midInitial">Middle Initial</label>
+          <input type="text" class="form-control" name="middleInitial" placeholder="Middle Initial">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-control" name="lastName" placeholder="Last Name">
+        </div>
+        <div class="form-group">
+          <label>DOB</label>
+          <input type="date" name="dob" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label>Password Repeat</label>
+          <input type="password" name="passwordRepeat" class="form-control" placeholder="Password Repeat">
+        </div>
+
+        <fieldset class="form-group">
+          <label class="form-check-label">Gender
+          </label>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios">
+              Female
+            </label><br>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios">
+              Male
+            </label><br>
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="optionsRadios">
+              Prefer not to Say
+            </label><br>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label class="form-check-label">
+            Sign Up for newsletter
+            <input type="checkbox" class="form-check-input">
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Biography</label>
+          <textarea class="form-control" rows="3" placeholder="Biography" name="biography"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
       </form>
     </div>
+
   </div>
 </body>
 </html>
