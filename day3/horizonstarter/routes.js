@@ -24,9 +24,31 @@ router.get('/create-test-project', function(req, res) {
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
   // YOUR CODE HERE
-  Project.find(function(err, projects){
-    res.render('index',{projects:projects})
-  })
+  //-1 -> descending
+  //1 -> ascending
+
+  if(req.query.sort){
+    if(req.query.sort==='total'){
+      Project.find(function(err, projects){
+        console.log(projects);
+        ras.render('index',{project:projects})
+      })
+
+    }else{
+      var sortObj = {}
+      sortObj[req.query.sort] = req.query.sortDirection==='down' ? -1 : 1;
+      Project.find().sort(sortObj).exec(function(err, projects){
+        res.render('index',{projects:projects}) 
+      })
+    }
+  }
+  else{
+    Project.find(function(err, projects){
+      res.render('index',{projects:projects})
+    })
+  }
+  
+  
 });
 
 // Part 2: Create project
@@ -46,14 +68,17 @@ router.post('/new', function(req, res) {
   })
 
   //create new Project object
+  console.log(req.body.category)
   var myProject = new Project({
       title: req.body.title,
       goal: req.body.goal,
       description: req.body.description,
       start: req.body.start,
-      end: req.body.end
-  })
+      end: req.body.end,
+      category: req.body.category,
+    })
 
+  console.log("don't do this")
 
   myProject.save(function(err) {
     if (err) {
@@ -70,8 +95,20 @@ router.get('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
   var projectid = req.params.projectid;
   Project.findById(projectid, function(err, project){
+    var total =0
+    for (var i = 0;i<project.contributions.length;i++){
+      total = total + project.contributions[i].contributionAmount;;
+    }
+    var percentage = (total / project.goal) * 100
+    var fill = percentage;
+    if(percentage>100){
+      fill = 100;
+    }
     res.render('project',{
-      project: project
+      project: project, 
+      total:total,
+      percentage: percentage,
+      fill:fill
     })
   })
 
@@ -82,28 +119,80 @@ router.get('/project/:projectid', function(req, res) {
 router.post('/project/:projectid', function(req, res) {
   // YOUR CODE HERE
   var projectid = req.params.projectid;
-  console.log(projectid)
-
-  project.contributions.push({
-        name: req.body.contributionsName,
-        amount: req.body.contributionsAmount
-      });
-
-
-
 
   Project.findById(projectid, function(err, project){
-    res.render('project',{
-      project: project,
-      start: project.start,
-      end: project.end,
+    var total =0
+    for (var i = 0;i<project.contributions.length;i++){
+      console.log(project.contributions[i])
+      total = total + project.contributions[i].contributionAmount;
+    }
 
-    })
+    total = total + parseInt(req.body.contributionsAmount)
+    console.log(total)
+    var percentage = (total / project.goal) * 100
+    var fill = percentage;
+    if(percentage>100){
+      fill = 100;
+    }
+
+
+    project.contributions.push({
+      donor: req.body.contributionsName,
+      contributionAmount: req.body.contributionsAmount
+    });
+
+    project.save(function(err){
+      res.render('project',{
+        project: project,
+        contributions: project.contributions,
+        total: total,
+        percentage: percentage, 
+        fill: fill
+      })
+    });
   })
 });
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req,res){
+  var projectid = req.params.projectid;
+  Project.findById(projectid, function(err, project){
+    console.log(project.category)
+
+
+    var startDateString = project.start.toISOString().substring(0, 10);
+    var endDateString = project.end.toISOString().substring(0,10);
+    res.render('editProject', {
+      projectid: projectid,
+      project: project,
+      startDateString: startDateString,
+      endDateString: endDateString
+
+    })
+  })
+
+})
 // Create the POST /project/:projectid/edit endpoint
+router.post('/project/:projectid/edit', function(req, res){
+  
+  Project.findByIdAndUpdate(req.params.projectid, {
+    title: req.body.title,
+    goal: req.body.goal,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end,
+    category: req.body.category
+}, function(err, project) {
+  if(err) {
+      res.status(500).json(err)
+
+    } else {
+      res.redirect('/')
+    }
+  // YOUR CODE HERE
+});
+
+})
 
 module.exports = router;

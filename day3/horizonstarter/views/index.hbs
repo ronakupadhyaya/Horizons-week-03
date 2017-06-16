@@ -1,4 +1,8 @@
 <h1>View projects</h1>
+<a href = "?sort=start">Sort By Start </a>
+<a href = "?sort=end">Sort By End </a>
+<a href = "?sort=goal">Sort By Goal </a>
+<a href = "?sort=total">Sort By Total Contributions </a>
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
@@ -7,6 +11,7 @@
   <div class="project">
     <h2>Title: {{title}}</h2>
     <h3>Description: {{description}}</h3>
+    <h4> Category: {{category}} </h4>
   </div>
 {{/each}}
 

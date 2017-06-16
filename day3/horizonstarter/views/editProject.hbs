@@ -1,38 +1,40 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-<!-- Part 2: Create project -->
+
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
-<form action='/new' method='post'>
+<form action='/project/{{projectid}}/edit' method='post'>
   <div class="form-group">
     <label for="title_field">Title*</label>
-    <input type="title" name ="title" class="form-control" id="title_field" aria-describedby="titleHelp" placeholder="Title">
+    <input type="title" name ="title" class="form-control" id="title_field" aria-describedby="titleHelp" value={{project.title}}>
 
   </div>
   <div class="form-group">
     <label for="goal_field">Goal*</label>
-    <input type="goal" name="goal" class="form-control" id="goal_field" placeholder="Goal">
+    <input type="goal" name="goal" class="form-control" id="goal_field" value={{project.goal}}>
   </div>
 
   <div class="form-group">
     <label for="textarea">Description</label>
-    <textarea class="form-control" name = "description" id="description_textarea" rows="3"></textarea>
+    <textarea class="form-control" name = "description" id="description_textarea" rows="3" value={{project.description}}>{{project.description}}</textarea>
   </div>
 
 
   <div class="form-group">
     <label for="date_field">Start Date*</label>
-    <input type="date" name="start" class="form-control" id="start_date_field">
+    <input type="date" name="start" class="form-control" id="start_date_field" value = {{startDateString}}> 
   </div>
 
+  
   <div class="form-group">
     <label for="date_field">End Date*</label>
-    <input type="date" name = "end" class="form-control" id="end_date_field">
+    <input type="date" name = "end" class="form-control" id="end_date_field" value = {{endDateString}}>
   </div>
 
   <div class="form-group">
     <label for="date_field">Category</label>
-    <select name="category">
+    <select name="category" value={{project.category}}>
+      <option value= "{{project.category}}"> {{project.category}} </option>
       <option value="famousMuppetFrogs">Famous Muppet Frogs</option>
       <option value="currentBlackPresidents">Current Black Presidents</option>
       <option value="thePenIsMightier">The Pen Is Mightier</option>

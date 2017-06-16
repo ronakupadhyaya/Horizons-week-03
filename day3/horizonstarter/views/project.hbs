@@ -1,15 +1,36 @@
 <h1>View Project</h1>
 
+
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
 <div class="project">
-	{{project.title}}
-	{{project.goal}}
-	{{project.description}}
-	{{project.contributions}}
-	{{project.start}}
-	{{project.end}}
+  <h2> {{project.title}} </h1>
+  <h3> Project Goal: {{project.goal}} </h2>
+  <h4> Project description: {{project.description}} </h3>
+  <h4> Category: {{project.category}}</h4>
+
+
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow={{total}}
+      aria-valuemin="0" aria-valuemax={{project.goal}} style="width:{{fill}}%">
+    {{percentage}}%
+    </div>
+  </div>
+
+  <div class = "contributors">
+    {{#each project.contributions}}
+      <b>Donor: </b>{{donor}} <t>
+      <b>Amount: </b>{{contributionAmount}}
+      <br>
+    {{/each}}
+  </div>
+</div>
+
+
+<b> Project Start Date: </b> {{project.start}}
+<b> Project End Date: </b> {{project.end}}
+
 
 
 <!-- Part 4: Contribute to a project -->

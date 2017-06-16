@@ -23,9 +23,21 @@ var Project = mongoose.model('Project', {
   	type: Date,
   	required: true
   },
-  conbributions: {
-  	type: Array,
+  contributions: [{
+    donor: {
+      type: String,
+      required: true
+    },
+    comment: String,
+    contributionAmount: {
+      type: Number,
+      required: true
+    }
+  }],
+  category: {
+    type: String
   }
+  
 
   // YOUR CODE HERE
 });
