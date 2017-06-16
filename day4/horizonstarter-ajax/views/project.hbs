@@ -1,0 +1,148 @@
+<!-- Part 3: View a single project -->
+<div id="project">
+  <div id="header">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <a id="back" class="text-center" href='/'> back to projects </a>
+    <h1 id="title" class="text-center">this project</h1>
+    <a id="edit" class="text-center" href='/project/{{project.id}}/edit'>edit this project</a>
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </div>
+
+  <div id="body" class="project text-center">
+    <div class="name">
+      <h1>{{project.title}}</h1>
+      <h4>Goal: ${{project.goal}}</h4>
+    </div>
+    <div class="dates">
+      <h6>from {{project.start}}</h6>
+      <h6>to {{project.end}}</h6>
+    </div>
+    <div id="descrip" class="text-center">
+      <h5>{{project.description}}</h5>
+    </div>
+    <h4 class="text-center">{{project.category}}</h4>
+  </div>
+  <br />
+
+  <div id="status">
+    <h4 class="text-center">current status: ${{total}}</h4>
+    <div id="progress" class="progress text-center">
+      <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{percentage}}"
+      aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+      {{percentage}}%
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <h4>Contributors</h4>
+  <ul id="contributors">
+    {{#each project.contributions}}
+    <li><h5>{{this.name}}</h5></li>
+    {{/each}}
+  </ul>
+  <form id="contrib-form">
+    <h4 class="text-center"> contribute to this project:  </h4>
+    <div class="col-xs-12 text-center">
+      <input type="text" value="{{name}}" name="name" placeholder="Name...">
+    </div><div class="col-xs-12 text-center">
+      <input type="text" value="{{amount}}" name="amount" placeholder="Amount...">
+    </div>
+    </div><div class="col-xs-12 text-center">
+      <input type="submit" class="btn" value="contribute" name="submit" id="contribute">
+    </div>
+  </form>
+</div>
+
+<style>
+  #project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #title, #back, #body, #status, #form {
+    flex: 1;
+  }
+  #back, #edit {
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+  #back a {
+    color: rgb(167, 187, 188);
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    color: teal;
+  }
+  form h1, form div {
+    flex; 1;
+    padding-top: 2%;
+  }
+  #contribute {
+    background-color: teal;
+    color: white;
+  }
+  #contributors {
+    display: flex;
+    width: 40%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  ul h5 {
+    flex: 1;
+    padding: 0px 2px 0px 2px;
+  }
+  .btn {
+    margin-top: 10px;
+  }
+  #status {
+    color: white;
+    background-color: teal;
+    border-radius: 5px;
+    padding: 10px 20px 10px 20px
+  }
+  #progress {
+    font-weight: bold;
+  }
+  #header {
+    padding-top: 0;
+    width: 100%;
+    height: 60px;
+    color: white;
+    align-self: center;
+    background-image: linear-gradient(teal, rgb(42, 100, 104));
+    display: flex;
+    align-items: center;
+    padding: 0 1% 0 1%;
+    padding-bottom: 5px;
+  }
+  #title {
+    flex: 6;
+    margin-top: 8px;
+  }
+  #edit, #footer {
+    flex: 1;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  #descrip {
+    width: 100%;
+    float: center;
+    display: flex;
+    justify-content: center;
+  }
+  #descrip h5 {
+    flex: 1;
+    width: 500px;
+  }
+</style>
+<!-- Part 4: Contribute to a project -->
+
+<!-- YOUR CODE HERE -->

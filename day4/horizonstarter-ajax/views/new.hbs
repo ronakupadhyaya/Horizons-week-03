@@ -1,0 +1,100 @@
+<h2 id="header" class="text-center">create project</h2>
+<br />
+<!-- Part 2: Create project -->
+{{#if missedField}}
+  <div id="error" class="text-center"> * missed required fields - try again</div>
+  <br />
+{{else}}
+{{/if}}
+<form id="create-form" method="POST" action="/new">
+  <div class="col-xs-12 text-center">
+    <input type="text" value="{{title}}" name="title" placeholder="title...">
+  </div><div class="col-xs-12 text-center">
+    <input type="text" value="{{goal}}" name="goal" placeholder="$ goal...">
+    <!-- <div class="input-group text-center">
+      <span class="input-group-addon">$</span>
+    </div> -->
+  </div><div class="col-xs-12 text-center">
+    <textarea name="description" placeholder="description..." rows="4">
+      {{description}}
+    </textarea>
+  </div><div class="col-xs-12 text-center">
+    <input type="date" value="{{start}}" name="start" placeholder="start date">
+  </div><div class="col-xs-12 text-center">
+    <input type="date" value="{{end}}" name="end" placeholder="end date">
+  </div><div class="col-xs-12 text-center">
+    <select class="selectpicker" name="category">
+      <option>--- select ---</option>
+      <option>Famous Muppet Frogs</option>
+      <option>Current Black Presidents</option>
+      <option>The Pen Is Mightier</option>
+      <<option>Famous Mothers</option>
+      <<option>Drummers Named Ringo</option>
+      <option>1-Letter Words</option>
+      <option>Months That Start With "Feb"</option>
+      <option>How Many Fingers Am I Holding Up</option>
+      <option>Potent Potables</option>
+    </select>
+  </div><div class="col-xs-12 text-center">
+    <input type="submit" class="btn btn-primary" value="submit" name="submit">
+  </div>
+
+</form>
+<div class="footer">
+  <a id="new-project" href='/'>back to projects</a>
+</div>
+
+<style>
+  #error {
+    color: red;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  form div {
+    flex: 1;
+    margin-bottom: 10px;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+  form button {
+    flex: 1;
+    width: 70px;
+    height: 35px;
+
+  }
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  #header {
+    padding-top: 0;
+    width: 100%;
+    height: 15%;
+    color: white;
+    align-self: center;
+    background-image: linear-gradient(teal, rgb(42, 100, 104));
+    display: flex;
+    align-items: center;
+    padding: 0 1% 0 1%;
+    padding-bottom: 5px;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+<!--
+Title: text input field
+goal: text input field
+description: Textarea field
+start: Date input field
+end: Date input field -->
+
+<!-- Part 5: Project categories -->
+<!-- YOUR CODE HERE -->

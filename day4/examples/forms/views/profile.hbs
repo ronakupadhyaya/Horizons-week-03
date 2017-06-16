@@ -12,8 +12,80 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1 id="title" class="text-center">user profile</h1>
     </div>
-  </div>
+    <div id="info" class="row">
+      <div class="form-group">
+        <label for="firstName" class="col-sm-3 col-sm-offset-3 control-label text-center">First Name</label>
+        <div class="col-sm-2 text-center">{{firstName}}</div>
+        <div class="col-sm-4"></div>
+      </div>
+      {{#if showMI}}
+      <div class="form-group">
+        <label for="middleInitial" class="col-sm-3 col-sm-offset-3 control-label text-center">Middle Initial</label>
+        <div class="col-sm-2 text-center">{{middleInitial}}</div>
+        <div class="col-sm-4"></div>
+      </div>{{else}}{{/if}}
+      <div class="form-group">
+        <label for="lastName" class="col-sm-3 col-sm-offset-3 control-label text-center">Last Name</label>
+        <div class="col-sm-2 text-center">{{lastName}}</div>
+        <div class="col-sm-4"></div>
+      </div>
+      {{#if showDoB}}
+      <div class="form-group">
+        <label for="dOB" class="col-sm-3 col-sm-offset-3 control-label text-center">Date of Birth</label>
+        <div class="col-sm-2 text-center">{{dOB}}</div>
+        <div class="col-sm-4"></div>
+      </div>{{else}}{{/if}}
+      <div class="form-group">
+        <label for="password" class="col-sm-3 col-sm-offset-3 control-label text-center">Password</label>
+        <div class="col-sm-2 text-center">{{password}}</div>
+        <div class="col-sm-4"></div>
+      </div><div class="form-group">
+        <label for="gender" class="col-sm-3 col-sm-offset-3 control-label text-center">Gender</label>
+        <div class="col-sm-2 text-center">
+          {{gender}}
+        </div>
+        <div class="col-sm-4"></div>
+      </div><div class="form-group">
+        <label for="newsletter" class="col-sm-3 col-sm-offset-3 control-label text-center">Newsletter</label>
+        <div class="col-sm-2 text-center">{{news}}</div>
+        <div class="col-sm-4"></div>
+      </div>
+      {{#if showBio}}
+      <div class="form-group">
+        <label for="bio" class="col-sm-3 col-sm-offset-3 control-label text-center">Biography</label>
+        <div class="col-sm-2 text-center">{{bio}}</div>
+        <div class="col-sm-4"></div>
+      </div>{{else}}{{/if}}
+    </div> <!-- close row -->
+  </div> <!-- close container -->
 </body>
+<style>
+  body {
+    /*background: linear-gradient(90deg, rgb(217, 229, 249), rgb(229, 238, 252));*/
+    background-color: rgb(36, 5, 66);
+    color: white;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .row .form-group {
+    flex: 1;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+  }
+  .row .form-group * {
+  }
+  #button {
+    color: rgb(50, 10, 89);
+  }
+  #title {
+    margin-bottom: 20px;
+  }
+
+</style>
 </html>
