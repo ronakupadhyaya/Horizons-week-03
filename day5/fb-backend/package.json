@@ -1,5 +1,17 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6",
+    "nodemon": "^1.11.0"
   }
 }
