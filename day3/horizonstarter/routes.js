@@ -23,14 +23,75 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, projects){
-    if(err){
-      console.log('Error: ', err);
+  // YOUR CODE HERE
+  var filter = req.query.sort;
+  var sortDir = req.query.sortDirection;
+  var direction = 1;
+  if (sortDir === 'descending') {
+    direction = -1;
+  }
+
+
+
+  if (filter){
+    if (filter === 'goal') {
+      Project.find({}).sort({goal: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'start') {
+      Project.find({}).sort({start: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'end') {
+      Project.find({}).sort({end: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'total'){
+      Project.find({}).sort({total: direction}).exec(function(err, array){
+        if(err){
+          console.log(err);
+        } else {
+          res.render('index.hbs', {items: array});
+        }
+      });
+    } else if (filter === 'funded'){
+      var fund = [];
+      Project.find({}, function(err, projects){
+        projects.forEach(function(a){
+          if(a.total >= a.goal){
+            fund.push(a);
+          }
+        });
+        res.render('index.hbs', {items: fund});
+      });
+    } else if (filter ==='notfunded'){
+      var fund = [];
+      Project.find({}, function(err, projects){
+        projects.forEach(function(a){
+          if(a.total < a.goal){
+            fund.push(a);
+          }
+        });
+        res.render('index.hbs', {items: fund});
+      });
     }
-    else{
-      res.render('index.hbs', {items: projects});
-    }
-  });
+  } else {
+    Project.find(function(err, array){
+      res.render('index.hbs', {items: array});
+    });
+  }
 });
 
 // Part 2: Create project
@@ -48,6 +109,7 @@ router.post('/new', function(req, res) {
     description: req.body.description,
     start: req.body.start,
     end: req.body.end,
+    category: req.body.category,
     contributions: [],
     total: 0
   });
@@ -82,14 +144,14 @@ router.post('/project/:projectid', function(req, res) {
   var id = req.params.projectid;
   Project.findById(id, function(err, a){
     if(err){
-      console.log(err);
+      console.log('Error', err);
     }
     else{
       a.total += parseInt(req.body.amount);
       a.contributions.push({name: req.body.name, amount: req.body.amount});
       a.save(function(err){
         if(err){
-          console.log(err);
+          console.log('E', err);
         }
         else{
           var complete = a.total/a.goal * 100;
@@ -100,8 +162,75 @@ router.post('/project/:projectid', function(req, res) {
   });
 });
 
+
+
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+router.get('/project/:projectid/edit', function(req, res){
+  console.log('happened');
+  var id = req.params.projectid;
+  Project.findById(id, function(err, a){
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.render('editProject.hbs', {a: a, id: id});
+    }
+  });
+});
+
+router.post('/project/:projectid/edit', function(req, res){
+  var id = req.params.projectid;
+  Project.findById(id, function(err, a){
+    if(err){
+      console.log('wrong:', err);
+    }
+    else{
+      var start = new Date(req.body.start);
+      var end =new Date(req.body.end);
+      Project.findByIdAndUpdate(id, {
+        title: req.body.title,
+        goal: req.body.goal,
+        description: req.body.description,
+        start: start,
+        end: end,
+        category: req.body.category,
+        contributions: a.contributions,
+        total: a.total
+      }, function(err){
+        if(err){
+          console.log(err);
+        }
+        else {
+          res.redirect('/project/'+req.params.projectid);
+        }
+      });
+    }
+  });
+});
+
+router.post('/api/project/:projectid/contribution', function(req, res){
+  var id = req.params.projectid;
+  Project.findById(id, function(err, a){
+    if(err){
+      console.log('Error', err);
+    }
+    else{
+      a.total += parseInt(req.body.amount);
+
+      a.contributions.push({name: req.body.name, amount: req.body.amount});
+      a.save(function(err){
+        if(err){
+          console.log('E', err);
+        }
+        else{
+          var complete = a.total/a.goal * 100;
+          res.json({name: req.body.name, amount: req.body.amount});
+        }
+      });
+    }
+  });
+});
 
 module.exports = router;

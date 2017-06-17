@@ -28,8 +28,10 @@ app.get('/', function(req, res) {
 });
 
 // ---Task 1---
-// POST /up: Create JSON endpoint that increases `count` by 1
-// and returns a JSON response indicating the new value of `count`.
+app.post('/up', function(req, res){
+  count++;
+  res.redirect('/');
+});
 
 // YOUR CODE HERE
 
@@ -37,7 +39,10 @@ app.get('/', function(req, res) {
 // POST /down: Create another JSON endpoint that decreases `count` by 1
 // and returns a JSON response indicating the new value of `count`.
 
-// YOUR CODE HERE
+app.post('/down', function(req, res){
+  count--;
+  res.redirect('/');
+});
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");

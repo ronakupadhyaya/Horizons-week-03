@@ -7,16 +7,60 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+    <h1 class="align-self-center">Put your registration form here</h1>
+    <div><strong>Errors:</strong></div>
+    <ul>
+      {{#each errors}}
+      <li>{{msg}}</li>
+      {{/each}}
+    </ul>
+      <form action="/register" method="post" style="background-color: white; padding: 20px; border-radius: 30px;">
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">First Name: </label>
+          <input class="col-sm-8" type="text" name="firstname" >
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Middle Initial: </label>
+          <input type="text" class="col-sm-8" name="middleinitial">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Last Name: </label>
+          <input type="text" class="col-sm-8" name="lastname" >
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Date of Birth: </label>
+          <input class="col-sm-8" type="Date" name="DOB">
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Password: </label>
+          <input class="col-sm-8" type="password" name="password" >
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Confirm Password: </label>
+          <input class="col-sm-8" type="password" name="password2" >
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Gender: </label>
+          <div class="col-sm-8">
+            <input type="radio" name="gender" value="male"> Male <br>
+            <input type="radio" name="gender" value="female"> Female <br>
+            <input type="radio" name="gender" value="other"> Rather not say<br>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Subscribe to newsletter: </label>
+          <input type="checkbox" name="newsletter" >
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2 col-sm-offset-1 col-form-label">Bio: </label>
+          <input class="col-sm-8" type="textarea" name="bio">
+        </div>
+        <input class="btn-primary" type="submit">
       </form>
     </div>
   </div>

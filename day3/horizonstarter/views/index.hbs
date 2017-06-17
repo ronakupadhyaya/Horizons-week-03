@@ -1,4 +1,29 @@
 <h1>View projects</h1>
+<br>
+Sort by Goal:
+<a href="http://localhost:3000/?sort=goal">Ascending</a>
+  <span>     </span>
+<a href="http://localhost:3000/?sort=goal&sortDirection=descending"> Descending</a>
+<br>
+Sort by Start:
+<a href="http://localhost:3000/?sort=start&sortDirection=1">Ascending</a>
+<span>     </span>
+<a href="http://localhost:3000/?sort=start&sortDirection=descending">    Descending</a>
+<br>
+Sort by End:
+<a href="http://localhost:3000/?sort=end&sortDirection=1">Ascending</a>
+<span>     </span>
+<a href="http://localhost:3000/?sort=end&sortDirection=descending">    Descending</a>
+<br>
+Sort by Total Contributions:
+<a href="http://localhost:3000/?sort=total&sortDirection=1">Ascending</a>
+<span>     </span>
+<a href="http://localhost:3000/?sort=total&sortDirection=descending">    Descending</a>
+<br>
+<br>
+Show only projects that are:
+<a href="http://localhost:3000/?sort=funded">funded</a>
+<a href="http://localhost:3000/?sort=notfunded">not funded</a>
 
 <!-- Part 1: View all projects -->
 {{#each items}}

@@ -7,13 +7,45 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container{
+      background-color: white;
+      padding: 20px;
+      border-radius: 30px;
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
-    </div>
-  </div>
+      <h1 class="col-sm-offset-4">Profile</h1><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>First Name:</strong></span>
+        <span>  {{first}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Middle Initial:</strong> {{middleinitial}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Last Name:</strong> {{last}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>DOB:</strong> {{dob}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Password:</strong> {{password}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Gender:</strong> {{gender}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Subscribed:</strong> {{newsletter}}</span>
+      </div><br><br>
+      <div class="col-sm-10 col-sm-offset-2">
+        <span><strong>Biography:</strong> {{bio}}</span>
+      </div><br><br>
+
+    </div><br><br>
+  </div><br><br>
 </body>
 </html>

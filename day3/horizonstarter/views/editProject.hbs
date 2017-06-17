@@ -16,30 +16,30 @@
 
 <h2>Create project</h2>
 
-<form action="/new" method="post" class="container">
+<form action="/project/{{id}}/edit" method="post" class="container">
     <div class="form-group">
       <label for="" class="form-control">Title: </label>
-      <input type="text" class="form-control" name="title" value="">
+      <input type="text" class="form-control" name="title" value="{{a.title}}">
     </div>
     <div class="form-group">
       <label for="" class="form-control">Goal: </label>
-      <input type="text" class="form-control" name="goal" value="">
+      <input type="text" class="form-control" name="goal" value="{{a.goal}}">
     </div>
     <div class="form-group">
       <label for="" class="form-control">Description: </label>
-      <textarea name="description" rows="8" cols="160"></textarea>
+      <textarea name="description" rows="8" cols="160">{{a.description}}</textarea>
     </div>
     <div class="form-group">
       <label for="" class="form-control">Start: </label>
-      <input type="Date" class="form-control" name="start" value="">
+      <input type="Date" class="form-control" name="start" value="{{a.start}}">
     </div>
     <div class="form-group">
       <label for="" class="form-control">End: </label>
-      <input type="Date" class="form-control" name="end" value="">
+      <input type="Date" class="form-control" name="end" value="{{a.end}}">
     </div>
     <div class="form-group dropdown">
       <label for="" class="form-control">Category: </label>
-      <select name="category">
+      <select name="category" value="{{a.category}}">
         <option name="category" value="">--Select a Category--</option>
         <option name="category" value="Famous Muppet Frogs">Famous Muppet Frogs</option>
         <option name="category" value="Current Black Presidents">Current Black Presidents</option>
@@ -54,7 +54,3 @@
     </div>
     <button type="submit" name="button" class="btn-primary">Submit</button>
 </form>
-
-<!-- Part 2: Create project -->
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

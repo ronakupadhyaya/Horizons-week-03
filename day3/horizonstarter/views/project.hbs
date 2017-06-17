@@ -5,7 +5,8 @@
   <h4>Goal: {{a.goal}}</h4>
   <h4>Started: {{a.start}}</h4>
   <h4>By: {{a.end}}</h4>
-  <p>{{a.description}}</p>
+  <p><strong>Description:</strong> {{a.description}}</p>
+  <p><strong>Category:</strong> {{a.category}}</p>
   <ul>
     {{#each a.contributions}}
       <li>Contributor: {{name}} <br>Amount: {{amount}}</li>

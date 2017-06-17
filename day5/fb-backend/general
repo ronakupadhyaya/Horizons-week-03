@@ -1,0 +1,18 @@
+-setup of mongoose
+  - head to mlab
+  -env.sh mongo uri
+  -mongoose directory
+    -models file
+      -user
+  -require mongoose in appjs
+-make apiroutes.js -> hit up the app.use(apiroutes)
+
+process in app.js:
+  -require all necessary modules
+  -mongoose configuration
+  -express application configuration
+  -require in my routes
+  -start my server
+    -app.js could also be called server.js
+    -it is the Entry Point when a user wants to access the server
+    
