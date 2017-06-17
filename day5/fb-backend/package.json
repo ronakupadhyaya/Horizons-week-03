@@ -1,5 +1,13 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6",
+    "node-env-file": "^0.1.8",
+    "nodemon": "^1.11.0"
   }
 }
