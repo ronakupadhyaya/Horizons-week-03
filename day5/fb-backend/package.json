@@ -1,5 +1,17 @@
 {
   "scripts": {
     "start": "node app.js"
-  }
+  },
+  "name": "fb-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
