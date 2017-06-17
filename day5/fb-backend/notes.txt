@@ -1,0 +1,38 @@
+- read the readme
+- look at the files we have
+- think ahead --> npm installs
+    - mongoose, express, body-parser
+    - the node_modules folder
+    - sudo npm install -g nodemon
+
+- setup of mongoose
+    - head to mLab
+    - create database
+    - create collection for user schemas
+    - create user
+
+- build URI
+    - make env.sh file --> in terminal, touch env.sh
+    - export MONGODB_URI=""
+    - in terminal, source env.sh
+
+- set up directory to store models --> in terminal
+    - mkdir models
+    - cd models
+    - touch models.js
+        - make a user model with 4 attributes
+        - var __ = mongoose.model('', {}) (or do a schema)
+        - add User to module.exports
+
+- require stuff in app.js !
+    //1)require all the necessary models
+    //2) mongoose configuration
+    //3) express application configuration
+    //4) require in my routes
+    //5) start my server
+
+- go to apiroutes -->
+    - require stuff
+    - define my routes
+      -REMEMBER: req.body is only for POST and req.query is for GET
+    - remember to do module.exports = router
