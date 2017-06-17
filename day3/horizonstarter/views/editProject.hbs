@@ -1,7 +1,6 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-<!-- Part 2: Create project -->
-<form method="POST" action="/new">
+<form method="POST" action="/project/{{id}}">
   Title:
   <input type="text" name="title" value="{{project.title}}">
   Goal:
@@ -13,7 +12,7 @@
   End:
   <input type="date" name="end" value="{{endDate}}">
   Project Category:
-  <select name="picked">
+  <select name="picked" value={{project.category}}>
     <option>Famous Muppet Frogs</option>
     <option>Current Black Presidents</option>
     <option>The Pen Is Mightier</option>
@@ -26,9 +25,3 @@
   </select>
   <input type="submit" value="Submit">
 </form>
-
-{{#each errors}}
-  <h5>{{msg}}</h5>
-{{/each}}
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

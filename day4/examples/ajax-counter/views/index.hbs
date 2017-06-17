@@ -16,6 +16,27 @@
     <script src="/jquery.js"></script>
     <script>
       // YOUR CODE HERE
+      $('#up').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/up',
+          method: 'POST',
+          success: function(res) { //res is the json object we passed in from server {count: 1}
+            $('#count').text(res.count);
+          }
+        });
+      });
+
+      $('#down').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/down',
+          method: 'POST',
+          success: function(res) { //res is the json object we passed in from server {count: 1}
+            $('#count').text(res.count);
+          }
+        });
+      });
     </script>
   </body>
 </html>

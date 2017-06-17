@@ -45,13 +45,32 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstname', 'First name cannot be empty').notEmpty();
+  req.check('middlename', 'Middle initial must be one letter').isLength ({
+    max: 1
+  });
+  req.check('lastname', 'Last name cannot be empty').notEmpty();
+  req.check('pwd', 'Password cannot be empty').notEmpty();
+  req.check('cpwd', 'Confirming password cannot be empty').notEmpty();
+  req.assert('cpwd', 'Passwords do not match').equals(req.body.pwd);
+  req.check('news', 'Checkbox cannot be blank').notEmpty();
+  req.check('dob', 'Date is in the future').isBefore();
+  req.check('optionsRadios', 'Have to choose an option').notEmpty();
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      password: req.body.pwd,
+      gender: req.body.optionsRadios,
+      dob: req.body.dob,
+      middlename: req.body.middlename,
+      bio: req.body.bio
+    });
   }
 });
 

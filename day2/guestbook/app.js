@@ -65,14 +65,21 @@ app.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
   var arr = data.read();
-  if (req.query.order === "ascending") {
-    arr.sort(function(a, b) {
-      return new Date(a.Date) - new Date(b.Date);
+  if (req.query.author) {
+    arr = arr.filter(function(a) {
+      return req.query.author === a.author;
     })
   }
-  else if (req.query.order === "descending") {
+  if (req.query.order === "ascending") {
+    arr.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date);
+      //return a.Date - b.Date;
+    })
+  }
+  if (req.query.order === "descending") {
     arr.sort(function(a,b) {
-      return new Date(b.Date) - new Date(a.Date);
+      return new Date(b.date) - new Date(a.date);
+      //return b.Date - a.Date;
     })
   }
   res.render('posts', {
@@ -80,7 +87,7 @@ app.get('/posts', function (req, res) {
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
     username: req.cookies.username,
-    posts: data.read()
+    posts: arr
 
   });
 });
@@ -94,13 +101,13 @@ app.get('/posts', function (req, res) {
 // the user is not logged in display an error.
 //
 // Hint: check req.cookies.username to see if user is logged in
-// app.get('/posts/new', function(req, res) {
-//   // YOUR CODE HERE
-//   res.render('post_form', {
-//     error: new Error("Not logged in!"),
-//     user_logged: !req.cookies.username
-//   })
-// });
+app.get('/posts/new', function(req, res) {
+  // YOUR CODE HERE
+  res.render('post_form', {
+    error: new Error("Not logged in!"),
+    user_logged: !req.cookies.username
+  })
+});
 
 // POST /posts:
 // This route is called by the form on /posts/new when a new post is being created.

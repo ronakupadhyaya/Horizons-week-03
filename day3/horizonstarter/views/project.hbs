@@ -3,7 +3,46 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<div>
+<h3 class="title">{{project.title}}</h3>
+<p class="goal">{{project.goal}}</p>
+{{#if project.description}}
+  <p class="description">{{project.description}}</p>
+{{/if}}
+<p class="start">{{project.start}}</p>
+<p class="end">{{project.end}}</p>
+<p class="category">{{project.category}}</p>
+</div>
+<div id="project-id">{{project.id}}</div>
 
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+<h3>Contributions</h3>
+<form method="POST">
+  Name:
+  <input type="text" name="name" id="name">
+  Amount:
+  <input type="text" name="amount" id="amount">
+  <button id="send-contribution">Add Contribution</button>
+</form>
+
+<p> Total Contributions: {{total}}</p>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{percent}}"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percent}}%">
+    {{percent}}%
+  </div>
+</div>
+<p> All Contributions: </p>
+<ul>
+{{#each contributions}}
+  <li>{{this.name}},
+  {{this.amount}}</li>
+{{/each}}
+</ul>
+<p> Project Category: {{project.category}}</p>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/contributions.js"></script>

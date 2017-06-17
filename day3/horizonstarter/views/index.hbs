@@ -2,6 +2,15 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<a href="/?sort=ascendingstart">Order by start date</a>
+<a href="/?sort=ascendingend">Order by end date</a>
+<a href="/?sort=goal">Order by goal</a>
+<ul>
+{{#each items}}
+  <li><a href="/project/{{this._id}}">{{this.title}}</a></li>
+{{/each}}
+</ul>
+
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
