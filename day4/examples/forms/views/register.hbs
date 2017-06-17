@@ -1,24 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Registration</title>
+    <title>Registration</title>
 
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
-  <style>
+    <style>
     body { background-color: #2ECC71; padding-top: 2em;}
-  </style>
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+    <div class="container">
+        <h1>Registration Form</h1>
+        <div><strong>Errors:</strong>{{#each errors}}{{this}}{{/each}}</div> <br>
+        <form action="/register" method="post">
+            <div class="form-group row col-xs-8 col-xs-offset-2">
+                <label for="example-text-input" class="col-2 col-form-label">First Name</label>
+                <div class="col-10">
+                    <input name="fn" class="form-control" type="text" value="First Name" id="example-text-input" required>
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-text-input" class="col-2 col-form-label">Middle Initial</label>
+                <div class="col-10">
+                    <input name="mi" class="form-control" type="text" value="Middle Initial" id="example-text-input">
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-text-input" class="col-2 col-form-label">Last Name</label>
+                <div class="col-10">
+                    <input name="ln" class="form-control" type="text" value="Last Name" id="example-text-input" required>
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-date-input" class="col-2 col-form-label">DOB</label>
+                <div class="col-10">
+                    <input name="dob" class="form-control" type="date" value="mm/dd/yyyy" id="example-date-input">
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-password-input" class="col-2 col-form-label">Password</label>
+                <div class="col-10">
+                    <input name="pwd" class="form-control" type="password" value="Password" id="example-password-input" required>
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-password-input" class="col-2 col-form-label">Repeat Password</label>
+                <div class="col-10">
+                    <input name="rpwd" class="form-control" type="password" value="Repeat Password" id="example-password-input" required>
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="example-password-input" class="col-2 col-form-label">Gender</label>
+                <div class="col-10" name="selector">
+                    <label class="radio-inline"><input type="radio" name="optradio" required>Male</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" required>Female</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" required>Prefer not to say</label>
+                </div>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8 checkbox">
+                <label><input name="news" type="checkbox" value="" required>Sign up for Newsletter</label>
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <label for="exampleTextarea">Biography</label>
+                <input type='textarea' name="bio" class="form-control" id="exampleTextarea" rows="3">
+            </div>
+            <div class="form-group row col-xs-offset-2 col-xs-8">
+                <input type="submit" value="Register">
+            </div>
+        </form>
     </div>
-  </div>
 </body>
 </html>
+
+
+
+
+<!-- <div class="form-group row col-xs-8">
+<label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
+<div class="col-10">
+<input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input">
+</div>
+</div>
+<div class="form-group row col-xs-8">
+<label for="example-password-input" class="col-2 col-form-label">Password</label>
+<div class="col-10">
+<input class="form-control" type="password" value="hunter2" id="example-password-input">
+</div>
+</div>
+<div class="form-group row col-xs-8">
+<label for="example-number-input" class="col-2 col-form-label">Number</label>
+<div class="col-10">
+<input class="form-control" type="number" value="42" id="example-number-input">
+</div>
+</div>
+<div class="form-group row col-xs-8">
+<label for="example-datetime-local-input" class="col-2 col-form-label">Date and time</label>
+<div class="col-10">
+<input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+</div>
+</div>
+<div class="form-group row col-xs-8">
+<label for="example-month-input" class="col-2 col-form-label">Month</label>
+<div class="col-10">
+<input class="form-control" type="month" value="2011-08" id="example-month-input">
+</div>
+</div>
+<div class="form-group row col-xs-8">
+<label for="example-week-input" class="col-2 col-form-label">Week</label>
+<div class="col-10">
+<input class="form-control" type="week" value="2011-W33" id="example-week-input">
+</div>
+</div> -->

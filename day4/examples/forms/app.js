@@ -44,14 +44,31 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('fn', 'fn not right.').notEmpty()
+  req.check('mi', 'mi not right.').isLength({min: 1, max:1})
+  req.check('ln', 'ln not right.').notEmpty()
+  req.check('dob', 'dob not right.').notEmpty()
+  req.check('pwd', 'pwd not right.').notEmpty()
+  req.check('rpwd', 'rpwd not right.').notEmpty()
+
+  var errors = req.validationErrors()
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    console.log(req.body.optradio, req.bodyselector)
+    res.render('profile', {
+        fn : req.body.fn,
+        mi : req.body.mi,
+        ln : req.body.ln,
+        dob : req.body.dob,
+        pwd : req.body.pwd,
+        rpwd : req.body.rpwd,
+        gender : req.body.selector,
+        news : req.body.news,
+        bio : req.body.bio
+    });
   }
 });
 

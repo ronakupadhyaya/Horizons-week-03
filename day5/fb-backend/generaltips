@@ -1,0 +1,16 @@
+
+
+-- read the readme
+-- look at the files we have
+-- think ahead --> npm installs
+    -- mongoose, express, body-parser
+    -- the node_modules folder
+
+-- setup of mongoose
+    -- head to mlab
+    -- env.sh mongo user
+        --models directory
+            -- models file
+                --user
+        -- require mongoose in app.js
+--make apiroutes.js -> hit up the app.use (apiroutes)

@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 //configuration options. These make up the exercicse.
 var fs = require('fs');

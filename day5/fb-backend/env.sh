@@ -1,0 +1,1 @@
+export MONGODB_URI=mongodb://ben:ben@ds129442.mlab.com:29442/fb-ben
