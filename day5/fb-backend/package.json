@@ -1,5 +1,12 @@
 {
   "scripts": {
-    "start": "node app.js"
+    "start": "source env.sh && nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.10.6",
+    "path": "^0.12.7"
   }
 }
