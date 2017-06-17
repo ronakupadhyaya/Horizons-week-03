@@ -10,7 +10,7 @@ var app = express();
 
 var mongoose = require('mongoose');
 
-
+console.log(process.env.MONGODB_URI);
 if (!fs.existsSync('./env.sh')) {
   throw new Error('env.sh file is missing');
 }
@@ -25,6 +25,7 @@ mongoose.connection.on('error', function () {
   process.exit(1);
 });
 mongoose.connect(process.env.MONGODB_URI);
+
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',

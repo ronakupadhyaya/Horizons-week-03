@@ -1,5 +1,22 @@
 {
   "scripts": {
-    "start": "node app.js"
-  }
+    "start": "nodemon app.js"
+  },
+  "name": "fb-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+"body-parser": "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "express": "~4.13.1",
+    "express-handlebars": "^3.0.0",
+    "express-validator": "^2.20.5",
+    "mongoose": "^4.5.0",
+    "nodemon": "^1.11.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

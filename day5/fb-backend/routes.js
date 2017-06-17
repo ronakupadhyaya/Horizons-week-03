@@ -3,322 +3,329 @@
 // Routes, with inline controllers for each route.
 var express = require('express');
 var router = express.Router();
-var Project = require('./models').Project;
-var strftime = require('strftime');
+var User = require('./models').User;
+var Post = require('./models').Post;
+var Token = require('./models').Token;
+// var strftime = require('strftime');
 var _ = require('underscore')
 
-// Example endpoint
-router.get('/create-test-project', function (req, res) {
-  var project = new Project({
-    title: 'I am a test project'
+
+//// User routes
+
+// POST / api / users / register
+// POST / api / users / login
+// POST / api / users / logout(🔒)
+
+router.post('/api/users/register', function (req, res) {
+  console.log(req.body);
+  var user = new User({
+    fname: req.body.fname,
+    lname: req.body.lnamem,
+    email: req.body.email,
+    password: req.body.password
   });
-  project.save(function (err) {
+  user.save(function (err) {
     if (err) {
       res.status(500).json(err);
     } else {
-      res.send('Success: created a Project object in MongoDb');
+      res.json({
+        "success": "Success",
+        "body": req.body
+      });
     }
   });
 });
 
-// Part 1: View all projects
-// Implement the GET / endpoint.
-router.get('/', function (req, res) {
 
+router.post('/api/users/login', function (req, res) {
 
-  var sortDir = 1;
-  if (req.query.sortDirection === "asc") {
-    sortDir = -1;
-  }
-  if (req.query.sortDirection === "dec") {
-    sortDir = 1;
-  }
-  var sort = req.query.sort;
-  if (req.query.sort) {
-    var sortObject = {};
-    sortObject[req.query.sort] = sortDir;
-    Project.find().sort(sortObject).exec(function (err, array) {
-      res.render("index", {
-        items: array,
-        dir: req.query.sortDirection,
-        sort: sort
-      });
-    });
-  } else {
-    Project.find(function (err, array) {
-      res.render('index', {
-        items: array
-      });
-    });
+  var email = req.body.email;
+  var password = req.body.password;
 
-  }
-
-});
-
-router.get('/api/projects', function (req, res) {
-
-  Project.find(function (err, array) {
-    //  console.log(array);
+  User.findOne({
+    email: email,
+    password: password
+  }, function (err, person) {
     if (err) {
-      console.log(err);
-    }
-    if (req.query.funded) {
-      if (req.query.funded === "true") {
-        array = array.filter(function (item) {
-          console.log(item);
-          return item.totalcontribution >= item.goal;
+      console.log("couldnot find");
+    } else {
+      if (person === null) {
+        console.log("no prseo");
+      } else {
+        console.log("there is person");
+
+        var token = new Token({
+          userId: person._id,
+          token: req.body.email + new Date().toString(),
+          createdAt: new Date()
         });
 
-        if (req.query.sort) {
-          if (req.query.sort === "amountFunded") {
-            array = _.sortBy(array, 'totalcontribution');
-          } else if (req.query.sort === "percentageFunded") {
+        token.save(function (err) {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.json({
+              "success": "Success",
 
-            array = _.sortBy(array, function (item) {
-              return item.totalcontribution / item.goal;
             });
           }
-          if (req.query.sortDir === "asc") {
-
-            array.reverse();
-          }
-        }
-        res.json(array);
-
-      } else if (req.query.funded === "false") {
-        array = array.filter(function (item) {
-          return item.totalcontribution < item.goal;
         });
 
-        if (req.query.sort) {
-          if (req.query.sort === "amountFunded") {
-            array = _.sortBy(array, 'totalcontribution');
-          } else if (req.query.sort === "percentageFunded") {
 
-            array = _.sortBy(array, function (item) {
-              return item.totalcontribution / item.goal;
-            });
-          }
-          if (req.query.sortDir === "asc") {
-
-            array.reverse();
-          }
-        }
-        res.json(array);
       }
-    } else {
-
-      //in case that showing all results
-      res.render('index', {
-        items: array
-      });
     }
   });
 
 });
 
-router.get('/funded/:flag', function (req, res) {
+router.post('/api/users/logout', function (req, res) {
+  var token = req.body.token;
+  Token.findOneAndRemove({
+    token: token
+  }, function (err, doc, result) {
 
-  if (req.params.flag === "true") {
-    Project.find(function (err, array) {
-      console.log(array);
-      array = array.filter(function (item) {
-        console.log(item);
-        return item.totalcontribution >= item.goal;
-      });
-      res.render('index', {
-        items: array
-      });
-    });
-  } else {
-    Project.find(function (err, array) {
-      array = array.filter(function (item) {
-        return item.totalcontribution <= item.goal;
-      });
-      res.render('index', {
-        items: array
-      });
-    });
-
-  }
-
-})
-// Part 2: Create project
-// Implement the GET /new endpoint
-router.get('/new', function (req, res) {
-  res.render('new', {});
-});
-
-// Part 2: Create project
-// Implement the POST /new endpoint
-router.post('/new', function (req, res) {
-
-  req.checkBody('title', 'must add title').notEmpty();
-  req.checkBody('goal', 'must add body').notEmpty();
-  req.checkBody('description', 'must add desectiption').notEmpty();
-  req.checkBody('start', 'must add date').notEmpty();
-  req.checkBody('end', 'must add date').notEmpty();
-  if (req.validationErrors()) {
-    res.render('new', {
-      title: "please fill this correctly",
-      goal: "please fill this correctly",
-      description: "please fill this correctly",
-      date: "please fill this correctly",
-      date2: "please fill this correctly",
-    });
-
-  } else {
-    var project = new Project({
-      title: req.body.title,
-      goal: req.body.goal,
-      description: req.body.description,
-      start: req.body.start,
-      end: req.body.end,
-      category: req.body.category,
-      totalcontribution: 0
-    });
-    project.save(function (err) {
-      if (err) {
-        console.log("error ins project save", err);
-      } else {
-
-        res.redirect('/');
-        console.log("projsect was logged")
-      }
-    });
-  }
-
-});
-
-// Part 3: View single project
-// Implement the GET /project/:projectid endpoint
-router.get('/project/:projectid', function (req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectid;
-  Project.findById(id, function (err, projectTmp) {
+    ///if doc is null nothing was remoced the item is not on the server
+    console.log("doc", doc, "result", result);
     if (err) {
-      console.log("err in findById")
-    }
-    var totalcontribution = 0;
-    projectTmp.contributions.forEach(function (item) {
-      totalcontribution += parseInt(item.amount);
-    });
-    console.log(totalcontribution);
-    console.log(projectTmp.goal);
-    var barPrecent = (totalcontribution / projectTmp.goal) * 100;
-    console.log(barPrecent);
-    res.render('project', {
-      project: projectTmp,
-      barPrecent: barPrecent
-    });
-  });
-});
-
-// Part 4: Contribute to a project
-// Implement the GET /project/:projectid endpoint
-router.post('/project/:projectid', function (req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectid;
-  var contribution = {
-    name: req.body.name,
-    amount: req.body.amount
-  }
-  Project.findById(req.params.projectid, function (err, projectTmp) {
-    if (err) {
-      res.status(500).json(err);
-    }
-    projectTmp.totalcontribution += parseInt(req.body.amount);
-    projectTmp.contributions.push(contribution);
-    projectTmp.save(function (err) {
-      if (err) {
-        res.status(503).json(err);
-      } else {
-        res.redirect('/');
-        console.log("contribution made12321")
-      }
-    })
-  });
-
-});
-
-
-
-router.post('/api/project/:projectId/contribution', function (req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectId;
-  var contribution = req.body.contribution;
-  Project.findById(id, function (err, projectTmp) {
-    if (err) {
-      res.status(500).json(err);
-    }
-    req.check('contribution.amount', "amount is a negative number or 0").isInt();
-    var a = req.validationErrors();
-    if (a) {
-      res.status(400).json(a);
-    } else {
-      console.log("contribution is ", req.body.contribution);
-      projectTmp.totalcontribution = projectTmp.totalcontribution + ~~+(contribution.amount);
-      projectTmp.contributions.push(contribution);
-      projectTmp.save(function (err) {
-        if (err) {
-          res.status(503).json(err);
-        } else {
-          res.json(contribution);
-          console.log("contribution new api")
-        }
+      res.json({
+        "error": "no token"
       })
-
-    }
-
-  });
-
-});
-
-
-
-
-// Part 6: Edit project
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
-
-router.get('/project/:projectid/edit', function (req, res) {
-  // YOUR CODE HERE
-  var id = req.params.projectid;
-  Project.findById(id, function (err, projectTmp) {
-    if (err) {
-      console.log("err in findById")
-    }
-    res.render('editProject', {
-      project: projectTmp,
-      title: projectTmp.title,
-      goal: projectTmp.goal,
-      description: projectTmp.description,
-      date: projectTmp.start,
-      date2: projectTmp.end,
-      category: projectTmp.category
-    });
-  });
-});
-
-router.post('/project/:projectid/edit', function (req, res) {
-  // YOUR CODE HERE
-  Project.findByIdAndUpdate(req.params.projectid, {
-    title: req.body.title,
-    goal: req.body.goal,
-    description: req.body.description,
-    start: req.body.start,
-    end: req.body.end,
-    category: req.body.category
-    // YOUR CODE HERE
-  }, function (err) {
-    // YOUR CODE
-    if (err) {
-      res.status(500).json(err);
+      //console.log("err");
     } else {
-      res.redirect("/");
+
+      if (token === undefined) {
+        res.json({
+          "error": "couldnot delete"
+        });
+      } else {
+
+        res.json({
+          "success": "log out"
+        });
+      }
+      //console.log(p);
+    }
+  });
+});
+
+router.get("/api/posts/", function (req, res) {
+
+  Token.findOne({
+    token: req.query.token
+  }, function (err, person) {
+    if (err) {
+      res.json({
+        "error": "connection network error"
+      });
+    } else {
+      if (person === null) {
+        res.json({
+          "error": "token is not exist"
+        });
+      } else {
+
+
+        //check if user is in the server if yes send
+
+        User.findOne({
+          _id: person.userId
+        }, function (err, person) {
+          if (err) {
+            res.json({
+              "error": "connection network error"
+            });
+          } else {
+            if (person === null) {
+              res.json({
+                "error": "person is not matching to the token"
+              });
+            } else {
+
+              console.log("searching 2");
+
+              Post.find().limit(10).exec(function (err, array) {
+                res.json(array);
+              });
+
+            }
+          }
+        });
+      }
     }
   });
 
+
 });
+
+router.get("/api/posts/:page", function (req, res) {
+  var pages = req.params.page * 10;
+  console.log(pages);
+
+  Token.findOne({
+    token: req.query.token
+  }, function (err, person) {
+    if (err) {
+      res.json({
+        "error": "connection network error"
+      });
+    } else {
+      if (person === null) {
+        res.json({
+          "error": "token is not exist"
+        });
+      } else {
+
+
+        //check if user is in the server if yes send
+
+        User.findOne({
+          _id: person.userId
+        }, function (err, person) {
+          if (err) {
+            res.json({
+              "error": "connection network error"
+            });
+          } else {
+            if (person === null) {
+              res.json({
+                "error": "person is not matching to the token"
+              });
+            } else {
+
+              console.log("searching 2");
+
+              Post.find().skip(pages).exec(function (err, array) {
+                res.json(array);
+              });
+
+            }
+          }
+        });
+      }
+    }
+  });
+});
+
+router.post("/api/posts/", function (req, res) {
+  var content = req.body.content;
+  var token = req.body.token;
+
+  Token.findOne({
+    token: token
+  }, function (err, person) {
+    if (err) {
+      res.json({
+        "error": "connection network error"
+      });
+    } else {
+      if (person === null) {
+        res.json({
+          "error": "token is not exist"
+        });
+      } else {
+
+
+        //check if user is in the server if yes send
+
+        User.findOne({
+          _id: person.userId
+        }, function (err, person1) {
+          if (err) {
+            res.json({
+              "error": "connection network error"
+            });
+          } else {
+            if (person1 === null) {
+              res.json({
+                "error": "person is not matching to the token"
+              });
+            } else {
+
+              console.log("searching 2");
+
+              var post = new Post({
+                poster: {
+                  name: person1.fname,
+                  id: person1._id
+                },
+                content: content,
+                likes: [],
+                comments: [],
+                createdAt: new Date()
+              });
+
+
+              post.save(function (err, doc) {
+                if (err) {
+                  res.status(500).json(err);
+                } else {
+                  res.json({
+                    "success": "Success",
+                    "response": doc
+                  });
+                }
+              });
+
+
+
+            }
+          }
+        });
+      }
+    }
+  });
+
+
+
+
+});
+
+router.get("/api/posts/comments/:post_id", function (req, res) {
+
+  // TODO:  start from here finish this function
+  var token = req.body.token;
+  Token.findOneAndRemove({
+    token: token
+  }, function (err, doc, result) {
+
+    ///if doc is null nothing was remoced the item is not on the server
+    console.log("doc", doc, "result", result);
+    if (err) {
+      res.json({
+        "error": "no token"
+      })
+      //console.log("err");
+    } else {
+
+      if (token === undefined) {
+        res.json({
+          "error": "couldnot delete"
+        });
+      } else {
+
+        res.json({
+          "success": "log out"
+        });
+      }
+      //console.log(p);
+    }
+  });
+
+
+});
+
+router.post("/api/posts/comments/:post_id", function (req, res) {
+
+});
+
+router.get("/api/posts/likes/:post_id", function (req, res) {
+
+});
+
+
+
+module.exports = router;
+
+
 
 module.exports = router;
