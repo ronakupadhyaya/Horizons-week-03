@@ -9,10 +9,14 @@ var User = require('./models/models').User;
 var Token = require('./models/models').Token;
 var Post = require('./models/models').Post;
 var strftime = require('strftime');
+var bcrypt = require('bcrypt');
 
 var app = express();
 app.use(bodyParser.json());
 app.use(expressValidator());
+const saltRounds = 10;
+// const myPlaintextPassword = 's0/\/\P4$$w0rD';
+// const someOtherPlaintextPassword = 'not_bacon';
 
 router.get('/', function(req, res) {
   res.json({
@@ -21,56 +25,60 @@ router.get('/', function(req, res) {
 })
 
 router.post('/users/register', function(req, res) {
-  var newUser = new User({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    password: req.body.password
-  })
-  newUser.save(function(err, usr) {
-    if (err) {
-      res.json({
-        failures: "database error"
-      })
-    } else {
-      res.json({
-        success: true
-      })
-    }
-  })
+  var newHash;
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    var newUser = new User({
+      fname: req.body.fname,
+      lname: req.body.lname,
+      email: req.body.email,
+      password: hash
+    })
+    newUser.save(function(err, usr) {
+      if (err) {
+        res.json({
+          failures: "database error"
+        })
+      } else {
+        res.json({
+          success: true
+        })
+      }
+    })
+  });
 })
 
 router.post('/users/login', function(req, res) {
-  User.findOne({
-    email: req.body.email,
-    password: req.body.password
-  }, function(err, foundUser) {
+  User.findOne({email:req.body.email},function(err,foundUser) {
     if (err) {
-      res.status(500).json(err);
+      res.json({err:err});
       return;
-    } else {
-      var today = new Date();
-      var newToken = new Token({
-        userId: foundUser._id,
-        token: req.body.email + today,
-        createdAt: today
-      });
-      newToken.save(function(err, savedToken){
-        if(err){
-          res.json( {
-            failures: "database error"
-          })
-        } else {
-          res.json({
-              success: true,
-              response: {
-                id: savedToken.userId,
-                token: savedToken.token
-              }
-          });
-        }
-      });
     }
+    var hash = foundUser.password;
+    bcrypt.compare(req.body.password, hash, function(err, result) {
+      if (!result) {res.json({
+        failures: "wrong password"
+      })}
+      else {
+        var today = new Date();
+        var newToken = new Token({
+          userId: foundUser._id,
+          token: req.body.email + today,
+          createdAt: today
+        });
+        newToken.save(function(err, savedToken){
+          if(err){
+            res.json({
+              failures: "database error"
+            })
+          } else {
+            res.json({
+                success: true,
+                response: savedToken
+            });
+          }
+        });
+      }
+    });
   });
 });
 
@@ -132,9 +140,6 @@ router.post('/posts',authentication,function(req,res) {
   });
 });
 
-// router.get('/posts',authentication,function(req,res) {
-//
-// })
 router.get('/posts/:page',authentication,function(req,res) {
   var pageNum = req.params.page || 1;
   Post.find({}).skip((pageNum-1)*10).limit(10).exec(function(err,posts) {
@@ -267,6 +272,54 @@ router.get('/posts/likes/:post_id',authentication,function(req,res) {
   });
 });
 
+router.put('/posts/:post_id',authentication,function(req,res) {
+  var postId = req.params.post_id;
+  Post.findById(postId,function(err,foundPost) {
+    if (err) {
+      res.json({error:err});
+    } else {
+      if (foundPost.poster.id.toString() !== req.user_id.toString()) {
+        res.json({error:"You have no authority to change the content"})
+      } else {
+        var newContent = req.body.content;
+        Post.findByIdAndUpdate(foundPost._id,{content:newContent},function(err,updatedPost) {
+          if (err) {
+            res.json({error:err});
+          } else {
+            res.json({
+              success:true,
+              response:updatedPost
+            });
+          }
+        });
+      }
+    }
+  });
+});
+
+
+router.delete('/posts/:post_id',authentication,function(req,res) {
+  var postId = req.params.post_id;
+  Post.findById(postId,function(err,foundPost) {
+    if (err) {
+      res.json({error:err});
+    } else {
+      if (foundPost.poster.id.toString() !== req.user_id.toString()) {
+        res.json({error:"permission denied"})
+      } else {
+        Post.remove({'_id':foundPost._id},function (err) {
+          if (err) {
+            res.json({failures: "database error"});
+            return;
+          }
+          res.json({
+            success: true
+          });
+        });
+      }
+    }
+  });
+});
 
 function authentication(req, res, next) {
   var token = req.body.token || req.query.token;
@@ -281,7 +334,7 @@ function authentication(req, res, next) {
       res.json({error: "fail to find user"})
     } else {
       req.user_id = foundToken.userId;
-      next()
+      next();
     }
   })
 }
