@@ -16,5 +16,8 @@
     "mongoose": "^4.10.6",
     "strftime": "^0.10.0",
     "underscore": "^1.8.3"
+  },
+  "engines": {
+    "node": "6.10.2"
   }
 }
