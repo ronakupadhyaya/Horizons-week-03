@@ -263,6 +263,36 @@ router.get('/posts/comments/:post_id', function(req, res) {
   })
 })
 
+//GET /api/posts/:page
+
+
+
+//GET /api/posts/likes/:post_id
+router.get('/posts/likes/:post_id', function(req, res) {
+  Token.findOne({
+    token: req.query.token
+  }, function(err, resp) {
+    if (err) {
+      res.json({
+        failure: "Token not found"
+      });
+    } else {
+      var postId = req.params.post_id;
+      Post.findById(postId, function(err, resp2) {
+        if (err) {
+          res.json({
+            failure: "Post not found"
+          })
+        } else {
+          res.json({
+            success: true,
+            response: resp2;
+          })
+        }
+      })
+    }
+  })
+})
 
 
 
