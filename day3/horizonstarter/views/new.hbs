@@ -3,11 +3,23 @@
 <!-- Part 2: Create project -->
 <form action='/new' method='POST'>
   <div>
-  Title: <input type="text" name="title" value="{{p.title}}" placeholder="title"/>
-  Goal: <input type="text" name="goal" value="{{p.goal}}" placeholder="goal"/>
-  Description: <textarea rows="5" cols="100" value="{{p.description}}"></textarea>
-  Start: <input type="date" name="start" value="{{p.start}}"/>
-  End: <input type="date" name="end" value="{{p.end}}"/>
+  <div>Title: <input type="text" name="title" value="{{p.title}}" placeholder="title"/></div>
+  <div>Goal: <input type="text" name="goal" value="{{p.goal}}" placeholder="goal"/></div>
+  <div>Description: <textarea rows="5" cols="100" name="description" value="{{p.description}}"></textarea></div>
+  <div>Start: <input type="date" name="start" value="{{p.start}}"/></div>
+  <div>End: <input type="date" name="end" value="{{p.end}}"/></div>
+  <div class='text'>Categories</div>
+    <select name='category2' value=''>
+        <option name="category" value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+        <option name="category" value="Current Black Presidents">Current Black Presidents</option>
+        <option name="category" value="The Pen is Mightier">The Pen is Mightier</option>
+        <option name="category" value="Famous Mothers">Famous Mothers</option>
+        <option name="category" value="Drummers Named Ringo">Drummers Named Ringo</option>
+        <option name="category" value="1-Letter Words">1-Letter Words</option>
+        <option name="category" value="Months That Start With 'Feb'">Months That Start With Feb</option>
+        <option name="category" value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+        <option name="category" value="Potent Potables">Potent Potables</option>
+      </select>
   <input type="submit" value="Submit new project"/>
 </div>
 </form>

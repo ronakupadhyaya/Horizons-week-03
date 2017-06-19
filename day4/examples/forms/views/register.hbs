@@ -11,14 +11,34 @@
 </head>
 <body>
   <div class="container">
+    <ul>
+      {{#each errors}}
+        <li>{{msg}}</li>
+        {{/each}}
+      </ul>
     <h1>Put your registration form here</h1>
+    <form action="/register" method="POST">
+      First Name: <input type="text" name="firstName" value="{{firstName}}"  placeholder="first-name" required/>
+      Middle Initial: <input type="text" name="middleInitial" value="{{middleInitial}}" placeholder="middle-initial"/>
+      Last Name: <input type="text" name="lastName" value="{{lastName}}" placeholder="last-name" required/>
+      Date of Birth: <input type="date" name="date"value="{{date}}"/>
+      Password: <input type="password" name="password" value="{{password}}" placeholder="password" required/>
+      Repeat Password: <input type="password" name="repeatPassword" value="{{repeatPassword}}" placeholder="Repeat Password" required/>
+      Gender: <input type="radio" name="gender" value="male" {{#if m}} checked="{{m}}" {{/if}} required/>Male
+
+              <input type="radio" name="gender" value="female" {{#if f}} checked="{{f}}" {{/if}} required/>Female
+              <input type="radio" name="gender" value="preferNotSay" {{#if p}} checked="{{p}}" {{/if}} required/>Prefer not say
+      Sign-up for newsletter: <input type="checkbox" value="checkbox" name="checkbox" {{#if checkbox}} checked="false" {{/if}} required/> <br>
+      Bio: <textarea rows="5" cols="100" name="bio" value="{{bio}}" placeholder="Biography"></textarea>
+      <input type="submit" value="Submit registration form"/>
+    </form>
     <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
+    <!-- <div class="row">
       <form action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>
         <input type="submit">
       </form>
-    </div>
+    </div> -->
   </div>
 </body>
 </html>

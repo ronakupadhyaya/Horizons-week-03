@@ -1,14 +1,15 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
 <!-- YOUR CODE HERE -->
-
+{{#each Project}}
 <div>{{Project.title}}</div>
 <div>{{Project.goal}}</div>
 <div>{{Project.start}}</div>
 <div>{{Project.end}}</div>
-<div>{{ContributionNum}}</div>
+<div>{{contributionNum}}</div>
+<div>{{Project.category}}</div>
+{{/each}}
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
@@ -23,4 +24,9 @@
   name: <input type="text" name="name" value="{{name}}" placeholder="name"/>
   amount: <input type="number" name="amount" value="{{amount}}" placeholder="amount"/>
   <input type="submit" value="Contribute to project"/>
+</form>
+
+
+<form action="/project/{{id}}/edit">
+  <input type="submit" value="Edit"/>
 </form>

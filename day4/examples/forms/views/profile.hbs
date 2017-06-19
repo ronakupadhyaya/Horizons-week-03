@@ -10,9 +10,28 @@
   </style>
 </head>
 <body>
+  <ul>
+    {{#each errors}}
+      <li>{{msg}}</li>
+      {{/each}}
+    </ul>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <h1>User Profile</h1>
+      <!-- <form action="/register" method="POST"> -->
+        First Name: {{firstName}}
+        <!-- First Name: <input type="text" name="firstName" value="{{firstName}}"  placeholder="first-name" required/> -->
+        Middle Initial: {{middleInitial}}
+        Last Name: {{lastName}}
+        Date of Birth: {{date}}
+        Password: {{password}}
+        Repeat Password: {{repeatPassword}}
+        Gender: {{m}}
+              {{f}}
+                {{preferNotSay}}
+        Sign-up for newsletter:{{checkbox}}
+        Bio: {{bio}}
+      <!-- </form> -->
     </div>
   </div>
 </body>

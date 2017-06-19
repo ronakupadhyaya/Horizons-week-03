@@ -1,0 +1,31 @@
+<h2>Edit project</h2>
+
+<!-- Part 2: Create project -->
+<form action='/projects/:projectid/edit' method='POST'>
+  <div>
+  <div>Title: <input type="text" name="title" value="{{Project.title}}" /></div>
+  <div>Goal: <input type="text" name="goal" value="{{Project.goal}}" /></div>
+  <div>Description: <textarea rows="5" cols="100" >{{Project.description}}</textarea></div>
+  <div>Start: <input type="date" name="start" value="{{start}}"/></div>
+  <div>End: <input type="date" name="end" value="{{end}}"/></div>
+  <div>Category:  <select id="category" name="category">
+    <option name="category2" value="Famous Muppet Frogs">Famous Muppet Frogs</option>
+    <option name="category2" value="Current Black Presidents">Current Black Presidents</option>
+    <option name="category2" value="The Pen is Mightier">The Pen is Mightier</option>
+    <option name="category2" value="Famous Mothers">Famous Mothers</option>
+    <option name="category2" value="Drummers Named Ringo">Drummers Named Ringo</option>
+    <option name="category2" value="1-Letter Words">1-Letter Words</option>
+    <option name="category2" value="Months That Start With 'Feb'">Months That Start With Feb</option>
+    <option name="category2" value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
+    <option name="category2" value="Potent Potables">Potent Potables</option>
+   </select>
+</div>
+    <div><input type="submit" value="Submit editted version"/></div>
+</form>
+
+<script src="/js/jquery.min.js">
+
+</script>
+<script>
+  $('#category').val("{{Project.category}}");
+</script>
