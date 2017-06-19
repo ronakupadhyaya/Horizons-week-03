@@ -15,9 +15,9 @@ var app = express();
 // mongoose configuration
 var mongoose = require('mongoose');
 
-if (! fs.existsSync('./env.sh')) {
-  throw new Error('env.sh file is missing');
-}
+// if (! fs.existsSync('./env.sh')) {
+//   throw new Error('env.sh file is missing');
+// }
 if (! process.env.MONGODB_URI) {
   throw new Error("MONGODB_URI is not in the environmental variables. Try running 'source env.sh'");
 }
