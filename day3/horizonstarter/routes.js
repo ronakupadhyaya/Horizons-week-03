@@ -50,16 +50,15 @@ router.get('/new', function(req, res) {
 // Implement the POST /new endpoint
 router.post('/new', function(req, res) {
   console.log('REACHES POST NEW');
-  var start = req.body.start.length() === 10 ? startDate : req.body.start.toISOString().substring(0, 10)
-  var end = req.body.end.length() === 10 ? endDate : req.body.start.toISOString().substring(0, 10)
+  // var start = req.body.start.length() === 10 ? startDate : req.body.start.toISOString().substring(0, 10)
+  // var end = req.body.end.length() === 10 ? endDate : req.body.start.toISOString().substring(0, 10)
 
   var proj = {
     title: req.body.title,
     goal: req.body.goal,
     description: req.body.description,
-    start: start,
-    end: end,
-    endDate: endDate,
+    start: req.body.start,
+    end: req.body.end,
     category: req.body.category
   }
 
@@ -156,8 +155,8 @@ router.post('/project/:projectid/edit', function(req, res) {
   var id=req.params.projectid;
   var linkTo = '/project/'+id+'/edit';
   console.log('REACHES POST EDIT with project start: '+req.body.start);
-  var start = req.body.start.length === 10 ? req.body.start : req.body.start.toISOString().substring(0, 10)
-  var end = req.body.end.length === 10 ? req.body.end : req.body.start.toISOString().substring(0, 10)
+  // var start = req.body.start.length === 10 ? req.body.start : req.body.start.toISOString().substring(0, 10)
+  // var end = req.body.end.length === 10 ? req.body.end : req.body.start.toISOString().substring(0, 10)
 
 
   Project.findById(id, function(err, proj) {
@@ -167,8 +166,8 @@ router.post('/project/:projectid/edit', function(req, res) {
       proj.title = req.body.title;
       proj.goal = req.body.goal;
       proj.description = req.body.description;
-      proj.start = start;
-      proj.end = end;
+      proj.start = req.body.start;
+      proj.end = req.body.end;
       proj.category = req.body.category;
 
       proj.save(function(err) {
