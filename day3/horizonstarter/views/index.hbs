@@ -13,11 +13,12 @@
 
       <h2 class="col-sm-offset-2 col-md-offset-2"><label>Project</label>: {{title}}</h2>
       <p class="col-sm-offset-2 col-md-offset-2" id="goal"><label>Goal</label>: ${{goal}}</p>
-      <p class="col-sm-offset-2 col-md-offset-2" id="desc"><label>Project description</label>: {{description}}</p>
+      <p class="col-sm-4 col-sm-offset-2 col-md-offset-2" id="desc"><label>Project description</label>: {{description}}</p>
+      <a href="/project/{{_id}}"  type="button" name="button" class="col-sm-3 btn btn-info">View project</a>
 
     </div>
   {{/each}}
-  <button type="submit" class="btn btn-primary col-sm-offset-9">Create a new project</button>
+  <a href="/new" type="submit" class="btn btn-primary col-sm-offset-9">Create a new project</a>
 </div>
 
 
@@ -36,5 +37,8 @@
   a {
     margin-left: 10px;
     margin-right: 10px
+  }
+  #desc {
+    padding: 0;
   }
 </style>
