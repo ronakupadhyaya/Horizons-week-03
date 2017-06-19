@@ -115,7 +115,7 @@ Create the following routes for user functionality:
 
 - `POST /api/users/register`
 - `POST /api/users/login`
-- `POST /api/users/logout` (🔒)
+- `GET /api/users/logout` (🔒)
 
 **Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
 
@@ -142,14 +142,14 @@ To add tokenization functionality follow these recommended steps:
 ##### Login
 
 1. In the `POST /api/users/login` endpoint, add logic to create a unique token for the user currently logging in.
-  	- A token contains user information so that a username does not have to be passed through every time a request is made.
-  	- We suggest making your `token` field in your Token object `username + new Date()` to guarantee uniqueness.
+  	- A token contains user information so that an email does not have to be passed through every time a request is made.
+  	- We suggest making your `token` field in your Token object `email + new Date()` to guarantee uniqueness.
   	- Set the `userId` field on the Token object to the `_id` of the user that is currently logging in.
 1. Save this `token` to your mongo database.
 
 ##### Logout
 
-1. In the `POST /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
+1. In the `GET /api/users/logout` endpoint you should search for the given token and remove it from the database to prevent further use of this particular token.
 
 ##### Using the token
 1. For all routes requiring authentication (marked by 🔒), we advise looking up the `token` received and retrieve the user through the `userId` field.
