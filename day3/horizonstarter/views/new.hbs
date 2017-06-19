@@ -1,5 +1,23 @@
 <h2>Create project</h2>
 
+<form method="post" action="/new" id="New Post">
+  <input type="text" name="title" value="{{project.title}}" placeholder="Title" >
+  <input type="text" name="goal" value="{{project.goal}}" placeholder="Goal">
+  <input type="textarea" name="description" value="{{project.description}}" placeholder="description">
+  <input type="date" name="start" value="{{project.start}}">
+  <input type="date" name="end" value="{{project.end}}">
+  <div class="form-group">
+      <label for="category">Category</label>
+      <select name="category" class="form-control">
+          {{#each category}}
+            <option value="{{this}}">{{this}}</option>
+          {{/each}}
+      </select>
+  </div>
+  <input type="submit" name ="Submit button" value="Submit">
+</form>
+
+<a href="/">Return to home</a>
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

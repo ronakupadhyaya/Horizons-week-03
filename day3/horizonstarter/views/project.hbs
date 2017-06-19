@@ -1,4 +1,32 @@
 <h1>View Project</h1>
+<hr>
+
+<h1>Title: {{project.title}}</h1>
+<ul>
+  <li>Goal: {{project.goal}}</li>
+  <li>Description: {{project.description}}</li>
+  <li>Start Date: {{project.start}}</li>
+  <li>End Date: {{project.end}}</li>
+</ul>
+{{#each project.contributions}}
+  <ul>
+    <li>
+      {{name}} contributed {{amount}}
+    </li>
+  </ul>
+{{/each}}
+
+<form action="/project/{{project._id}}" method="Post">
+  <input type="text" name="name" value="{{name}}" placeholder="Contributor"></input>
+  <input type="Number" name="amount" value="{{amount}}" placeholder="Contribution amount"></input>
+  <input type="submit" name="submit" value="Fundraise"></input>
+</form>
+<a href="/project/{{project._id}}/edit">Click to edit this project.</a>
+<a href="/">Click to return to index/home</a>
+<!-- Total contributions: ${{project.raised}}
+
+
+
 
 <!-- Part 3: View a single project -->
 

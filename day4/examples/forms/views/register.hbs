@@ -12,10 +12,45 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <div><strong>Errors:</strong>
+      {{#if errors}}
+        <ul>
+          {{#each errors}}
+            <li><div class="alert alert-danger">{{msg}}</div></li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <hr>
+        <label for="firstname">First Name</label><input type="text" name="firstname" placeholder="First Name" style="display:block">
+        <hr>
+        <label for="middlename">Middle Name</label><input type="text" name="middlename" placeholder="Middle Name" style="display:block">
+        <hr>
+        <label for="lastname">Last Name</label><input type="text" name="lastname" placeholder="Last Name" style="display:block">
+        <hr>
+        <label for="dateOfBirth">Date of Birth</label><input type="date" name="dob" placeholder="Date of Birth" style="display:block">
+        <hr>
+        <label for="password">Password: </label><input type="password" name="password" placeholder="Enter Password" style="display:block">
+        <hr>
+        <label for="repeatPassword">Repeat password:</label><input type="password" name="repeatPassword" placeholder="Repeat password here" style="display:block">
+        <hr>
+
+        <label for="Gender">Select gender:</label><input type="radio" name="gender" value="male"> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Rather not say<br>
+        <hr>
+        <label for="newsletterSignUp">Sign up for newsletter</label><input type="checkbox" name="newsletterSignUp" style="display:block">
+        <hr>
+        <label for="bio">Biography</label><input type="textarea" name="bio" style="display:block" placeholder="Biography">
+        <!-- <input type="text" placeholder="First Name" name="firstName" required> -->
+        <hr>
         <input type="submit">
       </form>
     </div>
