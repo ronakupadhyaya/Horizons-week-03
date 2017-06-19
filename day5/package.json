@@ -1,0 +1,17 @@
+{
+  "name": "day5",
+  "version": "1.0.0",
+  "description": "Last week, we built the [frontend](https://github.com/horizons-school-of-technology/week02/blob/master/day5/README.md) of our version of Facebook and made AJAX requests to the given API server at [https://horizons-facebook.herokuapp.com/](https://horizons-facebook.herokuapp.com/).",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
