@@ -255,10 +255,34 @@ router.post('/project/:projectid', function(req, res) {
       found.contributions.push({name: req.body.name, amount: req.body.amount });
       found.save(function(err) {
         if (err) {
-          console.log(err);
+          console.log("ERROR:",err);
         } else {
 
           res.redirect('/project/'+req.params.projectid);
+        }
+      });
+    }
+  });
+});
+
+router.get('/api/project/:projectId/contribution', function(req, res) {
+
+});
+
+router.post('/api/project/:projectId/contribution', function(req, res) {
+  Project.findById(req.params.projectid, function(err, found) {
+    console.log("ERR",err);
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("found:", found);
+      found.contributions.push({name: req.body.name, amount: req.body.amount });
+      found.save(function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.json(found.contributions);
+          //res.redirect('/project/'+req.params.projectid);
         }
       });
     }
