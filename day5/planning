@@ -1,0 +1,13 @@
+Planning
+
+
+Need:
+  -mongoose, express, body-parser (npm installs)
+  -mLab database name: demilade-facebook
+    -don't forget env.sh mongodb_uri
+  -mongoose directory
+    -models file
+      -users, posts and token models 
+
+
+-no need for handlebars
