@@ -1,5 +1,16 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+<form class="newForm" action="/new" method="post">
+  Title: <input type="text" name="title" value="{{title}}">
+  <div class="form-group">
+    Goal: <input type="text" name="goal" value="{{goal}}" >
+  </div>
+
+  description: <textarea name="description" style="display:block" rows="8" cols="80"></textarea>
+  Start: <input type="date" name="start" value="{{start}}">
+  End: <input type="date" name="end" value="{{end}}">
+  <input type="submit" name="" value="submit">
+</form>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

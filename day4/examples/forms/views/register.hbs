@@ -12,11 +12,20 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+      {{#each errors}}
+       <div class="alert alert-danger" >
+         <strong>{{this.msg}}</strong>
+       </div>
+      {{/each}}
+      </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+        First Name: <input type="text" placeholder="First Name" name="firstName" value="{{fname}}"required>
+        Middle Name Init: <input type="text" name="middleInit" value="{{middleInit}}" >
+        Last Name: <input type="text" name="lastName" value="{{lastName}}" required>
+        DOB: <input type="date" name="dob" value="{{dob}}">
+        <input type="submit" value="submit">
       </form>
     </div>
   </div>
