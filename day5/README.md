@@ -25,7 +25,7 @@ For this exercise, *you do not need to implement versioning*. This means that yo
 ## 🚨 Testing 🚨
 
 Test your code early and often to make sure it works as you write it.
-In this exercise, it will be up to you to break down tasks in order to attempt them in bite sized chunks.
+In this exercise, it will be up to you to break down tasks in order to attempt them in bite-sized chunks.
 
 Once you have express running, use Postman to make requests to your API endpoints and verify that they return the correct results.
 
@@ -56,6 +56,7 @@ Once you have express running, use Postman to make requests to your API endpoint
 
 
 #### Connect Mongoose
+??? why do it this way? ???
 
 1. Create an `env.sh` file
 
@@ -117,7 +118,7 @@ Create the following routes for user functionality:
 - `POST /api/users/login`
 - `POST /api/users/logout` (🔒)
 
-**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation does not have the `__v` field).
+**Note**: Refer to the [API Documentation](https://horizons-facebook.herokuapp.com/) to look up what each route is supposed to do. Again, as a reminder, *you do not need to implement versioning*. This means that your routes should not include the **1.0** as shown in the documentation. Finally, you should not worry about the field `__v` in your responses (All responses in the documentation do not have the `__v` field).
 
 > TIP: We are storing our password as plaintext. Do refer to part 2 bonus if you want to implement a secure user authentication system. #bestpractices
 

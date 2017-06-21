@@ -1,0 +1,17 @@
+How to do projects
+by Nihar
+
+-read the readme
+-look at the files we have
+-think ahead --> npm installs
+  -mongoose, express, body-parser
+  -the node_modules folder
+-setup of mongoose
+  - head to mlab
+  - env.sh mongo uri
+  -models directory
+    -models file
+      -user
+  - require mongoose in appjs
+
+-in a database, collections should collect the same information
