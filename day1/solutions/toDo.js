@@ -71,6 +71,7 @@ program
 // These line is part of the 'Commander' module. It tells them to process all the
 // other arguments that are sent to our program with no specific name.
 program.parse(process.argv);
+
 if (process.argv.length === 2) {
   program.help();
 }

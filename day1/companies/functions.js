@@ -8,6 +8,8 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newArr = parser(arr);
+    
   },
 
   // Find the average of all the original investments for all companies.
