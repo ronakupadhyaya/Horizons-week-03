@@ -33,6 +33,12 @@ var csvjson = require('csvjson');
 //    ]
 function fileReader(csvFilePath){
   // YOUR CODE HERE
+  var data = fs.readFileSync(path.join(csvFilePath), { encoding : 'utf8'});
+  var options = {
+    //delimiter : ',',
+    headers : "id,investorId,company,originalInvestment,valueToday"
+  }
+  return csvjson.toObject(data, options).slice(1);
 }
 
 // Write a function that takes an array of investment objects and replaces
@@ -47,7 +53,11 @@ function fileReader(csvFilePath){
 //     originalInvestment: 1100000, // Note conversion from string to number
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
-  // YOUR CODE HERE
+  arr.forEach(function(obj) {
+    obj.originalInvestment = parseInt(obj.originalInvestment);
+    obj.valueToday = parseInt(obj.valueToday);
+  })
+  return arr;
 }
 
 module.exports = {

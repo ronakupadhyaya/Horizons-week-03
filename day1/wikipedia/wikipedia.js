@@ -21,4 +21,23 @@ function countLines(fileName) {
   });
 }
 
-countLines(__filename);
+// countLines('sample.data');
+
+function fileReader(fileName){
+  var res = [];
+  var input = fs.createReadStream(fileName);
+  var rl = readline.createInterface({
+    input: input
+  });
+  rl.on('line', function(line) {
+    var newLine = {
+      language: line.split(' ')[0],
+      name: line.split(' ')[1],
+      number: line.split(' ')[2],
+      bytes: line.split(' ')[3]
+    }
+    res.push(newLine);
+  });
+  return res;
+}
+console.log(fileReader('sample.data'));
