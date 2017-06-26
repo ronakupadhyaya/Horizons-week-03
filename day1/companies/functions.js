@@ -1,3 +1,5 @@
+var myApp = require('./app.js');
+
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -8,6 +10,13 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newArr = myApp.parser(arr);
+    return newArr.reduce(function(a, b) {
+      if (a['originalInvestment'] > b['originalInvestment']) {
+        return a;
+      }
+      return b;
+    })['originalInvestment'];
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +25,12 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newArr = myApp.parser(arr);
+    var sum = 0;
+    for (var i = 0; i < newArr.length; i++) {
+      sum += newArr[i]['originalInvestment'];
+    }
+    return sum/newArr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +45,16 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var result = {};
+    var newArr = myApp.parser(arr);
+    newArr.forEach(function(item) {
+      if (!result.hasOwnProperty(item['company'])) {
+        result[item['company']] = item['originalInvestment'];
+      } else {
+        result[item['company']] += item['originalInvestment'];
+      }
+    });
+    return result;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +69,16 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var result = {};
+    var newArr = myApp.parser(arr);
+    newArr.forEach(function(item) {
+      if (!result.hasOwnProperty(item['investorId'])) {
+        result[item['investorId']] = item['originalInvestment'];
+      } else {
+        result[item['investorId']] += item['originalInvestment'];
+      }
+    });
+    return result;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +94,16 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var result = {};
+    var newArr = myApp.parser(arr);
+    newArr.forEach(function(item) {
+      if (!result.hasOwnProperty(item['investorId'])) {
+        result[item['investorId']] = item['valueToday'];
+      } else {
+        result[item['investorId']] += item['valueToday'];
+      }
+    });
+    return result;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +115,40 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var maxId;
+    var maxRatio = 0;
+    var newArr = myApp.parser(arr);
+    var originalInvest = module.exports.totalOriginalInvestmentsByInvestors(newArr);
+    var currentInvest = module.exports.totalCurrentValueOfInvestors(newArr);
+    for (var id in originalInvest) {
+      if (originalInvest.hasOwnProperty(id)) {
+        if (currentInvest[id] / originalInvest[id] > maxRatio) {
+          maxId = id;
+          maxRatio = currentInvest[id] / originalInvest[id];
+        }
+      }
+    }
+    return maxId;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var maxId;
+    var maxInvestment = 0;
+    var newArr = myApp.parser(arr);
+    var originalInvest = module.exports.totalOriginalInvestmentForCompanies(newArr);
+    for (var id in originalInvest) {
+      if (originalInvest.hasOwnProperty(id)) {
+        if (originalInvest[id] > maxInvestment) {
+          maxId = id;
+          maxInvesmtent = originalInvest[id];
+        }
+      }
+    }
+
+    return JSON.stringify(maxId - 1);
   }
 
 }
