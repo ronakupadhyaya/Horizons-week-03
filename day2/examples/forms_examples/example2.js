@@ -15,7 +15,7 @@ app.get('/submitted', function(req, res) {
     username: req.query.username,
     password: req.query.password,
     name: req.query.name,
-    female: req.query.gender==="female",
+    female: req.query.gender==="female",//testing tesing
     male: req.query.gender==="male",
     other: req.query.gender==="other"
   });
@@ -26,7 +26,7 @@ app.get('/', function(req, res) {
     username: req.query.username,
     password: req.query.password,
     name: req.query.name,
-  
+
   });
 });
 
