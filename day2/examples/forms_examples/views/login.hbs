@@ -1,5 +1,14 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
-
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+  </head>
+  <body>
+    {{#if valid}}
+      <h1>Hi {{name}}</h1>
+    {{else}}
+      <h1 style="color: red;">Error</h1>
+    {{/if}}
+  </body>
+</html>

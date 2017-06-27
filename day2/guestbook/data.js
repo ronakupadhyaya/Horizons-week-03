@@ -8,28 +8,27 @@ var file = 'data.json';
 module.exports = {
   read: function() {
     if (!fs.existsSync(file)) {
-      return [
-      {
-        title: 'Eggs',
-        body: 'Somebody has been eating my eggs! I have to label them.',
-        author: 'Darwish',
-        date: '6/13/2016',
-      },
-      {
-        title: 'First post',
-        body: 'This is the first post in the guest book',
-        author: 'Moose',
-        date: '1/20/2016',
-      }
+      return [{
+          title: 'Eggs',
+          body: 'Somebody has been eating my eggs! I have to label them.',
+          author: 'Darwish',
+          date: '2016-6-13',
+        },
+        {
+          title: 'First post',
+          body: 'This is the first post in the guest book',
+          author: 'Moose',
+          date: '2016-1-20',
+        }
       ];
     }
     return jsonfile.readFileSync(file);
   },
   save: function(data) {
-    if (! data) {
+    if (!data) {
       throw new Error("Data is missing, can't save.");
     }
-    if (! Array.isArray(data)) {
+    if (!Array.isArray(data)) {
       throw new Error("Data must be an array.");
     }
     jsonfile.writeFileSync(file, data);
