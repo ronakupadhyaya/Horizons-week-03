@@ -11,7 +11,6 @@ var csvjson = require('csvjson');
 //  - csvjson.toObject(): https://www.npmjs.com/package/csvjson
 //  - fs.readFileSync(): https://nodejs.org/api/fs.html#fs_fs_readfilesync_file_options
 //
-// Note: you need to require('packageName') before the csvjson or fs packages.
 //
 // ex. fileReader('investments1.csv') ->
 //   [ { id: '1',
