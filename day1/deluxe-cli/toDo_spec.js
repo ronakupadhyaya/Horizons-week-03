@@ -15,7 +15,9 @@ describe("Test toDo.js", function() {
 
   it("Show with no tasks on model", function() {
     var cmd = 'node toDo.js show';
-    var stdout = child_process.execSync(cmd, {encoding:'utf-8'});
+    var stdout = child_process.execSync(cmd, {
+      encoding: 'utf-8'
+    });
     expect(stdout).toBe('');
   });
 
@@ -51,14 +53,16 @@ describe("Test toDo.js", function() {
   });
 });
 
-function runAndCleanStdout(cmd){
-  var stdout = child_process.execSync(cmd, {encoding:'utf-8'});
+function runAndCleanStdout(cmd) {
+  var stdout = child_process.execSync(cmd, {
+    encoding: 'utf-8'
+  });
   stdout = stdout.split(/\r\n|\r|\n/);
   stdout.splice(-1, 1);
   return stdout;
 }
 
-function generateTasks(){
+function generateTasks() {
   child_process.execSync('node toDo.js add Do the dishes');
   child_process.execSync('node toDo.js add Fix tv --priority 2');
   child_process.execSync('node toDo.js add Call the internet guy -p 3');
