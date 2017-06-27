@@ -1,5 +1,27 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
-
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Example 3</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 style="margin-left:100px">Login</h1>
+    <form style="margin-left:100px" action="/submitted" method="post">
+      <div class="input-group input-group-lg col-xs-3">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-user"></span>
+        </span>
+        <input class="form-control" name="username" type="text" placeholder="Username">
+      </div>
+      <div class="input-group input-group-lg col-xs-3">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-lock"></span>
+        </span>
+        <input class="form-control" name="password" type="password" placeholder="Password">
+      </div>
+      <input type="submit" class="btn btn-info" value="Submit">
+      {{#if valid}} <h1>Hi {{name}}</h1> {{else}} {{#if notFirstTime}}<h1 style="color:red">ERROR: Incorrect credentials</h1>{{/if}} {{/if}}
+    </form>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
-
+var hbs = require('handlebars');
 var app = express();
 
 // view engine setup
@@ -10,8 +10,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/submitted', function(req, res) {
+  res.render('example2', {
+    username: req.query.username,
+    password: req.query.password,
+    name: req.query.name,
+    female: req.query.gender==="female",
+    male: req.query.gender==="male",
+    other: req.query.gender==="other"
+  });
+});
+
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  res.render('example2', {
+    username: req.query.username,
+    password: req.query.password,
+    name: req.query.name,
+  
+  });
 });
 
 // start the express app
