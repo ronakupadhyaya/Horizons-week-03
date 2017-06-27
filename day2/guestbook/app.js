@@ -72,7 +72,19 @@ app.get('/posts', function(req, res) {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     username: req.cookies.username,
-    posts: data.read()
+    posts: data.read(),
+    postsReversed: data.read().reverse(),
+    order: req.query.order === 'ascending',
+    origAuthor: req.query.author,
+    helpers: {
+      filterAuthor: function(author) {
+        if (req.query.author === undefined) {
+          return true;
+        } else {
+          return author === req.query.author;
+        }
+      }
+    }
   });
 });
 
@@ -112,9 +124,22 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  if (true) {
-
-  } else {
+  req.checkBody('title', 'Error: missing title.').notEmpty();
+  req.checkBody('body', 'Error: missing body.').notEmpty();
+  req.checkBody('date', 'Error: missing date.').notEmpty();
+  if (req.validationErrors() || req.cookies.username === undefined) {
+    if (req.cookies.username === undefined) {
+      res.status(401);
+      res.send('Not logged in.');
+    } else {
+      var errorMessages = [];
+      req.validationErrors().forEach(function(item) {
+        errorMessages.push(item.msg);
+      });
+      res.status(400);
+      res.send(errorMessages);
+    }
+  } else if (req.validationErrors() === false) {
     var newObj = {
       title: req.body.title,
       body: req.body.body,
@@ -125,7 +150,6 @@ app.post('/posts', function(req, res) {
     tempData.splice(0, 0, newObj);
     data.save(tempData);
   }
-  res.send(data.read());
 });
 
 // Start the express server

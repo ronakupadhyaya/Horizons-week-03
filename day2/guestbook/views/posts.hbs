@@ -1,37 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>View Posts</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
 
-    <link rel="stylesheet" href="/css/style.css"></link>
-    <link rel="stylesheet" href="/js/script.js"></link>
-  </head>
-  <body>
-    <h1>View all posts</h1>
+<head>
+  <title>View Posts</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Language" content="en">
 
-    <h2>Your username: {{username}}</h2>
+  <link rel="stylesheet" href="/css/style.css"></link>
+  <link rel="stylesheet" href="/js/script.js"></link>
+</head>
 
-    <!-- Part 2: Display posts -->
+<body>
+  <h1>View all posts</h1>
 
-    <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+  <h2>Your username: {{username}}</h2>
+
+  <!-- Part 2: Display posts -->
+
+  <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
       display them on the page.
       Put each post inside a div. Be sure to display the author, title, body and date of each post.
     -->
 
-    <!-- YOUR CODE HERE -->
+  <!-- YOUR CODE HERE -->
+  {{#unless order}}
     {{#each posts}}
-      <div>
-        <ul style="list-style:none;">
-          <li>Author: {{author}}</li>
-          <li>Title: {{title}}</li>
-          <li>Body: {{body}}</li>
-          <li>Date: {{date}}</li>
-        </ul>
-      </div>
+      {{#if (filterAuthor author)}}
+        <div>
+          <ul style="list-style:none;">
+            <li>Author: {{author}}</li>
+            <li>Title: {{title}}</li>
+            <li>Body: {{body}}</li>
+            <li>Date: {{date}}</li>
+            <a href="?order=descending&author={{author}}">View more posts by this author.</a>
+          </ul>
+        </div>
+      {{/if}}
     {{/each}}
-  </body>
+    {{else}}
+      {{#each postsReversed}}
+        {{#if (filterAuthor author)}}
+          <div>
+            <ul style="list-style:none;">
+              <li>Author: {{author}}</li>
+              <li>Title: {{title}}</li>
+              <li>Body: {{body}}</li>
+              <li>Date: {{date}}</li>
+              <a href="?order=ascending&author={{author}}">View more posts by this author.</a>
+            </ul>
+          </div>
+        {{/if}}
+      {{/each}}
+  {{/unless}}
+  {{#if (filterAuthor origAuthor)}}
+    <!--We want it to display 'show all' if origAuthor is undefined. -->
+    {{#if order}}
+      <a href="?order=ascending">Click to show all posts.</a>
+    {{else}}
+      <a href="?order=descending">Click to show all posts.</a>
+    {{/if}}
+  {{/if}}
+
+  <a href="?order=ascending">Ascending</a><br>
+  <a href="?order=descending">Descending</a>
+</body>
+
 </html>
