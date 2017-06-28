@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
@@ -23,5 +24,15 @@
   -->
 
   <!-- YOUR CODE HERE -->
+  <form class="form-inline" method="post" action="/login">
+    <div class="input-group input-group-lg col-xs-3">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-user"></span>
+      </span>
+      <input class="form-control" name="username" type="text" placeholder="Username">
+    </div>
+    <input type="submit" class="btn-lg btn-info" value="Login" style="display:inline">
+  </form>
+  
 </body>
 </html>

@@ -17,6 +17,14 @@ app.set('view engine', '.hbs');
 // Enable form validation with express validator.
 var expressValidator = require('express-validator');
 app.use(expressValidator());
+//Custom validator for date
+app.use(expressValidator({
+ customValidators: {
+    isDate: function(str) {
+        return !isNaN(Date.parse(str));
+    }
+ }
+}));
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,6 +53,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -52,7 +61,9 @@ app.get('/login', function(req, res) {
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
   res.cookie('username', req.body.username);
-  res.redirect('/posts');
+  if (req.body.username !== '') {
+    res.redirect('/posts');
+  }
 });
 
 // ---Part 2. View Posts---
@@ -64,13 +75,42 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var filterName = req.query.author;
+  var allPosts = data.read();
+  if (filterName) {
+    for (var i = allPosts.length - 1; i >= 0; i--) {
+      if (allPosts[i].author !== filterName) {
+        allPosts.splice(i, 1);
+      }
+    }
+  }
+  var order = req.query.order;
+  if (order === 'ascending') {
+    allPosts.sort(function(a, b) {
+      return (new Date(b.date)).getTime() - (new Date(a.date)).getTime();
+    });
+  } else if (order === 'descending') {
+    allPosts.sort(function(a, b) {
+      return (new Date(a.date)).getTime() - (new Date(b.date)).getTime();
+    });
+  }
+
+  if (req.cookies.username) {
+    res.render('posts', {
+      // Pass `username` to the template from req.cookies.username
+      username: req.cookies.username,
+      // Pass `posts` to the template from data.read()
+      posts: allPosts
+    });
+  } else {
+    res.render('post_form');
+  }
 });
 
+//Render post_form
+app.get('/post_form', function(req, res) {
+  res.render('post_form');
+})
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
 //
@@ -82,6 +122,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (!req.cookies.username) {
+    res.status(400).render('error');
+  } else {
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -102,6 +147,33 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username) {
+    req.checkBody('title', 'Empty title').notEmpty();
+    req.checkBody('date', 'Empty date').notEmpty();
+    req.checkBody('date', 'Invalid date format').isDate();
+    req.checkBody('message', 'Empty message').notEmpty();
+    if (req.validationErrors()) {
+      res.status(400).render('error-messages', {
+        errors: req.validationErrors()
+      });
+    /*  res.status(400).render('post_form', {
+        title: req.validationErrors().filter(function(e) {e.param == 'title'}).length > 0,
+        date: req.validationErrors().filter(function(e) {e.param == 'date'}).length > 0,
+        message: req.validationErrors().filter(function(e) {e.param == 'message'}).length > 0,
+      });*/
+    } else {
+      var newData = data.read();
+      newData.push({
+        title: req.body.title,
+        body: req.body.message,
+        author: req.cookies.username,
+        date: req.body.date
+      });
+      data.save(newData);
+    }
+  } else {
+    res.status(401).render('error');
+  }
 });
 
 // Start the express server

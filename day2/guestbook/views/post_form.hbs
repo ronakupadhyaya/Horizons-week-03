@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
 
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
@@ -22,6 +23,25 @@
     This login form should have input elements for title, body and date and a submit button.
   -->
   <!-- YOUR CODE HERE -->
-
+  <form method="post" action="/posts">
+    <div class="panel panel-info" style="width:50%">
+      <div class="panel-heading">Post a comment</div>
+      <div class="panel-body">
+        <div class="form-group" style="display:inline">
+          <textarea class="form-control" rows="1" style="width:49%; display:inline" name="title" placeholder="Title"></textarea>
+        </div>
+        <div class="form-group" style="display:inline">
+          <textarea class="form-control" rows="1" style="width:49%; display:inline" name="date" placeholder="Date"></textarea>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control" rows="5" name="message" placeholder="Message"></textarea>
+        </div>
+      </div>
+      <div class="form-group" style="margin-left:3%">
+        <input type="submit" class="btn btn-info" value="Submit">
+      </div>
+    </div>
+  </form>
+  <a href="/posts">Go back to feed</a>
 </body>
 </html>

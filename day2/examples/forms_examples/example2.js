@@ -15,7 +15,7 @@ app.get('/submitted', function(req, res) {
     username: req.query.username,
     password: req.query.password,
     name: req.query.name,
-    female: req.query.gender==="female",//testing tesing
+    female: req.query.gender==="female",
     male: req.query.gender==="male",
     other: req.query.gender==="other"
   });
