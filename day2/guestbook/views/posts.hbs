@@ -16,7 +16,13 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
-
+{{#each posts}}
+  <div class='post'>
+  <h5 class='title'>{{this.title}}</h5>
+  <p class='author-date'>{{this.author}} | {{this.date}}</p>
+  <p class='post-content'>{{this.body}}</p>
+  </div>
+{{/each}}
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.

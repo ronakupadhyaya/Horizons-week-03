@@ -1,3 +1,10 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
+  <form>
+    <input type="text" name="text" placeholder="Username" value="{{text}}"/><br>
+    <input type="text" name="password" placeholder="Password" value="{{password}}"/><br>
+    <input type="text" name="name" placeholder="full name" value="{{name}}"/><br>
+
+    <input type="radio" name="gender" value="male" {{#if male}} checked {{/if}}> Male<br>
+    <input type="radio" name="gender" value="female" {{#if female}} checked {{/if}}> Female<br>
+    <input type="radio" name="gender" value="other" {{#if other}} checked {{/if}}> Other<br>
+    <input type="submit" value="Register"/>
+  </form>

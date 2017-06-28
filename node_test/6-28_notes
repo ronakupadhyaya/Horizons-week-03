@@ -1,0 +1,8 @@
+6-28 notes  Express review/MongoDB
+
+server: handles requests from browser
+node: allows you to run node off browser
+express: npm package that acts as a server. responds to http requests
+http: protocol (set of rules) for brower/server communication (hypertext transfer protocol)
+
+MongoDB: a place to store data

@@ -1,5 +1,5 @@
 "use strict";
-
+var MONGODB_URI = require("./env.sh")
 if (! process.env.MONGODB_URI) {
   console.error('MONGODB_URI missing, make sure you run "source env.sh"');
   process.exit(1);
@@ -9,12 +9,52 @@ if (! process.env.MONGODB_URI) {
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
+var Cat = mongoose.model('Cat', {
+  name: String,
+  furColor: String
+}); // YOUR CODE HERE - define the cat model
 
-Cat.find(function(error, cats) {
+// new Cat({
+//   name: "Crookshanks",
+//   color: "Black"
+// }).save(function(err) {
+//   if (err) {
+//     console.log('ERROR', err)
+//   } else {
+//     console.log('SAVED!')
+//   }
+// })
+//
+// new Cat({
+//   name: "Mr. Bigglesworth",
+//   color: "White"
+// }).save(function(err) {
+//   if (err) {
+//     console.log('ERROR', err)
+//   } else {
+//     console.log('SAVED!')
+//   }
+// })
+//
+// new Cat({
+//   name: "Empurress",
+//   color: "Calico"
+// }).save(function(err) {
+//   if (err) {
+//     console.log('ERROR', err)
+//   } else {
+//     console.log('SAVED!')
+//   }
+// })
+
+
+
+Cat.findOne({
+  name: "Empurress"
+}, function(error, cat) {
   if (error) {
-    console.log("Can't find cats", error);
+    console.log("Can't find cat", error);
   } else {
-    console.log('Cats', cats);
+    console.log(cat);
   }
 });
