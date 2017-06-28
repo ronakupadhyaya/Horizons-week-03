@@ -98,13 +98,12 @@ app.get('/posts', function(req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  var error;
   if (req.cookies.username === undefined) {
-    error = 'Not logged in.';
+    res.status(401);
+    res.send('Not logged in.');
+  } else {
+    res.render('post_form');
   }
-  res.render('post_form', {
-    error: error
-  })
 });
 
 // POST /posts:
@@ -149,6 +148,7 @@ app.post('/posts', function(req, res) {
     var tempData = data.read();
     tempData.splice(0, 0, newObj);
     data.save(tempData);
+    res.redirect('/posts');
   }
 });
 

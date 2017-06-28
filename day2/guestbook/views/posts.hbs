@@ -54,15 +54,7 @@
         {{/if}}
       {{/each}}
   {{/unless}}
-  {{#if (filterAuthor origAuthor)}}
-    <!--We want it to display 'show all' if origAuthor is undefined. -->
-    {{#if order}}
-      <a href="?order=ascending">Click to show all posts.</a>
-    {{else}}
-      <a href="?order=descending">Click to show all posts.</a>
-    {{/if}}
-  {{/if}}
-
+  <a href="?order=descending">Show all posts</a><br>
   <a href="?order=ascending">Ascending</a><br>
   <a href="?order=descending">Descending</a>
 </body>
