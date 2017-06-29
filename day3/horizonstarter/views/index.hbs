@@ -2,6 +2,22 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-
+{{#each projects}}
+<div class="panel panel-info" style="width:70%; padding:10px">
+  <div class="panel-heading">
+    <div style="font-size: 20px;">
+      {{title}}
+    </div>
+     {{start}}-{{end}}
+  </div>
+  <div class="panel-body">
+    Goal: ${{goal}}
+    <br/>
+    {{description}}
+  </div>
+  <a href="http://localhost:3000/project/{{_id}}" class="btn btn-info" role="button">Donate</a>
+</div>
+{{/each}}
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+{{> button link="http://localhost:3000/new" style="btn-primary" body="Create new project"}}

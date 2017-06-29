@@ -41,8 +41,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Setup express-validator
-app.use(validator());
-
+app.use(validator({
+ customValidators: {
+    isNumber: function(str) {
+        if (str === '') {
+          return false;
+        }
+        return !isNaN(str);
+    }
+ }
+}));
 // Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));
 

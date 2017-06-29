@@ -1,9 +1,51 @@
 <h1>View Project</h1>
 
 <!-- Part 3: View a single project -->
-
-<!-- YOUR CODE HERE -->
+<div class="panel panel-info" style="width:70%">
+  <div class="panel-heading">
+    <div style="font-size: 20px;">
+      {{project.title}}
+    </div>
+     {{project.start}}-{{project.end}}
+  </div>
+  <div class="panel-body">
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:{{#if over}}100{{else}}{{percentage}}{{/if}}%">
+      </div>
+    </div>
+    <div style="color:#32CD32; font-weight:bold; font-size:30px">
+      ${{totalRaised}}
+    </div>
+    <div style="color:#A9A9A9; font-style:italic">
+      pledged of ${{project.goal}} goal
+    </div>
+    <br/>
+    <div style="font-size:16px; font-weight:bold">
+      {{numBackers}} backers
+    </div>
+    <br/>
+    <br/>
+    <div style="margin-top:-40px">
+      <br/>
+      {{project.description}}
+    </div>
+    <br/>
+    <ul>
+      {{#each donators}}
+      <li>{{@key}}, ${{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
 
 <!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+<form class="form-inline" method='post' action="/project/{{project._id}}">
+  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="contributor" placeholder="{{#if nameHasError}}{{nameError}}{{else}}Name{{/if}}">
+  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+    <div class="input-group-addon">$</div>
+    <input type="text" class="form-control" id="inlineFormInputGroup" name="amount" placeholder="{{#if amountHasError}}{{amountError}}{{else}}Amount{{/if}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Donate!</button>
+</form>
+<br/>
+<a href="http://localhost:3000" style="font-size:16px">Go back</a>
