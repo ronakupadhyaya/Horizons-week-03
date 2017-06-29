@@ -1,5 +1,15 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+<form method="post" action="/new">
+  <input type="text" name="title" placeholder="title" value="{{project.title}}"/>
+  <input type="text" name="goal" placeholder="goal" value="{{project.goal}}"/>
+  <textarea name="description" placeholder="description" value="{{project.description}}"></textarea>
+  <input type="date" name="start" value="{{project.start}}"/>
+  <input type="date" name="end" value="{{project.end}}"/>
+  <input type="submit" name="Create" value="Create"/>
+</form>
+
+<p>{{project.error}}</p>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

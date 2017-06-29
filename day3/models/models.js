@@ -49,7 +49,7 @@ var Cat = mongoose.model('Cat', {
 
 
 
-Cat.findOne({
+Cat.find({
   name: "Empurress"
 }, function(error, cat) {
   if (error) {

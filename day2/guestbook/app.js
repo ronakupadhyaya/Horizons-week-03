@@ -1,7 +1,6 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-var mongoose = require('mongoose')
 var app = express();
 
 // Enable cookie parsing
@@ -14,13 +13,15 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// Enable form validation with express validator.
-var expressValidator = require('express-validator');
-app.use(expressValidator());
+
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Enable form validation with express validator.
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
 // Make files in the folder `public` accessible via Express
 app.use(express.static(path.join(__dirname, 'public')));

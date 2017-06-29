@@ -10,14 +10,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// Enable form validation with express validator.
-var expressValidator = require('express-validator');
-app.use(expressValidator());
+
 
 // Enable POST request body parsing
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Enable form validation with express validator.
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,12 +48,17 @@ app.get('/register', function(req, res){
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
   var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('confirmPassword', 'Your passwords do not match').optional().matches(req.body.password)
+
+  var errors = req.validationErrors()
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+      profile: req.body
+    });
   }
 });
 

@@ -2,6 +2,16 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each projects}}
+  <div>
+    {{this.title}}<br>
+    {{this.goal}}<br>
+    {{this.description}}<br>
+    {{this.start}}<br>
+    {{this.end}}
+  </div>
+{{/each}}
+<a href='http://localhost:3000/new'>Create new project</a>
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
