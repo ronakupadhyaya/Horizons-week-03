@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>View Posts</title>
   <meta charset="UTF-8">
@@ -10,22 +11,58 @@
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
+
 <body>
-<h1>View all posts</h1>
+  <h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+  <h2>Your username: {{username}}</h2>
 
-<!-- Part 2: Display posts -->
-{{#each posts}}
-  <div>
-    <ul style='list-style:none;'>
-      <li>Author: {{author}}</li>
-      <li>Title: {{title}}</li>
-      <li>Body: {{body}}</li>
-      <li>Date: {{date}}</li>
-    </ul>
-  </div>
-{{/each}}
+  <!-- Part 2: Display posts -->
+  {{#unless order}}
+    {{#each posts}}
+      {{#if (isAuthor author)}}
+        <div>
+          <ul style='list-style:none;'>
+            <li>Author: {{author}}</li>
+            <li>Title: {{title}}</li>
+            <li>Body: {{body}}</li>
+            <li>Date: {{date}}</li>
+            <a href="?author={{author}}">Click to only show posts by this author</a>
+          </ul>
+        </div>
+      {{/if}}
+    {{/each}}
+    {{else}}
+      {{#each reversePosts}}
+        {{#if (isAuthor author)}}
+          <div>
+            <ul style='list-style:none;'>
+              <li>Author: {{author}}</li>
+              <li>Title: {{title}}</li>
+              <li>Body: {{body}}</li>
+              <li>Date: {{date}}</li>
+              <a href="?order=ascending&author={{author}}">Click to only show posts by this author</a>
+            </ul>
+          </div>
+        {{/if}}
+      {{/each}}
+  {{/unless}}
 
+  {{#unless (isAuthor '')}}
+    {{#if order}}
+      <a href="/posts?order=ascending">Click to show posts by all authors</a><br>
+    {{else}}
+      <a href="/posts">Click to show posts by all authors</a><br>
+    {{/if}}
+  {{/unless}}
+
+  {{#if (isAuthor 'test')}}
+    <a href="?order=ascending">Click to put the posts in ascending order</a><br>
+    <a href="?order=descending">Click to put the posts in descending order</a><br>
+  {{else}}
+    <a href="?order=ascending&author={{theAuthor}}">Click to put the posts in ascending order</a><br>
+    <a href="?order=descending&author={{theAuthor}}">Click to put the posts in descending order</a><br>
+  {{/if}}
 </body>
+
 </html>

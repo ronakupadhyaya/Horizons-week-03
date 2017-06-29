@@ -73,7 +73,17 @@ app.get('/posts', function(req, res) {
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
     username: req.cookies.username,
-    posts: data.read()
+    posts: data.read(),
+    reversePosts: data.read().reverse(),
+    order: req.query.order === 'ascending',
+    theAuthor: req.query.author,
+    helpers: {
+      isAuthor: function(author2) {
+        if (req.query.author === undefined)
+          return true
+        return req.query.author === author2;
+      }
+    }
   });
 });
 
@@ -113,20 +123,28 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-    if {
-
-    } else {
-      var arr = data.read();
-      arr.splice(0, 0, {
-        title: req.body.title,
-        body: req.body.body,
-        author: req.cookies.username,
-        date: req.body.date
-      });
-      data.save(arr);
-      res.send(data.read());
+  req.checkBody('title', 'Error: missing a title').notEmpty();
+  req.checkBody('body', 'Error: missing a body').notEmpty();
+  req.checkBody('date', 'Error: missing a date').notEmpty();
+  if (req.validationErrors() !== false || req.cookies.username === undefined) {
+    if (req.cookies.username === undefined) {
+      res.status(401);
+      res.send('Error, please make sure you are logged in');
+    } else
+      res.status(400);
+    res.send('Error, please make sure you have filled in all of the boxes');
+  } else {
+    var arr = data.read();
+    arr.splice(0, 0, {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.cookies.username,
+      date: req.body.date
     });
-}
+    data.save(arr);
+    res.send(data.read());
+  }
+})
 
 // Start the express server
 var port = '3000'

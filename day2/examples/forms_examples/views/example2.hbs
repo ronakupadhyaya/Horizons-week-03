@@ -1,3 +1,61 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  Username: <input type="text" name="username" value={{username}}><br>
+  Password: <input type="password" name="password" value={{password}}><br>
+  Name: <input type="text" name="name" value={{name}}><br>
+  <input type="radio" name="gender" value="male" {{shouldCheck 'male'}}>Male<br>
+  <input type="radio" name="gender" value="female" {{shouldCheck 'female'}}>Female<br>
+  <input type="radio" name="gender" value="other" {{shouldCheck 'other'}}>Other<br>
+  <button type="submit">Register</button>
+  <select name='state'>
+  	<option value="AL" {{shouldSelect 'AL'}}>Alabama</option>
+  	<option value="AK" {{shouldSelect 'AK'}}>Alaska</option>
+  	<option value="AZ" {{shouldSelect 'AZ'}}>Arizona</option>
+  	<option value="AR" {{shouldSelect 'AR'}}>Arkansas</option>
+  	<option value="CA" {{shouldSelect 'CA'}}>California</option>
+  	<option value="CO" {{shouldSelect 'CO'}}>Colorado</option>
+  	<option value="CT" {{shouldSelect 'CT'}}>Connecticut</option>
+  	<option value="DE" {{shouldSelect 'DE'}}>Delaware</option>
+  	<option value="FL" {{shouldSelect 'FL'}}>Florida</option>
+  	<option value="GA" {{shouldSelect 'GA'}}>Georgia</option>
+  	<option value="HI" {{shouldSelect 'HI'}}>Hawaii</option>
+  	<option value="ID" {{shouldSelect 'ID'}}>Idaho</option>
+  	<option value="IL" {{shouldSelect 'IL'}}>Illinois</option>
+  	<option value="IN" {{shouldSelect 'IN'}}>Indiana</option>
+  	<option value="IA" {{shouldSelect 'IA'}}>Iowa</option>
+  	<option value="KS" {{shouldSelect 'KS'}}>Kansas</option>
+  	<option value="KY" {{shouldSelect 'KY'}}>Kentucky</option>
+  	<option value="LA" {{shouldSelect 'LA'}}>Louisiana</option>
+  	<option value="ME" {{shouldSelect 'ME'}}>Maine</option>
+  	<option value="MD" {{shouldSelect 'MD'}}>Maryland</option>
+  	<option value="MA" {{shouldSelect 'MA'}}>Massachusetts</option>
+  	<option value="MI" {{shouldSelect 'MI'}}>Michigan</option>
+  	<option value="MN" {{shouldSelect 'MN'}}>Minnesota</option>
+  	<option value="MS" {{shouldSelect 'MS'}}>Mississippi</option>
+  	<option value="MO" {{shouldSelect 'MO'}}>Missouri</option>
+  	<option value="MT" {{shouldSelect 'MT'}}>Montana</option>
+  	<option value="NE" {{shouldSelect 'NE'}}>Nebraska</option>
+  	<option value="NV" {{shouldSelect 'NV'}}>Nevada</option>
+  	<option value="NH" {{shouldSelect 'NH'}}>New Hampshire</option>
+  	<option value="NJ" {{shouldSelect 'NJ'}}>New Jersey</option>
+  	<option value="NM" {{shouldSelect 'NM'}}>New Mexico</option>
+  	<option value="NY" {{shouldSelect 'NY'}}>New York</option>
+  	<option value="NC" {{shouldSelect 'NC'}}>North Carolina</option>
+  	<option value="ND" {{shouldSelect 'ND'}}>North Dakota</option>
+  	<option value="OH" {{shouldSelect 'OH'}}>Ohio</option>
+  	<option value="OK" {{shouldSelect 'OK'}}>Oklahoma</option>
+  	<option value="OR" {{shouldSelect 'OR'}}>Oregon</option>
+  	<option value="PA" {{shouldSelect 'PA'}}>Pennsylvania</option>
+  	<option value="RI" {{shouldSelect 'RI'}}>Rhode Island</option>
+  	<option value="SC" {{shouldSelect 'SC'}}>South Carolina</option>
+  	<option value="SD" {{shouldSelect 'SD'}}>South Dakota</option>
+  	<option value="TN" {{shouldSelect 'TN'}}>Tennessee</option>
+  	<option value="TX" {{shouldSelect 'TX'}}>Texas</option>
+  	<option value="UT" {{shouldSelect 'UT'}}>Utah</option>
+  	<option value="VT" {{shouldSelect 'VT'}}>Vermont</option>
+  	<option value="VA" {{shouldSelect 'VA'}}>Virginia</option>
+  	<option value="WA" {{shouldSelect 'WA'}}>Washington</option>
+  	<option value="WV" {{shouldSelect 'WV'}}>West Virginia</option>
+  	<option value="WI" {{shouldSelect 'WI'}}>Wisconsin</option>
+  	<option value="WY" {{shouldSelect 'WY'}}>Wyoming</option>
+  </select>
 </form>
