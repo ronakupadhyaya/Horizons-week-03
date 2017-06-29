@@ -1,5 +1,56 @@
-<h2>Create project</h2>
-
 <!-- Part 2: Create project -->
+<form class="well form-horizontal" action="/new" method="post">
+  <legend style="text-align: center; font-size:38px;">Create project</legend>
+  {{#each error}}
+    <h4>{{msg}}</h4>
+  {{/each}}
+  <fieldset>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Title</label>
+      <div class="inputGroupContainer col-md-4">
+        <input type="text" name="title" class="form-control" value="{{title}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Goal</label>
+      <div class="inputGroupContainer col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input type="number" name="goal" class="form-control" value="{{goal}}">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Description</label>
+      <div class="inputGroupContainer col-md-4">
+        <textarea name="description" rows="4" cols="80" class="form-control">{{description}}</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Start</label>
+      <div class="inputGroupContainer col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input type="date" name="start" class="form-control" value="{{start}}">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">End</label>
+      <div class="inputGroupContainer col-md-4">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          <input type="date" name="end" class="form-control" value="{{end}}">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-5 control-label"></label>
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-success" style="width: 50%; align-self: center;">Submit <span class="glyphicon glyphicon-send"></span></button>
+      </div>
+    </div>
+  </fieldset>
+</form>
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->

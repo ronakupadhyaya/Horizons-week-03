@@ -2,8 +2,49 @@
 
 <!-- Part 3: View a single project -->
 
+<h1>Title: {{project.title}}</h1>
+<h2>Goal: ${{project.goal}}.00</h2>
+{{#if project.description}}
+  <h2>{{project.description}}</h2>
+{{/if}}
+<h3>Start: {{project.start}}</h3>
+<h3>End: {{project.end}}</h3>
+
 <!-- YOUR CODE HERE -->
 
 <!-- Part 4: Contribute to a project -->
 
+<form action="" method="post">
+  <div class="form-group">
+    <div class="input-group" style="width: 25%;">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input type="text" name="name" class="form-control">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group" style="width: 25%;">
+      <span class="input-group-addon">$</span>
+      <input type="number" name="amount" class="form-control">
+    </div>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-success" style="width: 25%;">Contribute</button>
+  </div>
+</form>
+
 <!-- YOUR CODE HERE -->
+
+<h1>Total Contributions: ${{total}}.00</h1>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%; max-width: 100%;">
+    {{progress}}%
+  </div>
+</div>
+
+<h1>List of contributions:</h1>
+<ul>
+  {{#each project.contributions}}
+    <li>{{name}} contributed ${{amount}}.00</li>
+  {{/each}}
+</ul>
