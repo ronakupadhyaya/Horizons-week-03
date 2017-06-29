@@ -11,4 +11,16 @@
 <!-- YOUR CODE HERE -->
 <br>
 <br>
-<a href="/new">Create new project</a>
+<a href="/new">Create new project</a><br><br>
+
+{{#if descending}}
+  <a href="?sort=start">Sort by start date (Ascending)</a><br>
+  <a href="?sort=end">Sort by end date (Ascending)</a><br>
+  <a href="?sort=goal">Sort by goal (Ascending)</a><br>
+  <a href="?sort=goal">Sort by total contributions (Ascending)</a><br>
+{{else}}
+  <a href="?sort=start&sortDirection=desc">Sort by start date (Descending)</a><br>
+  <a href="?sort=end&sortDirection=desc">Sort by end date (Descending)</a><br>
+  <a href="?sort=goal&sortDirection=desc">Sort by goal (Descending)</a><br>
+  <a href="?sort=goal&sortDirection=desc">Sort by total contributions (Descending)</a><br>
+{{/if}}

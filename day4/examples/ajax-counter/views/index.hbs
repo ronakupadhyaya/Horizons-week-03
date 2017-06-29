@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>AJAX Counter</title>
-  </head>
-  <body>
-    <h1>Count: <span id="count">{{count}}</span></h1>
-    <form action="/up" method="post">
-      <input id="up" type="submit" value="Up">
-    </form>
-    <form action="/down" method="post">
-      <input id="down" type="submit" value="Down">
-    </form>
 
-    <script src="/jquery.js"></script>
-    <script>
-      // YOUR CODE HERE
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>AJAX Counter</title>
+</head>
+
+<body>
+  <h1>Count: <span id="count">{{count}}</span></h1>
+  <form action="/up" method="post">
+    <input id="up" type="submit" value="Up">
+  </form>
+  <form action="/down" method="post">
+    <input id="down" type="submit" value="Down">
+  </form>
+
+  <script src="/jquery.js"></script>
+  <script>
+    $('#up').on('click', function(e) {
+      e.preventDefault();
+      $.ajax({
+        method: 'post',
+        url: '/up',
+        success: function(resp) {
+          $('#count').text(JSON.parse(resp.count));
+        },
+        error: function(err) {
+          console.log(err);
+        }
+      });
+    });
+
+    $('#down').on('click', function(e) {
+      e.preventDefault();
+      $.ajax({
+        method: 'post',
+        url: '/down',
+        success: function(resp) {
+          $('#count').text(JSON.parse(resp.count));
+        },
+        error: function(err) {
+          console.log(err);
+        }
+      });
+    });
+  </script>
+</body>
+
 </html>

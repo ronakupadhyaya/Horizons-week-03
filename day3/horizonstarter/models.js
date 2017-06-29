@@ -8,6 +8,13 @@ var Project = mongoose.model('Project', {
     type: String,
     required: true
   },
+  category: {
+    type: String,
+    enum: ['Famous Muppet Frogs', 'Current Black Presidents', 'The Pen Is Mightier',
+      'Famous Mothers', 'Drummers Named Ringo', '1-Letter Words', 'Months That Start With "Feb"',
+      'How Many Fingers Am I Holding Up', 'Potent Potables'
+    ]
+  },
   goal: {
     type: Number,
     required: true
