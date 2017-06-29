@@ -1,24 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Registration</title>
 
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body {
+      background-color: #2ECC71;
+      padding-top: 2em;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    {{#each errors}}
+      <div><strong>Errors:</strong>{{msg}}</div>
+    {{/each}}
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form action="/register" method="post" class="form-horizontal">
+        <!-- First name -->
+        <div class="form-group">
+          <label class="control-label col-md-4">First name</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="text" placeholder="First Name" name="firstName" class="form-control" required>
+          </div>
+        </div>
+        <!-- Middle initial -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Middle initial</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="text" placeholder="Middle Initial" name="middleInitial" class="form-control">
+          </div>
+        </div>
+        <!-- Last name -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Last name</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input type="text" placeholder="Last Name" name="lastName" class="form-control" required>
+          </div>
+        </div>
+        <!-- DOB -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Date of Birth</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <input type="date" placeholder="First Name" name="dateOfBirth" class="form-control">
+          </div>
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Password</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input type="password" placeholder="Password" name="password" class="form-control" required>
+          </div>
+        </div>
+        <!-- Repeat Password -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Repeat Password</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input type="password" placeholder="Repeat Password" name="repeatPassword" class="form-control" required>
+          </div>
+        </div>
+        <!-- Gender -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Gender</label>
+          <div class="input-group col-md-4" required>
+            <div class="radio" class="form-control">
+              <label>
+                <input type="radio" name="gender" value="male" required>
+                Male
+              </label>
+            </div>
+            <div class="radio" class="form-control">
+              <label>
+                <input type="radio" name="gender" value="female" required>
+                Female
+              </label>
+            </div>
+            <div class="radio" class="form-control" value="other" required>
+              <label>
+                <input type="radio" name="gender">
+                Other
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- Sign-up for newsletter -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Sign up for newsletter</label>
+          <div class="input-group col-md-4">
+            <input type="checkbox">
+          </div>
+        </div>
+        <!-- Bio -->
+        <div class="form-group">
+          <label class="control-label col-md-4">Bio</label>
+          <div class="input-group col-md-4">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+            <textarea cols="30" rows="3" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-4"></label>
+          <div class="input-group col-md-4">
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>
 </body>
+
 </html>
