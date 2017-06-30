@@ -35,7 +35,6 @@ app.get('/', function(req, res) {
 app.post('/up', function(req, res) {
   count = count + 1;
   res.json({"count": count})
-  res.redirect('/')
 })
 
 // ---Task 2---

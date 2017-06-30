@@ -10,13 +10,68 @@
   {{project.description}}<br>
   {{project.start}}<br>
   {{project.end}}
+  {{project.category}}
 </div>
 
 <!-- Part 4: Contribute to a project -->
+<h2>Basic Progress Bar</h2>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{{progressPercent}}%">
+  </div>
+</div>
+<div id="contributions">
+  <h4>Contributions ({{project.contributions.length}})</h4>
+
+  {{#each project.contributions}}
+  <p>Contributer name: {{this.name}}</p><p>Contributer amount: ${{this.amount}}</p><br>
+  {{/each}}
+</div>
+<p id="no-contributions">There are no contributions at this time. Be the first to contribute!</p>
+
 
 <!-- YOUR CODE HERE -->
-<form method="post" action="/project/{{projectid}}">
-  <input type="text" name="name" placeholder="Your name" value="{{contribution.name}}"/>
-  <input type="text" name="amount" placeholder="How much are you contributing?" value="{{contribution.amount}}"/>
-  <input type="submit" name="contribute" value="Contribute"/>
+<form>
+  <input id="contributer-name" type="text" name="name" placeholder="Your name" value="{{contribution.name}}"/>
+  <input id="contribution-amount" type="text" name="amount" placeholder="How much are you contributing?" value="{{contribution.amount}}"/>
+  <button id="make-contribution" class="btn btn-primary">Contribute</button>
 </form>
+
+<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+  debugger
+  // if ({{project.contributions}}.length) {
+  //   $('#no-contributions').hide()
+  // } else {
+  //   $('#no-contributions').hide()
+  // }
+  $('#make-contribution').on('click', function(event) {
+    event.preventDefault()
+    console.log('clicked')
+    debugger
+
+    var name = $('#contributer-name').val()
+    var amount = parseInt($('#contribution-amount').val());
+    $.ajax({
+      url: "/project/{{projectid}}",
+      method: "post",
+      data: {
+        name: name,
+        amount: amount,
+      },
+      success: function(resp) {
+        debugger
+        // if ({{project.contributions}}.length === 1) {
+        //   $('#no-contributions').hide()
+        //   $('#contributions').show()
+        // }
+        $('#contributions').append(`<p>Contributer name: ` + name + `</p><p>Contributer amount: $` + amount + `</p><br>`);
+        var newProgressPercent = (((({{progressPercent}}/100)*{{project.goal}}) + amount)/{{project.goal}})*100
+        $('.progress-bar').attr('style', "width: " + newProgressPercent + '%')
+
+      }
+    })
+  })
+</script>

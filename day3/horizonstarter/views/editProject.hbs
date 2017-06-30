@@ -1,10 +1,9 @@
-<h2>Create project</h2>
+<h1> Edit Project </h1>
 
-<!-- Part 2: Create project -->
-<form method="post" action="/new">
+<form method="post" action="/project/{{project.id}}/edit">
   <input type="text" name="title" placeholder="title" value="{{project.title}}" required/>
   <input type="text" name="goal" placeholder="goal" value="{{project.goal}}" required/>
-  <textarea name="description" placeholder="description" value="{{project.description}}" required></textarea>
+  <textarea name="description" placeholder="description" required>{{project.description}}</textarea>
   <input type="date" name="start" value="{{project.start}}" required=""/>
   <input type="date" name="end" value="{{project.end}}" required/>
 
@@ -21,10 +20,23 @@
       <option>How Many Fingers Am I Holding Up</option>
       <option>Potent Potables</option>
     </select>
+
+    <script
+      src="http://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    debugger
+      var options = Array.prototype.slice.call($('select option'))
+      options.forEach(function(option) {
+        debugger
+        if ($(option).text() === "{{project.category}}") {
+          $(option).attr('selected', true)
+        }
+      })
+    </script>
   </div>
   <input type="submit" name="Create" value="Create"/>
 </form>
 
 <p>{{project.error}}</p>
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

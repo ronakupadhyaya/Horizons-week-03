@@ -2,6 +2,14 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+<div id="sort">
+<p>Sort by...</p>
+<a href="localhost:3000?sort=goal">Goal amount</a>
+<a href="localhost:3000?sort=start">Start date</a>
+<a href="localhost:3000?sort=end">End date</a>
+<a href="localhost:3000?sort=contribution">Total contribution amount</a>
+</div>
+
 {{#each projects}}
   <div>
     {{this.title}}<br>
