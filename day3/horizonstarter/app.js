@@ -48,6 +48,12 @@ app.use(validator({
           return false;
         }
         return !isNaN(str);
+    },
+    isZero: function(val) {
+      return val !== '0';
+    },
+    greaterThanZero: function(val) {
+      return val > 0;
     }
  }
 }));

@@ -1,5 +1,6 @@
 <h1>View Project</h1>
-
+<div id="alert">
+</div>
 <!-- Part 3: View a single project -->
 <div class="panel panel-info" style="width:70%">
   <div class="panel-heading">
@@ -7,6 +8,9 @@
       {{project.title}}
     </div>
      {{project.start}}-{{project.end}}
+     <div style="float:right; font-size:15px;">
+       Category: {{project.category}}
+     </div>
   </div>
   <div class="panel-body">
     <div class="progress">
@@ -30,22 +34,26 @@
       {{project.description}}
     </div>
     <br/>
-    <ul>
+    <ul id="donator-list">
       {{#each donators}}
       <li>{{@key}}, ${{this}}</li>
       {{/each}}
     </ul>
+    <a style="float:right" href="http://localhost:3000/project/{{project._id}}/edit" style="font-size:16px">Edit</a>
   </div>
 </div>
 
-<!-- Part 4: Contribute to a project -->
-<form class="form-inline" method='post' action="/project/{{project._id}}">
-  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="contributor" placeholder="{{#if nameHasError}}{{nameError}}{{else}}Name{{/if}}">
+<!--<form class="form-inline" method='post' action="/project/{{project._id}}">-->
+<form class="form-inline">
+  <input type="text" id="contributor" class="form-control mb-2 mr-sm-2 mb-sm-0" name="contributor" placeholder="{{#if nameHasError}}{{nameError}}{{else}}Name{{/if}}">
   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
     <div class="input-group-addon">$</div>
-    <input type="text" class="form-control" id="inlineFormInputGroup" name="amount" placeholder="{{#if amountHasError}}{{amountError}}{{else}}Amount{{/if}}">
+    <input type="text" id="amount" class="form-control" id="inlineFormInputGroup" name="amount" placeholder="{{#if amountHasError}}{{amountError}}{{else}}Amount{{/if}}">
   </div>
-  <button type="submit" class="btn btn-primary">Donate!</button>
+  <!--<button type="submit" class="btn btn-primary">Pledge!</button>-->
+  <button class="btn btn-default" id="send-contribution">Pledge!</button>
 </form>
 <br/>
 <a href="http://localhost:3000" style="font-size:16px">Go back</a>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/js/contributions.js"></script>

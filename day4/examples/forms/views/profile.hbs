@@ -10,9 +10,58 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="background-color:white; padding:10px;border-radius:5px;">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <label class="col-sm-3 control-label">First Name</label>
+      <div class="col-sm-7">
+        {{firstName}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Middle Initial</label>
+      <div class="col-sm-7">
+        {{middleIntial}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Last Name</label>
+      <div class="col-sm-7">
+        {{lastName}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">DOB</label>
+      <div class="col-sm-7">
+        {{dob}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Password</label>
+      <div class="col-sm-7">
+        {{password}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Gender</label>
+      <div class="col-sm-7">
+        {{gender}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Signed up for newsletter</label>
+      <div class="col-sm-7">
+        {{#if signedUp}}
+        yes
+        {{else}}
+        no
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-3 control-label">Biography</label>
+      <div class="col-sm-7">
+        {{bio}}
+      </div>
     </div>
   </div>
 </body>
