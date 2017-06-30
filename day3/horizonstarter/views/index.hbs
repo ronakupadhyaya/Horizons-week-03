@@ -2,10 +2,34 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-{{#each items}}
-  <a href='/project/{{_id}}'>{{title}}</a><br>
-{{/each}}
+{{#if shouldFilter}}
+  {{#each filtered}}
+    <a href='/project/{{_id}}'>{{title}}</a><br>
+  {{/each}}
+  <br><a href="/?filter=false">Click here to show all projects</a>
+{{else}}
+  {{#each items}}
+    <a href='/project/{{_id}}'>{{title}}</a><br>
+  {{/each}}
+  <br><a href="/?filter=true">Click here to show projects that have reached their goal</a>
+{{/if}}
+
+{{#if descending}}
+  <br><a href="/?sortDirection=descending&sort=start">Click here to sort by start date in descending order</a>
+  <br><a href="/?sortDirection=descending&sort=end">Click here to sort by end date in descending order</a>
+  <br><a href="/?sortDirection=descending&sort=goal">Click here to sort by goal amount in descending order</a>
+  <br><a href="/?sortDirection=descending&sort=totalContributions">Click here to sort by total contribution amount in descending order</a>
+  <br><a href="/?sortDirection=ascending">Click here to change to ascending order</a>
+{{else}}
+  <br><a href="/?sortDirection=ascending&sort=start">Click here to sort by start date in ascending order</a>
+  <br><a href="/?sortDirection=ascending&sort=end">Click here to sort by end date in ascending order</a>
+  <br><a href="/?sortDirection=ascending&sort=goal">Click here to sort by goal amount in ascending order</a>
+  <br><a href="/?sortDirection=ascending&sort=totalContributions">Click here to sort by total contribution amount in ascending order</a>
+  <br><a href="/?sortDirection=descending">Click here to change to descending order</a>
+{{/if}}
+
+
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
-<br><a href="/new">Create new project</a>
+<br><br><br><br><a href="/new">Create new project</a>

@@ -1,6 +1,7 @@
 <h1>View Project</h1>
 
 <h2>Title: {{title}}</h2>
+<h2>Category: {{category}}</h2>
 <h2>Goal: ${{goal}}.00</h2>
 {{#if description}}
   <h3>Description: {{description}}</h3>
@@ -28,3 +29,5 @@
   <input type="number" name="amount" placeholder="Amount">
   <button type="submit">Submit</button>
 </form>
+
+<a class="btn btn-danger" href='/project/{{id}}/edit'>Click Here to Edit</a>
