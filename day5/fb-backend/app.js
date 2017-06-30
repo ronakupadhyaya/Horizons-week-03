@@ -7,6 +7,8 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
+var bcrypt = require('bcrypt');
+const saltRounds = 10; //for hashing passwords
 
 //Initialize Express
 var app = express();
@@ -59,45 +61,52 @@ var Post = mongoose.model('Post', {
 
 // Register user for account
 app.post('/api/users/register', function(req, res) {
-  new User({
-    fname: req.body.fname,
-    lname: req.body.lname,
-    email: req.body.email,
-    password: req.body.password
-  }).save(function(err) {
-    if(err) {
-      res.status(400).json(err);
-    } else {
-      res.status(200).json({success: true});
-    }
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    new User({
+      fname: req.body.fname,
+      lname: req.body.lname,
+      email: req.body.email,
+      password: hash
+    }).save(function(err) {
+      if(err) {
+        res.status(400).json(err);
+      } else {
+        res.status(200).json({success: true});
+      }
+    });
   });
 });
 
 // Log the user in
 app.post('/api/users/login', function(req, res) {
   User.findOne({//try to see if user exists in the database
-    email: req.body.email,
-    password: req.body.password
+    email: req.body.email
   }, function(err, user) {
     if (err || user === null) {
       res.status(400).json({success: false});
     } else {
-      var token = new Token({//save a token for the login session
-        userId: user._id,
-        token: req.body.email + (new Date()).getTime(),
-        createdAt: new Date()
-      });
-      token.save(function(err) {
-        if(err) {
-          res.status(400).json(err);
-        } else {
-          res.status(200).json({
-            success: true,
-            response: {
-              id: token.userId,
-              token: token.token
+      bcrypt.compare(req.body.password, user.password, function(err, response) {
+        if (response) {
+          var token = new Token({//save a token for the login session
+            userId: user._id,
+            token: req.body.email + (new Date()).getTime(),
+            createdAt: new Date()
+          });
+          token.save(function(err) {
+            if(err) {
+              res.status(400).json(err);
+            } else {
+              res.status(200).json({
+                success: true,
+                response: {
+                  id: token.userId,
+                  token: token.token
+                }
+              });
             }
           });
+        } else {
+          res.status(400).json({success: false});
         }
       });
     }
@@ -106,6 +115,7 @@ app.post('/api/users/login', function(req, res) {
 
 // Log out the current user
 app.get('/api/users/logout', function(req, res) {
+  console.log("Token: " + req.query.token);
   Token.findOne({
     token: req.query.token,
   }, function(err, token) {
@@ -222,7 +232,6 @@ app.post('/api/posts/comments/:post_id', function(req, res) {
   var content = req.body.content;
   var postId = req.params.post_id;
   var userId = "";
-  console.log("we're inside");
   Token.findOne({
     token: token
   }, function(err, token) {
@@ -318,6 +327,67 @@ app.get('/api/posts/likes/:post_id', function(req, res) {
             });
           }
         });
+      });
+    }
+  });
+});
+
+// Edit post (only those by the owner)
+app.put('/api/posts/:post_id', function(req, res) {
+  var token = req.query.token;
+  var postId = req.params.post_id;
+  var newContent = req.body.content;
+  //check if the post is by the owner, otherwise send back an error
+  Token.findOne({
+    token: token
+  }, function(err, token) {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+      var userId = token.userId;
+      Post.findOne({
+        _id: postId
+      }, function(err, post) {
+        if (err) {
+          res.status(400).json(err);
+        } else if (post === null || (!post['poster']['_id'].equals(userId))) {
+          res.status(400).json({success: false});
+        } else {
+          post.content = newContent;
+          post.save();
+          res.status(200).json({
+            success: true,
+            response: post
+          });
+        }
+      });
+    }
+  });
+});
+
+// Delete a post by the user
+app.delete('/api/posts/:post_id', function(req, res) {
+  var token = req.query.token;
+  var postId = req.params.post_id;
+  //check if the post is by the owner, otherwise send back an error
+  Token.findOne({
+    token: token
+  }, function(err, token) {
+    if (err) {
+      res.status(400).json(err);
+    } else {
+      var userId = token.userId;
+      Post.findOne({
+        _id: postId
+      }, function(err, post) {
+        if (err) {
+          res.status(400).json(err);
+        } else if (post === null || (!post['poster']['_id'].equals(userId))) {
+          res.status(400).json({success: false});
+        } else {
+          post.remove();
+          res.status(200).json({success: true});
+        }
       });
     }
   });
