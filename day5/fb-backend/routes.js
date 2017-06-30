@@ -308,9 +308,81 @@ router.post('/api/posts/comments/:post_id', function(req, res) {
                   content: req.body.content,
                   poster: {
                     name: arr3[0].fname + ' ' + arr3[0].lname,
-                    id: arr3[0]._id
+                    id: arr[0].userId
                   }
                 });
+                arr2[0].save(function(err4) {
+                  if (err4) {
+                    res.status(500);
+                    res.send('Error: internal database error.');
+                  } else {
+                    res.status(200);
+                    res.send({
+                      success: true,
+                      response: arr2.slice()
+                    });
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+});
+
+router.get('/api/posts/likes/:post_id', function(req, res) {
+  req.checkQuery('token', 'Error: failed to supply token.').notEmpty();
+
+  if (req.validationErrors()) {
+    res.status(400);
+    res.send(req.validationErrors());
+  } else {
+    Token.find({
+      token: req.query.token
+    }, function(err, arr) {
+      if (err) {
+        res.status(500);
+        res.send('Error: internal database error.');
+      } else if (arr.length === 0) {
+        res.status(400);
+        res.send('Error: invalid token.');
+      } else {
+        Post.find({
+          _id: req.params.post_id
+        }, function(err2, arr2) {
+          if (err2) {
+            res.status(500);
+            res.send('Error: internal database error.');
+          } else if (arr2.length === 0) {
+            res.status(400);
+            res.send('Error: failed to find post.');
+          } else {
+            User.find({
+              _id: arr[0].userId
+            }, function(err3, arr3) {
+              if (err3) {
+                res.status(500);
+                res.send('Error: internal database error.');
+              } else if (arr3.length === 0) {
+                res.status(400);
+                res.send('Error: cannot find user.');
+              } else {
+                var obj = {
+                  name: arr3[0].fname + ' ' + arr3[0].lname,
+                  id: arr[0].userId
+                }
+
+                var index = arr2[0].likes.findIndex(function(temp) {
+                  return temp.id === obj.id;
+                });
+
+                if (index !== -1) {
+                  arr2[0].likes.splice(index, 1);
+                } else {
+                  arr2[0].likes.push(obj);
+                }
                 arr2[0].save(function(err4) {
                   if (err4) {
                     res.status(500);
