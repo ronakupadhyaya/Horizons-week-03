@@ -3,6 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
+var functions = require('./functions.js')
 
 // Write a function that takes the path of a CSV file, reads its contents and
 // returns them as as an array of JavaScript objects.
@@ -32,7 +33,9 @@ var csvjson = require('csvjson');
 //      ...
 //    ]
 function fileReader(csvFilePath){
-  // YOUR CODE HERE
+    var data = fs.readFileSync(path.join(__dirname, 'investments1.csv'), { encoding : 'utf8'});
+    var jsonData = csvjson.toObject(data);
+    return jsonData;
 }
 
 // Write a function that takes an array of investment objects and replaces
@@ -47,8 +50,21 @@ function fileReader(csvFilePath){
 //     originalInvestment: 1100000, // Note conversion from string to number
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
-  // YOUR CODE HERE
+  arr.forEach( function(item) {
+      item.originalInvestment = parseInt(item.originalInvestment)
+      item.valueToday = parseInt(item.valueToday)
+  })
+  return arr;
 }
+
+var csvFile = parser(fileReader('investments1.csv'))
+// functions.singleLargestInvestment(csvFile)
+// functions.averageOfOriginalInvestments(csvFile)
+ // functions.totalOriginalInvestmentForCompanies(csvFile)
+// functions.bestInvestorByValueIncrease(csvFile)
+functions.mostInvestedCompany(csvFile)
+// console.log(functions.singleLargestInvestment(csvFile));
+
 
 module.exports = {
   fileReader: fileReader,

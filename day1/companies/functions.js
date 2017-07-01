@@ -1,3 +1,5 @@
+var _ = require('underscore')
+
 module.exports = {
 
   // Find the company that has the largest single amount of money invested. In this
@@ -6,8 +8,12 @@ module.exports = {
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
   // Return the amount of the largest investment.
+
   singleLargestInvestment: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+      var maxObject = _.max(arr, function(inv){
+          return inv.originalInvestment
+      })
+      return maxObject.originalInvestment;
   },
 
   // Find the average of all the original investments for all companies.
@@ -15,7 +21,14 @@ module.exports = {
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var origInv = []
+    arr.forEach( function(inv) {
+        origInv.push(inv.originalInvestment)
+    })
+    var sum = _.reduce(origInv, function(memo, num){
+        return memo + num;
+    }, 0);
+    return sum/arr.length
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -29,7 +42,16 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentForCompanies: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+      var companies = {}
+      arr.forEach(function(inv) {
+          if (!(inv.company in companies)) {
+              companies[inv.company] = inv.originalInvestment
+          }
+          else {
+              companies[inv.company] = companies[inv.company]+inv.originalInvestment
+          }
+      })
+      return companies
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -43,7 +65,16 @@ module.exports = {
   //   ...
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+      var investors = {}
+      arr.forEach(function(inv) {
+          if (!(inv.investorId in investors)) {
+              investors[inv.investorId] = inv.originalInvestment
+          }
+          else {
+              investors[inv.investorId] = investors[inv.investorId]+inv.originalInvestment
+          }
+      })
+      return investors
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +90,16 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+      var investors = {}
+      arr.forEach(function(inv) {
+          if (!(inv.investorId in investors)) {
+              investors[inv.investorId] = inv.valueToday
+          }
+          else {
+              investors[inv.investorId] = investors[inv.investorId]+inv.valueToday
+          }
+      })
+      return investors
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -69,13 +110,35 @@ module.exports = {
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+    var ratio;
+    var max = 0;
+    var investorID;
+    var totalCurrent = module.exports.totalCurrentValueOfInvestors(arr)
+    var totalOriginal = module.exports.totalOriginalInvestmentsByInvestors(arr);
+    for (key in totalCurrent) {
+        var ratio = totalCurrent[key] / totalOriginal[key]
+        if( ratio > max) {
+            max = ratio;
+            investorID = key
+        }
+    }
+    return investorID
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
-    // Fields to be parsed: "originalInvestment", "valueToday"
+      var max = 0;
+      var companyID;
+      var totalOriginal = module.exports.totalOriginalInvestmentForCompanies(arr);
+      for (key in totalOriginal) {
+          if(totalOriginal[key] > max) {
+              max = totalOriginal[key];
+              companyID = key
+          }
+      }
+      return companyID
+
   }
 
 }

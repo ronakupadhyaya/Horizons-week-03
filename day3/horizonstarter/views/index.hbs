@@ -1,7 +1,55 @@
 <h1>View projects</h1>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<div>Sort by:</div>
+<a id="start-button-up" href="/?sort=start&direction=asc"><button type="button">Start <i class="start-sort fa fa-angle-up"> </i></button></a>
+<a id="start-button-down" href="/?sort=start&direction=desc"><button type="button">Start <i class="start-sort fa fa-angle-down"> </i></button></a>
+<a id="end-button-up" href="/?sort=end&direction=asc"><button type="button">End <i class="end-sort fa fa-angle-up"> </i></button></a>
+<a id="end-button-down" href="/?sort=end&direction=desc"><button type="button">End <i class="end-sort fa fa-angle-down"> </i></button></a>
+<a id="goal-button-up" href="/?sort=goal&direction=asc"><button type="button">Goal <i class="goal-sort fa fa-angle-up"> </i></button></a>
+<a id="goal-button-down" href="/?sort=goal&direction=desc"><button type="button">Goal <i class="goal-sort fa fa-angle-down"></i></button></a>
+<a id="cont-button-up" href="/?sort=cont&direction=asc"><button type="button">Contributions <i class="cont-sort fa fa-angle-up"> </i></button></a>
+<a id="cont-button-down" href="/?sort=cont&direction=desc"><button type="button">Contributions <i class="cont-sort fa fa-angle-down"></i></button></a>
 
+</br></br>
+<!-- Part 1: View all projects -->
+{{# each projects}}
+    <div><b>Title:</b> {{this.title}}</div>
+    <div><b>Goal:</b> {{this.goal}}</div>
+    <div><b>Description:</b> {{this.description}}</div>
+    <div><b>Start Date:</b> {{start}}</div>
+    <div><b>End Date:</b> {{end}}</div>
+    <div><b>Project Category:</b> {{this.category}}</div>
+    <div><b>Total Contributions:</b> {{this.totalCont}}</div></br>
+{{/each}}
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<a href = "/new">Create new project</a>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script>
+// $('#start-button-down').hide();
+// $('#end-button-down').hide();
+// $('#goal-button-down').hide();
+//
+// $('#start-button-up').on('click', function() {
+//     $(this).hide()
+//     $('#end-button-down').hide();
+//     $('#goal-button-down').hide();
+//     $('#start-button-down').show();
+//     // $.ajax({
+//     //     url: '/',
+//     //     method: 'get',
+//     //     data: {
+//     //         sort: "start",
+//     //         direction: "desc"
+//     //     },
+//     //     success: function(res) {
+//     //         $('#start-button-up').hide();
+//     //         $('#start-button-down').show();
+//     //     }
+//     // })
+// })
+// // $('#start-button-down').on('click', function() {
+// //     $(this).hide();
+// //     $('start-button-up').show();
+// // })
+</script>

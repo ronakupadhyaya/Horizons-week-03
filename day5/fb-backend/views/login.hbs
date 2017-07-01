@@ -1,0 +1,36 @@
+<script>
+$(document).ready(function() {
+    $('#login_submit').on('click', function(event) {
+        event.preventDefault();
+        var email = $('#login_page').find(".email").val()
+        var password = $('#login_page').find(".password").val()
+        $.ajax({
+            url: '/api/users/login',
+            method: 'POST',
+            data: {
+                email: email,
+                password: password
+            },
+            success: function(res) {
+                localStorage.setItem('token', res.token);
+                window.location = '/api/posts';
+            },
+            error: function(err) {
+                console.log("error"+err);
+                return "Login failed"
+            }
+        })
+    })
+})
+
+</script>
+
+<div id = "login_page">
+    <h1>Login</h1>
+    <form method="POST">
+        <input type = "text" class = "email" name = "email" value = "{{email}}" placeholder = "Email">
+        <input type = "text" class = "password" name = "password" value = "{{password}}" placeholder = "Password"></br>
+        <button id="login_submit" type = "Submit">Login</button></br>
+        <a href="/api/users/register"><button id="login_reg" type = "button">Go to Registration</button></a>
+    </form>
+</div>

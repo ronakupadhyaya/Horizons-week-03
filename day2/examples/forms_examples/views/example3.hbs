@@ -1,5 +1,15 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="POST">
+  Email: <input type="text" name="email" value="email">
+  Password: <input type="password" name="password" value="password">
+  <input type="submit" value="Submit">
 </form>
 
-
+{{#if verified}}
+<h1>
+    Hi {{firstName}}!
+</h1>
+{{else}}
+<h1 style="color: red">
+    Error!
+</h1>
+{{/if}}

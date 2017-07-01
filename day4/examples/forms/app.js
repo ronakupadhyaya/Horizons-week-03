@@ -44,14 +44,43 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+    console.log(req.body.repeatPass, req.body.pass);
+  req.check('firstName', 'First name field must not be empty').notEmpty()
+  req.check('middleInitial', 'Middle initial field must be one letter').isLength(
+      { min:0, max: 1}
+  );
+  req.check('lastName', 'Last name field must not be empty').notEmpty()
+  req.check('dateOfBirth', 'Date of birth field must not be empty').isBefore()
+  req.check('pass', 'Password field must not be empty').notEmpty()
+  req.check('repeatPass', 'Passwords must match and must not be empty').notEmpty()
+  req.check('repeatPass', 'Passwords must match and must not be empty').equals(`${req.body.repeatPass}`,`${req.body.pass}`)
+  req.check('signUp', 'You must be signed up for the newsletter').notEmpty()
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
-    res.render('register', {errors: errors});
+      console.log(errors);
+    res.render('register', {
+        errors: errors,
+        firstName: req.body.firstName,
+        middleInitial: req.body.middleInitial,
+        lastName: req.body.lastName,
+        dateOfBirth: req.body.dateOfBirth,
+        pass: req.body.pass,
+        gender: req.body.gender,
+        signUp: req.body.signUp,
+        bio: req.body.bio
+    });
   } else {
-    // Include the data of the profile to be rendered with this template
-    // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {
+        firstName: req.body.firstName,
+        middleInitial: req.body.middleInitial,
+        lastName: req.body.lastName,
+        dateOfBirth: req.body.dateOfBirth,
+        pass: req.body.pass,
+        gender: req.body.gender,
+        signUp: req.body.signUp,
+        bio: req.body.bio
+    });
   }
 });
 

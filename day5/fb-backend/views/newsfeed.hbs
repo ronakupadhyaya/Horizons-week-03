@@ -1,0 +1,50 @@
+<script>
+$(document).ready(function() {
+    var token = localStorage.getItem('token');
+    $.ajax('/api/posts', {
+        method: 'GET',
+        data: {
+            token: token
+        },
+        success: function(data) {
+            // console.log("success");
+        },
+        error: function(err) {
+            return "Retrieving posts failed"
+        }
+    })
+})
+
+</script>
+
+<a href="/api/users/logout"><button id = "logout">Logout</button></a>
+<div id = "posts_page">
+    <div id = "new_post">
+        <textarea type = "text" rows="5" cols="50" placeholder = "What are you feeling today?"></textarea></br>
+        <button type = "button">Post</button>
+    </div>
+    <div id = "newsfeed"> <!-- MAIN CONTENT HERE --> </div>
+</div>
+<!-- <div id = "${postID}" class = "post_all">
+    <div  class = "post">
+        <div id = "post_username">${posterFirstName} ${posterLastName}</div>
+        <div id = "post_timestamp">${postTimestamp}</div>
+        <div id = "post_message">${postMessage}</div>
+        <div id = "post_buttons">
+            <textarea type = "text" rows="2" cols="50" placeholder = "Comment on this thing"></textarea></br>
+            <button type="button" id = "comment_button">Comment</button>
+            <button type="button" id = "like_button">Like</button>
+        </div>
+    </div>
+    <div id = "reply_count">
+        <span id = "comment_count">0 comments</span>
+        <span id = "like_count">0 likes</span>
+    </div>
+    <div id = "reply_thread">
+        <div id = "comment">
+            <div id = "comment_username"></div>
+            <div id = "comment_timestamp"></div>
+            <div id = "comment_message"></div>
+        </div>
+    </div>
+</div> -->

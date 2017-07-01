@@ -6,17 +6,78 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body { background-color: #33CB72; padding: 2em; margin: auto; display: flex; justify-content: center; }
+    .row { border-radius: 0.5em; background-color: white; padding: 2em;}
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    {{# if errors}}
+    <div class="alert alert-danger"><strong>Errors:</strong>
+            {{#each errors}}
+                <div>{{this.msg}}</div>
+            {{/each}}
+    </div>
+    {{/if}}
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+          <div class="form-group">
+              <label for="exampleInputEmail1">First Name</label>
+              <input class="form-control" type="text" placeholder="First Name" name="firstName" value="{{firstName}}" required>
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Middle Initial</label>
+              <input class="form-control" type="text" placeholder="Middle Initial" value="{{middleInitial}}" name="middleInitial" required>
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Last Name</label>
+              <input class="form-control" type="text" placeholder="Last Name" value="{{lastName}}" name="lastName" required>
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Date of Birth</label>
+              <input class="form-control" type="date" placeholder="Date of Birth" value="{{dateOfBirth}}" name="dateOfBirth" >
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Password</label>
+              <input class="form-control" type="password" placeholder="Password" value="{{pass}}" name="pass" required>
+          </div>
+          <div class="form-group">
+              <label for="exampleInputEmail1">Repeat Password</label>
+              <input class="form-control" type="password" placeholder="Repeat Password" value="{{repeatPass}}" name="repeatPass" required>
+          </div>
+          <fieldset class="form-group">
+              <label for="exampleInputEmail1">Gender</label>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="Male" checked>
+                    Male
+              </label>
+            </div>
+            <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="Female">
+                    Female
+            </label>
+            </div>
+            <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="Rather Not Say">
+                    Rather Not Say
+            </label>
+            </div>
+          </fieldset>
+          <div class="form-check">
+           <label class="form-check-label">
+             <input type="checkbox" name="signUp" class="form-check-input">
+             Sign Up For Newsletter
+           </label>
+         </div>
+         <div class="form-group">
+            <label for="exampleTextarea">Quick Bio</label>
+            <textarea class="form-control" id="exampleTextarea" value="bio" rows="3" cols="5"></textarea>
+          </div>
+        <input class="btn btn-primary" type="submit">
       </form>
     </div>
   </div>

@@ -11,16 +11,25 @@
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
 
-<h2>Your username: {{username}}</h2>
+    {{#if error}}
+      <p>Error. You are not logged in.</p>
+    {{else}}
+        <h1>View all posts</h1>
 
-<!-- Part 2: Display posts -->
-
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
-  display them on the page.
-  Put each post inside a div. Be sure to display the author, title, body and date of each post.
--->
+        <h2>Your username: {{username}}</h2>
+         {{#if backToAll}}
+            <a href="/posts">Return to all posts</a>
+         {{/if}}
+         </br></br>
+         {{#each data}}
+             <div>{{this.author}} <a href="/posts?author={{this.author}}">View Posts by this Author</a></br>
+                 {{this.title}}</br>
+                 {{this.body}}</br>
+                 {{this.date}}</br></br>
+             </div>
+         {{/each}}
+    {{/if}}
 
 <!-- YOUR CODE HERE -->
 
