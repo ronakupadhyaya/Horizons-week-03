@@ -1,10 +1,6 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
-<!-- Part 2: Create project -->
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
-
-<form action="/new" method="post">
+<form action="/project/{{id}}/edit" method="post">
   <label>Title: </label><br>
   <input type="text" name="title" value="{{title}}"><br>
   <label>Goal: </label><br>
@@ -16,7 +12,7 @@
   <label>End Date: </label><br>
   <input type="date" name="end" value="{{end}}"><br><br>
   <label>Category: </label><br>
-  <select name="category">
+  <select name="category" value="{{category}}">
     <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
     <option value="The Pen Is Mightier">The Pen Is Mightier</option>
@@ -30,4 +26,9 @@
   <input type="submit" name="btn" value="Submit">
 </form>
 
+
 <h1>{{error}}</h1>
+<!-- <script src="/jquery.js"></script>
+<script>
+  $('select').val("{{project.category}}")
+</script> -->
