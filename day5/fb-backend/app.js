@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var app = express()
 
 // Require the models from models.js
-var User = require('./models').User;
+
 var Token = require('./models').Token;
 var Post = require('./models').Post;
 
@@ -131,11 +131,14 @@ app.get('/api/users/logout', function(req, res) {
 app.get('/api/posts', function(req, res) {
     var token = req.query.token;
     Token.findOne({token: token}, function(err, foundToken){
-        var _id = foundToken.userId
-        User.findById(_id, function(err, user) {
+        if (err || foundToken == null) {
+            console.log("Error!");
+        }
+        else {
             Post.find({}, function(err, posts){
                 var postArray = []
                 posts.forEach(function(post) {
+                    var postId = post._id;
                     var posterId = post.poster.id;
                     var posterName = post.poster.name;
                     var content = post.content;
@@ -143,7 +146,7 @@ app.get('/api/posts', function(req, res) {
                     var comments = post.comments;
                     var likes = post.likes;
                     postArray.push({
-                        "_id": _id,
+                        "_id": postId,
                         "poster": {
                             "id": posterId,
                             "name": posterName
@@ -156,7 +159,7 @@ app.get('/api/posts', function(req, res) {
                 })
                 res.json(postArray)
             })
-        })
+        }
     })
 
 });
@@ -187,8 +190,57 @@ app.post('/api/posts', function(req, res) {
             }
         });
     });
-
 });
+
+// Comment Post Route
+app.post('/api/comments/:post_id', function(req, res) {
+    var token = req.body.token;
+    var content = req.body.content;
+    var postId = req.params.post_id;
+    Post.findOne({_id: postId}, function(err, foundPost){
+        if(err) {
+            console.log("Error finding post.");
+        }
+        else {
+            Token.findOne({token: token}, function(err, foundToken) {
+                var userId = foundToken.userId;
+                var commentArray = [];
+                commentArray = foundPost.comments
+                commentArray.push({
+                    createdAt: Date.now(),
+                    content: content,
+                    poster: {
+                        name: foundToken.name,
+                        id: userId
+                    }
+                })
+                foundPost.save(function(err) {
+                    if (err) {
+                        res.status(500).json(err);
+                    }
+                    else {
+                        console.log("Success! You posted a comment!")
+                        res.json(foundPost)
+                    }
+                })
+            })
+        }
+    })
+});
+
+// Get Comment Route
+app.get('/api/comments/:post_id', function(req, res) {
+    var token = req.query.token;
+    var postId = req.params.post_id;
+    Post.findOne({_id: postId}, function(err, foundPost){
+        if(err) {
+            console.log("Error finding post.");
+        }
+        else {
+            res.json(foundPost.comments)
+        }
+    })
+})
 
 
 // Listen in on 3000
