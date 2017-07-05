@@ -9,8 +9,8 @@ var Token = mongoose.model('Token', {
 })
 
 var User = mongoose.model('User', {
-  fName: String,
-  lName: String,
+  fname: String,
+  lname: String,
   email: String,
   password: String
 })
