@@ -31,6 +31,8 @@ mongoose.connection.on('error', function() {
 mongoose.connect(process.env.MONGODB_URI);
 
 // Handlabars setup
+// we are telling express that the templating engine is handlebars
+// whenever we do res.render, we are looking for handlebars files
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
 

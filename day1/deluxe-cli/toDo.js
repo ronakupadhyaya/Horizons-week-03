@@ -49,6 +49,10 @@ program.command('delete')
   .description("Delete Tasks")
   .action(deleteTask);
 
+program.command('completed')
+  .description('Toggle completion of task')
+  .action(toggleCompleted);
+
 // ---Flags---
 // We will need two flags on our program. These will take values and convert them
 // to numbers.
@@ -74,6 +78,9 @@ program
 program
 .option('-p, --priority <n>', 'Specify a priority for our task', parseInt);
 
+program
+.option('-c, --completed', 'Specify if task was completed');
+
 // Arguments
 // This line is part of the 'Commander' module. It tells them (Commander) to process all the
 // other arguments that are sent to our program with no specific name.
@@ -98,7 +105,7 @@ function getRemainingArgs () {
 // Remember to set priority to some default if the command is called without '-p'
 // `node toDo.js add Do the dishes`
 function addTask() {
-  var priority = program.priority || 1;
+  var priority = program.priority | 1;
   var name = getRemainingArgs();
   data.push({
     name: name,
@@ -132,11 +139,19 @@ function addTask() {
 //             Task #3 Priority 1: Call Mark"
 function showTasks(){
   if (program.id) {
+
     var id = program.id - 1;
     console.log("Task #" + program.id + " Priority " + data[id].priority + ": " + data[id].name);
   } else {
-    for (var i=0; i<data.length; i++) {
-      console.log("Task #" + (i+1) + " Priority " + data[i].priority + ": " + data[i].name);
+    if(program.completed){
+      for (var i=0; i<data.length; i++) {
+        
+        console.log("Task #" + (i+1) + " Priority " + data[i].priority + ": " + data[i].name);
+      }
+    } else {
+      for (var i=0; i<data.length; i++) {
+        console.log("Task #" + (i+1) + " Priority " + data[i].priority + ": " + data[i].name);
+      }
     }
   }
 }
@@ -147,10 +162,22 @@ function showTasks(){
 function deleteTask(){
   if (program.id) {
     var id = program.id - 1;
-    var splicedId = data.splice(id, 1);
+    data.splice(id, 1);
   }
 }
 
+function toggleCompleted(){
+  if (program.id) {
+    var id = program.id - 1;
+    if (data[id].completed === true) {
+      data[id].completed = false;
+      console.log("changed to false");
+    } else {
+      data[id].completed = true;
+    }
+    console.log("changed to " + data[id].completed);
+  }
+}
 
 // ---Utility functions---
 // We use these functions to read and modify our JSON file.

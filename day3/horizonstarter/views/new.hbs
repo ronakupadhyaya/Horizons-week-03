@@ -1,5 +1,22 @@
 <h2>Create project</h2>
-
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
+<ul>
+{{#each errors}}
+<li>{{msg}}</li>
+{{/each}}
+</ul>
+<form action="/action_page.php" id="projectForm">
+  Title:<br>
+  <input type="text" name="title"><br>
+  Goal:<br>
+  <input type="text" name="goal"><br>
+  <br>
+  <textarea name="Description" placeholder="Description"></textarea><br>
+  Start:<br>
+  <input type="Date" name="start"><br>
+  End:<br>
+  <input type="Date" value="end"><br><br>
+  <input type="submit" value="Submit">
+</form>

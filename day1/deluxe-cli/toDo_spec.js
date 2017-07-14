@@ -2,7 +2,6 @@
 /* eslint-env jasmine */
 
 var jsonfile = require('jsonfile');
-var file = 'data.json';
 var child_process = require('child_process');
 
 
@@ -49,6 +48,17 @@ describe("Test toDo.js", function() {
     expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
     expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy");
   });
+
+it("Toggle completed", function() {
+  generateTasks();
+  child_process.execSync('node toDo.js completed --id 3');
+  var stdout = runAndCleanStdout('node toDo.js completed');
+  console.log(stdout);
+  expect(stdout.length).toBe(1);
+  expect(stdout[0]).toEqual("Task #3 Priority 3: Call the internet guy Completed");
+});
+
+
 });
 
 function runAndCleanStdout(cmd){

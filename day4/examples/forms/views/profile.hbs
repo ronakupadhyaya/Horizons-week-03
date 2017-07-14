@@ -10,10 +10,65 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <h1>Put your user profile here</h1>
-    </div>
+  <div class="container" style="max-width:600px;padding:40px 20px;background:#ebeff2">
+    <form action="/profile" method="post" class="form-horizontal" role="form">
+
+       <div class="form-group">
+          <label for="name" class ="control-label col-sm-3">First name</label>
+      <div class="col-sm-8">
+          {{firstName}}
+      </div>
+        </div>
+
+        <div class="form-group">
+           <label for="middleInitial" class ="control-label col-sm-3">Middle Initial</label>
+       <div class="col-sm-8">
+           {{middleInitial}}
+       </div>
+         </div>
+
+         <div class="form-group">
+           <label for="lastName" class ="control-label col-sm-3">Last Name</label>
+       <div class="col-sm-8">
+           {{lastName}}
+       </div>
+         </div>
+
+         <div class="form-group">
+           <label for="dob" class ="control-label col-sm-3">DOB</label>
+       <div class="col-sm-8">
+           {{dob}}
+       </div>
+         </div>
+
+        <div class="form-group">
+           <label for="password" class ="control-label col-sm-3">Password</label>
+       <div class="col-sm-8">
+           {{password}}
+       </div>
+         </div>
+
+         <div class="form-group">
+           <label for="gender" class="control-label col-sm-3">Gender</label>
+           <div class="col-sm-8" name="genderChoice">
+             {{genderChoice}}
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="newsletter" class ="control-label col-sm-3">Sign up for Newsletter</label>
+           <div class="col-sm-8">
+           </div>
+         </div>
+
+         <div class="form-group">
+           <label for="bio" class ="control-label col-sm-3">Biography</label>
+           <div class="col-sm-8">
+             {{bio}}
+           </div>
+         </div>
+
   </div>
+
 </body>
 </html>
