@@ -32,12 +32,19 @@ var Project = mongoose.model('Project', {
     type: Date,
     required: true
   },
+  totalContributions: {
+    type: Number,
+    required: true
+  },
+  percentFunded: {
+    type: Number,
+    required: true
+  },
   contributions: {
     type: [{
       name: String,
       amount: Number
     }]
-
   },
   category: {
     type: String,
@@ -51,7 +58,6 @@ var Project = mongoose.model('Project', {
     'How Many Fingers Am I Holding Up',
     'Potent Potables']
   }
-  // YOUR CODE HERE
 });
 
 module.exports = {

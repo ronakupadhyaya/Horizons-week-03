@@ -5,7 +5,6 @@
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -13,115 +12,67 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Horizons Starter</a>
+      <a class="navbar-brand" href="/">Horizons Starter</a>
     </div>
-  </div><!-- /.container-fluid -->
-</nav>
-<div class="container">
-  <div class="row">
-
   </div>
+</nav>
+
+<div class="container">
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
       <div class="panel panel-default">
-          <div class="panel-body">
-            <h1 class="text-center">Active Projects</h1>
-            <ul class="list-group" id="activeProjects">
-              {{#each items}}
+        <div class="panel-body">
+          <h1 class="text-center">Active Projects</h1>
+          <br>
+          <div class="btn-group" value="start" id="sortTypeDropdown">
+            <button type="button" class="btn btn-default dropdown-toggle center-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort Type <span class="caret"></span>
+              </button>
+            <ul class="dropdown-menu" id="sortTypeMenu">
+              <li id="start"><a href="#">Start Date</a></li>
+              <li id="end"><a href="#">End Date</a></li>
+              <li id="goal"><a href="#">Goal Amount</a></li>
+              <li id="totalContributions"><a href="#">Total Contributions</a></li>
+              <li id="percentFunded"><a href="#">Percentage Funded</a></li>
+            </ul>
+          </div>
 
+          <div class="btn-group" value="-" id="sortDirectionDropdown">
+            <button type="button" class="btn btn-default dropdown-toggle center-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort Direction <span class="caret"></span>
+              </button>
+            <ul class="dropdown-menu" id="sortTypeMenu">
+              <li id="-"><a href="#">Ascending</a></li>
+              <li id=""><a href="#">Descending</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group" value="viewAllProjects" id="filterByFunding">
+            <button type="button" class="btn btn-default dropdown-toggle center-block" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Filter by Funding <span class="caret"></span>
+              </button>
+            <ul class="dropdown-menu" id="sortTypeMenu">
+              <li id="viewAllProjects"><a href="#">View All</a></li>
+              <li id="viewFullyFunded"><a href="#">Fully Funded</a></li>
+              <li id="viewNotFunded"><a href="#">Not Yet Funded</a></li>
+            </ul>
+          </div>
+
+          <ul class="list-group" id="activeProjects">
+            {{#each items}}
               <li class="list-group-item">
-
                 <a href='/project/{{this._id}}'>{{this.title}}</a>
               </li>
-              {{/each}}
-            </ul>
-            <a href="http://localhost:3000/new" style="text-align: center" class="btn btn-primary btn-lg active" role="button" aria-pressed="false">Create a new project.</a>
+            {{/each}}
+          </ul>
+          <div class="row">
+            <div class="col-offset-4 center-block">
+              <a href="http://localhost:3000/new" class="btn btn-primary btn-lg center-block" role="button">Create a new project.</a>
+            </div>
           </div>
+        </div>
       </div>
-
     </div>
-
   </div>
 </div>
-
-
-
-
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
-
-
 <br>
-
-<div class="displayButtons">
-  <div class="input-btn-group" id="sortTypeButtons" data-toggle="buttons">
-    <label class="btn btn-primary active">
-    <input type="radio" name="sort" value="start" autocomplete="off">Start
-  </label>
-    <label class="btn btn-primary">
-    <input type="radio" name="sort" value="end" autocomplete="off">End
-  </label>
-    <label class="btn btn-primary">
-    <input type="radio" name="sort" value="goal" autocomplete="off">Goal
-  </label>
-    <label class="btn btn-primary">
-    <input type="radio" name="sort" value="contributions" autocomplete="off">Total Contributions
-  </label>
-  </div>
-
-  <br>
-
-  <div class="input-btn-group" id="sortDirectionButtons" data-toggle="buttons">
-    <label class="btn btn-primary active">
-    <input type="radio" name="direction" value="start" autocomplete="off" checked>Ascending
-  </label>
-    <label class="btn btn-primary">
-    <input type="radio" name="direction" value="end" autocomplete="off">Descending
-  </label>
-  </div>
-</div>
-
-{{!--
-<form action="/sort" method="POST">
-  <div>
-    <label>Sort By:</label>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sort" value="start">Start
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sort" value="end">End
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sort" value="goal">Goal
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sort" value="contributions">Total Contributions
-      </label>
-    </div>
-  </div>
-
-  <div>
-    <label>Sort Direction:</label>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sortDirection" value="ascending">Ascending
-      </label>
-    </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="sortDirection" value="descending">Descending
-      </label>
-    </div>
-  </div>
-  <input type="checkbox" name="status">Filter by funding<br>
-
-  <input type="submit" value="Sort" /> --}}
-
-</form>

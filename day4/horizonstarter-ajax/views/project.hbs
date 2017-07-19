@@ -1,38 +1,69 @@
-<h1>View Project</h1>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Horizons Starter</a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
 
-<!-- Part 3: View a single project -->
-<ul>
-  <li>Title: {{project.title}}</li>
-  <li>Goal: {{project.goal}}</li>
-  <li>Description: {{project.description}}</li>
-  <li>Start Date: {{project.start}}</li>
-  <li>End: {{project.end}}</li>
-  <li>Contributions: {{sum}}</li>
-  <li>Percentage of goal met: {{percentage}}%</li>
-  <ul id="contributors-list">List of contributions:
-    {{#each contributions}}
-      <li>{{this.name}} contributed ${{this.amount}}</li>
-    {{/each}}
-  </ul>
-  <li>Category: {{this.category}}</li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h1 class="text-center">{{project.title}}</h1>
+          <ul class="list-group id=" projectInfo>
+            <li class="list-group-item"><strong>Goal: </strong>${{project.goal}}</li>
+            <li class="list-group-item"><strong>Description: </strong>{{project.description}}</li>
+            <li class="list-group-item"><strong>Start Date: </strong>{{project.start}}</li>
+            <li class="list-group-item"><strong>End Date: </strong>{{project.end}}</li>
+            <li id="contributions" class="list-group-item"><strong>Total Contributions: </strong>${{sum}}</li>
+            <li id="percentage" class="list-group-item">
+              <strong>Percentage of goal met: </strong>
+              <div class="progress">
+                <div id="contr-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="99999" style="width:{{percentage}}%">
+                  {{percentage}}%
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item"><strong>List of contributions: </strong>
+              <ul id="contributors-list" class="list-group">
+                {{#each contributions}}
+                  <li class="list-group-item">{{this.name}} contributed ${{this.amount}}</li>
+                {{/each}}
+              </ul>
+            </li>
+            <li class="list-group-item"><strong>Category: </strong>{{project.category}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- YOUR CODE HERE -->
+<br>
 
-<!-- Part 4: Contribute to a project -->
-{{#if errors}}
-  <ul>
-    {{#each errors}}
-      <li>{{this.msg}}</li>
-    {{/each}}
-  </ul>
-{{/if}}
-
-<h1>Contribute: </h1>
-<form id="contributionForm" data-project-id="{{project._id}}">
-  <input type="text" name="name" value="" placeholder="Enter name here"><br><br>
-  <input type="text" name="amount" value="" placeholder="Enter amount here"><br><br>
-  <button type="submit">Add Contribution</button>
-</form>
-
-<!-- YOUR CODE HERE -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="panel panel-default">
+        <div id="alert-placeholder"></div>
+        <div class="panel-body">
+          <h1 class="text-center">Contribute</h1>
+          <form id="contributionForm" data-project-id="{{project._id}}">
+            <input type="text" name="name" value="" placeholder="Enter name here"><br><br>
+            <input type="text" name="amount" value="" placeholder="Enter amount here"><br><br>
+            <button type="submit">Add Contribution</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,69 +1,85 @@
+
+
 $(document).ready(function() {
 
 
-  $(".displayButtons").on("click", ".btn", function(e) {
-    e.preventDefault();
-    alert("hi");
-    console.log("hi");
-    // var sortType = $("#sortButtons").find(".active").attr("value");
-    // var filterType = $("#filterButtons").find(".active").attr("value");
-    // $(this).parent().children().removeProp(".active")
-    // $(this).attr("class", "active");
+  $(".btn-group").on('click', "li", function(e) {
+    // e.stopPropagation();
+    // e.stopImmediatePropagation();
+    console.log($("#sortTypeDropdown"));
+    console.log($("#sortDirectionDropdown"));
+    $(this).parent().parent().attr("value", $(this).prop("id"));
+    var sortType = $("#sortTypeDropdown").attr("value");
+    var sortDirection = $("#sortDirectionDropdown").attr("value");
+    var filterFunded = $("#filterByFunding").attr("value");
+    var sortMethod = sortDirection + sortType;
+    console.log("sortType", sortType);
+    console.log("sortDirection", sortDirection);
+    console.log("filterFunding", filterFunded);
     $.ajax({
       url: "/",
       method: "POST",
-      error: function(request, error) {
-        console.log(arguments);
-        alert(" Can't do because: " + error);
+      data: {
+        sortMethod: sortMethod,
+        filterFunded: filterFunded
       },
-      success: function(res) {
-        console.log("success")
-        console.log(res.errorMessage)
-        console.log(res.projects);
-        console.log(res.test);
+      success: function(projects) {
+        $("#activeProjects").empty();
+         projects.projects.forEach(function(project) {
+           console.log("added");
+           $("#activeProjects").append(`<li class="list-group-item"><a href="/project/${project._id}">${project.title}</a></li>`);
+         });
       }
     });
   });
 });
 
-    // myAjaxPOST("/", function(res) {
-    //   console.log("in ajax");
-    //   console.log(res.projects);
-    //   var projects = edit(results, sortType, filterType);
-    //   $('#activeProjects').clear();
-    //   res.forEach(function(item) {
-    //
-    //     $('#activeProjects').append(`<li class="list-group-item"><a href='/project/${item._id}>${item.title}</a></li>`);
-    //   })
-    // });
 
-//
-//   function edit(arr, sortType, sortDirection, filterType) {
-//     var temp = [];
-//     for (var i = 0; i < arr.length; i++) {
-//       temp[i] = arr[i].toObject();
-//     }
-//
-//     for (var i = 0; i < temp.length; i++) {
-//       var x = temp[i].contributions;
-//       var sum = 0;
-//       for (var j = 0; j < x.length; j++) {
-//         sum += x[j].amount;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   $(".input-btn-group").on('click', ".btn", function(e) {
+//     // e.stopPropagation();
+//     e.stopImmediatePropagation();
+//     $(this).parent().children().removeClass("active");
+//     $(this).addClass("active");
+//     var sortType = $("#sortTypeButtons").find(".active").children().attr("value");
+//     var sortDirection = $("#sortDirectionButtons").find(".active").children().attr("value");
+//     var sortMethod = sortDirection + sortType;
+//     var filterFunded = $("#filterByFunding").find(".active").children().attr("value");
+//     $.ajax({
+//       url: "/",
+//       method: "POST",
+//       data: {
+//         sortMethod: sortMethod,
+//         filterFunded: filterFunded
+//       },
+//       success: function(projects) {
+//         $("#activeProjects").empty();
+//          projects.projects.forEach(function(project) {
+//            $("#activeProjects").append(`<li class="list-group-item"><a href="/project/${project._id}">${project.title}</a></li>`);
+//          });
 //       }
-//       temp[i]["total"] = sum;
-//     }
-//     if (sortType === 'descending') {
-//       temp.sort(function(a, b) {
-//         return b.total - a.total;
-//       });
-//     } else {
-//       temp.sort(function(a, b) {
-//         return a.total - b.total;
-//       });
-//     }
-//     return temp;
-//   }
-//
-//   function check(obj) {
-//     return obj.total >= obj.goal;
-//   }
+//     });
+//   });
+// });
