@@ -36,6 +36,14 @@ app.get('/register', function(req, res){
 });
 
 // POST /register
+function validate(req) {
+  req.checkBody('firstName', 'Invalid firstName').notEmpty();
+  req.checkBody('lastName', 'Invalid lastName').notEmpty();
+  req.checkBody('dob', 'Date of birth must be in the past').isBefore();
+  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('passwordRepeat', 'Invalid password').notEmpty();
+  req.checkBody('gender', 'Invalid password').notEmpty();
+}
 // This is the endpoint that the user hits when they submit
 // the registration form.
 //
@@ -44,14 +52,15 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  console.log(req.body);
+  validate(req);// YOUR CODE HERE - Add express-validator validation rules here
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', req.body);
   }
 });
 
