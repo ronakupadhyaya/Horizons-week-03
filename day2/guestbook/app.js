@@ -1,7 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
-
+var _=require('underscore');
 var app = express();
 
 // Enable cookie parsing
@@ -45,6 +45,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login')
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,10 +65,37 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var author = req.query.author;
+  var order = req.query.order;
+  var array = data.read();
+  console.log(array);
+var notFiltered = true;
+  if(author){
+    array = array.filter(function(obj){
+      return obj.author === author;
+    })
+    notFiltered = false;
+  }
+
+  if(order === 'ascending'){
+    _.sortBy(array, function(obj){
+      return new Date(obj.date);
+    });
+  } else if(order==='descending'){
+    _.sortBy(array, function(obj){
+      return new Date(obj.date);
+    })
+    array.reverse();
+  }
+console.log(array);
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: array,
+    filtered: notFiltered
+
   });
 });
 
@@ -82,6 +110,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form');
+  } else{
+    res.sendStatus(401);
+  }
 });
 
 // POST /posts:
@@ -102,6 +135,26 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+
+  // req.checkBody('author', 'Invalid username').notEmpty(),
+  req.checkBody('date', 'Date cannot be empty').notEmpty();
+  req.checkBody('title', 'Title cannot be empty').notEmpty();
+  req.checkBody('body', 'Post cannot be empty').notEmpty();
+  var errors = req.validationErrors();
+  if(!errors && req.cookies.username){
+    var array = data.read();
+    array.push({title: req.body.title, body: req.body.body, author: req.cookies.username, date: req.body.date });
+    data.save(array);
+    res.render('posts', {
+      username: req.cookies.username,
+      posts: data.read()
+    });
+  } else {
+    res.render(errors);
+  }
+
+
+
 });
 
 // Start the express server

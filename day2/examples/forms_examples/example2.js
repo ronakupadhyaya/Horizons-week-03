@@ -11,7 +11,15 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  res.render('example2', {
+    password: req.query.password,
+    username: req.query.username,
+    name: req.query.name,
+    maleBool: req.query.gender === 'male',
+    femaleBool: req.query.gender === 'female',
+    otherBool: req.query.gender === 'other'
+   });
+  
 });
 
 // start the express app

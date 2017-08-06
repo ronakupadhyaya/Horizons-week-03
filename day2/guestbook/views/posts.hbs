@@ -13,9 +13,28 @@
 <body>
 <h1>View all posts</h1>
 
+<br> </br>
+
+Click <a href="http://localhost:3000/posts?order=ascending">here</a> to sort in ascending order.
+
+<br> </br>
+
+Click <a href="http://localhost:3000/posts?order=descending">here</a> to sort in descending order.
+
+<br> </br>
+
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
+{{#each posts}}
+<div class = 'post'>
+  {{ttitle}} by {{this.author}}
+  {{this.body}}
+  at {{this.date}}
+    <a href="http://localhost:3000/posts?author={{this.author}}"> View only posts by this author </a>
+  </div>
+{{/each}}
+
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
@@ -23,6 +42,8 @@
 -->
 
 <!-- YOUR CODE HERE -->
+
+
 
 </body>
 </html>

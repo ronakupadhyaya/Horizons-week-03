@@ -1,6 +1,8 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
+var bodyparser = require('body-parser');
+var data = require('./accounts.json');
 
 var app = express();
 
@@ -13,6 +15,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
   res.render('example3');
 });
+
+app.use(bodyparser({extended: true}))
+
+app.post('/login', function(req, res){
+  data.forEach(function(account){
+    if(account.email === req.body.email && account.password === req.body.password){
+      res.render('login',{
+        firstname: account.first_name
+      })
+    }
+  })
+
+})
 
 // start the express app
 var port = process.env.PORT || 3000;

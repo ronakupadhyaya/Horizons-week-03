@@ -1,3 +1,19 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <input type="text" name="username" value="{{username}}" placeholder="Username">
+    <input type="password" name="password" value="{{password}}" placeholder="Password">
+    <input type="text" name="name" value="{{name}}" placeholder="Full Name">
+    <input type="radio" name="gender" value="male" {{#if maleBool}} checked {{/if}}>
+    Male
+    <input type="radio" name="gender" value="female" {{#if femaleBool}} checked {{/if}}>
+    Female
+    <input type="radio" name="gender" value="other" {{#if otherBool}} checked {{/if}}>
+    Other
+    <button type="submit" name="button"> Submit </button>
+
+
+  </span>
 </form>

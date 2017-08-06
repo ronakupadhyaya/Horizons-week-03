@@ -1,25 +1,14 @@
-<h2>Create project</h2>
-
-<!-- Part 2: Create project -->
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
-
-<div class='errors'>
-{{#each errors}}
-<li> {{this.msg}} </li>
-{{/each}}
-</div>
+<h2>Edit project</h2>
 
 
+<form action="/project/{{id}}/edit" method="post">
+  <input type="text" name="title" value="{{project.title}}" placeholder="Title">
+  <input type="Number" name="goal" value="{{project.goal}}" placeholder="Goal">
+  <textarea name="description" rows="8" cols="80" placeholder="Enter Description" value = "{{project.description}}"></textarea>
+  <input type="date" name="startDate" value='{{project.start}}'>
+  <input type="date" name="endDate" value='{{project.end}}'>
 
-<form action="/new" method="post">
-  <input type="text" name="title" value="{{title}}" placeholder="Title">
-  <input type="Number" name="goal" value="{{goal}}" placeholder="Goal">
-  <textarea name="description" rows="8" cols="80" placeholder="Enter Description" value = "{{description}}"></textarea>
-  <input type="date" name="startDate" value="start">
-  <input type="date" name="endDate" value="end">
-  
-  <select name="category">
+  <select name="category" value='{{project.category}}'>
     <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
     <option value="Current Black Presidents">Current Black Presidents</option>
     <option value="The Pen Is Mightier">The Pen Is Mightier</option>

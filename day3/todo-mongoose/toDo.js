@@ -43,6 +43,7 @@ db.once('open', function() {
 //    "completed" property that is a Boolean.
 
 // YOUR CODE HERE
+var ToDoItem = mongoose.model('ToDoItem', {name: String, priority: String, completed: Boolean});
 
 // Time to start defining our Commands. What are we going to do with our program?
 // We want to be able to add, show and delete tasks.
@@ -88,6 +89,8 @@ program.command('delete')
 program
 .option('-p, --priority <p>', 'Specify priority for task', parseInt)
 // YOUR CODE HERE
+program
+.option('-t, --task', 'Specify task')
 
 // Arguments
 // These lines are part of the 'Commander' module. They tell it to process all the
@@ -127,6 +130,17 @@ function addTask(){
   //    set name, priority, and completed.
 
   // YOUR CODE HERE
+  var task = new ToDoItem({name: name, priority: priority, completed: false})
+
+  task.save(function(err, doc){
+    if(err){
+      console.log(err);
+    } else{
+      console.log('Task Added');
+    }
+    mongoose.connection.close();
+  });
+
 
   // TODO: Use mongoose's save function to save task (the new instance of
   //    your model that you created above). In the callback function
@@ -157,7 +171,32 @@ function showTasks() {
   //    .find(function (err, task) { // do things } ) - finds all tasks
 
   // YOUR CODE HERE
-}
+
+
+  if(program.task){
+    var task = parseArgs();
+
+    ToDoItem.findOne({name: task}, function(err, task){
+      if(err){
+        console.log(err);
+      } else{
+        console.log('Task: ' + task.name + ' Priority: ' + task.priority + ' Completed: ' + task.completed);
+      }
+      mongoose.connection.close();
+    })} else {
+      ToDoItem.find(function(err, task){
+        if(err){
+          console.log(err);
+        } else{
+          task.forEach(function(obj){
+            console.log('Task: ' + obj.name + ' Priority: ' + obj.priority + ' Completed: ' + obj.completed);
+          })
+        }
+        mongoose.connection.close();
+      })
+    }
+  }
+
 
 // PART 4: Delete tasks
 
@@ -167,5 +206,19 @@ function deleteTask(){
   // TODO: If program.task exists you should use mongoose's .remove function
   //    on the model to remove the task with {name: program.task}
 
+  if(program.task){
+    var task = parseArgs();
+    ToDoItem.remove({name: task}, function(err, task){
+      if(err){
+        console.log(err);
+        mongoose.connection.close();
+      } else {
+        //console.log(task);
+        console.log('Task deleted');
+        mongoose.connection.close();
+      }
+    })
+  } else { console.log('Not found') }
   // YOUR CODE HERE
+
 }

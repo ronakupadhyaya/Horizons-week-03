@@ -2,6 +2,23 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each items}}
+<div>
+  <a href="http://localhost:3000/project/{{this._id}}"> <li> {{this.title}} </li> </a>
+  <!-- <li> {{this.title}} </li> -->
+  <br> </br>
+</div>
+{{/each}}
 
+<a href="http://localhost:3000/?sort=start&&sortDirection=ascending">Sort By Start Date First</a>
+<br> </br>
+<a href="http://localhost:3000/?sort=end&&sortDirection=ascending">Sort By End Date First</a>
+<br> </br>
+<a href="http://localhost:3000/?sort=goal&&sortDirection=ascending">Sort By Goal Size</a>
+<br> </br>
+<a href="http://localhost:3000/?sort=title&&sortDirection=ascending">Sort By Title</a>
+<br> </br>
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href="http://localhost:3000/new">Create new project</a>
+<br> </br>

@@ -4,6 +4,44 @@
 
 <!-- YOUR CODE HERE -->
 
+<div class='singleProjectView'>
+Project Title - {{project.title}}
+<br> </br>
+Target Goal - {{project.goal}}
+<br> </br>
+Description - {{project.description}}
+<br> </br>
+Start Date - {{project.start}}
+<br> </br>
+End Date - {{project.end}}
+<br> </br>
+Category - {{project.category}}
+<br> </br>
+</div>
+
+
+  <li> Total Contributions = {{total}}
+
+
+    <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="70"
+  aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+    <span class="sr-only">{{percentage}}% Complete</span>
+  </div>
+</div>
+
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+
+<form class="contributionForm" action="/project/{{id}}" method="post">
+  Contribute Here!
+  <br> </br>
+  <input type="text" name="contributorName" value="" placeholder="Your Name">
+  <input type="Number" name="contributionAmount" value="" placeholder="Amount">
+  <button type="submit" name="button">Submit</button>
+</form>
+
+<br> </br>
+
+<a href="http://localhost:3000/project/{{project.id}}/edit">Edit</a>
