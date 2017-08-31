@@ -14,10 +14,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-// Enable form validation with express validator.
-var expressValidator = require('express-validator');
-app.use(expressValidator());
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -94,9 +90,8 @@ app.get('/posts/new', function(req, res) {
 // Example post object:
 // {author: 'Moose', date: '5/14/2006', title: 'Hey', body: 'How is it goin?'}
 //
-// Use express-validator to check that the user is logged in and that title, body
+// Make sure to check that the user is logged in and that title, body
 // and date are all specified.
-// Don't forget to check if there are validation errors at req.validationErrors();
 //
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
