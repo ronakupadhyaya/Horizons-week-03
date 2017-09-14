@@ -7,29 +7,7 @@ var file = 'data.json';
 var child_process = require('child_process');
 
 
-describe("Getting Commands", function() {
-    beforeEach(function() {
-        // app = require('./addressBook.js')
-        // jsonfile.writeFileSync(file, []);
-    });
 
-    it('Returns the command provided in stdin', function() {
-        //
-        // spyOn(app, 'displayContacts')
-        // var stdout = runAndCleanStdout('node addressBook.js display');
-
-        // expect(app.displayContacts).toHaveBeenCalled()//toEqual('add')
-    })
-
-    it('Returns empty string when no command provided', function() {
-        // var app = require('./addressBook.js')
-        // spyOn(app, 'parseCommand')
-        // var stdout = runAndCleanStdout('node addressBook.js');
-        // // child_process.execSync('node addressBook.js update John 456');
-        // var command = app.parseCommand()
-        // expect(command).toEqual('')
-    })
-})
 
 describe("Displaying Contacts", function() {
     beforeEach(function() {
@@ -200,51 +178,80 @@ describe("Updating Contacts", function() {
 })
 
 
-describe("Test addressBook.js", function() {
+describe("Deleting Contacts", function() {
+    beforeEach(function() {
+        //resets data before all tests
+        jsonfile.writeFileSync(file, [
+            {
+                "name": "Moose",
+                "number": 123
+            },
+            {
+                "name": "Ricky",
+                "number": 456
+            },
+            {
+                "name": "Graham",
+                "number": 789
+            }
+        ]);
+    });
 
-  // beforeEach(function() {
-  //   //resets data before all tests
-  //   jsonfile.writeFileSync(file, []);
-  // });
+    afterEach(function() {
+        //resets data before all tests
+        jsonfile.writeFileSync(file, [
+            {
+                "name": "Moose",
+                "number": 123
+            },
+            {
+                "name": "Ricky",
+                "number": 456
+            },
+            {
+                "name": "Graham",
+                "number": 789
+            }
+        ]);
+    })
+
+    it("Deletes the contact when it exists", function() {
+        child_process.execSync('node addressBook.js delete Moose');
+        var data = jsonfile.readFileSync(file)
+        expect(data.length).toBe(2)
+        expect(data[0]).toEqual({"name": "Ricky", "number": 456})
+        expect(data[1]).toEqual({"name": "Graham", "number": 789})
+
+    });
+
+    it("Does not make any changes when contact does not exist", function() {
+        child_process.execSync('node addressBook.js delete Pam');
+        var data = jsonfile.readFileSync(file)
+        expect(data.length).toBe(3)
+        expect(data[0]).toEqual({"name": "Moose", "number": 123})
+        expect(data[1]).toEqual({"name": "Ricky", "number": 456})
+        expect(data[2]).toEqual({"name": "Graham", "number": 789})
+    });
+
+    it("Does not make any changes when no contact was specified", function() {
+        child_process.execSync('node addressBook.js delete');
+        var data = jsonfile.readFileSync(file)
+        expect(data.length).toBe(3)
+        expect(data[0]).toEqual({"name": "Moose", "number": 123})
+        expect(data[1]).toEqual({"name": "Ricky", "number": 456})
+        expect(data[2]).toEqual({"name": "Graham", "number": 789})
+    });
+
+    it("Console logs a message when contact does not exist", function() {
+        var stdout = runAndCleanStdout('node addressBook.js delete Pam');
+        expect(stdout.length).toBe(1);
+        expect(stdout[0]).toEqual("No contact found");
+    });
 
 
-  // it("Show with no tasks on model", function() {
-  //   var cmd = 'node addressBook.js show';
-  //   var stdout = child_process.execSync(cmd, {encoding:'utf-8'});
-  //   expect(stdout).toBe('');
-  // });
-  //
-  // it("Creating new task from blank", function() {
-  //   child_process.execSync('node addressBook.js add Do the dishes');
-  //   var stdout = runAndCleanStdout('node addressBook.js show');
-  //   expect(stdout.length).toBe(1);
-  //   expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
-  // });
-  //
-  // it("creating many tasks, with priority flags", function() {
-  //   generateTasks();
-  //   var stdout = runAndCleanStdout('node addressBook.js show');
-  //   expect(stdout.length).toBe(3);
-  //   expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
-  //   expect(stdout[1]).toEqual("Task #2 Priority 2: Fix tv");
-  //   expect(stdout[2]).toEqual("Task #3 Priority 3: Call the internet guy");
-  // });
-  //
-  // it("Show task with id", function() {
-  //   generateTasks();
-  //   var stdout = runAndCleanStdout('node addressBook.js show -i 2');
-  //   expect(stdout[0]).toEqual("Task #2 Priority 2: Fix tv");
-  // });
-  //
-  // it("Delete task with id", function() {
-  //   generateTasks();
-  //   child_process.execSync('node addressBook.js delete -i 2');
-  //   var stdout = runAndCleanStdout('node addressBook.js show');
-  //   expect(stdout.length).toBe(2);
-  //   expect(stdout[0]).toEqual("Task #1 Priority 1: Do the dishes");
-  //   expect(stdout[1]).toEqual("Task #2 Priority 3: Call the internet guy");
-  // });
-});
+})
+
+
 
 function runAndCleanStdout(cmd){
   var stdout = child_process.execSync(cmd, {encoding:'utf-8'});

@@ -9,16 +9,20 @@ The goal of this exercise is to build a command line Address Book manager
 
 Many things you can do with a graphical user interface can be done through a text-only interface in the command line. Since NodeJS frees up JavaScript to run outside the browser, you can now create JavaScript applications that run from your terminal!
 
-In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using (think git or npm), we can change the behavior of our application by passing in arguments or flags (`npm install` compared to `npm install --save`). In the `npm install --save` we call `install` an argument to the npm command and `--save` a flag. Notice how the save flag changes the behavior of the `npm install` command. We will use flags and arguments to specify behavior in our application as well.  
+
+In this exercise we will build a command line tool in JavaScript and use NodeJS to run it. Similar to other command line tools we have been using (think git or npm), we can change the behavior of our application by passing in command line arguments. For example, when we run `git commit -m "test"`, `commit -m "test"` are arguments passed into the git command line tool. We will use flags and arguments to specify behavior in our application as well.
+
+### Arguments
+
+**Arguments** We can pass strings into our program to be used as arguments or parameters.
+`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command. *NOTE: The `4` in `node myProgram.js square 4` will be processed as a string, not a number. *
 
 ### Commands
 
 **Commands** are arguments that specify specific actions. You can run:
-`node myProgram.js doSomething`. `doSomething` is an argument or sub-command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application; then `node myProgram.js add` contains the command `add` and `node myProgram.js delete` contains the command `delete`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running.  
-### Arguments
+`node myProgram.js doSomething`. `doSomething` is an argument or command for the `node myProgram.js` command line tool. Consider if `myProgram.js` was a calculator application; then `node myProgram.js add` contains the command `add` and `node myProgram.js subtract` contains the command `subtract`. Commands given to a program are just special arguments that modify the behavior of the app/tool we are running.  
 
-**Arguments** We can pass strings or numbers into our program to be used as arguments or parameters.
-`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command.
+
 
 - - - -
 
@@ -85,7 +89,7 @@ The command will be the first argument: <br>
 `$ node addressBook.js`                 parseCommand() returns "" <br>
 
 
-> **Note:** If you need a refresher on what `process.argv` is, see [here](https://www.google.com)
+> **Note:** If you need a refresher on what `process.argv` is, see [here](https://nodejs.org/docs/latest/api/process.html#process_process_argv)
 
 - - - -  
 
@@ -103,8 +107,12 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 [Columnify](https://www.npmjs.com/package/columnify) is an npm package that formats console output from objects or arrays of objects into organized columns. We will use it to display the contacts in our address book like the image above.
 
 #### Steps
-1. `npm install --save columnify`
-1. At the top of addressBook.js `var columnify = require('columnify')`
+1. Install and save [columnify](https://www.npmjs.com/package/columnify)
+1. Require the columnify package at the top of addressBook.js (see columnify's [usage section](https://www.npmjs.com/package/columnify#usage))
+   <details>
+   <summary>Hint</summary>
+   `var columnify = require('columnify')`
+   </details>
 1. Inside displayContacts(), uncomment the line labeled 'UNCOMMENT'<br>
  <img src="./img/columnoutput.png" width="350"><br>
  then run `$ node addressBook.js display` to see how columnify works!
@@ -115,12 +123,12 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 1. Explore the columnify module to match your output to the 'Goal' shown above.  
 **NOTE**: Simply calling columnify on our entire addressBook directly will print out our contacts exactly as they are stored in our data array. There are two key things you need to fix:  
     1. Change the columns so that they read "CONTACT_NAME" and "PHONE_NUMBER"
-              <details>
+        <details>
               <summary>Hint</summary>
               [Use columnify's headingTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
               </details>
     1. For contacts without phone numbers, display '-None-' instead of '-1'
-              <details>
+        <details>
               <summary>Hint</summary>
               Checkout [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
                   <details>
@@ -136,19 +144,35 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 - - - -  
 
 ## Part 3: Implementing the 'add' command
-Write the function addContact(). It will be called in the following ways:  
+Write the function addContact(). addContact() is the function that is called to create a new contact. Calling `$ node addressBook.js add contactName contactNumber ` must call our function addContact.  It will be called in the following ways:  
+
 `$ node addressBook.js add Darwish 123`  - add a contact named Darwish with phone number 123  
 `$ node addressBook.js add Darwish` - adds a contact named Darwish with no phone number (-1 as placeholder)
 
-
+### Goal
 The add command will create a new contact with the specified name and number and save it into our data file.
-> **Note** We already handle writing to the data file for you, so all you need to do is add each new contact to our data array
+> **Note** We already handle writing to the data file for you, so all you need to do is add each new contact to our data array as follows:  
+
+If we display our initial contacts, we will see:
+<img src="./img/beforeadd.png" width="200">
+
+Running our command `$node addressBook.js add Pam 111` should successfully add a contact with the name 'Pam' and the number '111':
+<img src="./img/addpam.png" width="500">
+
+If we display our contacts again after adding Pam, we will see that Pam is now in our contact list:
+<img src="./img/addresult.png" width="400">
 
 
-addContact() is the function that is called to create a new contact. Calling `$ node addressBook.js add contactName contactNumber ` must call our function addContact.
-It should get the name and number of the Contact from process.argv.
 
-In order to pass all the tests, you will need to validate what was passed in for the name and number. That means that we only create a new contact if the name consists of only letters and the number, if specified, consists of only numbers.
+
+
+
+
+
+
+**HINT** We can get the name and number of the Contact from process.argv.
+
+In order to pass all the tests, you will need to validate what was passed in for the name and number. That means that we only create a new contact if the name consists of only letters. The number, if specified, should consist of only numbers.
 
 **Rules**
 - Every contact is an object with the following properties:
@@ -165,32 +189,60 @@ In order to pass all the tests, you will need to validate what was passed in for
 
 
 
-**Bonus** Use the npm package [validate](https://www.npmjs.com/package/validator) to perform these checks
-
 > **TEST:** Run your tests with `$ npm test`!
 
 - - - -  
 
 ## Part 4: Implementing the 'update' command
 The update command is called to update an existing contact. You can update either a contact's name or number by running the following in your terminal:
-  - `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111
-  - `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny
+  - `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111 and logs  `Updated number for John`
+  - `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny and logs `Updated name for John`
   - `$ node addressBook.js update nonExistantContact` - Logs to console `No contact found`
+
+  ### Goal
+  The update command will update an existing contact with the specified name to have either a new name or number.
+
+  If we display our initial contacts, we will see:
+  <img src="./img/beforeadd.png" width="200">
+
+  Running our command `$node addressBook.js update Moose 999` should successfully add a contact with the name 'Moose' to have the number '999':
+  <img src="./img/updatemoose.png" width="500">
+
+  If we display our contacts again after updating Moose, we will see that Moose now has the number 999:
+  <img src="./img/afterupdate.png" width="400">
+
+
 
 **Rules**
 - If a contact with the specified name does not exist, console.log() `No contact found`
-- If contact is successfully updated, console.log() the updated contact like this: `Darwish 123`
+- If contact is successfully updated, console.log() the updated contact like this: `Updated name for Darwish` or `Updated number for Darwish`
 - ONLY update the contact if the new name or number is valid! (Just like how you checked for validity in addContacts())
+  - If the new field to update is not valid, console.log() `Invalid contact format`
 
 > **TEST:** Run your tests with `$ npm test`!
 
 - - - -  
 
 
-## BONUS Part 5: Implementing the 'delete' command
+## Part 5: Implementing the 'delete' command
 Write the function deleteContact() so that it removes the specified contact from our data.json file. The delete command will be run in the following ways:
-  - `$ node addressBook.js delete John` - Finds contact named John and deletes him
+  - `$ node addressBook.js delete John` - Finds contact named John and deletes him and logs `Deleted John`
   - `$ node addressBook.js delete nonExistantContact` - Logs to console `No contact found`
+
+
+  ### Goal
+  The add command will delete an existing contact with the specified name.
+
+  If we display our initial contacts, we will see:
+  <img src="./img/beforeadd.png" width="200">
+
+  Running our command `$node addressBook.js delete Graham` should successfully delete the contact with the name 'Graham':
+  <img src="./img/delgraham.png" width="500">
+
+  If we display our contacts again after deleting Graham, we will see that Graham is no longer in our contact list:
+  <img src="./img/deleteresult.png" width="400">
+
+
 
 <!-- ## BONUS Add the lastname property
 Currently you are only able to identify a contact by their *first name*. That means that you cannot have two contacts with the same name value or else your 'update' command will not work properly. To fix this, lets do the  add a lastname property to our Contact objects and have our 'update' command take both the first and last name:  
