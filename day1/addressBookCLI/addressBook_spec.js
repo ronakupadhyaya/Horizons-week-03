@@ -15,6 +15,24 @@ describe("Displaying Contacts", function() {
       jsonfile.writeFileSync(file, []);
     });
 
+    afterEach(function() {
+        //resets data before all tests
+        jsonfile.writeFileSync(file, [
+            {
+                "name": "Moose",
+                "number": 123
+            },
+            {
+                "name": "Ricky",
+                "number": 456
+            },
+            {
+                "name": "Graham",
+                "number": 789
+            }
+        ]);
+    })
+
     it("displays all contacts in the correct format when contacts exist", function(){
         jsonfile.writeFileSync(file, [
           {
@@ -82,6 +100,24 @@ describe("Adding Contacts", function() {
       jsonfile.writeFileSync(file, []);
     });
 
+    afterEach(function() {
+        //resets data before all tests
+        jsonfile.writeFileSync(file, [
+            {
+                "name": "Moose",
+                "number": 123
+            },
+            {
+                "name": "Ricky",
+                "number": 456
+            },
+            {
+                "name": "Graham",
+                "number": 789
+            }
+        ]);
+    })
+
     it("Adds contacts when a name and valid number(or no number) is provided", function() {
         child_process.execSync('node addressBook.js add Pam 516');
         child_process.execSync('node addressBook.js add Frankie 123');
@@ -142,6 +178,24 @@ describe("Updating Contacts", function() {
             }
         ]);
     });
+
+    afterEach(function() {
+        //resets data before all tests
+        jsonfile.writeFileSync(file, [
+            {
+                "name": "Moose",
+                "number": 123
+            },
+            {
+                "name": "Ricky",
+                "number": 456
+            },
+            {
+                "name": "Graham",
+                "number": 789
+            }
+        ]);
+    })
 
     it("Updates the contact's number when only number argument is passed", function() {
         child_process.execSync('node addressBook.js update Moose 999');

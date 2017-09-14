@@ -210,14 +210,6 @@ function deleteContact(){
             console.log('No contact found');
         }
 
-        // for (var i = 0; i < data.length; i++) {
-        //     var contact = data[i]
-        //     if(contact.name === name){
-        //         data.splice(i,1)
-        //         break
-        //     }
-        // }
-
     }
 }
 
