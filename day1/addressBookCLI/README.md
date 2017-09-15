@@ -135,7 +135,9 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 
     <details>
     <summary>Show Result</summary>
-    <img src="./img/terminalcolumns.png" width="400">
+
+    ![Result of calling display](./img/terminalcolumns.png)
+
     </details>
 
 1. Explore the columnify module to match your output to the 'Goal' shown above.  
