@@ -114,7 +114,11 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 
     <details>
     <summary>Hint</summary>
-    `var columnify = require('columnify')`
+
+    ```javascript
+    var columnify = require('columnify');
+    ```
+
     </details>
 
 1. Inside displayContacts(), uncomment the line labeled 'UNCOMMENT'
