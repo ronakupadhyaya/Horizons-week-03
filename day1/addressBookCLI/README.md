@@ -196,26 +196,15 @@ In order to pass all the tests, you will need to validate what was passed in for
 - - - -  
 
 ## Part 4: Implementing the 'update' command
+
 The update command is called to update an existing contact. You can update either a contact's name or number by running the following in your terminal:
-  - `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111 and logs  `Updated number for John`
-  - `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny and logs `Updated name for John`
-  - `$ node addressBook.js update nonExistantContact` - Logs to console `No contact found`
 
-  ### Goal
-  The update command will update an existing contact with the specified name to have either a new name or number.
+- `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111 and logs  `Updated number for John`
+- `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny and logs `Updated name for John`
+- `$ node addressBook.js update nonExistantContact` - Logs to console `No contact found`
 
-  If we display our initial contacts, we will see:
-  <img src="./img/beforeadd.png" width="200">
+### Expected behavior
 
-  Running our command `$node addressBook.js update Moose 999` should successfully add a contact with the name 'Moose' to have the number '999':
-  <img src="./img/updatemoose.png" width="500">
-
-  If we display our contacts again after updating Moose, we will see that Moose now has the number 999:
-  <img src="./img/afterupdate.png" width="400">
-
-
-
-**Rules**
 - If a contact with the specified name does not exist, console.log() `No contact found`
 - If contact is successfully updated, console.log() the updated contact like this: `Updated name for Darwish` or `Updated number for Darwish`
 - ONLY update the contact if the new name or number is valid! (Just like how you checked for validity in addContacts())
@@ -223,13 +212,33 @@ The update command is called to update an existing contact. You can update eithe
 
 > **TEST:** Run your tests with `$ npm test`!
 
+### Goal
+
+The update command will update an existing contact with the specified name to have either a new name or number.
+
+1. If we display our initial contacts, we will see:
+
+    ![Contacts before update](./img/beforeadd.png)
+
+1. Running our command `$node addressBook.js update Moose 999` should successfully add a contact with the name 'Moose' to have the number '999':
+
+    ![Updating contact moose](./img/updatemoose.png)
+
+1. If we display our contacts again after updating Moose, we will see that Moose now has the number 999:
+
+    ![Contacts after update](./img/afterupdate.png)
+
+
 - - - -  
 
 
 ## Part 5: Implementing the 'delete' command
-Write the function deleteContact() so that it removes the specified contact from our data.json file. The delete command will be run in the following ways:
-  - `$ node addressBook.js delete John` - Finds contact named John and deletes him and logs `Deleted John`
-  - `$ node addressBook.js delete nonExistantContact` - Logs to console `No contact found`
+
+Write the function deleteContact() so that it removes the specified contact from
+our data.json file. The delete command will be run in the following ways:
+
+- `$ node addressBook.js delete John` - Finds contact named John and deletes him and logs `Deleted John`
+- `$ node addressBook.js delete nonExistantContact` - Logs to console `No contact found`
 
 
 ### Goal
