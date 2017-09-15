@@ -232,18 +232,20 @@ Write the function deleteContact() so that it removes the specified contact from
   - `$ node addressBook.js delete nonExistantContact` - Logs to console `No contact found`
 
 
-  ### Goal
-  The add command will delete an existing contact with the specified name.
+### Goal
+The add command will delete an existing contact with the specified name.
 
-  If we display our initial contacts, we will see:
-  <img src="./img/beforeadd.png" width="200">
+1. If we display our initial contacts, we will see:
 
-  Running our command `$node addressBook.js delete Graham` should successfully delete the contact with the name 'Graham':
-  <img src="./img/delgraham.png" width="500">
+    ![Contacts before deletion](/img/beforeadd.png)
 
-  If we display our contacts again after deleting Graham, we will see that Graham is no longer in our contact list:
-  <img src="./img/deleteresult.png" width="400">
+1. Running our command `$node addressBook.js delete Graham` should successfully delete the contact with the name 'Graham':
 
+    ![Deleting a contact](./img/delgraham.png)
+
+1. If we display our contacts again after deleting Graham, we will see that Graham is no longer in our contact list:
+
+    ![Result of deleting a contact](./img/deleteresult.png)
 
 
 <!-- ## BONUS Add the lastname property
