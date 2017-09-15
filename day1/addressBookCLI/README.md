@@ -150,37 +150,14 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 - - - -  
 
 ## Part 3: Implementing the 'add' command
+
 Write the function addContact(). addContact() is the function that is called to create a new contact. Calling `$ node addressBook.js add contactName contactNumber ` must call our function addContact.  It will be called in the following ways:  
 
 `$ node addressBook.js add Darwish 123`  - add a contact named Darwish with phone number 123  
 `$ node addressBook.js add Darwish` - adds a contact named Darwish with no phone number (-1 as placeholder)
 
-### Goal
-The add command will create a new contact with the specified name and number and save it into our data file.
-> **Note** We already handle writing to the data file for you, so all you need to do is add each new contact to our data array as follows:  
+### Expected behavior
 
-If we display our initial contacts, we will see:
-<img src="./img/beforeadd.png" width="200">
-
-Running our command `$node addressBook.js add Pam 111` should successfully add a contact with the name 'Pam' and the number '111':
-<img src="./img/addpam.png" width="500">
-
-If we display our contacts again after adding Pam, we will see that Pam is now in our contact list:
-<img src="./img/addresult.png" width="400">
-
-
-
-
-
-
-
-
-
-**HINT** We can get the name and number of the Contact from process.argv.
-
-In order to pass all the tests, you will need to validate what was passed in for the name and number. That means that we only create a new contact if the name consists of only letters. The number, if specified, should consist of only numbers.
-
-**Rules**
 - Every contact is an object with the following properties:
     1. **name**: REQUIRED a string (letters only!), first name of the contact
     2. **number**: OPTIONAL a number (numbers only!), phone number of contact
@@ -193,9 +170,31 @@ In order to pass all the tests, you will need to validate what was passed in for
    - If either there was no name provided, the name was invalid, or the number was invalid, do not add any contacts, console.log() a failure message like:  
    `Invalid contact format`
 
-
-
 > **TEST:** Run your tests with `$ npm test`!
+
+In order to pass all the tests, you will need to validate what was passed in for the name and number. That means that we only create a new contact if the name consists of only letters. The number, if specified, should consist of only numbers.
+
+**HINT** We can get the name and number of the Contact from process.argv.
+
+
+### Goal
+
+The add command will create a new contact with the specified name and number and save it into our data file.
+
+> **Note** We already handle writing to the data file for you, so all you need to do is add each new contact to our data array as follows:  
+
+1. If we display our initial contacts, we will see:
+
+    ![Contacts before add](./img/beforeadd.png)
+
+1. Running our command `$node addressBook.js add Pam 111` should successfully add a contact with the name 'Pam' and the number '111':
+
+    ![Adding contact pam](./img/addpam.png)
+
+1. If we display our contacts again after adding Pam, we will see that Pam is now in our contact list:
+
+    ![Result of adding contact](./img/addresult.png)
+
 
 - - - -  
 
@@ -212,7 +211,7 @@ The update command is called to update an existing contact. You can update eithe
 - If a contact with the specified name does not exist, console.log() `No contact found`
 - If contact is successfully updated, console.log() the updated contact like this: `Updated name for Darwish` or `Updated number for Darwish`
 - ONLY update the contact if the new name or number is valid! (Just like how you checked for validity in addContacts())
-  - If the new field to update is not valid, console.log() `Invalid contact format`
+- If the new field to update is not valid, console.log() `Invalid contact format`
 
 > **TEST:** Run your tests with `$ npm test`!
 
