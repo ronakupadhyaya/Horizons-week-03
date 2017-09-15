@@ -117,14 +117,23 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
     `var columnify = require('columnify')`
     </details>
 
-1. Inside displayContacts(), uncomment the line labeled 'UNCOMMENT'<br>
- <img src="./img/columnoutput.png" width="350"><br>
- then run `$ node addressBook.js display` to see how columnify works!
+1. Inside displayContacts(), uncomment the line labeled 'UNCOMMENT'
+
+    <details><summary>
+    Screenshot
+    </summary><p>
+
+    ![code screenshot](./img/columnoutput.png)
+
+    </p></details>
+
+1. Run `$ node addressBook.js display` to see how columnify works!
 
     <details>
     <summary>Show Result</summary>
     <img src="./img/terminalcolumns.png" width="400">
     </details>
+
 1. Explore the columnify module to match your output to the 'Goal' shown above.  
 **NOTE**: Simply calling columnify on our entire addressBook directly will print out our contacts exactly as they are stored in our data array. There are two key things you need to fix:  
     1. Change the columns so that they read "CONTACT_NAME" and "PHONE_NUMBER"
