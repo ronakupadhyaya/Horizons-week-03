@@ -44,12 +44,12 @@ Our Address Book can be accessed from within addressBook.js using our `data` var
 
 Our command line Address Book manager should support the following commands:
 - **add**
-  - `$ node addressBook.js add John 1234567` - Adds a new Contact item with name `John` and number 1234567
+    - `$ node addressBook.js add John 1234567` - Adds a new Contact item with name `John` and number 1234567
 - **display**
-  - `$ node addressBook.js display` - Displays all contacts in the address book
+    - `$ node addressBook.js display` - Displays all contacts in the address book
 - **update**
-  - `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111
-  - `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny
+    - `$ node addressBook.js update John 11111` - Finds contact named John and updates his number to 11111
+    - `$ node addressBook.js update John Johnny` - Finds contact named John and updates his name to Johnny
 - **BONUS: delete**
     - `$ node addressBook.js delete John` - Finds contact named John and removes him from address book
 
@@ -111,13 +111,16 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 #### Steps
 1. Install and save [columnify](https://www.npmjs.com/package/columnify)
 1. Require the columnify package at the top of addressBook.js (see columnify's [usage section](https://www.npmjs.com/package/columnify#usage))
-   <details>
-   <summary>Hint</summary>
-   `var columnify = require('columnify')`
-   </details>
+
+    <details>
+    <summary>Hint</summary>
+    `var columnify = require('columnify')`
+    </details>
+
 1. Inside displayContacts(), uncomment the line labeled 'UNCOMMENT'<br>
  <img src="./img/columnoutput.png" width="350"><br>
  then run `$ node addressBook.js display` to see how columnify works!
+
     <details>
     <summary>Show Result</summary>
     <img src="./img/terminalcolumns.png" width="400">
@@ -125,11 +128,14 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
 1. Explore the columnify module to match your output to the 'Goal' shown above.  
 **NOTE**: Simply calling columnify on our entire addressBook directly will print out our contacts exactly as they are stored in our data array. There are two key things you need to fix:  
     1. Change the columns so that they read "CONTACT_NAME" and "PHONE_NUMBER"
+
         <details>
               <summary>Hint</summary>
               [Use columnify's headingTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
               </details>
+
     1. For contacts without phone numbers, display '-None-' instead of '-1'
+
         <details>
               <summary>Hint</summary>
               Checkout [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
@@ -138,8 +144,6 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
                   ![](./img/datatransformhint.png)
                   </details>
               </details>
-
-
 
 > **TEST:** Run your tests with `$ npm test`!  
 
