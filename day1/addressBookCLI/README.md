@@ -156,7 +156,9 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
               Checkout [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
                   <details>
                   <summary>Super Hint</summary>
+                  
                   ![](./img/datatransformhint.png)
+
                   </details>
               </details>
 
