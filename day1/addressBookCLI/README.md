@@ -14,8 +14,10 @@ In this exercise we will build a command line tool in JavaScript and use NodeJS 
 
 ### Arguments
 
-**Arguments** We can pass strings into our program to be used as arguments or parameters.
-`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command. *NOTE: The `4` in `node myProgram.js square 4` will be processed as a string, not a number. *
+We can pass strings into our program to be used as arguments or parameters.
+`node myProgram.js square 4` contains the arguments `square` and `4` but we think of `square` as a command and `4` as the argument or parameter for that specific command.
+
+**NOTE:** The `4` in `node myProgram.js square 4` will be processed as a string, not a number.
 
 ### Commands
 
