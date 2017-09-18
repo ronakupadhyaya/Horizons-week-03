@@ -34,6 +34,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
+  if (argv[0]) {
+    return argv[0];
+  } else {
+    return "";
+  }
 
 }
 
