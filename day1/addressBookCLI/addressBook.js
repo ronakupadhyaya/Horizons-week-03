@@ -27,12 +27,10 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 
 /**
 * Implement parseCommand()
-* Using process.argv, find and return the command.
+* Using process.argv, find and return the command. If there was no command return "".
 * The command will be the first argument the user types. The possible commands are add, update, display, delete, help
 * $ node addressBook.js add Moose 123   ----> 'add'
 * $ node addressBook.js                ----> ''
-* @param  {}
-* @return {[string]}     Return the command or "" if there was no command.
 */
 function parseCommand() {
   // YOUR CODE HERE
