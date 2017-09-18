@@ -1,8 +1,9 @@
 "use strict";
 // The node builtin filesystem library.
 var fs = require('fs');
-var validator = require('validator')
+var validator = require('validator');
 //require columnify here
+var columnify = require('columnify');
 
 
 var JSON_FILE = 'data.json'
@@ -39,7 +40,6 @@ function parseCommand() {
   } else {
     return "";
   }
-
 }
 
 //store the command and execute its corresponding function
@@ -74,8 +74,23 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
+    // var data = {
+    //   "commander@0.6.1": -1,
+    //   "minimatch@0.2.14": 3,
+    //   "mkdirp@0.3.5": 2,
+    //   "sigmund@1.0.0": 3
+    // }
 
-    // console.log(columnify(data)); //UNCOMMENT
+    console.log(columnify(data, {
+      columns: ['CONTACT_NAME', 'PHONE_NUMBER'],
+      dataTransform: function(x) {
+        if (x === "-1") {
+          x = "-None-"
+        }
+        return x;
+      }
+    })
+    )
 
 }
 
