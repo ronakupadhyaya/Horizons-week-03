@@ -3,16 +3,15 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify')
+// var columns = columnify(data, options)
+// console.log(columns)
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
 ensureFileExists();
 // This is where our Address Book is stored.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
-
-
-
 
 //the message that will be displayed  If no arguments are specified or if user types help
 var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:\n" + "\t\thelp   Show this help message and quit"+"\n\n\n\tCommands:\n" + "\t\tadd       Create Contact\n" + "\t\tdisplay   Display all contacts in directory\n" + "\t\tupdate    Update existing contact\n"
@@ -33,7 +32,10 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 * $ node addressBook.js                ----> ''
 */
 function parseCommand() {
-  // YOUR CODE HERE
+  if(argv[0] === undefined){
+    return '';
+  }
+  return argv[0];
 
 }
 
@@ -69,8 +71,30 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
+  var output = columnify(data, {
+    dataTransform: function(contactData){
+      if(contactData === ''){
+        return -1;
+      }
+      return contactData.toUpperCase();
+    },
+    config:{
+      name: {
+        headingTransform: function(){
+          return 'CONTACT_NAME';
+        }
+      },
+      number:{
+        headingTransform: function(){
+          return 'PHONE_NUMBER';
+        }
+      }
+    }
+  })
 
-    // console.log(columnify(data)); //UNCOMMENT
+  console.log(output);
+
+//UNCOMMENT
 
 }
 
@@ -88,7 +112,22 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  var nullNum =-1;
+  data.forEach(function(contact){
+    if(contact.name === argv[1]){
+      throw "Same name exists.";
+    }
+  });
+
+  if(argv[2] === undefined){
+    data.push({'name': argv[1],'number':nullNum});
+
+  }else{
+    data.push({'name': argv[1],'number':argv[2]});
+  }
+
+  fs.writeFileSync('./data.json',data);
+  console.log('Added Contact ' + argv[1] +', and number: '+argv[2]);
 
 }
 
@@ -104,13 +143,59 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var exists = false;
+
+  if(parseInt(argv[2])){
+    data.forEach(function(contact){
+      if(contact.name === argv[1]){
+        contact.number = argv[2];
+        exists = true;
+      }
+    });
+    if(!exists){
+      console.log('No contact found');
+    }else{
+      console.log("Updated number for " + argv[1]);
+    }
+  }else{
+    data.forEach(function(contact){
+      if(contact.name === argv[1]){
+        contact.name = argv[2];
+        exists = true;
+      }
+    });
+    if(!exists){
+      console.log('No contact found');
+    }
+
+    console.log("Updated name for " + argv[1]);
+  }
+
+  fs.writeFileSync('./data.json',data);
+
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
-    //YOUR CODE HERE
+  var exists = false;
+  var newData = [];
+  data.forEach(function(contact){
+    if(contact.name === argv[1]){
+      exists = true;
+    }else{
+      newData.push(contact);
+    }
+  });
+  if(!exists){
+    console.log('No contact found');
+  }else{
+    data = newData;
+    fs.writeFileSync('./data.json',data);
+    console.log("Deleted contact info of " + argv[1]);
+  }
+
+
 }
 
 
