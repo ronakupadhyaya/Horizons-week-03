@@ -11,7 +11,7 @@ Today you will also be using the command line for most of the work you do. If yo
 1. Section 2. Builtin `global` and `process` objects
 1. Section 3. Builtin `require` keyword
 1. Section 4. File Input/Output
-1. Section 5. Setting up your first NPM project
+1. Section 5. Setting up your first NPM project (video guided)
 
 **All videos have the password `horizonites`**
 
@@ -19,7 +19,7 @@ Today you will also be using the command line for most of the work you do. If yo
 
 ## Section 1: Introduction to NodeJS
 
-### [Watch me: Node Introduction]()
+### [Watch me: Node Introduction](https://vimeo.com/234328176)
 
 ### Section 1a. NodeJS
 
@@ -37,9 +37,9 @@ Today you will also be using the command line for most of the work you do. If yo
 
 ## Section 2. Builtin `global` and `process` objects
 
-### [Watch me: Introduction to `global` and `process`]()
-### [Watch me: `process.argv`]()
-### [Watch me: `process.env`]()
+### [Watch me: Introduction to `global` and `process`](https://vimeo.com/234331415)
+### [Watch me: `process.argv`](https://vimeo.com/234331415)
+### [Watch me: `process.env`](https://vimeo.com/234328292)
 
 The goal of this exercise to implement your very own command line
 tool `sum.js`
@@ -94,8 +94,8 @@ Bonus:
 
 ## Section 3. Builtin `require` keyword
 
-### [Watch me: `require` and `module.exports`]()
-### [Watch me: relative paths and `require`]()
+### [Watch me: `require` and `module.exports`](https://vimeo.com/234328258)
+### [Watch me: `__filename` and `__dirname`](https://vimeo.com/234328077)
 
 ### Section 3a. Practice using `require`
 
@@ -110,10 +110,10 @@ Using `module.exports`, `require`, and your knowledge of relative paths run the 
 
 ## Section 4. File Input/Output
 
-### [Watch me: `fs` builtin module file input]()
-### [Watch me: `fs` builtin module file output]()
+### [Watch me: `fs` builtin module file input](https://vimeo.com/234328095)
+### [Watch me: `fs` builtin module file output](https://vimeo.com/234328120)
 
-### Section 3a. Practice file input and output
+### Section 4a. Practice file input and output
 
 Using `process.argv`, and your knowledge of `fs` modify `main.js` in the `countio` folder so that it supports the following:
 
@@ -121,3 +121,11 @@ Using `process.argv`, and your knowledge of `fs` modify `main.js` in the `counti
 1. running `main.js -s` or `main.js --stats` returns the total number of times the `main.js` program has been run along with the first and last time it was run. Note: running with `-s` or `--stats` flag should not add a timestamp or increment any counters. 
 
 1. Navigate to `/week03/day1/examples/countio`: This is the folder you will be working in
+
+---
+
+## Section 4. Setting up your first NPM project (video guided)
+
+### [Watch me: Introduction to NPM](https://vimeo.com/234328196)
+### [Watch me: Part 1](https://vimeo.com/234328229)
+### [Watch me: Part 2](https://vimeo.com/234328139)
