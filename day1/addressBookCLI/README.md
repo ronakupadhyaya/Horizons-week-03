@@ -37,7 +37,7 @@ Our Address Book data is stored in the file called data.json. The address book i
 
 Our Address Book can be accessed from within addressBook.js using our `data` variable (this is already done for you at the top of the file):
 
-<img src="./img/datafile.png" width="350">
+![Data loading screenshot](./img/datafile.png)
 
 
 ### Features
@@ -145,16 +145,20 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
     1. Change the columns so that they read "CONTACT_NAME" and "PHONE_NUMBER"
 
         <details>
-              <summary>Hint</summary>
-              [Use columnify's headingTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
-              </details>
+        <summary>Hint</summary>
+    
+        [Use columnify's headingTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
+        
+        </details>
 
     1. For contacts without phone numbers, display '-None-' instead of '-1'
         <details><summary>
         Hint
         </summary><p>
+    
         Checkout
         [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
+        
         </p></details>
 
         <details><summary>
