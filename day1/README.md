@@ -1,5 +1,9 @@
 # Day 1 Exercises
 
+## Morning Videos & Individual Exercises
+
+1. [Videos and Exercises](examples/README.md)
+
 ## Pair Programming Exercises
 
 
