@@ -15,9 +15,6 @@ var data = JSON.parse(fs.readFileSync(JSON_FILE));
 var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:\n" + "\t\thelp   Show this help message and quit"+"\n\n\n\tCommands:\n" + "\t\tadd       Create Contact\n" + "\t\tdisplay   Display all contacts in directory\n" + "\t\tupdate    Update existing contact\n"
 
 
-var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
-argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
 
 //------------PART1: PARSING COMMAND LINE ARGUMENTS------------------------
@@ -33,32 +30,32 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-  var args = process.argv
-
+  var args = process.argv;
+  args.splice(0,2);
   if(args.length == 0){
-      return ""
+    return ""
   } else{
-      return args[0]
+    return args[0]
   }
 }
 
 //store the command and execute its corresponding function
 var input = parseCommand()
 switch(input){
-    case "add":
-        addContact();
-        break;
-    case "update":
-        updateContact();
-        break;
-    case "delete":
-        deleteContact()
-        break;
-    case "display":
-        displayContacts();
-        break;
-    default:
-        console.log(helpString); //if command = 'help' or invalid command, print help
+  case "add":
+    addContact();
+    break;
+  case "update":
+    updateContact();
+    break;
+  case "delete":
+    deleteContact()
+    break;
+  case "display":
+    displayContacts();
+    break;
+  default:
+    console.log(helpString); //if command = 'help' or invalid command, print help
 }
 
 
@@ -78,31 +75,31 @@ function displayContacts(){
     //YOUR CODE HERE
 
     // console.log(columnify(data)); //UNCOMMENT
-    var output = columnify(data, {
-        minWidth: 20,
-        dataTransform: function(contactData) {
+  var output = columnify(data, {
+    minWidth: 20,
+    dataTransform: function(contactData) {
             // console.log(contact, typeof contact)
-            if(parseInt(contactData)===-1){
-                return '-None-'
-            }
-            return contactData
-        },
-        config: {
-            name: {
-                headingTransform: function(heading) {
-                    return "CONTACT_NAME"
-                }
-            },
-            number: {
-                headingTransform: function(heading) {
-                    return "PHONE_NUMBER"
-
-                }
-            }
+      if(parseInt(contactData)===-1){
+        return '-None-'
+      }
+      return contactData
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return "CONTACT_NAME"
         }
-    })
+      },
+      number: {
+        headingTransform: function(heading) {
+          return "PHONE_NUMBER"
 
-    console.log(output);
+        }
+      }
+    }
+  })
+
+  console.log(output);
 
 }
 
@@ -122,25 +119,47 @@ function displayContacts(){
 
 function addContact() {
 // YOUR CODE HERE
-var args = process.argv.slice(1,process.argv.length)
-if(args){
+  var args = process.argv.slice(1,process.argv.length)
+  if(args){
     var name = args[0]
-  //   var number = "abc123"
-    var number = args[1] || "-1"
-    if(name &&  validator.isAlpha(name) && validator.isNumeric(number)){
-
+    var number = args[1] || "-1";
+    if(name && isValidName(name) && isValidNumber(number)){
+      var exists = data.find(function(contact){
+        return contact.name === name
+      })
+      if(exists){
+        console.log('Contact already exists');
+      } else {
         data.push({
           name: name,
           number: parseInt(number)
         });
-        console.log("Added contact named: "+ name + ", with id: " + data.length +", and number: " + number);
+        console.log("Added contact  "+ name +", and number: " + number);
+      }
+
     } else {
-        console.log('No contact name provided');
+      console.log('Invalid contact format');
     }
-}
+  }
 }
 
+//helper function to validate name
+function isValidName(name){
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+  var lowerCaseName = name.toLowerCase()
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i]
+    if(!alphabetSet.has(letter)){
+      return false
+    }
+  }
+  return true
 
+}
+
+function isValidNumber(number){
+  return !isNaN(number)
+}
 //----------------- PART 4 'update' command---------------------//
 /**
 * Implement updateContact()
@@ -153,13 +172,45 @@ if(args){
 */
 
 function updateContact(){
-// YOUR CODE HERE
+  var args = process.argv.slice(1,process.argv.length);
+  var name = args[0];
+  var updateField = args[1];
+  if(name && updateField){
+    var foundContact = data.find(function(contact){
+      return contact.name === name
+    })
+    if(!foundContact){
+      console.log('No contact found');
+    } else if(isValidName(updateField)){
+      console.log('Updated name for', name);
+      foundContact.name = updateField;
+    } else if(isValidNumber(updateField)){
+      foundContact.number = parseInt(updateField)
+      console.log('Updated number for', name);
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
 }
 
 
-//BONUS Implement deleteContact
+//Implement deleteContact
 function deleteContact(){
-    return
+  var args = process.argv.slice(1,process.argv.length);
+  var name = args[0];
+  if(name){
+    var modifiedData = data.filter(function(contact){
+      return contact.name !== name
+    })
+
+    if(modifiedData.length+1 === data.length){
+      data = modifiedData
+      console.log('Removed', name);
+    } else {
+      console.log('No contact found');
+    }
+
+  }
 }
 
 
@@ -184,8 +235,8 @@ writeFile(data);
 
 //export functions for spec
 module.exports = {
-    parseCommand: parseCommand,
-    addContact: addContact,
-    displayContacts: displayContacts,
-    updateContact: updateContact
+  parseCommand: parseCommand,
+  addContact: addContact,
+  displayContacts: displayContacts,
+  updateContact: updateContact
 }
