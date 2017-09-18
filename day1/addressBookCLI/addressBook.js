@@ -74,12 +74,6 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
-    // var data = {
-    //   "commander@0.6.1": -1,
-    //   "minimatch@0.2.14": 3,
-    //   "mkdirp@0.3.5": 2,
-    //   "sigmund@1.0.0": 3
-    // }
 
     console.log(columnify(data, {
       columns: ['CONTACT_NAME', 'PHONE_NUMBER'],
@@ -89,9 +83,7 @@ function displayContacts(){
         }
         return x;
       }
-    })
-    )
-
+    }))
 }
 
 
@@ -107,9 +99,29 @@ function displayContacts(){
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
-function addContact() {
-// YOUR CODE HERE
 
+
+// Helper function to check if input name is string and input number is a number
+function notValid(name, number) {
+  if (!isNaN(parseInt(name)) || isNaN(parseInt(number))) {
+    return true;
+  }
+}
+
+
+function addContact() {
+  var contactName = argv[1];
+  var contactNumber = argv[2];
+
+  if (notValid(contactName, contactNumber) || name in data) {
+    console.log("Invalid contact format.")
+  } else {
+    if (! contactNumber) {
+      contactNumber = -1;
+    }
+    data[contactName] = contactNumber;
+    console.log(`Added contact ${contactName}, number: ${contactNumber}`)
+  }
 }
 
 
@@ -123,14 +135,44 @@ function addContact() {
 * You should only update a contact if it exists inside your address book and the new name or number is valid
 *
 */
+// var data = {
+//   "commander@0.6.1": -1,
+//   "minimatch@0.2.14": 3,
+//   "mkdirp@0.3.5": 2,
+//   "sigmund@1.0.0": 3,
+//   "jeff" : 513
+// }
+
 function updateContact(){
 // YOUR CODE HERE
+  var contactName = argv[1];
+  var mystery = argv[2];
+  var newKey, newVal;
+
+  if (! data.hasOwnProperty(contactName)) {
+    console.log("No contact found.");
+  } else if (notValid(contactName, mystery)){
+    console.log("Invalid contact format.");
+  } else if ( isNaN(parseInt(mystery)) ) {
+    newVal = data[contactName]; // old value
+    newKey = mystery;
+    delete data[contactName];
+    console.log(`Updated name for ${contactName}`);
+  } else {
+    newKey = contactName;
+    newVal = parseInt(mystery);
+    console.log(`Updated number for ${contactName}`);
+  }
+  data[newKey] = newVal;
+
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
-    //YOUR CODE HERE
+  //YOUR CODE HERE
+  var contactName = argv[1];
+  delete data[contactName]  
 }
 
 
