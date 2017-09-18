@@ -42,23 +42,21 @@ function parseCommand() {
 //store the command and execute its corresponding function
 var input = parseCommand()
 switch(input){
-    case "add":
-        addContact();
-        break;
-    case "update":
-        updateContact();
-        break;
-    case "delete":
-        deleteContact()
-        break;
-    case "display":
-        displayContacts();
-        break;
-    default:
-        console.log(helpString); //if command = 'help' or invalid command, print help
+  case "add":
+    addContact();
+    break;
+  case "update":
+    updateContact();
+    break;
+  case "delete":
+    deleteContact()
+    break;
+  case "display":
+    displayContacts();
+    break;
+  default:
+    console.log(helpString); //if command = 'help' or invalid command, print help
 }
-
-
 
 //----------------- PART 2 'display' command---------------------//
 
@@ -135,12 +133,3 @@ function ensureFileExists() {
 
 // This command writes  our tasks to the disk
 writeFile(data);
-
-
-//export functions for spec
-module.exports = {
-    parseCommand: parseCommand,
-    addContact: addContact,
-    displayContacts: displayContacts,
-    updateContact: updateContact
-}
