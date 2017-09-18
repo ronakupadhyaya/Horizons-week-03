@@ -150,17 +150,20 @@ Contacts that do not have a phone number (for which we put -1 as the placeholder
               </details>
 
     1. For contacts without phone numbers, display '-None-' instead of '-1'
+        <details><summary>
+        Hint
+        </summary><p>
+        Checkout
+        [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
+        </p></details>
 
-        <details>
-              <summary>Hint</summary>
-              Checkout [columnify's dataTransform option](https://github.com/timoxley/columnify#transforming-column-data-and-headers)
-                  <details>
-                  <summary>Super Hint</summary>
-                  
-                  ![](./img/datatransformhint.png)
+        <details><summary>
+        Super hint
+        </summary><p>
 
-                  </details>
-              </details>
+        ![Code snippet screenshot](./img/datatransformhint.png)
+
+        </p></details>
 
 > **TEST:** Run your tests with `$ npm test`!  
 
