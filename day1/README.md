@@ -19,6 +19,6 @@
     git checkout -b YOUR GIT USERNAME
     ```
 
-1. [Deluxe command line arguments](deluxe-cli/README.md)
+1. [Address Book using Command Line Arguments](addressBookCLI/README.md)
 1. [Company investment reports](companies/README.md)
 1. [Bonus: Wikipedia Traffic Patterns](wikipedia/README.md)

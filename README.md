@@ -1,7 +1,7 @@
 # Week 3 exercises
 
 1. [Day 1](day1/README.md)
-    1. Deluxe command line arguments
+    1. Address Book using Command Line Arguments
     1. Company investment reports
     1. Bonus: Wikipedia Traffic Patterns
 1. [Day 2](day2/README.md)
