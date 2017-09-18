@@ -2,7 +2,8 @@
 // The node builtin filesystem library.
 var fs = require('fs');
 var validator = require('validator')
-//require columnify here
+var columnify = require('columnify');
+
 
 
 var JSON_FILE = 'data.json'
@@ -34,13 +35,18 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  var argumentsArr = process.argv;
+  if(argumentsArr[0]){
+    return argumentsArr[0];
+  }
+  return ""
 }
 
 //store the command and execute its corresponding function
 var input = parseCommand()
 switch(input){
   case "add":
+    console.log("hi");
     addContact();
     break;
   case "update":
@@ -69,8 +75,34 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
+    // var data = {
+    //   "MOOSE": 12345,
+    //   "Eric" : -1
+    // }
 
-    // console.log(columnify(data)); //UNCOMMENT
+    console.log(columnify(data, {
+    config: {
+        name: {
+            headingTransform: function() {
+              return "CONTACT_NAME"
+            }
+        },
+        number:{
+          headingTransform: function() {
+            return "PHONE_NUMBER"
+          },
+          dataTransform: function(data) {
+
+              if(parseInt(data) === -1){
+                return '-None-';
+              } else{
+                return data;
+              }
+
+          }
+        }
+    }
+}));
 
 }
 
@@ -87,8 +119,48 @@ function displayContacts(){
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
+function findDuplicate(arrayOfObj, name){
+  var exists = false;
+  arrayOfObj.forEach(function(obj){
+    if(obj.name === name){
+      exists = true;
+    }
+  });
+
+  return exists;
+}
 function addContact() {
 // YOUR CODE HERE
+  var argumentsArr = process.argv;
+
+  if(argumentsArr[1] && /^[a-zA-Z]+$/.test(argumentsArr[1])){
+    if(!findDuplicate(data, argumentsArr[1])){
+      //does not already exist
+      var newObj = {};
+      if(argumentsArr[2]){
+        if(/^\d+$/.test(argumentsArr[2])){
+          newObj["name"] = argumentsArr[1];
+          newObj["number"] = parseInt(argumentsArr[2]);
+          data.push(newObj);
+          console.log("Added Contact " + argumentsArr[1]);
+        } else{
+          console.log("invalid format")
+        }
+
+      } else{
+        newObj["name"] = argumentsArr[1];
+        newObj["number"] = -1;
+        data.push(newObj);
+        console.log("Added Contact " + argumentsArr[1]);
+      }
+
+      // writeFile(data);
+    } else{
+      console.log(argumentsArr[1] + ' already exists in address book')
+    }
+  } else{
+    console.log("Invalid contact format");
+  }
 
 }
 
@@ -105,12 +177,43 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+  var index = -1;
+  var changeVar = process.argv[2];
+  var name = process.argv[1];
+  data.forEach(function(obj, objIndex, array){
+    if(obj.name === name){
+      index = objIndex;
+    }
+  });
+  if(index > -1){
+    if(parseInt(changeVar)){
+      data[index]["number"] = parseInt(changeVar);
+    } else{
+      data[index]["name"] = changeVar;
+    }
+
+  } else {
+    console.log("No contact found");
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+    var index = -1;
+    var name = process.argv[1];
+    data.forEach(function(obj, objIndex, array){
+      if(obj.name === name){
+        index = objIndex;
+      }
+    });
+    if(index > -1){
+      data.splice(index, 1);
+      console.log("Deleted " + name);
+    } else{
+      console.log("No contact found");
+    }
 }
 
 
