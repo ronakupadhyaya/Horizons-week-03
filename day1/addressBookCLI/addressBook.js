@@ -3,7 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify');
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -33,8 +33,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 * $ node addressBook.js                ----> ''
 */
 function parseCommand() {
-  // YOUR CODE HERE
-
+  if(!process.argv[0]) { //if there is no 3rd argument
+    return '';
+  } else {
+    return process.argv[0];
+  }
 }
 
 //store the command and execute its corresponding function
@@ -68,9 +71,30 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
+  //YOUR CODE HERE
 
-    // console.log(columnify(data)); //UNCOMMENT
+  console.log(columnify(data, {
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          heading = "CONTACT_" + heading.toUpperCase();
+          return heading;
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          heading = "PHONE_" + heading.toUpperCase();
+          return heading;
+        },
+        dataTransform: function(data) {
+          if(data === '-1') {
+            data = "-None-";
+          }
+          return data;
+        }
+      }
+    }
+  }));
 
 }
 
@@ -88,8 +112,53 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  var validInput = true;
+  var name = process.argv[1];
+  if(!name) { //no name passed in
+    console.log('Invalid contact format');
+    return;
+  }
 
+  var num = process.argv[2];
+  if(!num) { //no number passed in
+    num = -1;
+  }
+
+  //checking if name is only composed of letters
+  for(var i = 0; i < name.length; i++) {
+    if(!name[i].match(/[a-z]/i)) {
+      validInput = false;
+    }
+  }
+
+  //checking is num is a number
+  if(isNaN(parseInt(num))) {
+    validInput = false;
+  }
+
+  if(!validInput) {
+    console.log('Invalid contact format');
+    return;
+  }
+
+  //setting string num to number num
+  num = parseInt(num);
+
+  //check if that contact name already exists
+  for(i = 0; i < data.length; i++) {
+    if(data[i].name === name) {
+      console.log(name + ' already in Address Book');
+      return;
+    }
+  }
+
+  var newContact = {
+    name: name,
+    number: num
+  }
+
+  data.push(newContact);
+  console.log('Added contact ' + name);
 }
 
 
@@ -104,13 +173,98 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var validInput = true;
+  var setNum = false; //updating number or name
+  var name = process.argv[1];
+  var change = process.argv[2];
+
+  if(!name) { //no name passed in
+    console.log('Invalid update format');
+    return;
+  }
+
+  //checking if name is only composed of letters
+  for(var i = 0; i < name.length; i++) {
+    if(!name[i].match(/[a-z]/i)) {
+      validInput = false;
+    }
+  }
+
+  //check if change is a number
+  if(!isNaN(parseInt(change))) {
+    setNum = true; //updating number
+    change = parseInt(change);
+  } else { // since change is not a number it must be a name
+    for(i = 0; i < change.length; i++) {
+      if(!change[i].match(/[a-z]/i)) {
+        validInput = false;
+      }
+    }
+  }
+
+  if(!validInput) {
+    console.log('Invalid update format');
+    return;
+  }
+
+  var foundContact; // will store reference to the desired contact
+
+  //looking to see if the name exists in contacts already
+  for(i = 0; i < data.length; i++) {
+    if(data[i].name === name) {
+      foundContact = data[i]; // found it
+      break;
+    }
+  }
+
+  if(!foundContact) { //if still undefined, contact doesn't exist
+    console.log('No contact found');
+    return;
+  }
+
+  if(setNum) { //updating the contact's number
+    foundContact.number = change;
+    console.log('Updated number for ' + name);
+  } else { //updating the contact's name
+    foundContact.name = change;
+    console.log('Updated name for ' + name);
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
-    //YOUR CODE HERE
+  var validInput = true;
+
+  var nameToDelete = process.argv[1];
+  if(!nameToDelete) { //no name given
+    console.log('Invalid input for delete');
+    return;
+  }
+  //checking if name is only composed of letters
+  for(var i = 0; i < nameToDelete.length; i++) {
+    if(!nameToDelete[i].match(/[a-z]/i)) {
+      validInput = false;
+    }
+  }
+  if(!validInput) {
+    console.log('Invalid name of contact to delete');
+    return;
+  }
+  var indexOfContact = -1;
+  for(i = 0; i < data.length; i++) {
+    if(data[i].name === nameToDelete) {
+      indexOfContact = i;
+    }
+  }
+
+  if(indexOfContact === -1) {
+    console.log('No contact found');
+    return;
+  }
+
+  data.splice(indexOfContact, 1);
+  console.log("Deleted " + nameToDelete);
 }
 
 
