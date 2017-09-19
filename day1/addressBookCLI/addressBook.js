@@ -3,6 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
+var columnify = require('columnify');
 
 
 var JSON_FILE = 'data.json'
@@ -19,7 +20,7 @@ var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:
 
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
+// console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
 
@@ -34,6 +35,7 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
+  return argv[0];
 
 }
 
@@ -67,10 +69,31 @@ switch(input){
 * Do not return anything, console.log() the contacts
 *
 */
+
 function displayContacts(){
     //YOUR CODE HERE
+  console.log(columnify(data,
+    {
 
-    // console.log(columnify(data)); //UNCOMMENT
+      config: {
+        name: {
+          headingTransform: function(heading) {
+            return "CONTACT_NAME"
+          }
+        },
+        number: {
+          headingTransform: function(heading) {
+            return "PHONE_NUMBER"
+          },
+          dataTransform: function(data) {
+            if(parseInt(data) === -1){
+              return "-None-"
+            }
+            return data
+          },
+        }
+      }
+    }))
 
 }
 
@@ -89,7 +112,44 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
+  var valid = true;
 
+  //Check for valid names
+  if (argv.length < 2){
+    console.log("You must provide a name");
+    valid = false;
+  } else {
+    for(var i = 0; i < argv[1].length; i++){
+      if(!isNaN(parseInt(argv[1].charAt(i)))){
+        console.log("Invalid name");
+        valid = false;
+        break;
+      }
+    }
+    for(var k = 0; k < data.length; k++){
+      if(argv[1] === data[k].name){
+        console.log("You may not repeat names!")
+        valid = false;
+        break;
+      }
+    }
+    if(argv.length === 2){
+      argv[2] = -1;
+    } else {
+      for(var j = 0; j < argv[2].length; j++){
+        if(isNaN(parseInt(argv[2].charAt(j)))){
+          console.log("Invalid number");
+          valid = false;
+          break;
+        }
+      }
+    }
+  }
+
+  if(valid){
+    data.push({name: argv[1], number: parseInt(argv[2])});
+    console.log("Added contact " + data[data.length-1].name);
+  }
 }
 
 
@@ -105,12 +165,71 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+  var valid = false;
+  var type = 'string';
+
+  for(var k = 0; k < data.length; k++){
+    if(argv[1] === data[k].name){
+      valid = true;
+    }
+  }
+
+  if(valid === false){
+    console.log("No contact found");
+  } else {
+    if(argv.length < 3){
+      console.log("You must provide a name or number!")
+      valid = false;
+    }else {
+
+      if(isNaN(argv[2].charAt(0))){
+        for(var i = 1; i < argv[2].length; i++){
+          if(isNaN(parseInt(argv[2].charAt(i)))){
+            console.log("Invalid name");
+            valid = false;
+            break;
+          }
+        }
+      } else {
+        type = 'number';
+        for(var j = 0; j < argv[2].length; j++){
+          if(isNaN(parseInt(argv[2].charAt(j)))){
+            console.log("Invalid number");
+            valid = false;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+
+  for(var k = 0; k < data.length; k++){
+    if(argv[1] === data[k].name && type === 'string'){
+      data[k].name = argv[2];
+      console.log("Updated name for " + data[k].name)
+      break;
+    }else if(argv[1] === data[k].name && type === 'number'){
+      data[k].number = parseInt(argv[2]);
+      console.log("Updated number for " + data[k].name)
+      break;
+    }
+  }
 }
+
+
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+  for(var k = 0; k < data.length; k++){
+    if(argv[1] === data[k].name){
+      data.splice(k, 1);
+      break;
+    }
+  }
+  console.log("No contact found");
 }
 
 
