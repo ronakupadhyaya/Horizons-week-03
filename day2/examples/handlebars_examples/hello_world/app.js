@@ -3,7 +3,7 @@ var app = express();
 var handlebars = require('express-handlebars');
 
 app.engine('hbs', handlebars({
-  extname: '.hbs'
+  extname: 'hbs'
 }));
 app.set('view engine', 'hbs');
 
