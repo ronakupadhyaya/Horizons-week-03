@@ -32,7 +32,12 @@ var csvjson = require('csvjson');
 //    ]
 function fileReader(csvFilePath){
   // YOUR CODE HERE
+  var data = fs.readFileSync(csvFilePath, 'utf8');
+  var dataJson = csvjson.toObject(data);
+  console.log(dataJson);
+  return (dataJson);
 }
+fileReader('investments1.csv');
 
 // Write a function that takes an array of investment objects and replaces
 // the "originalInvestment", "valueToday" fields in each object with numbers
