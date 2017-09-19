@@ -10,7 +10,21 @@ app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
 
+app.get('/', function(req, res) {
+  res.render('index', {data: data});
+})
+
+app.get('/:gender', function(req, res) {
+  var isFemale = (req.params.gender === "female" ? true : false);
+
+  res.render('gender',
+    {
+      data: data,
+      isFemale: isFemale,
+      helpers: {
+      compareGender: function(s) {
+        return s.gender.toLowerCase() === req.params.gender.toLowerCase();
+      }}
+    })
+})
 app.listen(3000);
-
-
-

@@ -1,0 +1,17 @@
+<div>
+  <ul>
+    {{#if isFemale}}
+      {{#each data}}
+        {{#if (compareGender this)}}
+          <li>{{first_name}} {{last_name}} {{email}} {{gender}}</li>
+        {{/if}}
+      {{/each}}
+    {{else}}
+      {{#each data}}
+        {{#if (compareGender this)}}
+          <li>{{first_name}} {{last_name}} {{email}} {{gender}}</li>
+        {{/if}}
+      {{/each}}
+    {{/if}}
+  </ul>
+</div>
