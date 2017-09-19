@@ -67,8 +67,8 @@ app.get('/posts', function (req, res) {
         var aTime = new Date(a.date);
         var bTime = new Date(b.date);
         var aTimeSec = aTime.getTime();
-        var bTimeSec = aTime.getTime();
-        return bTimeSec - aTimeSec;
+        var bTimeSec = bTime.getTime();
+        return aTimeSec - bTimeSec;
       });
       console.log(processedPosts);
     } else {
@@ -76,8 +76,8 @@ app.get('/posts', function (req, res) {
         var aTime = new Date(a.date);
         var bTime = new Date(b.date);
         var aTimeSec = aTime.getTime();
-        var bTimeSec = aTime.getTime();
-        return aTimeSec - bTimeSec;
+        var bTimeSec = bTime.getTime();
+        return bTimeSec - aTimeSec;
       });
       console.log(processedPosts);
     }
