@@ -1,26 +1,24 @@
 "use strict";
-// The node builtin filesystem library.
-var fs = require('fs');
+
+var fs = require('fs'); // The node builtin filesystem library.
 var validator = require('validator')
-//require columnify here
+var columnify = require('columnify') //require columnify here
 
-
-var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
+var JSON_FILE = 'data.json'
 ensureFileExists();
-// This is where our Address Book is stored.
-var data = JSON.parse(fs.readFileSync(JSON_FILE));
-
-
-
+var data = JSON.parse(fs.readFileSync(JSON_FILE)); // This is where our Address Book is stored.
 
 //the message that will be displayed  If no arguments are specified or if user types help
-var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:\n" + "\t\thelp   Show this help message and quit"+"\n\n\n\tCommands:\n" + "\t\tadd       Create Contact\n" + "\t\tdisplay   Display all contacts in directory\n" + "\t\tupdate    Update existing contact\n"
-
+var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +
+                  "\tOptions:\n" + "\t\thelp   Show this help message and quit"+
+                  "\n\n\n\tCommands:\n" + "\t\tadd       Create Contact\n" +
+                  "\t\tdisplay   Display all contacts in directory\n" +
+                  "\t\tupdate    Update existing contact\n"
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
-argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
+argv.splice(0,2); //remove 'node' and path from args,
+//NOTE: splicing modifies process.argv, so you will not need to do this again!
 
 
 //------------PART1: PARSING COMMAND LINE ARGUMENTS------------------------
@@ -34,7 +32,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  var args = process.argv;
+  if (args.length > 0){
+    return args[0];
+  }
+  return "";
 }
 
 //store the command and execute its corresponding function
@@ -68,30 +70,91 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
+    //console.log(columnify(data)); //UNCOMMENT
+    var output = columnify(data, {
+        dataTransform: function(contactData){
+          if (contactData == -1){
+            return "-None-";
+          }
+          return contactData;
+        },
+        config: {
+          name: {
+            headingTransform: function(heading){
+              return "CONTACT_NAME";
+            }
+          },
+          phone: {
+            headingTransform: function(heading){
+              return "PHONE_NUMBER";
+            }
+          }
+        }
+      });
+    console.log(output);
 }
-
-
 
 //----------------- PART 3 'add' command---------------------//
 /**
 * Implement addContacts()
 * This is a function that is called to create a new contact.
 * Calling `node add contactName contactNumber ` must call our function addContact.
-* it should get the name and number of the Contact from process.argv
-* You should only create a new contact if a name is provided that doesnt already exist inside your address book (no duplicate contacts)
-* and if the name consists of only letters and the number consists of only numbers
+
+*  (no duplicate contacts)
+* andand the number consists of only numbers
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
-function addContact() {
-// YOUR CODE HERE
-
+function addContact(){
+  //it should get the name and number of the Contact from process.argv
+  var args = process.argv;
+  //You should only create a new contact if a name is provided that doesnt already
+  // exist inside your address book
+  if (data[0].name === args[1]){
+    console.log("Contact already exists.");
+    return false;
+  } else {
+    // if the name consists of only letters
+    if (isAlphabetic(args[1])){
+      if (args[2]){ // does the number exist?
+        // is it a complete integer?
+        var numAsString = args[2].toString();
+        if (isNumeric(numAsString)){
+            var contact = {"name": args[1], "phone": args[2]};
+            console.log("Added ", args[1], ": ", args[2], " to phone book.");
+            data.push(contact);
+          } else {
+            console.log("Phone number must be an integer.")
+          }
+      } else {
+          // if there is no number
+          var contact = {"name": args[1], "phone": -1};
+          console.log("Added ", args[1], " to phone book.");
+          data.push(contact);
+      }
+    }
+  }
 }
 
+function isAlphabetic(string){
+  for (var i = 0; i < string.length; i++){
+    if ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(string[i]) === -1){
+      console.log("Contact must be composed of only letters");
+      return false;
+    }
+    return true;
+  }
+}
+
+function isNumeric(string){
+  for (var i = 0; i < string.length; i++){
+    if (parseInt(string[i]) === NaN){
+      console.log("Phone number must be an integer.")
+      return false;
+    }
+    return true;
+  }
+}
 
 //----------------- PART 4 'update' command---------------------//
 /**

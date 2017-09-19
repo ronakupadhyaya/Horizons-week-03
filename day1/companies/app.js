@@ -1,12 +1,8 @@
 "use strict";
-
 var fs = require('fs');
 var path = require('path');
 var csvjson = require('csvjson');
 
-// Write a function that takes the path of a CSV file, reads its contents and
-// returns them as as an array of JavaScript objects.
-//
 // You will need to use:
 //  - csvjson.toObject(): https://www.npmjs.com/package/csvjson
 //  - fs.readFileSync(): https://nodejs.org/api/fs.html#fs_fs_readfilesync_file_options
@@ -30,9 +26,19 @@ var csvjson = require('csvjson');
 //      valueToday: '300000' },
 //      ...
 //    ]
+
 function fileReader(csvFilePath){
-  // YOUR CODE HERE
+  // Write a function that takes the path of a CSV file,
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'});
+  var options = {
+    delimiter : ',',
+    quote: '"'
+  };
+  var parsed = csvjson.toObject(data, options);
+  // returns them as as an array of JavaScript objects.
+  return parsed;
 }
+fileReader("./investments1.csv");
 
 // Write a function that takes an array of investment objects and replaces
 // the "originalInvestment", "valueToday" fields in each object with numbers
@@ -46,7 +52,12 @@ function fileReader(csvFilePath){
 //     originalInvestment: 1100000, // Note conversion from string to number
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
-  // YOUR CODE HERE
+  arr.map(function(investment){
+    investment.originalInvestment = Number(investment.originalInvestment);
+    investment.valueToday = Number(investment.valueToday);
+    return investment;
+  })
+  return arr;
 }
 
 module.exports = {
