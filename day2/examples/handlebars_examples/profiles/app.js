@@ -10,7 +10,16 @@ app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
 
+app.get('/', function(req, res){
+  res.render('index', {
+    data: data
+  })
+})
+
+app.get('/male', data.filter(function(student) {
+  return data.student
+
+
+})
+
 app.listen(3000);
-
-
-

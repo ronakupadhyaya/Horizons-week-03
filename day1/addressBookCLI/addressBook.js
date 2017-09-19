@@ -3,7 +3,9 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify')
+// var columns = columnify(data, options)
+// console.log(columns)
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -19,9 +21,9 @@ var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:
 
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
+// console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
-
+// console.log(process.argv);
 
 //------------PART1: PARSING COMMAND LINE ARGUMENTS------------------------
 
@@ -34,7 +36,12 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv === []) {
+    return "";
+  }
+  // var args = process.argv.splice(0,2)
+  var command = argv[0];
+  return command;
 }
 
 //store the command and execute its corresponding function
@@ -69,10 +76,28 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
+console.log(columnify(data, {
+    dataTransform: function(data) {
+      if (data === '-1') {
+        return '--None--';
+      }
+      return data;
+    },
+    config: {
+        name: {
+            headingTransform: function(heading) {
+              return "CONTACT_NAME";
+            }
+        },
+        number: {
+            headingTransform: function(heading) {
+              return "PHONE_NUMBER";
+            }
+    }
+  },
+}));
 }
+
 
 
 
@@ -90,6 +115,49 @@ function displayContacts(){
 function addContact() {
 // YOUR CODE HERE
 
+// check if name is letters only
+var name = argv[1];
+var number = argv[2];
+  for (var i=0; i<name.length; i++) {
+    if (isNaN(name.charAt(i))) {
+      console.log('its a letter!');
+    } else {
+      console.log('Please enter a name with only letters.');
+      return;
+    }
+  }
+  Object.keys(data).forEach(function (key) {
+      // console.log(key, data[key]);
+      Object.keys(data[key]).forEach(function (i) {
+        console.log(i, data[key][i]);
+        if (data[key][i] === name) {
+          console.log('this name is taken.');
+        }
+      });
+    });
+
+  var exists = data.find(function(contact) {
+      return contact.name === name;
+  });
+    if(exists) {
+      console.log ("Contact already exists");
+    } else {
+      data.push({
+        name: name,
+        number: parseInt(number)
+      });
+      console.log("Added contact " + name + ", and number: " + number);
+    } else {
+      console.log("Invalid contact format");
+    }
+  }
+
+  function isValidName(name) {
+
+  }
+
+
+ }
 }
 
 
