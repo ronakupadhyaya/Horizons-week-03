@@ -1,3 +1,11 @@
 <form>
-  <!-- YOUR CODE HERE -->
+  <h1>
+    {{#if header}}
+      {{header}}
+    {{else}}
+      Default Header
+    {{/if}}
+  </h1>
+  <input type="text" name="header" value="{{header}}">
+  <input type="submit" name="" value = "Submit Header">
 </form>
