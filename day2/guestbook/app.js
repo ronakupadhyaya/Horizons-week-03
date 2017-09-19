@@ -61,6 +61,16 @@ app.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
   var processedPosts = data.read();
+
+  //author specific filtering
+
+  if(!! req.query.author) {
+    processedPosts = processedPosts.filter(function(post) {
+      return post.author === req.query.author;
+    });
+  }
+
+  // order processing
   if(req.query.order === "ascending" || req.query.order === "descending") {
     if(req.query.order === "ascending") {
       processedPosts = processedPosts.sort(function(a, b) {
@@ -86,7 +96,8 @@ app.get('/posts', function (req, res) {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     username: req.cookies.username,
-    posts: processedPosts
+    posts: processedPosts,
+    author_only: req.query.author
   });
 });
 

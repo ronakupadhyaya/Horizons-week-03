@@ -28,6 +28,7 @@
       <p> {{body}} </p>
       <span> {{author}} posted on {{date}} </span>
     </div>
+    <a href="/posts?author={{author}}"> See posts by this author only </a>
   {{/each}}
 
   <div>
@@ -39,5 +40,11 @@
   <div>
     <a href="/posts/new"> Make a new post </a>
   </div>
+
+  {{#if author_only}}
+    <div>
+      <a href="/posts/"> See all posts again </a>
+    </div>
+  {{/if}}
 </body>
 </html>
