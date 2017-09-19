@@ -3,8 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
-
+var columnify = require('columnify');
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
 ensureFileExists();
@@ -22,7 +21,6 @@ var argv = process.argv
 //console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
-
 //------------PART1: PARSING COMMAND LINE ARGUMENTS------------------------
 
 /**
@@ -34,7 +32,7 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  return argv[0];
 }
 
 //store the command and execute its corresponding function
@@ -69,9 +67,26 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
+    console.log(columnify(data, {
+      dataTransform: function(data){
+        if (parseInt(data) === -1){
+          return '-None-';
+        }
+        return data;
+      },
+        config: {
+        name: {
+          headingTransform: function(heading){
+            return 'CONTACT_NAME';
+          }
+        },
+        number: {
+          headingTransform: function(heading){
+            return 'PHONE_NUMBER';
+          }
+        }
+      }
+        })); //UNCOMMENT
 }
 
 
@@ -89,7 +104,44 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
-
+  var counter = 0;
+  var valid = true;
+  if (argv.length < 2){
+    valid = false;
+  }
+  else{
+    for (var i = 0; i < argv[1].length; i++){
+      if (!isNaN(parseInt(argv[1].charAt(i)))){
+        console.log('Invalid name');
+        valid = false;
+      }
+    }
+    for (var k = 0; k < data.length; k++){
+      if (argv[1] === data[k].name){
+          console.log(argv[1] + ' already in Address Book');
+          counter = 1;
+          valid = false;
+        }
+      }
+      if (counter !== 1){
+        var length = data.push();
+        data[length-1]['name'] = argv[1];
+      }
+      for (var j = 0; j < argv[2].length; j++){
+        if (isNaN(parseInt(argv[2].charAt(j)))){
+            console.log('Invalid number');
+            valid = false;
+          }
+        }
+      }
+    if (valid === true){
+      if (argv.length === 2){
+        data[length-1]['number'] = -1;
+      }
+      else{
+        data[length-1]['number'] = argv[2];
+      }
+    }
 }
 
 
@@ -105,12 +157,77 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+  var valid = false;
+  var num = false;
+  var name = false;
+  var pos = 0;
+  if (argv.length < 3){
+    valid = false;
+  }
+  else{
+    for (var i = 0; i < argv[1].length; i++){
+      if (!isNaN(parseInt(argv[1].charAt(i)))){
+        console.log('Invalid contact format');
+        valid = false;
+        break;
+      }
+    }
+    for (var j = 0; j < data.length; j++){
+      if (argv[1] === data[j].name){
+        valid = true;
+        pos = j;
+        break;
+      }
+    }
+    if (isNaN(parseInt(argv[2]))){
+      for (var o = 0; o < argv[2].length; o++){
+        if (!isNaN(parseInt(argv[2].charAt(o)))){
+          console.log('Invalid contact format');
+          valid = false;
+          break;
+        }
+      }
+      name = true;
+    }
+    if (!isNaN(parseInt(argv[2]))){
+      for (var l = 0; l < argv[2].length; l++){
+        if (isNaN(parseInt(argv[2].charAt(l)))){
+            console.log('Invalid contact format');
+            valid = false;
+            break;
+          }
+        }
+        num = true;
+    }
+  }
+  if (valid === true){
+    if (name === true){
+      data[pos].name = argv[2];
+    }
+    if (num === true){
+      data[pos].number = parseInt(argv[2]);
+    }
+  }
+  if (valid === false){
+    console.log('No contact found');
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+    var valid = false;
+    for (var j = 0; j < data.length; j++){
+      if (argv[1] === data[j].name){
+        data.splice(j, 1);
+        valid = true;
+        break;
+      }
+    }
+    if (valid === false){
+      console.log('No contact found')
+    }
 }
 
 
