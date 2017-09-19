@@ -38,7 +38,7 @@ Today you will also be using the command line for most of the work you do. If yo
 ## Section 2. Builtin `global` and `process` objects
 
 ### [Watch me: Introduction to `global` and `process`](https://vimeo.com/234331415)
-### [Watch me: `process.argv`](https://vimeo.com/234331415)
+### [Watch me: `process.argv`](https://vimeo.com/234333873)
 ### [Watch me: `process.env`](https://vimeo.com/234328292)
 
 The goal of this exercise to implement your very own command line
