@@ -6,8 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/style.css"></link>
-  <link rel="stylesheet" href="/js/script.js"></link>
+  <script src="/js/script.js"></script>
+
 </head>
 <body>
 <h1>View all posts</h1>
@@ -21,8 +28,16 @@
   <a href="/posts?order=descending" style="margin-right: 30px;"> Display posts in descending order </a>
   <a href="/posts?order=ascending"> Display posts in ascending order </a>
   {{#each posts}}
-    <div style="margin-top: 10px;">{{this.title}} {{this.body}} {{this.author}} {{this.date}}
-      <a href="/posts?author={{this.author}}"> View posts by this author </a>
+    <div id = {{@index}} class="post-div" style="margin-top: 10px;">{{this.title}} {{this.body}} {{this.author}} {{this.date}}
+      <a href="/posts?author={{this.author}} " style="margin-right: 30px;"> View posts by this author </a>
+      <input type="text" class="title" value= {{this.title}} style="display: none;"></input>
+      <input type="text" class="body" value= {{this.body}} style="display: none;;"></input>
+      <input type="date" class="date" value= {{this.date}} style="display: none;"></input>
+      <input type="text" class="author" value={{this.author}} style="display: none;" ></input>
+      <a class="btn btn-default submit-change" style="display: none;"> Submit</a>
+      <a class="edit-post" style="margin-right: 30px;"> Edit </a>
+      <a class="delete-post" style="margin-right: 30px;"> Delete </a>
+      <a class="delete-post-author"> Delete all from this author</a>
     </div>
   {{/each}}
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to

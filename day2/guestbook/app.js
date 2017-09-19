@@ -117,7 +117,35 @@ app.get('/posts', function (req, res) {
 
 
 });
+app.post('/posts/edit/:index', function(req, res){
+  var index = req.params.index;
+  var body = req.body.body;
+  var title = req.body.title;
+  var posts = data.read();
+  req.body.author = req.cookies.username;
+  posts[index] = req.body;
+  data.save(posts);
+  res.send("SOMETHING")
+})
 
+app.post('/posts/delete/:index', function(req, res){
+  var index = req.params.index;
+  var posts = data.read();
+  posts.splice(index, 1);
+  data.save(posts);
+  res.send("DELETED")
+})
+
+app.post('/posts/delete-author', function(req, res){
+  var author = req.body.author;
+  var posts = data.read();
+  posts = posts.filter(function(post){
+    return post.author !== author;
+  });
+
+  data.save(posts);
+  res.send("something");
+})
 // ---Part 3. Create new posts---
 // GET /posts/new: Renders a form for the user to create a new form.
 //
