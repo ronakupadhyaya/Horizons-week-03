@@ -1,6 +1,7 @@
 "use strict";
 // The node builtin filesystem library.
 var fs = require('fs');
+var columnify = require('columnify')
 var validator = require('validator')
 //require columnify here
 
@@ -34,7 +35,8 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  console.log(argv[0]);
+  return argv[0];
 }
 
 //store the command and execute its corresponding function
@@ -70,8 +72,35 @@ switch(input){
 function displayContacts(){
     //YOUR CODE HERE
 
-    // console.log(columnify(data)); //UNCOMMENT
-
+  // for(var i = 0; i < data.length; i++){
+  //   if(data[i]['number'] <= -1){
+  //     data[i]['number'] = '-none-'
+  //   }
+  // }
+  // console.log(data);
+  console.log(columnify(data, {
+    dataTransform: function(data) {
+      console.log(data);
+      if(data === '-1'){
+        return '-none-'
+      }
+      return data
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          heading = "CONTACT_NAME"
+          return heading
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          heading = "PHONE_NUMBER"
+          return heading
+        }
+      }
+    }
+  })); //UNCOMMENT
 }
 
 
@@ -89,6 +118,27 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
+  var contactName = argv[1];
+  var phoneNumber = argv[2];
+  if(isNaN(contactName) === false) {
+    return false;
+  }
+  if(phoneNumber === undefined){
+    phoneNumber = -1
+  }
+  // console.log(data);
+  var shouldAdd = true
+  for(var i = 0; i < data.length; i++){
+    if(data[i]['name'] === contactName){
+      shouldAdd = false;
+    }
+  }
+
+  if(shouldAdd){
+    data.push({'name': contactName, 'number': parseInt(phoneNumber)})
+  }
+
+  // console.log({'name': contactName, 'number': parseInt(phoneNumber)});
 
 }
 
@@ -105,6 +155,20 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+  for(var i = 0; i < data.length; i++){
+    if(data[i].name === argv[1]){
+      if(!isNaN(argv[2])){
+        data[i].number = parseInt(argv[2]);
+        console.log("Updated number for " + argv[1]);
+      } else {
+        data[i].name = argv[2];
+        console.log("Updated name for " + argv[2]);
+      }
+      return;
+    }
+  }
+  console.log("No contact found");
+
 }
 
 

@@ -8,6 +8,13 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var result = arr[0]['originalInvestment'];
+    for(var i = 1; i < arr.length; i++){
+      if(result < arr[i]['originalInvestment']){
+        result = arr[i]['originalInvestment']
+      }
+    }
+    return result;
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +23,11 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var sum = 0;
+    for(var i = 0; i < arr.length; i++){
+      sum += arr[i]['originalInvestment']
+    }
+    return sum / arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +42,17 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+
+    for(var i = 0; i < arr.length; i++){
+      if(obj.hasOwnProperty(arr[i]['company']) === false){
+        obj[arr[i]['company']] = arr[i]['originalInvestment']
+      } else {
+        obj[arr[i]['company']] += arr[i]['originalInvestment']
+      }
+    }
+
+    return obj;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +67,17 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+
+    for(var i = 0; i < arr.length; i++){
+      if(obj.hasOwnProperty(arr[i]['investorId']) === false){
+        obj[arr[i]['investorId']] = arr[i]['originalInvestment']
+      } else {
+        obj[arr[i]['investorId']] += arr[i]['originalInvestment']
+      }
+    }
+
+    return obj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +93,17 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var obj = {};
+
+    for(var i = 0; i < arr.length; i++){
+      if(obj.hasOwnProperty(arr[i]['investorId']) === false){
+        obj[arr[i]['investorId']] = arr[i]['valueToday']
+      } else {
+        obj[arr[i]['investorId']] += arr[i]['valueToday']
+      }
+    }
+
+    return obj;investorIdvalueToday
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +115,44 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var current = this.totalCurrentValueOfInvestors(arr);
+    var original = this.totalOriginalInvestmentsByInvestors(arr);
+    var ratioArr = []
+    for(var key in current){
+      var ratio = current[key] / original[key]
+      ratioArr.push([key, ratio]);
+    }
+
+    var result = ratioArr[0];
+    for(var i = 0; i < ratioArr.length; i++){
+      if(result[1] < ratioArr[i][1]){
+        result = ratioArr[i]
+      }
+    }
+    return result[0];
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var invested = this.totalOriginalInvestmentForCompanies(arr);
+    var investedArr = []
+
+    for(var key in invested){
+      investedArr.push([key, invested[key]]);
+    }
+    console.log(investedArr);
+
+    var result = investedArr[0]
+
+    for(var i = 1; i < investedArr.length; i++){
+      if(result[1] < investedArr[i][1]){
+        result = investedArr[i]
+      }
+    }
+
+    return result[0];
   }
 
 }

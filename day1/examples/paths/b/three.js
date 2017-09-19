@@ -1,5 +1,5 @@
 module.exports = {
- logger: function(val) {
-     console.log(val);
- }   
+  logger: function(val) {
+    console.log(val);
+  }   
 }
