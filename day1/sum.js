@@ -22,19 +22,47 @@
 // > 4
 // > 5
 //
+function getInput (){
+var readline = require("readline");
 
-// Example code for reading command line arguments:
-console.log('Command line arguments', process.argv.slice(2));
-
-// Example code for getting input from the user
-var readline = require('readline');
-
-var rl = readline.createInterface({
+var firstNumber = readline.createInterface({
   input: process.stdin,
   output: process.stdout
-});
+})
 
-rl.question("Hi! What's your name? ", function(name) {
-  console.log('Nice to meet you', name);
-  rl.close();
-});
+firstNumber.question("What's your first number?", function(n1){
+  firstNumber.question("What's your second number?", function (n2){
+    console.log(parseFloat(n1) + parseFloat(n2));
+    firstNumber.close();
+  })
+})
+}
+
+function sum(numbers){
+  var total = 0;
+  for (var i = 2; i<numbers.length; i++){
+    total += parseFloat(numbers[i])
+  }
+  console.log(total)
+}
+
+if (process.argv.length === 2){
+  getInput();
+} else {
+  sum(process.argv);
+}
+// Example code for reading command line arguments:
+// console.log('Command line arguments', process.argv.slice(2));
+//
+// // Example code for getting input from the user
+// var readline = require('readline');
+//
+// var rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout
+// });
+//
+// rl.question("Hi! What's your name? ", function(n1) {
+//   console.log('Nice to meet you', name);
+//   rl.close();
+// });

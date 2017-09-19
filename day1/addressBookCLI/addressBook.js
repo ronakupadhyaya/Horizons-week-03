@@ -1,7 +1,9 @@
 "use strict";
+var columnify = require('columnify')
 // The node builtin filesystem library.
 var fs = require('fs');
 var validator = require('validator')
+var _ = require("underscore")
 //require columnify here
 
 
@@ -19,7 +21,7 @@ var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:
 
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
+// console.log(process.argv +"fghjfghjgf") //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
 
@@ -33,8 +35,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 * $ node addressBook.js                ----> ''
 */
 function parseCommand() {
-  // YOUR CODE HERE
-
+  if (process.argv.length === 0){
+    return ("")
+  } else {
+    return process.argv[0]
+  }
 }
 
 //store the command and execute its corresponding function
@@ -68,11 +73,61 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
+   var output = columnify (data, {
+   dataTransform: function(contactData){
+     if (parseInt(contactData) === -1){
+       return ("-None-")
+     } else {
 
-    // console.log(columnify(data)); //UNCOMMENT
-
+       //console.log(contactData[0])
+       return (contactData)
+     }
+   },
+     config: {
+      name:{
+        headingTransform: function(heading) {
+          return "CONTACT_NAME";
+        }
+      },
+      number:{
+        headingTransform: function(heading){
+          return "PHONE_NUMBER"
+        }
+      }
+    }
+  })
+  console.log(output)
 }
+
+
+
+
+    //YOUR CODE HERE
+  //  console.log(columnify(data), {columns: ["CONTACT_NAME", "PHONE_NUMBER"]})
+    //console.log(columnify(data, {columns: ["CONTACT_NAME", "PHONE_NUMBER"]})); //UNCOMMENT
+    //console.log(data)
+    //console.log(columnify(data, {columns: ['MODULE', 'COUNT']}))
+
+
+// var columns = columnify([{
+//     name: 'mod1',
+//     description: 'SOME DESCRIPTION TEXT.'
+// }, {
+//     name: 'module-two',
+//     description: 'SOME SLIGHTLY LONGER DESCRIPTION TEXT.'
+// }], {
+//     dataTransform: function(data) {
+//         return data.toLowerCase()
+//     },
+//     config: {
+//         name: {
+//             headingTransform: function(heading) {
+//               heading = "module " + heading
+//               return "*" +  heading.toUpperCase() + "*"
+//             }
+//         }
+//     }
+// })
 
 
 
@@ -87,12 +142,51 @@ function displayContacts(){
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
-function addContact() {
-// YOUR CODE HERE
+function addContact(){
+  var name = process.argv[1]
+  var number = process.argv[2]
 
+for (var i = 0; i<data.length; i++){
+  if (name  === data[i].name) {
+    console.log ("That name already exists!")
+    return false;
+  }
+}
+console.log(validateName(name))
+if (validateName(name) && validateNumber(number)) {
+      data.push({
+        name: name,
+        number: parseInt(number)
+    });
+    console.log("Added contact " + name + " and number " + number);
+  } else {
+    console.log ("invalid format")
+  }
 }
 
+// YOUR CODE HERE
 
+function validateName(name) {
+  // var name = process.argv[1]
+  // var number = process.argv[2]
+  var allowedLetters = new Set([ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l","m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"])
+  var lowerCaseName = name.toLowerCase()
+  for (var i=0; i<lowerCaseName.length; i++){
+    if (!allowedLetters.has(lowerCaseName[i])){
+      console.log("false")
+      return false;
+    }
+  };
+  return true
+};
+
+function validateNumber(number) {
+  if (isNaN(number)) {
+    return false
+  } else {
+    return true
+  }
+}
 //----------------- PART 4 'update' command---------------------//
 /**
 * Implement updateContact()
@@ -104,8 +198,30 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var name = process.argv[1]
+  var number = process.argv[2]
+
+  for (var i = 0; i<data.length; i++){
+    //console.log(data)
+    if (name === data[i].name){
+      if (validateName(name) && validateNumber(number)) {
+        _.mapObject(data, function(){
+          data[i].number = number
+        })
+        console.log("Updated contact " + name + " with number " + number)
+        return false
+      }
+    //  console.log(data[i].name)
+    //  console.log(number)
+    }
+  }
+    console.log("no contact found")
 }
+
+  // 1. check if name is in data
+  // 2. if yes in data, update with valid new name/number
+  // 3. if not in data, console.log("no contact found")
+
 
 
 //BONUS Implement deleteContact
