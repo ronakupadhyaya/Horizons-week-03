@@ -123,14 +123,35 @@ module.exports = {
     // Fields to be parsed: "originalInvestment", "valueToday"
     var totalOI = this.totalOriginalInvestmentsByInvestors(arr);
     var totalCV = this.totalCurrentValueOfInvestors(arr);
-    console.log('h');
-    console.log(totalOI, totalCV);
+    var ratios = {};
+    arr.forEach(function(obj) {
+      ratios[obj["investorId"]] = totalCV[obj["investorId"]] / totalOI[obj["investorId"]];
+    });
+    var max = 0, idx = 0;
+    for (var id in ratios) {
+      if (ratios[id] > max) {
+        max = ratios[id];
+        idx = id;
+      }
+    }
+    return idx;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var totalOI = this.totalOriginalInvestmentsByInvestors(arr);
+    var max = 0, idx = 0;
+    for (var id in totalOI) {
+      if (totalOI[id] > max) {
+        max = totalOI[id];
+        idx = id;
+      }
+      console.log(max, idx);
+    }
+    console.log(totalOI);
+    return idx;
   }
 
 }
