@@ -1,3 +1,9 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <ul>
+      {{#each people}}
+          <li>First Name: {{this.first_name}}, Last Name: {{this.last_name}}, Email: {{this.email}}</li>
+      {{/each}}
+    </ul>
+  </span>
 </div>
