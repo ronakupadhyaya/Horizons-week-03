@@ -1,9 +1,9 @@
 "use strict";
 // The node builtin filesystem library.
 var fs = require('fs');
-var validator = require('validator')
+var validator = require('validator');
 //require columnify here
-
+var columnify = require('columnify');
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -18,7 +18,7 @@ var data = JSON.parse(fs.readFileSync(JSON_FILE));
 var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:\n" + "\t\thelp   Show this help message and quit"+"\n\n\n\tCommands:\n" + "\t\tadd       Create Contact\n" + "\t\tdisplay   Display all contacts in directory\n" + "\t\tupdate    Update existing contact\n"
 
 
-var argv = process.argv
+var argv = process.argv.slice();
 //console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
@@ -34,7 +34,7 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  return argv[0];
 }
 
 //store the command and execute its corresponding function
@@ -70,7 +70,25 @@ switch(input){
 function displayContacts(){
     //YOUR CODE HERE
 
-    // console.log(columnify(data)); //UNCOMMENT
+  console.log(columnify(data, {
+    dataTransform: function(data) {
+      return data === "-1" ? "-None-" : data;
+    },
+    config: {
+      name: {
+        headingTransform: function(heading){
+          heading = "CONTACT_NAME";
+          return heading;
+        }
+      },
+      number:{
+        headingTransform: function(heading){
+          heading = "PHONE_NUMBER";
+          return heading;
+        }
+      }
+    }
+  })); //UNCOMMENT
 
 }
 
@@ -89,9 +107,47 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
-
+  if (argv[1] && isOriginal(argv[1]) && isValidName(argv[1]) && isValidNumber(argv[2])) {
+    var newName = argv[1];
+    var newNum = argv[2] ? parseInt(argv[2]) : -1;
+    var newContact = {
+      "name": newName,
+      "number": newNum
+    }
+    data.push(newContact);
+    console.log("Added contact " + argv[1]);
+  } else {
+    if (! isOriginal(argv[1])){
+      console.log(argv[1] + " is already in the address book");
+    } else {
+      console.log("Invalid contact format");
+    }
+  }
+}
+function isOriginal(name){
+  var original = true;
+  data.forEach(function(elem) {
+    if (elem.name === argv[1]){
+      original = false;
+    }
+  });
+  return original;
 }
 
+function isValidName(name){
+  var isString = true;
+  name = name.split("");
+  name.forEach( function(elem) {
+    if (parseInt(elem) >= 0) {
+      isString = false;
+    }
+  })
+  return isString;
+}
+
+function isValidNumber(num){
+  return !! parseInt(num) || ! num ? true : false;
+}
 
 //----------------- PART 4 'update' command---------------------//
 /**
@@ -105,12 +161,34 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+  if (argv[1] && isValidName(argv[1]) && !isOriginal(argv[1])) {
+    for (var i = 0; i < data.length; i++){
+      if (isValidNumber(argv[2]) && data[i].name === argv[1]) {
+        data[i].number = parseInt(argv[2]);
+      } else if (isValidName(argv[2]) && data[i].name === argv[1]) {
+        data[i].name = argv[2];
+      }
+    }
+  } else if (isOriginal(argv[1])){
+    console.log("No contact found")
+  } else {
+    console.log("Invalid contact format")
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+    if (argv[1] && isValidName(argv[1]) && !isOriginal(argv[1])){
+      for (var i = 0; i < data.length; i++){
+        if (data[i].name === argv[1]){
+          data.splice(i, 1);
+        }
+      }
+    } else {
+      console.log("No contact found");
+    }
 }
 
 
