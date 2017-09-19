@@ -2,6 +2,7 @@
 // The node builtin filesystem library.
 var fs = require('fs');
 var validator = require('validator')
+var columnify = require('columnify')
 //require columnify here
 
 
@@ -10,7 +11,6 @@ var JSON_FILE = 'data.json'
 ensureFileExists();
 // This is where our Address Book is stored.
 var data = JSON.parse(fs.readFileSync(JSON_FILE));
-
 
 
 
@@ -34,26 +34,27 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv[0]) return argv[0];
+  else return "";
 }
 
 //store the command and execute its corresponding function
 var input = parseCommand()
 switch(input){
   case "add":
-    addContact();
-    break;
+  addContact();
+  break;
   case "update":
-    updateContact();
-    break;
+  updateContact();
+  break;
   case "delete":
-    deleteContact()
-    break;
+  deleteContact()
+  break;
   case "display":
-    displayContacts();
-    break;
+  displayContacts();
+  break;
   default:
-    console.log(helpString); //if command = 'help' or invalid command, print help
+  console.log(helpString); //if command = 'help' or invalid command, print help
 }
 
 //----------------- PART 2 'display' command---------------------//
@@ -68,9 +69,29 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
+  //YOUR CODE HERE
+  var output = columnify(data, {
+    dataTransform: function(contactData) {
+      // console.log(contact, typeof contact)
+      if (parseInt(contactData)===-1) {
+        return '-None-'
+      }
+      return contactData
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return 'CONTACT_NAME'
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          return 'PHONE_NUMBER'
+        }
+      }
+    }
+  })
+  console.log(output);
 
 }
 
@@ -88,11 +109,41 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  // YOUR CODE HERE
 
+  var name = argv[1];
+
+  var exists = data.find(function(contact){
+    return contact.name === name
+  })
+
+  if (name && isValidName(name) && !exists) {
+    if (argv[2] && Number(argv[2])) var number = argv[2];
+    else if (argv.length === 2) number = -1;
+    else number = null;
+
+    if (number === null) console.log('incorrect number format');
+    if (number !== null) {
+      data.push({
+        name: name,
+        number: parseInt(number)
+      })
+      console.log("Added contact  " + name + ", and number: " + number);
+    }
+  }
 }
 
-
+function isValidName(name){
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+  var lowerCaseName = name.toLowerCase()
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i]
+    if(!alphabetSet.has(letter)){
+      return false
+    }
+  }
+  return true
+}
 //----------------- PART 4 'update' command---------------------//
 /**
 * Implement updateContact()
@@ -104,13 +155,41 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  // YOUR CODE HERE
+  var name = argv[1];
+  var updatedField = argv[2];
+  var exists = data.find(function(contact){
+    return contact.name === name
+  })
+
+  if (!exists) console.log('No contact found');
+  else if (!isValidName(name)) console.log('invalid name');
+  else {
+    var foundContact = data.find(function(contact) {
+      return contact.name === name
+    })
+    if (isValidName(updatedField)) foundContact.name = updatedField;
+    if (!isNaN(updatedField)) foundContact.number = parseInt(updatedField);
+  }
+
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
-    //YOUR CODE HERE
+  //YOUR CODE HERE
+  var name = argv[1];
+  if (name && isValidName(name)) {
+    var modifiedData = data.filter(function(contact) {
+      return contact.name !== name
+    })
+    if(modifiedData.length+1 === data.length){
+      data = modifiedData
+      console.log('Removed', name);
+    } else {
+      console.log('No contact found');
+    }
+  }
 }
 
 
