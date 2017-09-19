@@ -3,7 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify')
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -34,6 +34,7 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
+  return argv[0];
 
 }
 
@@ -68,9 +69,29 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
+  //YOUR CODE HERE
+  var columns = columnify(data, {
+    dataTransform: function(d) {
+      if (parseInt(d) === -1) {
+        return "-None-"
+      }
+      return d;
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return "CONTACT_NAME"
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          return "PHONE_NUMBER"
+        }
+      }
+    }
+  })
 
-    // console.log(columnify(data)); //UNCOMMENT
+  console.log(columns); //UNCOMMENT
 
 }
 
@@ -88,11 +109,100 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  // YOUR CODE HERE
+  var args = process.argv.slice(1,process.argv.length)
+  if(args){
+    var name = args[0]
+    var number = args[1] || "-1";
+    if(name && isValidName(name) && isValidNumber(number)){
+      var exists = data.find(function(contact){
+        return contact.name === name
+      })
+      if(exists){
+        console.log('Contact already exists');
+      } else {
+        data.push({
+          name: name,
+          number: parseInt(number)
+        });
+        console.log("Added contact  "+ name +", and number: " + number);
+      }
+
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
+}
+
+//helper function to validate name
+function isValidName(name){
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+  var lowerCaseName = name.toLowerCase()
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i]
+    if(!alphabetSet.has(letter)){
+      return false
+    }
+  }
+  return true
 
 }
 
-
+function isValidNumber(number){
+  return !isNaN(number)
+}
+//   var name = argv[1];
+//   var number = argv[2] || "-1";
+//   if (argv.length === 1){
+//     console.log("name not provided");
+//   }
+//   if (isValidString(name) === false){
+//     console.log("invalid name format");
+//   }
+//   if (isValidNumber(number) === false) {
+//     console.log("invalid number format");
+//   }
+//   if (isValidString(name) && isValidNumber(number)){
+//     var found = data.find(function (elem) {
+//       return elem.name === name;
+//     })
+//     if(found) {
+//       console.log("duplicate name");
+//     } else {
+//       data.push({
+//         name: name,
+//         number: parseInt(number)
+//       });
+//       console.log("Added contact  "+ name +", and number: " + number);
+//     }
+//
+//   } else {
+//     console.log("invalid contact")
+//   }
+//
+// //so i need to stop duplicates//
+//
+// }
+//
+//
+// function isValidString(str) {
+//   var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+//   var lowerCaseString = str.toLowerCase()
+//   for (var i = 0; i < lowerCaseString.length; i++) {
+//     var letter = lowerCaseString[i]
+//     if(!alphabetSet.has(letter)){
+//       return false
+//     }
+//   }
+//   return true
+// }
+//
+// function isValidNumber(num){
+//   if (isNaN(num)) {
+//     return false;
+//   }
+//   return true;
+// }
 //----------------- PART 4 'update' command---------------------//
 /**
 * Implement updateContact()
@@ -104,7 +214,26 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  // YOUR CODE HERE
+  var args = process.argv.slice(1,process.argv.length);
+  var name = args[0];
+  var updateField = args[1];
+  if(name && updateField){
+    var foundContact = data.find(function(contact){
+      return contact.name === name
+    })
+    if(!foundContact){
+      console.log('No contact found');
+    } else if(isValidName(updateField)){
+      console.log('Updated name for', name);
+      foundContact.name = updateField;
+    } else if(isValidNumber(updateField)){
+      foundContact.number = parseInt(updateField)
+      console.log('Updated number for', name);
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
 }
 
 

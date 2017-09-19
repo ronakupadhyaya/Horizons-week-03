@@ -8,6 +8,12 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    return arr.reduce(function(accumulator, investment){
+      if(investment.originalInvestment > accumulator) {
+        return investment.originalInvestment;
+      }
+      return accumulator;
+    }, 0)
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +22,10 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var sum = arr.reduce(function(accumulator,investment){
+      return accumulator + investment.originalInvestment;
+    }, 0)
+    return sum/arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +40,14 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+    arr.forEach(function(investment){
+      if(obj[investment.company] === undefined) {
+        obj[investment.company] = 0;
+      }
+      obj[investment.company] += investment.originalInvestment
+    });
+    return obj;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +62,14 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+    arr.forEach(function(investment){
+      if(obj[investment.investorId] === undefined) {
+        obj[investment.investorId] = 0;
+      }
+      obj[investment.investorId] += investment.originalInvestment
+    });
+    return obj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +85,14 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var obj = {};
+    arr.forEach(function(investment){
+      if(obj[investment.investorId] === undefined) {
+        obj[investment.investorId] = 0;
+      }
+      obj[investment.investorId] += investment.valueToday
+    });
+    return obj;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +104,50 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var obj = {};
+    var totalInvestorOriginal = this.totalOriginalInvestmentsByInvestors(arr);
+    var totalInvestorToday = this.totalCurrentValueOfInvestors(arr);
+    for (var investor in totalInvestorOriginal) {
+      if (totalInvestorOriginal.hasOwnProperty(investor)) {
+        obj[investor]=totalInvestorToday[investor]/totalInvestorOriginal[investor];
+      }
+    }
+    var bestInvestor=0;
+    var bestInvestmentRatio=0;
+    for (var investor in obj) {
+      if (obj.hasOwnProperty(investor)) {
+        if (obj[investor]>bestInvestmentRatio){
+          bestInvestmentRatio=obj[investor];
+          bestInvestor=investor;
+        }
+      }
+    }
+    return bestInvestor;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var companyCurrentValues = {};
+    arr.forEach(function(investment) {
+      if (companyCurrentValues[investment.company] === undefined){
+        companyCurrentValues[investment.company] = 0;
+      }
+      companyCurrentValues[investment.company] += investment.originalInvestment
+    });
+
+    var mostInvestedCompanyId=0;
+    var mostInvestedCompanyAmount=0;
+    for (var companyId in companyCurrentValues) {
+      if (companyCurrentValues.hasOwnProperty(companyId)) {
+        if (companyCurrentValues[companyId]>mostInvestedCompanyAmount){
+          mostInvestedCompanyAmount=companyCurrentValues[companyId];
+          mostInvestedCompanyId=companyId;
+        }
+      }
+    }
+    return mostInvestedCompanyId;
   }
 
 }

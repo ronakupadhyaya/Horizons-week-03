@@ -5,7 +5,7 @@ var csvjson = require('csvjson');
 var path = require("path");
 
 function fileReader(csvFilePath){
-  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'});
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), {encoding: 'utf8'});
   var options = {
     delimiter : ',',
     quote: '"'
