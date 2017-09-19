@@ -7,15 +7,12 @@
   <meta name="author" content="SitePoint">
 
   <link rel="stylesheet" href="css/styles.css?v=1.0">
-
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+  
 </head>
 
 <body>
   <span>
-    Below are the requested students:
+    Below are the requested {{Gender}} students:
     {{#each students}}
     <li>{{first_name}} {{last_name}} {{email}}</li>
     {{/each}}

@@ -3,6 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
+var columnify = require('columnify')
 
 
 var JSON_FILE = 'data.json'
@@ -34,7 +35,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv.length > 0){
+    return argv[0]
+  } else {
+    return ''
+  }
 }
 
 //store the command and execute its corresponding function
@@ -69,9 +74,28 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
+  for (var i = 0; i < data.length; i++){
+    if (data[i].number === -1){
+      data[i].number ="-None-"
+    }
+  }
+  var columns = columnify(
+    data,
+    {config: {
+      name: {
+        headingTransform: function(heading){
+          return 'CONTACT_NAME'
+        }
+      },
+      number: {
+        headingTransform: function(heading){
+          return 'PHONE_NUMBER'
+        }
+      }
+    }
+    })
 
-    // console.log(columnify(data)); //UNCOMMENT
-
+console.log(columns)
 }
 
 
@@ -89,8 +113,29 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
-
+if (!argv[2]) {
+  argv[2] = -1
 }
+
+var num = parseInt(argv[2]); //returns NaN if parseInt isn't an integer
+var str = (/^[a-zA-Z]+$/).test(argv[1]);
+if (str === false || isNaN(num) || !(argv[1])) {
+  console.log('Invalid contact format')
+  return false;
+} else {
+  var dataObj = {};
+  for (var i=0; i<data.length; i++) {
+    if (data[i]['name'] === argv[1]) {
+      console.log(argv[1] + " is already in Address Book")
+      return false;
+      }
+    }
+  }
+    dataObj.name = argv[1];
+    dataObj.number = parseInt(argv[2]);
+    data.push(dataObj)
+    console.log(`Added contact ${argv[1]} with number ${num}`)
+    }
 
 
 //----------------- PART 4 'update' command---------------------//
@@ -105,6 +150,52 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+if (!argv[2]) {
+  argv[2] = -1
+}
+
+var num = parseInt(argv[2]); //returns NaN if parseInt isn't an integer
+var str = (/^[a-zA-Z]+$/).test(argv[1]);
+if (str === false || isNaN(num) || !(argv[1])) {
+  console.log('Invalid contact format')
+  return false;
+}
+
+
+if (!argv[1].length > 0){
+  console.log("Invalid contact format")
+  return
+}
+for (var i = 0; i < data.length; i++){
+if (data.includes(argv[1]) === false){
+  console.log("No contact found")
+}
+}
+
+var contacts = [];
+for (var i = 0; i < data.length; i++){
+  contacts.push(data[i].name)
+}
+
+var veritude = true
+
+for (var i = 0; i < 10; i++){
+  if (argv[1].includes(i)){
+    veritude = false
+  }
+}
+
+if (argv[1].length > 0 && veritude === true){
+  var inde = contacts.indexOf(argv[1])
+  data[inde].name = argv[2]
+  console.log(`Updated name for` + argv[2])
+} else if (parseInt(argv[2]) > 0 && !isNaN(argv[2])){
+  var inde = contacts.indexOf(argv[1])
+  data[inde].name = argv[2]
+  console.log(`Updated number for` + argv[1])
+}
+
+}
 }
 
 

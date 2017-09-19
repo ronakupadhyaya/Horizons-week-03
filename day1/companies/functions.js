@@ -6,8 +6,18 @@ module.exports = {
   // You should iterate over the array of investments and find out the single largest
   // "original investment" made on a company.
   // Return the amount of the largest investment.
+  // var apps = require('./apps.js')
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+
+    // var newArr = apps.parser(arr)
+    var highestOI = 0
+    for (var i=0; i < arr.length; i++){
+      if (arr[i].originalInvestment > highestOI){
+        highestOI = arr[i].originalInvestment
+      }
+    }
+    return highestOI
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +26,13 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+
+    var total = 0;
+    for (var i = 0; i < arr.length; i++){
+      total = arr[i].originalInvestment += total
+    }
+
+    return total / arr.length
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,7 +47,17 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newObj = {};
+    arr.forEach(function(parameter) {
+      if(newObj.hasOwnProperty(parameter.company)) {
+        newObj[parameter.company] += parameter.originalInvestment;
+      } else {
+        newObj[parameter.company] = parameter.originalInvestment;
+      }
+    })
+    return newObj;
   },
+
 
   // Find out how much money an investor spent as  original investments. You will
   // need to iterate through all the investments, find all the investments for each
@@ -42,8 +69,19 @@ module.exports = {
   //  2: 1024000,
   //   ...
   // }
+
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    // Fields to be parsed: "originalInvestment", "valueToday"
+   var newObj = {};
+   arr.forEach(function(parameter) {
+     if(newObj.hasOwnProperty(parameter.investorId)) {
+       newObj[parameter.investorId] += parameter.originalInvestment;
+     } else {
+       newObj[parameter.investorId] = parameter.originalInvestment;
+     }
+   });
+   return newObj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -59,6 +97,15 @@ module.exports = {
   // }
     // Fields to be parsed: "originalInvestment", "valueToday"
   totalCurrentValueOfInvestors: function(arr){
+    var newObj = {};
+    arr.forEach(function(parameter) {
+      if(newObj.hasOwnProperty(parameter.investorId)) {
+        newObj[parameter.investorId] += parameter.valueToday;
+      } else {
+        newObj[parameter.investorId] = parameter.valueToday;
+      }
+    });
+    return newObj;
   },
 
   // To find out who the best investor is, you need to find out the ratio in which
@@ -70,12 +117,42 @@ module.exports = {
   // Return an investorID;
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var currentVal = this.totalCurrentValueOfInvestors(arr)
+    var growth = this.totalOriginalInvestmentsByInvestors(arr)
+    var elem = Object.keys(currentVal)
+    var nice = [];
+    var winningId = 1
+    var winningRatio = 0
+    for (var i =0; i < elem.length; i++){
+      //console.log(growth.elem, currentVal)
+      var cool = currentVal[elem[i]] / growth[elem[i]]
+      var pair = {};
+      pair[elem[i]] = cool
+      nice.push(pair)
+    }
+    for (var i = 0; i < nice.length; i++){
+      if (nice[i][elem[i]] > winningRatio){
+        winningId = elem[i];
+        winningRatio = nice[i][elem[i]];
+      }
+    }
+    return winningId;
   },
 
   // Find out which company was invested the most in using the originalInvestment.
   // Return a companyId
   mostInvestedCompany: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var companyTot = this.totalOriginalInvestmentForCompanies(arr)
+    var keys = Object.keys(companyTot);
+    var highestInvestment = 0;
+    var highestCompany = 0
+    for (var i = 0; i < keys.length; i++){
+      if (companyTot[keys[i]] > highestInvestment){
+        highestInvestment = companyTot[keys[i]]
+        highestCompany = keys[i]
+      }
+    }
+    return highestCompany
   }
-
 }
