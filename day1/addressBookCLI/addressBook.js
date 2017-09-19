@@ -19,7 +19,7 @@ var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:
 
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
+// console.log(process.argv + "START HERE") //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
 
 
@@ -34,7 +34,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv.length === 0) {
+    return ""
+  } else {
+    return argv[0];
+  }
 }
 
 //store the command and execute its corresponding function
@@ -67,12 +71,42 @@ switch(input){
 * Do not return anything, console.log() the contacts
 *
 */
-function displayContacts(){
+function displayContacts() {
+  //YOUR CODE HERE
+  // console.log("NEED TO WORK")
+  var columnify= require('columnify');
+  // console.log(columnify(data));
+
+  var output = columnify(data, {
+    // minWidth: 20,
+    dataTransform: function(contactData) {
+      if (parseInt(contactData) === -1) {
+        return '-None-';
+      }
+      return contactData
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return "CONTACT_NAME"
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          return "PHONE_NUMBER"
+        }
+      }
+    }
+  })
+  console.log(output);
+}
+
+
+
     //YOUR CODE HERE
 
     // console.log(columnify(data)); //UNCOMMENT
 
-}
 
 
 
@@ -87,9 +121,50 @@ function displayContacts(){
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
+var number = parseInt(argv[2])
+var name = argv[1];
 function addContact() {
 // YOUR CODE HERE
+  var args = process.argv.slice(1,process.argv.length)
+  if(args){
+    var name = args[0]
+    var number = args[1] || "-1";
+    if(name && isValidName(name) && isValidNumber(number)){
+      var exists = data.find(function(contact){
+        return contact.name === name
+      })
+      if(exists){
+        console.log('Contact already exists');
+      } else {
+        data.push({
+          name: name,
+          number: parseInt(number)
+        });
+        console.log("Added contact  "+ name +", and number: " + number);
+      }
 
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
+}
+
+//helper function to validate name
+function isValidName(name){
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
+  var lowerCaseName = name.toLowerCase()
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i]
+    if(!alphabetSet.has(letter)){
+      return false
+    }
+  }
+  return true
+
+}
+
+function isValidNumber(number){
+  return !isNaN(number)
 }
 
 
@@ -104,14 +179,44 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var name = argv[1];
+  var updateField = argv[2];
+  if(name && updateField){
+    var foundContact = data.find(function(contact){
+      return contact.name === name
+    })
+    if(!foundContact){
+      console.log('No contact found');
+    } else if(isValidName(updateField)){
+      console.log('Updated name for', name);
+      foundContact.name = updateField;
+    } else if(isValidNumber(updateField)){
+      foundContact.number = parseInt(updateField)
+      console.log('Updated number for', name);
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+  var name = argv[1];
+  if(name){
+    var foundContact = data.find(function(contact){
+      return contact.name === name
+    })
+    if(foundContact) {
+      delete data.name;
+      delete data.number
+      console.log("Deleted " + name)
+    }
+  }
+
 }
+
 
 
 

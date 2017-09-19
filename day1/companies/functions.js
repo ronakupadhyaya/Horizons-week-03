@@ -7,6 +7,9 @@ module.exports = {
   // "original investment" made on a company.
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
+    console.log(arr);
+    for(var originalInvestment in arr) {}
+
     // Fields to be parsed: "originalInvestment", "valueToday"
   },
 
