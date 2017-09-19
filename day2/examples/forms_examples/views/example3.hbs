@@ -1,5 +1,16 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post">
+  <span>
+    <input type="text" name="user" value="Username">
+    <input type="password" name="password" value="">
+    <input type="submit" name="submit" value="Submit">
+  </span>
 </form>
-
-
+<span>email pwatkins0@upenn.edu password TYGmfMbuuWB5 first_name Peter
+</span>
+<h1>
+  {{#if check}}
+    Wassup {{name}}!
+  {{else}}
+    <span style="color:red">No no no!</span>
+  {{/if}}
+</h1>

@@ -1,3 +1,11 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <span>
+<ul>
+  {{#each data}}
+    {{#if this.genderboolean}}
+      <li> {{this.first_name}} {{this.last_name}}: {{this.email}}</li>
+    {{/if}}
+  {{/each}}
+</ul>
+  </span>
 </div>
