@@ -24,7 +24,7 @@ app.get('/male', function (req,res){
   res.render('proper-display', {
     datax: male
   })
-})
+});
 
 app.get('/female', function (req,res){
   var female = data.filter(function(person){
