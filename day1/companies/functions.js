@@ -8,14 +8,25 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
-  },
-
+  var highestInvestment = 0;
+  for (var i=0; i<arr.length; i++) {
+    if (arr[i].originalInvestment > highestInvestment) {
+      highestInvestment = arr[i].originalInvestment
+    }
+  }
+  return highestInvestment
+  }, 
   // Find the average of all the original investments for all companies.
   // This is equal to the sum of all the original investments divided by the number
   // of investments.
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var sum = 0;
+    for (var i=0; i<arr.length; i++) {
+      sum += arr[i].originalInvestment
+    }
+    return sum/arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
@@ -30,6 +41,15 @@ module.exports = {
   // }
   totalOriginalInvestmentForCompanies: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newObj = {};
+    arr.forEach(function(parameter) {
+      if(newObj.hasOwnProperty(parameter.company)) {
+        newObj[parameter.company] += parameter.originalInvestment;
+      } else {
+        newObj[parameter.company] = parameter.originalInvestment;
+      }
+    })
+    return newObj;
   },
 
   // Find out how much money an investor spent as  original investments. You will
@@ -44,6 +64,15 @@ module.exports = {
   // }
   totalOriginalInvestmentsByInvestors: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var newObj = {};
+    arr.forEach(function(parameter) {
+      if(newObj.hasOwnProperty(parameter.investorId)) {
+        newObj[parameter.investorId] += parameter.originalInvestment;
+      } else {
+        newObj[parameter.investorId] = parameter.originalInvestment;
+      }
+    });
+    return newObj;
   },
 
   // This function is similar to the one above, but it returns the current value
@@ -68,6 +97,8 @@ module.exports = {
   // Note: Remember to use their total of investments and the total of current value:
   // using totalOriginalInvestmentsByInvestors & totalCurrentValueOfInvestors
   // Return an investorID;
+
+  
   bestInvestorByValueIncrease: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
   },

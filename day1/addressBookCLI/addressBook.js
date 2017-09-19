@@ -3,7 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify')
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -34,8 +34,12 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
-}
+  if(argv.length > 0) {
+    return argv[0];
+    } else {
+      return ''
+    }
+  }
 
 //store the command and execute its corresponding function
 var input = parseCommand()
@@ -69,10 +73,28 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
-}
+    for (var i=0; i<data.length; i++) {
+        if (data[i]['number'] === -1) {
+          data[i]['number'] = "-None-"
+        }
+      }
+    var columns = columnify(data, { 
+      config: {
+        name: {
+          headingTransform: function(heading) {
+            return "CONTACT_NAME"
+          }
+        },
+        number: {
+          headingTransform: function(heading) {
+            return "PHONE_NUMBER"
+          }
+        }
+      }
+    })
+    console.log(columns)
+  }
+      
 
 
 
@@ -90,7 +112,30 @@ function displayContacts(){
 function addContact() {
 // YOUR CODE HERE
 
+if (!argv[2]) {
+  argv[2] = -1
 }
+
+var num = parseInt(argv[2]); //returns NaN if parseInt isn't an integer
+var str = (/^[a-zA-Z]+$/).test(argv[1]);
+if (str === false || isNaN(num) || !(argv[1])) {
+  console.log('Invalid contact format')
+  return false;
+} else {
+  var dataObj = {};
+  for (var i=0; i<data.length; i++) {
+    if (data[i]['name'] === argv[1]) {
+      console.log(argv[1] + " is already in Address Book")
+      return false;
+      }
+    }
+  }
+    dataObj.name = argv[1];
+    dataObj.number = parseInt(argv[2]);
+    data.push(dataObj)
+    console.log(`Added contact ${argv[1]} with number ${num}`)
+    }
+
 
 
 //----------------- PART 4 'update' command---------------------//
@@ -105,6 +150,26 @@ function addContact() {
 */
 function updateContact(){
 // YOUR CODE HERE
+
+//check if the string contains numbers, implement code for updating number
+//check if the string is a string, implement code for updating name
+for (var i=0; i<data.length; i++) {
+  if (data[i].name === argv[1]) {
+    if (argv[2] === 'number') {
+      data[i].number = argv[2]
+      console.log(`Updated number for ${argv[1]}`)
+    }
+    if (typeof argv[2] === 'string') {
+      var str = (/^[a-zA-Z]+$/).test(argv[2]);
+      if (str === false) {
+        return false;
+      } else {
+        data[i].name = argv[2]
+        console.log(`Updated name for ${argv[1]}`)
+        }
+      }
+    }
+  }
 }
 
 

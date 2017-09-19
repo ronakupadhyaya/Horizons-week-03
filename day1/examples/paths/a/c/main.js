@@ -8,9 +8,22 @@
 // five.logger(five.value);
 
 // YOUR CODE HERE
+var one = require('../../b/one.js')
+one.first();
+one.second();
+
+var two = require('../two.js')
+two.twoFunc();
+
+var four = require('./four.js')
+var input = four.horizons;
+
+var three = require('../../b/three.js')
+three.logger(input);
 
 // Output should look like
 //     *
 //    *
 //   *
 //  *
+
