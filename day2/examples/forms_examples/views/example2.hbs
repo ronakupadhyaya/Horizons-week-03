@@ -1,3 +1,27 @@
+<style>
+form input {
+  display: block;
+}
+
+form div input {
+  display: inline;
+}
+</style>
+
 <form>
-  <span>YOUR CODE HERE</span>
+  <input type="text" value="{{user}}" name="user" placeholder="Username">
+  <input type="password" value="{{pass}}" name="pass" placeholder="Password">
+  <input type="text" value="{{name}}" name="name" placeholder="Name">
+  <div>
+    <input type="radio" name="gender" value="male" {{if (checked male)}}checked{{/if}}> Male<br>
+    <input type="radio" name="gender" value="female"> Female<br>
+    <input type="radio" name="gender" value="other"> Other
+  </div>
+  <select name="state">
+    <option value="None">State</option>
+    <option value="Ohio">Ohio</option>
+    <option value="Texas">Texas</option>
+    <option value="California">California</option>
+  </select>
+  <input type="submit" value="Register" name="">
 </form>
