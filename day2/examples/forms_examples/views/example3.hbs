@@ -1,5 +1,21 @@
-<form>
-  <span>YOUR CODE HERE</span>
-</form>
+<style>
+    .red {
+      color: red;
+    }
+</style>
 
+{{#if valid}}
 
+  <p>Hi {{firstName}}!</p>
+
+  {{else}}
+  <form action="/login" method="post">
+      <input type="text" name="email" value="">
+      <input type="password" name="password" value="">
+      <input type="submit" name="" value="Login">
+  </form>
+
+  {{#if invalid}}
+    <p class="red"> Invalid email or password; try again. </p>
+  {{/if}}
+{{/if}}
