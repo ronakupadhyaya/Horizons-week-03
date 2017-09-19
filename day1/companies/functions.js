@@ -8,6 +8,12 @@ module.exports = {
   // Return the amount of the largest investment.
   singleLargestInvestment: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    return arr.reduce(function(accumulator, investment){
+      if (investment.originalInvestment > accumulator){
+        return investment.originalInvestment
+      }
+      return accumulator
+    }, 0)
   },
 
   // Find the average of all the original investments for all companies.
@@ -16,6 +22,10 @@ module.exports = {
   // Return a Number.
   averageOfOriginalInvestments: function(arr){
     // Fields to be parsed: "originalInvestment", "valueToday"
+    var sum = arr.reduce(function(accumulator, investment){
+      return accumulator + investment.originalInvestment;
+    }, 0)
+    return sum/arr.length;
   },
 
   // Find out how much a company got as the original investments. In this case, You
