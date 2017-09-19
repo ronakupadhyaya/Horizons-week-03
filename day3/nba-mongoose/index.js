@@ -1,49 +1,37 @@
-// Setup express backend with npm dependencies
-var express = require('express');
-var app = express();
+// Require express and create an express app
 
-// Setup port
-var PORT = process.env.PORT || 3000;
-var path = require('path');
+// Require mongoose
 
-// Add in body-parser here so that you can use req.body
-// YOUR CODE HERE
+// Require and setup body-parser
 
+// Require the Player model
+
+// Require the Roster model
 
 
 
-
-var fs = require('fs');
-
-if (! fs.existsSync('./env.sh')) {
-  throw new Error('env.sh file is missing');
-}
-
+// Ensure that there is a MONGODB_URI environment variable (source env.sh)
 if (! process.env.MONGODB_URI) {
   throw new Error("MONGODB_URI is not in the environmental variables. Try running 'source env.sh'");
 }
 
-// Add Mongoose Connection HERE
-// Add mongoose and Roster and Player models here
-var Roster //
-var Player //
+/* UNCOMMENT THESE FOR HELPFUL LOGGING REGARDING THE MONGOOSE CONNECTION */
+// mongoose.connection.on('connected', function() {
+//   console.log('Success: connected to MongoDb!');
+// });
+// mongoose.connection.on('error', function(err) {
+//   console.log('Error connecting to MongoDb: ' + err);
+//   process.exit(1);
+// });
 
-// YOUR CODE HERE
+// Establish mongoose connection to the mongoDB on mlab
 
 
+/* =====================================
+        WRITE ROUTES DOWN HERE
+   ===================================== */
 
-//uncomment this when your Player model has 5 documents
-throw new Error('Please make sure you have ran both npm install and node playerAdd.js and ensure your database has 5 items in the Player Document')
 
-// Add to the '/' route to get response from PostMan with all
-// player info. Result should look like playerStats.json in models folder
-// hint: use following mongoose querying method
-// Player.find({query parameter}, function(error, result){
-//  fill in information here
-// })
-app.get('/', function(req,res){
-  // YOUR CODE HERE
-})
 
 // Add to the '/addPlayer' route to add Kevin Durant, Lebron James
 // and Russell Westbrook with their respective Jersey Number and Team to the Roster Document
@@ -91,11 +79,4 @@ app.post('/addPlayer', function(req,res){
 // YOUR CODE HERE
 
 
-
-app.listen(PORT, function(error){
-  error
-  ? console.error(error)
-  : console.info(`==> 🌎 Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
-});
-
-module.exports = app;
+// Begin listening on port 3000

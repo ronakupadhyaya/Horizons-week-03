@@ -44,6 +44,24 @@ app.get('/', function(req,res){
 
 app.post('/addPlayer', function(req,res){
   /// add here
+  var player = new Player({
+    Name: req.body.name,
+    Points: req.body.points,
+    Rebounds: req.body.rebounds,
+    Assists: req.body.assists
+  })
+
+  player.save(function(err){
+    if(err){
+      console.log('error', err)
+    }else{
+      res.send('Success!')
+    }
+  })
+});
+
+app.post('/addPlayerRoster', function(req,res){
+  /// add here
   var player = new Roster({
     Name: req.body.name,
     JerseyNum: req.body.jersey,
@@ -57,7 +75,6 @@ app.post('/addPlayer', function(req,res){
       res.send('Success!')
     }
   })
-  /////
 });
 
 app.post('/updateTeam', function (req, res) {
@@ -70,18 +87,8 @@ app.post('/updateTeam', function (req, res) {
   })
 });
 
-app.post('/delete/:id', function (req, res) {
-  Player.remove({_id: req.params.id}, function(err, result){
-    if(err){
-      console.log('error in post delete/id', err);
-    }else{
-      res.send('Player with id '+req.params.id+' has been removed')
-    }
-  })
-});
-
-app.get('/:pid', function (req, res) {
-  Roster.findOne({_id: req.params.pid},function(err, result){
+app.get('/:rosterid', function (req, res) {
+  Roster.findOne({_id: req.params.rosterid},function(err, result){
     Player.findOne({Name: result.Name}, function(err, result2){
       res.send({
         Name: result2.Name,
