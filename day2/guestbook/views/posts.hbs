@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
-
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
@@ -16,7 +15,16 @@
 <h2>Your username: {{username}}</h2>
 
 <!-- Part 2: Display posts -->
-
+  {{#if viewAll}}
+    <a href="/posts" style="margin-right: 30px;"> View all posts by all authors </a>
+  {{/if}}
+  <a href="/posts?order=descending" style="margin-right: 30px;"> Display posts in descending order </a>
+  <a href="/posts?order=ascending"> Display posts in ascending order </a>
+  {{#each posts}}
+    <div style="margin-top: 10px;">{{this.title}} {{this.body}} {{this.author}} {{this.date}}
+      <a href="/posts?author={{this.author}}"> View posts by this author </a>
+    </div>
+  {{/each}}
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.

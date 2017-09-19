@@ -41,12 +41,14 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
 // This endpoint is implemented for you.
 app.post('/login', function(req, res) {
+  console.log("LOG", req.body.username);
   res.cookie('username', req.body.username);
   res.redirect('/posts');
 });
@@ -60,11 +62,60 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var username = req.cookies.username;
+  var order = req.query.order;
+  var posts = data.read();
+  var author = req.query.author;
+  var viewAll = false;
+  function sortInDescending(a, b){
+    var aDate = new Date(a.date);
+    var bDate = new Date(b.date);
+    if(bDate.getTime() > aDate.getTime()){
+      return 1
+    }
+    if(aDate.getTime() > bDate.getTime()){
+      return -1
+    }
+    return 0;
+  }
+
+  function sortInAscending(a, b){
+    var aDate = new Date(a.date);
+    var bDate = new Date(b.date);
+    if(bDate.getTime() > aDate.getTime()){
+      return -1;
+    }
+    if(aDate.getTime() > bDate.getTime()){
+      return 1;
+    }
+    return 0;
+  }
+
+  if(order){
+    if(order ==='ascending'){
+      posts.sort(sortInAscending);
+    }
+    if(order ==='descending'){
+      posts.sort(sortInDescending);
+    }
+  }
+
+  if(author){
+    viewAll = true;
+    posts = posts.filter(function(post){
+      return post.author === author;
+    })
+  }
+    res.render('posts', {
+      // Pass `username` to the template from req.cookies.username
+      // Pass `posts` to the template from data.read()
+      // YOUR CODE HERE
+      posts: posts,
+      username: username,
+      viewAll: viewAll
+    });
+
+
 });
 
 // ---Part 3. Create new posts---
@@ -78,6 +129,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if(req.cookies.username){
+    res.render('post_form', {show:true});
+  } else{
+    res.render('post_form', {error: "401 User not logged in", show: false})
+  }
 });
 
 // POST /posts:
@@ -97,6 +153,20 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var posts = data.read();
+  req.body["author"] = req.cookies.username;
+  if(req.cookies.username){
+    if(req.body.title && req.body.body && req.body.date){
+      posts.push(req.body);
+      data.save(posts);
+      res.redirect('/posts');
+    } else{
+      res.status(400).send("Fill in all fields!")
+    }
+  } else{
+    res.status(401).send("User not logged in!")
+  }
+
 });
 
 // Start the express server
