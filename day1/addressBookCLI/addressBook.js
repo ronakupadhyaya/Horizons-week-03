@@ -3,7 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify')
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -34,7 +34,19 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (process.argv===""){
+    return '';
+  }
+  var args = process.argv.slice(2);
+  //console.log(process.argv);
+  //console.log(args);
+  var possibilities = ["add", "update", "display", "delete", "help"];
+  for (var i = 0; i< possibilities.length; i++){
+    if (process.argv[0]===possibilities[i]){
+      //console.log(possibilities[i]);
+      return possibilities[i];
+    }
+  }
 }
 
 //store the command and execute its corresponding function
@@ -68,9 +80,9 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
+  //YOUR CODE HERE
+  console.log(columnify(data)); //UNCOMMENT
 
-    // console.log(columnify(data)); //UNCOMMENT
 
 }
 
@@ -88,7 +100,37 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  // YOUR CODE HERE
+  var input = process.argv;
+  console.log(data);
+  console.log(input);
+  console.log(data[0]);
+  console.log(data[0].name);
+  console.log(process.argv);
+  if (typeof process.argv[1] !== 'string'){
+    console.log("Invalid contact format");
+    throw error;
+  }
+  for (var i = 0; i < data.length; i++){
+    if (data[i].name===process.argv[1]){
+      console.log(process.argv[1] + " already in Address Book")
+      throw error;
+    }
+  }
+  if (isNaN(Number(process.argv[2]) && process.argv[2].length>0) ){
+    console.log("Invalid contact format");
+    throw error;
+  }
+  if (process.argv[2]===''){
+    var newContact = {name: process.argv[1], number: -1};
+    data.push(newContact);
+    console.log("Added contact " + process.argv[1])
+  }else{
+    var newContact = {name: process.argv[1], number: process.argv[2]};
+    data.push(newContact);
+    console.log("Added contact " + process.argv[1])
+  }
+
 
 }
 
@@ -104,7 +146,7 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+
 }
 
 

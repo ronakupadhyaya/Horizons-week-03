@@ -1,3 +1,17 @@
-<div>
-  <!-- YOUR CODE HERE -->
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>
+      {{#if isEven}}
+        <h1>The word {{req.params.word}} has an even number of letters!</h1>
+      {{else}}
+        <h1>The word {{req.params.word}} has an odd number of letters!</h1>
+      {{/if}}
+    </h1>
+
+  </body>
+</html>
