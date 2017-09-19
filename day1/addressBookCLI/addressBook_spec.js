@@ -26,9 +26,8 @@ describe("addressBookCLI tests", function() {
 
   describe("Displaying Contacts", function() {
 
-    it("displays all contacts in the correct format when contacts exist", function(){
-      jsonfile.writeFileSync(file, [
-        {
+    it("displays all contacts in the correct format when contacts exist", function() {
+      jsonfile.writeFileSync(file, [{
           "name": "Moose",
           "number": 123
         },
@@ -51,8 +50,7 @@ describe("addressBookCLI tests", function() {
     })
 
     it('displays the correct headers', function() {
-      jsonfile.writeFileSync(file, [
-        {
+      jsonfile.writeFileSync(file, [{
           "name": "Moose",
           "number": 123
         },
@@ -67,9 +65,8 @@ describe("addressBookCLI tests", function() {
       expect(header[1]).toEqual("PHONE_NUMBER")
     })
 
-    it("displays '-None-' for the number field when contact does not have a phone number", function(){
-      jsonfile.writeFileSync(file, [
-        {
+    it("displays '-None-' for the number field when contact does not have a phone number", function() {
+      jsonfile.writeFileSync(file, [{
           "name": "Moose",
           "number": 123
         },
@@ -94,9 +91,18 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js add Bob');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Pam", "number": 516})
-      expect(data[1]).toEqual({"name": "Frankie", "number": 123})
-      expect(data[2]).toEqual({"name": "Bob", "number": -1})
+      expect(data[0]).toEqual({
+        "name": "Pam",
+        "number": 516
+      })
+      expect(data[1]).toEqual({
+        "name": "Frankie",
+        "number": 123
+      })
+      expect(data[2]).toEqual({
+        "name": "Bob",
+        "number": -1
+      })
     });
 
     it("Does not add contact when name or number is invalid", function() {
@@ -106,7 +112,10 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js add abc123 123');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(1)
-      expect(data[0]).toEqual({"name": "Pam", "number": 516})
+      expect(data[0]).toEqual({
+        "name": "Pam",
+        "number": 516
+      })
       // expect(data[1]).toEqual({"name": "Frankie", "number": 123})
       // expect(data[2]).toEqual({"name": "Bob", "number": -1})
     });
@@ -118,16 +127,21 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js add Bob');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(2)
-      expect(data[0]).toEqual({"name": "Frankie", "number": 123})
-      expect(data[1]).toEqual({"name": "Bob", "number": -1})
+      expect(data[0]).toEqual({
+        "name": "Frankie",
+        "number": 123
+      })
+      expect(data[1]).toEqual({
+        "name": "Bob",
+        "number": -1
+      })
     });
   });
 
   describe("Updating Contacts", function() {
     beforeEach(function() {
       //resets data before all tests
-      jsonfile.writeFileSync(file, [
-        {
+      jsonfile.writeFileSync(file, [{
           "name": "Moose",
           "number": 123
         },
@@ -146,7 +160,10 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js update Moose 999');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Moose", "number": 999})
+      expect(data[0]).toEqual({
+        "name": "Moose",
+        "number": 999
+      })
 
     });
 
@@ -154,16 +171,28 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js update Moose Moooose');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Moooose", "number": 123})
+      expect(data[0]).toEqual({
+        "name": "Moooose",
+        "number": 123
+      })
     });
 
     it("Does not make any changes when contact does not exist", function() {
       child_process.execSync('node addressBook.js update Pam 516');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Moose", "number": 123})
-      expect(data[1]).toEqual({"name": "Ricky", "number": 456})
-      expect(data[2]).toEqual({"name": "Graham", "number": 789})
+      expect(data[0]).toEqual({
+        "name": "Moose",
+        "number": 123
+      })
+      expect(data[1]).toEqual({
+        "name": "Ricky",
+        "number": 456
+      })
+      expect(data[2]).toEqual({
+        "name": "Graham",
+        "number": 789
+      })
     });
 
     it("Console logs a message when contact does not exist", function() {
@@ -180,8 +209,7 @@ describe("addressBookCLI tests", function() {
   describe("Deleting Contacts", function() {
     beforeEach(function() {
       //resets data before all tests
-      jsonfile.writeFileSync(file, [
-        {
+      jsonfile.writeFileSync(file, [{
           "name": "Moose",
           "number": 123
         },
@@ -200,8 +228,14 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js delete Moose');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(2)
-      expect(data[0]).toEqual({"name": "Ricky", "number": 456})
-      expect(data[1]).toEqual({"name": "Graham", "number": 789})
+      expect(data[0]).toEqual({
+        "name": "Ricky",
+        "number": 456
+      })
+      expect(data[1]).toEqual({
+        "name": "Graham",
+        "number": 789
+      })
 
     });
 
@@ -209,18 +243,36 @@ describe("addressBookCLI tests", function() {
       child_process.execSync('node addressBook.js delete Pam');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Moose", "number": 123})
-      expect(data[1]).toEqual({"name": "Ricky", "number": 456})
-      expect(data[2]).toEqual({"name": "Graham", "number": 789})
+      expect(data[0]).toEqual({
+        "name": "Moose",
+        "number": 123
+      })
+      expect(data[1]).toEqual({
+        "name": "Ricky",
+        "number": 456
+      })
+      expect(data[2]).toEqual({
+        "name": "Graham",
+        "number": 789
+      })
     });
 
     it("Does not make any changes when no contact was specified", function() {
       child_process.execSync('node addressBook.js delete');
       var data = jsonfile.readFileSync(file)
       expect(data.length).toBe(3)
-      expect(data[0]).toEqual({"name": "Moose", "number": 123})
-      expect(data[1]).toEqual({"name": "Ricky", "number": 456})
-      expect(data[2]).toEqual({"name": "Graham", "number": 789})
+      expect(data[0]).toEqual({
+        "name": "Moose",
+        "number": 123
+      })
+      expect(data[1]).toEqual({
+        "name": "Ricky",
+        "number": 456
+      })
+      expect(data[2]).toEqual({
+        "name": "Graham",
+        "number": 789
+      })
     });
 
     it("Console logs a message when contact does not exist", function() {
@@ -231,14 +283,16 @@ describe("addressBookCLI tests", function() {
   });
 });
 
-function runAndCleanStdout(cmd){
-  var stdout = child_process.execSync(cmd, {encoding:'utf-8'});
+function runAndCleanStdout(cmd) {
+  var stdout = child_process.execSync(cmd, {
+    encoding: 'utf-8'
+  });
   stdout = stdout.split(/\r\n|\r|\n/);
   stdout.splice(-1, 1);
   return stdout;
 }
 
-function generateTasks(){
+function generateTasks() {
   child_process.execSync('node addressBook.js add Pam 123');
   child_process.execSync('node addressBook.js add Frankie 123');
   // child_process.execSync('node addressBook.js add Call the internet guy -p 3');
