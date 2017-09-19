@@ -22,7 +22,16 @@
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
-<!-- YOUR CODE HERE -->
+  {{#each posts}}
+    <div class="post">
+      <h3> {{title}} </h3>
+      <p> {{body}} </p>
+      <span> {{author}} posted on {{date}} </span>
+    </div>
+  {{/each}}
 
+  <div>
+    <a href="/posts/new"> Make a new post </a>
+  </div>
 </body>
 </html>

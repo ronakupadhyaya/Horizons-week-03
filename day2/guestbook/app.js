@@ -60,10 +60,33 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var processedPosts = data.read();
+  if(req.query.order === "ascending" || req.query.order === "descending") {
+    if(req.query.order === "ascending") {
+      processedPosts = processedPosts.sort(function(a, b) {
+        var aTime = new Date(a.date);
+        var bTime = new Date(b.date);
+        var aTimeSec = aTime.getTime();
+        var bTimeSec = aTime.getTime();
+        return bTimeSec - aTimeSec;
+      });
+      console.log(processedPosts);
+    } else {
+      processedPosts = processedPosts.sort(function(a, b) {
+        var aTime = new Date(a.date);
+        var bTime = new Date(b.date);
+        var aTimeSec = aTime.getTime();
+        var bTimeSec = aTime.getTime();
+        return aTimeSec - bTimeSec;
+      });
+      console.log(processedPosts);
+    }
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: processedPosts
   });
 });
 
@@ -96,7 +119,27 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  if(! req.cookies.username) {
+    res.status(401).send('You must be logged in to post!');
+  } else if ((!req.body.title) && (!req.body.body) && (!req.body.date)) { //if any are missing
+    res.status(400).send('Incomplete post form was submitted!')
+  } else {
+    var newPost = {
+      title: req.body.title,
+      body: req.body.body,
+      author: req.cookies.username,
+      date: req.body.date
+    };
+    var toSave = data.read();
+    toSave.push(newPost);
+    data.save(toSave);
+    res.render('posts', {
+      // Pass `username` to the template from req.cookies.username
+      // Pass `posts` to the template from data.read()
+      username: req.cookies.username,
+      posts: data.read()
+    });
+  }
 });
 
 // Start the express server

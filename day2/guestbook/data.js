@@ -8,8 +8,7 @@ var file = 'data.json';
 module.exports = {
   read: function() {
     if (!fs.existsSync(file)) {
-      return [
-      {
+      return [{
         title: 'Eggs',
         body: 'Somebody has been eating my eggs! I have to label them.',
         author: 'Darwish',
@@ -20,8 +19,7 @@ module.exports = {
         body: 'This is the first post in the guest book',
         author: 'Moose',
         date: '1/20/2016',
-      }
-      ];
+      }];
     }
     return jsonfile.readFileSync(file);
   },
