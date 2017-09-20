@@ -156,10 +156,10 @@ var downloadFromTrello = function(boardId) {
         }
         returnArray.push(newListObj);
       }
-      console.log(returnArray);
-      stringify(returnArray, function(err, output){
-        console.log(output);
-        fs.writeFileSync('board.csv', output);
+      console.log(Object.keys(returnArray[0]).join(','));
+      stringify(returnArray,function(err, output){
+        console.log(Object.keys(returnArray[0]).join(',') + '\n' +output);
+        fs.writeFileSync('board.csv', Object.keys(returnArray[0]).join(',') + '\n' +output);
       })
     })
   })
