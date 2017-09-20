@@ -6,23 +6,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Language" content="en">
-
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+  <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css'>
   <link rel="stylesheet" href="/css/style.css"></link>
   <link rel="stylesheet" href="/js/script.js"></link>
 </head>
 <body>
-<h1>View all posts</h1>
-
-<h2>Your username: {{username}}</h2>
+<div class="header"><h1>Posts for {{username}}</h1></div>
 
 <!-- Part 2: Display posts -->
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+<!-- Iterate over all the posts using  to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
 <!-- YOUR CODE HERE -->
+<div class="post-container">
+  {{#each posts}}
+    <div class='post'>
+      <div class='post-header-container'>
+        <h3 class='post-title'>{{title}}</h3> <p class="post-author"> -- {{author}}</p>
+      </div>
+      <div class='post-date-container'>
+        <p class="post-date">{{date}}</p>
+      </div>
+      <div class='post-body-container'>
+        <p class='post-body'>{{body}}</p>
+      </div>
+    </div>
+  {{/each}}
+</div>
+<div class="footer">
+  <form action="/posts" method='get' class="sortPosts">
+    <div class='date-options'>
+      <label>Sort By Date:</label>
+      <div><input type="radio" name='order' value="ascending"><label>Ascending</label></div>
+      <div><input type="radio" name='order' value="descending"><label>Descending</label></div>
+    </div>
+    <div class = 'author-options'>
+      <input type='text' name='author' value='{{author}}'>
+      <input type="submit" name = "hideAuthor" value="No Author">
+    </div>
+    <div class = 'button-container>'>
+      <input type="submit" name = "submit" value="Submit">
+    </div>
+  </form>
+</div>
+
 
 </body>
 </html>

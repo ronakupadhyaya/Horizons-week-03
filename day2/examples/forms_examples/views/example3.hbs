@@ -1,5 +1,18 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form action="/login" method="post">
+  <input type='text' name="email">
+  <input type='password' name="password">
+  <input type='submit' value="Submit">
 </form>
-
-
+  {{#if loggedIn}}
+    <h2> Hi {{first_name}}!</h2>
+  {{else}}
+    {{#if firstTimeLoggingIn}}
+    {{else}}
+      <h2 class='error'> Error: invalid email/password combination</h2>
+    {{/if}}
+  {{/if}}
+<style>
+  .error{
+    color:red;
+  }
+</style>

@@ -1,3 +1,18 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <span>
+    <input type="text" name="username" value="{{username}}">
+    <input type="text" name="password" value="{{password}}">
+    <input type="text" name="name" value="{{name}}">
+    <input type="radio" name="gender" id="male" value="male" {{#if isMale}}checked{{/if}}>
+    <label for="male">Male</label>
+    <input type="radio" name="gender" id="female" value="female" {{#if isFemale}}checked{{/if}}>
+    <label for="female">Female</label>
+    <input type="radio" name="gender" id="other" value="other" {{#if isOther}}checked{{/if}}>
+    <label for="other">Other</label>
+    <select name="state">
+      <option value="colorado" {{#if isColorado}}selected{{/if}}>Colorado</option>
+      <option value="nevada" {{#if isNevada}}selected{{/if}}>Nevada</option>
+    </select>
+    <input type="submit" name="" value="Submit">
+</span>
 </form>
