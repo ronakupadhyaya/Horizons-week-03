@@ -1,18 +1,42 @@
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
+var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var app = express();
+var data = JSON.parse(fs.readFileSync('./accounts.json', 'utf8'));
 
 // view engine setup
-app.engine('hbs', exphbs({extname:'hbs'}));
+app.engine('hbs', exphbs({
+  extname: 'hbs'
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser({
+  extended: true
+}));
 
 app.get('/', function(req, res) {
   res.render('example3');
 });
+
+app.post('/login', function(req, res) {
+  var email = req.body.email;
+  var pass = req.body.password;
+  // console.log(email, pass, data);
+  var name;
+  data.forEach(function(account) {
+    if (account.email === email && account.password === pass) {
+      name = account.first_name;
+    }
+  })
+  res.render('example3', {
+    user: name,
+    invalid: name === undefined
+  })
+})
 
 // start the express app
 var port = process.env.PORT || 3000;

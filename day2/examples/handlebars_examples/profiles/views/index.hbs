@@ -1,3 +1,7 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <span>
+    {{#each students}}
+      <li>{{first_name}} {{last_name}} {{email}}</li>
+    {{/each}}
+  </span>
 </div>

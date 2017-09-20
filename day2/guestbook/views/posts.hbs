@@ -23,6 +23,16 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+<a href="/posts?order=ascending">Ascending</a>
+<a href="/posts?order=descending">Descending</a>
+{{#if filter}}
+<a href="/posts">View posts by all authors again</a>
+{{/if}}
+{{#each posts}}
+<div>
+  {{author}} {{title}} {{body}} {{date}}
+  <a href="posts?author={{author}}">View only posts by this author</a>
+</div>
+{{/each}}
 </body>
 </html>

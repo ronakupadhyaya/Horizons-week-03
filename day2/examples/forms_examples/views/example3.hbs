@@ -1,5 +1,9 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method="post" action="/login">
+  <span>
+    <input type="text" name="email" value="">
+    <input type="password" name="password" value="">
+    <input type="submit" name="" value="Submit">
+  </span>
+  {{#if user}}<h1>Hi {{user}}!</h1>{{/if}}
+  {{#if invalid}}<h1 style="color: red">Error: incorrect credentials</h1>{{/if}}
 </form>
-
-
