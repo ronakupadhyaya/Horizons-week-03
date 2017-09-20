@@ -1,12 +1,12 @@
-// Require express and create an express app
+// Require express and create an express app (Part 2.1)
 
-// Require mongoose
+// Require mongoose (Part 2.2)
 
-// Require and setup body-parser
+// Require and setup body-parser (Part 4.1)
 
-// Require the Player model
+// Require the Player model (Part 2.3)
 
-// Require the Roster model
+// Require the Roster model (Part 5.2)
 
 
 
@@ -23,15 +23,21 @@ mongoose.connection.on('error', function(err) {
   console.log('Error connecting to MongoDb: ' + err);
   process.exit(1);
 });
-// Establish mongoose connection to the mongoDB on mlab
+// Establish mongoose connection to the mongoDB on mlab (Part 2.2)
 
 
 /* =====================================
         WRITE ROUTES DOWN HERE
    ===================================== */
 
+// (Part 3.1)
+
+// (Part 4.2)
+
+// (Part 5.3)
+
+// (BONUS)
 
 
 
-
-// Begin listening on port 3000
+// Begin listening on port 3000 (Part 2.1)

@@ -37,18 +37,18 @@ We want to do everything we need to in this step such that in the next one we'll
 
 1. First we will need express to write a server. You should install express as a dependency in your project with `npm install --save express`. Then you should get an express app started in our code (the comments in the snippets are already in `index.js` where these are meant to go):
 
-  ```javascript
-  // Require express and create an express app
-  var express = require('express');
-  var app = express();
-  ```
+    ```javascript
+    // Require express and create an express app
+    var express = require('express');
+    var app = express();
+    ```
 
-  ```javascript
-  // Begin listening on port 3000
-  app.listen(3000, function(){
-    console.log('Listening on port 3000');
-  });
-  ```
+    ```javascript
+    // Begin listening on port 3000
+    app.listen(3000, function(){
+      console.log('Listening on port 3000');
+    });
+    ```
 
 1. Secondly, we will need mongoose to read from the mongo database. Install mongoose with `npm install --save mongoose` and connect to your database on mlab with:
 
@@ -81,8 +81,8 @@ Now we will write an express route which, when hit, will pull info from the Play
 
     <details>
       <summary>Express Hint</summary>
-
        ```javascript
+
        app.get('/', function() {
          // Put some stuff in here
          // Respond using res.json after getting the data
@@ -94,8 +94,8 @@ Now we will write an express route which, when hit, will pull info from the Play
 
     <details>
       <summary>Mongoose Hint</summary>
-
        ```javascript
+
        Player.find({/*query parameter*/}, function(error, results){
         // In this case, you have no query parameter, you want ALL players,
         // so you can leave the curlies empty.
@@ -128,6 +128,7 @@ We would like to be able to send new players to the server and get them added in
     <details>
       <summary>Express Hint</summary>
        ```javascript
+
        app.post('/addPlayer', function() {
          // Put some stuff in here
          // req.body will be involved somewhere
@@ -138,6 +139,7 @@ We would like to be able to send new players to the server and get them added in
     <details>
       <summary>Mongoose Hint</summary>
        ```javascript
+
        var newPlayer = new Player({
          // set player details inside this object
          // Name: "Tiger Woods", etc.
@@ -174,7 +176,7 @@ In this part we will be making another collection/model representing a player's 
       *	Required
       *	Type string
 
-  Notice that Name appears in both the Player and Roster models. This is the linking field that lets you know which Players and Rosters correspond to one another. Often this is better done using the unique id that mongoDB gives all its entries, but for today this should be fine.
+    Notice that Name appears in both the Player and Roster models. This is the linking field that lets you know which Players and Rosters correspond to one another. Often this is better done using the unique id that mongoDB gives all its entries, but for today this should be fine.
 
 1. Use `require` to get the Roster model you just made into your main server file, `index.js`.
 
@@ -202,6 +204,6 @@ Your response should be a JSON that looks something like:
 
 You should be able to use either Postman or your browser to test this route out. You will most likely need to go to mlab to copy paste one of the Roster's ids. You should test this with players who have entries in both the Player and Roster collections, but it would also be ideal if the server didn't crash if you happen to supply the id of a Roster which has no corresponding player.
 
-## BONUS: DELETE /:rosterid  --> Roster and Player removed from DB
+## BONUS: DELETE /:rosterid  --> Roster & Player removed from DB
 
 Write a route that behaves a lot like the last one you wrote, but in place of responding with the information found it should remove both the Roster and the corresponding Player from their respective collections. This route should respond to DELETE requests to `/:rosterid` with an indication of success or failure.
