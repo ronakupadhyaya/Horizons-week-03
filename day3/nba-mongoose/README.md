@@ -81,22 +81,22 @@ Now we will write an express route which, when hit, will pull info from the Play
 
     <details>
       <summary>Express Hint</summary>
-       ```javascript
 
-       app.get('/', function() {
-         // Put some stuff in here
-         // Respond using res.json after getting the data
-         // Remember: when it comes to async callbacks,
-         // 'after' might mean 'inside' as opposed to 'below'
-       });
-       ```
+      ```javascript
+      app.get('/', function() {
+        // Put some stuff in here
+        // Respond using res.json after getting the data
+        // Remember: when it comes to async callbacks,
+        // 'after' might mean 'inside' as opposed to 'below'
+      });
+      ```
     </details>
 
     <details>
       <summary>Mongoose Hint</summary>
-       ```javascript
 
-       Player.find({/*query parameter*/}, function(error, results){
+      ```javascript
+      Player.find({/*query parameter*/}, function(error, results){
         // In this case, you have no query parameter, you want ALL players,
         // so you can leave the curlies empty.
         // If you were looking for an NBA player with a certain Name
@@ -105,7 +105,7 @@ Now we will write an express route which, when hit, will pull info from the Play
         // Check for error / do whatever with results
         // What did you want to do with the results? Do it here!
       });
-       ```
+      ```
     </details>
 
 When this is completed correctly, you should be able to tell by making a GET request to `localhost:3000` while the server is running. Run the server with `npm start` and make a GET request, either using your browser's url bar or PostMan. What you get back should look like the 5 players in your database, formatted much like they are in `/model/source/playerStats.json`.
@@ -127,31 +127,31 @@ We would like to be able to send new players to the server and get them added in
 
     <details>
       <summary>Express Hint</summary>
-       ```javascript
 
-       app.post('/addPlayer', function() {
-         // Put some stuff in here
-         // req.body will be involved somewhere
-       });
-       ```
+      ```javascript
+      app.post('/addPlayer', function() {
+        // Put some stuff in here
+        // req.body will be involved somewhere
+      });
+      ```
     </details>
 
     <details>
       <summary>Mongoose Hint</summary>
-       ```javascript
 
-       var newPlayer = new Player({
-         // set player details inside this object
-         // Name: "Tiger Woods", etc.
-       });
-       newPlayer.save({/*query parameter*/}, function(error, results){
+      ```javascript
+      var newPlayer = new Player({
+        // set player details inside this object
+        // Name: "Tiger Woods", etc.
+      });
+      newPlayer.save({/*query parameter*/}, function(error, results){
         // In this case, you have no query parameter, you want ALL players
         // So you can leave the curlies empty
 
         // Check for error / do whatever with results
         // What did you want to do with the results? Do it here!
       });
-       ```
+      ```
     </details>
 
     Note: The act of finding Players does not require that you have any particular player already, so in `Player.find()` `.find()` is called directly on the model. Whereas saving a Player requires that you have some player to save, so in `myPlayer.save()` `.save()` is called on some particular instance of the Player model. As such, `.find()` is considered a mongoose `static` while `.save()` is considered a mongoose `method`.
