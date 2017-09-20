@@ -17,12 +17,18 @@
 
 <!-- Part 2: Display posts -->
 
-<!-- Iterate over all the posts using {{#each posts}} {{/each}} to
+<!-- Iterate over all the posts using
+{{#each posts}}
+
+ {{/each}} to
   display them on the page.
   Put each post inside a div. Be sure to display the author, title, body and date of each post.
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+<div> {{this.author}} <br> {{this.title}} <br> {{this.date}} <br><br> </div>
+{{/each}}
 
 </body>
 </html>

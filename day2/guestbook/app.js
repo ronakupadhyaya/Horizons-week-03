@@ -41,7 +41,14 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login')
 });
+
+
+app.get('/posts', function(req, res) {
+  //console.log(posts.author)
+  res.render('posts',{posts:data.read()})
+})
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
 // (the user's browser) and redirects to posts.
