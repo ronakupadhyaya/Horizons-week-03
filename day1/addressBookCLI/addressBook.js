@@ -74,9 +74,9 @@ function displayContacts(){
   var output = columnify(data, {
     dataTransform: function(contactData){
       if(contactData === ''){
-        return -1;
+        return '-None-';
       }
-      return contactData.toUpperCase();
+      return contactData;
     },
     config:{
       name: {
@@ -126,7 +126,6 @@ function addContact() {
     data.push({'name': argv[1],'number':argv[2]});
   }
 
-  fs.writeFileSync('./data.json',data);
   console.log('Added Contact ' + argv[1] +', and number: '+argv[2]);
 
 }
@@ -171,8 +170,6 @@ function updateContact(){
     console.log("Updated name for " + argv[1]);
   }
 
-  fs.writeFileSync('./data.json',data);
-
 }
 
 
@@ -191,7 +188,6 @@ function deleteContact(){
     console.log('No contact found');
   }else{
     data = newData;
-    fs.writeFileSync('./data.json',data);
     console.log("Deleted contact info of " + argv[1]);
   }
 
