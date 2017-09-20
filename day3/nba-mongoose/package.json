@@ -1,0 +1,15 @@
+{
+  "name": "wk3d1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "mongoose": "^4.11.9",
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
