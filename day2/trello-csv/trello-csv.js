@@ -1,7 +1,7 @@
 "use strict";
 
-var TRELLO_KEY = 'YOUR TRELLO KEY HERE';
-var TRELLO_TOKEN = 'YOUR TRELLO KEY HERE';
+var TRELLO_KEY = '84d07f033ecdf755070207b1b27520c2';
+var TRELLO_TOKEN = '0897b8c5ba30a3930ee7424f78bd3730c9c4f68c1c22b7319b086315f24cf3ea';
 
 var fs = require('fs');
 var csv = require('csv');
@@ -16,6 +16,8 @@ var program = require('commander');
 // Use commander to parse the --upload -u, --download -d flags
 // ex. program.option('-u, --upload', 'Upload CSV'); -> program.upload = true
 
+program.option('-u, --upload', 'Upload CSV');
+program.option('-d, --download', 'Download CSV');
 program.parse(process.argv);
 
 // Remaining arguments after flags are stored in program.args
@@ -23,8 +25,8 @@ program.parse(process.argv);
 // - The second argument should be the csv file
 // ex. var boardId = program.args[0];
 // YOUR CODE HERE
-var boardId;
-var csvFilename;
+var boardId = program.args[0];
+var csvFilename = program.args[1];
 
 // 2. upload functionality - read csv and upload to Trello.
 // Here's some example code for reading CSV files.
