@@ -1,6 +1,6 @@
 "use strict";
 
-if (! process.env.MONGODB_URI) {
+if (!process.env.MONGODB_URI) {
   console.error('MONGODB_URI missing, make sure you run "source env.sh"');
   process.exit(1);
 }
@@ -9,9 +9,46 @@ if (! process.env.MONGODB_URI) {
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
-
-Cat.find(function(error, cats) {
+var Cat = mongoose.model('Cat', {
+  name: String,
+  furcolor: String
+})
+var crookshanks = new Cat({
+  name: "Crookshanks",
+  furcolor: "Black"
+})
+var biggles = new Cat({
+  name: "Mr. Bigglesworth",
+  furcolor: "White"
+})
+var empurress = new Cat({
+  name: "Empurress",
+  furcolor: "Calico"
+})
+crookshanks.save(function(err) {
+  if (err) {
+    console.log('Failed', err);
+  } else {
+    console.log('Saved!');
+  }
+});
+biggles.save(function(err) {
+  if (err) {
+    console.log('Failed', err);
+  } else {
+    console.log('Saved!');
+  }
+});
+empurress.save(function(err) {
+  if (err) {
+    console.log('Failed', err);
+  } else {
+    console.log('Saved!');
+  }
+});
+Cat.find({
+  name: "Mr. Bigglesworth"
+}, function(error, cats) {
   if (error) {
     console.log("Can't find cats", error);
   } else {
