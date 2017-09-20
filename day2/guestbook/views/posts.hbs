@@ -14,7 +14,12 @@
 <h1>View all posts</h1>
 
 <h2>Your username: {{username}}</h2>
-
+<form action="/posts">
+  <input type="radio" name="order" value="ascending"> ascending<br>
+  <input type="radio" name="order" value="descending"> descending<br>
+  Filter by author <input type = "text" name = "filterAuthor" value = {{filterAuthor}}>
+  <input type = "submit" name = "submit info">
+</form>
 <!-- Part 2: Display posts -->
 
 <!-- Iterate over all the posts using {{#each posts}} {{/each}} to
@@ -23,6 +28,10 @@
 -->
 
 <!-- YOUR CODE HERE -->
+{{#each posts}}
+<p>{{this.author}}  {{this.date}}</p>
+  <p>{{this.title}} {{this.body}} </p>
 
+{{/each}}
 </body>
 </html>

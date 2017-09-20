@@ -12,6 +12,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 // YOUR CODE HERE
+app.get('/', function(req, res) {
+  res.render('example1', {text: req.query.text});
+});
 
 // start the express app
 var port = process.env.PORT || 3000;

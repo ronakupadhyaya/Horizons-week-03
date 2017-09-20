@@ -5,6 +5,12 @@
     <title>Page title new </title>
   </head>
   <body>
-    <h1>Hello<em>{{greetingName}}</em></h1>
+    <h1>Hello<em>
+      {{#if greetingName}}
+      {{ greetingName}}
+      {{else}}
+      mysterious stranger
+      {{/if}}
+    </em></h1>
   </body>
   </html>

@@ -1,3 +1,16 @@
+
+
 <form>
   <!-- YOUR CODE HERE -->
+{{#if text}}
+<h1>{{text}}</h1>
+{{else}}
+<h1>Default Header</h1>
+{{/if}}
+
+<input type = "text" name = "text" value = "{{text}}" >
+<input type = "submit" value = "change header" >
+
+
+
 </form>
