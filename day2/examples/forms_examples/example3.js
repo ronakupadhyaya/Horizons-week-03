@@ -14,6 +14,10 @@ app.get('/', function(req, res) {
   res.render('example3');
 });
 
+app.put('login', function(req, res){
+  res.send("hi)");
+});
+
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);

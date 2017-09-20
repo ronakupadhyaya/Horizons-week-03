@@ -23,4 +23,15 @@ app.get('/male', function(req, res){
   res.render('index', {data: male});
 });
 
+app.get('/female', function(req, res){
+  var female = []
+  for(var i = 0; i < data.length; i++){
+    if(data[i]['gender'] === 'Female'){
+      female.push(data[i].first_name);
+      //console.log(data[i].first_name);
+    }
+  }
+  res.render('index', {data: female});
+});
+
 app.listen(3000);
