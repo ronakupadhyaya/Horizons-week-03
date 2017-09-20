@@ -3,7 +3,7 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
-
+var columnify = require('columnify');
 
 var JSON_FILE = 'data.json'
 // If data.json file doesn't exist, create an empty one
@@ -33,8 +33,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 * $ node addressBook.js                ----> ''
 */
 function parseCommand() {
-  // YOUR CODE HERE
-
+  if (argv[0]) {
+    return argv[0];
+  } else {
+    return "";
+  }
 }
 
 //store the command and execute its corresponding function
@@ -67,11 +70,28 @@ switch(input){
 * Do not return anything, console.log() the contacts
 *
 */
-function displayContacts(){
-    //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
+function displayContacts() {
+  var output = columnify(data, {
+    dataTransform: function(contactData) {
+      if (parseInt(contactData) === -1) {
+        return '-None-'
+      }
+      return contactData;
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return 'CONTACT_NAME'
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          return 'PHONE_NUMBER'
+        }
+      }
+    }
+  });
+  console.log(output);
 }
 
 
@@ -82,14 +102,45 @@ function displayContacts(){
 * This is a function that is called to create a new contact.
 * Calling `node add contactName contactNumber ` must call our function addContact.
 * it should get the name and number of the Contact from process.argv
-* You should only create a new contact if a name is provided that doesnt already exist inside your address book (no duplicate contacts)
+* You should only create a new contact if a name is provided that doesn't already exist inside your address book (no duplicate contacts)
 * and if the name consists of only letters and the number consists of only numbers
 * name: string, number: number
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  var args = process.argv.slice(1, process.argv.length);
+  if (args) {
+    var name = args[0]
+    var number = args[1] || "-1";
+    if (name && isValidName(name) && !isNaN(number)) {
+      var exists = data.find(function(contact) {
+        return contact.name === name;
+      });
+      if (exists) {
+        console.log('Contact already exists');
+      } else {
+        data.push({
+          name: name,
+          number: parseInt(number)
+        });
+        console.log("Added contact  "+ name +", and number: " + number);
+      }
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
+}
 
+function isValidName(name) {
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s', 't', 'u', 'v', 'w', 'x', 'y', 'z']);
+  var lowerCaseName = name.toLowerCase();
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i];
+    if(!alphabetSet.has(letter)){
+      return false;
+    }
+  }
+  return true;
 }
 
 
@@ -103,14 +154,42 @@ function addContact() {
 * You should only update a contact if it exists inside your address book and the new name or number is valid
 *
 */
-function updateContact(){
-// YOUR CODE HERE
+function updateContact() {
+  var name = argv[1];
+  var updateField = argv[2];
+  if (name && updateField) {
+    var found = data.find(function(contact) {
+      return contact.name === name;
+    })
+    if (!found) {
+      console.log('No contact found');
+    } else if (isValidName(updateField)) {
+      console.log('Updated name for', name);
+      found.name = updateField;
+    } else if (!isNaN(updateField)) {
+      found.number = parseInt(updateField);
+      console.log('Updated number for', name);
+    } else {
+      console.log('Invalid contact format');
+    }
+  }
 }
 
 
 //BONUS Implement deleteContact
-function deleteContact(){
-    //YOUR CODE HERE
+function deleteContact() {
+  var name = argv[1];
+  if (name) {
+    var modifiedData = data.filter(function(contact) {
+      return contact.name !== name;
+    })
+    if (modifiedData.length + 1 === data.length) {
+      data = modifiedData;
+      console.log('Removed', name);
+    } else {
+      console.log('No contact found');
+    }
+  }
 }
 
 

@@ -15,7 +15,9 @@ app.engine('.hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(bodyParser.json());
 
 // Make files in the folder `public` accessible via Express
@@ -40,7 +42,9 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
-  // YOUR CODE HERE
+  res.render('login', {
+    login: req.query.text
+  });
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -60,10 +64,26 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var readingData = data.read();
+  if (req.query.username){
+    readingData = readingData.filter(function(post){
+      return post.author===req.query.username
+    });
+  }
+  if (req.query.order === 'ascending'){
+    readingData.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date);
+    })
+  } else {
+    readingData.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    username: req.cookies.username,
+    posts: readingData
   });
 });
 
@@ -77,7 +97,10 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
-  // YOUR CODE HERE
+  var error = (req.cookies.username ? false : true);
+  res.render('post_form', {
+    error: error
+  })
 });
 
 // POST /posts:
@@ -96,7 +119,19 @@ app.get('/posts/new', function(req, res) {
 // Read all posts with data.read(), .push() the new post to the array and
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
-  // YOUR CODE HERE
+  var error = (req.cookies.username ? false : true) && (req.body.title && req.body.body && req.body.date ? true : false);
+  var readData = data.read();
+  readData.push({
+    error: error,
+    title: req.body.title,
+    body: req.body.body,
+    date: req.body.date
+  });
+  data.save(readData);
+  res.render('posts', {
+    posts: readData,
+    username: req.cookies.username
+  })
 });
 
 // Start the express server

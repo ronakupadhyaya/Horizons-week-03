@@ -59,9 +59,13 @@ app.get('/posts', function (req, res) {
     });
   }
   if (req.query.order==='ascending'){
-    displayposts.sort(function(a,b) { return new Date(a.date) - new Date(b.date); })
+    displayposts.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date);
+    })
   } else {
-    displayposts.sort(function(a,b) { return new Date(b.date) - new Date(a.date); })
+    displayposts.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
   }
   res.render('posts', {
     title: 'Posts',

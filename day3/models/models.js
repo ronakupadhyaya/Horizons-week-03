@@ -5,11 +5,43 @@ if (! process.env.MONGODB_URI) {
   process.exit(1);
 }
 
-// First let's set up our MongoDb connection
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI);
 
-var Cat; // YOUR CODE HERE - define the cat model
+var Cat = mongoose.model('Cat', {
+  name: {
+    type: String,
+    required: true
+  },
+  furColor: String
+});
+
+var cat1 = new Cat({
+  name: 'Crookshanks',
+  furColor: 'Black'
+});
+
+cat1.save(function(err) {
+  if (err) return handleError(err);
+});
+
+var cat2 = new Cat({
+  name: 'Mr. Bigglesworth',
+  furColor: 'White'
+});
+
+cat2.save(function(err) {
+  if (err) return handleError(err);
+});
+
+var cat3 = new Cat({
+  name: 'Empuress',
+  furColor: 'Calico'
+});
+
+cat3.save(function(err) {
+  if (err) return handleError(err);
+});
 
 Cat.find(function(error, cats) {
   if (error) {
