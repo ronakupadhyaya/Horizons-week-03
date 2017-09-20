@@ -1,10 +1,14 @@
 // Require express and create an express app (Part 2.1)
+var express = require('express');
+var app = express();
 
 // Require mongoose (Part 2.2)
+var mongoose = require('mongoose');
 
 // Require and setup body-parser (Part 4.1)
 
 // Require the Player model (Part 2.3)
+var Player = require('./model/player');
 
 // Require the Roster model (Part 5.2)
 
@@ -24,6 +28,7 @@ mongoose.connection.on('error', function(err) {
   process.exit(1);
 });
 // Establish mongoose connection to the mongoDB on mlab (Part 2.2)
+mongoose.connect(process.env.MONGODB_URI);
 
 
 /* =====================================
@@ -41,3 +46,6 @@ mongoose.connection.on('error', function(err) {
 
 
 // Begin listening on port 3000 (Part 2.1)
+app.listen(3000, function() {
+  console.log("Listening on port 3000")
+});
