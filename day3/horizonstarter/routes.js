@@ -23,9 +23,24 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
-  Project.find(function(err, projectArray){
-    res.render('index', {projects: projectArray})
-  })
+  var sort = req.query.sort;
+  var sortDirection = req.query.sortDirection;
+  if(sort){
+    var sortObject = {};
+    sortObject[sort] = 1;
+    if(sortDirection === 'descending'){
+      sortObject[sort] = -1;
+    }
+
+    Project.find().sort(sortObject).exec(function(err,projectArray){
+      res.render('index', {projects: projectArray})
+    })
+  } else{
+    Project.find(function(err, projectArray){
+      res.render('index', {projects: projectArray})
+    })
+  }
+
 });
 
 // Part 2: Create project
@@ -71,7 +86,6 @@ router.get('/project/:projectid', function(req, res) {
 // Implement the GET /project/:projectid endpoint
 router.post('/project/:projectid', function(req, res) {
   var projectId = req.params.projectid;
-  console.log("REQ body", req.body);
   Project.findById(projectId, function(err, project){
     if(err){
       console.log("Err", err);
@@ -89,6 +103,27 @@ router.post('/project/:projectid', function(req, res) {
 });
 
 // Part 6: Edit project
+router.get('/project/:projectid/edit', function(req, res){
+  var projectId = req.params.projectid;
+  Project.findById(projectId).lean().exec(function(err, project){
+    if(err){
+      console.log("Err", err);
+    } else{
+
+      project.start = project.start.toISOString().split('T')[0];
+      project.end = project.end.toISOString().split('T')[0];
+      console.log("project", project);
+      res.render('editProject', {project: project});
+    }
+  })
+})
+router.post('/project/:projectid/edit', function(req, res){
+  var projectId = req.params.projectid;
+  console.log("REQ", req.body);
+  Project.findByIdAndUpdate(projectId, req.body,function(err, project){
+    res.redirect('/project/' + projectId);
+  })
+})
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 

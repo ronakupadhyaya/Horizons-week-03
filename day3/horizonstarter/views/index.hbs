@@ -1,8 +1,20 @@
 <h1>View projects</h1>
 
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Sorting
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="/?sort=start">Start</a></li>
+    <li><a href="/?sort=end">End</a></li>
+    <li><a href="/?sort=goal">Goal</a></li>
+    <li><a href="/?sort=start&sortDirection=descending">Start(descending)</a></li>
+    <li><a href="/?sort=end&sortDirection=descending">End(descending)</a></li>
+    <li><a href="/?sort=goal&sortDirection=descending">Goal(descending)</a></li>
+  </ul>
+</div>
 
 {{#each projects}}
-  <h3> {{this.title}} </h3>
+  <h3> <a href="/project/{{this._id}}">{{this.title}} </a></h3>
 
 {{/each}}
 

@@ -5,13 +5,13 @@
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
 <div class="container-fluid">
-  <h2>Create project</h2>
+  <h2>Update Project</h2>
 <div class="col-sm-6">
-<form class="form-horizontal" method="post" action="/new" id="newPostForm">
+<form class="form-horizontal" method="post" action="/project/{{project._id}}/edit" id="editPostForm">
   <div class="form-group">
   <label for="title">Title</label>
 
-  <input type="text" class="form-control" id="title" name="title" placeholder="Title" value={{project.title}}>
+  <input type="text" class="form-control" id="title" name="title" placeholder="Title" value="{{project.title}}">
   </div>
   <div class="form-group">
     <label for="goal">Goal</label>
@@ -44,7 +44,14 @@
       <option value="Potent Potables"> Potent Potables</option>
     </select>
   </div>
-  <button type="submit" form= "newPostForm" class="btn btn-primary"> Create </button>
+  <button type="submit" form= "editPostForm" class="btn btn-primary"> Update </button>
 </form>
 </div>
 </div>
+
+<script>
+
+  $(document).ready(function(){
+    $('#sel1').val("{{project.category}}");
+  })
+</script>
