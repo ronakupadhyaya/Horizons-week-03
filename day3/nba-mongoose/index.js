@@ -36,6 +36,15 @@ mongoose.connect(process.env.MONGODB_URI);
    ===================================== */
 
 // (Part 3.1)
+app.get('/', function(req, res) {
+  Player.find({}, function(error, results) {
+    if (error) {
+      console.log(error);
+    } else {
+      res.render(res.json(results));
+    }
+  })
+});
 
 // (Part 4.2)
 
