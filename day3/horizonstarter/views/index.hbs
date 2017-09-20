@@ -1,7 +1,9 @@
 <h1>View projects</h1>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+{{#each projects}}
+  <h3> {{this.title}} </h3>
+
+{{/each}}
+
+<a style="cursor: pointer;" href="/new"> Create new project</a>

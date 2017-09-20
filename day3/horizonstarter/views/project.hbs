@@ -1,9 +1,61 @@
-<h1>View Project</h1>
+
 
 <!-- Part 3: View a single project -->
+<div class="container-fluid">
+  <h1>View Project</h1>
 
-<!-- YOUR CODE HERE -->
+  <h3> ${{total}} raised so far! </h3>
+  <div class ="col-sm-6" style="padding-left: 0">
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+      <span class="sr-only">{{percentage}}% Complete</span>
+    </div>
+  </div>
+  </div>
+  <div class="col-sm-12">
+  <div class="form-group">
+    <label> Title </label>
+    <p> {{project.title}} </p>
+  </div>
 
-<!-- Part 4: Contribute to a project -->
+  <div class="form-group">
+    <label> Goal </label>
+    <p> ${{project.goal}} </p>
+  </div>
 
-<!-- YOUR CODE HERE -->
+  <div class="form-group">
+    <label>Description</label>
+    <p> {{project.description}} </p>
+  </div>
+
+  <div class="form-group">
+    <label> Start Date </label>
+    <p> {{project.start}} </p>
+  </div>
+
+  <div class="form-group">
+    <label> End Date </label>
+    <p> {{project.end}} </p>
+  </div>
+</div>
+  <form id="contributionForm" style="margin-top: 30px;" class="form-horizontal" method="post" action="/project/{{project.id}}">
+    <h3> Make a contribution to this project </h3>
+    <div class="form-group">
+      <label class="col-sm-1 control-label">Name</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1 control-label">Amount</label>
+      <div class="col-sm-6">
+        <input type="number" class="form-control" id="amount" name="amount" placeholder="50, 100">
+      </div>
+    </div>
+    <div style="margin-top: 5px" class="col-sm-6 col-sm-offset-1">
+      <button class="btn btn-info" type="submit" form= "contributionForm"> Contribute </button>
+    </div>
+
+  </form>
+</div>
