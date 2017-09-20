@@ -23,6 +23,16 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<div>
+  {{#each posts}}
+  <ul>
+    <li>Author: {{this.author}}</li>
+    <li>Title: {{this.title}}</li>
+    <li>Body: {{this.body}}</li>
+    <li>Date: {{this.date}}</li>
+  </ul>
+  {{/each}}
+</div>
 
 </body>
 </html>

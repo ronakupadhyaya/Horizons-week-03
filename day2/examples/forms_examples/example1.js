@@ -12,6 +12,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 // YOUR CODE HERE
+app.get('/', function(request, response) {
+  response.render('example1', {
+    formValue: request.query.input
+  })
+});
 
 // start the express app
 var port = process.env.PORT || 3000;
