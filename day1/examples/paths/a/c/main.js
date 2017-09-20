@@ -14,3 +14,18 @@
 //    *
 //   *
 //  *
+
+
+var one = require('../../b/one.js');
+one.first(); 
+one.second();
+var two = require('../two.js');
+two.twoFunc(); 
+var three = require('../../b/three.js');
+var four = require('./four.js');
+three.logger(four.horizons);
+
+
+
+
+

@@ -1,6 +1,7 @@
 "use strict";
 
 var fs = require('fs');
+const csv=require('csvtojson')
 var path = require('path');
 var csvjson = require('csvjson');
 
@@ -30,8 +31,19 @@ var csvjson = require('csvjson');
 //      valueToday: '300000' },
 //      ...
 //    ]
+
+var path = 'https://www.npmjs.com/package/csvjson'; 
+// fileReader('./investments1.csv');
+
 function fileReader(csvFilePath){
   // YOUR CODE HERE
+  var data = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8' }); 
+  var options = {
+  	delimiter : ',',
+  	quote: '"'
+  };
+  return csvjson.toObject(data, options); 
+  console.log(csvjson.toObject()); 
 }
 
 // Write a function that takes an array of investment objects and replaces
@@ -47,6 +59,11 @@ function fileReader(csvFilePath){
 //     valueToday: 1000000}] // Note conversion from string to number
 function parser(arr){
   // YOUR CODE HERE
+  return arr.map(function(investment){
+  	investment.originalInvestment = Number(investment.originalInvestment); 
+  	investment.valueToday = Number(investment.valueToday);
+  	return investment; 
+  })
 }
 
 module.exports = {

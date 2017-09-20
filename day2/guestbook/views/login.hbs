@@ -21,6 +21,11 @@
     This login form should contain a single `<input>` element of `type="text"`
     and `name="username"` and [a submit button](http://www.w3schools.com/html/html_forms.asp)
   -->
+  <form method="POST" action="/login">
+    <input type="text" name="username" value="{{username}}" placeholder="Username">
+    <input type="text" name="password" value="{{password}}" placeholder="Password">
+    <input id="submit" type="submit" name="" value="Submit">
+  </form>
 
   <!-- YOUR CODE HERE -->
 </body>

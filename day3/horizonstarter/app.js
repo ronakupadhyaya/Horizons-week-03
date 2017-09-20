@@ -7,6 +7,7 @@ var exphbs  = require('express-handlebars');
 var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var validator = require('express-validator');
 
 // Initialize Express
 var app = express();
@@ -38,6 +39,9 @@ app.use(logger('dev'));
 // Parse req.body contents
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Setup express-validator
+app.use(validator());
 
 // Read static files in /public
 app.use(express.static(path.join(__dirname, 'public')));

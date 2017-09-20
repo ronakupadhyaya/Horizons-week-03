@@ -3,6 +3,9 @@
 var fs = require('fs');
 var validator = require('validator')
 //require columnify here
+var columnify = require('columnify')
+// var columns = columnify(data, options)
+// console.log(columns)
 
 
 var JSON_FILE = 'data.json'
@@ -34,7 +37,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv === []) {
+    return ""; 
+  }
+  var command = argv[0]; 
+  return command; 
 }
 
 //store the command and execute its corresponding function
@@ -69,9 +76,27 @@ switch(input){
 */
 function displayContacts(){
     //YOUR CODE HERE
+    console.log(columnify(data, {
+      dataTransform: function(data) {
+          if (data === '-1') {
+            data = '-None-';
+          }
+          return data;
+      },
+      config: {
+          name: {
+              headingTransform: function(heading) {
+                return "CONTACT_NAME";
+              }
+          },
+          number: {
+              headingTransform: function(heading) {
+                return "PHONE_NUMBER";
+              }
+          }
+      },
 
-    // console.log(columnify(data)); //UNCOMMENT
-
+    }));
 }
 
 
@@ -89,6 +114,57 @@ function displayContacts(){
 */
 function addContact() {
 // YOUR CODE HERE
+
+  console.log('argv', argv);
+
+  // check if name is valid
+  var name = argv[1];
+
+  // check if name is letters only
+  for (var i=0; i<name.length; i++) { 
+    if (isNaN(name.charAt(i))) {
+      console.log('its a letter!');
+    } else {
+      console.log('Please enter a name with only letters.');
+      return; 
+    }
+  }
+
+  // check if name is already in object 
+  Object.keys(data).forEach(function (key) {
+    console.log(key, data[key]);
+    Object.keys(data[key]).forEach(function (i) {
+      console.log(i, data[key][i]);
+      if (data[key][i] === name) {
+        console.log('This name is taken.');
+        return; 
+      }
+    });
+  });
+
+  // add it to data object
+  data.push({ 
+    "name": name,
+    "number": '-1'
+  })
+  console.log("Added contact " + name + ".");
+
+
+  // check for number
+  if 
+
+
+  // if no number, make -1 the number
+
+  // when you add a new contact 
+  // console.log("Added contat [contact name].");
+
+  // if you don't add new contact
+  // console.log("Invalid contact format").
+
+
+  var number = argv[2]; 
+  console.log('name', name); 
 
 }
 

@@ -41,6 +41,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -64,6 +65,8 @@ app.get('/posts', function (req, res) {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    // console.log('cookies', req.cookies.username); 
+    // console.log('data.read', data.read());
   });
 });
 
@@ -102,3 +105,4 @@ app.post('/posts', function(req, res) {
 // Start the express server
 var port = '3000'
 app.listen(port);
+console.log('shake n bake')

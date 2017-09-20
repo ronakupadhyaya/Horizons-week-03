@@ -14,21 +14,13 @@ In this exercise, we'll set up our own database with sample data in it.
 
     ![](img/mlab-3-create.png)
 
-1. Select `Amazon Web Services` as the cloud provider and `Sandbox` as the plan type
+1. Select `Single-node` and `Sandbox`
 
     ![](img/mlab-4-create.png)
 
-1. Select `US East (Virginia)` as your AWS Region
+1. Type in `horizons` as the database name and click `Create new MongoDB deployment`
 
     ![](img/mlab-5-create.png)
-
-1. Pick a database name. This could be anything, your GitHub username is a good choice
-
-    ![](img/mlab-5b-create.png)
-
-1. Confirm your order
-
-    ![](img/mlab-5c-create.png)
 
 1. Wait for the green checkmark indicating the database is ready. Then click on the database to open it.
 
