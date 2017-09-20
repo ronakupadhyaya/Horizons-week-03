@@ -9,8 +9,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
-
+app.get('/', function(req, res){
+  res.render('index.hbs',{
+    alldata:data,
+  })
+})
 app.listen(3000);
-
-
-

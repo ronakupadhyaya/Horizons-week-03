@@ -31,7 +31,7 @@ var csvFilename;
 var uploadToTrello = function(boardId, csvFilename) {
   var csvData = fs.readFileSync(csvFilename).toString();
 
-  csv.parse(csvData, { columns: true}, function(err, data){
+  csv.parse(csvData, {columns: true}, function(err, data){
     console.log(data);
     // YOUR CODE HERE
   });

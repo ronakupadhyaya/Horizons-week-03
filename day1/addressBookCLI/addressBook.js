@@ -2,6 +2,7 @@
 // The node builtin filesystem library.
 var fs = require('fs');
 var validator = require('validator')
+var columnify = require('columnify')
 //require columnify here
 
 
@@ -34,7 +35,11 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
-
+  if (argv.length === 0){
+    return "";
+  }else{
+    return (argv[0]);
+  }
 }
 
 //store the command and execute its corresponding function
@@ -70,10 +75,28 @@ switch(input){
 function displayContacts(){
     //YOUR CODE HERE
 
-    // console.log(columnify(data)); //UNCOMMENT
-
+  var output = columnify(data, {
+    dataTransform: function(contactData){
+      if (parseInt(contactData) === -1){
+        return '-None-';
+      }
+      return contactData;
+    },
+    config: {
+      name:{
+        headingTransform: function(heading){
+          return "CONTACT_NAME";
+        }
+      },
+      number: {
+        headingTransform: function(heading){
+          return "PHONE_NUMBER";
+        }
+      }
+    }
+  })
+  console.log(output);
 }
-
 
 
 //----------------- PART 3 'add' command---------------------//
@@ -88,10 +111,37 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  // YOUR CODE HERE
+  var name = argv[1];
+  var number = argv[2];
 
+  console.log(argv);
+  if(!name || !/^[a-zA-Z]+$/.test(name) || (number && !/^[0-9]+$/.test(number))){
+    console.log("Invalid contact format");
+    return false;
+  }
+  var nameFound = false;
+  data.forEach(function(contact){
+    if(contact.name===name){
+      console.log(`${name} already in Address Book`);
+      nameFound = true;
+    }
+  });
+  if(nameFound){
+    return false;
+  }
+  var newContact = {};
+  newContact.name = name;
+  if(number){
+    newContact.number = Number(number);
+  }
+  else {
+    newContact.number = -1;
+  }
+  data.push(newContact);
+  console.log(`Added contact ${name}`);
+  return true;
 }
-
 
 //----------------- PART 4 'update' command---------------------//
 /**
@@ -104,13 +154,42 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var name = argv[1];
+  var name_number = argv[2];
+  var is_present = false;
+
+  for (var i = 0; i < data.length; i++){
+    if (data[i].name === name){
+      is_present = true;
+      if (isNaN(name_number)){
+        data[i].name = name_number;
+      }else{
+        data[i].number = Number(name_number);
+      }
+    }
+  }
+  if (!is_present){
+    console.log('No contact found')
+  }
+
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
     //YOUR CODE HERE
+    var name = argv[1];
+    var name_number = argv[2];
+    var is_present = false;
+
+    for (var i = 0; i < data.length; i++){
+      if (data[i].name === name){
+        is_present = true;
+        data.splice(i, 1);
+        break
+      }
+    }
+
 }
 
 

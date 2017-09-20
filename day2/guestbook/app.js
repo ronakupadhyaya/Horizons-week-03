@@ -41,6 +41,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -60,10 +61,34 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var order = req.query.order;
+  var new_posts = data.read();
+  if (order === "ascending"){
+    new_posts.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
+  }else{
+    new_posts.sort(function(a,b){
+      return new Date(a.date) - new Date(b.date);
+    });
+  }
+
+
+
   res.render('posts', {
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
+    username:req.cookies.username,
+    posts: new_posts,
+    author: req.query.author,
+    helpers:{
+      checkAuthor: function(post){
+        if (req.query.author)
+          return post.author === req.query.author;
+        else return true;
+      }
+    }
   });
 });
 
@@ -78,6 +103,7 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  res.render('post_form')
 });
 
 // POST /posts:
@@ -97,6 +123,18 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  var post = {};
+  post.author = req.cookies.username;
+  post.title = req.body.title;
+  post.body = req.body.body;
+  post.date = req.body.date;
+  var array = data.read();
+  array.push(post)
+  data.save(array)
+
+  res.render('posts', {
+    posts:data.read()
+  })
 });
 
 // Start the express server

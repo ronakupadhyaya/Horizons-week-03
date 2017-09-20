@@ -13,6 +13,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
   res.render('example2', {text: req.query.text});
 });
+app.get('/another', function(req, res) {
+  res.send(`<input type="text" name= "username" value="${req.query.username}">
+  <input type="submit" name= "" value="Click this please">`);
+});
 
 // start the express app
 var port = process.env.PORT || 3000;
