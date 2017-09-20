@@ -41,6 +41,9 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login.hbs', {
+
+  })
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -60,10 +63,29 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var order = req.query.order;
+  var author = req.query.author;
+  var posts = data.read();
+  if (order === 'ascending') {
+    posts.sort(function(a, b) {
+      return new Date(b.date) - new Date(a.date)
+    })
+  }
+  if (order === 'descending') {
+    posts.sort(function(a, b) {
+      return new Date(a.date) - new Date(b.date)
+    })
+  }
+  if (req.query.noAuthor) author = null;
+  if (author) {
+    posts = posts.filter(function(item, index) {
+      return item.author === author
+    })
+  }
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    posts: posts,
+    username: req.cookies.username,
+    author: author
   });
 });
 
@@ -78,6 +100,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  var loggedIn = false;
+  if (req.cookies.username) loggedIn = true;
+  res.render('post_form', {
+    loggedIn: loggedIn
+  })
 });
 
 // POST /posts:
@@ -97,7 +124,43 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if (!req.cookies.username) {
+    //error 401
+    res.render('post_form', {
+      error: 'Error code 401'
+    })
+  }
+  if (req.cookies.username && req.body.title && req.body.body && req.body.date) {
+    //good to go
+    var newPost = {
+      author: req.cookies.username,
+      title: req.body.title,
+      body: req.body.body,
+      date: req.body.date,
+    }
+    var posts = data.read();
+    posts.push(newPost)
+    data.save(posts)
+    res.render('posts', {
+      username: req.cookies.username,
+      loggedIn: true,
+      posts: data.read()
+    })
+  }
+  else {
+    //error 400
+    res.render('post_form', {
+      error: 'Error code 400'
+    })
+  }
 });
+
+// $('body').on('click', '.delete', function(event) {
+//   var $this = $(this);
+//   this.parent().parent().remove();
+// })
+
+
 
 // Start the express server
 var port = '3000'

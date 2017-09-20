@@ -23,6 +23,31 @@
 -->
 
 <!-- YOUR CODE HERE -->
+<form class="" action="/posts" method = 'get'>
+  <input type="radio" name="order" value="ascending">
+  <label for="ascending">Ascending</label>
+  <input type="radio" name="order" value="descending">
+  <label for="descending">Descending</label>
+  <input type="radio" name="order" value="none">
+  <label for="none">None</label>
+  <input type="text" name="author" value="" placeholder="author">
+  <input type="submit" name="" value="Enter">
+  <input type="submit" name="noAuthor" value="Clear">
+</form>
+
+  <ul>
+    {{#each posts}}
+      <li class = "{{title}}">
+        <div>{{title}}: by {{author}} on {{date}}. {{body}}</div>
+        <form class="" action="/post_form" method="get">
+          <input class = 'edit' type="button" name="" value="Edit">
+          <input class = 'delete' type="button" name="" value="Delete">
+          <input class = 'deleteall' type="button" name="" value="Delete All By Author">
+        </form>
+      </li>
+    {{/each}}
+  </ul>
 
 </body>
+
 </html>

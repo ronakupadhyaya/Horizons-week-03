@@ -1,5 +1,17 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form action = '/login' method = "post">
+  <span>
+    <input type="text" name="email" value="{{email}}">
+    <input type="password" name="password" value="{{password}}">
+    <input type="submit" name="" value="Submit">
+  </span>
+  {{#if loggedIn}}
+    <h2>HI {{fname}}!!!!!</h2>
+  {{else}}
+    <h2 class = 'error'>ERROR</h1>
+  {{/if}}
 </form>
-
-
+<style>
+  .error {
+    color:red
+  }
+</style>
