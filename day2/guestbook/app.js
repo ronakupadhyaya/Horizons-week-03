@@ -41,6 +41,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -61,6 +62,9 @@ app.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
   res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read(),
+    order: req.query.order
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
@@ -78,6 +82,11 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (!req.cookies.username){
+    res.status(401).send("Error, please log in");
+  } else {
+    res.render('post_form');
+  }
 });
 
 // POST /posts:
@@ -97,6 +106,20 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies.username && req.body.title && req.body.body && req.body.date){
+    var obj = {};
+    obj.author = req.cookies.username;
+    obj.title = req.body.title;
+    obj.body = req.body.body;
+    obj.date = req.body.date
+    newData = data.read();
+    newData.push(obj);
+    data.save(newData);
+  } else if (!req.cookies.username){
+    res.status(401).send("401 Error: Not logged in")
+  } else {
+    res.status(400).send("400 Error: Missing Info")
+  }
 });
 
 // Start the express server

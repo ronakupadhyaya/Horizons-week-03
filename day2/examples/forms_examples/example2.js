@@ -11,8 +11,32 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+  res.render('example2', {
+    usernameValue: req.query.username,
+    passwordValue: req.query.password,
+    nameValue: req.query.name,
+    gender: req.query.gender
+  });
 });
+
+app.get('/identical', function(req, res){
+  var maleChecked = ""; var femaleChecked = ""; var otherChecked = "";
+  if (req.query.gender === "male"){
+    maleChecked = "checked";
+  } else if (req.query.gender === "female"){
+    femaleChecked = "checked";
+  } else {
+    otherChecked = "checked";
+  }
+  res.render('example2', {
+    usernameValue : req.query.username,
+    passwordValue: req.query.password,
+    nameValue: req.query.name,
+    maleChecked: maleChecked,
+    femaleChecked: femaleChecked,
+    otherChecked: otherChecked
+  })
+})
 
 // start the express app
 var port = process.env.PORT || 3000;

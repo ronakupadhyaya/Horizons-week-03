@@ -1,3 +1,11 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form action="/identical" method="GET">
+  <span>
+      <input type="text" name="username" value={{usernameValue}}>
+      <input type="password" name="password" value={{passwordValue}}>
+      <input type="text" name="name" value={{nameValue}}>
+      <input type="radio" name="gender" value="male" {{maleChecked}}>Male<br>
+      <input type="radio" name="gender" value="female" {{femaleChecked}}>Female<br>
+      <input type="radio" name="gender" value="other" {{otherChecked}}>Other<br>
+      <input type="submit" name="" value="Register">
+  </span>
 </form>
