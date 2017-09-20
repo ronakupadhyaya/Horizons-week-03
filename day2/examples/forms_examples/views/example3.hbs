@@ -1,5 +1,12 @@
-<form>
-  <span>YOUR CODE HERE</span>
+<form method = "post" action ="/login">
+  <input type = 'text' name = 'emailBox' >
+  <input type = 'password' name = 'passwordBox' >
+  <input type = 'submit' name = 'submit'>
 </form>
 
 
+<h1>
+  {{#if valid}}
+   Welcome {{userName}}
+  {{/if}}
+</h1>

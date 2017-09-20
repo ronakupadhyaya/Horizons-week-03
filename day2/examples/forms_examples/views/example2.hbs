@@ -1,3 +1,21 @@
 <form>
-  <span>YOUR CODE HERE</span>
+  <div>
+    <input type='text' name='usernameBox' placeholder="Username" value={{usernameValue}}>
+  </div>
+  <div>
+    <input type='password' name='passwordBox' placeholder="password" value={{passwordValue}}>
+  </div>
+  <div>
+    <input type='text' name='nameBox' placeholder="Name" value={{nameValue}}>
+  </div>
+  <div>
+    <p> Male </p>
+    <input type='radio' name='gender' value='male' {{#if maleCheck}}checked{{/if}}>
+    <p> Female </p>
+    <input type='radio' name='gender' value='female' {{#if femaleCheck}}checked{{/if}}>
+    <p> Other </p>
+    <input type='radio' name='gender' value='other' {{#if otherCheck}}checked{{/if}}>
+  </div>
+  <input type='submit' name="" value="Register">
+
 </form>
