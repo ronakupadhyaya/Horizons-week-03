@@ -7,6 +7,7 @@ var app = express();
 // Enable cookie parsing
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
+var posts = jsonfile.readFileSync(file)
 
 // Set up handlebar templates
 var exphbs = require('express-handlebars');
@@ -41,6 +42,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login', {})
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -60,10 +62,24 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
+  var displayposts = posts;
+  if (req.query.username){
+    displayposts = displayposts.filter(function(post){
+      return post.author===req.query.username
+    });
+  }
+  if (req.query.order==='ascending'){
+    displayposts.sort(function(a,b) {
+      return new Date(a.date) - new Date(b.date);
+    })
+  } else {
+    displayposts.sort(function(a,b) {
+      return new Date(b.date) - new Date(a.date);
+    })
+  }
   res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
+    title: 'Posts',
+    posts: displayposts
   });
 });
 
@@ -78,6 +94,14 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  if (req.cookies && req.cookies.username){
+    res.render('post_form', { title: 'New Post'
+    })
+  }
+  else{
+    console.log("not logged")
+  }
+
 });
 
 // POST /posts:
@@ -97,7 +121,25 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
-});
+
+
+  // if (errors){
+  //   res.render('post_form', {
+  //     title: ,
+  //     error:"Title and body can't be blank"});
+  // }
+  // if (req.cookies && req.cookies.username && !errors){
+  var post = {
+    author: req.cookies.username,
+    date: req.body.date,
+    title: req.body.title,
+    text: req.body.text
+  }
+  posts.push(post);
+  jsonfile.writeFileSync(file, posts);
+  res.redirect('/posts')
+})
+// });
 
 // Start the express server
 var port = '3000'
