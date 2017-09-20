@@ -12,7 +12,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Part 1
 // YOUR CODE HERE
-
+app.get('/', function(req, res){
+  res.render('example1', {
+    type: req.query.firstTextBox || "good "
+  });
+})
 // start the express app
 var port = process.env.PORT || 3000;
 app.listen(port);

@@ -11,8 +11,33 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.render('example2', {text: req.query.text});
+	//console.log(req.query);
+  res.render('example2', {
+	  text: req.query.text,
+	//   name: req.query.name,
+	//   username: req.query.username,
+	//   password: req.query.password,
+	//   gender: req.query.gender,
+	//   state: req.query.state,
+	//   maleGender: req.query.maleGender,
+	//   femaleGender: req.query.femaleGender,
+	//   otherGender: req.query.otherGender
+  });
 });
+
+// app.post('/stay', function(req, res){
+// 	res.render('example2', {
+//   	  text: req.query.text,
+//   	  name: req.query.name,
+//   	  username: req.query.username,
+//   	  password: req.query.password,
+//   	  gender: req.query.gender,
+//   	  state: req.query.state,
+// 	  maleGender: req.query.maleGender,
+// 	  femaleGender: req.query.femaleGender,
+// 	  otherGender: req.query.otherGender
+//     });
+// });
 
 // start the express app
 var port = process.env.PORT || 3000;
