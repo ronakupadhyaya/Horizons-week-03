@@ -9,8 +9,34 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // YOUR CODE HERE
+app.get('/', function(req, res) {
+  res.render('index', {
+    person: data
+  })
+});
+
+
+app.get('/male', function(req, res) {
+  var newData = data.filter(function(person) {
+      return person.gender === 'Male'
+  });
+  res.render('index', {
+    person: newData
+  })
+});
+
+
+
+app.get('/female', function(req, res) {
+  var newData1 = data.filter(function(person) {
+      return person.gender === 'Female'
+  });
+  res.render('index', {
+    person: newData1
+  })
+});
+
+
+
 
 app.listen(3000);
-
-
-

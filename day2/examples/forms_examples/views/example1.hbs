@@ -1,3 +1,13 @@
+<h1>
+      {{#if formValue}}
+      {{formValue}}
+    {{else}}
+    Default Header
+      {{/if}}
+  </h1>
 <form>
   <!-- YOUR CODE HERE -->
+<input type="text" name="firstTextBox" value="{{formValue}}">
+<input type="submit" name="Name" value="Change Header">
+
 </form>

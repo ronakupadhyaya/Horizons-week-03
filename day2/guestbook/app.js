@@ -40,6 +40,10 @@ app.get('/', function(req, res) {
 //
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
+  res.render('login', {
+    username: req.body.username
+  });
+
   // YOUR CODE HERE
 });
 
@@ -61,6 +65,9 @@ app.post('/login', function(req, res) {
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
   res.render('posts', {
+    username: req.cookies.username,
+    posts: data.read()
+    
     // Pass `username` to the template from req.cookies.username
     // Pass `posts` to the template from data.read()
     // YOUR CODE HERE
@@ -77,6 +84,14 @@ app.get('/posts', function (req, res) {
 //
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
+  var error = null;
+  if(!req.cookies.username) {
+     error = 'DOPE'
+  }
+  res.render('post_form', {
+    error: error
+
+  })
   // YOUR CODE HERE
 });
 
@@ -97,7 +112,28 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  if(!req.cookies.username) {
+     res.status(401).send("NOPE")
+  }else if (!req.body.body || !req.body.title || !req.body.date) {
+     res.status(401).send("NOPE")
+  }else {
+  var data3 = data.read();
+  var newObj = {
+  title: req.body.title,
+  body: req.body.body,
+  author: req.cookies.username,
+  date: req.body.date
+}
+data3.push(newObj);
+data.save(data3);
+res.redirect('/posts');
+
+  }
+
+
+
 });
+
 
 // Start the express server
 var port = '3000'
