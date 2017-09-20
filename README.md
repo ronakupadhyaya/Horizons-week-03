@@ -8,7 +8,7 @@
     1. Web 1.0 Guestbook
     1. Bonus: Trello CSV Import Export
 1. [Day 3](day3/README.md)
-    1. Mongoose ToDo App
+    1. Mongoose NBA App
     1. Horizon Starter: backend-rendered web app
 1. [Day 4](day4/README.md)
     1. Horizon Starter: Finish up yesterday
