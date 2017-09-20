@@ -7,3 +7,20 @@ body {
 a {
   color: #00B7FF;
 }
+
+.post {
+  background-color: lightgray;
+}
+
+.post span {
+  font-style: italic;
+  font-size: 0.8em;
+}
+
+div h3 {
+  display: inline;
+}
+
+.create-post form * {
+  display: block;
+}

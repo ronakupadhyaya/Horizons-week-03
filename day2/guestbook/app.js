@@ -1,6 +1,7 @@
 // This is the top level Express server application file.
 var express = require('express');
 var path = require('path');
+var _ = require('underscore');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.get('/', function(req, res) {
 // For example if you wanted to render 'views/index.hbs' you'd do res.render('index')
 app.get('/login', function(req, res) {
   // YOUR CODE HERE
+  res.render('login');
 });
 
 // POST /login: Receives the form info from /login, sets a cookie on the client
@@ -60,11 +62,27 @@ app.post('/login', function(req, res) {
 // Hint: to get the username, use req.cookies.username
 // Hint: use data.read() to read the post data from data.json
 app.get('/posts', function (req, res) {
-  res.render('posts', {
-    // Pass `username` to the template from req.cookies.username
-    // Pass `posts` to the template from data.read()
-    // YOUR CODE HERE
-  });
+  var sortArr = _.sortBy(data.read(), "date");
+  if (req.query.order === "ascending") {
+    // res.render('posts', {
+    //   posts: sortArr,
+    //   username: req.cookies.username
+    // });
+  } else if (req.query.order === "descending") {
+    // var reverseArr = sortArr.reverse();
+    // res.render('posts', {
+    //   posts: reverseArr,
+    //   username: req.cookies.username
+    // });
+  } else {
+    res.render('posts', {
+      // Pass `username` to the template from req.cookies.username
+      // Pass `posts` to the template from data.read()
+      // YOUR CODE HERE
+      posts: data.read,
+      username: req.cookies.username
+    });
+  }
 });
 
 // ---Part 3. Create new posts---
@@ -78,6 +96,14 @@ app.get('/posts', function (req, res) {
 // Hint: check req.cookies.username to see if user is logged in
 app.get('/posts/new', function(req, res) {
   // YOUR CODE HERE
+  // console.log(req.cookies.username, req.body.username)
+  if (!req.cookies.username) {
+    var errorMessage = "401 Error: user not logged in";
+    res.status(401).send(errorMessage);
+  }
+  res.render('post_form', {
+    error: errorMessage
+  });
 });
 
 // POST /posts:
@@ -97,6 +123,28 @@ app.get('/posts/new', function(req, res) {
 // write it back wih data.save(array).
 app.post('/posts', function(req, res) {
   // YOUR CODE HERE
+  // console.log(req.body.title === "", req.body.body, req.body.date)
+  if (!req.cookies.username) {
+    var errorMessage = "401 Error: user not logged in";
+    res.status(401).send(errorMessage);
+  } else if (req.body.title === "" || req.body.author === "" || req.body.body === "" || req.body.date === "") {
+    var errorMessage = "400 error: title, body, and date must all be specified";
+    res.status(400).send(errorMessage);
+  } else {
+
+    var postObject =
+    {title: req.body.title,
+      author: req.body.author,
+      body: req.body.body,
+      date: req.body.date
+    };
+
+    var newData = data.read();
+    newData.push(postObject);
+    data.save(newData);
+    console.log(data.read());
+    res.redirect('/posts');
+  }
 });
 
 // Start the express server
