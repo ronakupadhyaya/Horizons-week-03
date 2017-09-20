@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "mongoose": "^4.11.9",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.12",
     "nodemon": "^1.11.0"
   },
   "scripts": {
