@@ -1,6 +1,8 @@
+var accounts = require('./accounts.json')
 var express = require('express');
 var path = require('path');
 var exphbs = require('express-handlebars');
+var bodyParser = require('body-parser')
 
 var app = express();
 
@@ -9,10 +11,28 @@ app.engine('hbs', exphbs({extname:'hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser({extended: true}));
 
 app.get('/', function(req, res) {
   res.render('example3');
 });
+app.post('/', function(req, res){
+  var name = '';
+  var passwordCorrect = false;
+  for (var i=0; i<accounts.length; i++) {
+    if (accounts[i].email === req.body.email) {
+      if (accounts[i].password === req.body.password){
+          name = accounts[i].first_name;
+          passwordCorrect = true;
+      }
+    }
+  }
+  res.render('example3', {
+    checkPassword: passwordCorrect,
+    name: name
+  });
+});
+
 
 // start the express app
 var port = process.env.PORT || 3000;

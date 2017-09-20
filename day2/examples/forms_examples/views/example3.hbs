@@ -1,5 +1,17 @@
-<form>
-  <span>YOUR CODE HERE</span>
+
+
+
+
+<form method="post">
+  <!-- <span>YOUR CODE HERE</span> -->
+  <input type="text" name="email" >Email<br>
+  <input type="password" name="password" value="">Password<br>
+  <input type="submit" name="submit" value="Submit">
+
+{{#if checkPassword}}
+  <h1>Hi {{name}}!</h1>
+{{else}}
+  <h1>ERROR</h1>
+  {{/if}}
+
 </form>
-
-
