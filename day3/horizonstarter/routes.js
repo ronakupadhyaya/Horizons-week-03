@@ -272,10 +272,20 @@ router.get('/api/projects', function(req, res){
 
 
 });
+router.get('/api/project/:projectid/contribution', function(req, res){
+  var projectId = req.params.projectid;
+  Project.findById(projectId, function(err, project){
+    if(err || !project){
+      throw(err);
+    } else{
+      res.json(project.contributions);
+    }
+  })
+});
 
 router.post('/api/project/:projectid/contribution', function(req, res){
   var projectId = req.params.projectid;
-  console.log("REQBODY", req.body);
+
   req.check("amount", "Invalid Amount").notEmpty().isInt({min: 1});
   var errors = req.validationErrors();
   if(errors){

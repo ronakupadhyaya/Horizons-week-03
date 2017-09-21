@@ -1,5 +1,26 @@
 $(document).ready(function(){
-
+  function getNewContributions(){
+    var projectId = $('.container-fluid').attr('id');
+    var total = parseInt($('.total').attr('id'));
+    var goal = parseInt($('.goal').attr('id'))
+    $.ajax({
+      url: '/api/project/' + projectId + '/contribution',
+      success: function(resp){
+        var newTotal = 0;
+        for(var i =0; i < resp.length; i++){
+          newTotal += resp[i].amount;
+        }
+        if(newTotal > total){
+          $('.total').attr('id', newTotal);
+          $('.total').html('$' + newTotal + ' raised so far');
+        }
+        if(newTotal > goal){
+        showFlashMessage("You've reached your goal! Congratulations.",'success' )
+        }
+      }
+    })
+  }
+  setInterval(getNewContributions, 5000)
   function showFlashMessage(msg, status){
     var successFlashHtml = `<div class="alert alert-success">
     <strong>Success!</strong> `+ msg + `

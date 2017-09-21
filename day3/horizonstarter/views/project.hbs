@@ -1,7 +1,7 @@
 
 
 <!-- Part 3: View a single project -->
-<div class="container-fluid">
+<div class="container-fluid" id="{{project._id}}">
   <h1>View Project</h1>
   <img width=300 src="{{project.img_url}}"></img>
   <h3 class="total" id="{{total}}"> ${{total}} raised so far! </h3>
@@ -21,7 +21,7 @@
 
   <div class="form-group">
     <label> Goal </label>
-    <p> ${{project.goal}} </p>
+    <p class="goal" id="{{project.goal}}">${{project.goal}}</p>
   </div>
   <div class="form-group">
     <label> Project Category </label>
