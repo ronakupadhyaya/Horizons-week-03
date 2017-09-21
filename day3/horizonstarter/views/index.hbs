@@ -1,6 +1,6 @@
 <h1>View projects</h1>
 
-<div class="dropdown" style="display: inline-block; margin-bottom: 40px; margin-right: 10px;">
+<div class="dropdown" style="display: inline-block; margin-bottom: 20px; margin-right: 10px;">
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Sorting
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
@@ -14,7 +14,7 @@
   </ul>
 </div>
 
-<div class="dropdown" style="display: inline-block; margin-bottom: 40px; margin-right: 10px;">
+<div class="dropdown" style="display: inline-block; margin-bottom: 20px; margin-right: 10px;">
   <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Choose Filter
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
@@ -24,7 +24,7 @@
 
   </ul>
 </div>
-<div class="dropdown" style="display: inline-block; margin-bottom: 40px;">
+<div class="dropdown" style="display: inline-block; margin-bottom: 20px;">
   <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">Ajax Sort
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
@@ -35,6 +35,12 @@
 
   </ul>
 </div>
+<form action="/posts/search" method="get">
+  <div class="form-group col-sm-5" style="padding-left: 0">
+    <input type="text" name="search" class="form-control" placeholder="Search">
+  </div>
+  <button id="searchProject" type="submit" class="btn btn-default">Submit</button>
+</form>
 <div class="projectDisplay">
   {{#each projects}}
 

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+  var count = false;
   function getNewContributions(){
     var projectId = $('.container-fluid').attr('id');
     var total = parseInt($('.total').attr('id'));
@@ -14,8 +16,9 @@ $(document).ready(function(){
           $('.total').attr('id', newTotal);
           $('.total').html('$' + newTotal + ' raised so far');
         }
-        if(newTotal > goal){
-        showFlashMessage("You've reached your goal! Congratulations.",'success' )
+        if(newTotal > goal && !count){
+        showFlashMessage("You've reached your goal! Congratulations.",'success' );
+        count = true;
         }
       }
     })

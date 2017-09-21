@@ -125,5 +125,22 @@ $(document).ready(function(){
         }
       })
     }
+  });
+
+  $('#searchProject').click(function(e){
+    e.preventDefault();
+    var query = $(this).siblings('.form-group').children('input[name="search"]').val();
+    console.log(query);
+    $.ajax({
+      url: '/posts/search',
+      data: {
+        search: query
+      },
+      method: 'get',
+      success: function(resp){
+        console.log("resp", resp);
+        displayProjects(resp);
+      }
+    })
   })
 })

@@ -272,6 +272,7 @@ router.get('/api/projects', function(req, res){
 
 
 });
+
 router.get('/api/project/:projectid/contribution', function(req, res){
   var projectId = req.params.projectid;
   Project.findById(projectId, function(err, project){
@@ -309,4 +310,12 @@ router.post('/api/project/:projectid/contribution', function(req, res){
   }
 
 });
+
+router.get('/posts/search', function(req, res){
+  var query = req.query.search;
+  console.log("query", query);
+  Project.find({$text: {$search: query}}).exec(function(err, projects){
+    res.json({projects: projects});
+  })
+})
 module.exports = router;

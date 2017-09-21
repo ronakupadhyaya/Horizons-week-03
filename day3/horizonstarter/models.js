@@ -2,8 +2,8 @@
 
 // Project model
 var mongoose = require('mongoose');
-
-var Project = mongoose.model('Project', {
+var Schema = mongoose.Schema;
+var ProjectSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -47,7 +47,10 @@ var Project = mongoose.model('Project', {
     type: String
   }
 
-});
+})
+ProjectSchema.index({name: 'text', 'title': 'text'});
+var Project = mongoose.model('Project', ProjectSchema);
+
 
 module.exports = {
   Project: Project
