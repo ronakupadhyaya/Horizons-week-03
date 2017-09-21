@@ -31,7 +31,9 @@ var csvjson = require('csvjson');
 //      ...
 //    ]
 function fileReader(csvFilePath){
-  // YOUR CODE HERE
+  var file = fs.readFileSync(path.join(__dirname, csvFilePath), { encoding : 'utf8'});
+  console.log('here is the file ' + file);
+  return file.toObject();
 }
 
 // Write a function that takes an array of investment objects and replaces

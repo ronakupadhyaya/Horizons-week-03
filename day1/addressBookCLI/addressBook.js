@@ -2,7 +2,7 @@
 // The node builtin filesystem library.
 var fs = require('fs');
 var validator = require('validator')
-//require columnify here
+var columnify = require('columnify');
 
 
 var JSON_FILE = 'data.json'
@@ -19,9 +19,9 @@ var helpString = "\n\tUsage: addressBook [options] [command]\n\n\n" +"\tOptions:
 
 
 var argv = process.argv
-//console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
+// console.log(process.argv) //UNCOMMENT TO SEE WHAT PROCESS.ARGV IS BEFORE WE SPLICE
 argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies process.argv, so you will not need to do this again!
-
+// console.log(argv);
 
 //------------PART1: PARSING COMMAND LINE ARGUMENTS------------------------
 
@@ -34,6 +34,7 @@ argv.splice(0,2); //remove 'node' and path from args, NOTE: splicing modifies pr
 */
 function parseCommand() {
   // YOUR CODE HERE
+  return argv[0];
 
 }
 
@@ -68,11 +69,30 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
-
-    // console.log(columnify(data)); //UNCOMMENT
-
+  var output = columnify(data, {
+    minWidth: 20,
+    dataTransform: function(contactData) {
+      if(parseInt(contactData)===-1) {
+        return'-None-'
+      }
+      return contactData;
+    },
+    config: {
+      name: {
+        headingTransform: function(heading) {
+          return "CONTACT_NAME";
+        }
+      },
+      number: {
+        headingTransform: function(heading) {
+          return "PHONE_NUMBER";
+        }
+      }
+    }
+  })
+  console.log(output);
 }
+
 
 
 
@@ -88,8 +108,47 @@ function displayContacts(){
 * if no number is provided, store -1 as their number
 */
 function addContact() {
-// YOUR CODE HERE
+  var args = process.argv.slice(1, process.argv.length);
+  if(args) {
+    var name = args[0];
+    var number = args[1] || "-1";
+    if(name && isValidName(name) && isValidNumber(number)) {
+      var exists = data.find(function(contact){
+        return contact.name === name
+      })
+      if(exists){
+        console.log('error. contact ' + name + ' already exists.');
+      }else{
+        data.push({
+          name: name,
+          number: parseInt(number)
+        });
+        console.log("added contact " + name + " with the number: " + number);
+      }
 
+    }else {
+      console.log('invalid contact info');
+    }
+  }
+}
+
+//helper function
+function isValidName(name) {
+  var alphabetSet = new Set(['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']);
+  var lowerCaseName = name.toLowerCase();
+  for (var i = 0; i < lowerCaseName.length; i++) {
+    var letter = lowerCaseName[i];
+    if(!alphabetSet.has(letter)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function isValidNumber(number) {
+  if(!isNaN(number)) {
+    return number;
+  }
 }
 
 
@@ -104,13 +163,44 @@ function addContact() {
 *
 */
 function updateContact(){
-// YOUR CODE HERE
+  var args = process.argv.slice(1, process.argv.length);
+  var contactName = args[0];
+  var updateThis = args[1];
+  if (contactName && updateThis) {
+    var foundContact = data.find(function(contact){
+      return contact.name === contactName;
+    })
+    if (!foundContact) {
+      console.log('No contact found');
+    } else if (isValidName(updateThis)){
+      console.log('Updated name for ' + contactName);
+      foundContact.name = updateThis;
+    } else if(isValidNumber(updateThis)){
+      foundContact.number = parseInt(updateThis);
+      console.log('Updated number for ' + contactName);
+    } else {
+      console.log('Invald contact format ');
+    }
+  }
 }
 
 
 //BONUS Implement deleteContact
 function deleteContact(){
-    //YOUR CODE HERE
+  var args = process.argv.slice(1, process.argv.length);
+  var deleteMe = args[0];
+  if (deleteMe) {
+    var modifiedData = data.filter(function(contact){
+      return contact.name !== deleteMe
+    })
+    if(modifiedData.length+1 === data.length){
+      data = modifiedData
+      console.log('Removed', deleteMe);
+    } else {
+      console.log('No contact found');
+    }
+
+  }
 }
 
 

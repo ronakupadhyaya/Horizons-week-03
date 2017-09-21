@@ -72,13 +72,11 @@ switch(input){
 *
 */
 function displayContacts(){
-    //YOUR CODE HERE
 
     // console.log(columnify(data)); //UNCOMMENT
   var output = columnify(data, {
     minWidth: 20,
     dataTransform: function(contactData) {
-            // console.log(contact, typeof contact)
       if(parseInt(contactData)===-1){
         return '-None-'
       }
