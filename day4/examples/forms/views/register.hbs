@@ -12,11 +12,62 @@
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div><strong>Errors:</strong>
+      <ul>
+        {{#each errors}}<li>{{this.msg}}</li>{{/each}}
+      </ul>
+    </div>
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form class="col-xs-10-offset-1" action="/register" method="post">
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">First Name</label>
+          <input class="col-xs-6" type="text" placeholder="First Name" name="firstName" value='{{firstName}}' required>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Middle Initial</label>
+          <input class="col-xs-6" type="text" placeholder="Middle Initial" name="middleInitial" value='{{middleInitial}}'>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Last Name</label>
+          <input class="col-xs-6" type="text" placeholder="Last Name" name="lastName" value='{{lastName}}' required>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">DOB</label>
+          <input class="col-xs-6" type="text" placeholder="mm/dd/yyyy" name="DOB" value='{{DOB}}' required>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Password</label>
+          <input class="col-xs-6" type="password" placeholder="Password" name="password" value='{{password}}'required>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Repeat Password</label>
+          <input class="col-xs-6" type="password" placeholder="Repeat Password" name="repeatPassword" value='{{repeatPassord}}' required>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Gender</label>
+          <div class="gender-options-container col-xs-6">
+            <div class="row radio-button-container">
+              <label><input type="radio" name="gender" value="male" required {{#if isMale}}checked='checked'{{/if}}>Male</label>
+            </div>
+            <div class="row radio-button-container">
+              <label><input type="radio" name="gender" value="female" required {{#if isFemale}}checked='checked'{{/if}}>Female</label>
+            </div>
+            <div class="row radio-button-container">
+              <label><input type="radio" name="gender" value="unspecified" required {{#if isUnspecified}}checked='checked'{{/if}}>Prefer not to say</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Sign Up For Newsletter</label>
+          <label class = "col-xs-2"><input type="checkbox" name="newsletter" value = "yes" required {{#if newsletter}}checked='checked'{{/if}}>Yes</label>
+        </div>
+        <div class="row">
+          <label class="col-xs-2 col-xs-offset-2">Bio</label>
+          <textarea class="col-xs-6" placeholder="Bio" name="bio" >{{bio}}</textarea>
+        </div>
+        <div class="row">
+          <input class="col-xs-2 col-xs-offset-6" type="submit" value="Submit">
+        </div>
       </form>
     </div>
   </div>

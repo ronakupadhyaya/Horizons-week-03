@@ -10,10 +10,14 @@
   </style>
 </head>
 <body>
+  <h1>Profile</h1>
   <div class="container">
-    <div class="row">
-      <h1>Put your user profile here</h1>
-    </div>
+    <ul>
+      <li>Name: {{firstName}}{{#if middleInitial}} {{middleInitial}}.{{/if}} {{lastName}}</li>
+      <li>DOB: {{DOB}}</li>
+      <li>Gender: {{gender}}</li>
+      <li>Bio: {{bio}}</li>
+    </ul>
   </div>
 </body>
 </html>
