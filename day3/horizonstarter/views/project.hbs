@@ -2,8 +2,34 @@
 
 <!-- Part 3: View a single project -->
 
-<!-- YOUR CODE HERE -->
+<div class="main-page">
+  <h2>{{title}}</h2>
+  <p>{{desc}}</p>
+  <h3>Goal: {{goal}}</h3>
+  <h4>{{start}} - {{end}}</h4>
+  <h4>{{totalcont}} raised</h4>
+  {{#each contributions}}
+  <h4>{{name}}: ${{amount}} donated</h4>
+  {{/each}}
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70"
+    aria-valuemin="0" aria-valuemax="100" style="width:{{percentage}}%">
+    {{percentage}}%
+  </div>
+</div>
+</div>
 
 <!-- Part 4: Contribute to a project -->
 
-<!-- YOUR CODE HERE -->
+<div>
+  Make a contribution
+  <form class="" action="/project/{{id}}" method="post">
+    Name: <input type="text" name="name" value="">
+    Amount: <input type="number" name="amount" value="">
+    <input type="submit" name="" value="Submit">
+  </form>
+</div>
+
+<div>
+  <a href="/">All Projects</a>
+</div>

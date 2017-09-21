@@ -2,4 +2,18 @@
 
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
+
+<div class="new-project-container">
+  {{#if error}}
+  {{error}}
+  {{/if}}
+
+<form class="new-project" action="/new" method="post">
+  <div>Title: <input type="text" name="title" value="{{title}}"></div>
+  <div>Goal: <input type="text" name="goal" value="{{goal}}"></div>
+  Description: <textarea name="description" rows="8" cols="80">{{desc}}</textarea>
+  <div>Start Date: <input type="date" name="start" value="{{start}}"></div>
+  <div>End Date: <input type="date" name="end" value="{{end}}"></div>
+  <input type="submit" name="" value="Submit">
+</form>
+</div>

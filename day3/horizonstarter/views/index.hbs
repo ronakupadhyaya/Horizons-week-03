@@ -1,7 +1,15 @@
-<h1>View projects</h1>
+<div class="main-page"><h1>View projects</h1>
 
 <!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+{{# each projects}}
+<div>
+  <a href="/project/{{id}}"><h2>{{title}}</h2></a>
+  <p>{{desc}}</p>
+  <h3>Goal: {{goal}}</h3>
+  <h4>{{start}} - {{end}}</h4>
+</div>
+{{/each}}
 
 <!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<a href="/new">Create new project</a>
+</div>
