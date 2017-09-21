@@ -54,8 +54,6 @@ app.post('/register', function(req, res){
     gender: req.body.gender
   };
 
-  console.log(reqBodyObj.gender, "h")
-
   req.check('firstName', "First name must not be empty").notEmpty();
   req.check('lastName', "Last name must not be empty").notEmpty();
   req.check('dob', "Must be a date in the past").isBefore(Date());
