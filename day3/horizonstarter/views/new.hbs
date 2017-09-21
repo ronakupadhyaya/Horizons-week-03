@@ -1,5 +1,38 @@
 <h2>Create project</h2>
 
 <!-- Part 2: Create project -->
+<form class="newProjectForm" action="/new" method="post">
+  <div>
+    Title <input type="text" name="title" value="{{project.title}}">
+  </div>
+
+  <div>
+    Goal <input type="text" name="goal" value="{{project.goal}}">
+  </div>
+
+  <div>
+    Description <textarea name="description" rows="5" cols="12"> {{project.description}} </textarea>
+  </div>
+
+  <div>
+    Start <input type="date" name="start" value="{{project.start}}">
+  </div>
+
+  <div>
+    End <input type="date" name="end" value="{{project.end}}">
+  </div>
+
+  <div>
+    <input type="submit" name="" value="Create Project">
+  </div>
+
+  {{#if error}}
+    <span style="color: red"> Missing certain required fields, resubmit! </span>
+  {{/if}}
+
+  {{#if saveError}}
+    <span style="color: red"> Could not save for this reason {{err}}, try again! </span>
+  {{/if}}
+</form>
+
 <!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->
