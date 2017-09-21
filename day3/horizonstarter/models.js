@@ -42,6 +42,9 @@ var Project = mongoose.model('Project', {
       'How Many Fingers Am I Holding Up',
       'Potent Potables'
     ]
+  },
+  img_url: {
+    type: String
   }
 
 });

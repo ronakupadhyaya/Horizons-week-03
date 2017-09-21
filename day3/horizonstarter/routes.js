@@ -25,20 +25,71 @@ router.get('/create-test-project', function(req, res) {
 router.get('/', function(req, res) {
   var sort = req.query.sort;
   var sortDirection = req.query.sortDirection;
+  var fullyFunded = req.query.fullyFunded;
   if(sort){
-    var sortObject = {};
-    sortObject[sort] = 1;
-    if(sortDirection === 'descending'){
-      sortObject[sort] = -1;
+    if(sort!=='totalContributions'){
+      var sortObject = {};
+      sortObject[sort] = 1;
+      if(sortDirection === 'descending'){
+        sortObject[sort] = -1;
+      }
+
+      Project.find().sort(sortObject).exec(function(err,projectArray){
+        res.render('index', {projects: projectArray})
+      })
+    } else{
+      Project.find(function(err, projectArray){
+        function sortFunction(a, b){
+          var aTotal = 0;
+          var bTotal = 0;
+          for(var i=0; i < a.contributions.length;i++){
+            aTotal += a.contributions[i].amount;
+          }
+          for(var i =0; i< b.contributions.length; i++){
+            bTotal += b.contributions[i].amount;
+          }
+
+          return aTotal - bTotal;
+        }
+        projectArray.sort(sortFunction);
+        res.render('index', {projects: projectArray});
+      })
     }
 
-    Project.find().sort(sortObject).exec(function(err,projectArray){
-      res.render('index', {projects: projectArray})
-    })
   } else{
-    Project.find(function(err, projectArray){
-      res.render('index', {projects: projectArray})
-    })
+
+    if(fullyFunded==='true'){
+      Project.find(function(err, projectArray){
+        projectArray = projectArray.filter(function(project){
+          var total = 0;
+          for(var i =0; i < project.contributions.length;i++){
+            total += project.contributions[i].amount;
+          }
+          return total >= project.goal
+        });
+        res.render('index', {projects: projectArray});
+      })
+    }
+    else if(fullyFunded ==='false'){
+      console.log("HERE")
+      Project.find(function(err, projectArray){
+        projectArray = projectArray.filter(function(project){
+          var total = 0;
+          for(var i =0; i < project.contributions.length;i++){
+            total += project.contributions[i].amount;
+          }
+          return total < project.goal;
+        });
+        res.render('index', {projects: projectArray});
+      })
+
+    }
+    else{
+      Project.find(function(err, projectArray){
+        res.render('index', {projects: projectArray})
+      })
+    }
+
   }
 
 });
@@ -49,10 +100,8 @@ router.get('/new', function(req, res) {
   res.render('new');
 });
 
-// Part 2: Create project
-// Implement the POST /new endpoint
+
 router.post('/new', function(req, res) {
-  console.log("req body", req.body);
   var newProject = new Project(req.body);
 
   newProject.save(function(err, result){
