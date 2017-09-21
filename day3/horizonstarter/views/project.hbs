@@ -4,6 +4,33 @@
 
 <!-- YOUR CODE HERE -->
 
+<div class="project">
+    <h4>{{project.title}}</h4>
+    <hr>
+    <div>Goal: ${{project.goal}}</div>
+    <div><br>"{{project.description}}"<br><br></div>
+    <div>Start: {{project.start}}</div>
+    <div>End : {{project.end}}</div>
+    <br>
+    <div>Total Contributions: <span class="contributionAmount green">${{totalContributions}}</span></div>
+    <br>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{percentComplete}}%"></div>
+    </div>
+    {{#each project.contributions}}
+    <div class="contribution">
+        <div>{{name}} contributed $<span>{{amount}}</span></div>
+    </div>
+    {{/each}}
+    <a href="/">> View all projects</a>
+</div>
+
 <!-- Part 4: Contribute to a project -->
 
 <!-- YOUR CODE HERE -->
+
+<form action="/project/{{project._id}}" method="post">
+    <input class="input" type="text" name="name" placeholder="Name" value="{{title}}">
+    <input class="input" type="text" name="amount" placeholder="Amount" value="{{goal}}">
+    <input type="submit" value="Submit Contribution">
+</form>

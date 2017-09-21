@@ -2,6 +2,19 @@
 
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
+{{#each projects}}
+<div class="project">
+    <h4>{{title}}</h4>
+    <hr>
+    <div>Goal: ${{goal}}</div>
+    <div><br>"{{description}}"<br><br></div>
+    <div>Start: {{start}}</div>
+    <div>End : {{end}}</div>
+    <br>
+    <div><a href="/project/{{_id}}">> View Details</a></div>
+</div>
+
+{{/each}}
 
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
