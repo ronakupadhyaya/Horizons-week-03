@@ -1,7 +1,9 @@
 <h1>View projects</h1>
 
-<!-- Part 1: View all projects -->
-<!-- YOUR CODE HERE -->
+<ui>
+  {{#each data}}
+  <li>{{title}}</li>
+  {{/each}}
+</ui>
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+<a href="/new">Create a new project</a>

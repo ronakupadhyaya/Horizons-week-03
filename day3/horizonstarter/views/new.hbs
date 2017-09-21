@@ -1,5 +1,19 @@
 <h2>Create project</h2>
 
-<!-- Part 2: Create project -->
+<form class="" method="post">
+    <input type="text" name="title" placeholder="Title" value="{{name}}">
+    <input type="text" name="goal" placeholder="Goal" value="{{goal}}">
+    <textarea name="description" rows="8" cols="80"></textarea>
+    <input type="date" name="start" placeholder="start date" value="{{start}}">
+    <input type="date" name="end" placeholder="end date" value="{{end}}">
+    <input type="submit" name="submit" value="Submit this stuff!">
+</form>
+
+
+{{#if alertdisplay}}
+<div class="alert alert-warning">
+    {{alert}}
+</div>
+{{/if}}
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
