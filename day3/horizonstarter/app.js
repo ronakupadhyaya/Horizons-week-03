@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 
 // Initialize Express
 var app = express();
-
+var expressValidator = require('express-validator');
+app.use(expressValidator());
 // mongoose configuration
 var mongoose = require('mongoose');
 

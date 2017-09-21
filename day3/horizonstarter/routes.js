@@ -39,19 +39,19 @@ router.get('/', function(req, res) {
       })
     } else{
       Project.find(function(err, projectArray){
-        function sortFunction(a, b){
-          var aTotal = 0;
-          var bTotal = 0;
-          for(var i=0; i < a.contributions.length;i++){
-            aTotal += a.contributions[i].amount;
-          }
-          for(var i =0; i< b.contributions.length; i++){
-            bTotal += b.contributions[i].amount;
-          }
+          function sortFunction(a, b){
+            var aTotal = 0;
+            var bTotal = 0;
+            for(var i=0; i < a.contributions.length;i++){
+              aTotal += a.contributions[i].amount;
+            }
+            for(var i =0; i< b.contributions.length; i++){
+              bTotal += b.contributions[i].amount;
+            }
 
-          return aTotal - bTotal;
-        }
-        projectArray.sort(sortFunction);
+            return aTotal - bTotal;
+          }
+          projectArray.sort(sortFunction);
         res.render('index', {projects: projectArray});
       })
     }
@@ -71,7 +71,6 @@ router.get('/', function(req, res) {
       })
     }
     else if(fullyFunded ==='false'){
-      console.log("HERE")
       Project.find(function(err, projectArray){
         projectArray = projectArray.filter(function(project){
           var total = 0;
@@ -173,7 +172,131 @@ router.post('/project/:projectid/edit', function(req, res){
     res.redirect('/project/' + projectId);
   })
 })
-// Create the GET /project/:projectid/edit endpoint
-// Create the POST /project/:projectid/edit endpoint
 
+//NEW API
+router.get('/api/projects', function(req, res){
+  var funded = req.query.funded;
+  var sort = req.query.sort;
+  var sortDirection = req.query.sortDirection;
+  Project.find(function(err, projectArray){
+    if(funded === 'true'){
+      projectArray = projectArray.filter(function(project){
+        var total = 0;
+        for(var i =0; i < project.contributions.length;i++){
+          total += project.contributions[i].amount;
+        }
+        return total >= project.goal
+      });
+    }
+    if(funded ==='false'){
+      projectArray = projectArray.filter(function(project){
+        var total = 0;
+        for(var i =0; i < project.contributions.length;i++){
+          total += project.contributions[i].amount;
+        }
+        return total < project.goal
+      });
+    }
+    if(sort){
+      if(sort ==='amountFunded'){
+        function sortFunction(a, b){
+          var aTotal = 0;
+          var bTotal = 0;
+          for(var i=0; i < a.contributions.length;i++){
+            aTotal += a.contributions[i].amount;
+          }
+          for(var i =0; i< b.contributions.length; i++){
+            bTotal += b.contributions[i].amount;
+          }
+
+          return aTotal - bTotal;
+        }
+
+        function sortDescending(a, b){
+          var aTotal = 0;
+          var bTotal = 0;
+          for(var i=0; i < a.contributions.length;i++){
+            aTotal += a.contributions[i].amount;
+          }
+          for(var i =0; i< b.contributions.length; i++){
+            bTotal += b.contributions[i].amount;
+          }
+
+          return bTotal - aTotal;
+        }
+
+        if(sortDirection && sortDirection ==='descending'){
+          projectArray.sort(sortDescending);
+        } else{
+          projectArray.sort(sortFunction);
+        }
+      }
+      if(sort==='percentageFunded'){
+        function sortFunction(a, b){
+          var aTotal = 0;
+          var bTotal = 0;
+          for(var i=0; i < a.contributions.length;i++){
+            aTotal += a.contributions[i].amount;
+          }
+          for(var i =0; i< b.contributions.length; i++){
+            bTotal += b.contributions[i].amount;
+          }
+
+          return (aTotal/a.goal) - (bTotal/b.goal);
+        }
+
+        function sortDescending(a, b){
+          var aTotal = 0;
+          var bTotal = 0;
+          for(var i=0; i < a.contributions.length;i++){
+            aTotal += a.contributions[i].amount;
+          }
+          for(var i =0; i< b.contributions.length; i++){
+            bTotal += b.contributions[i].amount;
+          }
+
+          return (bTotal/b.goal) - (aTotal/a.goal);
+        }
+        if(sortDirection && sortDirection ==='descending'){
+          projectArray.sort(sortDescending)
+        } else{
+          projectArray.sort(sortFunction);
+        }
+      }
+
+
+    }
+    res.json({projects: projectArray});
+
+  })
+
+
+});
+
+router.post('/api/project/:projectid/contribution', function(req, res){
+  var projectId = req.params.projectid;
+  console.log("REQBODY", req.body);
+  req.check("amount", "Invalid Amount").notEmpty().isInt({min: 1});
+  var errors = req.validationErrors();
+  if(errors){
+    console.log('errors', errors);
+    res.status(400).json(errors);
+  } else{
+    Project.findById(projectId, function(err, project){
+      if(err || !project){
+        throw(err);
+      } else{
+        project.contributions.push(req.body);
+        project.save(function(err, project){
+          if(err){
+            console.log("Err2", err);
+          } else{
+            res.json(req.body);
+          }
+        })
+      }
+    })
+  }
+
+});
 module.exports = router;

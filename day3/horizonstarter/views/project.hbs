@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <h1>View Project</h1>
   <img width=300 src="{{project.img_url}}"></img>
-  <h3> ${{total}} raised so far! </h3>
+  <h3 class="total" id="{{total}}"> ${{total}} raised so far! </h3>
   <div class ="col-sm-6" style="padding-left: 0">
   <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="{{percentage}}"
@@ -56,9 +56,11 @@
         <input type="number" class="form-control" id="amount" name="amount" placeholder="50, 100">
       </div>
     </div>
-    <div style="margin-top: 5px" class="col-sm-6 col-sm-offset-1">
-      <button class="btn btn-info" type="submit" form= "contributionForm"> Contribute </button>
+    <div id="{{project._id}}" style="margin-top: 5px" class="col-sm-6 col-sm-offset-1">
+      <button class="btn btn-info" id="send-contribution" form= "contributionForm"> Contribute </button>
     </div>
 
   </form>
 </div>
+
+<script src="/js/contributions.js"></script>
