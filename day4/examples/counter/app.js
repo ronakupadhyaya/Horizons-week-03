@@ -21,16 +21,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 var count = 0;
 // ROUTES
 app.get('/', function(req, res){
-  res.render('index', {
-    count: count
-  });
+  res.render('index', { count: count });
 });
 
 // Implement POST /up route
 // YOUR CODE HERE
+app.post('/up', function(req, res) {
+  count++;
+  res.redirect('/')
+});
 
 // Implement POST /down route
 // YOUR CODE HERE
+app.post('/down', function(req, res) {
+  count--;
+  res.redirect('/')
+});
 
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
