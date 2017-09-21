@@ -45,13 +45,33 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  var reqBodyObj = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    password: req.body.password,
+    repeatPassword: req.body.repeatPassword,
+    dob: req.body.dob,
+    gender: req.body.gender
+  };
+
+  console.log(reqBodyObj.gender, "h")
+
+  req.check('firstName', "First name must not be empty").notEmpty();
+  req.check('lastName', "Last name must not be empty").notEmpty();
+  req.check('dob', "Must be a date in the past").isBefore(Date());
+  req.check('password', "Password must not be empty").notEmpty();
+  req.check('repeatPassword', "Repeat Password must not be empty").notEmpty();
+  req.check('repeatPassword', "Passwords must match").equals(reqBodyObj.password, reqBodyObj.repeatPassword);
+  req.check('gender', "Please choose from Male / Female / Rather not say").notEmpty(); // TODO
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
+
   if (errors) {
-    res.render('register', {errors: errors});
+    res.render('register', { errors: errors, reqBodyObj: reqBodyObj });
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', { user: reqBodyObj });
   }
 });
 

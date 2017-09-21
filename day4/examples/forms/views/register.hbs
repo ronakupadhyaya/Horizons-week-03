@@ -7,15 +7,40 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container * { display: block; }
+    .button { display: inline; }
+    li { color: blue; }
+    ul { padding: 0; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+    <div>
+      <strong>Errors:</strong>
+      <ul>
+        {{#each errors}}
+          <li>- {{this.msg}}</li>
+        {{/each}}
+      </ul>
+    </div>
     <div class="row">
       <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" placeholder="First Name" name="firstName" value={{reqBodyObj.firstName}}>
+        <input type="text" placeholder="Middle Initial" name="middleInitial">
+        <input type="text" placeholder="Last Name" name="lastName" value={{reqBodyObj.lastName}}>
+        <input type="date" placeholder="DOB" name="dob" value={{reqBodyObj.dob}}>
+        <input type="password" placeholder="Password" name="password" >
+        <input type="password" placeholder="Repeat Password" name="repeatPassword" >
+        <input type="radio" name="gender" value="male" class="button"> Male<br>
+        <input type="radio" name="gender" value="female" class="button"> Female<br>
+        <input type="radio" name="gender" value="preferNotToSay" class="button"> Prefer not to say
+          <div>
+            <br>Sign up for Newsletter<br>
+            <input type="radio" name="signUpForNewsletter" value="Yes" class="button" checked> Yes<br>
+            <input type="radio" name="signUpForNewsletter" value="No" class="button"> No
+          </div>
+        <textarea name="bio" placeholder="Bio"></textarea>
         <input type="submit">
       </form>
     </div>
