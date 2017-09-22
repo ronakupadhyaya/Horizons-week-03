@@ -1,16 +1,19 @@
 <h1>View Project</h1>
+<div>
+  <a href="/">All Projects</a>
+</div>
 
 <!-- Part 3: View a single project -->
 
 <div class="main-page">
-  <h2>{{title}}</h2>
-  <h3>{{category}}</h3>
+  <h2>{{project.title}}</h2>
+  <h3>{{project.category}}</h3>
   <a href="/project/{{id}}/edit">Edit Project</a>
-  <p>{{desc}}</p>
-  <h3>Goal: {{goal}}</h3>
+  <p>{{project.description}}</p>
+  <h3>Goal: {{project.goal}}</h3>
   <h4>{{start}} - {{end}}</h4>
   <h4>{{totalcont}} raised</h4>
-  {{#each contributions}}
+  {{#each project.contributions}}
   <h4>{{name}}: ${{amount}} donated</h4>
   {{/each}}
   <div class="progress">
@@ -30,8 +33,4 @@
     Amount: <input type="number" name="amount" value="">
     <input type="submit" name="" value="Submit">
   </form>
-</div>
-
-<div>
-  <a href="/">All Projects</a>
 </div>

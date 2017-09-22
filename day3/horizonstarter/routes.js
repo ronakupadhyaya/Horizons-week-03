@@ -194,16 +194,12 @@ router.get('/project/:projectid', function(req, res) {
       }, 0);
       console.log(project.category);
       res.render('project', {
+        project: project,
         id: req.params.projectid,
-        title: project.title,
-        goal: project.goal,
-        desc: project.description,
-        start: project.start.toDateString(),
-        end: project.end.toDateString(),
+        start: project.start.toJSON().slice(0, 10),
+        end: project.end.toJSON().slice(0, 10),
         totalcont: total,
-        percentage: (total / project.goal) * 100,
-        contributions: project.contributions,
-        category: project.category
+        percentage: (total / project.goal) * 100
       })
     } else {
       res.send('This project does not exist');
