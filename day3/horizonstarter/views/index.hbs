@@ -7,3 +7,32 @@
 </ui>
 
 <a href="/new">Create a new project</a>
+<br>
+<select class="" id="sortType">
+  <option value="goal">Goal</option>
+  <option value="start">Start</option>
+  <option value="end">End</option>
+  <option value="totalcontributions">Total Contributions</option>
+</select>
+<select id="direction">
+  <option value="1">Ascending</option>
+  <option value="-1">Descending</option>
+</select>
+<select id="filter">
+  <option value="0">No Filter</option>
+  <option value="1">Complete</option>
+  <option value="-1">Incomplete</option>
+</select>
+<a id="sortbutton" action='/' class="btn btn-default">Sort</a>
+<br>
+
+
+
+<script>
+    $("#sortbutton").mouseover( function(evt) {
+      var sortType = $("#sortType").val();
+      var direction = $("#direction").val()
+      var filter = $("#filter").val();
+      $("#sortbutton").attr('href',"?sort="+sortType+"&sortDirection="+direction+"&filter="+filter)
+    });
+</script>

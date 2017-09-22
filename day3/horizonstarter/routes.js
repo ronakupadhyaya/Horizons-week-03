@@ -34,14 +34,63 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
+  var arr
+  var filterval = parseFloat(req.query.filter);
+
+  function projectfilter(proarray) {
+    var output = proarray.filter(function(element) {
+      if (parseInt(req.query.filter) === 0 || !req.query.filter) {
+        return true
+      }
+      var total = element.contributions.reduce(function(sum, donation) {
+        return sum + parseInt(donation.amount)
+      }, 0);
+      var finality = total / element.goal
+      return finality / filterval > 1 / filterval
+
+    })
+    // console.log("function filter called" + output);
+    return output
+  }
+
+  function renderpage(array) {
+    res.render('index', {
+      data: projectfilter(array)
+    })
+  }
   Project.find(function(err, result) {
     if (err) {
-      console.log(err);
+      console.log("error is " + err);
     } else {
-      console.log("we got here");
-      res.render('index', {
-        data: result
-      })
+      if (req.query.sort) {
+        var direction = parseInt(req.query.sortDirection);
+        var sortObject = {};
+        sortObject[req.query.sort] = direction;
+        if (req.query.sort === "totalcontributions") {
+          Project.find(function(err, array) {
+            renderpage(array.sort(function(a, b) {
+              var aval = a.contributions.reduce(function(sum, val) {
+                return sum + val.amount
+              }, 0)
+              var bval = b.contributions.reduce(function(sum, val) {
+                return sum + val.amount
+              }, 0)
+              return (aval - bval) * direction
+            }))
+          })
+        } else {
+          Project.find({}).sort(sortObject).exec(function(err, array) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Sort but not total contributions" + array);
+              renderpage(array);
+            }
+          });
+        }
+      } else {
+        renderpage(result)
+      }
     }
   })
 });
@@ -58,6 +107,7 @@ router.post('/new', function(req, res) {
   var newProject = new Project({
     "title": req.body.title,
     "goal": req.body.goal,
+    "category": req.body.category,
     "description": req.body.description,
     "start": req.body.start,
     "end": req.body.end
@@ -89,7 +139,15 @@ router.get('/project/:projectid', function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      res.render('project', result)
+      var contributionsnum = result.contributions.length
+      var complete = result.contributions.reduce(function(sum, val) {
+        return sum + val.amount
+      }, 0) * 100 / result.goal
+      res.render('project', {
+        project: result,
+        count: contributionsnum,
+        complete: complete
+      })
     }
   })
 });
@@ -123,7 +181,38 @@ router.post('/project/:projectid', function(req, res) {
   })
 });
 
-// Part 6: Edit project
+router.get('/project/:projectid/edit', function(req, res) {
+  Project.findById({
+    _id: req.params.projectid
+  }, function(err, result) {
+    res.render('editProject', {
+      title: result.title,
+      goal: result.goal,
+      category: result.category,
+      description: result.description,
+      start: result.start.toJSON().slice(0, 10),
+      end: result.end.toJSON().slice(0, 10)
+    })
+  })
+})
+router.post('/project/:projectid/edit', function(req, res) {
+  Project.findByIdAndUpdate({
+    _id: req.params.projectid
+  }, {
+    title: req.body.title,
+    goal: req.body.goal,
+    category: req.body.category,
+    description: req.body.description,
+    start: req.body.start,
+    end: req.body.end
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/project/' + req.params.projectid)
+    }
+  });
+})
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
 

@@ -6,13 +6,60 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+    body { background-color: #2ECC71; padding-top: 2em;},
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px 25px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <h1>Put your user profile here</h1>
+      <table>
+        <tr>
+          <th> Field name </th>
+          <th> Value </th>
+          <tr>
+            <tr>
+              <td> First Name </td>
+              <td> {{first}} </td>
+            </tr>
+            <tr>
+              <td> Middle initial </td>
+              <td> {{middle}}</td>
+            </tr>
+            <tr>
+              <td> Last name </td>
+              <td> {{last}} </td>
+            </tr>
+            <tr>
+              <td> Date of Birth </td>
+              <td> {{bday}} </td>
+            </tr>
+            <tr>
+              <td> Password </td>
+              <td> {{pw}} </td>
+            </tr>
+            <tr>
+              <td> Repeat Password </td>
+              <td> {{pw}} </td>
+            </tr>
+            <tr>
+              <td> Gender </td>
+              <td> {{gender}} </td>
+            </tr>
+            <tr>
+              <td> Sign-up for newsletter </td>
+              <td> {{newsletter}} </td>
+            </tr>
+            <tr>
+              <td> Bio </td>
+              <td> {{bio}} </td>
+            </tr>
+            <table>
     </div>
   </div>
 </body>

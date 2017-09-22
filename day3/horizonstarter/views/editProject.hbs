@@ -1,9 +1,10 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
 <form class="" method="post">
     <input type="text" name="title" placeholder="Title" value="{{title}}">
     <input type="text" name="goal" placeholder="Goal" value="{{goal}}">
-    <select class="" name="category">
+    <select class="" name="category" value="{{category}}">
+      <option value="{{category}}">{{category}}</option>
       <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
       <option value="Current Black Presidents">Current Black Presidents</option>
       <option value="The Pen is Mightier">The Pen is Mightier</option>
@@ -14,10 +15,10 @@
       <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
       <option value="Potent Potables">Potent Potables</option>
     </select>
-    <textarea name="description" rows="8" cols="80"></textarea>
+    <textarea name="description" rows="8" cols="80">{{description}}</textarea>
     <input type="date" name="start" placeholder="start date" value="{{start}}">
     <input type="date" name="end" placeholder="end date" value="{{end}}">
-    <input type="submit" name="submit" value="Submit this stuff!">
+    <input type="submit" name="edit" value="Edit this project!">
 </form>
 
 
@@ -26,5 +27,3 @@
     {{alert}}
 </div>
 {{/if}}
-<!-- Part 5: Project categories -->
-<!-- YOUR CODE HERE -->

@@ -7,18 +7,99 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px 25px;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
-    </div>
+  <div class="container" >
+    <form class="" action="/register" method="post">
+      <div class="form-group row">
+        <label for="first" class="col-sm-2 col-form-label">First Name</label>
+        <div class="col-sm-10">
+          <input type="text" name="first" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="middle" class="col-sm-2 col-form-label">Middle initial</label>
+        <div class="col-sm-10">
+          <input type="text" name="middle" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="last" class="col-sm-2 col-form-label">Last Name</label>
+        <div class="col-sm-10">
+          <input type="text" name="last" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="bday" class="col-sm-2 col-form-label">Birthday</label>
+        <div class="col-sm-10">
+          <input type="date" name="bday" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pw" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" name="pw" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pw2" class="col-sm-2 col-form-label">Validate Password</label>
+        <div class="col-sm-10">
+          <input type="password" name="pw2" value="" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pw2" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-10">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="gender" value="Male">
+              Male
+            </label>
+          </div>
+          <div class="form-check disabled">
+            <label class="form-check-label">
+              <input  class="form-check-input" type="radio" name="gender" value="Female">
+              Female
+            </label>
+          </div>
+          <div class="form-check disabled">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="gender" value="Rather not say">
+              Rather not say
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="newsletter" class="col-sm-2 col-form-label">Newsletter</label>
+        <div class="col-sm-10">
+          <label for="form-check-label">
+            <input class="form-check-input" type="checkbox" name="newsletter" value="true">
+            Want to receive newsletter?
+          </label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="bio" class="col-sm-2 col-form-label">Bio</label>
+        <div class=" col-sm-10">
+          <textarea class="form-control " name="bio" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <input type="submit" class="btn btn-primary btn-block">
+        </div>
+      </div>
+    </form>
+    {{#each errors}}
+    <div><strong>Errors:</strong>{{msg}}</div>
+    {{/each}}
   </div>
 </body>
 </html>
