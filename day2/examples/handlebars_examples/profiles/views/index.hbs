@@ -1,3 +1,9 @@
 <div>
-  <span>YOUR CODE HERE</span>
+  <ul>
+  {{#each data}}
+    <!-- {{#if (compareGender this)}} -->
+    <li>First Name: {{this.first_name}}<br>Last Name: {{this.last_name}}<br>E-Mail: {{this.email}}<br>Gender: {{this.gender}}<br><br></li>
+    <!-- {{/if}} -->
+  {{/each}}
+  </ul>
 </div>

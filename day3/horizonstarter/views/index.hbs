@@ -1,20 +1,101 @@
 <h1>View projects</h1>
-
+<script src="/js/jquery.min.js"></script>
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
-{{#each projects}}
-<div class="project">
-    <h4>{{title}}</h4>
-    <hr>
-    <div>Goal: ${{goal}}</div>
-    <div><br>"{{description}}"<br><br></div>
-    <div>Start: {{start}}</div>
-    <div>End : {{end}}</div>
-    <br>
-    <div><a href="/project/{{_id}}">> View Details</a></div>
+<div id="big-container">
+    <div id="a">
+        <div id="new-post">
+            <button>
+                New Post
+            </button>
+        </div>
+        <div id="divider"></div>
+        <div id="sort-options">
+            <h5>Sorting Options:</h5>
+            <button class="sorting-option" id="goal-sort-up">Goal Asc</button>
+            <button class="sorting-option" id="goal-sort-down">Goal Desc</button>
+            <br>
+            <button class="sorting-option" id="start-sort-up">Start Date Asc</button>
+            <button class="sorting-option" id="start-sort-down">Start Date Desc</button>
+            <br>
+            <button class="sorting-option" id="end-sort-up">End Date Asc</button>
+            <button class="sorting-option" id="end-sort-down">End Date Desc</button>
+            <br>
+            <button class="sorting-option" id="total-cont-up">Total Contributions Asc</button>
+            <button class="sorting-option" id="total-cont-down">Total Contributions Desc</button>
+            <br>
+            <button class="sorting-option" id="funding-status-up">Fully Funded Projects</button>
+            <button class="sorting-option" id="funding-status-down">Non-Fully Funded Projects</button>
+        </div>
+    </div>
+    <div id="b">
+        {{#each projects}}
+        <div class="project">
+            <h4>{{title}}</h4>
+            <a href="/project/{{_id}}/edit">
+                <button class="edit-project">Edit</button>
+            </a>
+            <a href="/project/{{_id}}/delete">
+                <button class="delete-project">Delete</button>
+            </a>
+            <hr>
+            <div>Goal: ${{goal}}</div>
+            <div><br>"{{description}}"<br><br></div>
+            <div>Start: {{start}}</div>
+            <div>End : {{end}}</div>
+            <br>
+            <div><a href="/project/{{_id}}">> View Details</a></div>
+        </div>
+
+        {{/each}}
+    </div>
 </div>
 
-{{/each}}
+<script>
+    $('#goal-sort-up').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=goal&sortDirection=ascending';
+    })
+    $('#goal-sort-down').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=goal&sortDirection=descending';
+    })
+    $('#start-sort-up').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=start&sortDirection=ascending';
+    })
+    $('#start-sort-down').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=start&sortDirection=descending';
+    })
+    $('#end-sort-up').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=end&sortDirection=ascending';
+    })
+    $('#end-sort-down').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=end&sortDirection=descending';
+    })
+    $('#total-cont-up').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=totalCont&sortDirection=ascending';
+    })
+    $('#total-cont-down').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=totalCont&sortDirection=descending';
+    })
+    $('#funding-status-up').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=fundingStatus&sortDirection=complete';
+    })
+    $('#funding-status-down').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/?sort=fundingStatus&sortDirection=incomplete';
+    })
 
-<!-- Part 2: Create new project -->
-<!-- YOUR CODE HERE -->
+    $('#new-post').on('click', function (event) {
+        event.preventDefault();
+        window.location = '/new';
+    })
+
+</script>

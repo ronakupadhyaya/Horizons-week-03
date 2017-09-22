@@ -6,9 +6,16 @@
 
 <div class="project">
     <h4>{{project.title}}</h4>
+    <a href="/project/{{project._id}}/edit">
+        <button class="edit-project">Edit</button>
+    </a>
     <hr>
     <div>Goal: ${{project.goal}}</div>
     <div><br>"{{project.description}}"<br><br></div>
+    <div>
+        Category: [{{project.category}}] <br>
+        <br>
+    </div>
     <div>Start: {{project.start}}</div>
     <div>End : {{project.end}}</div>
     <br>

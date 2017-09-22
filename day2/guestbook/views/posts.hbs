@@ -23,6 +23,22 @@
 -->
 
 <!-- YOUR CODE HERE -->
-
+{{#each posts}}
+  {{#if (checkAuthor this)}}
+    <div class="post">
+      <a href="/posts?author={{this.author}}">
+        <div class="author">{{this.author}}</div>
+      </a>
+      <div class="title">{{this.title}}</div>
+      <div class="body">{{this.body}}</div>
+      <div class="date">{{this.date}}</div>
+    </div>
+    <br>
+    <br>
+  {{/if}}
+{{/each}}
+{{#if author}}
+<a href="/posts">View all posts</a>
+{{/if}}
 </body>
 </html>
