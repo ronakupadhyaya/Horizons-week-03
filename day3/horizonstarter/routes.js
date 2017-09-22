@@ -7,7 +7,7 @@ var Project = require('./models').Project;
 var strftime = require('strftime');
 var bodyParser = require('body-parser');
 
-//TESTING
+//TESTIN
 
 router.use(bodyParser.urlencoded({
   extended: false
