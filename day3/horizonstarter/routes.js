@@ -6,7 +6,6 @@ var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
 var bodyParser = require('body-parser');
-var newTest = require('Hello world')
 
 router.use(bodyParser.urlencoded({
   extended: false
