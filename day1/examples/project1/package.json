@@ -1,5 +1,5 @@
 {
-  "name": "hello_world",
+  "name": "project1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.4"
+    "sentiment": "^4.0.1"
   }
 }
