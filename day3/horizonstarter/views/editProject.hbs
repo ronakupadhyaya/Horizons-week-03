@@ -1,39 +1,31 @@
-<h2>Create project</h2>
+<h1>Edit Project</h1>
 
-<!-- Part 2: Create project -->
-<!-- Part 5: Project categories -->
-
-<div class="new-project-container">
-  {{#if error}}
-  {{error}}
-  {{/if}}
-
-<form class="new-project" action="/new" method="post">
-  <div>Title: <input type="text" name="title" value="{{title}}"></div>
-  <div>Goal: <input type="text" name="goal" value="{{goal}}"></div>
-  Description: <textarea name="description" rows="8" cols="80">{{desc}}</textarea>
-  <div>Start Date: <input type="date" name="start" value="{{start}}"></div>
+<form class="new-project" action="/project/{{project.id}}/edit" method="post">
+  <div>Title: <input type="text" name="title" value="{{project.title}}"></div>
+  <div>Goal: <input type="text" name="goal" value="{{project.goal}}"></div>
+  <div>Description: <textarea name="description" rows="8" cols="80">{{project.description}}</textarea></div>
+  <div>Start Date: <input type="date" name="start" value={{start}}></div>
   <div>End Date: <input type="date" name="end" value="{{end}}"></div>
   <div>
-    Catrgoyry:
-    <select name="category">
-      <option disabled selected>--Please Select One--</option>
+    Catrgory:
+    <select name="categoy">
+      <option disabled>--Please Select One--</option>
       <option value="Famous Muppet Frogs">Famous Muppet Frogs</option>
       <option value="Current Black Presidents">Current Black Presidents</option>
       <option value="The Pen Is Mightier">The Pen Is Mightier</option>
       <option value="Famous Mothers">Famous Mothers</option>
       <option value="Drummers Named Ringo">Drummers Named Ringo</option>
       <option value="1-Letter Words">1-Letter Words</option>
-      <option value='Months That Start With "Feb"'>Months That Start With "Feb"</option>
+      <option value="Months That Start With 'Feb'">Months That Start With "Feb"</option>
       <option value="How Many Fingers Am I Holding Up">How Many Fingers Am I Holding Up</option>
       <option value="Potent Potables">Potent Potables</option>
     </select>
   </div>
-  <input type="submit" name="" value="Submit">
+  <div><input type="submit" name="" value="Submit"></div>
 </form>
-</div>
 
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
+var category = {{project.category}};
   $('select').val('{{category}}');
 </script>

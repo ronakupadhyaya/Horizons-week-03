@@ -6,7 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 
   <style>
-    body { background-color: #2ECC71; padding-top: 2em;}
+  body { background-color: #2ECC71; padding-top: 2em;}
   </style>
 </head>
 <body>
@@ -14,8 +14,31 @@
     <h1>Put your registration form here</h1>
     <div><strong>Errors:</strong>{{errors}}</div>
     <div class="row">
-      <form action="/register" method="post">
+      <div class="column form-labels">
+        <strong>First Name</strong>
+        <strong>Middle Initial</strong>
+        <strong>Last Name</strong>
+        <strong>Date of Birth</strong>
+        <strong>Password</strong>
+        <strong>Repeat Password</strong>
+        <strong>Gender</strong>
+        <strong>Sign up for newsletter</strong>
+        <strong>Biography</strong>
+      </div>
+      <form class="column"action="/register" method="post">
         <input type="text" placeholder="First Name" name="firstName" required>
+        <input type="text" name="middleinitial" value="" placeholder="Middle Initial">
+        <input type="text" name="lastname" value=""placeholder="Last Name" required>
+        <input type="da4" name="dob" value="">
+        <input type="password" name="password" value="" placeholder="Password" required>
+        <input type="password" name="repeatpassword" value="" placeholder="Repeat Password" required>
+        <div>
+          <input type="radio" name="gender" value="male"><label>Male</label>
+          <input type="radio" name="gender" value="female"><label>Female</label>
+          <input type="radio" name="gender" value="rathernotsay"><label>Prefer not to say</label>
+        </div>
+        <input type="checkbox" name="newsletter" value="">
+        <textarea name="bio" rows="4" cols="80" placeholder="Biography"></textarea>
         <input type="submit">
       </form>
     </div>

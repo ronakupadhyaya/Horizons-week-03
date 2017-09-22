@@ -1,14 +1,46 @@
 <div class="main-page"><h1>View projects</h1>
+  <form class="row" action="/" method="get">
+    Sort by:
+    <select class="" id="attr" name="sort">
+      <option value="">Select One...</option>
+      <option value="title">Title</option>
+      <option value="goal">Goal</option>
+      <option value="desc">Description</option>
+      <option value="start">Start Date</option>
+      <option value="end">End Date</option>
+      <option value="totalContributions">Total Contributions</option>
+    </select>
+    <select class="" id="order" name="sortDirection">
+      <option value="none">Select Order...</option>
+      <option value="ascending">Ascending</option>
+      <option value="descending">Descending</option>
+    </select>
+    Filter:
+    <select id="funded" name="funded">
+      <option value="all">All Projects</option>
+      <option value="yes">Fully Funded Projects</option>
+      <option value="no">Projects Still Fundraising</option>
+    </select>
+    <input id="filter-button" type="submit" name="" value="Refresh">
+  </form>
+
+<script src="/js/jquery.min.js"></script>
+  <script type="text/javascript">
+    $('#attr').val('{{sort}}');
+    $('#order').val('{{order}}');
+    $('#funded').val('{{funded}}');
+  </script>
 
 <!-- Part 1: View all projects -->
 {{# each projects}}
 <div>
   <a href="/project/{{id}}"><h2>{{title}}</h2></a>
-  <p>{{desc}}</p>
+  <p>{{description}}</p>
   <h3>Goal: {{goal}}</h3>
   <h4>{{start}} - {{end}}</h4>
 </div>
 {{/each}}
+
 
 <!-- Part 2: Create new project -->
 <a href="/new">Create new project</a>
