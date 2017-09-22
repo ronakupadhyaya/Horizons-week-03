@@ -42,9 +42,9 @@ router.post('/api/users/login', function(req, res) {
   if (req.validationErrors()) { res.status(400).send("400 Error") };
 
   User.findOne({email: req.body.email}, function(err, foundUser) {
-    if (err) {res.send(err); }
+    if (err) {res.send(err);}
     else {
-      if (foundUser.password !== req.body.password) { res.status(301).send("301: Login failed.") }
+      if (foundUser.password !== req.body.password) { res.status(401).send("401: Login failed."); return; }
       var token = foundUser.email + new Date();
       var tokenModel = new Token({
         userId: foundUser._id,
@@ -53,20 +53,30 @@ router.post('/api/users/login', function(req, res) {
       });
       tokenModel.save(function(err2) {
         if (err2) {res.send(err2);}
-        else {res.json(
-          {
-            "success": true,
-            "response":
+        else {
+          res.json(
             {
-              "id": foundUser._id,
-              "token": tokenModel.token
+              "success": true,
+              "response":
+              {
+                "id": foundUser._id,
+                "token": tokenModel.token
+              }
             }
-          });
+          );
         }
       });
     }
   });
+});
 
+router.get('/api/users/logout', function(req, res) {
+  Token.remove({token: req.query.token}, function(err) {
+    if (err) {res.send(err);}
+    else {
+      res.json({"success": true});
+    }
+  });
 });
 
 module.exports = router;
