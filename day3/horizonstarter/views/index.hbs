@@ -3,5 +3,12 @@
 <!-- Part 1: View all projects -->
 <!-- YOUR CODE HERE -->
 
+<ul>
+  {{#each projects}}
+    <li>{{title}}, {{_id}}</li>
+  {{/each}}
+</ul>
+
 <!-- Part 2: Create new project -->
 <!-- YOUR CODE HERE -->
+<a href="http://localhost:3000/new">Create new project</a>

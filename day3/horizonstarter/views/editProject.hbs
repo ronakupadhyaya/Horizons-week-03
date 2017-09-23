@@ -1,17 +1,11 @@
-<h2>Create project</h2>
+<h2>Edit project</h2>
 
 <!-- Part 2: Create project -->
 <!-- Part 5: Project categories -->
 <!-- YOUR CODE HERE -->
 
-<h3>Errors:</h3>
-<ul>
-  {{#each errors}}
-    <li>{{msg}}</li>
-  {{/each}}
-</ul>
 
-<form method="POST" action="/new">
+<form method="POST" action="/project/{{projectid}}/edit">
   <input type="text" name="title" placeholder="title" value="{{title}}">
   <input type="text" name="goal" placeholder="goal" value="{{goal}}">
   <input type="textarea" name="description" placeholder="description" value="{{description}}">

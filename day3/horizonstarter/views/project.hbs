@@ -3,7 +3,27 @@
 <!-- Part 3: View a single project -->
 
 <!-- YOUR CODE HERE -->
+<ul>
+  <li>{{project.title}}</li>
+  <li>{{project.goal}}</li>
+  <li>{{project.description}}</li>
+  <li>{{project.start}}</li>
+  <li>{{project.end}}</li>
+  <li>{{project.category}}</li>
+</ul>
 
+<h2>Contributions</h2>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width:30%"></div>
+</div>
+<ul>
+  {{#each project.contributions}}
+    <li>{{name}}, {{amount}}</li>
+  {{/each}}
+</ul>
 <!-- Part 4: Contribute to a project -->
-
-<!-- YOUR CODE HERE -->
+<form method="POST" action"/project/{{projectid}}">
+  <input type = "text" name = "name" placeholder = "name" value="{{name}}">
+  <input type = "text" name = "amount" placeholder = "amount" value="{{amount}}">
+  <input type = "submit" name = "submit" value = "donate">
+</form>
