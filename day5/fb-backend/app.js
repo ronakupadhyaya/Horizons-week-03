@@ -15,6 +15,8 @@ app.use(validator());
 
 var mongoose = require('mongoose');
 
+var bcrypt = require('bcrypt');
+
 mongoose.connect(process.env.MONGODB_URI);
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', '.hbs');
