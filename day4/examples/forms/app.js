@@ -44,14 +44,46 @@ app.get('/register', function(req, res){
 // 3. Update profile.hbs to display all the submitted user profile fields. This
 //    profile should not be editable.
 app.post('/register', function(req, res){
-  // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  // Validators
+  // First Name: must not be empty
+  req.check('firstName', 'You must submit a first name')
+    .notEmpty();
+
+  // Middle initial: (optional) must be a single character
+  req.check('middleInit', 'Middle initial must be one character')
+    .optional().isLength({
+      min: 1,
+      max: 1,
+    });
+
+  // Last name: must not be empty
+  req.check('lastName', 'You must submit a last name')
+    .notEmpty();
+
+  // Date of Birth (dob): must be in the past
+  req.check('dob', 'You must be born before the current time')
+    .isBefore();
+
+  // Password: must not be empty
+  req.check('password', 'You must make a password')
+    .notEmpty();
+
+  // Confirm password: must not be empty and must match password
+  req.check('passwordConfirm', 'Your password confirmation does not match your password')
+    .notEmpty()
+    .equals(req.body.password);
+
+  // Gender: only valid values are male, female, other
+  req.check('gender', 'Must select an option for gender')
+    .notEmpty();
+
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
     // Include the data of the profile to be rendered with this template
     // YOUR CODE HERE
-    res.render('profile');
+    res.render('profile', {profileInfo: req.body});
   }
 });
 

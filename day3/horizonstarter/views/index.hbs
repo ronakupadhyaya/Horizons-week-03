@@ -7,8 +7,19 @@
     <h5> Goal: ${{goal}} </h5>
     <p> {{description}} </p>
     <span> Project lasts from {{start}} to {{end}} </span>
+    <a href="/project/{{id}}"> More Details </a>
   </div>
 {{/each}}
 
+<div>
+  <a class="btn btn-default" href="/?sort=start"> Sort by Start Date</a>
+  <a class="btn btn-default" href="/?sort=end"> Sort by End Date </a>
+  <a class="btn btn-danger" href="/?sort=goal"> Sort by Goal </a>
+</div>
+
+<div>
+  <a class="btn btn-success" href="/?funded=true"> Only show fully funded projects </a>
+  <a class="btn btn-warning" href="/?funded=false"> Only show projects that still require funding</a>
+</div>
 <!-- Part 2: Create new project -->
 <a href="/new"> Create new project</a>

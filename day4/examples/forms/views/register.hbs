@@ -7,17 +7,107 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .form-total {
+      background-color: #FFF;
+      padding-top:20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
-    <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
-      </form>
+    <div><strong>Errors:</strong>
+      <ul>
+        {{#each errors}}
+          <li> {{msg}} </li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="row form-total">
+      <div class='col-xs-8 col-xs-offset-2'>
+        <form action="/register" method="post">
+          <div class="form-group row">
+            <label for="firstname" class="col-xs-2 col-form-label"> First name </label>
+            <div class="col-xs-6">
+              <input type="text" id="firstname" placeholder="First Name" name="firstName" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="middleinitial" class="col-xs-2 col-form-label"> Middle initial </label>
+            <div class="col-xs-6">
+              <input type="text" id="middleinitial" placeholder="Middle Initial" name="middleInit">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="lastname" class="col-xs-2 col-form-label"> Last name </label>
+            <div class="col-xs-6">
+              <input type="text" id="lastname" placeholder="Last Name" name="lastName" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="dateofbirth" class="col-xs-2 col-form-label"> Date of birth </label>
+            <div class="col-xs-6">
+              <input type="date" id="dateofbirth" name="dob">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="passwordFirst" class="col-xs-2 col-form-label"> Password </label>
+            <div class="col-xs-6">
+              <input type="password" id="passwordFirst" placeholder="Password" name="password" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="passwordSecond" class="col-xs-2 col-form-label"> Confirm password </label>
+            <div class="col-xs-6">
+              <input type="password" id="passwordSecond" placeholder="Confirm Password" name="passwordConfirm" required>
+            </div>
+          </div>
+
+          <fieldset class="form-group row">
+            <legend> Gender </legend>
+            <div class="form-check">
+              <label class="form-check-label">
+                <input id="firstGender" type="radio" name="gender" value="Male" class="form-check-input">
+                Male
+              </label>
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" name="gender" value="Female" class="form-check-input">
+                Female
+              </label>
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" name="gender" value="Prefer not to say" class="form-check-input">
+                Rather not say
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" name="newsletter" class="form-check-input" value="true">
+              Sign up for our newsletter
+            </label>
+          </div>
+
+          <div class="form-group row">
+            <label for="biographyBox" class="col-xs-2 col-form-label"> Biography </label>
+            <div class="col-xs-6">
+              <textarea id="biographyBox" name="bio" rows="3"> </textarea>
+            </div>
+          </div>
+
+          <input class='btn btn-default' type="submit">
+        </form>
+      </div> <!-- col end -->
     </div>
   </div>
 </body>

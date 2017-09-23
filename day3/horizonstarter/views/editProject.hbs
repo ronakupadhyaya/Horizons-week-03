@@ -1,0 +1,54 @@
+<h2>Edit project</h2>
+
+<!-- Part 2: Create project -->
+<form class="editProjectForm" method="post">
+  <div>
+    Title <input type="text" name="title" value="{{project.title}}">
+  </div>
+
+  <div>
+    Goal <input type="text" name="goal" value="{{project.goal}}">
+  </div>
+
+  <div>
+    Description <textarea name="description" rows="5" cols="12"> {{project.description}} </textarea>
+  </div>
+
+  <div>
+    Start <input type="date" name="start" value="{{convertedStart}}">
+  </div>
+
+  <div>
+    End <input type="date" name="end" value="{{convertedEnd}}">
+  </div>
+
+  <select name="category">
+    <option value="Famous Muppet Frogs" {{#if cat1}} selected {{/if}}> Famous Muppet Frogs </option>
+    <option value="Current Black Presidents" {{#if cat2}} selected {{/if}}> Current Black Presidents </option>
+    <option value="The Pen Is Mightier" {{#if cat3}} selected {{/if}}> The Pen Is Mightier </option>
+    <option value="Famous Mothers" {{#if cat4}} selected {{/if}}> Famous Mothers </option>
+    <option value="Drummers Named Ringo" {{#if cat5}} selected {{/if}}> Drummers Named Ringo </option>
+    <option value="1-Letter Words" {{#if cat6}} selected {{/if}}> 1-Letter Words </option>
+    <option value='Months That Start With "Feb"' {{#if cat7}} selected {{/if}} > Months That Start With "Feb" </option>
+    <option value="How Many Fingers Am I Holding Up" {{#if cat8}} selected {{/if}} > How Many Fingers Am I Holding Up </option>
+    <option value="Potent Potables" {{#if cat9}} selected {{/if}} > Potent Potables </option>
+  </select>
+
+  <div>
+    <input type="submit" name="" value="Update Project">
+  </div>
+
+  {{#if error}}
+    <span style="color: red"> Missing certain required fields, resubmit! </span>
+  {{/if}}
+
+  {{#if saveError}}
+    <span style="color: red"> Could not save for this reason {{err}}, try again! </span>
+  {{/if}}
+</form>
+
+<script>
+
+</script>
+
+<!-- Part 5: Project categories -->

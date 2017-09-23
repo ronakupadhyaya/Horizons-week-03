@@ -15,7 +15,27 @@
 
     <script src="/jquery.js"></script>
     <script>
-      // YOUR CODE HERE
+      $('#up').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/up',
+          type: 'post',
+          success: function(resp) {
+            $('#count').text(resp.count);
+          }
+        });
+      });
+
+      $('#down').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: '/down',
+          type: 'post',
+          success: function(resp) {
+            $('#count').text(resp.count);
+          }
+        });
+      });
     </script>
   </body>
 </html>

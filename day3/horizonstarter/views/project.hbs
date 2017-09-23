@@ -6,6 +6,9 @@
   <h5> Goal: ${{project.goal}} </h5>
   <p> {{project.description}} </p>
   <span> Project lasts from {{project.start}} to {{project.end}} </span>
+  <div>
+    Category: {{project.category}}
+  </div>
 </div>
 <!-- Part 4: Contribute to a project -->
 <h2> Contributions to this Project </h2>
@@ -43,6 +46,8 @@
   <div>
     <input type="submit" value="Make a Contribution">
   </div>
+
+  <a href="/"> Return to Home </a>
 
   {{#if numError}}
     <span style="color: red"> Amount must be a number! </span>

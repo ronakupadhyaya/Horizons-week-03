@@ -12,7 +12,23 @@
 <body>
   <div class="container">
     <div class="row">
-      <h1>Put your user profile here</h1>
+      <div class="col-xs-6 col-xs-offset-3">
+          <h1> {{profileInfo.firstName}}
+            {{#if profileInfo.middleInit}}{{profileInfo.middleInit}}. {{/if}} {{profileInfo.lastName}}</h1>
+
+          <div>
+            Birthday: {{profileInfo.dob}}
+          </div>
+
+          <div>
+            Gender: {{profileInfo.gender}}
+          </div>
+
+          <div>
+            Biography:
+            <p> {{profileInfo.bio}}</p>
+          </div>
+      </div>
     </div>
   </div>
 </body>

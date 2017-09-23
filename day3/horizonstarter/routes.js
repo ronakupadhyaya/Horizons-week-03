@@ -5,7 +5,17 @@ var express = require('express');
 var router = express.Router();
 var Project = require('./models').Project;
 var strftime = require('strftime');
-
+var catDict = {
+  'Famous Muppet Frogs': 'cat1',
+  'Current Black Presidents': 'cat2',
+  'The Pen is Mightier': 'cat3',
+  'Famous Mothers': 'cat4',
+  'Drummers Named Ringo': 'cat5',
+  '1-Letter Words': 'cat6',
+  'Months That Start With "Feb"': 'cat7',
+  'How Many Fingers Am I Holding Up': 'cat8',
+  'Potent Potables': 'cat9',
+}
 // Example endpoint
 router.get('/create-test-project', function(req, res) {
   var project = new Project({
@@ -23,15 +33,75 @@ router.get('/create-test-project', function(req, res) {
 // Part 1: View all projects
 // Implement the GET / endpoint.
 router.get('/', function(req, res) {
+  if(req.query.sort) { // user has sort param
+    var sortObject = {};
+    sortObject[req.query.sort] = 1;
+    Project.find().sort(sortObject).exec(function(err, projects) {
+      if(err) {
+        res.show('Could not find projects sorted due to ' + err);
+      } else {
+        if(req.query.sortDirection === 'descending') {
+          projects.reverse();
+        }
+        res.render('index', {
+          projectList: projects,
+        });
+      }
+    });
+  } else { // no sort param passed in
   Project.find(function(err, projects) {
     if(err) {
       res.status(400).show('Unable to find projects due to ' + err);
     } else {
+      projects.forEach(function(project) {
+        project.id = project['_id']['$oid'];
+      });
+
+      if(req.query.conSort) {
+        projects.sort(function(project1, project2) {
+          var project1Sum = 0;
+          var project2Sum = 0;
+          project1.contributions.forEach(function(con) {
+            project1Sum += con.amount;
+          });
+          project2.contributions.forEach(function(con) {
+            project2Sum += con.amount;
+          });
+          return project1Sum - project2Sum;
+        });
+      }
+
+      if(req.query.funded === 'true') {
+        projects = projects.filter(function(project) {
+          var projectSum = 0;
+          project.contributions.forEach(function(con) {
+            projectSum += con.amount;
+          });
+          var completionRatio = projectSum/project.goal;
+          return (completionRatio >= 1);
+        });
+      }
+
+      if(req.query.funded === 'false') {
+        projects = projects.filter(function(project) {
+          var projectSum = 0;
+          project.contributions.forEach(function(con) {
+            projectSum += con.amount;
+          });
+          var completionRatio = projectSum/project.goal;
+          return (completionRatio < 1);
+        });
+      }
+
+      if(req.query.sortDirection === 'descending') {
+        projects.reverse();
+      }
       res.render('index', {
         projectList: projects
       });
     }
-  });
+    });
+  }
 });
 
 // Part 2: Create project
@@ -42,12 +112,14 @@ router.get('/new', function(req, res) {
 
 // Part 2: Create project
 // Implement the POST /new endpoint
+// Deprecated by jQuery, sorry!
 router.post('/new', function(req, res) {
   var title = req.body.title;
   var goal = req.body.goal;
   var description = req.body.description;
   var start = req.body.start;
   var end = req.body.end;
+  var category = req.body.category;
   if(!( title && goal && start && end)) {
     res.render('new', {
       project: {
@@ -56,6 +128,7 @@ router.post('/new', function(req, res) {
         description,
         start,
         end,
+        category,
       },
       error: true
     });
@@ -66,6 +139,7 @@ router.post('/new', function(req, res) {
       description,
       start,
       end,
+      category,
     });
     newProject.save(function(err) {
       if(err) {
@@ -76,6 +150,7 @@ router.post('/new', function(req, res) {
             description,
             start,
             end,
+            category,
           },
           saveError: err
         });
@@ -93,7 +168,7 @@ router.get('/project/:projectid', function(req, res) {
   var id = req.params.projectid;
   Project.findById(id, function(err, project) {
     if(err) {
-      res.status(400).show('Unable to get project with id ' + id);
+      console.log(err);
     } else {
       var sum;
       var goalPercent;
@@ -102,7 +177,8 @@ router.get('/project/:projectid', function(req, res) {
         project.contributions.forEach(function(con) {
           sum += con.amount;
         });
-        goalPercent = sum/project.goal;
+        goalPercent = (sum/project.goal)*100;
+        goalPercent = goalPercent.toFixed(1);
       }
       res.render('project', {
         project: project,
@@ -123,7 +199,7 @@ router.post('/project/:projectid', function(req, res) {
     if(err) {
       res.status(400).show('Unable to access project with id ' + id);
     } else {
-      if(isNaN(parseInt(amount))) { //user didn't type in a number
+      if(isNaN(parseFloat(amount))) { //user didn't type in a number
         res.render('project', {
           project: project,
           numError: true,
@@ -131,7 +207,7 @@ router.post('/project/:projectid', function(req, res) {
           amount: amount,
         });
       } else { //it is a number
-        amount = parseInt(amount);
+        amount = parseFloat(amount);
         var newContribution = {
           name,
           amount,
@@ -144,27 +220,65 @@ router.post('/project/:projectid', function(req, res) {
         // all work is done, save the new updated project
         project.save(function(err) {
           if(err) {
-            res.show('Failed to save updated project for reason: ', err);
+            console.log(err);
           } else {
             var sum = 0;
             project.contributions.forEach(function(con) {
               sum += con.amount;
             });
             var goalPercent = (sum/project.goal)*100;
+            goalPercent = goalPercent.toFixed(1);
             res.render('project', {
               project: project,
               sum: sum,
               goalPercent: goalPercent,
-            })
-          }
-        });
+            });
+            }
+          });
+        }
       }
-    }
+    });
   });
-});
 
 // Part 6: Edit project
 // Create the GET /project/:projectid/edit endpoint
 // Create the POST /project/:projectid/edit endpoint
+  router.get('/project/:projectid/edit', function(req, res) {
+    var id = req.params.projectid;
+    Project.findById(id, function(err, project) {
+      if(err) {
+        res.show('Could not find project with id' + id);
+      } else {
+        var convertedStart = project.start.toJSON();
+        convertedStart = convertedStart.slice(0,10);
+        var convertedEnd = project.end.toJSON();
+        convertedEnd = convertedEnd.slice(0,10);
+
+        var convertedCat = catDict[project.category];
+        // using dictionary to find proper keyword
+        var passedInInfo = {
+          project,
+          convertedStart,
+          convertedEnd,
+        };
+        passedInInfo[convertedCat] = true;
+
+        console.log(passedInInfo);
+        res.render('editProject', passedInInfo);
+      }
+    })
+  });
+
+  router.post('/project/:projectid/edit', function(req, res) {
+    var id = req.params.projectid;
+    var updatedProject = req.body;
+    Project.findByIdAndUpdate(id, updatedProject, function(err, project) {
+      if(err) {
+        res.show('Could not find project with id ' + id);
+      } else {
+        res.redirect('/project/'+id);
+      }
+    })
+  })
 
 module.exports = router;
