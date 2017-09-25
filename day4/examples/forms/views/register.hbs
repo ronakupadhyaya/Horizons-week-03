@@ -7,16 +7,112 @@
 
   <style>
     body { background-color: #2ECC71; padding-top: 2em;}
+    .container { background-color: white; padding: 20px;}
+    #register {padding-top: 20px; padding-right: 100px;}
+    .pleaseWork {display: flex; flex-direction: column;}
   </style>
 </head>
 <body>
+
+
   <div class="container">
-    <h1>Put your registration form here</h1>
-    <div><strong>Errors:</strong>{{errors}}</div>
+        {{#each errors}}
+        <div class="alert alert-danger">
+          {{msg}}
+        </div>
+        {{/each}}
+
     <div class="row">
-      <form action="/register" method="post">
-        <input type="text" placeholder="First Name" name="firstName" required>
-        <input type="submit">
+      <form action="/register" method="post" class="form-horizontal" role="form">
+
+        <div class="form-group">
+          <label for="inputFirst" class="col-sm-2 control-label">First Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputMiddle" class="col-sm-2 control-label">Middle Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="middleName" placeholder="Middle Name" pattern=".{1}">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputLast" class="col-sm-2 control-label">Last Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="lastName" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputDob" class="col-sm-2 control-label">DOB</label>
+          <div class="col-sm-9">
+            <input type="date" class="form-control" id="dob" name="dateObject" placeholder="mm/dd/yyyy">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputRepeat" class="col-sm-2 control-label">Repeat Password</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="radioLabel" class="col-sm-2 control-label">Gender</label>
+
+          <div class="pleaseWork">
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" id="optionsRadios1" value="Male" checked>
+                Male
+              </label>
+            </div>
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" id="optionsRadios1" value="Female" checked>
+                Female
+              </label>
+            </div>
+
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" id="optionsRadios1" value="Rather not say" checked>
+                Rather not say
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="checkBox" class="col-sm-2 control-label">Sign Up for newsletter</label>
+            <div class="checkbox col-sm-9">
+              <input type="checkbox" value="" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="textBox" class="col-sm-2 control-label">Biography</label>
+          <div class="textBox col-sm-9">
+            <textarea class="form-control" rows="3" placeholder="Biography"></textarea>
+          </div>
+        </div>
+        <div class="form-group pull-right" id="register">
+          <button type="submit" class="btn btn-primary">Register</button>
+
+        </div>
+
       </form>
     </div>
   </div>

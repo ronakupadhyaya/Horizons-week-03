@@ -45,7 +45,13 @@ app.get('/register', function(req, res){
 //    profile should not be editable.
 app.post('/register', function(req, res){
   // YOUR CODE HERE - Add express-validator validation rules here
-  var errors; // YOUR CODE HERE - Get errors from express-validator here
+  req.check('firstName', 'First name must be filled').notEmpty();
+  req.check('lastName', 'Last name must be filled').notEmpty();
+  req.check('dateObject', 'Date must be in the past').isBefore();
+  req.check('password', 'Password must be filled').notEmpty();
+  req.check('repeatPassword', 'Repeat password must be filled').notEmpty();
+  req.check('gender', 'Gender must be checked').notEmpty();
+  var errors = req.validationErrors(); // YOUR CODE HERE - Get errors from express-validator here
   if (errors) {
     res.render('register', {errors: errors});
   } else {
