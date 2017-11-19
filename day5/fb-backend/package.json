@@ -1,5 +1,22 @@
 {
   "scripts": {
-    "start": "node app.js"
-  }
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.11.12",
+    "path": "^0.12.7"
+  },
+  "name": "fb-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
+  "author": "Eliana Crawford",
+  "license": "ISC",
+  "description": ""
 }

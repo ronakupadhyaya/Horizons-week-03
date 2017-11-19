@@ -1,0 +1,175 @@
+#success_message{ display: none;}
+
+html {
+	height: 100%;
+}
+
+body{
+  background-color: black;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1{
+    font-family: cursive;
+}
+
+
+.banner{
+	width: 100%;
+	margin: 0;
+	background-color: #FF1493;
+	height: 20vh;
+	display: flex;
+}
+
+.page-body{
+	display:flex;
+	margin: 0;
+	width: 100%;
+}
+
+#news-feed-container{
+	display: flex;
+	justify-content:flex-start;
+  align-items: flex-start;
+  padding-top:10px;
+  height:auto;
+  width:95%;
+	flex:3;
+}
+
+.new-post-container{
+	flex:1;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.title{
+	margin-bottom: 20px;
+}
+
+.container{
+  padding-top: 2%;
+  padding-bottom: 1%;
+  margin-bottom: 0;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-title{
+	color: #FF1493;
+}
+
+.input:hover{
+	background-color: #FF1493;
+	color: white;
+}
+
+.input{
+	padding-top: 20px;
+	padding-bottom: 20px;
+	color: #FF1493;
+	background-color: black;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 40px;
+	width: 40vw;
+	border-radius: 4px;
+	border: 5px solid #FF1493;
+	text-align: center;
+	font-size: 170%;
+}
+
+.primary-button{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 40px;
+	width: 30vw;
+	border-radius: 4px;
+	background-color: #FF1493;
+	font-size: 150%;
+	border-color: rgb(235,0,127);
+}
+
+.primary-button:hover{
+	background-color: rgb(235,0,127);
+}
+
+.secondary-button{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	height: 30px;
+	width: 20vw;
+	border-radius: 4px;
+	background-color: #FF1493;
+	font-size: 130%;
+	border-color: rgb(235,0,127);
+}
+
+.secondary-button:hover{
+	background-color: rgb(235,0,127);
+}
+
+#login-container{
+	background-color: black;
+	display: flex;
+	flex-direction: column;
+}
+.input-container{
+	flex:1;
+}
+
+.expires{
+	margin-left: 24px;
+}
+.CVC_bar{
+	margin-left: 15px;
+}
+.btn-lg{
+	margin-left: 10px;
+}
+
+.status-container, .responses{
+  width: 60vw;
+  padding-left: 10px;
+}
+
+.post{
+  background-color: white;
+  border: 1px solid black;
+}
+
+.post{
+	background-color: transparent;
+	color: #FF1493;
+}
+
+.post-container{
+	width: 100%;
+	border: 1px solid #FF1493;
+	margin-bottom: 5px;
+}
+
+.time-stamp, .responder-name{
+  display: inline;
+}
+
+.reply-button, .like{
+		background-color: transparent;
+		border-radius: 3px;
+}
+
+.collapse{
+  display:none;
+}
+
+.well{
+	background-color: #FF1493;
+	border: 0;
+}

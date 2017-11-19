@@ -1,0 +1,74 @@
+<!--localStorage.getItem('token')-->
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Horizons Facebook 2</title>
+    <!-- CSS files for Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Your css file -->
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div class="banner container" id="header">
+      <h1 id="cite-name">News Feed</h1>
+    </div>
+    <div class = "page-body">
+      <div class="container" id="news-feed-container">
+        <div class="post post-container" id="test-post-id">
+          <div class="post status-container">
+            <h3 class="post-author post-header">(Author Name)</h3>
+            <p class="time-stamp">3:12 PM 1/20/2017</p>
+            <p class="post-content">My status...</p>
+            <button class='post-button reply-button'>Reply</button>
+            <button class="post-button like"><i class="glyphicon glyphicon-thumbs-up"></i></button>
+          </div>
+          <div class="post responses">
+            <h3 class="post-responses post-header">(2 Replies, 19 Likes)</h3>
+            <div class="response" id="response-id-1">
+                <p class= "responder-name">Responder:</p>
+                <p class="time-stamp">3:12 PM 1/20/2017</p>
+                <p class="response-body">My response...</p>
+            </div>
+            <div class="response" id="response-id-2">
+                <p class= "responder-name">Responder:</p>
+                <p class="time-stamp">3:12 PM 1/20/2017</p>
+                <p class="response-body">My response...</p>
+            </div>
+          </div>
+          <div class="well post-response-form">
+            <input type="text" class="form-control" placeholder="Response">
+            <button type="button" class="btn btn-default submit-response">Submit</button>
+            <button type="button" class="btn btn-default response-cancel"><span class="glyphicon glyphicon-remove"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class='new-post-container'>
+          <button class='make-new-post secondary-button'>New Post</button>
+          <div class="well new-post-form collapse">
+            <input type="text" class="form-control" placeholder="What's on your mind?">
+            <button type="button" class="btn btn-default submit-post">Submit</button>
+            <button type="button" class="btn btn-default post-cancel"><span class="glyphicon glyphicon-remove"></span></button>
+          </div>
+      </div>
+    </div>
+    <div class="logout-container">
+      <button class="logout-button primary-button">
+        Log Out
+      </button>
+    </div>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <!-- JavaScript files for Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- underscoreJS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
+  </body>
+</html>
